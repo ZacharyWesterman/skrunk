@@ -1,0 +1,13 @@
+type UserData {
+	username: String!
+	name: String
+	age: Int
+}
+
+type Query {
+	getUser(username: String!): UserData!
+}
+
+type Mutation {
+	addUser(username: String!): UserData!
+}
