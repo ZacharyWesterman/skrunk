@@ -12,7 +12,7 @@ def init():
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = make_federated_schema(type_defs, [query, mutation])
 
-	@application.route('/playground', methods=['POST'])
+	@application.route('/api', methods=['POST'])
 	def graphql():
 		data = request.get_json()
 		success, result = ariadne.graphql_sync(schema, data, context_value=request, debug=application.config.get('DEBUG'))
@@ -26,8 +26,9 @@ def init():
 
 		return jsonify(result), result_code
 
-	@application.route('/playground', methods=['GET'])
+	@application.route('/', methods=['GET'])
 	def playground():
-		return PLAYGROUND_HTML
+		with open('site/html/main.html', 'r') as fp:
+			return fp.read()
 
 	return application
