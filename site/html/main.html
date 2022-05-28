@@ -10,6 +10,7 @@
 	<h1>Hello World</h1>
 	<button name="button" value="button-value" onclick="test()">Press Me</button>
 </body>
+<script type="text/javascript" src="js/api.js"></script>
 <script type="text/javascript">
 	function test()
 	{
@@ -22,40 +23,9 @@
 		}'
 		var variables = {'username': 'peepo'}
 
-		api(query, variables).then(response => {
+		api.call(query, variables).then(response => {
 			console.log(response)
 		})
-	}
-
-	async function api(query_string, variables=null)
-	{
-		var query_data = {
-			'query' : query_string,
-			'variables': variables,
-		}
-
-		return new Promise(resolve => {
-			api_request(query_data, resolve)
-		})
-	}
-
-	function api_request(request_json, callback)
-	{
-		var url = '/api'
-		var xhr = new XMLHttpRequest()
-		xhr.open('POST', url, true)
-
-		xhr.setRequestHeader('Content-Type', 'application/json')
-		xhr.send(JSON.stringify(request_json))
-
-
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState === XMLHttpRequest.DONE && typeof callback === 'function')
-			{
-				callback(JSON.parse(this.responseText))
-			}
-		}
 	}
 </script>
 </html>

@@ -27,8 +27,15 @@ def init():
 		return jsonify(result), result_code
 
 	@application.route('/', methods=['GET'])
-	def playground():
-		with open('site/html/main.html', 'r') as fp:
-			return fp.read()
+	def main_page():
+		return site('html/main.html')
+
+	@application.route('/<path:path>', methods=['GET'])
+	def site(path):
+		try:
+			with open(f'site/{path}', 'r') as fp:
+				return fp.read(), 200
+		except:
+			return '', 404
 
 	return application
