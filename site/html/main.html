@@ -7,24 +7,29 @@
 	<meta name="description" content="boilerplate html" />
 </head>
 <body>
-	<h1>Hello World</h1>
-	<button name="button" value="button-value" onclick="test()">Press Me</button>
+	<p>
+		<h1>Query Input</h1>
+		<textarea id="query" rows="8" cols="80"></textarea>
+		<button onclick="do_query()">Submit</button>
+	</p>
+	<p>
+		<h1>Variables</h1>
+		<textarea id="vars" rows="8" cols="80"></textarea>
+	</p>
+	<p>
+		<h1>Output</h1>
+		<textarea id="output" rows="8" cols="80" disabled></textarea>
+	</p>
 </body>
 <script type="text/javascript" src="js/api.js"></script>
 <script type="text/javascript">
-	function test()
+	function do_query()
 	{
-		var query = 'query ($username: String!) {\
-			getUser(username:$username) {\
-				username\
-				name\
-				age\
-			}\
-		}'
-		var variables = {'username': 'peepo'}
+		var query = document.all.query.value
+		var variables = JSON.parse(document.all.vars.value)
 
 		api.call(query, variables).then(response => {
-			console.log(response)
+			document.all.output.value = JSON.stringify(response, null, 2)
 		})
 	}
 </script>

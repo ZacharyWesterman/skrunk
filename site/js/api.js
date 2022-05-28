@@ -20,7 +20,6 @@ const api = {
 		xhr.setRequestHeader('Content-Type', 'application/json')
 		xhr.send(JSON.stringify(request_json))
 
-
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState === XMLHttpRequest.DONE && typeof callback === 'function')
