@@ -28,7 +28,7 @@ def init():
 
 	@application.route('/', methods=['GET'])
 	def main_page():
-		return site('html/main.html')
+		return site('html/login.html')
 
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Authenticate</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content="Authentication Page" />
+</head>
+<body>
+	<h1>Authentication Required</h1>
+	<input id="username" placeholder="Username" />
+	<input id="password" type="password" placeholder="Password" />
+	<button type="button" onclick="login()">Login</button>
+</body>
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript">
+	function login()
+	{
+		hash(document.all.password.value).then(password => {
+			var query = `
+			mutation ($username: String!, $password: String!) {
+				authenticate (username: $username, password: $password) {
+					__typename
+					...on AuthToken {
+						token
+					}
+				}
+			}`
+
+			var variables = {
+				'username': document.all.username.value,
+				'password': btoa(password),
+			}
+
+			api.call(query, variables).then(response => {
+				console.log(JSON.stringify(response, null, 2))
+			})
+		})
+
+	}
+
+	function hash(password)
+	{
+		return crypto.subtle.digest('SHA-512', new ArrayBuffer(document.all.password.value))
+	}
+</script>
+</html>
