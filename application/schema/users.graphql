@@ -1,13 +1,19 @@
 type UserData {
 	username: String!
-	name: String
-	age: Int
 }
 
-type Query {
-	getUser(username: String!): UserData!
+type AuthToken {
+	token: String!
 }
 
-type Mutation {
-	addUser(username: String!): UserData!
+#Errors
+
+type AuthenticationError {
+	message: String
 }
+
+type UserDoesNotExistError {
+	message: String
+}
+
+union AuthResponse = AuthToken | AuthenticationError | UserDoesNotExistError
