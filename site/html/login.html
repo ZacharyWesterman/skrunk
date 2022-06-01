@@ -18,7 +18,7 @@
 	{
 		hash(document.all.password.value).then(password => {
 			var query = `
-			mutation ($username: String!, $password: String!) {
+			query ($username: String!, $password: String!) {
 				authenticate (username: $username, password: $password) {
 					__typename
 					...on AuthToken {
