@@ -2,18 +2,6 @@ type UserData {
 	username: String!
 }
 
-type AuthToken {
-	token: String!
-}
-
-#Errors
-
-type AuthenticationError {
-	message: String
-}
-
 type UserDoesNotExistError {
 	message: String
 }
-
-union AuthResponse = AuthToken | AuthenticationError | UserDoesNotExistError

@@ -16,36 +16,12 @@
 <script type="text/javascript">
 	function login()
 	{
-		hash(document.all.password.value).then(password => {
-			var query = `
-			query ($username: String!, $password: String!) {
-				authenticate (username: $username, password: $password) {
-					__typename
-					...on AuthToken {
-						token
-					}
-				}
-			}`
-
-			var variables = {
-				'username': document.all.username.value,
-				'password': btoa(password),
+		api.authenticate(document.all.username.value, document.all.password.value).then(success => {
+			if (success)
+			{
+				location.href = '/'
 			}
-
-			api.call(query, variables).then(response => {
-				console.log(JSON.stringify(response, null, 2))
-			})
 		})
-
-	}
-
-	async function hash(password)
-	{
-		const data = new TextEncoder().encode(password)
-		const buffer = await crypto.subtle.digest('SHA-512', data)
-		const array = Array.from(new Uint8Array(buffer))
-		const hex = array.map(b => b.toString(16).padStart(2,'0')).join('')
-		return hex
 	}
 </script>
 </html>
