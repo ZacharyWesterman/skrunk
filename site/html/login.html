@@ -39,9 +39,13 @@
 
 	}
 
-	function hash(password)
+	async function hash(password)
 	{
-		return crypto.subtle.digest('SHA-512', new ArrayBuffer(document.all.password.value))
+		const data = new TextEncoder().encode(password)
+		const buffer = await crypto.subtle.digest('SHA-512', data)
+		const array = Array.from(new Uint8Array(buffer))
+		const hex = array.map(b => b.toString(16).padStart(2,'0')).join('')
+		return hex
 	}
 </script>
 </html>

@@ -13,7 +13,7 @@ def resolve_authenticate(_, info, username: str, password: str) -> str:
 	try:
 		userdata = get_user_data(username)
 
-		if not bcrypt.checkpw(password.encode('utf-8'), userdata.get('password').encode('utf-8')):
+		if not bcrypt.checkpw(password.encode(), userdata.get('password').encode()):
 			raise exceptions.AuthenticationError(f'Authentication failed')
 
 		login_token = create_user_token(username)
