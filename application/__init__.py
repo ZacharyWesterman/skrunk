@@ -1,10 +1,12 @@
 import ariadne
-from flask import Flask, request, jsonify
+from flask import Flask, Response, request, jsonify
 
 from ariadne.constants import PLAYGROUND_HTML
 from ariadne.contrib.federation import make_federated_schema
 
 from .resolvers import query, mutation
+
+import mimetypes
 
 def init():
 	application = Flask(__name__)
@@ -34,8 +36,12 @@ def init():
 	def site(path):
 		try:
 			with open(f'site/{path}', 'r') as fp:
-				return fp.read(), 200
-		except:
+				mime = mimetypes.guess_type(path)
+				if mime:
+					return Response(fp.read(), 200, mimetype=mime[0])
+				else:
+					return fp.read(), 200
+		except Exception as e:
 			return '', 404
 
 	return application
