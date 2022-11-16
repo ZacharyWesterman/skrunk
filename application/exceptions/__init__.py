@@ -4,5 +4,11 @@ class ClientError(Exception):
 class UserDoesNotExistError(ClientError):
 	pass
 
+class UserExistsError(ClientError):
+	pass
+
 class AuthenticationError(ClientError):
+	pass
+
+class InvalidUsername(ClientError):
 	pass

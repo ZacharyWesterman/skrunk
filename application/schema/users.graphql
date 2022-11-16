@@ -3,5 +3,12 @@ type UserData {
 }
 
 type UserDoesNotExistError {
-	message: String
+	message: String!
 }
+
+type BadUserNameError {
+	message: String!
+}
+
+union UserQueryReponse = UserData | UserDoesNotExistError
+union UserCreateResponse = UserData | BadUserNameError

@@ -1,7 +1,7 @@
 type Query {
-	getUser(username: String!): UserData!
+	getUser(username: String!): UserQueryReponse!
 }
 
 type Mutation {
-	createUser(username: String!): UserData!
+	createUser(username: String!, password: String!): UserCreateResponse!
 }

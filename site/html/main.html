@@ -8,28 +8,35 @@
 </head>
 <body>
 	<p>
-		<h1>Query Input</h1>
-		<textarea id="query" rows="8" cols="80"></textarea>
-		<button onclick="do_query()">Submit</button>
-	</p>
-	<p>
-		<h1>Variables</h1>
-		<textarea id="vars" rows="8" cols="80"></textarea>
-	</p>
-	<p>
-		<h1>Output</h1>
-		<textarea id="output" rows="8" cols="80" disabled></textarea>
+		<h1>Create New User</h1>
+		<input id="username" placeholder="Username" />
+		<input id="password" type="password" placeholder="Password" />
+		<button type="button" onclick="create_user()">Submit</button>
 	</p>
 </body>
 <script type="text/javascript">
-	function do_query()
+	async function create_user()
 	{
-		var query = document.all.query.value
-		var variables = JSON.parse(document.all.vars.value)
+		const query = '\
+		mutation ($username: String!, $password: String!){\
+			createUser(username: $username, password: $password) {\
+				__typename\
+				...on BadUserNameError {\
+					message\
+				}\
+			}\
+		}'
+		const vars = {
+			'username' : document.all.username.value,
+			'password' : await api.__hash(document.all.password.value),
+		}
 
-		api.call(query, variables).then(response => {
-			document.all.output.value = JSON.stringify(response, null, 2)
-		})
+		var res = await api.call(query, vars)
+		res = res.data.createUser
+
+		if (res.__typename !== 'UserData') {
+			alert('ERROR: ' + res.message)
+		}
 	}
 </script>
 </html>
