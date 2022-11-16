@@ -28,7 +28,7 @@
 		}'
 		const vars = {
 			'username' : document.all.username.value,
-			'password' : await api.__hash(document.all.password.value),
+			'password' : btoa(await api.__hash(document.all.password.value)),
 		}
 
 		var res = await api.call(query, vars)
@@ -37,6 +37,13 @@
 		if (res.__typename !== 'UserData') {
 			alert('ERROR: ' + res.message)
 		}
+	}
+
+	async function list_users()
+	{
+		const query = '{ listUsers }'
+		const res = await api.call(query)
+		console.log(res.data.listUsers)
 	}
 </script>
 </html>

@@ -1,5 +1,6 @@
 type Query {
 	getUser(username: String!): UserQueryReponse!
+	listUsers: [String!]!
 }
 
 type Mutation {

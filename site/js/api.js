@@ -87,7 +87,10 @@ const api = {
 		{
 			if (this.readyState === XMLHttpRequest.DONE && typeof callback === 'function')
 			{
-				callback(JSON.parse(this.responseText))
+				if (this.status === 200)
+					callback(JSON.parse(this.responseText))
+				else
+					throw 'RESPONSE ' + this.status + ' ' + this.statusText
 			}
 		}
 	},

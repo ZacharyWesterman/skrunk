@@ -5,6 +5,12 @@ import bcrypt
 
 __mongo_url = 'mongodb://192.168.1.184:27017/'
 
+def get_user_list() -> list:
+	global __mongo_url
+
+	db = MongoClient(__mongo_url)
+	return [ data['username'] for data in db.data.users.find({}) ]
+
 def get_user_data(username: str) -> dict:
 	global __mongo_url
 
