@@ -60,8 +60,8 @@ def init():
 
 	@application.route('/', methods=['GET'])
 	def main_page():
-		print(request.headers)
 		if authorized():
+			print('sending main site')
 			return site('html/main.html')
 		else:
 			return site('html/login.html')

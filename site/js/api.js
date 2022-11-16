@@ -45,16 +45,16 @@ const api = {
 	},
 
 	set_cookies : function() {
-		document.cookies = 'Authorization=' + this.login_token
+		document.cookie = 'Authorization=' + this.login_token + ';SameSite=Lax'
 	},
 
 	read_cookies : function() {
-		if (!document.cookies) return
+		if (!document.cookie) return
 
-		document.cookies.split(';').forEach(cookie => {
-			const parts = cookie.split('=', 1)
-			const name = parts[0]
-			const value = parts[1]
+		document.cookie.split(';').forEach(cookie => {
+			const parts = cookie.split('=', 2)
+			const name = parts[0].trim()
+			const value = parts[1].trim()
 
 			switch(name)
 			{
@@ -93,8 +93,6 @@ const api = {
 	},
 }
 
-api.read_cookies()
-
 /*
 * Since every request (except auth) MUST have an auth token,
 * hijack all http requests and tack on the auth header before sending it on its way again.
@@ -106,7 +104,19 @@ XMLHttpRequest.prototype.open = (function(open) {
 	}
 })(XMLHttpRequest.prototype.open)
 
+/*
+* When navigating to a url in this domain, be sure to keep any auth headers.
+*/
 function navigate(url)
 {
-	window.location.href = url+'?Authorization='+api.login_token
+	var xhr = new XMLHttpRequest()
+	xhr.open('GET', url, true)
+	xhr.send()
+	xhr.onreadystatechange = function()
+	{
+		if (this.readyState === XMLHttpRequest.DONE)
+		{
+			document.write(this.responseText)
+		}
+	}
 }

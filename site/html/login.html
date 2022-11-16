@@ -19,7 +19,7 @@
 		api.authenticate(document.all.username.value, document.all.password.value).then(success => {
 			if (success)
 			{
-				location.href = '/'
+				navigate('/')
 			}
 		})
 	}
