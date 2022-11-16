@@ -108,7 +108,7 @@ XMLHttpRequest.prototype.open = (function(open) {
 })(XMLHttpRequest.prototype.open)
 
 /*
-* When navigating to a url in this domain, be sure to keep any auth headers.
+* Simple helper function for site navigation.
 */
 function navigate(url)
 {
@@ -119,7 +119,10 @@ function navigate(url)
 	{
 		if (this.readyState === XMLHttpRequest.DONE)
 		{
-			document.write(this.responseText)
+			if (this.status === 200)
+				document.write(this.responseText)
+			else
+				throw 'RESPONSE ' + this.status + ' ' + this.statusText
 		}
 	}
 }
