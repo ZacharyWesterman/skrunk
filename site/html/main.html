@@ -17,18 +17,18 @@
 <script type="text/javascript">
 	async function create_user()
 	{
-		const query = '\
-		mutation ($username: String!, $password: String!){\
-			createUser(username: $username, password: $password) {\
-				__typename\
-				...on BadUserNameError {\
-					message\
-				}\
-			}\
-		}'
+		const query = `
+		mutation ($username: String!, $password: String!){
+			createUser(username: $username, password: $password) {
+				__typename
+				...on BadUserNameError {
+					message
+				}
+			}
+		}`
 		const vars = {
 			'username' : document.all.username.value,
-			'password' : btoa(await api.__hash(document.all.password.value)),
+			'password' : await api.__hash(document.all.password.value),
 		}
 
 		var res = await api.call(query, vars)

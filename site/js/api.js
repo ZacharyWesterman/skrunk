@@ -21,7 +21,7 @@ const api = {
 			self.__hash(password).then(hashed_pass => {
 				const auth_json = {
 					'username': username,
-					'password': btoa(hashed_pass),
+					'password': hashed_pass,
 				}
 
 				var url = '/auth'
@@ -71,7 +71,7 @@ const api = {
 		const buffer = await crypto.subtle.digest('SHA-512', data)
 		const array = Array.from(new Uint8Array(buffer))
 		const hex = array.map(b => b.toString(16).padStart(2,'0')).join('')
-		return hex
+		return btoa(hex)
 	},
 
 	__request : function(request_json, callback)
