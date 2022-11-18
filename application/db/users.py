@@ -39,6 +39,16 @@ def create_user(username: str, password: str) -> None:
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
 	})
 
+def delete_user(username: str) -> None:
+	global __mongo_url
+
+	db = MongoClient(__mongo_url)
+	userdata = db.data.users.find_one({'username': username})
+
+	if userdata:
+		db.data.users.delete_one({'username': username})
+	else:
+		raise exceptions.UserDoesNotExistError(f'User "{username}" does not exist.')
 
 def authenticate(username: str, password: str) -> str:
 	userdata = get_user_data(username)

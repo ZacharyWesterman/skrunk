@@ -24,6 +24,27 @@
 <script type="text/javascript">
 	_('userlist', api('{listUsers}')) //initial load of user list
 
+	async function delete_user()
+	{
+		const query = `
+		mutation ($username: String!){
+			deleteUser(username: $username) {
+				__typename
+				...on BadUserNameError {
+					message
+				}
+			}
+		}`
+		const vars = {
+			'username' : $.val('username'),
+		}
+
+		var res = await api(query, vars)
+		if (res.__typename !== 'UserData') {
+			alert('ERROR: ' + res.message)
+		}
+	}
+
 	async function create_user()
 	{
 		const query = `

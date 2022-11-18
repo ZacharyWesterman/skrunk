@@ -10,5 +10,10 @@ type BadUserNameError {
 	message: String!
 }
 
+type InsufficientCreds {
+	message: String!
+}
+
 union UserQueryReponse = UserData | UserDoesNotExistError
-union UserCreateResponse = UserData | BadUserNameError
+union UserCreateResponse = UserData | BadUserNameError | InsufficientCreds
+union UserDeleteResponse = UserData | BadUserNameError | InsufficientCreds

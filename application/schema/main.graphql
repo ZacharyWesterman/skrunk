@@ -5,4 +5,5 @@ type Query {
 
 type Mutation {
 	createUser(username: String!, password: String!): UserCreateResponse!
+	deleteUser(username: String!): UserDeleteResponse!
 }
