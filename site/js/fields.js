@@ -56,5 +56,17 @@ async function _(template_name, data)
 
 }
 
+
+//Constantly refresh dom element(s) as long as at least 1 div with the template_name exists.
+//Once it no longer exists, stop refreshing.
+_.sync = (template_name, data_method, frequency = 3000) =>
+{
+	if (!(document.querySelectorAll('div[name="' + template_name + '"]').length)) { return }
+	_(template_name, data_method())
+	setTimeout(() => {
+		_.sync(template_name, data_method, frequency)
+	}, frequency)
+}
+
 var $ = id => document.getElementById(id)
 $.val = id => $(id).value

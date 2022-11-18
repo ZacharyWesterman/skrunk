@@ -22,7 +22,7 @@
 	</p>
 </body>
 <script type="text/javascript">
-	_('userlist', api('{listUsers}'))
+	_('userlist', api('{listUsers}')) //initial load of user list
 
 	async function create_user()
 	{
@@ -44,6 +44,8 @@
 		if (res.__typename !== 'UserData') {
 			alert('ERROR: ' + res.message)
 		}
+
+		_('userlist', api('{listUsers}')) //refresh user list
 	}
 
 </script>
