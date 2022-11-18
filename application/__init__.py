@@ -67,8 +67,9 @@ def init():
 
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):
-		if path not in ['html/login.html', 'js/api.js'] and not authorized():
-			return '', 403
+		# Allow anything in site/, those will have no sensitive data anyway.
+		# if path not in ['html/login.html', 'js/api.js'] and not authorized():
+		# 	return '', 403
 
 		try:
 			with open(f'site/{path}', 'r') as fp:

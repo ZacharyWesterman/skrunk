@@ -1,99 +1,132 @@
-const api = {
-	login_token : undefined,
 
-	call : async function(query_string, variables=null)
+var api = async function(query_string, variables = null)
+{
+	//shorthand for api.call
+	var res = await api.call(query_string, variables)
+	for (var elem in res.data)
 	{
-		const query_data = {
-			'query' : query_string,
-			'variables': variables,
-		}
+		return res.data[elem]
+	}
+}
 
-		return new Promise(resolve => {
-			this.__request(query_data, resolve)
-		})
-	},
+api.login_token = undefined
 
-	authenticate : async function(username, password)
-	{
-		var self = this
+api.call = async function(query_string, variables = null)
+{
+	const query_data = {
+		'query' : query_string,
+		'variables': variables,
+	}
 
-		return new Promise(resolve => {
-			self.__hash(password).then(hashed_pass => {
-				const auth_json = {
-					'username': username,
-					'password': hashed_pass,
-				}
+	return new Promise(resolve => {
+		api.__request(query_data, resolve)
+	})
+}
 
-				var url = '/auth'
-				var xhr = new XMLHttpRequest()
-				xhr.open('POST', url, true)
+api.authenticate = async function(username, password)
+{
+	var self = this
 
-				xhr.setRequestHeader('Content-Type', 'application/json')
-				xhr.send(JSON.stringify(auth_json))
+	return new Promise(resolve => {
+		self.hash(password).then(hashed_pass => {
+			const auth_json = {
+				'username': username,
+				'password': hashed_pass,
+			}
 
-				xhr.onreadystatechange = function()
+			var url = '/auth'
+			var xhr = new XMLHttpRequest()
+			xhr.open('POST', url, true)
+
+			xhr.setRequestHeader('Content-Type', 'application/json')
+			xhr.send(JSON.stringify(auth_json))
+
+			xhr.onreadystatechange = function()
+			{
+				if (this.readyState === XMLHttpRequest.DONE && typeof resolve === 'function')
 				{
-					if (this.readyState === XMLHttpRequest.DONE && typeof resolve === 'function')
-					{
-						const response = JSON.parse(this.responseText)
-						self.login_token = response.token
-						resolve(response.error === undefined)
-					}
+					const response = JSON.parse(this.responseText)
+					self.login_token = response.token
+					resolve(response.error === undefined)
 				}
-			})
-		})
-	},
-
-	set_cookies : function() {
-		document.cookie = 'Authorization=' + this.login_token + ';SameSite=Lax'
-	},
-
-	read_cookies : function() {
-		if (!document.cookie) return
-
-		document.cookie.split(';').forEach(cookie => {
-			const parts = cookie.split('=', 2)
-			const name = parts[0].trim()
-			const value = parts[1].trim()
-
-			switch(name)
-			{
-				case 'Authorization':
-					this.login_token = value
-					break;
 			}
-		});
-	},
+		})
+	})
+}
 
-	__hash : async function(password)
-	{
-		const data = new TextEncoder().encode(password)
-		const buffer = await crypto.subtle.digest('SHA-512', data)
-		const array = Array.from(new Uint8Array(buffer))
-		const hex = array.map(b => b.toString(16).padStart(2,'0')).join('')
-		return btoa(hex)
-	},
-
-	__request : function(request_json, callback)
-	{
-		var url = '/api'
+api.get = function(url) {
+	return new Promise((resolve, reject) => {
 		var xhr = new XMLHttpRequest()
-		xhr.open('POST', url, true)
-
-		xhr.setRequestHeader('Content-Type', 'application/json')
-		xhr.send(JSON.stringify(request_json))
-
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState === XMLHttpRequest.DONE && typeof callback === 'function')
+		xhr.open('GET', url)
+		xhr.onload = () => {
+			if (xhr.status >= 200 && xhr.status < 300)
 			{
-				if (this.status === 200)
-					callback(JSON.parse(this.responseText))
-				else
-					throw 'RESPONSE ' + this.status + ' ' + this.statusText
+				resolve(xhr.response)
+			}
+			else
+			{
+				reject({status: xhr.status, statusText: xhr.statusText})
 			}
 		}
-	},
+
+		xhr.onerror = () => {
+			reject({status: xhr.status, statusText: xhr.statusText})
+		}
+
+		xhr.send()
+	})
+}
+
+//
+// 	set_cookies : function() {
+// 		document.cookie = 'Authorization=' + this.login_token + ';SameSite=Lax'
+// 	},
+//
+// 	read_cookies : function() {
+// 		if (!document.cookie) return
+//
+// 		document.cookie.split(';').forEach(cookie => {
+// 			const parts = cookie.split('=', 2)
+// 			const name = parts[0].trim()
+// 			const value = parts[1].trim()
+//
+// 			switch(name)
+// 			{
+// 				case 'Authorization':
+// 					this.login_token = value
+// 					break;
+// 			}
+// 		});
+// 	},
+//
+api.hash = async function(password)
+{
+	const data = new TextEncoder().encode(password)
+	const buffer = await crypto.subtle.digest('SHA-512', data)
+	const array = Array.from(new Uint8Array(buffer))
+	const hex = array.map(b => b.toString(16).padStart(2,'0')).join('')
+	return btoa(hex)
+}
+
+api.__request = function(request_json, callback)
+{
+	var url = '/api'
+	var xhr = new XMLHttpRequest()
+	xhr.open('POST', url, true)
+
+	xhr.setRequestHeader('Content-Type', 'application/json')
+	xhr.send(JSON.stringify(request_json))
+
+	xhr.onreadystatechange = function()
+	{
+		if (xhr.readyState === XMLHttpRequest.DONE && typeof callback === 'function')
+		{
+			if (xhr.status === 200)
+				callback(JSON.parse(xhr.responseText))
+			else
+				throw 'RESPONSE ' + xhr.status + ' ' + xhr.statusText
+		}
+	}
 }
 
 /*
@@ -117,12 +150,12 @@ function navigate(url)
 	xhr.send()
 	xhr.onreadystatechange = function()
 	{
-		if (this.readyState === XMLHttpRequest.DONE)
+		if (xhr.readyState === XMLHttpRequest.DONE)
 		{
-			if (this.status === 200)
-				document.write(this.responseText)
+			if (xhr.status === 200)
+				document.write(xhr.responseText)
 			else
-				throw 'RESPONSE ' + this.status + ' ' + this.statusText
+				throw 'RESPONSE ' + xhr.status + ' ' + xhr.statusText
 		}
 	}
 }

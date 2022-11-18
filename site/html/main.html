@@ -5,9 +5,16 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="boilerplate html" />
+	<script type="text/javascript" src="js/fields.js"></script>
+	<script type="text/javascript" src="js/doT.js"></script>
+
+	<script name="userlist" type="text/x-dot-template" src="templates/list.dot"></script>
 </head>
 <body>
 	<p>
+		<h1>Existing Users:</h1>
+		<div name="userlist"></div>
+
 		<h1>Create New User</h1>
 		<input id="username" placeholder="Username" />
 		<input id="password" type="password" placeholder="Password" />
@@ -15,6 +22,8 @@
 	</p>
 </body>
 <script type="text/javascript">
+	_('userlist', api('{listUsers}'))
+
 	async function create_user()
 	{
 		const query = `
@@ -27,23 +36,15 @@
 			}
 		}`
 		const vars = {
-			'username' : document.all.username.value,
-			'password' : await api.__hash(document.all.password.value),
+			'username' : $.val('username'),
+			'password' : await api.hash($.val('password')),
 		}
 
-		var res = await api.call(query, vars)
-		res = res.data.createUser
-
+		var res = await api(query, vars)
 		if (res.__typename !== 'UserData') {
 			alert('ERROR: ' + res.message)
 		}
 	}
 
-	async function list_users()
-	{
-		const query = '{ listUsers }'
-		const res = await api.call(query)
-		console.log(res.data.listUsers)
-	}
 </script>
 </html>

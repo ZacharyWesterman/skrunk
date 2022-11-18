@@ -5,22 +5,26 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="Authentication Page" />
+	<script type="text/javascript" src="js/fields.js"></script>
 </head>
 <body>
 	<h1>Authentication Required</h1>
 	<input id="username" placeholder="Username" />
+	<br/>
 	<input id="password" type="password" placeholder="Password" />
 	<button type="button" onclick="login()">Login</button>
+	<br/>
+	<div id="errormsg" style="color:red;"></div>
 </body>
 <script type="text/javascript" src="js/api.js"></script>
 <script type="text/javascript">
 	function login()
 	{
-		api.authenticate(document.all.username.value, document.all.password.value).then(success => {
+		api.authenticate($.val('username'), $.val('password')).then(success => {
 			if (success)
-			{
 				navigate('/')
-			}
+			else
+				$('errormsg').innerText = 'Invalid Credentials'
 		})
 	}
 </script>
