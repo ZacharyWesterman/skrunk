@@ -1,0 +1,5 @@
+<ul>
+{{~ it :i }}
+	<li>{{=i}} <button onclick="delete_user('{{=i}}')">delete</button></li>
+{{~}}
+</ul>

@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="js/fields.js"></script>
 	<script type="text/javascript" src="js/doT.js"></script>
 
-	<script name="userlist" type="text/x-dot-template" src="templates/list.dot"></script>
+	<script name="userlist" type="text/x-dot-template" src="templates/userlist.dot"></script>
 </head>
 <body>
 	<p>
@@ -24,7 +24,7 @@
 <script type="text/javascript">
 	_('userlist', api('{listUsers}')) //initial load of user list
 
-	async function delete_user()
+	async function delete_user(username)
 	{
 		const query = `
 		mutation ($username: String!){
@@ -36,13 +36,15 @@
 			}
 		}`
 		const vars = {
-			'username' : $.val('username'),
+			'username' : username,
 		}
 
 		var res = await api(query, vars)
 		if (res.__typename !== 'UserData') {
 			alert('ERROR: ' + res.message)
 		}
+
+		_('userlist', api('{listUsers}')) //refresh user list
 	}
 
 	async function create_user()

@@ -4,17 +4,14 @@ from pymongo import MongoClient
 import bcrypt
 
 __mongo_url = 'mongodb://192.168.1.184:27017/'
+db = MongoClient(__mongo_url)
 
 def get_user_list() -> list:
-	global __mongo_url
-
-	db = MongoClient(__mongo_url)
+	global db
 	return [ data['username'] for data in db.data.users.find({}) ]
 
 def get_user_data(username: str) -> dict:
-	global __mongo_url
-
-	db = MongoClient(__mongo_url)
+	global db
 	userdata = db.data.users.find_one({'username': username})
 
 	if userdata:
@@ -23,12 +20,11 @@ def get_user_data(username: str) -> dict:
 		raise exceptions.UserDoesNotExistError(f'User "{username}" does not exist.')
 
 def create_user(username: str, password: str) -> None:
-	global __mongo_url
+	global db
 
 	if len(username) == 0:
 		raise exceptions.InvalidUsername(f'Invalid username.')
 
-	db = MongoClient(__mongo_url)
 	userdata = db.data.users.find_one({'username': username})
 
 	if userdata:
@@ -40,9 +36,7 @@ def create_user(username: str, password: str) -> None:
 	})
 
 def delete_user(username: str) -> None:
-	global __mongo_url
-
-	db = MongoClient(__mongo_url)
+	global db
 	userdata = db.data.users.find_one({'username': username})
 
 	if userdata:
