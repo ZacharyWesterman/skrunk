@@ -1,0 +1,11 @@
+:root {
+	--body: #5e606c;
+	--body-text: white;
+
+	--header: #141e26;
+	--header-text: white;
+
+	--error-text: red;
+
+	--highlight: #ced3d7;
+}

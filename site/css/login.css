@@ -1,0 +1,13 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	color: var(--body-text);
+	background-color: var(--body);
+}
+
+h1 {
+	color: var(--header-text);
+	background-color: var(--header);
+	padding: 5px 0;
+}

@@ -6,15 +6,22 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="Authentication Page" />
 	<script type="text/javascript" src="js/fields.js"></script>
+	<link rel="stylesheet" href="css/theme.css">
+	<link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-	<h1>Authentication Required</h1>
-	<input id="username" placeholder="Username" />
-	<br/>
-	<input id="password" type="password" placeholder="Password" />
-	<button type="button" onclick="login()">Login</button>
-	<br/>
-	<div id="errormsg" style="color:red;"></div>
+	<div class="header">
+		<h1>Authentication Required</h1>
+	</div>
+
+	<div class="body">
+		<input id="username" placeholder="Username" />
+		<br/>
+		<input id="password" type="password" placeholder="Password" />
+		<button type="button" onclick="login()">Login</button>
+		<br/>
+		<div id="errormsg" class="error"></div>
+	</div>
 </body>
 <script type="text/javascript" src="js/api.js"></script>
 <script type="text/javascript">
