@@ -1,7 +1,14 @@
 type WeatherUser {
-	_id: String!
+	username: String!
 	lat: Float!
 	lon: Float!
 	phone: String!
 	last_sent: String!
+}
+
+input WeatherUserInput {
+	username: String!
+	lat: Float!
+	lon: Float!
+	phone: String!
 }
