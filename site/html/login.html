@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="Authentication Page" />
 	<script type="text/javascript" src="js/fields.js"></script>
+	<script type="text/javascript" src="js/api.js"></script>
 	<link rel="stylesheet" href="css/theme.css">
 	<link rel="stylesheet" href="css/login.css">
 </head>
@@ -23,15 +24,26 @@
 		<div id="errormsg" class="error"></div>
 	</div>
 </body>
-<script type="text/javascript" src="js/api.js"></script>
-<script type="text/javascript">
-	function login()
+<script type="text/javascript" defer>
+	//Auto-login
+	api.read_cookies()
+	if (api.login_token !== null)
+	{
+		navigate('/')
+	}
+
+	function login(can_error = true)
 	{
 		api.authenticate($.val('username'), $.val('password')).then(success => {
 			if (success)
+			{
+				api.write_cookies()
 				navigate('/')
-			else
+			}
+			else if (can_error)
+			{
 				$('errormsg').innerText = 'Invalid Credentials'
+			}
 		})
 	}
 </script>

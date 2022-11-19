@@ -9,7 +9,7 @@ var api = async function(query_string, variables = null)
 	}
 }
 
-api.login_token = undefined
+api.login_token = null
 
 api.call = async function(query_string, variables = null)
 {
@@ -77,28 +77,39 @@ api.get = function(url) {
 	})
 }
 
-//
-// 	set_cookies : function() {
-// 		document.cookie = 'Authorization=' + this.login_token + ';SameSite=Lax'
-// 	},
-//
-// 	read_cookies : function() {
-// 		if (!document.cookie) return
-//
-// 		document.cookie.split(';').forEach(cookie => {
-// 			const parts = cookie.split('=', 2)
-// 			const name = parts[0].trim()
-// 			const value = parts[1].trim()
-//
-// 			switch(name)
-// 			{
-// 				case 'Authorization':
-// 					this.login_token = value
-// 					break;
-// 			}
-// 		});
-// 	},
-//
+api.write_cookies = function()
+{
+	var cookie = {
+		'Authorization': api.login_token,
+		'SameSite': 'Lax',
+	}
+
+	var text = ''
+	for (i in cookie)
+	{
+		text += i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + ';'
+	}
+	document.cookie = text
+}
+
+api.read_cookies = function()
+{
+	if (!document.cookie) return
+
+	document.cookie.split(';').forEach(cookie => {
+		const parts = cookie.split('=', 2)
+		const name = parts[0].trim()
+		const value = parts[1].trim()
+
+		switch(name)
+		{
+			case 'Authorization':
+				api.login_token = (value === '') ? null : value
+				break
+		}
+	})
+}
+
 api.hash = async function(password)
 {
 	const data = new TextEncoder().encode(password)
@@ -153,7 +164,11 @@ function navigate(url)
 		if (xhr.readyState === XMLHttpRequest.DONE)
 		{
 			if (xhr.status === 200)
+			{
+				document.head.innerText = ''
+				document.body.innerText = ''
 				document.write(xhr.responseText)
+			}
 			else
 				throw 'RESPONSE ' + xhr.status + ' ' + xhr.statusText
 		}

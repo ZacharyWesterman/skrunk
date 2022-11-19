@@ -23,6 +23,7 @@
 		<input id="password" type="password" placeholder="Password" />
 		<button type="button" onclick="create_user()">Submit</button>
 	</p>
+	<button onclick="logout()">Logout</button>
 </body>
 <script type="text/javascript">
 	_('userlist', api('{listUsers}')) //initial load of user list
@@ -72,6 +73,13 @@
 		}
 
 		_('userlist', api('{listUsers}')) //refresh user list
+	}
+
+	async function logout()
+	{
+		api.login_token = null
+		api.write_cookies()
+		window.location.href = '/'
 	}
 
 </script>
