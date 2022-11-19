@@ -61,7 +61,7 @@ def init():
 	@application.route('/', methods=['GET'])
 	def main_page():
 		if authorized():
-			return site('html/main.html')
+			return site('html/index.html')
 		else:
 			return site('html/login.html')
 

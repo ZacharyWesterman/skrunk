@@ -1,6 +1,7 @@
 type Query {
 	getUser(username: String!): UserQueryReponse!
 	listUsers: [String!]!
+	getWeatherUsers: [WeatherUser!]!
 }
 
 type Mutation {
