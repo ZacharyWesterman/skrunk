@@ -2,13 +2,13 @@ type WeatherUser {
 	username: String!
 	lat: Float!
 	lon: Float!
-	phone: String!
-	last_sent: String!
+	phone: PhoneNumber!
+	last_sent: Date!
 }
 
 input WeatherUserInput {
 	username: String!
 	lat: Float!
 	lon: Float!
-	phone: String!
+	phone: PhoneNumber!
 }

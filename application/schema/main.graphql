@@ -10,3 +10,6 @@ type Mutation {
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
 	deleteWeatherUser(username: String!): UserDeleteResponse!
 }
+
+scalar PhoneNumber
+scalar Date
