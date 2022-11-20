@@ -1,11 +1,11 @@
 :root {
-	--body: #5e606c;
-	--body-text: white;
+	--primary: #5e606c;
+	--primary-text: white;
 
-	--header: #141e26;
-	--header-text: white;
+	--secondary: #141e26;
+	--secondary-text: white;
 
 	--error-text: red;
 
-	--highlight: #ced3d7;
+	--secondary-highlight: #242e36;
 }

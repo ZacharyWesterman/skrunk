@@ -2,12 +2,12 @@ html, body {
 	padding: 0;
 	margin: 0;
 	height: 100%;
-	color: var(--body-text);
-	background-color: var(--body);
+	color: var(--primary-text);
+	background-color: var(--primary);
 }
 
 h1 {
-	color: var(--header-text);
-	background-color: var(--header);
+	color: var(--secondary-text);
+	background-color: var(--secondary);
 	padding: 5px 0;
 }

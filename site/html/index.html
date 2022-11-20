@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>test html</title>
+	<title>Manage Users</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="boilerplate html" />
@@ -10,7 +10,18 @@
 
 	<link rel="stylesheet" href="css/theme.css">
 	<link rel="stylesheet" href="css/main.css">
+
+	<script src="js/query/weather.js"></script>
+	<script name="weather-users" src="templates/weather_users.dot" type="text/x-dot-template"></script>
 </head>
 <body>
-
+	<div name="weather-users"></div>
 </body>
+<script>
+	var weather_users = []
+
+	weather.get_users().then(data => {
+		weather_users = data
+		_('weather-users', weather_users)
+	})
+</script>

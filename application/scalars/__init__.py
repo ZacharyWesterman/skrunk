@@ -5,9 +5,9 @@ import re
 datetime_scalar = ScalarType('DateTime')
 phone_scalar = ScalarType('PhoneNumber')
 
-@datetime_scalar.serializer
-def serialize_datetime(value: datetime) -> str:
-	return value.strftime('%Y-%m-%d %H:%M:%S')
+# @datetime_scalar.serializer
+# def serialize_datetime(value: datetime) -> str:
+# 	return value.strftime('%Y-%m-%d %H:%M:%S')
 
 @datetime_scalar.value_parser
 def parse_datetime_value(value: str) -> datetime:
