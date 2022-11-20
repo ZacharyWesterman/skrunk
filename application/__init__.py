@@ -7,6 +7,7 @@ from ariadne.contrib.federation import make_federated_schema
 from .resolvers import query, mutation
 from .tokens import decode_user_token
 from .db.users import authenticate
+from .scalars import scalars
 
 import mimetypes
 
@@ -14,7 +15,7 @@ def init():
 	application = Flask(__name__)
 
 	type_defs = ariadne.load_schema_from_path('application/schema')
-	schema = make_federated_schema(type_defs, [query, mutation])
+	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
 	def authorized():
 		if 'Authorization' not in request.headers:

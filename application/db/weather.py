@@ -20,7 +20,7 @@ def create_user(user_data: dict) -> None:
 	userdata = db.weather.users.find_one({'_id': user_data['username']})
 
 	if userdata:
-		raise exceptions.UserExistsError(f'User "{username}" already exists.')
+		raise exceptions.UserExistsError(f'User "{user_data["username"]}" already exists.')
 	else:
 		userdata = {
 			'_id': user_data['username'],
