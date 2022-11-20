@@ -15,7 +15,6 @@ def parse_datetime_value(value: str) -> datetime:
 
 @phone_scalar.value_parser
 def parse_phone(value: str) -> str:
-	print('parse_phone')
 	value = re.sub('[^0-9]', '', value)
 	if len(value) != 10:
 		raise ValueError('Phone number must be 10 digits exactly.')
