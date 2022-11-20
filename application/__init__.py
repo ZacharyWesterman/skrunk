@@ -11,6 +11,8 @@ from .scalars import scalars
 
 import mimetypes
 
+from sys import argv
+
 def init():
 	application = Flask(__name__)
 
@@ -18,6 +20,9 @@ def init():
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
 	def authorized():
+		if '--no-auth' in argv:
+			return True
+
 		if 'Authorization' not in request.headers:
 			return False
 

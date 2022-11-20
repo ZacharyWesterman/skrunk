@@ -1,8 +1,32 @@
+<div class="center">
 {{~it:user}}
 	<div class="card">
-		<div class="container">
-			<h4><b>{{=user.username}}</b></h4>
-			<p>Last sent at: {{=user.last_sent}}</p>
+		<div class="card-inner">
+			<div onclick="toggle_expand('card-{{=user.username}}')">
+				<h4><b>{{=user.username}}</b></h4>
+				<p>Last sent at: {{=user.last_sent}}</p>
+			</div>
+
+			<div class="expand-container">
+				<div id="card-{{=user.username}}" class="expand-contract">
+					<table>
+						<tr>
+							<td>Phone:</td>
+							<td><input type="tel" value="{{=user.phone}}" onchange="$.validate.phone(this) " onKeyUp="$.enforce.phone(this)"></td>
+						</tr>
+						<tr>
+							<td>Lat:</td>
+							<td><input type="number" step="any" value="{{=user.lat}}"></td>
+						</tr>
+						<tr>
+							<td>Lon:</td>
+							<td><input type="number" step="any" value="{{=user.lon}}"></td>
+						</tr>
+					</table>
+					<br>
+				</div>
+			</div>
 		</div>
 	</div>
 {{~}}
+</div>
