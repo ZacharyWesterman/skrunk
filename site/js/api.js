@@ -25,33 +25,27 @@ api.call = async function(query_string, variables = null)
 
 api.authenticate = async function(username, password)
 {
-	var self = this
+	const hashed_pass = await api.hash(password)
+	const auth_json = {
+		'username': username,
+		'password': hashed_pass,
+	}
 
-	return new Promise(resolve => {
-		self.hash(password).then(hashed_pass => {
-			const auth_json = {
-				'username': username,
-				'password': hashed_pass,
-			}
+	var url = '/auth'
+	var xhr = new XMLHttpRequest()
+	xhr.open('POST', url)
 
-			var url = '/auth'
-			var xhr = new XMLHttpRequest()
-			xhr.open('POST', url, true)
+	xhr.setRequestHeader('Content-Type', 'application/json')
+	await xhr.send(JSON.stringify(auth_json))
 
-			xhr.setRequestHeader('Content-Type', 'application/json')
-			xhr.send(JSON.stringify(auth_json))
+	if (xhr.readyState === XMLHttpRequest.DONE)
+	{
+		const response = JSON.parse(xhr.responseText)
+		api.login_token = response.token
+		return response.error === undefined
+	}
 
-			xhr.onreadystatechange = function()
-			{
-				if (this.readyState === XMLHttpRequest.DONE && typeof resolve === 'function')
-				{
-					const response = JSON.parse(this.responseText)
-					self.login_token = response.token
-					resolve(response.error === undefined)
-				}
-			}
-		})
-	})
+	return false
 }
 
 api.get = function(url) {
