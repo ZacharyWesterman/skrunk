@@ -16,6 +16,43 @@
 	<script name="weather-users" src="templates/weather_users.dot" type="text/x-dot-template"></script>
 </head>
 <body>
+	<div class="center">
+		<div class="card">
+			<div class="card-inner">
+				<div onclick="toggle_expand('card-create')">
+					<h4><b>Create New User</b></h4>
+				</div>
+
+				<div class="expand-container">
+					<div id="card-create" class="expand-contract">
+						<table>
+							<tr>
+								<td>Username:</td>
+								<td><input id="create-id"></td>
+							</tr>
+							<tr>
+								<td>Phone:</td>
+								<td><input id="create-phone" type="tel" onchange="$.validate.phone(this)" onKeyUp="$.enforce.phone(this)"></td>
+							</tr>
+							<tr>
+								<td>Latitude:</td>
+								<td><input id="create-lat" type="number" onchange="$.validate.number(this)"></td>
+							</tr>
+							<tr>
+								<td>Longitude:</td>
+								<td><input id="create-lon" type="number" onchange="$.validate.number(this)"></td>
+							</tr>
+						</table>
+
+						<br>
+						<button onclick="create_user()">Submit</button>
+						<br>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div name="weather-users"></div>
 </body>
 <script>
@@ -29,6 +66,17 @@
 	function toggle_expand(id)
 	{
 		$(id).classList.toggle('expanded')
+	}
+
+	async function create_user()
+	{
+		const id = $.val('create-id')
+		const phone = $.val('create-phone')
+		const lat = parseFloat($.val('create-lat'))
+		const lon = parseFloat($.val('create-lon'))
+		await weather.create_user(id, lat, lon, phone)
+		weather_users = await weather.get_users()
+		_('weather-users', weather_users)
 	}
 
 </script>

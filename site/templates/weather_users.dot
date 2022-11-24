@@ -12,15 +12,15 @@
 					<table>
 						<tr>
 							<td>Phone:</td>
-							<td><input type="tel" value="{{=user.phone}}" onchange="$.validate.phone(this) " onKeyUp="$.enforce.phone(this)"></td>
+							<td><input type="tel" value="{{=user.phone}}" onchange="$.validate.phone(this)" onKeyUp="$.enforce.phone(this)"></td>
 						</tr>
 						<tr>
 							<td>Lat:</td>
-							<td><input type="number" step="any" value="{{=user.lat}}"></td>
+							<td><input type="number" step="any" value="{{=user.lat}}" onchange="$.validate.number(this)"></td>
 						</tr>
 						<tr>
 							<td>Lon:</td>
-							<td><input type="number" step="any" value="{{=user.lon}}"></td>
+							<td><input type="number" step="any" value="{{=user.lon}}" onchange="$.validate.number(this)"></td>
 						</tr>
 					</table>
 					<br>

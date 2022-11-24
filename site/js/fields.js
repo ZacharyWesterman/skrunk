@@ -89,11 +89,19 @@ $.validate = {
 			return true
 		}
 	},
+
+	number: function(field)
+	{
+		if (field.validity.valid)
+            field.classList.remove('error')
+        else
+            field.classList.add('error')
+	},
 }
 
 $.enforce = {
 	phone: function(field)
 	{
 		field.value = field.value.replace(/[^0-9]/g, '')
-	}
+	},
 }
