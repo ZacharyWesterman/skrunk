@@ -23,6 +23,10 @@
 							<td><input type="number" step="any" value="{{=user.lon}}" onchange="$.validate.number(this)"></td>
 						</tr>
 					</table>
+
+					<br>
+					<button onclick="delete_user('{{=user.username}}')">Delete</button>
+					<br>
 					<br>
 				</div>
 			</div>

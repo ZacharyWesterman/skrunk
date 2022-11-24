@@ -79,4 +79,10 @@
 		_('weather-users', weather_users)
 	}
 
+	async function delete_user(username)
+	{
+		await weather.delete_user(username)
+		weather_users = await weather.get_users()
+		_('weather-users', weather_users)
+	}
 </script>
