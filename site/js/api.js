@@ -126,6 +126,7 @@ api.__request = function(request_json, callback)
 	xhr.open('POST', url, true)
 
 	xhr.setRequestHeader('Content-Type', 'application/json')
+	xhr.setRequestHeader('Authorization', api.login_token)
 	xhr.send(JSON.stringify(request_json))
 
 	xhr.onreadystatechange = function()
@@ -144,12 +145,12 @@ api.__request = function(request_json, callback)
 * Since every request (except auth) MUST have an auth token,
 * hijack all http requests and tack on the auth header before sending it on its way again.
 */
-XMLHttpRequest.prototype.open = (function(open) {
-	return function(method, url, async) {
-		open.apply(this, arguments)
-		this.setRequestHeader('Authorization', api.login_token)
-	}
-})(XMLHttpRequest.prototype.open)
+// XMLHttpRequest.prototype.open = (function(open) {
+// 	return function(method, url, async) {
+// 		open.apply(this, arguments)
+// 		this.setRequestHeader('Authorization', api.login_token)
+// 	}
+// })(XMLHttpRequest.prototype.open)
 
 /*
 * Simple helper function for site navigation.
