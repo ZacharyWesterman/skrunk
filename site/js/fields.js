@@ -77,6 +77,31 @@ _.sync = (template_name, data_method, frequency = 500) =>
 	}, frequency)
 }
 
+_.modal = async function(config)
+{
+	await _('modal', config)
+	$('modal-window').style.display = 'block';
+
+	return new Promise((resolve, reject) => {
+		_.modal.awaiting = {
+			resolve: resolve,
+			reject: reject,
+		}
+	})
+}
+
+_.modal.cancel = () =>
+{
+	_.modal.awaiting.reject()
+	$('modal-window').style.display = 'none';
+}
+
+_.modal.return = value =>
+{
+	_.modal.awaiting.resolve(value.toLowerCase())
+	$('modal-window').style.display = 'none';
+}
+
 
 //Field control and validation
 var $ = field => (typeof field === 'object') ? field : document.getElementById(field)

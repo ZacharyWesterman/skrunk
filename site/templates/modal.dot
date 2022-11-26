@@ -1,0 +1,12 @@
+<div id="modal-window" class="modal">
+	<div class="modal-content">
+		<span class="close" onclick="_.modal.cancel()">&times;</span>
+		{{?it.title}}<h4><b>{{=it.title}}</b></h4>{{?}}
+		<p>{{=it.text}}</p>
+		{{?it.buttons}}
+			{{~it.buttons : button}}
+				<button onclick="_.modal.return(this.value)" class="modal-button">{{=button}}</button>
+			{{~}}
+		{{?}}
+	</div>
+</div>
