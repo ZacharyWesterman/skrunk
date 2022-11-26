@@ -4,12 +4,14 @@ html, body {
 	height: 100%;
 	color: var(--primary-text);
 	background-color: var(--primary);
+	transition: background 0.5s ease-in-out;
 }
 
 h1 {
 	color: var(--secondary-text);
 	background-color: var(--secondary);
 	padding: 5px 0;
+	transition: background 0.5s ease-in-out;
 }
 
 button {
@@ -31,7 +33,9 @@ input.error {
 	border-radius: 5px;
 	margin: 10px 0;
 	width: 100%;
+	color: var(--secondary-text);
 	background-color: var(--secondary);
+	transition: background 0.5s ease-in-out;
 }
 
 .card-inner {
@@ -40,7 +44,7 @@ input.error {
 
 .card:hover {
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-	background-color: var(--secondary-highlight);
+	filter: brightness(140%);
 }
 
 .expand-container {
@@ -49,7 +53,7 @@ input.error {
 
 .expand-contract {
 	margin-top: -100%;
-	transition: all .5s;
+	transition: all 0.5s ease-in-out;
 }
 
 .expand-contract.expanded {
