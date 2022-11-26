@@ -98,6 +98,20 @@
 		await refresh_users()
 	}
 
+	async function enable_user(username, self)
+	{
+		self.disabled = true
+		await weather.enable_user(username)
+		await refresh_users()
+	}
+
+	async function disable_user(username, self)
+	{
+		self.disabled = true
+		await weather.disable_user(username)
+		await refresh_users()
+	}
+
 	function can_create()
 	{
 		const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon') ]

@@ -45,5 +45,35 @@ const weather = {
 			username: username,
 		}
 		return await api(query, vars)
-	}
+	},
+
+	enable_user: async function(username) {
+		const query = `mutation ($username: String!){
+			disableWeatherUser(username: $username){
+				__typename
+				...on BadUserNameError {
+					message
+				}
+			}
+		}`
+		const vars = {
+			username: username,
+		}
+		return await api(query, vars)
+	},
+
+	disable_user: async function(username) {
+		const query = `mutation ($username: String!){
+			disableWeatherUser(username: $username){
+				__typename
+				...on BadUserNameError {
+					message
+				}
+			}
+		}`
+		const vars = {
+			username: username,
+		}
+		return await api(query, vars)
+	},
 }
