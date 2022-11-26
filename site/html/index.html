@@ -95,6 +95,17 @@
 
 	async function delete_user(username, self)
 	{
+		var choice = await _.modal({
+			title: 'Are you sure?',
+			text: 'Deleting user "' + username + '" cannot be undone!',
+			buttons: [
+				'Yes',
+				'No',
+			]
+		}).catch(() => 'no')
+
+		if (choice !== 'yes') return
+
 		self.disabled = true
 		await weather.delete_user(username)
 		await refresh_users()

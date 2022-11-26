@@ -5,7 +5,7 @@
 		<p>{{=it.text}}</p>
 		{{?it.buttons}}
 			{{~it.buttons : button}}
-				<button onclick="_.modal.return(this.value)" class="modal-button">{{=button}}</button>
+				<button onclick="_.modal.return('{{=button}}')" class="modal-button">{{=button}}</button>
 			{{~}}
 		{{?}}
 	</div>
