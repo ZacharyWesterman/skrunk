@@ -70,8 +70,9 @@ _.sync = (template_name, data_method, frequency = 500) =>
 
 
 //Field control and validation
-var $ = id => document.getElementById(id)
+var $ = field => (typeof field === 'object') ? field : document.getElementById(field)
 $.val = id => $(id).value
+$.toggle_expand = id => $(id).classList.toggle('expanded')
 
 $.validate = {
 	phone: function(field)
@@ -93,9 +94,9 @@ $.validate = {
 	number: function(field)
 	{
 		if (field.validity.valid)
-            field.classList.remove('error')
-        else
-            field.classList.add('error')
+			field.classList.remove('error')
+		else
+			field.classList.add('error')
 	},
 }
 
