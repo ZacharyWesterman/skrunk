@@ -16,4 +16,5 @@ type InsufficientCreds {
 
 union UserQueryReponse = UserData | UserDoesNotExistError
 union UserCreateResponse = UserData | BadUserNameError | InsufficientCreds
-union UserDeleteResponse = UserData | BadUserNameError | InsufficientCreds
+union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientCreds
+union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientCreds

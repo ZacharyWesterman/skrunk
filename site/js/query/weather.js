@@ -36,7 +36,7 @@ const weather = {
 		const query = `mutation ($username: String!){
 			deleteWeatherUser(username: $username){
 				__typename
-				...on BadUserNameError {
+				...on UserDoesNotExistError {
 					message
 				}
 			}
@@ -49,9 +49,9 @@ const weather = {
 
 	enable_user: async function(username) {
 		const query = `mutation ($username: String!){
-			disableWeatherUser(username: $username){
+			enableWeatherUser(username: $username){
 				__typename
-				...on BadUserNameError {
+				...on UserDoesNotExistError {
 					message
 				}
 			}
@@ -66,7 +66,7 @@ const weather = {
 		const query = `mutation ($username: String!){
 			disableWeatherUser(username: $username){
 				__typename
-				...on BadUserNameError {
+				...on UserDoesNotExistError {
 					message
 				}
 			}

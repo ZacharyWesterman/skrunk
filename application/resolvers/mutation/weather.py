@@ -1,5 +1,5 @@
 import application.exceptions as exceptions
-from application.db.weather import create_user, delete_user
+from application.db.weather import create_user, delete_user, set_user_excluded
 
 def resolve_create_weather_user(_, info, userdata: dict) -> dict:
 	try:
@@ -13,4 +13,18 @@ def resolve_delete_weather_user(_, info, username: str) -> dict:
 		delete_user(username)
 		return { '__typename' : 'UserData', 'username': username }
 	except exceptions.UserDoesNotExistError as e:
-		return { '__typename' : 'BadUserNameError', 'message' : str(e) }
+		return { '__typename' : 'UserDoesNotExistError', 'message' : str(e) }
+
+def resolve_enable_weather_user(_, info, username: str) -> dict:
+	try:
+		userdata = set_user_excluded(username, False)
+		return { '__typename' : 'UserData', **userdata }
+	except exceptions.UserDoesNotExistError as e:
+		return { '__typename' : 'UserDoesNotExistError', 'message' : str(e) }
+
+def resolve_disable_weather_user(_, info, username: str) -> dict:
+	try:
+		userdata = set_user_excluded(username, True)
+		return { '__typename' : 'UserData', **userdata }
+	except exceptions.UserDoesNotExistError as e:
+		return { '__typename' : 'UserDoesNotExistError', 'message' : str(e) }

@@ -9,6 +9,8 @@ type Mutation {
 	deleteUser(username: String!): UserDeleteResponse!
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
 	deleteWeatherUser(username: String!): UserDeleteResponse!
+	enableWeatherUser(username: String!): UserUpdateResponse!
+	disableWeatherUser(username: String!): UserUpdateResponse!
 }
 
 scalar PhoneNumber
