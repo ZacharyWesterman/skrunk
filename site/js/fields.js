@@ -8,20 +8,26 @@ async function _(template_name, data)
 		var script = document.querySelector('script[name="' + template_name + '"]')
 		if (script === null)
 		{
-			throw 'Error: No template found with name "' + template_name + '"'
+			//Assume that the template path is "templates/{template_name}.dot"
+			script = {
+				text: null,
+				src: 'templates/' + template_name + '.dot'
+			}
 		}
-
-		var def = {}
-		if (script.attributes.def?.nodeValue)
+		else
 		{
-			for (var i of script.attributes.def.nodeValue.split())
+			var def = {}
+			if (script.attributes.def?.nodeValue)
 			{
-				var def_scr = document.querySelector('script[name="' + i + '"]')
-				if (def_scr === null)
+				for (var i of script.attributes.def.nodeValue.split())
 				{
-					throw 'Error: When loading "' + template_name + '" template, unable to find def "' + i + '"'
+					var def_scr = document.querySelector('script[name="' + i + '"]')
+					if (def_scr === null)
+					{
+						throw 'Error: When loading "' + template_name + '" template, unable to find def "' + i + '"'
+					}
+					def[i] = def_scr.text
 				}
-				def[i] = def_scr.text
 			}
 		}
 
@@ -38,7 +44,10 @@ async function _(template_name, data)
 	var update_dom = data =>
 	{
 		document.querySelectorAll('div[name="' + template_name + '"]').forEach(field => {
-			field.innerHTML = pagefn(data)
+			if (data)
+				field.innerHTML = pagefn(data)
+			else
+				field.innerHTML = pagefn(field)
 		})
 	}
 
@@ -104,5 +113,10 @@ $.enforce = {
 	phone: function(field)
 	{
 		field.value = field.value.replace(/[^0-9]/g, '')
+	},
+
+	id: function(field)
+	{
+		field.value = field.value.replace(/[ \t\n\r]/g, '')
 	},
 }

@@ -24,7 +24,7 @@
 					</table>
 
 					<br>
-					<button onclick="delete_user('{{=user.username}}')">Delete</button>
+					<button onclick="delete_user('{{=user.username}}', this)">Delete</button>
 					<br>
 					<br>
 				</div>
