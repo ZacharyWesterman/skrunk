@@ -8,11 +8,11 @@ db = MongoClient(__mongo_url)
 
 def get_users() -> list:
 	global db
-	users = [ user for user in db.weather.users.find({'exclude': False}) ]
+	users = [ user for user in db.weather.users.find({}) ]
 	for i in users:
 		i['username'] = i['_id']
 
-	return sorted(users, key = lambda elem: elem['username'])
+	return sorted(users, key = lambda elem: str(int(elem['exclude']))+elem['username'])
 
 def create_user(user_data: dict) -> None:
 	global db

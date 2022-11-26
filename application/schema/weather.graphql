@@ -4,6 +4,7 @@ type WeatherUser {
 	lon: Float!
 	phone: PhoneNumber!
 	last_sent: DateTime
+	exclude: Boolean!
 }
 
 input WeatherUserInput {

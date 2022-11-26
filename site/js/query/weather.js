@@ -7,6 +7,7 @@ const weather = {
 				lon
 				phone
 				last_sent
+				exclude
 			}
 		}`)
 	},

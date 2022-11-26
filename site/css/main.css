@@ -12,6 +12,10 @@ h1 {
 	padding: 5px 0;
 }
 
+button {
+	margin-right: 5px;
+}
+
 input.error {
 	background-color: #e09daf;
 }
@@ -50,4 +54,8 @@ input.error {
 
 .expand-contract.expanded {
 	margin-top: 0;
+}
+
+.disabled {
+	color: gray;
 }
