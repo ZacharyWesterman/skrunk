@@ -44,8 +44,8 @@
 						<button onclick="enable_user('{{=user.username}}', this)">Enable</button>
 					{{??}}
 						<button onclick="disable_user('{{=user.username}}', this)">Disable</button>
-						<button onclick="delete_user('{{=user.username}}', this)">Delete</button>
 					{{?}}
+					<button onclick="delete_user('{{=user.username}}', this)">Delete</button>
 					<br>
 					<br>
 				</div>
