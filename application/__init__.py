@@ -26,12 +26,8 @@ def init():
 		if 'Authorization' not in request.headers:
 			return False
 
-		try:
-			decode_user_token(request.headers['Authorization'])
-			return True
-		except Exception as e:
-			print(e)
-			return False
+		decode_user_token(request.headers['Authorization'])
+		return True
 
 	@application.route('/auth', methods=['POST', 'GET'])
 	def auth_user():
