@@ -26,10 +26,9 @@
 </body>
 <script type="text/javascript" defer>
 	//Auto-login
-	api.read_cookies()
 	if (api.login_token !== null)
 	{
-		navigate('/')
+		navigate('html/index.html')
 	}
 
 	function login(can_error = true)

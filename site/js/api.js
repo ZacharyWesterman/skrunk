@@ -141,6 +141,13 @@ api.__request = function(request_json, callback)
 	}
 }
 
+api.logout = function()
+{
+	api.login_token = null
+	api.write_cookies()
+	navigate('/')
+}
+
 /*
 * Since every request (except auth) MUST have an auth token,
 * hijack all http requests and tack on the auth header before sending it on its way again.
@@ -175,3 +182,5 @@ function navigate(url)
 		}
 	}
 }
+
+api.read_cookies()
