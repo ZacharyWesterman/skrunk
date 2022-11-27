@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Manage Users</title>
+	<title>Index Page</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="boilerplate html" />
@@ -11,132 +11,7 @@
 
 	<link rel="stylesheet" href="css/theme.css">
 	<link rel="stylesheet" href="css/main.css">
-
-	<script src="js/query/weather.js"></script>
 </head>
 <body>
 	<div name="modal"></div> <!--placeholder for when modals are loaded in -->
-
-	<div class="center">
-		<br>
-		<button onclick="api.logout()">Logout</button>
-
-		<div class="card">
-			<div class="card-inner">
-				<div onclick="$.toggle_expand('card-create')">
-					<h4><b>Create New User</b></h4>
-				</div>
-
-				<div class="expand-container">
-					<div id="card-create" class="expand-contract">
-						<table>
-							<tr>
-								<td>Username:</td>
-								<td><input id="create-id" onKeyUp="$.enforce.id(this); can_create()"></td>
-							</tr>
-							<tr>
-								<td>Phone:</td>
-								<td><input id="create-phone" type="tel" onchange="$.validate.phone(this)" onKeyUp="$.enforce.phone(this); can_create()"></td>
-							</tr>
-							<tr>
-								<td>Latitude:</td>
-								<td><input id="create-lat" type="number" onchange="$.validate.number(this); can_create()"></td>
-							</tr>
-							<tr>
-								<td>Longitude:</td>
-								<td><input id="create-lon" type="number" onchange="$.validate.number(this); can_create()"></td>
-							</tr>
-						</table>
-
-						<br>
-						<button id='create-button' onclick="create_user()" disabled>Submit</button>
-						<br>
-						<br>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div name="weather_users"></div>
-	</div>
 </body>
-<script>
-	var weather_users = []
-	refresh_users()
-
-	async function refresh_users()
-	{
-		weather_users = await weather.get_users()
-		_('weather_users', weather_users)
-	}
-
-	async function create_user()
-	{
-		const id = $.val('create-id')
-		const phone = $.val('create-phone')
-		const lat = parseFloat($.val('create-lat'))
-		const lon = parseFloat($.val('create-lon'))
-
-		const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon') ]
-
-		for (i of fields) i.disabled = true
-
-		await weather.create_user(id, lat, lon, phone)
-		refresh_users()
-
-		for (i of fields)
-		{
-			i.disabled = false
-			i.value = ''
-		}
-
-		can_create()
-	}
-
-	async function delete_user(username, self)
-	{
-		var choice = await _.modal({
-			title: 'Are you sure?',
-			text: 'Deleting user "' + username + '" cannot be undone!',
-			buttons: [
-				'Yes',
-				'No',
-			]
-		}).catch(() => 'no')
-
-		if (choice !== 'yes') return
-
-		self.disabled = true
-		await weather.delete_user(username)
-		await refresh_users()
-	}
-
-	async function enable_user(username, self)
-	{
-		self.disabled = true
-		await weather.enable_user(username)
-		await refresh_users()
-	}
-
-	async function disable_user(username, self)
-	{
-		self.disabled = true
-		await weather.disable_user(username)
-		await refresh_users()
-	}
-
-	function can_create()
-	{
-		const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon') ]
-		for (i of fields)
-		{
-			if (i.value === '')
-			{
-				$('create-button').disabled = true
-				return
-			}
-		}
-
-		$('create-button').disabled = false
-	}
-</script>
