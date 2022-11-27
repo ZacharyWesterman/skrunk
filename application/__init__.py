@@ -67,17 +67,26 @@ def init():
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):
 		# Allow anything in site/, those will have no sensitive data anyway.
-		# if path not in ['html/login.html', 'js/api.js'] and not authorized():
-		# 	return '', 403
+		i = path.rindex('.')
+		if i > -1:
+			ext = path[i+1::]
+		else:
+			ext = ''
 
-		try:
-			with open(f'site/{path}', 'r') as fp:
-				mime = mimetypes.guess_type(path)
-				if mime:
-					return Response(fp.read(), 200, mimetype=mime[0])
-				else:
-					return fp.read(), 200
-		except Exception as e:
-			return '', 404
+		if ext in ['js', 'css', 'html', 'dot']:
+			try:
+				with open(f'site/{path}', 'r') as fp:
+					mime = mimetypes.guess_type(path)
+					if mime:
+						return Response(fp.read(), 200, mimetype=mime[0])
+					else:
+						return fp.read(), 200
+			except FileNotFoundError as e:
+				return '', 404
+		else:
+			if authorized():
+				return '', 404
+			else:
+				return '', 403
 
 	return application
