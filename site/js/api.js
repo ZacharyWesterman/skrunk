@@ -80,7 +80,7 @@ api.get = function(url) {
 api.write_cookies = function()
 {
 	var cookie = {
-		'Authorization': api.login_token,
+		'Authorization': api.login_token ? ('Bearer ' + api.login_token) : null,
 		'SameSite': 'Lax',
 	}
 

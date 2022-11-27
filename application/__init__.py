@@ -12,21 +12,28 @@ from .scalars import scalars
 import mimetypes
 
 from sys import argv
+import re
+import os
 
-def init():
+def init(*, no_auth = False, vid_path = None):
 	application = Flask(__name__)
 
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
-	def authorized():
-		if '--no-auth' in argv:
+	def authorized(*, use_cookies=False):
+		if no_auth:
+			print('NO-AUTH: Auth set to True')
 			return True
 
-		if 'Authorization' not in request.headers:
-			return False
+		if use_cookies:
+			token = request.headers['Cookie'].split(' ')[1]
+		else:
+			if 'Authorization' not in request.headers:
+				return False
+			token = request.headers['Authorization']
 
-		decode_user_token(request.headers['Authorization'])
+		decode_user_token(token)
 		return True
 
 	@application.route('/auth', methods=['POST', 'GET'])
@@ -88,5 +95,55 @@ def init():
 				return '', 404
 			else:
 				return '', 403
+
+	@application.after_request
+	def after_request(response):
+		response.headers.add('Accept-Ranges', 'bytes')
+		return response
+
+	def get_chunk(full_path: str, byte1: int, byte2: int):
+		file_size = os.stat(full_path).st_size
+		start = 0
+
+		if byte1 < file_size:
+			start = byte1
+		if byte2:
+			length = byte2 + 1 - byte1
+		else:
+			length = file_size - start
+
+		with open(full_path, 'rb') as fp:
+			fp.seek(start)
+			chunk = fp.read(length)
+
+		return chunk, start, length, file_size
+
+	@application.route('/video/<path:path>', methods=['GET'])
+	def video_stream(path: str):
+		if not authorized(use_cookies = True):
+			return '', 403
+
+		if vid_path is None:
+			return 'No video path specified in server setup.', 404
+
+		range_header = request.headers.get('Range')
+		byte1, byte2 = 0, None
+		if range_header:
+			match = re.search(r'(\d+)-(\d*)', range_header)
+			groups = match.groups()
+
+			if groups[0]:
+				byte1 = int(groups[0])
+			if groups[1]:
+				byte2 = int(groups[1])
+
+		full_path = f'{vid_path}/{path}'
+		try:
+			chunk, start, length, file_size = get_chunk(full_path, byte1, byte2)
+			resp = Response(chunk, 206, mimetype='video/mp4', content_type='video/mp4', direct_passthrough=True)
+			resp.headers.add('Content-Range', f'bytes {start}-{start+length-1}/{file_size}')
+			return resp
+		except FileNotFoundError as e:
+			return '', 404
 
 	return application
