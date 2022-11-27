@@ -22,6 +22,10 @@ input.error {
 	background-color: #e09daf;
 }
 
+div.error {
+	color: var(--error-text)
+}
+
 .center {
 	margin: 0 auto;
 	width: 90%;
