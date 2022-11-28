@@ -1,18 +1,24 @@
 import application
-from sys import argv
-
+import argparse
 
 if __name__ == '__main__':
-	ip = '0.0.0.0'
-	port = 5000
-	debug = '--prod' not in argv
-	no_auth = '--no-auth' in argv
-	vid_path = '/home/zachary/Videos'
+	parser = argparse.ArgumentParser(
+		prog = 'Flask Server',
+	)
 
-	app = application.init(no_auth=no_auth, vid_path=vid_path)
+	parser.add_argument('--vid-path', action='store', default=None, type=str)
+	parser.add_argument('--prod', action='store_true')
+	parser.add_argument('--no-auth', action='store_true')
+	parser.add_argument('--ip', action='store', default='0.0.0.0', type=str)
+	parser.add_argument('--port', action='store', default=5000, type=int)
+	parser.add_argument('--http', action='store_true')
 
-	if '--http' in argv:
-		app.run(ip, port, debug=debug, threaded=True)
+	args = parser.parse_args()
+
+	app = application.init(no_auth=args.no_auth, vid_path=args.vid_path)
+
+	if args.http:
+		app.run(args.ip, args.port, debug=not args.prod, threaded=True)
 	else:
 		context = ('ssl/cert.pem', 'ssl/privkey.pem')
-		app.run(ip, port, debug=debug, threaded=True, ssl_context=context)
+		app.run(args.ip, args.port, debug=not args.prod, threaded=True, ssl_context=context)

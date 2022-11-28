@@ -11,7 +11,6 @@ from .scalars import scalars
 
 import mimetypes
 
-from sys import argv
 import re
 import os
 
