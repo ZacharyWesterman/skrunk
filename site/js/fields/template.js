@@ -1,75 +1,39 @@
 var __template_map = {}
 
-async function template(template_name, data)
+async function update_dom(name, data)
 {
-	var pagefn = __template_map[template_name]
-	if (pagefn === undefined)
+	var fields = document.querySelectorAll('div[name="' + name + '"]')
+	for (var field of fields)
 	{
-		var script = document.querySelector('script[name="' + template_name + '"]')
-		if (script === null)
+		const template_name = field.attributes.template ? field.attributes.template.value : name
+
+		//Load template only once.
+		if (__template_map[template_name] === undefined)
 		{
-			//Assume that the template path is "templates/{template_name}.dot"
-			script = {
-				text: null,
-				src: 'templates/' + template_name + '.dot'
-			}
-		}
-		else
-		{
-			var def = {}
-			if (script.attributes.def?.nodeValue)
-			{
-				for (var i of script.attributes.def.nodeValue.split())
-				{
-					var def_scr = document.querySelector('script[name="' + i + '"]')
-					if (def_scr === null)
-					{
-						throw 'Error: When loading "' + template_name + '" template, unable to find def "' + i + '"'
-					}
-					def[i] = def_scr.text
-				}
-			}
+			const template_text = await api.get('templates/' + template_name + '.dot')
+			__template_map[template_name] = doT.template(template_text, undefined, {})
 		}
 
-		var text = script.text
-		if (script.src)
-		{
-			text = await api.get(script.src)
-		}
-
-		pagefn = doT.template(text, undefined, def)
-		__template_map[template_name] = pagefn
+		const pagefn = __template_map[template_name]
+		field.innerHTML = pagefn(data ? data : field)
 	}
+}
 
-	var update_dom = data =>
-	{
-		document.querySelectorAll('div[name="' + template_name + '"]').forEach(field => {
-			if (data)
-				field.innerHTML = pagefn(data)
-			else
-				field.innerHTML = pagefn(field)
-		})
-	}
-
+function template(template_name, data)
+{
 	//if data is actually a Promise, update the dom whenever it resolves.
 	if (typeof data?.then === 'function')
-	{
-		data.then(res => {
-			update_dom(res)
-		})
-	}
+		data.then(res => { update_dom(template_name, res) })
 	else
-	{
-		update_dom(data)
-	}
+		update_dom(template_name, data)
 }
 
 //Constantly refresh dom element(s) as long as at least 1 div with the template_name exists.
 //Once it no longer exists, stop refreshing.
-template.sync = (template_name, data_method, frequency = 500) =>
+template.sync = async function(template_name, data_method, frequency = 500)
 {
 	if (!(document.querySelectorAll('div[name="' + template_name + '"]').length)) { return }
-	template(template_name, data_method())
+	await template(template_name, data_method())
 	setTimeout(() => {
 		template.sync(template_name, data_method, frequency)
 	}, frequency)
