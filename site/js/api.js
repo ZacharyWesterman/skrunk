@@ -151,7 +151,7 @@ api.logout = function()
 /*
 * Simple helper function for site navigation.
 */
-function navigate(url)
+async function navigate(url)
 {
 	//Eval script and (if it errors) give more accurate error info.
 	function do_script_eval(text, url, replaceUrl)
@@ -174,27 +174,41 @@ function navigate(url)
 		}
 	}
 
-	api.get(url).then(res => {
-		document.all.body.innerHTML = res
+	try {
+		var res = await api.get(url)
+	} catch (error) {
+		throw 'RESPONSE ' + error.status + ' ' + error.statusText
+	}
 
-		for (var script of document.all.body.getElementsByTagName('script'))
+	document.all.body.innerHTML = res
+
+	for (var script of document.all.body.getElementsByTagName('script'))
+	{
+		if (script.src.length)
 		{
-			if (script.src.length)
+			if (script.attributes.async) //async, so allow more scripts to be loaded
 			{
 				api.get(script.src).then(res => {
 					do_script_eval(res, script.src, true)
-				}).catch(res => {
-					throw 'RESPONSE ' + res.status + ' ' + res.statusText
+				}).catch(error => {
+					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				})
 			}
-			else
+			else //load scripts synchronously
 			{
-				do_script_eval(script.text, url, false)
+				try {
+					res = await api.get(script.src)
+				} catch (error) {
+					throw 'RESPONSE ' + error.status + ' ' + error.statusText
+				}
+				do_script_eval(res, script.src, true)
 			}
 		}
-	}).catch(res => {
-		throw 'RESPONSE ' + res.status + ' ' + res.statusText
-	})
+		else //eval inline script text
+		{
+			do_script_eval(script.text, url, false)
+		}
+	}
 }
 
 api.read_cookies()

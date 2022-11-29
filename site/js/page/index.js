@@ -1,11 +1,12 @@
 document.title = 'Authenticate'
 
-function login(can_error = true)
+window.login = function(can_error = true)
 {
 	api.authenticate($.val('username'), $.val('password')).then(success => {
 		if (success)
 		{
 			api.write_cookies()
+			delete window.login
 			window.location.href = '/'
 		}
 		else if (can_error)

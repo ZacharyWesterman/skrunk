@@ -1,4 +1,4 @@
-const weather = {
+window.weather = {
 	get_users: async function() {
 		return await api(`{
 			getWeatherUsers {

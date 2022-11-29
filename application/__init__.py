@@ -30,7 +30,7 @@ def init(*, no_auth = False, vid_path = None):
 		else:
 			if 'Authorization' not in request.headers:
 				return False
-			token = request.headers['Authorization']
+			token = request.headers['Authorization'].split(' ')[1]
 
 		decode_user_token(token)
 		return True
