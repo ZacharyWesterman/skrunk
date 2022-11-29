@@ -1,4 +1,3 @@
-throw new Error('test exception')
 document.title = 'Authenticate'
 
 function login(can_error = true)
