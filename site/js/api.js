@@ -183,6 +183,8 @@ function navigate(url)
 			{
 				api.get(script.src).then(res => {
 					do_script_eval(res, script.src, true)
+				}).catch(res => {
+					throw 'RESPONSE ' + res.status + ' ' + res.statusText
 				})
 			}
 			else
