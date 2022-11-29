@@ -145,4 +145,9 @@ def init(*, no_auth = False, vid_path = None):
 		except FileNotFoundError as e:
 			return '', 404
 
+	@application.route('/favicon.ico', methods=['GET'])
+	def favicon():
+		with open('data/favicon.ico', 'rb') as fp:
+			return fp.read(), 200
+
 	return application
