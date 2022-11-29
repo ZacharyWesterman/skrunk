@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Index Page</title>
+	<title>Main Page</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta name="description" content="boilerplate html" />
@@ -14,9 +14,13 @@
 </head>
 <body>
 	<div name="modal"></div> <!--placeholder for when modals are loaded in -->
-	<div name="videolist"></div>
+	<div id="body"></div>
 </body>
 
 <script>
-	_('videolist', ['ENA/Auction Day.mp4', 'ENA/Extinction Party.mp4'])
+	//If not already logged in, go to login page
+	if (api.login_token === null)
+	{
+		navigate('html/login.html')
+	}
 </script>

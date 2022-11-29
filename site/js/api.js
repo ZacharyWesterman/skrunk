@@ -145,42 +145,54 @@ api.logout = function()
 {
 	api.login_token = null
 	api.write_cookies()
-	navigate('/')
+	window.location.href = '/'
 }
-
-/*
-* Since every request (except auth) MUST have an auth token,
-* hijack all http requests and tack on the auth header before sending it on its way again.
-*/
-// XMLHttpRequest.prototype.open = (function(open) {
-// 	return function(method, url, async) {
-// 		open.apply(this, arguments)
-// 		this.setRequestHeader('Authorization', api.login_token)
-// 	}
-// })(XMLHttpRequest.prototype.open)
 
 /*
 * Simple helper function for site navigation.
 */
 function navigate(url)
 {
-	var xhr = new XMLHttpRequest()
-	xhr.open('GET', url, true)
-	xhr.send()
-	xhr.onreadystatechange = function()
+	//Eval script and (if it errors) give more accurate error info.
+	function do_script_eval(text, url, replaceUrl)
 	{
-		if (xhr.readyState === XMLHttpRequest.DONE)
-		{
-			if (xhr.status === 200)
+		try {
+			eval(text)
+		} catch (error) {
+			var stack = error.stack.trim().split('\n')
+			stack = stack[stack.length-1].split(':')
+			stack[2] = (replaceUrl ? '@' : stack[2]) + url
+			stack[3] = error.lineNumber
+			stack[4] = error.columnNumber
+			if (replaceUrl)
 			{
-				document.head.innerText = ''
-				document.body.innerText = ''
-				document.write(xhr.responseText)
+				stack.shift()
+				stack.shift()
 			}
-			else
-				throw 'RESPONSE ' + xhr.status + ' ' + xhr.statusText
+			error.stack = stack.join(':')
+			console.log(error)
 		}
 	}
+
+	api.get(url).then(res => {
+		document.all.body.innerHTML = res
+
+		for (var script of document.all.body.getElementsByTagName('script'))
+		{
+			if (script.src.length)
+			{
+				api.get(script.src).then(res => {
+					do_script_eval(res, script.src, true)
+				})
+			}
+			else
+			{
+				do_script_eval(script.text, url, false)
+			}
+		}
+	}).catch(res => {
+		throw 'RESPONSE ' + res.status + ' ' + res.statusText
+	})
 }
 
 api.read_cookies()

@@ -68,7 +68,7 @@ def init(*, no_auth = False, vid_path = None):
 
 	@application.route('/', methods=['GET'])
 	def main_page():
-		return site('html/login.html')
+		return site('html/index.html')
 
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):

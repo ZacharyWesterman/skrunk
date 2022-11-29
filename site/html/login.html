@@ -1,53 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Authenticate</title>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<meta name="description" content="Authentication Page" />
-	<script type="module" src="js/fields.js" async></script>
-	<script type="text/javascript" src="js/api.js"></script>
-	<link rel="stylesheet" href="css/theme.css">
-	<link rel="stylesheet" href="css/main.css">
-</head>
-<body>
-	<div name="modal"></div> <!--placeholder for when modals are loaded in -->
-
-	<div class="center">
-		<div class="header">
-			<h1>Authentication Required</h1>
-		</div>
-
-		<div class="body">
-			<input id="username" placeholder="Username" />
-			<br/>
-			<input id="password" type="password" placeholder="Password" />
-			<button type="button" onclick="login()">Login</button>
-			<br/>
-			<div id="errormsg" class="error"></div>
-		</div>
+<div class="center">
+	<div class="header">
+		<h1>Authentication Required</h1>
 	</div>
-</body>
-<script type="text/javascript" defer>
-	//Auto-login
-	if (api.login_token !== null)
-	{
-		navigate('html/index.html')
-	}
 
-	function login(can_error = true)
-	{
-		api.authenticate($.val('username'), $.val('password')).then(success => {
-			if (success)
-			{
-				api.write_cookies()
-				navigate('html/index.html')
-			}
-			else if (can_error)
-			{
-				$('errormsg').innerText = 'Invalid Credentials'
-			}
-		})
-	}
-</script>
-</html>
+	<div class="body">
+		<input id="username" placeholder="Username" />
+		<br/>
+		<input id="password" type="password" placeholder="Password" />
+		<button type="button" onclick="login()">Login</button>
+		<br/>
+		<div id="errormsg" class="error"></div>
+	</div>
+</div>
+
+<script src="/js/page/index.js"></script>
