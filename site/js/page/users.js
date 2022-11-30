@@ -1,6 +1,19 @@
 _('userlist', api('{listUsers}')) //initial load of user list
 
-window.delete_user = async function(username)
+window.confirm_delete_user = async function(username)
+{
+	var choice = await _.modal({
+		title: 'Delete Credentials',
+		text: 'Are you sure you want to delete the login for user "' + username + '"? This action cannot be undone!',
+		buttons: ['Yes', 'No']
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	delete_user(username)
+}
+
+var delete_user = async function(username)
 {
 	const query = `
 	mutation ($username: String!){

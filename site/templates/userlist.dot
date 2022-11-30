@@ -1,5 +1,3 @@
-<ul>
 {{~ it :i }}
-	<li>{{=i}} <button onclick="delete_user('{{=i}}')">delete</button></li>
+	<button class="big" onclick="confirm_delete_user('{{=i}}')">{{=i}}</button><br>
 {{~}}
-</ul>
