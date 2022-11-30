@@ -153,6 +153,14 @@ api.logout = function()
 */
 async function navigate(url)
 {
+	await inject(document.all.body, url)
+}
+
+/*
+* Load content from URL into the given field.
+*/
+async function inject(field, url)
+{
 	//Eval script and (if it errors) give more accurate error info.
 	function do_script_eval(text, url, replaceUrl)
 	{
@@ -180,9 +188,9 @@ async function navigate(url)
 		throw 'RESPONSE ' + error.status + ' ' + error.statusText
 	}
 
-	document.all.body.innerHTML = res
+	field.innerHTML = res
 
-	for (var script of document.all.body.getElementsByTagName('script'))
+	for (var script of field.getElementsByTagName('script'))
 	{
 		if (script.src.length)
 		{
