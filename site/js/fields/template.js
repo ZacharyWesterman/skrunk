@@ -19,13 +19,13 @@ async function update_dom(name, data)
 	}
 }
 
-function template(template_name, data)
+async function template(template_name, data)
 {
 	//if data is actually a Promise, update the dom whenever it resolves.
 	if (typeof data?.then === 'function')
 		data.then(res => { update_dom(template_name, res) })
 	else
-		update_dom(template_name, data)
+		await update_dom(template_name, data)
 }
 
 //Constantly refresh dom element(s) as long as at least 1 div with the template_name exists.

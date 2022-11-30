@@ -110,12 +110,16 @@ div.error {
 	to {top: 0; opacity: 1}
 }
 
-.modal-button {
+button.big {
 	background-color: var(--secondary);
 	color: var(--secondary-text);
-	filter: brightness(140%);
-	border: 1px solid var(--secondary-text);
+	border: none;
 	border-radius: 5px;
 	padding: 2px 16px;
 	font-size: 28px;
+	margin-top: 10px;
+}
+
+button.border {
+	border: 1px solid var(--secondary-text);
 }

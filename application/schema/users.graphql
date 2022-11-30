@@ -14,7 +14,7 @@ type InsufficientCreds {
 	message: String!
 }
 
-union UserQueryReponse = UserData | UserDoesNotExistError
+union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientCreds
 union UserCreateResponse = UserData | BadUserNameError | InsufficientCreds
 union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientCreds
 union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientCreds

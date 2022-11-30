@@ -1,45 +1,40 @@
-<div class="center">
-	<br>
-	<button onclick="api.logout()">Logout</button>
+<div class="card">
+	<div class="card-inner">
+		<div onclick="$.toggle_expand('card-create')">
+			<h4><b>Create New User</b></h4>
+		</div>
 
-	<div class="card">
-		<div class="card-inner">
-			<div onclick="$.toggle_expand('card-create')">
-				<h4><b>Create New User</b></h4>
-			</div>
+		<div class="expand-container">
+			<div id="card-create" class="expand-contract">
+				<table>
+					<tr>
+						<td>Username:</td>
+						<td><input id="create-id" onKeyUp="$.enforce.id(this); can_create()"></td>
+					</tr>
+					<tr>
+						<td>Phone:</td>
+						<td><input id="create-phone" type="tel" onchange="$.validate.phone(this)" onKeyUp="$.enforce.phone(this); can_create()"></td>
+					</tr>
+					<tr>
+						<td>Latitude:</td>
+						<td><input id="create-lat" type="number" step="any" onchange="$.validate.number(this); can_create()"></td>
+					</tr>
+					<tr>
+						<td>Longitude:</td>
+						<td><input id="create-lon" type="number" step="any" onchange="$.validate.number(this); can_create()"></td>
+					</tr>
+				</table>
 
-			<div class="expand-container">
-				<div id="card-create" class="expand-contract">
-					<table>
-						<tr>
-							<td>Username:</td>
-							<td><input id="create-id" onKeyUp="$.enforce.id(this); can_create()"></td>
-						</tr>
-						<tr>
-							<td>Phone:</td>
-							<td><input id="create-phone" type="tel" onchange="$.validate.phone(this)" onKeyUp="$.enforce.phone(this); can_create()"></td>
-						</tr>
-						<tr>
-							<td>Latitude:</td>
-							<td><input id="create-lat" type="number" step="any" onchange="$.validate.number(this); can_create()"></td>
-						</tr>
-						<tr>
-							<td>Longitude:</td>
-							<td><input id="create-lon" type="number" step="any" onchange="$.validate.number(this); can_create()"></td>
-						</tr>
-					</table>
-
-					<br>
-					<button id='create-button' onclick="create_user()" disabled>Submit</button>
-					<br>
-					<br>
-				</div>
+				<br>
+				<button id='create-button' onclick="create_user()" disabled>Submit</button>
+				<br>
+				<br>
 			</div>
 		</div>
 	</div>
-
-	<div name="weather_users"></div>
 </div>
+
+<div name="weather_users"></div>
 
 <script src="js/query/weather.js"></script>
 <script src="js/page/weather_users.js"></script>

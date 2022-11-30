@@ -5,9 +5,9 @@
 		{{?it.text}}<p>{{=it.text}}</p>{{?}}
 		{{~it.buttons : button}}
 			{{?typeof button === 'object'}}
-				<button onclick="_.modal.return('{{=button[0]}}')" class="modal-button">{{=button[1]}}</button>
+				<button onclick="_.modal.return('{{=button[0]}}')" class="big border">{{=button[1]}}</button>
 			{{??}}
-				<button onclick="_.modal.return('{{=button}}')" class="modal-button">{{=button}}</button>
+				<button onclick="_.modal.return('{{=button}}')" class="big border">{{=button}}</button>
 			{{?}}
 		{{~}}
 	</div>
