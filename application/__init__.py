@@ -26,13 +26,17 @@ def init(*, no_auth = False, vid_path = None):
 			return True
 
 		if use_cookies:
-			token = request.headers['Cookie'].split(' ')[1]
+			token = request.headers['Cookie']
 		else:
 			if 'Authorization' not in request.headers:
 				return False
-			token = request.headers['Authorization'].split(' ')[1]
+			token = request.headers['Authorization']
 
-		decode_user_token(token)
+		token = token.split(' ')
+		if len(token) < 2:
+			return False
+
+		decode_user_token(token[1])
 		return True
 
 	@application.route('/auth', methods=['POST', 'GET'])
