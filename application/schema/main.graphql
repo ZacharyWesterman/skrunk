@@ -7,10 +7,12 @@ type Query {
 type Mutation {
 	createUser(username: String!, password: String!): UserCreateResponse!
 	deleteUser(username: String!): UserDeleteResponse!
+
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
 	deleteWeatherUser(username: String!): UserDeleteResponse!
 	enableWeatherUser(username: String!): UserUpdateResponse!
 	disableWeatherUser(username: String!): UserUpdateResponse!
+	updateWeatherUser(userdata: WeatherUserInput!): UserUpdateResponse!
 }
 
 scalar PhoneNumber

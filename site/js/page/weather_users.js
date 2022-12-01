@@ -65,8 +65,8 @@ window.update_user = async function(username, self)
 {
 	self.disabled = true
 	const phone = $.val('phone-'+username)
-	const lat = $.val('lat-'+username)
-	const lon = $.val('lon-'+username)
+	const lat = parseFloat($.val('lat-'+username))
+	const lon = parseFloat($.val('lon-'+username))
 
 	await weather.update_user(username, phone, lat, lon)
 	self.disabled = false

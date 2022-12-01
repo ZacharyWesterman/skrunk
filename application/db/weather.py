@@ -53,3 +53,21 @@ def set_user_excluded(username: str, exclude: bool) -> dict:
 		return userdata
 	else:
 		raise exceptions.UserDoesNotExistError(f'User "{username}" does not exist.')
+
+def update_user(user_data: dict) -> None:
+	global db
+
+	userdata = db.weather.users.find_one({'_id': user_data['username']})
+
+	if userdata:
+		userdata = {
+			'lat': user_data['lat'],
+			'lon': user_data['lon'],
+			'phone': user_data['phone'],
+		}
+		db.weather.users.update_one(
+			{'_id': user_data['username']},
+			{'$set': userdata}
+		)
+	else:
+		raise exceptions.UserDoesNotExistError(f'User "{user_data["username"]}" does not exist.')
