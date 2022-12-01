@@ -21,5 +21,7 @@ export default {
 			field.classList.remove('error')
 		else
 			field.classList.add('error')
+
+		return field.validity.valid
 	},
 }

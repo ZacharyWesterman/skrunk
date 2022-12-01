@@ -19,6 +19,9 @@ window.weather = {
 				...on BadUserNameError {
 					message
 				}
+				...on InsufficientCreds {
+					message
+				}
 			}
 		}`
 		const vars = {
@@ -39,6 +42,9 @@ window.weather = {
 				...on UserDoesNotExistError {
 					message
 				}
+				...on InsufficientCreds {
+					message
+				}
 			}
 		}`
 		const vars = {
@@ -52,6 +58,9 @@ window.weather = {
 			enableWeatherUser(username: $username){
 				__typename
 				...on UserDoesNotExistError {
+					message
+				}
+				...on InsufficientCreds {
 					message
 				}
 			}
@@ -69,10 +78,36 @@ window.weather = {
 				...on UserDoesNotExistError {
 					message
 				}
+				...on InsufficientCreds {
+					message
+				}
 			}
 		}`
 		const vars = {
 			username: username,
+		}
+		return await api(query, vars)
+	},
+
+	update_user: async function(username, phone, lat, lon) {
+		const query = `mutation ($userdata: WeatherUserInput!){
+			updateWeatherUser(userdata: $userdata){
+				__typename
+				...on UserDoesNotExistError {
+					message
+				}
+				...on InsufficientCreds {
+					message
+				}
+			}
+		}`
+		const vars = {
+			userdata: {
+				username: username,
+				lat: lat,
+				lon: lon,
+				phone: phone,
+			}
 		}
 		return await api(query, vars)
 	},
