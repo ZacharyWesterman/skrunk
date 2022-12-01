@@ -1,17 +1,14 @@
-html, body {
-	padding: 0;
-	margin: 0;
-	height: 100%;
+@import url('/css/theme.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
 	color: var(--primary-text);
 	background-color: var(--primary);
 	transition: background 0.5s ease-in-out;
-}
-
-h1 {
-	color: var(--secondary-text);
-	background-color: var(--secondary);
-	padding: 5px 0;
-	transition: background 0.5s ease-in-out;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Poppins', sans-serif;
 }
 
 button {
@@ -43,10 +40,10 @@ div.error {
 }
 
 .card-inner {
-	padding: 2px 16px;
+	padding: 2px 16px 16px 16px;
 }
 
-.card:hover {
+.card.highlight:hover {
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 	filter: brightness(140%);
 }
@@ -68,7 +65,7 @@ div.error {
 	color: gray;
 }
 
-.modal {
+.modal-outer {
 	position: fixed;
 	display: none;
 	z-index: 1;
@@ -83,13 +80,18 @@ div.error {
 	animation-duration: 0.4s;
 }
 
+.modal-inner {
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
 .modal-content {
 	background-color: var(--secondary);
 	margin: 15% auto;
 	padding: 2px 16px;
 	border: 1px solid var(--secondary-text);
 	border-radius: 5px;
-	width: 80%;
 }
 
 .close {
@@ -120,6 +122,14 @@ button.big {
 	margin-top: 10px;
 }
 
+button.wide {
+	width: 100%;
+}
+
 button.border {
 	border: 1px solid var(--secondary-text);
+}
+
+button.big:hover {
+	filter: brightness(140%);
 }
