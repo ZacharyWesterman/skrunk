@@ -17,7 +17,19 @@ window.create_user = async function()
 
 	for (i of fields) i.disabled = true
 
-	await weather.create_user(id, lat, lon, phone)
+	const response = await weather.create_user(id, lat, lon, phone)
+
+	if (response.__typename !== 'UserData')
+	{
+		_.modal({
+			title: 'ERROR',
+			text: response.message,
+			buttons: ['OK']
+		}).catch(() => {})
+		for (i of fields) i.disabled = false
+		return
+	}
+
 	refresh_users()
 
 	for (i of fields)
