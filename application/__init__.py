@@ -76,7 +76,24 @@ def init(*, no_auth = False, vid_path = None):
 
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):
-		# Allow anything in site/, those will have no sensitive data anyway.
+		# Allow only specific files in site/, as other files may have "sensitive" data.
+		allowed = [
+			'html/index.html',
+			'html/login.html',
+			'css/styles.css',
+			'css/theme.css',
+			'js/page/index.js',
+			'js/api.js',
+			'js/doT.js',
+			'js/fields.js',
+			'js/fields/enforce.js',
+			'js/fields/modal.js',
+			'js/fields/template.js',
+			'js/fields/validate.js',
+		]
+		if not authorized(use_cookies = True) and path not in allowed:
+			return '', 403
+
 		i = path.rindex('.')
 		if i > -1:
 			ext = path[i+1::]
