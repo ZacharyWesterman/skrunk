@@ -25,33 +25,17 @@ api.call = async function(query_string, variables = null)
 
 api.authenticate = async function(username, password)
 {
-	var self = this
+	const hashed_pass = await api.hash(password)
+	const auth_json = {
+		'username': username,
+		'password': hashed_pass,
+	}
 
-	return new Promise(resolve => {
-		self.hash(password).then(hashed_pass => {
-			const auth_json = {
-				'username': username,
-				'password': hashed_pass,
-			}
+	const response = JSON.parse(await api.post_json('/auth', auth_json))
+	if (response.error) return false
 
-			var url = '/auth'
-			var xhr = new XMLHttpRequest()
-			xhr.open('POST', url, true)
-
-			xhr.setRequestHeader('Content-Type', 'application/json')
-			xhr.send(JSON.stringify(auth_json))
-
-			xhr.onreadystatechange = function()
-			{
-				if (this.readyState === XMLHttpRequest.DONE && typeof resolve === 'function')
-				{
-					const response = JSON.parse(this.responseText)
-					self.login_token = response.token
-					resolve(response.error === undefined)
-				}
-			}
-		})
-	})
+	api.login_token = response.token
+	return true
 }
 
 api.get = function(url) {
@@ -74,6 +58,29 @@ api.get = function(url) {
 		}
 
 		xhr.send()
+	})
+}
+
+api.post_json = function(url, json_data) {
+	return new Promise((resolve, reject) => {
+		var xhr = new XMLHttpRequest()
+		xhr.open('POST', url, true)
+		xhr.setRequestHeader('Content-Type', 'application/json')
+		xhr.send(JSON.stringify(json_data))
+		xhr.onload = () => {
+			if (xhr.status >= 200 && xhr.status < 300)
+			{
+				resolve(xhr.response)
+			}
+			else
+			{
+				reject({status: xhr.status, statusText: xhr.statusText})
+			}
+		}
+
+		xhr.onerror = () => {
+			reject({status: xhr.status, statusText: xhr.statusText})
+		}
 	})
 }
 

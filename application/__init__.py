@@ -5,9 +5,10 @@ from ariadne.constants import PLAYGROUND_HTML
 from ariadne.contrib.federation import make_federated_schema
 
 from .resolvers import query, mutation
-from .tokens import decode_user_token
+from .tokens import decode_user_token, token_is_valid
 from .db.users import authenticate
 from .scalars import scalars
+from .exceptions import LoginExpired
 
 import mimetypes
 
@@ -45,8 +46,7 @@ def init(*, no_auth = False, vid_path = None):
 		if len(token) < 2:
 			return False
 
-		decode_user_token(token[1])
-		return True
+		return token_is_valid(token[1])
 
 	@application.route('/auth', methods=['POST', 'GET'])
 	def auth_user():
@@ -58,8 +58,8 @@ def init(*, no_auth = False, vid_path = None):
 		try:
 			login_token = authenticate(data['username'], data['password'])
 			return f'{{"token":"{login_token}"}}', 200
-		except Exception as e:
-			return jsonify({'error': str(e)}), 400
+		except exceptions.ClientError as e:
+			return jsonify({'error': str(e)}), 403
 
 
 	@application.route('/api', methods=['POST'])

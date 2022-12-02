@@ -12,3 +12,6 @@ class AuthenticationError(ClientError):
 
 class InvalidUsername(ClientError):
 	pass
+
+class LoginExpired(ClientError):
+	pass
