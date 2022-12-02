@@ -38,6 +38,8 @@ def init(*, no_auth = False, vid_path = None):
 			token = request.headers['Authorization']
 		elif 'Cookie' in request.headers:
 			token = decode_cookies(request.headers['Cookie']).get('Authorization', '')
+		else:
+			return False
 
 		token = token.split(' ')
 		if len(token) < 2:
