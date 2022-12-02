@@ -20,17 +20,24 @@ def init(*, no_auth = False, vid_path = None):
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
-	def authorized(*, use_cookies=False):
+	def decode_cookies(cookies: str) -> dict:
+		output = {}
+		for i in cookies.split(';'):
+			cookie = i.split('=')
+			key, value = cookie[0].strip(), cookie[1].strip()
+			if key != '':
+				output[key] = value
+		return output
+
+	def authorized():
 		if no_auth:
 			print('NO-AUTH: Auth set to True')
 			return True
 
-		if use_cookies:
-			token = request.headers['Cookie']
-		else:
-			if 'Authorization' not in request.headers:
-				return False
+		if 'Authorization' in request.headers:
 			token = request.headers['Authorization']
+		elif 'Cookie' in request.headers:
+			token = decode_cookies(request.headers['Cookie']).get('Authorization', '')
 
 		token = token.split(' ')
 		if len(token) < 2:
@@ -91,7 +98,7 @@ def init(*, no_auth = False, vid_path = None):
 			'js/fields/template.js',
 			'js/fields/validate.js',
 		]
-		if not authorized(use_cookies = True) and path not in allowed:
+		if not authorized() and path not in allowed:
 			return '', 403
 
 		i = path.rindex('.')
@@ -140,7 +147,7 @@ def init(*, no_auth = False, vid_path = None):
 
 	@application.route('/video/<path:path>', methods=['GET'])
 	def video_stream(path: str):
-		if not authorized(use_cookies = True):
+		if not authorized():
 			return '', 403
 
 		if vid_path is None:
