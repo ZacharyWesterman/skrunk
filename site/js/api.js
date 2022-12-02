@@ -38,6 +38,48 @@ api.authenticate = async function(username, password)
 	return true
 }
 
+api.refresh_token = async function()
+{
+	if (api.login_token === null) return false
+
+	const response = JSON.parse(await api.post_json('/auth', {token: api.login_token}))
+	if (response.error) return false
+
+	api.login_token = response.token
+	return true
+}
+
+api.auto_refresh_token = function(enabled)
+{
+	var do_auto_refresh = () => {
+		if (api.login_token === null) return
+		if (!api.__auto_refresh) return
+
+		setTimeout(async () => {
+			const success = await api.refresh_token()
+			if (success)
+				do_auto_refresh()
+			else
+				api.logout()
+		}, 3600000) //Try to refresh token every hour
+	}
+
+	if (!api.__auto_refresh)
+	{
+		api.__auto_refresh = enabled
+		do_auto_refresh() //don't run function multiple times
+	}
+	api.__auto_refresh = enabled
+}
+
+api.verify_token = async function()
+{
+	if (api.login_token === null) return false
+	const response = JSON.parse(await api.post_json('/auth/verify', {token: api.login_token}))
+
+	return response.valid
+}
+
 api.get = function(url) {
 	return new Promise((resolve, reject) => {
 		var xhr = new XMLHttpRequest()
@@ -150,6 +192,7 @@ api.__request = function(request_json, callback)
 
 api.logout = function()
 {
+	api.__auto_refresh = false
 	api.login_token = null
 	api.write_cookies()
 	window.location.href = '/'

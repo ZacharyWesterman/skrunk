@@ -5,7 +5,7 @@ from ariadne.constants import PLAYGROUND_HTML
 from ariadne.contrib.federation import make_federated_schema
 
 from .resolvers import query, mutation
-from .tokens import decode_user_token, token_is_valid
+from .tokens import *
 from .db.users import authenticate
 from .scalars import scalars
 from .exceptions import LoginExpired
@@ -48,9 +48,35 @@ def init(*, no_auth = False, vid_path = None):
 
 		return token_is_valid(token[1])
 
+	@application.route('/auth/verify', methods=['POST', 'GET'])
+	def verify_token():
+		data = request.get_json()
+
+		if 'token' not in data:
+			return '{"valid":false}', 200
+
+		token = data['token'].split(' ')
+		if len(token) < 2:
+			return '{"error":"Invalid Token"}', 400
+
+		return jsonify({'valid': token_is_valid(token[1])}), 200
+
 	@application.route('/auth', methods=['POST', 'GET'])
 	def auth_user():
 		data = request.get_json()
+
+		#Refresh user login token
+		if 'token' in data:
+			token = data['token'].split(' ')
+			if len(token) < 2:
+				return '{"error":"Invalid Token"}', 400
+
+			if not token_is_valid(token[1]):
+				return '{"error":"Expired Token"}', 400
+
+			username = decode_user_token(token[1])['username']
+			login_token = create_user_token(username)
+			return f'{{"token":"Bearer {login_token}"}}', 200
 
 		if 'username' not in data or 'password' not in data:
 			return '{"error":"Authentication failed"}', 400
