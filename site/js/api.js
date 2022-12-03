@@ -256,7 +256,17 @@ async function inject(field, url)
 		await api.handle_query_failure(error)
 	}
 
+	//hide DOM element while it's loading
+	field.classList.remove('visible')
+	field.classList.add('hidden')
+
 	field.innerHTML = res
+
+	//show element after it's probably finished loading
+	setTimeout(() => {
+		field.classList.remove('hidden')
+		field.classList.add('visible')
+	}, 250)
 
 	for (var script of field.getElementsByTagName('script'))
 	{

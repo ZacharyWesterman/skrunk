@@ -165,3 +165,12 @@ button.border {
 button.big:hover {
 	filter: brightness(140%);
 }
+
+.hidden {
+	opacity: 0;
+}
+
+.visible {
+	transition: all 0.25s ease-in;
+	opacity: 1;
+}
