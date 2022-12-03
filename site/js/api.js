@@ -10,6 +10,7 @@ var api = async function(query_string, variables = null)
 }
 
 api.login_token = null
+api.__auto_refresh = false
 
 api.call = async function(query_string, variables = null)
 {
@@ -168,6 +169,19 @@ api.hash = async function(password)
 	return btoa(hex)
 }
 
+api.handle_query_failure = async function(res)
+{
+	if (await api.verify_token())
+	{
+		throw 'RESPONSE ' + res.status + ' ' + xhr.statusText
+	}
+	else
+	{
+		console.log('Token expired, logging out.')
+		api.logout()
+	}
+}
+
 api.__request = function(request_json, callback)
 {
 	var url = '/api'
@@ -178,15 +192,19 @@ api.__request = function(request_json, callback)
 	xhr.setRequestHeader('Authorization', api.login_token)
 	xhr.send(JSON.stringify(request_json))
 
-	xhr.onreadystatechange = function()
-	{
-		if (xhr.readyState === XMLHttpRequest.DONE && typeof callback === 'function')
+	xhr.onload = () => {
+		if (xhr.status >= 200 && xhr.status < 300)
 		{
-			if (xhr.status === 200)
-				callback(JSON.parse(xhr.responseText))
-			else
-				throw 'RESPONSE ' + xhr.status + ' ' + xhr.statusText
+			callback(JSON.parse(xhr.responseText))
 		}
+		else
+		{
+			api.handle_query_failure({status: xhr.status, statusText: xhr.statusText})
+		}
+	}
+
+	xhr.onerror = () => {
+		api.handle_query_failure({status: xhr.status, statusText: xhr.statusText})
 	}
 }
 
@@ -235,7 +253,7 @@ async function inject(field, url)
 	try {
 		var res = await api.get(url)
 	} catch (error) {
-		throw 'RESPONSE ' + error.status + ' ' + error.statusText
+		await api.handle_query_failure(error)
 	}
 
 	field.innerHTML = res
