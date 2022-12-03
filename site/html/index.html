@@ -28,7 +28,6 @@
 		api.verify_token().then(verified => {
 			if (verified)
 			{
-				api.auto_refresh_token(true)
 				navigate('html/dashboard.html')
 			}
 			else
