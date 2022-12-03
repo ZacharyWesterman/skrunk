@@ -113,11 +113,11 @@ api.post_json = function(url, json_data) {
 		xhr.onload = () => {
 			if (xhr.status >= 200 && xhr.status < 300)
 			{
-				resolve(xhr.response)
+				resolve(xhr.responseText)
 			}
 			else
 			{
-				reject({status: xhr.status, statusText: xhr.statusText})
+				resolve(xhr.responseText)
 			}
 		}
 
