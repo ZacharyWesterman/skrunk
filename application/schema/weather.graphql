@@ -13,3 +13,9 @@ input WeatherUserInput {
 	lon: Float!
 	phone: PhoneNumber!
 }
+
+type WeatherExecution {
+	timestamp: DateTime!
+	users: [String!]!
+	error: String
+}

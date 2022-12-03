@@ -1,0 +1,7 @@
+<div class="card alt">
+	<div class="card-inner">
+		<h4><b>Weather API Status</b></h4>
+		Last Run: {{?it}}{{=it.timestamp}}{{??}}Never{{?}}
+		{{?it}}{{?it.error !== null}}<span class="error"><b>RUNTIME ERROR:</b> {{=it.error}}</span>{{?}}{{?}}
+	</div>
+</div>

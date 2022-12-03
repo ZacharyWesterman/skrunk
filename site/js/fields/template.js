@@ -15,7 +15,7 @@ async function update_dom(name, data)
 		}
 
 		const pagefn = __template_map[template_name]
-		field.innerHTML = pagefn(data ? data : field)
+		field.innerHTML = pagefn((data !== undefined) ? data : field)
 	}
 }
 

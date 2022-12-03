@@ -7,10 +7,10 @@ export default {
 			field.value = field.defaultValue
 
 		if (field.value.length != 10) {
-			field.classList.add('error')
+			field.classList.add('invalid')
 			return false
 		} else {
-			field.classList.remove('error')
+			field.classList.remove('invalid')
 			return true
 		}
 	},
@@ -18,9 +18,9 @@ export default {
 	number: function(field)
 	{
 		if (field.validity.valid)
-			field.classList.remove('error')
+			field.classList.remove('invalid')
 		else
-			field.classList.add('error')
+			field.classList.add('invalid')
 
 		return field.validity.valid
 	},

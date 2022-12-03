@@ -45,12 +45,12 @@ button {
 	margin-right: 5px;
 }
 
-input.error {
+input.invalid {
 	background-color: #e09daf;
 }
 
-div.error {
-	color: var(--error-text)
+.error {
+	color: var(--error-text);
 }
 
 .center {
@@ -67,6 +67,11 @@ div.error {
 	color: var(--secondary-text);
 	background-color: var(--secondary);
 	transition: background 0.5s ease-in-out;
+}
+
+.card.alt {
+	color: var(--tertiary-text);
+	background-color: var(--tertiary);
 }
 
 .card-inner {

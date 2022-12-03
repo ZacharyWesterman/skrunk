@@ -173,7 +173,7 @@ api.handle_query_failure = async function(res)
 {
 	if (await api.verify_token())
 	{
-		throw 'RESPONSE ' + res.status + ' ' + xhr.statusText
+		throw 'RESPONSE ' + res.status + ' ' + res.statusText
 	}
 	else
 	{

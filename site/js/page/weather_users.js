@@ -1,5 +1,15 @@
 var weather_users = []
 
+//periodically check api status
+_.sync('weather_exec', () => api(`{
+	getLastWeatherExec{
+		timestamp
+		users
+		error
+	}
+}`), 60000)
+
+
 window.refresh_users = async function()
 {
 	weather_users = await weather.get_users()
