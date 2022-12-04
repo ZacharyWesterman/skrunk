@@ -1,6 +1,6 @@
 document.title = 'Authenticate'
 
-window.login = function(can_error = true)
+window.login = function()
 {
 	api.authenticate($.val('username'), $.val('password')).then(success => {
 		if (success)
@@ -9,9 +9,12 @@ window.login = function(can_error = true)
 			delete window.login
 			window.location.href = '/'
 		}
-		else if (can_error)
+		else
 		{
 			$('errormsg').innerText = 'Invalid Credentials'
 		}
 	})
 }
+
+$.on.enter($('username'), $.next)
+$.on.enter($('password'), login)

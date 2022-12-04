@@ -125,6 +125,8 @@ def init(*, no_auth = False, vid_path = None):
 			'js/fields/modal.js',
 			'js/fields/template.js',
 			'js/fields/validate.js',
+			'js/fields/events.js',
+			'js/fields/control.js',
 		]
 		if not authorized() and path not in allowed:
 			return '', 403
