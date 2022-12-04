@@ -1,5 +1,12 @@
 @import url('/css/theme.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); /*Font to use throughout the whole page*/
+
+/*Begin Imported Icon List*/
+@import url('https://css.gg/log-out.css');
+@import url('https://css.gg/user-list.css');
+@import url('https://css.gg/cloud.css');
+@import url('https://css.gg/log-in.css');
+/*End Imported Icon List*/
 
 body {
 	color: var(--primary-text);
@@ -149,6 +156,46 @@ input.invalid {
 	to {top: 0; opacity: 1}
 }
 
+button.icon {
+	width: 2rem;
+	height: 2rem;
+	background-color: var(--secondary);
+	color: var(--secondary-text);
+	border: none;
+	border-radius: 5px;
+	margin: 10px 0 0 0;
+}
+
+input {
+	height: 1.5rem;
+}
+
+.gg-log-in {
+	margin-left: 0.75rem;
+}
+
+.gg-log-out {
+	margin-left: 0.25rem;
+}
+
+.gg-user-list {
+	margin-left: 0.1rem;
+}
+
+.gg-cloud {
+	margin-left: 0.35rem;
+	margin-top: 0.35rem;
+}
+
+.topleft {
+	float: left;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	padding-left: 1rem;
+}
+
 button.big {
 	background-color: var(--secondary);
 	color: var(--secondary-text);
@@ -167,7 +214,7 @@ button.border {
 	border: 1px solid var(--secondary-text);
 }
 
-button.big:hover {
+button:hover {
 	filter: brightness(140%);
 }
 
