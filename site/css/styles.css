@@ -187,7 +187,6 @@ input {
 }
 
 .topleft {
-	float: left;
 	position: fixed;
 	top: 0;
 	left: 0;
