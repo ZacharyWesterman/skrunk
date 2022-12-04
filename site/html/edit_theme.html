@@ -1,0 +1,68 @@
+<h1>Theme Colors</h1>
+
+<div class="card alt">
+	<div class="card-inner">
+		Refresh the page to reset the colors.
+		<p class="error">Here's some example error text.</p>
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-inner">
+		<h4>Text Colors</h4>
+		<table>
+			<tr>
+				<td>Text on Background</td>
+				<td><input id="primary-text" type="color" onchange="update_colors(this)"></td>
+			</tr>
+			<tr>
+				<td>Text on Default Content</td>
+				<td><input id="secondary-text" type="color" onchange="update_colors(this)"></td>
+			</tr>
+			<tr>
+				<td>Text on Alternate Content</td>
+				<td><input id="tertiary-text" type="color" onchange="update_colors(this)"></td>
+			</tr>
+			<tr>
+				<td>Error Text</td>
+				<td><input id="error-text" type="color" onchange="update_colors(this)"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-inner">
+		<h4>Content Colors</h4>
+		<table>
+			<tr>
+				<td>Primary Background</td>
+				<td><input id="primary" type="color" onchange="update_colors(this)"></td>
+			</tr>
+			<tr>
+				<td>Secondary Background</td>
+				<td><input id="primary-alt" type="color" onchange="update_colors(this)"></td>
+			</tr>
+			<tr>
+				<td>Default Content</td>
+				<td><input id="secondary" type="color" onchange="update_colors(this)"></td>
+			</tr>
+			<tr>
+				<td>Alternate Content</td>
+				<td><input id="tertiary" type="color" onchange="update_colors(this)"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<script>
+	window.update_colors = field => {
+		document.querySelector(':root').style.setProperty('--'+field.id, field.value)
+	}
+
+	for (var i of ['primary','primary-alt','primary-text','secondary','secondary-text','tertiary','tertiary-text','error-text',])
+	{
+		var val = getComputedStyle(document.querySelector(':root')).getPropertyValue('--'+i)
+		$(i).value = val
+	}
+</script>

@@ -1,13 +1,13 @@
 :root {
-	--primary: #6c3;
-	--primary-alt: #09f;
-	--primary-text: white;
+	--primary: #66cc33;
+	--primary-alt: #0099ff;
+	--primary-text: #ffffff;
 
 	--secondary: #141e26;
-	--secondary-text: white;
+	--secondary-text: #ffffff;
 
 	--tertiary: #14361e;
-	--tertiary-text: white;
+	--tertiary-text: #ffffff;
 
-	--error-text: red;
+	--error-text: #ff7800;
 }
