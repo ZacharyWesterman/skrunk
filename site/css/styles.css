@@ -10,7 +10,6 @@
 
 body {
 	color: var(--primary-text);
-	/* background-color: var(--primary); */
 	transition: background 0.5s ease-in-out;
 	display: flex;
 	justify-content: center;
@@ -189,7 +188,7 @@ input {
 
 .topleft {
 	float: left;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 9999;
