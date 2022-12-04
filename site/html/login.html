@@ -3,7 +3,7 @@
 		<h1>Sign In</h1>
 		<p>Authentication Required</p>
 
-		<input id="username" placeholder="Username"><br>
+		<input id="username" placeholder="Username" onKeyUp="$.enforce.id(this)"><br>
 		<input id="password" type="password" placeholder="Password">
 		<button class="icon" onclick="login()"><i class="gg-log-in"></i></button><br>
 		<div id="errormsg" class="error"></div>
