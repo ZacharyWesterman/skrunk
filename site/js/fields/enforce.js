@@ -6,6 +6,6 @@ export default {
 
 	id: function(field)
 	{
-		field.value = field.value.replace(/[ \t\n\r]/g, '')
+		field.value = field.value.replace(/[ \t\n\r]/g, '').toLowerCase()
 	},
 }
