@@ -34,7 +34,7 @@ var delete_user = async function(username)
 	var res = await api(query, vars)
 	if (res.__typename !== 'UserData') {
 		_.modal({
-			title: 'ERROR',
+			title: '<span class="error">ERROR</span>',
 			text: res.message,
 			buttons: ['OK']
 		}).catch(()=>{})
@@ -65,7 +65,7 @@ window.create_user = async function()
 	var res = await api(query, vars)
 	if (res.__typename !== 'UserData') {
 		_.modal({
-			title: 'ERROR',
+			title: '<span class="error">ERROR</span>',
 			text: res.message,
 			buttons: ['OK']
 		}).catch(()=>{})
