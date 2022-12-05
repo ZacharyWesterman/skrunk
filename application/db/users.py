@@ -19,6 +19,18 @@ def get_user_data(username: str) -> dict:
 	else:
 		raise exceptions.UserDoesNotExistError(f'User "{username}" does not exist.')
 
+def update_user_them(username: str, theme: list) -> dict:
+	global db
+	userdata = db.data.users.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	db.data.users.update_one({'username': username}, {'$set': {'theme': theme}})
+
+	userdata['theme'] = theme
+	return userdata
+
 def create_user(username: str, password: str) -> None:
 	global db
 
@@ -33,6 +45,7 @@ def create_user(username: str, password: str) -> None:
 	db.data.users.insert_one({
 		'username': username,
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
+		'theme': [],
 	})
 
 def delete_user(username: str) -> None:
