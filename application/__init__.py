@@ -21,6 +21,14 @@ def init(*, no_auth = False, vid_path = None):
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
+	def read_file_data(path: str):
+		with open(path, 'rb') as fp:
+			mime = mimetypes.guess_type(path)
+			if mime:
+				return Response(fp.read(), 200, mimetype=mime[0])
+			else:
+				return fp.read(), 200
+
 	def decode_cookies(cookies: str) -> dict:
 		output = {}
 		for i in cookies.split(';'):
@@ -133,12 +141,7 @@ def init(*, no_auth = False, vid_path = None):
 
 		if ext in ['js', 'css', 'html', 'dot']:
 			try:
-				with open(f'site/{path}', 'r') as fp:
-					mime = mimetypes.guess_type(path)
-					if mime:
-						return Response(fp.read(), 200, mimetype=mime[0])
-					else:
-						return fp.read(), 200
+				return read_file_data(f'site/{path}')
 			except FileNotFoundError as e:
 				return '', 404
 		else:
@@ -199,7 +202,10 @@ def init(*, no_auth = False, vid_path = None):
 
 	@application.route('/favicon.ico', methods=['GET'])
 	def favicon():
-		with open('data/favicon.ico', 'rb') as fp:
-			return fp.read(), 200
+		return read_file_data('data/favicon.ico')
+
+	@application.route('/background.svg', methods=['GET'])
+	def background_image():
+		return read_file_data('data/background.svg')
 
 	return application

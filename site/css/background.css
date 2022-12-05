@@ -5,6 +5,11 @@ body {
 	justify-content: center;
 	align-items: center;
 	font-family: 'Poppins', sans-serif;
+	background-image: url('/background.svg');
+	background-repeat: no-repeat;
+	background-size: 25%;
+	background-position: center;
+	background-attachment: fixed;
 }
 
 .bg {
