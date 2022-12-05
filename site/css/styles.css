@@ -1,8 +1,9 @@
+/*Theme will always be the first imported script*/
+@import url('/css/theme.css');
 
 /*Font to use throughout the whole page*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-@import url('/css/theme.css');
 @import url('/css/icons.css');
 @import url('/css/background.css');
 @import url('/css/modal.css');

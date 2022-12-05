@@ -15,19 +15,19 @@
 		<table>
 			<tr>
 				<td>Text on Background</td>
-				<td><input id="primary-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--primary-text" type="color" onchange="update_colors(this)"></td>
 			</tr>
 			<tr>
 				<td>Text on Default Content</td>
-				<td><input id="secondary-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--secondary-text" type="color" onchange="update_colors(this)"></td>
 			</tr>
 			<tr>
 				<td>Text on Alternate Content</td>
-				<td><input id="tertiary-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--tertiary-text" type="color" onchange="update_colors(this)"></td>
 			</tr>
 			<tr>
 				<td>Error Text</td>
-				<td><input id="error-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--error-text" type="color" onchange="update_colors(this)"></td>
 			</tr>
 		</table>
 	</div>
@@ -39,54 +39,42 @@
 		<table>
 			<tr>
 				<td>Primary Background</td>
-				<td><input id="primary" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--primary" type="color" onchange="update_colors(this)"></td>
 			</tr>
 			<tr>
 				<td>Secondary Background</td>
-				<td><input id="primary-alt" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--primary-alt" type="color" onchange="update_colors(this)"></td>
 			</tr>
 			<tr>
 				<td>Default Content</td>
-				<td><input id="secondary" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--secondary" type="color" onchange="update_colors(this)"></td>
 			</tr>
 			<tr>
 				<td>Alternate Content</td>
-				<td><input id="tertiary" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--tertiary" type="color" onchange="update_colors(this)"></td>
 			</tr>
 		</table>
 	</div>
 </div>
 
 <script>
-	var fields = [
-		'primary',
-		'primary-alt',
-		'primary-text',
-		'secondary',
-		'secondary-text',
-		'tertiary',
-		'tertiary-text',
-		'error-text',
-	]
-
 	window.update_colors = field => {
-		document.querySelector(':root').style.setProperty('--'+field.id, field.value)
+		_.css.set_var('--'+field.id, field.value)
 	}
 
 	window.reset_colors = () => {
-		for (var i of fields)
+		for (var i of _.css.vars())
 		{
-			document.querySelector(':root').style.setProperty('--'+i, '')
+			_.css.set_var(i, '')
 		}
 		setcolors()
 	}
 
 	function setcolors()
 	{
-		for (var i of fields)
+		for (var i of _.css.vars())
 		{
-			var val = getComputedStyle(document.querySelector(':root')).getPropertyValue('--'+i)
-			$(i).value = val
+			$(i).value = _.css.get_var(i)
 		}
 	}
 	setcolors()
