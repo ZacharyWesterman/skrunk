@@ -192,6 +192,9 @@ api.handle_query_failure = async function(res)
 
 api.__request = function(request_json, callback)
 {
+	//show spinner to indicate resources are loading
+	$.show($('loader'))
+
 	var url = '/api'
 	var xhr = new XMLHttpRequest()
 	xhr.open('POST', url, true)
@@ -209,10 +212,13 @@ api.__request = function(request_json, callback)
 		{
 			api.handle_query_failure({status: xhr.status, statusText: xhr.statusText})
 		}
+
+		$.hide($('loader'))
 	}
 
 	xhr.onerror = () => {
 		api.handle_query_failure({status: xhr.status, statusText: xhr.statusText})
+		$.hide($('loader'))
 	}
 }
 
@@ -237,6 +243,11 @@ async function navigate(url)
 */
 async function inject(field, url)
 {
+	//show spinner to indicate stuff is loading
+	$.hide(field)
+	field.innerHTML = '<i class="gg-spinner"></i>'
+	setTimeout(() => $.show(field), 250)
+
 	//Eval script and (if it errors) give more accurate error info.
 	function do_script_eval(text, url, replaceUrl)
 	{
@@ -265,16 +276,15 @@ async function inject(field, url)
 	}
 
 	//hide DOM element while it's loading
-	field.classList.remove('visible')
-	field.classList.add('hidden')
+	$.hide(field)
 
 	field.innerHTML = res
 
 	//show element after it's probably finished loading
-	setTimeout(() => {
-		field.classList.remove('hidden')
-		field.classList.add('visible')
-	}, 250)
+	setTimeout(() => $.show(field), 250)
+
+	//show spinner to indicate resources are loading
+	$.show($('loader'))
 
 	for (var script of field.getElementsByTagName('script'))
 	{
@@ -303,4 +313,6 @@ async function inject(field, url)
 			do_script_eval(script.text, url, false)
 		}
 	}
+
+	$.hide($('loader'))
 }

@@ -21,6 +21,18 @@ async function update_dom(name, data)
 
 async function template(template_name, data)
 {
+	//show spinner to indicate stuff is loading
+	for (var field of document.querySelectorAll('div[name="' + template_name + '"]'))
+	{
+		field.classList.remove('visible')
+		field.classList.add('hidden')
+
+		field.innerHTML = '<i class="gg-spinner"></i>'
+
+		field.classList.remove('hidden')
+		field.classList.add('visible')
+	}
+
 	//if data is actually a Promise, update the dom whenever it resolves.
 	if (typeof data?.then === 'function')
 		data.then(res => { update_dom(template_name, res) })

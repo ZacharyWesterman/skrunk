@@ -12,8 +12,7 @@ _.sync('weather_exec', () => api(`{
 
 window.refresh_users = async function()
 {
-	weather_users = await weather.get_users()
-	_('weather_users', weather_users)
+	_('weather_users', weather.get_users())
 }
 
 window.create_user = async function()

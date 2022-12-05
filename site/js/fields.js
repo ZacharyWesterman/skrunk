@@ -19,6 +19,15 @@ var $ = field => (typeof field === 'object') ? field : document.getElementById(f
 $.val = id => $(id).value
 $.toggle_expand = id => $(id).classList.toggle('expanded')
 
+$.show = id => {
+	$(id).classList.remove('hidden')
+	$(id).classList.add('visible')
+}
+$.hide = id => {
+	$(id).classList.remove('visible')
+	$(id).classList.add('hidden')
+}
+
 $.validate = Validate
 $.enforce = Enforce
 $.on = Events

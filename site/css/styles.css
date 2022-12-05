@@ -38,6 +38,14 @@ input.invalid {
 	padding-left: 1rem;
 }
 
+.bottomleft {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding-left: 1rem;
+	padding-bottom: 2rem;
+}
+
 .hidden {
 	opacity: 0;
 }
