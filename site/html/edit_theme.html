@@ -2,7 +2,9 @@
 
 <div class="card alt">
 	<div class="card-inner">
-		Refresh the page to reset the colors.
+		To reset colors to default values,<br>
+		click the button below.<br>
+		<button class="big wide border" onclick="reset_colors()">Reset Colors</button><br>
 		<p class="error">Here's some example error text.</p>
 	</div>
 </div>
@@ -56,13 +58,36 @@
 </div>
 
 <script>
+	var fields = [
+		'primary',
+		'primary-alt',
+		'primary-text',
+		'secondary',
+		'secondary-text',
+		'tertiary',
+		'tertiary-text',
+		'error-text',
+	]
+
 	window.update_colors = field => {
 		document.querySelector(':root').style.setProperty('--'+field.id, field.value)
 	}
 
-	for (var i of ['primary','primary-alt','primary-text','secondary','secondary-text','tertiary','tertiary-text','error-text',])
-	{
-		var val = getComputedStyle(document.querySelector(':root')).getPropertyValue('--'+i)
-		$(i).value = val
+	window.reset_colors = () => {
+		for (var i of fields)
+		{
+			document.querySelector(':root').style.setProperty('--'+i, '')
+		}
+		setcolors()
 	}
+
+	function setcolors()
+	{
+		for (var i of fields)
+		{
+			var val = getComputedStyle(document.querySelector(':root')).getPropertyValue('--'+i)
+			$(i).value = val
+		}
+	}
+	setcolors()
 </script>
