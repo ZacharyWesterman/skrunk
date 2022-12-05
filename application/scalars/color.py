@@ -2,7 +2,7 @@ __all__ = ['scalar']
 
 from ariadne import ScalarType
 import re
-import exceptions
+import application.exceptions as exceptions
 
 scalar = ScalarType('Color')
 

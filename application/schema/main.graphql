@@ -1,7 +1,6 @@
 type Query {
 	getUser(username: String!): UserQueryReponse!
 	listUsers: [String!]!
-	getUserTheme(username: String!): [ThemeColor!]!
 
 	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
@@ -10,6 +9,7 @@ type Query {
 type Mutation {
 	createUser(username: String!, password: String!): UserCreateResponse!
 	deleteUser(username: String!): UserDeleteResponse!
+	updateUserTheme(username: String!, theme: [ThemeColor_!]!): UserUpdateResponse!
 
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
 	deleteWeatherUser(username: String!): UserDeleteResponse!

@@ -1,5 +1,10 @@
 type UserData {
 	username: String!
+	theme: [ThemeColor!]!
+}
+
+type UserExistsError {
+	message: String!
 }
 
 type UserDoesNotExistError {
@@ -19,7 +24,12 @@ type ThemeColor {
 	value: Color!
 }
 
+input ThemeColor_ {
+	name: String!
+	value: Color!
+}
+
 union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientCreds
-union UserCreateResponse = UserData | BadUserNameError | InsufficientCreds
+union UserCreateResponse = UserData | BadUserNameError | UserExistsError | InsufficientCreds
 union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientCreds
 union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientCreds
