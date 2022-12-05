@@ -9,7 +9,7 @@ type Query {
 type Mutation {
 	createUser(username: String!, password: String!): UserCreateResponse!
 	deleteUser(username: String!): UserDeleteResponse!
-	updateUserTheme(username: String!, theme: [ThemeColor_!]!): UserUpdateResponse!
+	updateUserTheme(username: String!, theme: [ThemeColor!]!): UserUpdateResponse!
 
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
 	deleteWeatherUser(username: String!): UserDeleteResponse!

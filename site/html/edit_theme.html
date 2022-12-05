@@ -90,9 +90,8 @@
 		{
 			colors.push({name: i, value: _.css.get_var(i)})
 		}
-		console.log('savecolors')
 
-		api(`mutation ($username: String!, $theme: [ThemeColor_!]!){
+		api(`mutation ($username: String!, $theme: [ThemeColor!]!){
 			updateUserTheme(username: $username, theme: $theme) {
 				__typename
 				...on UserDoesNotExistError {

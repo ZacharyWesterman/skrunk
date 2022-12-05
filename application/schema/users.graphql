@@ -1,6 +1,6 @@
 type UserData {
 	username: String!
-	theme: [ThemeColor!]!
+	theme: [ThemeColor_!]!
 }
 
 type UserExistsError {
@@ -19,12 +19,12 @@ type InsufficientCreds {
 	message: String!
 }
 
-type ThemeColor {
+type ThemeColor_ {
 	name: String!
 	value: Color!
 }
 
-input ThemeColor_ {
+input ThemeColor {
 	name: String!
 	value: Color!
 }
