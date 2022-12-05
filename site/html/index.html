@@ -6,13 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="boilerplate html" />
 
-	<script type="module" src="js/fields.js" async></script>
+	<script type="module" src="js/fields.js"></script>
 	<script type="text/javascript" src="js/doT.js" async></script>
 	<script type="text/javascript" src="js/api.js"></script>
 
 	<link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body onload="auto_login()">
 	<!-- for background css -->
 	<div class="bg"></div>
 	<div class="bg bg2"></div>
@@ -25,22 +25,26 @@
 </body>
 
 <script>
-	//If not already logged in, go to login page
-	if (api.login_token === null)
+	function auto_login()
 	{
-		navigate('html/login.html')
-	}
-	else
-	{
-		api.verify_token().then(verified => {
-			if (verified)
-			{
-				navigate('html/dashboard.html')
-			}
-			else
-			{
-				api.logout()
-			}
-		})
+		api.read_cookies()
+		//If not already logged in, go to login page
+		if (api.login_token === null)
+		{
+			navigate('html/login.html')
+		}
+		else
+		{
+			api.verify_token().then(verified => {
+				if (verified)
+				{
+					navigate('html/dashboard.html')
+				}
+				else
+				{
+					api.logout()
+				}
+			})
+		}
 	}
 </script>

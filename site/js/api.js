@@ -1,4 +1,3 @@
-
 var api = async function(query_string, variables = null)
 {
 	//shorthand for api.call
@@ -35,7 +34,7 @@ api.authenticate = async function(username, password)
 	const response = JSON.parse(await api.post_json('/auth', auth_json))
 	if (response.error) return false
 
-	api.login_token = response.token
+	api.login_token = 'Bearer ' + response.token
 	return true
 }
 
@@ -46,7 +45,7 @@ api.refresh_token = async function()
 	const response = JSON.parse(await api.post_json('/auth', {token: api.login_token}))
 	if (response.error) return false
 
-	api.login_token = response.token
+	api.login_token = 'Bearer ' + response.token
 	return true
 }
 
@@ -130,16 +129,21 @@ api.post_json = function(url, json_data) {
 api.write_cookies = function()
 {
 	var cookie = {
-		'Authorization': api.login_token ? ('Bearer ' + api.login_token) : null,
-		'SameSite': 'Lax',
+		'Authorization': api.login_token || null,
 	}
 
-	var text = ''
+	for (var i of _.css.vars())
+	{
+		cookie[i] = _.css.get_var(i)
+	}
+
 	for (i in cookie)
 	{
-		text += i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + ';'
+		if (cookie[i] === null)
+			document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+		else
+			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax;'
 	}
-	document.cookie = text
 }
 
 api.read_cookies = function()
@@ -156,6 +160,10 @@ api.read_cookies = function()
 			case 'Authorization':
 				api.login_token = (value === '') ? null : value
 				break
+			case 'SameSite':
+				break
+			default: //assume everything else is a css var
+				_.css.set_var(name, value)
 		}
 	})
 }
@@ -296,5 +304,3 @@ async function inject(field, url)
 		}
 	}
 }
-
-api.read_cookies()

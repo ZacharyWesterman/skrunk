@@ -59,7 +59,8 @@
 
 <script>
 	window.update_colors = field => {
-		_.css.set_var('--'+field.id, field.value)
+		_.css.set_var(field.id, field.value)
+		api.write_cookies()
 	}
 
 	window.reset_colors = () => {
@@ -68,6 +69,7 @@
 			_.css.set_var(i, '')
 		}
 		setcolors()
+		api.write_cookies()
 	}
 
 	function setcolors()
