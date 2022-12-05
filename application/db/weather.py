@@ -20,7 +20,7 @@ def create_user(user_data: dict) -> None:
 	userdata = db.weather.users.find_one({'_id': user_data['username']})
 
 	if userdata:
-		raise exceptions.UserExistsError(f'User "{user_data["username"]}" already exists.')
+		raise exceptions.UserExistsError(user_data["username"])
 	else:
 		userdata = {
 			'_id': user_data['username'],
@@ -40,7 +40,7 @@ def delete_user(username: str) -> None:
 	if userdata:
 		db.weather.users.delete_one({'_id': username})
 	else:
-		raise exceptions.UserDoesNotExistError(f'User "{username}" does not exist.')
+		raise exceptions.UserDoesNotExistError(username)
 
 def set_user_excluded(username: str, exclude: bool) -> dict:
 	global db
@@ -52,7 +52,7 @@ def set_user_excluded(username: str, exclude: bool) -> dict:
 		userdata['exclude'] = exclude
 		return userdata
 	else:
-		raise exceptions.UserDoesNotExistError(f'User "{username}" does not exist.')
+		raise exceptions.UserDoesNotExistError(username)
 
 def update_user(user_data: dict) -> None:
 	global db
@@ -70,7 +70,7 @@ def update_user(user_data: dict) -> None:
 			{'$set': userdata}
 		)
 	else:
-		raise exceptions.UserDoesNotExistError(f'User "{user_data["username"]}" does not exist.')
+		raise exceptions.UserDoesNotExistError(user_data["username"])
 
 #May return None if weather alerts has never been run.
 def get_last_exec() -> dict:

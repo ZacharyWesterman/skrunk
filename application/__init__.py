@@ -8,7 +8,6 @@ from .resolvers import query, mutation
 from .tokens import *
 from .db.users import authenticate
 from .scalars import scalars
-from .exceptions import LoginExpired
 
 import mimetypes
 
