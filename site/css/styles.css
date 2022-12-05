@@ -1,78 +1,16 @@
+
+/*Font to use throughout the whole page*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 @import url('/css/theme.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); /*Font to use throughout the whole page*/
+@import url('/css/icons.css');
+@import url('/css/background.css');
+@import url('/css/modal.css');
+@import url('/css/card.css');
+@import url('/css/button.css');
 
-/*Begin Imported Icon List*/
-@import url('https://css.gg/log-out.css');
-@import url('https://css.gg/user-list.css');
-@import url('https://css.gg/cloud.css');
-@import url('https://css.gg/log-in.css');
-@import url('https://css.gg/color-bucket.css');
-/*End Imported Icon List*/
-
-.gg-log-in {
-	margin-left: 0.75rem;
-}
-
-.gg-log-out {
-	margin-left: 0.25rem;
-}
-
-.gg-user-list {
-	margin-left: 0.1rem;
-}
-
-.gg-cloud {
-	margin-left: 0.35rem;
-	margin-top: 0.35rem;
-}
-
-.gg-color-bucket {
-	margin-top: -0.75rem;
-	margin-left: 0.3rem;
-}
-
-body {
-	color: var(--primary-text);
-	transition: background 0.5s ease-in-out;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-family: 'Poppins', sans-serif;
-}
-
-.bg {
-	animation:slide 3s ease-in-out infinite alternate;
-	background-image: linear-gradient(-60deg, var(--primary) 50%, var(--primary-alt) 50%);
-	bottom:0;
-	left:-50%;
-	opacity:.5;
-	position:fixed;
-	right:-50%;
-	top:0;
-	z-index:-1;
-}
-
-.bg2 {
-	transition: color 0.5s ease-in-out;
-	animation-direction:alternate-reverse;
-	animation-duration:4s;
-}
-
-.bg3 {
-	animation-duration:5s;
-}
-
-@keyframes slide {
-	0% {
-		transform:translateX(-25%);
-	}
-	100% {
-		transform:translateX(25%);
-	}
-}
-
-button {
-	margin-right: 5px;
+input {
+	height: 1.5rem;
 }
 
 input.invalid {
@@ -88,109 +26,8 @@ input.invalid {
 	width: 90%;
 }
 
-.card {
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	transition: 0.3;
-	border-radius: 5px;
-	margin: 10px 0;
-	width: 100%;
-	color: var(--secondary-text);
-	background-color: var(--secondary);
-	transition: background 0.5s ease-in-out;
-}
-
-.card.alt {
-	color: var(--tertiary-text);
-	background-color: var(--tertiary);
-}
-
-.card-inner {
-	padding: 2px 16px 16px 16px;
-}
-
-.card.highlight:hover {
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-	filter: brightness(140%);
-}
-
-.expand-container {
-	overflow: hidden;
-	margin-top: -16px;
-}
-
-.expand-contract {
-	margin-top: -100%;
-	transition: all 0.5s ease-in-out;
-	margin-bottom: 0;
-}
-
-.expand-contract.expanded {
-	margin-top: 0;
-}
-
 .disabled {
 	color: gray;
-}
-
-.modal-outer {
-	position: fixed;
-	display: none;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 200%;
-	overflow: none;
-	background-color: rgba(0,0,0,0.4);
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-	animation-name: animatemodal;
-	animation-duration: 0.4s;
-}
-
-.modal-inner {
-	justify-content: center;
-	align-items: center;
-	display: flex;
-}
-
-.modal-content {
-	background-color: var(--secondary);
-	margin: 15% auto;
-	padding: 2px 16px;
-	border: 1px solid var(--secondary-text);
-	border-radius: 5px;
-}
-
-.close {
-	color: var(--secondary-text);
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.close:hover .close:focus {
-	filter: brightness(140%);
-	text-decoration: none;
-}
-
-@keyframes animatemodal {
-	from {top: -300px; opacity: 0}
-	to {top: 0; opacity: 1}
-}
-
-button.icon {
-	width: 2rem;
-	height: 2rem;
-	background-color: var(--secondary);
-	color: var(--secondary-text);
-	border: none;
-	border-radius: 5px;
-	margin: 10px 0 0 0;
-}
-
-input {
-	height: 1.5rem;
 }
 
 .topleft {
@@ -198,28 +35,6 @@ input {
 	top: 0;
 	left: 0;
 	padding-left: 1rem;
-}
-
-button.big {
-	background-color: var(--secondary);
-	color: var(--secondary-text);
-	border: none;
-	border-radius: 5px;
-	padding: 2px 16px;
-	font-size: 28px;
-	margin-top: 10px;
-}
-
-button.wide {
-	width: 100%;
-}
-
-button.border {
-	border: 1px solid var(--secondary-text);
-}
-
-button:hover {
-	filter: brightness(140%);
 }
 
 .hidden {

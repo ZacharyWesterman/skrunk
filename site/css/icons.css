@@ -1,0 +1,34 @@
+/*Begin Imported Icon List*/
+@import url('https://css.gg/log-out.css');
+@import url('https://css.gg/user-list.css');
+@import url('https://css.gg/cloud.css');
+@import url('https://css.gg/log-in.css');
+@import url('https://css.gg/color-bucket.css');
+/*End Imported Icon List*/
+
+.gg-log-in {
+	margin-left: 0.75rem;
+}
+
+.gg-log-out {
+	margin-left: 0.25rem;
+}
+
+.gg-user-list {
+	margin-left: 0.1rem;
+}
+
+.gg-cloud {
+	margin-left: 0.35rem;
+	margin-top: 0.35rem;
+}
+
+.gg-color-bucket {
+	margin-top: -0.75rem;
+	margin-left: 0.3rem;
+}
+
+/* iOS margins for icons */
+@supports (-webkit-overflow-scrolling: touch) {
+	/* TODO: Figure out correct margins for icons on iOS */
+}
