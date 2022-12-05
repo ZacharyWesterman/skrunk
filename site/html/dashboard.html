@@ -5,3 +5,40 @@
 	<button class="icon" onclick="inject(document.all.content, '/html/edit_theme.html')"><i class="gg-color-bucket"></i></button>
 </div>
 <div id="content" style="margin-left: 3rem;"></div>
+
+<script>
+//Load user theme (regardless of cookies)
+api(`query ($username: String!){
+	getUser(username:$username) {
+		__typename
+		...on UserData {
+			theme {
+				name
+				value
+			}
+		}
+		...on UserDoesNotExistError {
+			message
+		}
+		...on InsufficientCreds {
+			message
+		}
+	}
+}`, {username: api.username}).then(data => {
+	if (data.__typename !== 'UserData')
+	{
+		//If user data does not exist, we don't want them to have access. Kick them out.
+		_.modal({
+			title: '<span class="error">ERROR</span>',
+			text: data.message,
+			buttons: ['OK']
+		}).then(() => api.logout()).catch(() => {})
+	}
+
+	//Load user theme
+	for (var i of data.theme)
+	{
+		_.css.set_var(i.name, i.value)
+	}
+})
+</script>

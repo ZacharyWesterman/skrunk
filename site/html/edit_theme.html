@@ -61,6 +61,7 @@
 	window.update_colors = field => {
 		_.css.set_var(field.id, field.value)
 		api.write_cookies()
+		savecolors()
 	}
 
 	window.reset_colors = () => {
@@ -70,6 +71,7 @@
 		}
 		setcolors()
 		api.write_cookies()
+		savecolors()
 	}
 
 	function setcolors()
@@ -80,4 +82,23 @@
 		}
 	}
 	setcolors()
+
+	function savecolors(wipe = false)
+	{
+		var colors = []
+		for (var i of _.css.vars())
+		{
+			colors.push({name: i, value: _.css.get_var(i)})
+		}
+		console.log('savecolors')
+
+		api(`mutation ($username: String!, $theme: [ThemeColor_!]!){
+			updateUserTheme(username: $username, theme: $theme) {
+				__typename
+				...on UserDoesNotExistError {
+					message
+				}
+			}
+		}`, {username: api.username, theme: colors})
+	}
 </script>

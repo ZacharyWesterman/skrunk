@@ -9,6 +9,7 @@ var api = async function(query_string, variables = null)
 }
 
 api.login_token = null
+api.username = null
 api.__auto_refresh = false
 
 api.call = async function(query_string, variables = null)
@@ -35,6 +36,7 @@ api.authenticate = async function(username, password)
 	if (response.error) return false
 
 	api.login_token = 'Bearer ' + response.token
+	api.username = username
 	return true
 }
 
@@ -130,6 +132,7 @@ api.write_cookies = function()
 {
 	var cookie = {
 		'Authorization': api.login_token || null,
+		'Username': api.username,
 	}
 
 	for (var i of _.css.vars())
@@ -142,7 +145,26 @@ api.write_cookies = function()
 		if (cookie[i] === null)
 			document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 		else
-			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax;'
+		{
+			//All cookies expire after a week
+			var expires = new Date()
+			expires.setDate(expires.getDate() + 7)
+
+			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax; Expires='+expires
+		}
+	}
+}
+
+api.wipe_cookies = function()
+{
+	var cookie = {
+		'Authorization': null,
+		'Username': null,
+	}
+	for (var i of _.css.vars()) cookie[i] = null
+	for (i in cookie)
+	{
+		document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 	}
 }
 
@@ -160,6 +182,9 @@ api.read_cookies = function()
 			case 'Authorization':
 				api.login_token = (value === '') ? null : value
 				break
+			case 'Username':
+				api.username = (value === '') ? null : value
+				break;
 			case 'SameSite':
 				break
 			default: //assume everything else is a css var
