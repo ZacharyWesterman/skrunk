@@ -1,8 +1,9 @@
 type Query {
 	getUser(username: String!): UserQueryReponse!
 	listUsers: [String!]!
-	getWeatherUsers: [WeatherUser!]!
+	getUserTheme(username: String!): [ThemeColor!]!
 
+	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
 }
 
@@ -16,6 +17,3 @@ type Mutation {
 	disableWeatherUser(username: String!): UserUpdateResponse!
 	updateWeatherUser(userdata: WeatherUserInput!): UserUpdateResponse!
 }
-
-scalar PhoneNumber
-scalar DateTime

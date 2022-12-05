@@ -14,6 +14,11 @@ type InsufficientCreds {
 	message: String!
 }
 
+type ThemeColor {
+	name: String!
+	value: Color!
+}
+
 union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientCreds
 union UserCreateResponse = UserData | BadUserNameError | InsufficientCreds
 union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientCreds
