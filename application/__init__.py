@@ -115,20 +115,14 @@ def init(*, no_auth = False, vid_path = None):
 		allowed = [
 			'html/index.html',
 			'html/login.html',
-			'css/styles.css',
-			'css/theme.css',
 			'js/page/index.js',
 			'js/api.js',
 			'js/doT.js',
 			'js/fields.js',
-			'js/fields/enforce.js',
-			'js/fields/modal.js',
-			'js/fields/template.js',
-			'js/fields/validate.js',
-			'js/fields/events.js',
-			'js/fields/control.js',
 		]
-		if not authorized() and path not in allowed:
+		jsfields = re.match(r'js/fields/[\w-]+\.js', path)
+		styles = re.match(r'css/[\w-]+\.css', path)
+		if not authorized() and path not in allowed and not jsfields and not styles:
 			return '', 403
 
 		i = path.rindex('.')
