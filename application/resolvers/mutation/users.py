@@ -8,15 +8,15 @@ def resolve_create_user(_, info, username: str, password: str) -> dict:
 		userdata = create_user(username, password)
 		return { '__typename' : 'UserData', **userdata }
 	except exceptions.ClientError as e:
-		return { '__typename' : e.__class__, 'message' : str(e) }
+		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
 @creds.require(['admin'], perform_on_self = False)
 def resolve_delete_user(_, info, username: str) -> dict:
 	try:
-		# userdata = delete_user(username)
-		return { '__typename' : 'UserData' }
+		userdata = delete_user(username)
+		return { '__typename' : 'UserData', **userdata }
 	except exceptions.ClientError as e:
-		return { '__typename' : e.__class__, 'message' : str(e) }
+		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
 @creds.require(['admin'])
 def resolve_update_user_theme(_, info, username: str, theme: list) -> dict:
@@ -24,4 +24,4 @@ def resolve_update_user_theme(_, info, username: str, theme: list) -> dict:
 		userdata = update_user_theme(username, theme)
 		return { '__typename': 'UserData', **userdata }
 	except exceptions.ClientError as e:
-		return { '__typename': e.__class__, 'message': str(e) }
+		return { '__typename': e.__class__.__name__, 'message': str(e) }

@@ -1,12 +1,25 @@
-<div>
-	<h1>Existing Users</h1>
-	<p>Click on a username to delete that user's login.</p>
-	<div name="userlist"></div>
+<div id="mainpage">
+	<div class="card">
+		<div class="card-inner">
+			<div onclick="$.toggle_expand('card-create')">
+				<h1>Create New User</h1>
+			</div>
 
-	<h1>Create New User</h1>
-	<input id="username" placeholder="Username" onKeyUp="$.enforce.id(this)"><br>
-	<input id="password" type="password" placeholder="Password">
-	<button onclick="create_user()">Submit</button>
+			<div class="expand-container">
+				<div id="card-create" class="expand-contract">
+					<input id="username" placeholder="Username" onKeyUp="$.enforce.id(this)"><br>
+					<input id="password" type="password" placeholder="Password">
+					<button class="icon" onclick="create_user()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h1>Existing Users</h1>
+	<p>Click on a username to edit that user's information.</p>
+	<div id="userlist" name="userlist"></div>
 </div>
+
+<div id="userdata" name="userdata"></div>
 
 <script src="/js/page/users.js"></script>

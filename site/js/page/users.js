@@ -53,6 +53,9 @@ window.create_user = async function()
 			...on BadUserNameError {
 				message
 			}
+			...on UserExistsError {
+				message
+			}
 			...on InsufficientCreds {
 				message
 			}
@@ -64,6 +67,7 @@ window.create_user = async function()
 	}
 
 	var res = await api(query, vars)
+	console.log(res)
 	if (res.__typename !== 'UserData') {
 		_.modal({
 			title: '<span class="error">ERROR</span>',
