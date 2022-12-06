@@ -2,9 +2,9 @@
 	<div class="card-inner">
 		<h1>
 			<button class="icon" onclick="hide_user_data()"><i class="gg-backspace"></i></button>
-			{{=it.user.username}}
+			Edit User Info
 		</h1>
-		<p>Credentials:</p>
+		<h3>{{=it.user.username}}</h3>
 		<table>
 			{{~it.creds: cred}}
 				<tr>
