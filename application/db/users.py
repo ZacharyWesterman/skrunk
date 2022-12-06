@@ -46,6 +46,7 @@ def create_user(username: str, password: str) -> dict:
 		'username': username,
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
 		'theme': [],
+		'creds': [],
 	})
 
 	return {'username': username, 'theme': []}

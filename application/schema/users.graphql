@@ -1,6 +1,7 @@
 type UserData {
 	username: String!
 	theme: [ThemeColor_!]!
+	creds: [String!]!
 }
 
 type UserExistsError {

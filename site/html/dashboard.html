@@ -1,9 +1,4 @@
-<div class="top left">
-	<button class="icon" onclick="api.logout()"><i class="gg-log-out"></i></button><br>
-	<button class="icon" onclick="inject(document.all.content, '/html/users.html')"><i class="gg-user-list"></i></button><br>
-	<button class="icon" onclick="inject(document.all.content, '/html/weather_users.html')"><i class="gg-cloud"></i></button><br>
-	<button class="icon" onclick="inject(document.all.content, '/html/edit_theme.html')"><i class="gg-color-bucket"></i></button>
-</div>
+<div name="navbar"></div>
 <div id="content" style="margin-left: 3rem;"></div>
 
 <script>
@@ -16,6 +11,7 @@ api(`query ($username: String!){
 				name
 				value
 			}
+			creds
 		}
 		...on UserDoesNotExistError {
 			message
@@ -40,5 +36,8 @@ api(`query ($username: String!){
 	{
 		_.css.set_var(i.name, i.value)
 	}
+
+	//Load navbar based on user creds
+	_('navbar', data.creds)
 })
 </script>
