@@ -13,5 +13,6 @@
 				</tr>
 			{{~}}
 		</table>
+		<button class="big wide border" onclick="confirm_delete_user('{{=it.user.username}}')">Delete</button>
 	</div>
 </div>
