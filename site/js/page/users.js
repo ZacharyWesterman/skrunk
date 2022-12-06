@@ -71,6 +71,7 @@ window.confirm_delete_user = async function(username)
 	if (choice !== 'yes') return
 
 	delete_user(username)
+	hide_user_data()
 }
 
 var delete_user = async function(username)
@@ -127,7 +128,6 @@ window.create_user = async function()
 	}
 
 	var res = await api(query, vars)
-	console.log(res)
 	if (res.__typename !== 'UserData') {
 		_.modal({
 			title: '<span class="error">ERROR</span>',
