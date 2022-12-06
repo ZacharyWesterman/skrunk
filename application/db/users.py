@@ -31,6 +31,18 @@ def update_user_theme(username: str, theme: list) -> dict:
 	userdata['theme'] = theme
 	return userdata
 
+def update_user_creds(username: str, creds: list) -> dict:
+	global db
+	userdata = db.data.users.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	db.data.users.update_one({'username': username}, {'$set': {'creds': creds}})
+
+	userdata['creds'] = creds
+	return userdata
+
 def create_user(username: str, password: str) -> dict:
 	global db
 

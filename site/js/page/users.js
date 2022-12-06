@@ -1,5 +1,65 @@
 _('userlist', api('{listUsers}')) //initial load of user list
 
+const Creds = [
+	'admin',
+	'adult',
+]
+
+var UserData = {}
+
+window.load_user_data = async function(username)
+{
+	$.hide('mainpage')
+
+	UserData = await get_user_data(username)
+
+	await _('userdata', {
+		creds: Creds,
+		user: UserData,
+	})
+}
+
+window.hide_user_data = async function()
+{
+	$.hide('userdata')
+	$.show('mainpage')
+}
+
+window.set_creds = async function()
+{
+	UserData.creds = []
+	for (var cred of Creds)
+	{
+		if ($('cred-'+cred).checked) UserData.creds.push(cred)
+	}
+
+	const query = `
+	mutation ($username: String!, $creds: [String!]!){
+		updateUserCreds(username: $username, creds: $creds) {
+			__typename
+			...on UserDoesNotExistError {
+				message
+			}
+			...on InsufficientCreds {
+				message
+			}
+		}
+	}`
+	const vars = {
+		'username' : UserData.username,
+		'creds': UserData.creds,
+	}
+	var res = await api(query, vars)
+	if (res.__typename !== 'UserData') {
+		_.modal({
+			title: '<span class="error">ERROR</span>',
+			text: res.message,
+			buttons: ['OK']
+		}).catch(()=>{})
+		return
+	}
+}
+
 window.confirm_delete_user = async function(username)
 {
 	var choice = await _.modal({

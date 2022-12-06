@@ -1,5 +1,5 @@
 import application.exceptions as exceptions
-from application.db.users import create_user, delete_user, get_user_data, update_user_theme
+from application.db.users import *
 import application.db.creds as creds
 
 @creds.require(['admin'])
@@ -22,6 +22,14 @@ def resolve_delete_user(_, info, username: str) -> dict:
 def resolve_update_user_theme(_, info, username: str, theme: list) -> dict:
 	try:
 		userdata = update_user_theme(username, theme)
+		return { '__typename': 'UserData', **userdata }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@creds.require(['admin'])
+def resolve_update_user_creds(_, info, username: str, creds: list) -> dict:
+	try:
+		userdata = update_user_creds(username, creds)
 		return { '__typename': 'UserData', **userdata }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }

@@ -20,12 +20,16 @@ $.val = id => $(id).value
 $.toggle_expand = id => $(id).classList.toggle('expanded')
 
 $.show = id => {
-	$(id).classList.remove('hidden')
-	$(id).classList.add('visible')
+	$(id).style.display = ''
+	setTimeout(() => {
+		$(id).classList.remove('hidden')
+		$(id).classList.add('visible')
+	}, 50)
 }
 $.hide = id => {
 	$(id).classList.remove('visible')
 	$(id).classList.add('hidden')
+	$(id).style.display = 'none'
 }
 
 $.validate = Validate

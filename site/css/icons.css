@@ -5,6 +5,8 @@
 @import url('https://css.gg/log-in.css');
 @import url('https://css.gg/color-bucket.css');
 @import url('https://css.gg/spinner.css');
+@import url('https://css.gg/enter.css');
+@import url('https://css.gg/backspace.css');
 /*End Imported Icon List*/
 
 .gg-log-in {
@@ -27,6 +29,15 @@
 .gg-color-bucket {
 	margin-top: -0.75rem;
 	margin-left: 0.3rem;
+}
+
+.gg-enter {
+	margin-top: 0.2rem;
+	margin-left: 0.3rem;
+}
+
+.gg-backspace {
+	margin-left: 0.5rem;
 }
 
 /* iOS margins for icons */

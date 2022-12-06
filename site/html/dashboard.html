@@ -2,25 +2,31 @@
 <div id="content" style="margin-left: 3rem;"></div>
 
 <script>
-//Load user theme (regardless of cookies)
-api(`query ($username: String!){
-	getUser(username:$username) {
-		__typename
-		...on UserData {
-			theme {
-				name
-				value
+window.get_user_data = async function(username)
+{
+	return await api(`query ($username: String!){
+		getUser(username:$username) {
+			__typename
+			...on UserData {
+				username
+				theme {
+					name
+					value
+				}
+				creds
 			}
-			creds
+			...on UserDoesNotExistError {
+				message
+			}
+			...on InsufficientCreds {
+				message
+			}
 		}
-		...on UserDoesNotExistError {
-			message
-		}
-		...on InsufficientCreds {
-			message
-		}
-	}
-}`, {username: api.username}).then(data => {
+	}`, {username: username})
+}
+
+//Load user theme (regardless of cookies)
+get_user_data(api.username).then(data => {
 	if (data.__typename !== 'UserData')
 	{
 		//If user data does not exist, we don't want them to have access. Kick them out.

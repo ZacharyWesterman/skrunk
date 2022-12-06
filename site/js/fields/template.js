@@ -15,7 +15,9 @@ async function update_dom(name, data)
 		}
 
 		const pagefn = __template_map[template_name]
+		$.hide(field)
 		field.innerHTML = pagefn((data !== undefined) ? data : field)
+		$.show(field)
 	}
 }
 
@@ -24,13 +26,9 @@ async function template(template_name, data)
 	//show spinner to indicate stuff is loading
 	for (var field of document.querySelectorAll('div[name="' + template_name + '"]'))
 	{
-		field.classList.remove('visible')
-		field.classList.add('hidden')
-
+		$.hide(field)
 		field.innerHTML = '<i class="gg-spinner"></i>'
-
-		field.classList.remove('hidden')
-		field.classList.add('visible')
+		$.show(field)
 	}
 
 	//if data is actually a Promise, update the dom whenever it resolves.
