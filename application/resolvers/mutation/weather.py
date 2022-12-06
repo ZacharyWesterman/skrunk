@@ -1,6 +1,8 @@
 import application.exceptions as exceptions
 from application.db.weather import create_user, delete_user, set_user_excluded, update_user
+import application.db.creds as creds
 
+@creds.require(['admin'])
 def resolve_create_weather_user(_, info, userdata: dict) -> dict:
 	try:
 		create_user(userdata)
@@ -8,6 +10,7 @@ def resolve_create_weather_user(_, info, userdata: dict) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename' : 'BadUserNameError', 'message' : str(e) }
 
+@creds.require(['admin'], perform_on_self = False)
 def resolve_delete_weather_user(_, info, username: str) -> dict:
 	try:
 		delete_user(username)
@@ -15,6 +18,7 @@ def resolve_delete_weather_user(_, info, username: str) -> dict:
 	except exceptions.UserDoesNotExistError as e:
 		return { '__typename' : 'UserDoesNotExistError', 'message' : str(e) }
 
+@creds.require(['admin'])
 def resolve_enable_weather_user(_, info, username: str) -> dict:
 	try:
 		userdata = set_user_excluded(username, False)
@@ -22,6 +26,7 @@ def resolve_enable_weather_user(_, info, username: str) -> dict:
 	except exceptions.UserDoesNotExistError as e:
 		return { '__typename' : 'UserDoesNotExistError', 'message' : str(e) }
 
+@creds.require(['admin'])
 def resolve_disable_weather_user(_, info, username: str) -> dict:
 	try:
 		userdata = set_user_excluded(username, True)
@@ -29,6 +34,7 @@ def resolve_disable_weather_user(_, info, username: str) -> dict:
 	except exceptions.UserDoesNotExistError as e:
 		return { '__typename' : 'UserDoesNotExistError', 'message' : str(e) }
 
+@creds.require(['admin'])
 def resolve_update_weather_user(_, info, userdata: dict) -> dict:
 	try:
 		update_user(userdata)

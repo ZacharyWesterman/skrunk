@@ -38,6 +38,7 @@ var delete_user = async function(username)
 			text: res.message,
 			buttons: ['OK']
 		}).catch(()=>{})
+		return
 	}
 
 	_('userlist', api('{listUsers}')) //refresh user list

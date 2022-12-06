@@ -55,10 +55,11 @@ def delete_user(username: str) -> None:
 	global db
 	userdata = db.data.users.find_one({'username': username})
 
-	if userdata:
-		db.data.users.delete_one({'username': username})
-	else:
+	if not userdata:
 		raise exceptions.UserDoesNotExistError(username)
+
+	db.data.users.delete_one({'username': username})
+	return userdata
 
 def authenticate(username: str, password: str) -> str:
 	userdata = get_user_data(username)
