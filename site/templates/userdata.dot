@@ -4,7 +4,7 @@
 			<button class="icon" onclick="hide_user_data()"><i class="gg-backspace"></i></button>
 			Edit User Info
 		</h1>
-		<h3>{{=it.user.username}}</h3>
+		<h2>{{=it.user.username}}</h2>
 		<table>
 			{{~it.creds: cred}}
 				<tr>
