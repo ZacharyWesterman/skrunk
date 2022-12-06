@@ -134,7 +134,14 @@ window.create_user = async function()
 			text: res.message,
 			buttons: ['OK']
 		}).catch(()=>{})
+		return
 	}
+
+	$('username').value = ''
+	$('password').value = ''
 
 	_('userlist', api('{listUsers}')) //refresh user list
 }
+
+$.on.enter($('username'), $.next)
+$.on.enter($('password'), create_user)
