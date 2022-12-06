@@ -28,7 +28,7 @@ input.invalid {
 }
 
 .disabled {
-	color: gray;
+	color: var(--disabled-text);
 }
 
 .top {

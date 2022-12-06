@@ -16,10 +16,6 @@ button.wide {
 	width: 100%;
 }
 
-button.border {
-	border: 1px solid var(--secondary-text);
-}
-
 button:hover {
 	filter: brightness(140%);
 }
@@ -32,6 +28,10 @@ button.icon {
 	border: none;
 	border-radius: 5px;
 	margin: 10px 0 0 0;
+}
+
+button.border {
+	border: 1px solid var(--secondary-text);
 }
 
 button.icon.alt {
