@@ -1,5 +1,5 @@
 import application.exceptions as exceptions
-
+from datetime import datetime
 import bcrypt
 
 db = None
@@ -55,6 +55,7 @@ def create_user(username: str, password: str) -> dict:
 	db.data.users.insert_one({
 		'username': username,
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
+		'created': datetime.now(),
 		'theme': [],
 		'creds': [],
 	})
