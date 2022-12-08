@@ -1,10 +1,8 @@
 import application.exceptions as exceptions
-from pymongo import MongoClient
 
 import bcrypt
 
-__mongo_url = 'mongodb://192.168.1.184:27017/'
-db = MongoClient(__mongo_url)
+db = None
 
 def get_user_list() -> list:
 	global db

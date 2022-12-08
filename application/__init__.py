@@ -8,13 +8,16 @@ from .resolvers import query, mutation
 from .tokens import *
 from .db.users import authenticate
 from .scalars import scalars
+from .db import init_db
 
 import mimetypes
 
 import re
 import os
 
-def init(*, no_auth = False, vid_path = None):
+def init(*, no_auth = False, vid_path = None, data_db_url = '', weather_db_url = ''):
+	init_db(data_db_url, weather_db_url)
+
 	application = Flask(__name__)
 
 	type_defs = ariadne.load_schema_from_path('application/schema')
@@ -206,5 +209,12 @@ def init(*, no_auth = False, vid_path = None):
 	@application.route('/background.svg', methods=['GET'])
 	def background_image():
 		return read_file_data('data/background.svg')
+
+	@application.route('/upload', methods=['POST'])
+	def upload_file():
+		f = request.files['file']
+		print(f.filename)
+
+		return '', 200
 
 	return application

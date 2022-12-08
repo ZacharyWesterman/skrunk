@@ -4,8 +4,7 @@ from pymongo import MongoClient
 import application.exceptions as exceptions
 from application.tokens import decode_user_token
 
-__mongo_url = 'mongodb://192.168.1.184:27017/'
-db = MongoClient(__mongo_url)
+db = None
 
 def bad_creds() -> dict:
 	return {
