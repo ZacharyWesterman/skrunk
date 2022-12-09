@@ -15,7 +15,7 @@ import mimetypes
 import re
 import os
 
-def init(*, no_auth = False, vid_path = None, data_db_url = '', weather_db_url = ''):
+def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url = ''):
 	init_db(data_db_url, weather_db_url)
 
 	application = Flask(__name__)
@@ -174,13 +174,13 @@ def init(*, no_auth = False, vid_path = None, data_db_url = '', weather_db_url =
 
 		return chunk, start, length, file_size
 
-	@application.route('/video/<path:path>', methods=['GET'])
-	def video_stream(path: str):
+	@application.route('/blob/<path:path>', methods=['GET'])
+	def blob_stream(path: str):
 		if not authorized():
 			return '', 403
 
-		if vid_path is None:
-			return 'No video path specified in server setup.', 404
+		if blob_path is None:
+			return 'No blob data path specified in server setup.', 404
 
 		range_header = request.headers.get('Range')
 		byte1, byte2 = 0, None
@@ -193,10 +193,12 @@ def init(*, no_auth = False, vid_path = None, data_db_url = '', weather_db_url =
 			if groups[1]:
 				byte2 = int(groups[1])
 
-		full_path = f'{vid_path}/{path}'
+		full_path = f'{blob_path}/{path}'
 		try:
 			chunk, start, length, file_size = get_chunk(full_path, byte1, byte2)
-			resp = Response(chunk, 206, mimetype='video/mp4', content_type='video/mp4', direct_passthrough=True)
+			mime = mimetypes.guess_type(path)
+
+			resp = Response(chunk, 206, mimetype=mime[0], content_type=mime[0], direct_passthrough=True)
 			resp.headers.add('Content-Range', f'bytes {start}-{start+length-1}/{file_size}')
 			return resp
 		except FileNotFoundError as e:
