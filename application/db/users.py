@@ -29,16 +29,16 @@ def update_user_theme(username: str, theme: list) -> dict:
 	userdata['theme'] = theme
 	return userdata
 
-def update_user_creds(username: str, creds: list) -> dict:
+def update_user_perms(username: str, perms: list) -> dict:
 	global db
 	userdata = db.data.users.find_one({'username': username})
 
 	if not userdata:
 		raise exceptions.UserDoesNotExistError(username)
 
-	db.data.users.update_one({'username': username}, {'$set': {'creds': creds}})
+	db.data.users.update_one({'username': username}, {'$set': {'perms': perms}})
 
-	userdata['creds'] = creds
+	userdata['perms'] = perms
 	return userdata
 
 def create_user(username: str, password: str) -> dict:
@@ -57,7 +57,7 @@ def create_user(username: str, password: str) -> dict:
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
 		'created': datetime.now(),
 		'theme': [],
-		'creds': [],
+		'perms': [],
 	})
 
 	return {'username': username, 'theme': []}

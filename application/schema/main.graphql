@@ -11,7 +11,7 @@ type Mutation {
 	createUser(username: String!, password: String!): UserCreateResponse!
 	deleteUser(username: String!): UserDeleteResponse!
 	updateUserTheme(username: String!, theme: [ThemeColor!]!): UserUpdateResponse!
-	updateUserCreds(username: String!, creds: [String!]!): UserUpdateResponse!
+	updateUserPerms(username: String!, perms: [String!]!): UserUpdateResponse!
 	revokeSessions(username: String!): Int!
 
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!

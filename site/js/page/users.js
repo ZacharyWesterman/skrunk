@@ -1,6 +1,6 @@
 _('userlist', api('{listUsers}')) //initial load of user list
 
-const Creds = [
+const Perms = [
 	'admin',
 	'adult',
 ]
@@ -30,7 +30,7 @@ window.load_user_data = async function(username)
 	const session_ct = await api(`query($username: String!){countSessions(username: $username)}`, {username: username})
 
 	await _('userdata', {
-		creds: Creds,
+		perms: Perms,
 		user: UserData,
 		sessions: session_ct,
 	})
@@ -42,29 +42,29 @@ window.hide_user_data = async function()
 	$.show('mainpage')
 }
 
-window.set_creds = async function()
+window.set_perms = async function()
 {
-	UserData.creds = []
-	for (var cred of Creds)
+	UserData.perms = []
+	for (var perm of Perms)
 	{
-		if ($('cred-'+cred).checked) UserData.creds.push(cred)
+		if ($('perm-'+perm).checked) UserData.perms.push(perm)
 	}
 
 	const query = `
-	mutation ($username: String!, $creds: [String!]!){
-		updateUserCreds(username: $username, creds: $creds) {
+	mutation ($username: String!, $perms: [String!]!){
+		updateUserPerms(username: $username, perms: $perms) {
 			__typename
 			...on UserDoesNotExistError {
 				message
 			}
-			...on InsufficientCreds {
+			...on InsufficientPerms {
 				message
 			}
 		}
 	}`
 	const vars = {
 		'username' : UserData.username,
-		'creds': UserData.creds,
+		'perms': UserData.perms,
 	}
 	var res = await api(query, vars)
 	if (res.__typename !== 'UserData') {
@@ -100,7 +100,7 @@ var delete_user = async function(username)
 			...on UserDoesNotExistError {
 				message
 			}
-			...on InsufficientCreds {
+			...on InsufficientPerms {
 				message
 			}
 		}
@@ -134,7 +134,7 @@ window.create_user = async function()
 			...on UserExistsError {
 				message
 			}
-			...on InsufficientCreds {
+			...on InsufficientPerms {
 				message
 			}
 		}

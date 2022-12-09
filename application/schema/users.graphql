@@ -1,7 +1,7 @@
 type UserData {
 	username: String!
 	theme: [ThemeColor_!]!
-	creds: [String!]!
+	perms: [String!]!
 }
 
 type UserExistsError {
@@ -16,7 +16,7 @@ type BadUserNameError {
 	message: String!
 }
 
-type InsufficientCreds {
+type InsufficientPerms {
 	message: String!
 }
 
@@ -30,7 +30,7 @@ input ThemeColor {
 	value: Color!
 }
 
-union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientCreds
-union UserCreateResponse = UserData | BadUserNameError | UserExistsError | InsufficientCreds
-union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientCreds
-union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientCreds
+union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientPerms
+union UserCreateResponse = UserData | BadUserNameError | UserExistsError | InsufficientPerms
+union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientPerms
+union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientPerms

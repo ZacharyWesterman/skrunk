@@ -18,12 +18,12 @@ window.get_user_data = async function(username)
 					name
 					value
 				}
-				creds
+				perms
 			}
 			...on UserDoesNotExistError {
 				message
 			}
-			...on InsufficientCreds {
+			...on InsufficientPerms {
 				message
 			}
 		}
@@ -48,7 +48,7 @@ get_user_data(api.username).then(data => {
 		_.css.set_var(i.name, i.value)
 	}
 
-	//Load navbar based on user creds
-	_('navbar', data.creds)
+	//Load navbar based on user perms
+	_('navbar', data.perms)
 })
 </script>

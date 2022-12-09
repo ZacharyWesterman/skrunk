@@ -19,7 +19,7 @@ window.weather = {
 				...on BadUserNameError {
 					message
 				}
-				...on InsufficientCreds {
+				...on InsufficientPerms {
 					message
 				}
 			}
@@ -42,7 +42,7 @@ window.weather = {
 				...on UserDoesNotExistError {
 					message
 				}
-				...on InsufficientCreds {
+				...on InsufficientPerms {
 					message
 				}
 			}
@@ -60,7 +60,7 @@ window.weather = {
 				...on UserDoesNotExistError {
 					message
 				}
-				...on InsufficientCreds {
+				...on InsufficientPerms {
 					message
 				}
 			}
@@ -78,7 +78,7 @@ window.weather = {
 				...on UserDoesNotExistError {
 					message
 				}
-				...on InsufficientCreds {
+				...on InsufficientPerms {
 					message
 				}
 			}
@@ -96,7 +96,7 @@ window.weather = {
 				...on UserDoesNotExistError {
 					message
 				}
-				...on InsufficientCreds {
+				...on InsufficientPerms {
 					message
 				}
 			}

@@ -6,10 +6,10 @@
 		</h1>
 		<h2>{{=it.user.username}}</h2>
 		<table>
-			{{~it.creds: cred}}
+			{{~it.perms: perm}}
 				<tr>
-					<td>{{=cred}}</td>
-					<td><input id="cred-{{=cred}}" type="checkbox" {{?it.user.creds.includes(cred)}}checked{{?}} onclick="set_creds()" {{?(cred==='admin') && (api.username === it.user.username)}}disabled{{?}}></td>
+					<td>{{=perm}}</td>
+					<td><input id="perm-{{=perm}}" type="checkbox" {{?it.user.perms.includes(perm)}}checked{{?}} onclick="set_perms()" {{?(perm==='admin') && (api.username === it.user.username)}}disabled{{?}}></td>
 				</tr>
 			{{~}}
 		</table>
