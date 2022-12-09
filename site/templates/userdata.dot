@@ -1,22 +1,30 @@
 <div class="card">
 	<div class="card-inner">
 		<h1>
-			<button class="icon" onclick="hide_user_data()"><i class="gg-backspace"></i></button>
+			{{?!it.self_view}}
+				<button class="icon" onclick="hide_user_data()"><i class="gg-backspace"></i></button>
+			{{?}}
 			Edit User Info
 		</h1>
 		<h2>{{=it.user.username}}</h2>
-		<table>
-			{{~it.perms: perm}}
-				<tr>
-					<td>{{=perm}}</td>
-					<td><input id="perm-{{=perm}}" type="checkbox" {{?it.user.perms.includes(perm)}}checked{{?}} onclick="set_perms()" {{?(perm==='admin') && (api.username === it.user.username)}}disabled{{?}}></td>
-				</tr>
-			{{~}}
-		</table>
+		{{?!it.self_view}}
+			<table>
+				{{~it.perms: perm}}
+					<tr>
+						<td>{{=perm}}</td>
+						<td><input id="perm-{{=perm}}" type="checkbox" {{?it.user.perms.includes(perm)}}checked{{?}} onclick="set_perms()" {{?(perm==='admin') && (api.username === it.user.username)}}disabled{{?}}></td>
+					</tr>
+				{{~}}
+			</table>
+		{{?}}
 		<p>
 			<i style="float:left;">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
 			<button style="float:right;" onclick="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
 		</p>
-		<button class="big wide border" onclick="confirm_delete_user('{{=it.user.username}}')">Delete</button>
+		{{?!it.self_view}}
+			<button class="big wide border" onclick="confirm_delete_user('{{=it.user.username}}')">Delete</button>
+		{{??}}
+			<br>
+		{{?}}
 	</div>
 </div>

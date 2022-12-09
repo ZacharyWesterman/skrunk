@@ -1,5 +1,3 @@
-var weather_users = []
-
 //periodically check api status
 _.sync('weather_exec', () => api(`{
 	getLastWeatherExec{
@@ -107,5 +105,3 @@ window.can_create = function()
 
 	$('create-button').disabled = false
 }
-
-refresh_users()

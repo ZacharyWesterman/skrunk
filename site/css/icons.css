@@ -7,6 +7,7 @@
 @import url('https://css.gg/spinner.css');
 @import url('https://css.gg/enter.css');
 @import url('https://css.gg/backspace.css');
+@import url('https://css.gg/user.css');
 /*End Imported Icon List*/
 
 .gg-log-in {
@@ -19,6 +20,10 @@
 
 .gg-user-list {
 	margin-left: 0.1rem;
+}
+
+.gg-user {
+	margin-left: 0.4rem;
 }
 
 .gg-cloud {
