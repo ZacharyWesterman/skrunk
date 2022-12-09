@@ -18,4 +18,4 @@ def revoke_sessions(username: str) -> None:
 	db.data.user_sessions.delete_many({'username': username})
 
 def count_valid_sessions(username: str) -> int:
-	return db.data.user_sessions.count({'username': username})
+	return db.data.user_sessions.count_documents({'username': username})

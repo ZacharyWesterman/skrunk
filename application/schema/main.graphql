@@ -1,6 +1,7 @@
 type Query {
 	getUser(username: String!): UserQueryReponse!
 	listUsers: [String!]!
+	countSessions(username: String!): Int!
 
 	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
@@ -11,6 +12,7 @@ type Mutation {
 	deleteUser(username: String!): UserDeleteResponse!
 	updateUserTheme(username: String!, theme: [ThemeColor!]!): UserUpdateResponse!
 	updateUserCreds(username: String!, creds: [String!]!): UserUpdateResponse!
+	revokeSessions(username: String!): Int!
 
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
 	deleteWeatherUser(username: String!): UserDeleteResponse!
