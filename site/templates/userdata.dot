@@ -13,6 +13,10 @@
 				</tr>
 			{{~}}
 		</table>
+		<p>
+			<i style="float:left;">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
+			<button style="float:right;" onclick="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
+		</p>
 		<button class="big wide border" onclick="confirm_delete_user('{{=it.user.username}}')">Delete</button>
 	</div>
 </div>

@@ -7,15 +7,32 @@ const Creds = [
 
 var UserData = {}
 
+window.revoke_sessions = async function(username)
+{
+	const choice = await _.modal({
+		title: 'Revoke User Sessions',
+		text: 'Are you sure you want to revoke all sessions for user "' + username + '"? This will log them out.',
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	await api(`mutation($username: String!){revokeSessions(username: $username)}`, {username: username})
+	const session_ct = await api(`query($username: String!){countSessions(username: $username)}`, {username: username})
+	$('session-ct-' + username).innerText = session_ct
+}
+
 window.load_user_data = async function(username)
 {
 	$.hide('mainpage')
 
 	UserData = await get_user_data(username)
+	const session_ct = await api(`query($username: String!){countSessions(username: $username)}`, {username: username})
 
 	await _('userdata', {
 		creds: Creds,
 		user: UserData,
+		sessions: session_ct,
 	})
 }
 
