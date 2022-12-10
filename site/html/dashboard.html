@@ -1,13 +1,12 @@
-<div name="navbar"></div>
-<div id="content" style="margin-left: 3rem;">
-	<input id="file" type="file" name="file">
-	<button onclick="upload_file()">Upload</button>
+<div name="upload_modal"></div>
 
-	<div name="blob_list"></div>
-</div>
+<div name="navbar"></div>
+
+<div id="content" style="margin-left: 3rem;"></div>
 
 <script src="/js/date.js"></script>
 <script src="/js/page/dashboard.js"></script>
+
 <script>
 window.upload_file = async function()
 {
@@ -53,5 +52,5 @@ window.reload_blobs = async function()
 	await _('blob_list', blobs)
 }
 
-reload_blobs()
+// reload_blobs()
 </script>
