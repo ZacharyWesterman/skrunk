@@ -28,8 +28,8 @@ window.upload_file = async function()
 
 async function get_blobs()
 {
-	return await api(`query ($username: String!, $start: Int!, $count: Int!){
-		getUserBlobs(username: $username, start: $start, count: $count) {
+	return await api(`query ($start: Int!, $count: Int!){
+		getAllBlobs(start: $start, count: $count) {
 			id
 			ext
 			mimetype
@@ -38,7 +38,6 @@ async function get_blobs()
 			created
 		}
 	}`, {
-		username: api.username,
 		start: 0,
 		count: 20,
 	})
