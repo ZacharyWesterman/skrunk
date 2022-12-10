@@ -1,6 +1,5 @@
 __all__ = ['require']
 
-from pymongo import MongoClient
 import application.exceptions as exceptions
 from application.tokens import decode_user_token
 

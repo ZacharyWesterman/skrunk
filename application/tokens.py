@@ -1,6 +1,7 @@
 from cryptography.hazmat.primitives import serialization
 import jwt, os
 from datetime import datetime, timedelta
+from flask import request
 
 from .db.sessions import start_session, valid_session
 
@@ -29,3 +30,26 @@ def decode_user_token(token: str) -> dict:
 
 def token_is_valid(token: str) -> bool:
 	return valid_session(token)
+
+def get_request_token() -> str:
+	if 'Authorization' in request.headers:
+		token = request.headers['Authorization']
+	elif 'Cookie' in request.headers:
+		token = decode_cookies(request.headers['Cookie']).get('Authorization', '')
+	else:
+		return None
+
+	token = token.split(' ')
+	if len(token) < 2:
+		return None
+
+	return token[1]
+
+def decode_cookies(cookies: str) -> dict:
+	output = {}
+	for i in cookies.split(';'):
+		cookie = i.split('=')
+		key, value = cookie[0].strip(), cookie[1].strip()
+		if key != '':
+			output[key] = value
+	return output

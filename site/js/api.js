@@ -105,6 +105,33 @@ api.get = function(url) {
 	})
 }
 
+api.upload = function(file, progress_handler) {
+	return new Promise((resolve, reject) => {
+		var xhr = new XMLHttpRequest
+		var data = new FormData
+
+		data.append('file', file)
+		xhr.upload.addEventListener('progress', progress_handler, false)
+		xhr.open('POST', '/upload', true)
+		xhr.send(data)
+
+		xhr.onload = () => {
+			if (xhr.status >= 200 && xhr.status < 300)
+			{
+				resolve(xhr.responseText)
+			}
+			else
+			{
+				reject({text: xhr.responseText, status: xhr.status, statusText: xhr.statusText})
+			}
+		}
+
+		xhr.onerror = () => {
+			reject({text: '', status: xhr.status, statusText: xhr.statusText})
+		}
+	})
+}
+
 api.post_json = function(url, json_data) {
 	return new Promise((resolve, reject) => {
 		var xhr = new XMLHttpRequest()

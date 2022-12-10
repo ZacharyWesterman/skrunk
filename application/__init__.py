@@ -8,7 +8,7 @@ from .resolvers import query, mutation
 from .tokens import *
 from .db.users import authenticate
 from .scalars import scalars
-from .db import init_db
+from .db import init_db, blob
 
 import mimetypes
 
@@ -31,32 +31,16 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			else:
 				return fp.read(), 200
 
-	def decode_cookies(cookies: str) -> dict:
-		output = {}
-		for i in cookies.split(';'):
-			cookie = i.split('=')
-			key, value = cookie[0].strip(), cookie[1].strip()
-			if key != '':
-				output[key] = value
-		return output
-
 	def authorized():
 		if no_auth:
 			print('NO-AUTH: Auth set to True')
 			return True
 
-		if 'Authorization' in request.headers:
-			token = request.headers['Authorization']
-		elif 'Cookie' in request.headers:
-			token = decode_cookies(request.headers['Cookie']).get('Authorization', '')
-		else:
+		token = get_request_token()
+		if token is None:
 			return False
 
-		token = token.split(' ')
-		if len(token) < 2:
-			return False
-
-		return token_is_valid(token[1])
+		return token_is_valid(token)
 
 	@application.route('/auth/verify', methods=['POST', 'GET'])
 	def verify_token():
@@ -214,9 +198,19 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 	@application.route('/upload', methods=['POST'])
 	def upload_file():
-		f = request.files['file']
-		print(f.filename)
+		if not authorized():
+			return '', 403
 
-		return '', 200
+		if blob_path is None:
+			return 'No blob data path specified in server setup.', 404
+
+		f = request.files.get('file')
+		if f is None:
+			return 'No file given.', 400
+
+		id, ext = blob.create_blob(blob_path, f.filename)
+		f.save(f'{blob_path}/{id}.{ext}')
+
+		return str(id), 200
 
 	return application

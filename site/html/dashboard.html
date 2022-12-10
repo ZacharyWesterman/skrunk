@@ -1,11 +1,10 @@
 <div name="navbar"></div>
 <div id="content" style="margin-left: 3rem;">
 	<form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return function()">
-		<input type="file" name="file">
+		<input id="file" type="file" name="file">
 		<input type="submit" value="Submit">
 	</form>
 </div>
-<audio src="/blob/Portal Radio Song.mp3" controls>test</audio>
 
 <script>
 window.get_user_data = async function(username)
