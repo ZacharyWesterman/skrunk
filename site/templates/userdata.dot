@@ -2,7 +2,7 @@
 	<div class="card-inner">
 		<h1>
 			{{?!it.self_view}}
-				<button class="icon" onclick="hide_user_data()"><i class="gg-backspace"></i></button>
+				<button class="icon" onclick="hide_user_data()"><i class="fa-solid fa-xmark fa-xl"></i></button>
 			{{?}}
 			Edit User Info
 		</h1>
