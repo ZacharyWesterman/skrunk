@@ -16,7 +16,7 @@ import re
 import os
 
 def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url = ''):
-	init_db(data_db_url, weather_db_url)
+	init_db(data_db_url, weather_db_url, blob_path)
 
 	application = Flask(__name__)
 
@@ -209,7 +209,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			return 'No file given.', 400
 
 		id, ext = blob.create_blob(blob_path, f.filename)
-		f.save(f'{blob_path}/{id}.{ext}')
+		f.save(blob.path(id, ext))
 
 		return str(id), 200
 

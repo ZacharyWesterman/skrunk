@@ -1,0 +1,9 @@
+type Blob {
+	id: String!
+	created: DateTime!
+	creator: String!
+	name: String!
+	ext: String!
+	mimetype: String!
+	tags: [String!]!
+}

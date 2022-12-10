@@ -5,6 +5,9 @@ type Query {
 
 	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
+
+	getUserBlobs(username: String!, start: Int!, count: Int!): [Blob!]!
+	countUserBlobs(username: String!): Int!
 }
 
 type Mutation {
@@ -19,4 +22,6 @@ type Mutation {
 	enableWeatherUser(username: String!): UserUpdateResponse!
 	disableWeatherUser(username: String!): UserUpdateResponse!
 	updateWeatherUser(userdata: WeatherUserInput!): UserUpdateResponse!
+
+	deleteBlob(id: String!): Boolean!
 }

@@ -2,6 +2,7 @@ from ariadne import MutationType
 from .users import *
 from .weather import *
 from .sessions import resolve_revoke_user_sessions
+from .blob import resolve_delete_blob
 
 mutation = MutationType()
 
@@ -16,3 +17,5 @@ mutation.set_field('deleteWeatherUser', resolve_delete_weather_user)
 mutation.set_field('enableWeatherUser', resolve_enable_weather_user)
 mutation.set_field('disableWeatherUser', resolve_disable_weather_user)
 mutation.set_field('updateWeatherUser', resolve_update_weather_user)
+
+mutation.set_field('deleteBlob', resolve_delete_blob)
