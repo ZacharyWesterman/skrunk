@@ -8,7 +8,7 @@
 					<source type="{{=blob.mimetype}}" src="blob/{{=blob.id}}.{{=blob.ext}}">
 				</video>
 			{{??blob.mimetype.split('/')[0] == 'image'}}
-				<image src="blob/{{=blob.id}}.{{=blob.ext}}"></image>
+				<image width="100%" height="auto" src="blob/{{=blob.id}}.{{=blob.ext}}"></image>
 			{{?}}
 		</div>
 	</div>
