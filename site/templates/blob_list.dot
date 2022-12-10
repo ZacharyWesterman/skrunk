@@ -9,6 +9,10 @@
 				</video>
 			{{??blob.mimetype.split('/')[0] == 'image'}}
 				<image width="100%" height="auto" src="blob/{{=blob.id}}.{{=blob.ext}}"></image>
+			{{??blob.mimetype.split('/')[0] == 'audio'}}
+				<audio src="blob/{{=blob.id}}.{{=blob.ext}}" controls></audio>
+			{{??}}
+				<p class="error">ERROR: Unknown mimetype "{{=blob.mimetype}}" for file of type "{{=blob.ext}}".</p>
 			{{?}}
 		</div>
 	</div>
