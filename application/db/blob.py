@@ -30,7 +30,7 @@ def create_blob(dir: str, name: str, tags: list = []) -> str:
 def get_user_blobs(username: str, start: int, count: int) -> list:
 	global db
 	blobs = []
-	for i in db.data.blob.find({'creator': username}).limit(count).skip(start):
+	for i in db.data.blob.find({'creator': username}, sort=[('created', -1)]).limit(count).skip(start):
 		i['id'] = i['_id']
 		blobs += [i]
 
@@ -39,7 +39,7 @@ def get_user_blobs(username: str, start: int, count: int) -> list:
 def get_all_blobs(start: int, count: int) -> list:
 	global db
 	blobs = []
-	for i in db.data.blob.find({}).limit(count).skip(start):
+	for i in db.data.blob.find({}, sort=[('created', -1)]).limit(count).skip(start):
 		i['id'] = i['_id']
 		blobs += [i]
 
