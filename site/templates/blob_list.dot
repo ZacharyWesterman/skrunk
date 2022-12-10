@@ -1,0 +1,15 @@
+{{~it:blob}}
+	<div class="card">
+		<div class="card-inner">
+			{{=blob.id}}<br>
+			{{=blob.name}}<br>
+			{{?blob.mimetype.split('/')[0] == 'video'}}
+				<video width="100%" height="auto" controls>
+					<source type="{{=blob.mimetype}}" src="blob/{{=blob.id}}.{{=blob.ext}}">
+				</video>
+			{{??blob.mimetype.split('/')[0] == 'image'}}
+				<image src="blob/{{=blob.id}}.{{=blob.ext}}"></image>
+			{{?}}
+		</div>
+	</div>
+{{~}}

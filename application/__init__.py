@@ -177,7 +177,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			if groups[1]:
 				byte2 = int(groups[1])
 
-		full_path = f'{blob_path}/{path}'
+		full_path = blob.path(path)
 		try:
 			chunk, start, length, file_size = get_chunk(full_path, byte1, byte2)
 			mime = mimetypes.guess_type(path)

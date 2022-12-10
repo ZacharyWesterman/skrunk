@@ -1,54 +1,51 @@
 <div name="navbar"></div>
 <div id="content" style="margin-left: 3rem;">
-	<form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return function()">
-		<input id="file" type="file" name="file">
-		<input type="submit" value="Submit">
-	</form>
+	<input id="file" type="file" name="file">
+	<button onclick="upload_file()">Upload</button>
+
+	<div name="blob_list"></div>
 </div>
 
+<script src="/js/page/dashboard.js"></script>
 <script>
-window.get_user_data = async function(username)
+window.upload_file = async function()
 {
-	return await api(`query ($username: String!){
-		getUser(username:$username) {
-			__typename
-			...on UserData {
-				username
-				theme {
-					name
-					value
-				}
-				perms
-			}
-			...on UserDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`, {username: username})
-}
-
-//Load user theme (regardless of cookies)
-get_user_data(api.username).then(data => {
-	if (data.__typename !== 'UserData')
+	var file = $('file').files[0]
+	if (!file)
 	{
-		//If user data does not exist, we don't want them to have access. Kick them out.
 		_.modal({
 			title: '<span class="error">ERROR</span>',
-			text: data.message,
-			buttons: ['OK']
-		}).then(() => api.logout()).catch(() => {})
+			text: 'No file selected!',
+			buttons: ['OK'],
+		})
+		return
 	}
 
-	//Load user theme
-	for (var i of data.theme)
-	{
-		_.css.set_var(i.name, i.value)
-	}
+	await api.upload(file)
+	reload_blobs()
+}
 
-	//Load navbar based on user perms
-	_('navbar', data.perms)
-})
+async function get_blobs()
+{
+	return await api(`query ($username: String!, $start: Int!, $count: Int!){
+		getUserBlobs(username: $username, start: $start, count: $count) {
+			id
+			ext
+			mimetype
+			name
+		}
+	}`, {
+		username: api.username,
+		start: 0,
+		count: 100,
+	})
+}
+
+window.reload_blobs = async function()
+{
+	var blobs = await get_blobs()
+	await _('blob_list', blobs)
+}
+
+reload_blobs()
 </script>

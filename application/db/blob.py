@@ -2,13 +2,14 @@ from datetime import datetime
 import mimetypes
 from application.tokens import decode_user_token, get_request_token
 import os
+from bson.objectid import ObjectId
 
 db = None
 blob_path = None
 
-def path(id: str, ext: str) -> str:
+def path(id: str, ext: str = None) -> str:
 	global blob_path
-	return f'{blob_path}/{id}.{ext}'
+	return f'{blob_path}/{id}.{ext}' if ext is not None else f'{blob_path}/{id}'
 
 def create_blob(dir: str, name: str, tags: list = []) -> str:
 	global db
@@ -41,10 +42,13 @@ def count_user_blobs(username: str) -> int:
 
 def delete_blob(blob_id: str) -> bool:
 	global db
-	blob_data = db.data.blob.find_one({'_id': blob_id})
+	blob_data = db.data.blob.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:
-		os.remove(path(blob_id, blob_data['ext']))
-		db.data.blob.delete_one({'_id': blob_id})
+		try:
+			os.remove(path(blob_id, blob_data['ext']))
+		except FileNotFoundError:
+			pass
+		db.data.blob.delete_one({'_id': ObjectId(blob_id)})
 		return True
 
 	return False
