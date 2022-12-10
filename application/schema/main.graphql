@@ -7,7 +7,10 @@ type Query {
 	getLastWeatherExec: WeatherExecution
 
 	getUserBlobs(username: String!, start: Int!, count: Int!): [Blob!]!
+	getAllBlobs(start: Int!, count: Int!): [Blob!]!
 	countUserBlobs(username: String!): Int!
+	countAllBlobs: Int!
+	getBlob(id: String!): Blob
 }
 
 type Mutation {

@@ -6,6 +6,7 @@
 	<div name="blob_list"></div>
 </div>
 
+<script src="/js/date.js"></script>
 <script src="/js/page/dashboard.js"></script>
 <script>
 window.upload_file = async function()
@@ -33,17 +34,23 @@ async function get_blobs()
 			ext
 			mimetype
 			name
+			creator
+			created
 		}
 	}`, {
 		username: api.username,
 		start: 0,
-		count: 100,
+		count: 20,
 	})
 }
 
 window.reload_blobs = async function()
 {
 	var blobs = await get_blobs()
+	for (var i in blobs)
+	{
+		blobs[i].created = date.output(blobs[i].created) //convert dates to local time
+	}
 	await _('blob_list', blobs)
 }
 

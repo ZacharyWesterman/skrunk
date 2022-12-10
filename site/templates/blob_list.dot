@@ -1,8 +1,10 @@
 {{~it:blob}}
 	<div class="card">
 		<div class="card-inner">
-			{{=blob.id}}<br>
-			{{=blob.name}}<br>
+			<p>
+				{{=blob.name}}.{{=blob.ext}}
+			</p>
+
 			{{?blob.mimetype.split('/')[0] == 'video'}}
 				<video width="100%" height="auto" controls>
 					<source type="{{=blob.mimetype}}" src="blob/{{=blob.id}}.{{=blob.ext}}">
@@ -14,6 +16,11 @@
 			{{??}}
 				<p class="error">ERROR: Unknown mimetype "{{=blob.mimetype}}" for file of type "{{=blob.ext}}".</p>
 			{{?}}
+
+			<div class="disabled">
+				Uploaded by {{=blob.creator}}<br>
+				{{=blob.created}}
+			</div>
 		</div>
 	</div>
 {{~}}
