@@ -48,7 +48,8 @@ modal.upload.start = async function()
 	$.show('upload-progress')
 
 	await api.upload(file, progress => {
-		const percent = progress.loaded / progress.total
+		console.log(progress)
+		const percent = progress.loaded / progress.total * 100
 		$('upload-progress').value = percent
 	})
 

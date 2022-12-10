@@ -112,7 +112,8 @@ api.upload = function(file, progress_handler) {
 
 		data.append('file', file)
 		xhr.upload.addEventListener('progress', progress_handler, false)
-		xhr.open('POST', '/upload', true)
+		xhr.open('POST', '/upload/'+encodeURIComponent(file.name), true)
+		xhr.setRequestHeader('Content-Type', 'multipart/form-data')
 		xhr.send(data)
 
 		xhr.onload = () => {
@@ -127,7 +128,7 @@ api.upload = function(file, progress_handler) {
 		}
 
 		xhr.onerror = () => {
-			reject({text: '', status: xhr.status, statusText: xhr.statusText})
+			reject({text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText})
 		}
 	})
 }

@@ -14,6 +14,7 @@ import mimetypes
 
 import re
 import os
+import time
 
 def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url = ''):
 	init_db(data_db_url, weather_db_url, blob_path)
@@ -196,20 +197,43 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	def background_image():
 		return read_file_data('data/background.svg')
 
-	@application.route('/upload', methods=['POST'])
-	def upload_file():
+	@application.route('/upload/<filename>', methods=['POST'])
+	def upload_file(filename):
 		if not authorized():
 			return '', 403
 
 		if blob_path is None:
 			return 'No blob data path specified in server setup.', 404
 
-		f = request.files.get('file')
-		if f is None:
-			return 'No file given.', 400
+		bytes_left = int(request.headers.get('content-length'))
+		chunk_size = 16384
 
-		id, ext = blob.create_blob(blob_path, f.filename)
-		f.save(blob.path(id, ext))
+		id, ext = blob.create_blob(blob_path, filename)
+		path = blob.path(id, ext)
+
+		# make file size readable
+		filesize = bytes_left
+		sizetype = 'B'
+		if filesize >= 1000:
+			filesize /= 1000
+			sizetype = 'KiB'
+		if filesize >= 1000:
+			filesize /= 1000
+			sizetype = 'MiB'
+		if filesize >= 1000:
+			filesize /= 1000
+			sizetype = 'GiB'
+		filesize = round(filesize, 3)
+
+		print(f'Beginning stream of file "{filename}" ({filesize} {sizetype})...')
+
+		with open(path, 'ab') as fp:
+			while bytes_left > 0:
+				chunk = request.stream.read(chunk_size)
+				bytes_left -= len(chunk)
+				fp.write(chunk)
+
+		print(f'Finished stream of file "{filename}" ({filesize} {sizetype}).')
 
 		return str(id), 200
 
