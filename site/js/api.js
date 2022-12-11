@@ -287,6 +287,11 @@ api.logout = function()
 */
 async function navigate(url)
 {
+	if (window.unload)
+	{
+		window.unload()
+		delete window.unload
+	}
 	await inject(document.all.body, url)
 }
 
