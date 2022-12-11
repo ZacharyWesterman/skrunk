@@ -2,7 +2,9 @@
 
 <div name="navbar"></div>
 
-<div id="content" style="margin-left: 3rem;"></div>
+<div id="content" style="margin-left: 3rem;">
+	<div name="blob_list"></div>
+</div>
 
 <script src="/js/date.js"></script>
 <script src="/js/page/dashboard.js"></script>
@@ -52,5 +54,5 @@ window.reload_blobs = async function()
 	await _('blob_list', blobs)
 }
 
-// reload_blobs()
+reload_blobs()
 </script>
