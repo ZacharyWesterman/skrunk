@@ -17,12 +17,15 @@ def create_blob(dir: str, name: str, tags: list = []) -> str:
 	ext = name[pos+1::]
 
 	username = decode_user_token(get_request_token()).get('username')
+	mime = mimetypes.guess_type(name)[0]
+	if mime is None:
+		mime = 'application/octet-stream'
 
 	return db.data.blob.insert_one({
 		'created': datetime.utcnow(),
 		'name': name[0:pos],
 		'ext': ext,
-		'mimetype': mimetypes.guess_type(name)[0],
+		'mimetype': mime,
 		'tags': tags,
 		'creator': username,
 	}).inserted_id, ext

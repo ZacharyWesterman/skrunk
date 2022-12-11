@@ -207,6 +207,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 		bytes_left = int(request.headers.get('content-length'))
 		chunk_size = 16384
+		file = request.files['file']
 
 		id, ext = blob.create_blob(blob_path, filename)
 		path = blob.path(id, ext)
@@ -229,8 +230,12 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 		with open(path, 'ab') as fp:
 			while bytes_left > 0:
-				chunk = request.stream.read(chunk_size)
+				chunk = file.stream.read(chunk_size)
 				bytes_left -= len(chunk)
+
+				#sanity check: we don't want to loop forever!
+				if len(chunk) <= 0:
+					bytes_left = 0
 				fp.write(chunk)
 
 		print(f'Finished stream of file "{filename}" ({filesize} {sizetype}).')

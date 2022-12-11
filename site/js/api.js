@@ -113,7 +113,6 @@ api.upload = function(file, progress_handler) {
 		data.append('file', file)
 		xhr.upload.addEventListener('progress', progress_handler, false)
 		xhr.open('POST', '/upload/'+encodeURIComponent(file.name), true)
-		xhr.setRequestHeader('Content-Type', 'multipart/form-data')
 		xhr.send(data)
 
 		xhr.onload = () => {
