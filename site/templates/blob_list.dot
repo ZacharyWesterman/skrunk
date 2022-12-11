@@ -16,7 +16,7 @@
 			{{??blob.mimetype.split('/')[0] == 'audio'}}
 				<audio src="blob/{{=blob.id}}.{{=blob.ext}}" controls></audio>
 			{{??}}
-				Mimetype = {{=blob.ext}}
+				Mimetype = {{=blob.mimetype}}
 			{{?}}
 
 			<div class="disabled">
