@@ -2,6 +2,8 @@ type WeatherUser {
 	username: String!
 	lat: Float!
 	lon: Float!
+	max: WeatherTemp_!
+	min: WeatherTemp_!
 	phone: PhoneNumber!
 	last_sent: DateTime
 	exclude: Boolean!
@@ -11,6 +13,8 @@ input WeatherUserInput {
 	username: String!
 	lat: Float!
 	lon: Float!
+	max: WeatherTemp!
+	min: WeatherTemp!
 	phone: PhoneNumber!
 }
 
@@ -18,4 +22,16 @@ type WeatherExecution {
 	timestamp: DateTime!
 	users: [String!]!
 	error: String
+}
+
+input WeatherTemp {
+	default: Boolean!
+	disable: Boolean!
+	value: Float!
+}
+
+type WeatherTemp_ {
+	default: Boolean!
+	disable: Boolean!
+	value: Float!
 }

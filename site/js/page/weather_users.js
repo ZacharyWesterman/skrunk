@@ -19,12 +19,20 @@ window.create_user = async function()
 	const phone = $.val('create-phone')
 	const lat = parseFloat($.val('create-lat'))
 	const lon = parseFloat($.val('create-lon'))
+	const max = {
+		default: $.val('create-max') === '',
+		disable: $('create-has-max').checked,
+		value: parseFloat($.val('create-max-')) || 0.0,
+	}
+	const min = {
+		default: $.val('create-min') === '',
+		disable: $('create-has-min').checked,
+		value: parseFloat($.val('create-min-')) || 0.0,
+	}
 
-	const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon') ]
+	const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon'), $('create-max'), $('create-min') ]
 
-	for (i of fields) i.disabled = true
-
-	const response = await weather.create_user(id, lat, lon, phone)
+	const response = await weather.create_user(id, lat, lon, phone, max, min)
 
 	if (response.__typename !== 'UserData')
 	{
@@ -33,7 +41,6 @@ window.create_user = async function()
 			text: response.message,
 			buttons: ['OK']
 		}).catch(() => {})
-		for (i of fields) i.disabled = false
 		return
 	}
 
@@ -41,7 +48,6 @@ window.create_user = async function()
 
 	for (i of fields)
 	{
-		i.disabled = false
 		i.value = ''
 	}
 
@@ -86,8 +92,18 @@ window.update_user = async function(username, self)
 	const phone = $.val('phone-'+username)
 	const lat = parseFloat($.val('lat-'+username))
 	const lon = parseFloat($.val('lon-'+username))
+	const max = {
+		default: $.val('max-'+username) === '',
+		disable: $('has-max-'+username).checked,
+		value: parseFloat($.val('max-'+username)) || 0.0,
+	}
+	const min = {
+		default: $.val('min-'+username) === '',
+		disable: $('has-min-'+username).checked,
+		value: parseFloat($.val('min-'+username)) || 0.0,
+	}
 
-	await weather.update_user(username, phone, lat, lon)
+	await weather.update_user(username, phone, lat, lon, max, min)
 	self.disabled = false
 }
 

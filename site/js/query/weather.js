@@ -5,6 +5,16 @@ window.weather = {
 				username
 				lat
 				lon
+				max {
+					disable
+					default
+					value
+				}
+				min {
+					disable
+					default
+					value
+				}
 				phone
 				last_sent
 				exclude
@@ -12,7 +22,7 @@ window.weather = {
 		}`)
 	},
 
-	create_user: async function(username, lat, lon, phone) {
+	create_user: async function(username, lat, lon, phone, max, min) {
 		const query = `mutation ($userdata: WeatherUserInput!){
 			createWeatherUser(userdata: $userdata){
 				__typename
@@ -29,6 +39,8 @@ window.weather = {
 				username: username,
 				lat: lat,
 				lon: lon,
+				max: max,
+				min: min,
 				phone: phone,
 			}
 		}
@@ -89,7 +101,7 @@ window.weather = {
 		return await api(query, vars)
 	},
 
-	update_user: async function(username, phone, lat, lon) {
+	update_user: async function(username, phone, lat, lon, max, min) {
 		const query = `mutation ($userdata: WeatherUserInput!){
 			updateWeatherUser(userdata: $userdata){
 				__typename
@@ -107,6 +119,8 @@ window.weather = {
 				lat: lat,
 				lon: lon,
 				phone: phone,
+				max: max,
+				min: min,
 			}
 		}
 		return await api(query, vars)
