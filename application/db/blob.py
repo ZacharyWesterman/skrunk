@@ -19,7 +19,7 @@ def create_blob(dir: str, name: str, tags: list = []) -> str:
 	username = decode_user_token(get_request_token()).get('username')
 
 	return db.data.blob.insert_one({
-		'created': datetime.now(),
+		'created': datetime.utcnow(),
 		'name': name[0:pos],
 		'ext': ext,
 		'mimetype': mimetypes.guess_type(name)[0],
