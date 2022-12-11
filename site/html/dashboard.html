@@ -58,7 +58,15 @@ window.confirm_delete_blob = async function(id, name)
 			}
 		}
 	}`, {id: id})
-	console.log(res)
+
+	if (res.__typename !== 'Blob')
+	{
+		_.modal({
+			title: '<span class="error">ERROR</span>',
+			text: res.message,
+			buttons: ['OK'],
+		})
+	}
 }
 
 reload_blobs()
