@@ -29,6 +29,7 @@ function register(field, action, keyCode)
 				if (event.keyCode == i)
 				{
 					field.listenedKeys[i](field)
+					event.stopPropagation()
 				}
 			}
 		}
