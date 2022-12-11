@@ -74,8 +74,8 @@ def update_user(user_data: dict) -> None:
 	userdata = db.weather.users.find_one({'_id': user_data['username']})
 
 	if userdata:
-		user_max = None if user_data['max']['disable'] else (False if user_data['max']['default'] else user_data['max'])
-		user_min = None if user_data['min']['disable'] else (False if user_data['min']['default'] else user_data['min'])
+		user_max = None if user_data['max']['disable'] else (False if user_data['max']['default'] else user_data['max']['value'])
+		user_min = None if user_data['min']['disable'] else (False if user_data['min']['default'] else user_data['min']['value'])
 
 		userdata = {
 			'lat': user_data['lat'],

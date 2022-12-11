@@ -21,12 +21,12 @@ window.create_user = async function()
 	const lon = parseFloat($.val('create-lon'))
 	const max = {
 		default: $.val('create-max') === '',
-		disable: $('create-has-max').checked,
+		disable: !$('create-has-max').checked,
 		value: parseFloat($.val('create-max-')) || 0.0,
 	}
 	const min = {
 		default: $.val('create-min') === '',
-		disable: $('create-has-min').checked,
+		disable: !$('create-has-min').checked,
 		value: parseFloat($.val('create-min-')) || 0.0,
 	}
 
@@ -94,14 +94,16 @@ window.update_user = async function(username, self)
 	const lon = parseFloat($.val('lon-'+username))
 	const max = {
 		default: $.val('max-'+username) === '',
-		disable: $('has-max-'+username).checked,
+		disable: !$('has-max-'+username).checked,
 		value: parseFloat($.val('max-'+username)) || 0.0,
 	}
 	const min = {
 		default: $.val('min-'+username) === '',
-		disable: $('has-min-'+username).checked,
+		disable: !$('has-min-'+username).checked,
 		value: parseFloat($.val('min-'+username)) || 0.0,
 	}
+
+	console.log(max)
 
 	await weather.update_user(username, phone, lat, lon, max, min)
 	self.disabled = false
