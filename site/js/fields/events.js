@@ -4,7 +4,7 @@ export default {
 	},
 
 	escape: (field, action) => {
-		//TODO
+		register(field, action, 27)
 	},
 
 	detach: {
@@ -13,7 +13,7 @@ export default {
 		},
 
 		escape: (field) => {
-			//TODO
+			unregister(field, 27)
 		},
 	}
 }
