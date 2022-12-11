@@ -30,6 +30,7 @@ function register(field, action, keyCode)
 				{
 					field.listenedKeys[i](field)
 					event.stopPropagation()
+					event.preventDefault()
 				}
 			}
 		}
