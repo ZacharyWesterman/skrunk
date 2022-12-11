@@ -11,12 +11,12 @@ def get_users() -> list:
 		i['username'] = i['_id']
 
 		i['max'] = {
-			'value': i.get('max') if type(i.get('max')) is int else 0.0,
+			'value': i.get('max') if type(i.get('max')) is float else 0.0,
 			'default': i.get('max') is None,
 			'disable': i.get('max') == False,
 		}
 		i['min'] = {
-			'value': i.get('min') if type(i.get('min')) is int else 0.0,
+			'value': i.get('min') if type(i.get('min')) is float else 0.0,
 			'default': i.get('min') is None,
 			'disable': i.get('min') == False,
 		}

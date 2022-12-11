@@ -103,8 +103,6 @@ window.update_user = async function(username, self)
 		value: parseFloat($.val('min-'+username)) || 0.0,
 	}
 
-	console.log(max)
-
 	await weather.update_user(username, phone, lat, lon, max, min)
 	self.disabled = false
 }
