@@ -3,6 +3,7 @@
 		<div class="card-inner">
 			<p>
 				<button class="icon" onclick="confirm_delete_blob('{{=blob.id}}', '{{=blob.name}}.{{=blob.ext}}')"><i class="fa-solid fa-trash"></i></button>
+				<button class="icon"><a href="blob/{{=blob.id}}.{{=blob.ext}}"><i class="fa-solid fa-file-arrow-down fa-lg"></i></a></button>
 				{{=blob.name}}.{{=blob.ext}}
 			</p>
 
@@ -15,7 +16,7 @@
 			{{??blob.mimetype.split('/')[0] == 'audio'}}
 				<audio src="blob/{{=blob.id}}.{{=blob.ext}}" controls></audio>
 			{{??}}
-				<button class="icon"><a href="blob/{{=blob.id}}.{{=blob.ext}}"><i class="fa-solid fa-file-arrow-down fa-lg"></i></a></button>
+				Mimetype = {{=blob.ext}}
 			{{?}}
 
 			<div class="disabled">
