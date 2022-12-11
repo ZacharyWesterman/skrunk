@@ -4,6 +4,7 @@ from application.tokens import decode_user_token, get_request_token
 import os
 from bson.objectid import ObjectId
 import application.exceptions as exceptions
+import threading
 
 db = None
 blob_path = None
@@ -12,7 +13,32 @@ def path(id: str, ext: str = None) -> str:
 	global blob_path
 	return f'{blob_path}/{id}.{ext}' if ext is not None else f'{blob_path}/{id}'
 
-def create_blob(dir: str, name: str, tags: list = []) -> str:
+def save_blob_data(file: object) -> str:
+	global blob_path
+	id, ext = create_blob(file.filename)
+
+	# make file size readable
+	filesize = file.content_length
+	sizetype = 'B'
+	if filesize >= 1000:
+		filesize /= 1000
+		sizetype = 'KiB'
+	if filesize >= 1000:
+		filesize /= 1000
+		sizetype = 'MiB'
+	if filesize >= 1000:
+		filesize /= 1000
+		sizetype = 'GiB'
+	filesize = round(filesize, 3)
+
+	print(f'Beginning stream of file "{file.filename}" ({filesize} {sizetype})...')
+	file.save(path(id, ext))
+	print(f'Finished stream of file "{file.filename}" ({filesize} {sizetype}).')
+	mark_as_completed(id)
+
+	return id
+
+def create_blob(name: str, tags: list = []) -> str:
 	global db
 	pos = name.rfind('.')
 	ext = name[pos+1::]
@@ -29,7 +55,11 @@ def create_blob(dir: str, name: str, tags: list = []) -> str:
 		'mimetype': mime,
 		'tags': tags,
 		'creator': username,
+		'complete': False,
 	}).inserted_id, ext
+
+def mark_as_completed(id: str) -> None:
+	db.data.blob.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True}})
 
 def get_user_blobs(username: str, start: int, count: int) -> list:
 	global db
