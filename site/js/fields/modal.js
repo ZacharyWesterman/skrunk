@@ -8,20 +8,31 @@ var modal = async function(config)
 			resolve: resolve,
 			reject: reject,
 		}
+
+		var field = $('modal-button-first')
+		if (field)
+		{
+			$.on.enter(window, field.onclick)
+			$.on.escape(window, modal.cancel)
+		}
 	})
 }
 
 modal.cancel = () =>
 {
-	modal.awaiting.reject()
+	$.on.detach.enter(window)
+	$.on.detach.escape(window)
 	$('modal-window').style.display = 'none';
+	modal.awaiting.reject()
 }
 
 modal.return = value =>
 {
+	$.on.detach.enter(window)
+	$.on.detach.escape(window)
 	if (typeof value === 'string') value = value.toLowerCase()
-	modal.awaiting.resolve(value)
 	$('modal-window').style.display = 'none';
+	modal.awaiting.resolve(value)
 }
 
 modal.upload = async function()
