@@ -107,4 +107,9 @@
 			}
 		}`, {username: api.username, theme: colors})
 	}
+
+	window.unload.push(() => {
+		delete window.update_colors
+		delete window.reset_colors
+	})
 </script>

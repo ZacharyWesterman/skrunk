@@ -121,3 +121,13 @@ window.can_create = function()
 
 	$('create-button').disabled = false
 }
+
+window.unload.push(() => {
+	delete window.refresh_users
+	delete window.create_user
+	delete window.delete_user
+	delete window.enable_user
+	delete window.disable_user
+	delete window.update_user
+	delete window.can_create
+})

@@ -74,3 +74,9 @@ window.load_user_data = async function(username, self_view = false)
 		self_view: self_view,
 	})
 }
+
+window.unload.push(() => {
+	delete window.load_user_data
+	delete window.set_perms
+	delete window.revoke_sessions
+})

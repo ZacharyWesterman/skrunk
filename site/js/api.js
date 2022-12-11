@@ -287,19 +287,21 @@ api.logout = function()
 */
 async function navigate(url)
 {
-	if (window.unload)
-	{
-		window.unload()
-		delete window.unload
-	}
 	await inject(document.all.body, url)
 }
 
 /*
 * Load content from URL into the given field.
 */
+window.unload = []
 async function inject(field, url)
 {
+	while (window.unload.length > 0)
+	{
+		var unload_method = window.unload.pop()
+		unload_method()
+	}
+
 	//show spinner to indicate stuff is loading
 	$.hide(field)
 	field.innerHTML = '<i class="gg-spinner"></i>'

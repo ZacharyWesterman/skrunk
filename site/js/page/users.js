@@ -91,3 +91,9 @@ window.create_user = async function()
 
 $.on.enter($('username'), $.next)
 $.on.enter($('password'), create_user)
+
+window.unload.push(() => {
+	delete window.hide_user_data
+	delete window.confirm_delete_user
+	delete window.create_user
+})
