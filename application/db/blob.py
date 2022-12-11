@@ -3,6 +3,7 @@ import mimetypes
 from application.tokens import decode_user_token, get_request_token
 import os
 from bson.objectid import ObjectId
+import application.exceptions as exceptions
 
 db = None
 blob_path = None
@@ -72,6 +73,6 @@ def delete_blob(blob_id: str) -> bool:
 		except FileNotFoundError:
 			pass
 		db.data.blob.delete_one({'_id': ObjectId(blob_id)})
-		return True
+		return blob_data
 
-	return False
+	raise exceptions.BlobDoesNotExistError(blob_id)

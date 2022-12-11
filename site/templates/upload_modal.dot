@@ -5,7 +5,7 @@
 			<h4>Select files to upload</h4>
 			<input id="modal-file" type="file" name="file" onchange="$('modal-button').disabled = false" multiple>
 			<button class="icon" id="modal-button" onclick="_.modal.upload.start()" disabled>
-				<i class="fa-solid fa-file-arrow-up"></i>
+				<i class="fa-solid fa-file-arrow-up fa-lg"></i>
 			</button><br>
 
 			<div id="upload-progress" class="hidden"></div>

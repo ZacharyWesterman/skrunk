@@ -24,3 +24,7 @@ class InvalidColor(ValueError):
 class InvalidPhone(ValueError):
 	def __init__(self):
 		super().__init__('Phone number must be 10 digits exactly.')
+
+class BlobDoesNotExistError(ClientError):
+	def __init__(self, id: str):
+		super().__init__(f'No blob exists with ID {id}')

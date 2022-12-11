@@ -6,5 +6,5 @@
 	{{?}}
 		<button class="icon" onclick="inject(document.all.content, '/html/user.html')"><i class="fa-solid fa-user-pen fa-lg"></i></button><br>
 	<button class="icon" onclick="inject(document.all.content, '/html/edit_theme.html')"><i class="fa-solid fa-palette fa-lg"></i></button><br>
-	<button class="icon" onclick="_.modal.upload()"><i class="fa-solid fa-file-arrow-up"></i></button>
+	<button class="icon" onclick="_.modal.upload()"><i class="fa-solid fa-file-arrow-up fa-lg"></i></button>
 </div>

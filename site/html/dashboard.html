@@ -37,5 +37,29 @@ window.reload_blobs = async function()
 	await _('blob_list', blobs)
 }
 
+window.confirm_delete_blob = async function(id, name)
+{
+	const choice = await _.modal({
+		title: 'Permanently delete file?',
+		text: `Are you sure you want to delete "<i>${name}</i>"? This action is permanent and cannot be undone.`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	const res = await api(`mutation ($id: String!) {
+		deleteBlob(id: $id) {
+			__typename
+			...on BlobDoesNotExistError {
+				message
+			}
+			...on InsufficientPerms {
+				message
+			}
+		}
+	}`, {id: id})
+	console.log(res)
+}
+
 reload_blobs()
 </script>

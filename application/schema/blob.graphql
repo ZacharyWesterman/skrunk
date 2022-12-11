@@ -7,3 +7,9 @@ type Blob {
 	mimetype: String!
 	tags: [String!]!
 }
+
+type BlobDoesNotExistError {
+	message: String!
+}
+
+union BlobDeleteResponse = Blob | BlobDoesNotExistError | InsufficientPerms

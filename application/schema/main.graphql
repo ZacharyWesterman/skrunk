@@ -26,5 +26,5 @@ type Mutation {
 	disableWeatherUser(username: String!): UserUpdateResponse!
 	updateWeatherUser(userdata: WeatherUserInput!): UserUpdateResponse!
 
-	deleteBlob(id: String!): Boolean!
+	deleteBlob(id: String!): BlobDeleteResponse!
 }
