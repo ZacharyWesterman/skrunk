@@ -55,6 +55,27 @@ modal.upload.start = async function()
 
 	const files = $('modal-file').files
 
+	//make sure all files are <=10GB (max file size limit for uploads)
+	var too_big = []
+	for (var file of files)
+	{
+		if (file.size > (5 * 1024 * 1024 * 1024))
+			too_big.push(`${file.name} (${(file.size / (1024 * 1024 * 1024)).toFixed(2)} GB)`)
+	}
+
+	if (too_big.length > 0)
+	{
+		const amt = too_big.length === 1 ? 'file exceeds' : 'files exceed'
+		const amt2 = too_big.length === 1 ? 'that file' : 'those files'
+
+		_.modal({
+			title: '<span class="error">Ow, right in the bandwidth!</span>',
+			text: `<p>For the sake of performance, there's a <b>5GB</b> limit on file uploads.<br>The following ${amt} this limit:</p><i>${too_big.join('<br>')}</i><p>If you really need to upload ${amt2}, I suggest using an FTP client.`,
+			buttons: ['OK'],
+		})
+		return
+	}
+
 	//Add a progress bar for each file to be uploaded.
 	var innerHTML = ''
 	for (var i = 0; i < files.length; ++i)
