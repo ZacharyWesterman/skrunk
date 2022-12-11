@@ -21,6 +21,9 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 	application = Flask(__name__)
 
+	if blob_path is not None:
+		application.config['UPLOADS_DEFAULT_DEST'] = blob_path
+
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
@@ -206,7 +209,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			return 'No blob data path specified in server setup.', 404
 
 		bytes_left = int(request.headers.get('content-length'))
-		chunk_size = 16384
+		chunk_size = 65536
 		file = request.files['file']
 
 
@@ -229,9 +232,11 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 		print(f'Beginning stream of file "{filename}" ({filesize} {sizetype})...')
 		file.save(path)
+		# print(file)
 
 		# with open(path, 'ab') as fp:
 		# 	while bytes_left > 0:
+		# 		print(f'\r{bytes_left}', end='')
 		# 		chunk = file.stream.read(chunk_size)
 		# 		bytes_left -= len(chunk)
 		#
@@ -239,6 +244,8 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 		# 		if len(chunk) <= 0:
 		# 			bytes_left = 0
 		# 		fp.write(chunk)
+
+		# print()
 
 		print(f'Finished stream of file "{filename}" ({filesize} {sizetype}).')
 
