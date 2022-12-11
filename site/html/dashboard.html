@@ -10,23 +10,6 @@
 <script src="/js/page/dashboard.js"></script>
 
 <script>
-window.upload_file = async function()
-{
-	var file = $('file').files[0]
-	if (!file)
-	{
-		_.modal({
-			title: '<span class="error">ERROR</span>',
-			text: 'No file selected!',
-			buttons: ['OK'],
-		})
-		return
-	}
-
-	await api.upload(file)
-	reload_blobs()
-}
-
 async function get_blobs()
 {
 	return await api(`query ($start: Int!, $count: Int!){

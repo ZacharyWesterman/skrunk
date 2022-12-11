@@ -19,17 +19,23 @@ var $ = field => (typeof field === 'object') ? field : document.getElementById(f
 $.val = id => $(id).value
 $.toggle_expand = id => $(id).classList.toggle('expanded')
 
-$.show = id => {
+$.show = (id, fade = true) => {
 	$(id).style.display = ''
 	setTimeout(() => {
+		$(id).classList.add('fade')
 		$(id).classList.remove('hidden')
 		$(id).classList.add('visible')
 	}, 50)
 }
-$.hide = id => {
-	$(id).classList.remove('visible')
-	$(id).classList.add('hidden')
-	$(id).style.display = 'none'
+$.hide = (id, fade = false) => {
+	var classes = $(id).classList
+	classes.toggle('fade', fade)
+	classes.remove('visible')
+	classes.add('hidden')
+	if (fade)
+		setTimeout(() => $(id).style.display = 'none', 300)
+	else
+		$(id).style.display = 'none'
 }
 
 $.validate = Validate

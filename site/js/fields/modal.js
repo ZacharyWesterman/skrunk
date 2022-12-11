@@ -44,13 +44,37 @@ modal.upload.return = () =>
 
 modal.upload.start = async function()
 {
-	var file = $('modal-file').files[0]
+	async function do_upload(file, dom_progress)
+	{
+		await api.upload(file, progress => {
+			const percent = progress.loaded / progress.total * 100
+			dom_progress.value = percent
+		})
+		$.hide(dom_progress, true)
+	}
+
+	const files = $('modal-file').files
+
+	//Add a progress bar for each file to be uploaded.
+	var innerHTML = ''
+	for (var i = 0; i < files.length; ++i)
+	{
+		innerHTML += `<progress id="upload-progressbar-${i}" value="0" max="100"></progress>`
+	}
+	$('upload-progress').innerHTML = innerHTML
 	$.show('upload-progress')
 
-	await api.upload(file, progress => {
-		const percent = progress.loaded / progress.total * 100
-		$('upload-progress').value = percent
-	})
+	var promises = []
+	for (var i = 0; i < files.length; ++i)
+	{
+		var dom_progress = $('upload-progressbar-'+i)
+		promises.push(do_upload(files[i], dom_progress))
+	}
+
+	for (var p of promises)
+	{
+		await p
+	}
 
 	await modal({
 		title: 'Success',

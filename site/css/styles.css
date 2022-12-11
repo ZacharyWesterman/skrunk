@@ -12,6 +12,10 @@
 @import url('/css/card.css');
 @import url('/css/button.css');
 
+progress {
+	display: block;
+}
+
 input {
 	height: 1.5rem;
 }
@@ -61,6 +65,9 @@ input.invalid {
 }
 
 .visible {
-	transition: all 0.25s ease-in;
 	opacity: 1;
+}
+
+.fade {
+	transition: all 0.25s ease-in-out;
 }
