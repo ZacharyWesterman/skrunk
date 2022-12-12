@@ -1,0 +1,11 @@
+<div class="card alt">
+	<div class="card-inner">
+		{{?it.pages.length > 0}}
+			{{~it.pages : page}}
+				<button class="icon {{?page !== it.current}}alt{{?}}" onclick="navigate_to_page({{=page}})">{{=page+1}}</button>
+			{{~}}
+		{{??}}
+			<p>No files have been uploaded.</p>
+		{{?}}
+	</div>
+</div>

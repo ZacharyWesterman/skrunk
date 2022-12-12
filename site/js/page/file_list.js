@@ -18,6 +18,12 @@ async function get_blobs(start, count)
 	})
 }
 
+window.navigate_to_page = async function(page_num)
+{
+	BlobStart = page_num * BlobListLen
+	await reload_blobs()
+}
+
 window.copy_to_clipboard = async function(id)
 {
 	await navigator.clipboard.writeText(id)
@@ -27,8 +33,25 @@ window.copy_to_clipboard = async function(id)
 	setTimeout(_.modal.cancel, 1200)
 }
 
+async function reload_page_list()
+{
+	const count = await api(`{ countAllBlobs }`)
+
+	const page_ct = Math.ceil(count / BlobListLen)
+	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
+	const this_page = Math.floor(BlobStart / BlobListLen)
+
+	await _('page_list', {
+		pages: pages,
+		count: page_ct,
+		current: this_page,
+	}, true)
+}
+
 window.reload_blobs = async function()
 {
+	reload_page_list()
+
 	var blobs = await get_blobs(BlobStart, BlobListLen)
 	var innerHTML = ''
 	for (var i in blobs)
@@ -76,6 +99,7 @@ window.confirm_delete_blob = async function(id, name)
 		return
 	}
 
+	reload_page_list()
 	$.hide(`blob-card-${id}`, true)
 	setTimeout(() => remove_blob(id), 300)
 }
