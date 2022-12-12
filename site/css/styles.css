@@ -71,3 +71,8 @@ input.invalid {
 .fade {
 	transition: all 0.25s ease-in-out;
 }
+
+.marquee {
+	overflow:hidden;
+	transform: translateX(100%);
+}
