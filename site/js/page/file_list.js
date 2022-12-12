@@ -1,3 +1,6 @@
+var BlobStart = 0
+var BlobListLen = 5
+
 async function get_blobs()
 {
 	return await api(`query ($start: Int!, $count: Int!){
@@ -10,19 +13,26 @@ async function get_blobs()
 			created
 		}
 	}`, {
-		start: 0,
-		count: 20,
+		start: BlobStart,
+		count: BlobListLen,
 	})
 }
 
 window.reload_blobs = async function()
 {
 	var blobs = await get_blobs()
+	var innerHTML = ''
 	for (var i in blobs)
 	{
 		blobs[i].created = date.output(blobs[i].created) //convert dates to local time
+		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
-	await _('blob_list', blobs)
+	$('blob-list').innerHTML = innerHTML
+
+	for (var i in blobs)
+	{
+		await _(`blob-card-${blobs[i].id}`, blobs[i])
+	}
 }
 
 window.confirm_delete_blob = async function(id, name)
@@ -57,7 +67,14 @@ window.confirm_delete_blob = async function(id, name)
 		return
 	}
 
-	reload_blobs()
+	$.hide(`blob-card-${id}`, true)
+	setTimeout(() => remove_blob(id), 300)
+}
+
+function remove_blob(id)
+{
+	var card = $(`blob-card-${id}`)
+	card.parentElement.removeChild(card)
 }
 
 reload_blobs()

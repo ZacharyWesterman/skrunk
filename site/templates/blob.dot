@@ -1,0 +1,26 @@
+<div class="card">
+	<div class="card-inner">
+		<p>
+			<button class="icon" onclick="confirm_delete_blob('{{=it.id}}', '{{=it.name.replace('\'','\\\'').replace('&quot;', '&amp;quot;')}}.{{=it.ext}}')"><i class="fa-solid fa-trash"></i></button>
+			<button class="icon"><a href="blob/{{=it.id}}.{{=it.ext}}" download><i class="fa-solid fa-file-arrow-down fa-lg"></i></a></button>
+			{{=it.name}}.{{=it.ext}}
+		</p>
+
+		{{?it.mimetype.split('/')[0] == 'video'}}
+			<video width="100%" height="auto" controls>
+				<source type="{{=it.mimetype}}" src="blob/{{=it.id}}.{{=it.ext}}">
+			</video>
+		{{??it.mimetype.split('/')[0] == 'image'}}
+			<image width="100%" height="auto" src="blob/{{=it.id}}.{{=it.ext}}"></image>
+		{{??it.mimetype.split('/')[0] == 'audio'}}
+			<audio src="blob/{{=it.id}}.{{=it.ext}}" controls></audio>
+		{{??}}
+			Mimetype = {{=it.mimetype}}
+		{{?}}
+
+		<div class="disabled">
+			Uploaded by {{=it.creator}}<br>
+			{{=it.created}}
+		</div>
+	</div>
+</div>

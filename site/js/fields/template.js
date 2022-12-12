@@ -2,7 +2,20 @@ var __template_map = {}
 
 async function update_dom(name, data)
 {
-	var fields = document.querySelectorAll('div[name="' + name + '"]')
+	var fields = []
+	if (typeof name === 'object')
+	{
+		fields.push(name)
+	}
+	else
+	{
+		var elem = document.getElementById(name)
+		if (elem)
+			fields.push(elem)
+		else
+			fields = document.querySelectorAll('div[name="' + name + '"]')
+	}
+
 	for (var field of fields)
 	{
 		const template_name = field.attributes.template ? field.attributes.template.value : name
