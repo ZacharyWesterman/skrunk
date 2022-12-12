@@ -18,6 +18,15 @@ async function get_blobs(start, count)
 	})
 }
 
+window.copy_to_clipboard = async function(id)
+{
+	await navigator.clipboard.writeText(id)
+	_.modal({
+		text: 'Copied file path to clipboard!',
+	}).catch(() => {})
+	setTimeout(_.modal.cancel, 1200)
+}
+
 window.reload_blobs = async function()
 {
 	var blobs = await get_blobs(BlobStart, BlobListLen)
@@ -104,5 +113,6 @@ _.modal.upload.return = () => {
 window.unload.push(() => {
 	delete window.reload_blobs
 	delete window.confirm_delete_blob
+	delete window.copy_to_clipboard
 	_.modal.upload.return = old_modal_retn
 })
