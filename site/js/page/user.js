@@ -129,4 +129,5 @@ window.unload.push(() => {
 	delete window.load_user_data
 	delete window.set_perms
 	delete window.revoke_sessions
+	delete window.update_password
 })
