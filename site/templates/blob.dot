@@ -20,7 +20,7 @@
 
 		<div class="disabled">
 			Uploaded by {{=it.creator}}
-			<button style="float: right;" class="icon" onclick="confirm_delete_blob('{{=it.id}}', '{{=it.name.replace('\'','\\\'').replace('&quot;', '&amp;quot;')}}.{{=it.ext}}')"><i class="fa-solid fa-trash fa-lg"></i></button>
+			<button style="float: right;" class="icon" onclick="confirm_delete_blob('{{=it.id}}', '{{=escape(it.name)}}.{{=it.ext}}')"><i class="fa-solid fa-trash fa-lg"></i></button>
 			<br>
 			{{=it.created}}
 		</div>
