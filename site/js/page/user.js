@@ -75,6 +75,56 @@ window.load_user_data = async function(username, self_view = false)
 	})
 }
 
+window.update_password = async function(password, username)
+{
+	if ((password.length < 8) || (password === username) || (password.includes(username) && (password.length < username.length * 2)))
+	{
+		const criteria = [
+			'Must be at least 8 characters long',
+			'May not contain the username, unless it\'s at least 2&times; the length',
+		]
+
+		_.modal({
+			title: '<span class="error">Invalid Password</span>',
+			text: 'Password must fit <i>all</i> of the following criteria:<ul><li>' + criteria.join('</li><li>') + '</li></ul>',
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	const hashed_pass = await api.hash(password)
+	const res = await api(`mutation ($username: String!, $password: String!) {
+		updateUserPassword(username: $username, password: $password) {
+			__typename
+			...on UserDoesNotExistError {
+				message
+			}
+			...on InsufficientPerms {
+				message
+			}
+		}
+	}`, {
+		username: username,
+		password: hashed_pass,
+	})
+
+	if (res.__typename !== 'UserData')
+	{
+		_.modal({
+			title: '<span class="error">ERROR</span>',
+			text: res.message,
+			buttons: ['OK'],
+		})
+		return
+	}
+
+	_.modal({
+		title: 'Success',
+		text: 'Password has been updated.',
+		buttons: ['OK'],
+	})
+}
+
 window.unload.push(() => {
 	delete window.load_user_data
 	delete window.set_perms

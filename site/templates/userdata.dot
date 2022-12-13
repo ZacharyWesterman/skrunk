@@ -7,6 +7,10 @@
 			Edit User Info
 		</h1>
 		<h2>{{=it.user.username}}</h2>
+		<div>
+			<input type="password" placeholder="New Password" autocomplete="new-password">
+			<button class="icon" onclick="update_password(this.previousSibling.value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
+		</div>
 		{{?!it.self_view}}
 			<table>
 				{{~it.perms: perm}}

@@ -52,15 +52,16 @@ def create_user(username: str, password: str) -> dict:
 	if userdata:
 		raise exceptions.UserExistsError(username)
 
-	db.data.users.insert_one({
+	userdata = {
 		'username': username,
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
 		'created': datetime.now(),
 		'theme': [],
 		'perms': [],
-	})
+	}
 
-	return {'username': username, 'theme': []}
+	db.data.users.insert_one(userdata)
+	return userdata
 
 def delete_user(username: str) -> None:
 	global db
@@ -70,6 +71,23 @@ def delete_user(username: str) -> None:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.data.users.delete_one({'username': username})
+	return userdata
+
+def update_user_password(username: str, password: str) -> dict:
+	global db
+
+	if len(username) == 0:
+		raise exceptions.InvalidUsername
+
+	userdata = db.data.users.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	db.data.users.update_one({'username': username}, {'$set': {
+		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
+	}})
+
 	return userdata
 
 def authenticate(username: str, password: str) -> str:

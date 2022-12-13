@@ -19,6 +19,7 @@ type Mutation {
 	updateUserTheme(username: String!, theme: [ThemeColor!]!): UserUpdateResponse!
 	updateUserPerms(username: String!, perms: [String!]!): UserUpdateResponse!
 	revokeSessions(username: String!): Int!
+	updateUserPassword(username: String!, password: String!): UserUpdateResponse!
 
 	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
 	deleteWeatherUser(username: String!): UserDeleteResponse!
