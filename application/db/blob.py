@@ -1,10 +1,12 @@
+from application.tokens import decode_user_token, get_request_token
+import application.exceptions as exceptions
+import application.tags as tags
+
+from bson.objectid import ObjectId
 from datetime import datetime
 import mimetypes
-from application.tokens import decode_user_token, get_request_token
-import os
-from bson.objectid import ObjectId
-import application.exceptions as exceptions
 import threading
+import os
 
 db = None
 blob_path = None
@@ -61,31 +63,37 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str) -> None:
 	db.data.blob.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True}})
 
-def get_user_blobs(username: str, start: int, count: int) -> list:
+def get_user_blobs(username: str, start: int, count: int, tagstr: str) -> list:
 	global db
 	blobs = []
-	for i in db.data.blob.find({'creator': username}, sort=[('created', -1)]).limit(count).skip(start):
+	mongo_tag_query = tags.parse(tagstr).output()
+
+	for i in db.data.blob.find({'$and': [{'creator': username}, mongo_tag_query]}, sort=[('created', -1)]).limit(count).skip(start):
 		i['id'] = i['_id']
 		blobs += [i]
 
 	return blobs
 
-def get_all_blobs(start: int, count: int) -> list:
+def get_all_blobs(start: int, count: int, tagstr: str) -> list:
 	global db
+	mongo_tag_query = tags.parse(tagstr).output()
+
 	blobs = []
-	for i in db.data.blob.find({}, sort=[('created', -1)]).limit(count).skip(start):
+	for i in db.data.blob.find(mongo_tag_query, sort=[('created', -1)]).limit(count).skip(start):
 		i['id'] = i['_id']
 		blobs += [i]
 
 	return blobs
 
-def count_user_blobs(username: str) -> int:
+def count_user_blobs(username: str, tagstr: str) -> int:
 	global db
-	return db.data.blob.count_documents({'creator': username})
+	mongo_tag_query = tags.parse(tagstr).output()
+	return db.data.blob.count_documents({'$and': [{'creator': username}, mongo_tag_query]})
 
-def count_all_blobs() -> int:
+def count_all_blobs(tagstr: str) -> int:
 	global db
-	return db.data.blob.count_documents({})
+	mongo_tag_query = tags.parse(tagstr).output()
+	return db.data.blob.count_documents(mongo_tag_query)
 
 def get_blob_data(blob_id: str) -> dict:
 	global db

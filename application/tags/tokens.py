@@ -28,6 +28,10 @@ class Token:
 				kids += [child]
 		self.children = kids
 
+class NoneToken(Token):
+	def output(self) -> dict:
+		return {}
+
 class Operator(Token):
 	def operate(self, tokens: list, pos: int) -> list:
 		if pos == 0 or pos >= (len(tokens) - 1):
@@ -118,6 +122,9 @@ class Function(Token):
 		return tokens[0:pos] + [self] + tokens[pos+3::]
 
 	def output(self) -> dict:
+		if len(self.children) == 0:
+			raise exceptions.MissingParam(self.text)
+
 		#we know that the param will always be numeric, not an expression
 		count = int(self.children[0].text)
 

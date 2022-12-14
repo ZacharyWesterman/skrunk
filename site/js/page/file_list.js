@@ -3,18 +3,27 @@ var BlobListLen = 5
 
 async function get_blobs(start, count)
 {
-	return await api(`query ($start: Int!, $count: Int!){
-		getAllBlobs(start: $start, count: $count) {
-			id
-			ext
-			mimetype
-			name
-			creator
-			created
+	return await api(`query ($start: Int!, $count: Int!, $tags: String){
+		getAllBlobs(start: $start, count: $count, tags: $tags) {
+			__typename
+			...on BlobList {
+				blobs {
+					id
+					ext
+					mimetype
+					name
+					creator
+					created
+				}
+			}
+			...on BadTagQuery {
+				message
+			}
 		}
 	}`, {
 		start: start,
 		count: count,
+		tags: $('tag-query').value,
 	})
 }
 
@@ -35,7 +44,24 @@ window.copy_to_clipboard = async function(id)
 
 async function reload_page_list()
 {
-	const count = await api(`{ countAllBlobs }`)
+	var count = await api(`query ($tags: String){
+		countAllBlobs(tags: $tags) {
+			__typename
+			...on BlobCount {
+				count
+			}
+			...on BadTagQuery {
+				message
+			}
+		}
+	}`, {tags: $('tag-query').value})
+	if (count.__typename !== 'BlobCount')
+	{
+		$('tag-error').innerText = count.message
+		return
+	}
+	$('tag-error').innerText = ''
+	count = count.count
 
 	const page_ct = Math.ceil(count / BlobListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
@@ -53,6 +79,14 @@ window.reload_blobs = async function()
 	reload_page_list()
 
 	var blobs = await get_blobs(BlobStart, BlobListLen)
+	if (blobs.__typename !== 'BlobList')
+	{
+		$('tag-error').innerText = blobs.message
+		return
+	}
+	$('tag-error').innerText = ''
+	blobs = blobs.blobs
+
 	var innerHTML = ''
 	for (var i in blobs)
 	{
@@ -133,6 +167,11 @@ _.modal.upload.return = () => {
 	old_modal_retn()
 	reload_blobs()
 }
+
+$.on.enter($('tag-query'), () => {
+	BlobStart = 0
+	reload_blobs()
+})
 
 window.unload.push(() => {
 	delete window.reload_blobs

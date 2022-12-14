@@ -12,4 +12,18 @@ type BlobDoesNotExistError {
 	message: String!
 }
 
+type BadTagQuery {
+	message: String!
+}
+
+type BlobList {
+	blobs: [Blob!]!
+}
+
+type BlobCount {
+	count: Int!
+}
+
+union BlobCountResponse = BlobCount | BadTagQuery
+union BlobQueryResponse = BlobList | BadTagQuery
 union BlobDeleteResponse = Blob | BlobDoesNotExistError | InsufficientPerms

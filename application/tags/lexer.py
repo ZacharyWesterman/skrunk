@@ -23,7 +23,6 @@ def consume(pattern: re.Pattern, expr: str, group: int = 0) -> str:
 		return None, expr
 
 def parse(expr: str) -> list:
-	print(expr)
 	tok = []
 	while len(expr):
 		#ignore whitespace

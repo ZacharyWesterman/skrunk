@@ -24,6 +24,19 @@ input.invalid {
 	background-color: #e09daf;
 }
 
+code {
+	vertical-align: top;
+	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+	color: black;
+	background-color: white;
+	display: inline-block;
+	height: 1.5rem;
+	width: 100%;
+	padding: 2px 1px;
+	margin: 2px 0;
+	border-radius: 2px;
+}
+
 .error {
 	color: var(--error-text);
 }

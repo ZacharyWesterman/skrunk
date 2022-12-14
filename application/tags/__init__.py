@@ -2,33 +2,32 @@ from . import lexer
 from . import exceptions
 from . import tokens
 
-def debug_print(tokens, indent = 0):
-	if type(tokens) is list:
-		for i in tokens:
+def debug_print(tok, indent = 0):
+	if type(tok) is list:
+		for i in tok:
 			debug_print(i, indent)
 	else:
-		print('  '*indent, tokens.__class__.__name__, tokens.text)
-		debug_print(tokens.children, indent + 1)
+		print('  '*indent, tok.__class__.__name__, tok.text)
+		debug_print(tok.children, indent + 1)
 
 def parse(expression: str) -> tokens.Token:
 	prev_len = -1
-	tokens = lexer.parse(expression)
-	while len(tokens) > 1:
+	tok = lexer.parse(expression)
+	while len(tok) > 1:
 		pos = 0
-		while pos < len(tokens):
+		while pos < len(tok):
 			#only operate on tokens that haven't already been operated on
-			if len(tokens[pos].children) == 0:
-				tokens = tokens[pos].operate(tokens, pos)
-			if len(tokens) != prev_len:
+			if len(tok[pos].children) == 0:
+				tok = tok[pos].operate(tok, pos)
+			if len(tok) != prev_len:
 				break
 			pos += 1
 
 		#if this round of parsing did not condense the expression,
 		#then some other syntax error happened.
-		if prev_len == len(tokens):
+		if prev_len == len(tok):
 			raise exceptions.SyntaxError
 
-		prev_len = len(tokens)
+		prev_len = len(tok)
 
-	debug_print(tokens)
-	return tokens[0]
+	return tok[0] if len(tok) else tokens.NoneToken('')
