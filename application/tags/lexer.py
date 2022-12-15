@@ -6,7 +6,7 @@ from . import tokens
 
 SPAC = re.compile(r'[ \t\n\r]*')
 OPER = re.compile(r'\band\b|\bor\b|\&|\|')
-FUNC = re.compile(r'\b(eq|lt|gt|le|ge) *\(')
+FUNC = re.compile(r'\b(eq|lt|gt|le|ge)\b')
 LPAR = re.compile(r'\(')
 RPAR = re.compile(r'\)')
 STR1 = re.compile(r'[a-zA-Z0-9_\-\.]+')

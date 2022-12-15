@@ -94,20 +94,14 @@ class RParen(Token):
 
 class Function(Token):
 	def operate(self, tokens: list, pos: int) -> list:
-		if pos >= (len(tokens) - 2):
+		if pos >= (len(tokens) - 1):
 			raise exceptions.MissingRightParen
 
 		ptype = tokens[pos+1].type()
 		pkids = len(tokens[pos+1].children)
 
-		rtype = tokens[pos+2].type()
-		rkids = len(tokens[pos+2].children)
-
-		if ptype == 'RParen':
-			raise exceptions.MissingParam(self.text)
-
 		# inner expression hasn't been parsed yet, so exit early
-		if rtype != 'RParen':
+		if ptype == 'LParen':
 			return tokens
 
 		if ptype != 'String' and pkids == 0:
@@ -115,11 +109,11 @@ class Function(Token):
 
 		#Currently, all functions require a precisely numeric param.
 		if ptype != 'String' or not INT.match(tokens[pos+1].text):
-			raise exceptions.BadFuncParam(f'The parameter given to "{self.text}" must be numeric.')
+			raise exceptions.BadFuncParam(f'Parameter for "{self.text}" must be an integer.')
 
 		self.children = [ tokens[pos+1] ]
 
-		return tokens[0:pos] + [self] + tokens[pos+3::]
+		return tokens[0:pos] + [self] + tokens[pos+2::]
 
 	def output(self) -> dict:
 		if len(self.children) == 0:
@@ -131,6 +125,9 @@ class Function(Token):
 		if self.text == 'eq':
 			return { 'tags': { '$size': count } }
 		elif self.text == 'lt':
+			#don't allow filtering for blobs with fewer than 0 tags, that doesn't make sense.
+			if count < 1:
+				raise exceptions.BadFuncParam(f'Parameter for "{self.text}" must be a positive integer.')
 			return { f'tags.{count-1}': { '$exists': False } }
 		elif self.text == 'le':
 			return { f'tags.{count}': { '$exists': False } }
