@@ -24,17 +24,28 @@ input.invalid {
 	background-color: #e09daf;
 }
 
-code {
-	vertical-align: top;
+.code-input {
+	display: grid;
+}
+
+.code-input > input {
+	grid-column: 1;
+	grid-row: 1;
+	color: white;
+}
+
+.code-input > code {
+	grid-column: 1;
+	grid-row: 1;
+
 	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 	color: black;
-	background-color: white;
-	display: inline-block;
+	background-color: rgba(0,0,0,0);
+	/* display: inline-block; */
 	height: 1.5rem;
-	width: 100%;
+	/* width: 100%; */
 	padding: 2px 1px;
 	margin: 2px 0;
-	border-radius: 2px;
 }
 
 .error {
