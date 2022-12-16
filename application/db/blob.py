@@ -89,6 +89,8 @@ def get_all_blobs(start: int, count: int, tagstr: str) -> list:
 
 	blobs = []
 	for i in db.data.blob.find(mongo_tag_query, sort=[('created', -1)]).limit(count).skip(start):
+		user_data = db.data.users.find_one({'_id': i['creator']})
+		i['creator'] = user_data['username'] if user_data else str(i['creator'])
 		i['id'] = i['_id']
 		blobs += [i]
 
