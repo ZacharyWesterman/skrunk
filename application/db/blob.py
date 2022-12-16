@@ -68,27 +68,21 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str) -> None:
 	db.data.blob.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True}})
 
-def get_user_blobs(username: str, start: int, count: int, tagstr: str) -> list:
+def get_blobs(username: str, start: int, count: int, tagstr: str) -> list:
 	global db
 	blobs = []
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	user_data = db.data.users.find_one({'username': username})
-	if not user_data:
-		return []
+	if username is None:
+		selection = db.data.blob.find(mongo_tag_query, sort=[('created', -1)])
+	else:
+		user_data = db.data.users.find_one({'username': username})
+		if not user_data:
+			return []
 
-	for i in db.data.blob.find({'$and': [{'creator': user_data['_id']}, mongo_tag_query]}, sort=[('created', -1)]).limit(count).skip(start):
-		i['id'] = i['_id']
-		blobs += [i]
+		selection = db.data.blob.find({'$and': [{'creator': user_data['_id']}, mongo_tag_query]}, sort=[('created', -1)])
 
-	return blobs
-
-def get_all_blobs(start: int, count: int, tagstr: str) -> list:
-	global db
-	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
-
-	blobs = []
-	for i in db.data.blob.find(mongo_tag_query, sort=[('created', -1)]).limit(count).skip(start):
+	for i in selection.limit(count).skip(start):
 		user_data = db.data.users.find_one({'_id': i['creator']})
 		i['creator'] = user_data['username'] if user_data else str(i['creator'])
 		i['id'] = i['_id']
@@ -96,20 +90,18 @@ def get_all_blobs(start: int, count: int, tagstr: str) -> list:
 
 	return blobs
 
-def count_user_blobs(username: str, tagstr: str) -> int:
+def count_blobs(username: str, tagstr: str) -> int:
 	global db
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	user_data = db.data.users.find_one({'username': username})
-	if not user_data:
-		return 0
+	if username is None:
+		return db.data.blob.count_documents(mongo_tag_query)
+	else:
+		user_data = db.data.users.find_one({'username': username})
+		if not user_data:
+			return 0
 
-	return db.data.blob.count_documents({'$and': [{'creator': user_data['_id']}, mongo_tag_query]})
-
-def count_all_blobs(tagstr: str) -> int:
-	global db
-	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
-	return db.data.blob.count_documents(mongo_tag_query)
+		return db.data.blob.count_documents({'$and': [{'creator': user_data['_id']}, mongo_tag_query]})
 
 def get_blob_data(blob_id: str) -> dict:
 	global db
