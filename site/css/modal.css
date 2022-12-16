@@ -2,6 +2,10 @@
 	position: absolute;
 }
 
+[name="upload_modal"] {
+	position: absolute;
+}
+
 .modal-outer {
 	position: fixed;
 	display: none;
