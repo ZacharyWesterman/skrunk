@@ -2,6 +2,7 @@ from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 import application.tags as tags
 
+from typing import Optional
 from bson.objectid import ObjectId
 from datetime import datetime
 import mimetypes
@@ -68,7 +69,7 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str) -> None:
 	db.data.blob.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True}})
 
-def get_blobs(username: str, start: int, count: int, tagstr: str) -> list:
+def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str]) -> list:
 	global db
 	blobs = []
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
@@ -90,7 +91,7 @@ def get_blobs(username: str, start: int, count: int, tagstr: str) -> list:
 
 	return blobs
 
-def count_blobs(username: str, tagstr: str) -> int:
+def count_blobs(username: Optional[str], tagstr: Optional[str]) -> int:
 	global db
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 

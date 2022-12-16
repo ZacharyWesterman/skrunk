@@ -3,8 +3,8 @@ var BlobListLen = 5
 
 async function get_blobs(start, count)
 {
-	return await api(`query ($start: Int!, $count: Int!, $tags: String){
-		getAllBlobs(start: $start, count: $count, tags: $tags) {
+	return await api(`query ($username: String, $start: Int!, $count: Int!, $tags: String){
+		getBlobs(username: $username, start: $start, count: $count, tags: $tags) {
 			__typename
 			...on BlobList {
 				blobs {
@@ -21,6 +21,7 @@ async function get_blobs(start, count)
 			}
 		}
 	}`, {
+		username: null,
 		start: start,
 		count: count,
 		tags: $('tag-query').value,
@@ -44,8 +45,8 @@ window.copy_to_clipboard = async function(id)
 
 async function reload_page_list()
 {
-	var count = await api(`query ($tags: String){
-		countAllBlobs(tags: $tags) {
+	var count = await api(`query ($username: String, $tags: String){
+		countBlobs(username: $username, tags: $tags) {
 			__typename
 			...on BlobCount {
 				count
@@ -54,7 +55,10 @@ async function reload_page_list()
 				message
 			}
 		}
-	}`, {tags: $('tag-query').value})
+	}`, {
+		username: null,
+		tags: $('tag-query').value,
+	})
 	if (count.__typename !== 'BlobCount')
 	{
 		$('tag-error').innerText = count.message
