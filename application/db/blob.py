@@ -46,6 +46,11 @@ def create_blob(name: str, tags: list = []) -> str:
 	ext = name[pos+1::]
 
 	username = decode_user_token(get_request_token()).get('username')
+	user_data = db.data.users.find_one({'username': username})
+
+	if not user_data:
+		raise exceptions.UserDoesNotExistError(username)
+
 	mime = mimetypes.guess_type(name)[0]
 	if mime is None:
 		mime = 'application/octet-stream'
@@ -56,7 +61,7 @@ def create_blob(name: str, tags: list = []) -> str:
 		'ext': ext,
 		'mimetype': mime,
 		'tags': tags,
-		'creator': username,
+		'creator': user_data['_id'],
 		'complete': False,
 	}).inserted_id, ext
 
@@ -66,9 +71,13 @@ def mark_as_completed(id: str) -> None:
 def get_user_blobs(username: str, start: int, count: int, tagstr: str) -> list:
 	global db
 	blobs = []
-	mongo_tag_query = tags.parse(tagstr).output()
+	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	for i in db.data.blob.find({'$and': [{'creator': username}, mongo_tag_query]}, sort=[('created', -1)]).limit(count).skip(start):
+	user_data = db.data.users.find_one({'username': username})
+	if not user_data:
+		return []
+
+	for i in db.data.blob.find({'$and': [{'creator': user_data['_id']}, mongo_tag_query]}, sort=[('created', -1)]).limit(count).skip(start):
 		i['id'] = i['_id']
 		blobs += [i]
 
@@ -76,7 +85,7 @@ def get_user_blobs(username: str, start: int, count: int, tagstr: str) -> list:
 
 def get_all_blobs(start: int, count: int, tagstr: str) -> list:
 	global db
-	mongo_tag_query = tags.parse(tagstr).output()
+	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
 	blobs = []
 	for i in db.data.blob.find(mongo_tag_query, sort=[('created', -1)]).limit(count).skip(start):
@@ -87,18 +96,25 @@ def get_all_blobs(start: int, count: int, tagstr: str) -> list:
 
 def count_user_blobs(username: str, tagstr: str) -> int:
 	global db
-	mongo_tag_query = tags.parse(tagstr).output()
-	return db.data.blob.count_documents({'$and': [{'creator': username}, mongo_tag_query]})
+	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
+
+	user_data = db.data.users.find_one({'username': username})
+	if not user_data:
+		return 0
+
+	return db.data.blob.count_documents({'$and': [{'creator': user_data['_id']}, mongo_tag_query]})
 
 def count_all_blobs(tagstr: str) -> int:
 	global db
-	mongo_tag_query = tags.parse(tagstr).output()
+	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 	return db.data.blob.count_documents(mongo_tag_query)
 
 def get_blob_data(blob_id: str) -> dict:
 	global db
 	blob_data = db.data.blob.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:
+		user_data = db.data.users.find_one({'_id': blob_data['creator']})
+		blob_data['creator'] = user_data['username'] if user_data else str(blob_data['creator'])
 		blob_data['id'] = blob_data['_id']
 	return blob_data
 
