@@ -107,24 +107,24 @@ input.invalid {
 
 @media all and (min-width: 500px ) and (max-width: 599px) {
 	.truncate {
-		max-width: 400px;
+		max-width: 475px;
 	}
 }
 
 @media all and (min-width: 400px ) and (max-width: 499px) {
 	.truncate {
-		max-width: 300px;
+		max-width: 375px;
 	}
 }
 
 @media all and (min-width: 300px ) and (max-width: 399px) {
 	.truncate {
-		max-width: 200px;
+		max-width: 275px;
 	}
 }
 
 @media all and (max-width: 299px) {
 	.truncate {
-		max-width: 100px;
+		max-width: 175px;
 	}
 }
