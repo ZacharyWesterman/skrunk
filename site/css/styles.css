@@ -96,10 +96,35 @@ input.invalid {
 	transition: all 0.25s ease-in-out;
 }
 
-.marquee {
-	white-space: nowrap;
+
+/* Truncate text for different screen sizes */
+.truncate {
 	display: block;
-	width: 15rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+@media all and (min-width: 500px ) and (max-width: 599px) {
+	.truncate {
+		max-width: 400px;
+	}
+}
+
+@media all and (min-width: 400px ) and (max-width: 499px) {
+	.truncate {
+		max-width: 300px;
+	}
+}
+
+@media all and (min-width: 300px ) and (max-width: 399px) {
+	.truncate {
+		max-width: 200px;
+	}
+}
+
+@media all and (max-width: 299px) {
+	.truncate {
+		max-width: 100px;
+	}
 }
