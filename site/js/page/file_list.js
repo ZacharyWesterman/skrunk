@@ -150,7 +150,14 @@ async function remove_blob(id)
 	const ct = $('blob-list').childElementCount
 	var innerHTML = ''
 
-	var blobs = await get_blobs(ct, BlobListLen - ct)
+	var blobs = await get_blobs(ct, BlobListLen - ct + 1)
+	if (blobs.__typename !== 'BlobList')
+	{
+		$('tag-error').innerText = blobs.message
+		return
+	}
+	$('tag-error').innerText = ''
+	blobs = blobs.blobs
 
 	for (var i in blobs)
 	{
