@@ -1,5 +1,5 @@
 var BlobStart = 0
-var BlobListLen = 5
+var BlobListLen = 4
 
 async function get_blobs(start, count)
 {
@@ -69,7 +69,12 @@ async function reload_page_list()
 
 	const page_ct = Math.ceil(count / BlobListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
-	const this_page = Math.floor(BlobStart / BlobListLen)
+	var this_page = Math.floor(BlobStart / BlobListLen)
+	if (this_page >= page_ct)
+	{
+		this_page = page_ct - 1
+		BlobStart = this_page * BlobListLen
+	}
 
 	await _('page_list', {
 		pages: pages,
@@ -150,7 +155,7 @@ async function remove_blob(id)
 	const ct = $('blob-list').childElementCount
 	var innerHTML = ''
 
-	var blobs = await get_blobs(ct, BlobListLen - ct + 1)
+	var blobs = await get_blobs(BlobStart + ct, BlobListLen - ct)
 	if (blobs.__typename !== 'BlobList')
 	{
 		$('tag-error').innerText = blobs.message
