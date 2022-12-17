@@ -70,7 +70,11 @@ async function reload_page_list()
 	const page_ct = Math.ceil(count / BlobListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
 	var this_page = Math.floor(BlobStart / BlobListLen)
-	if (this_page >= page_ct)
+	if (page_ct === 0)
+	{
+		this_page = BlobStart = 0
+	}
+	else if (this_page >= page_ct)
 	{
 		this_page = page_ct - 1
 		BlobStart = this_page * BlobListLen
