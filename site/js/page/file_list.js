@@ -161,6 +161,7 @@ async function remove_blob(id)
 
 	for (var i in blobs)
 	{
+		blobs[i].created = date.output(blobs[i].created) //convert dates to local time
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML += innerHTML
