@@ -57,7 +57,7 @@ def create_blob(name: str, tags: list = []) -> str:
 		mime = 'application/octet-stream'
 
 	auto_tags = mime.split('/')
-	tags += auto_tags
+	tags += [ i for i in auto_tags if i != 'application' ]
 
 	return db.data.blob.insert_one({
 		'created': datetime.utcnow(),
