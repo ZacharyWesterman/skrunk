@@ -194,9 +194,18 @@ $.on.enter($('tag-query'), () => {
 	reload_blobs()
 })
 
+window.show_tags_how_to = async () => {
+	await _.modal({
+		title: 'What is a tag query?',
+		text: await api.get('/html/snippit/tag_query.html'),
+		buttons: ['OK'],
+	}).catch(() => {})
+}
+
 window.unload.push(() => {
 	delete window.reload_blobs
 	delete window.confirm_delete_blob
 	delete window.copy_to_clipboard
+	delete window.show_tags_how_to
 	_.modal.upload.return = old_modal_retn
 })

@@ -1,0 +1,18 @@
+The tag query is a powerful option that lets you filter files by the state of their tags. There are a few operations you can use:<br>
+<ul>
+	<li><b>Tags:</b>
+		Anything in quotes is considered a <span class="code str">tag</span>.<br>
+		Additionally, non-quoted words are also tags, but those must not have any spaces or odd characters in them.
+	</li>
+	<li><b>Operators:</b>
+		The operators <span class="code oper">and</span> or <span class="code oper">or</span> go inbetween tags, and filter files that either have <i>both</i> tags or <i>one of them</i>, respectively.<br>
+		You can also use <span class="code oper">&</span>(and) or <span class="code oper">|</span>(or).
+	</li>
+	<li><b>Functions:</b>
+		These go <i>before</i> a tag and indicate that, instead of being a tag, it actually refers to the <i>number of tags</i> a file has.<br>
+		The available functions are <span class="code func">eq</span>(equals), <span class="code func">lt</span>(less than), <span class="code func">le</span>(less or equal), <span class="code func">gt</span>(greater than) and <span class="code func">ge</span>(greater or equal).
+	</li>
+	<li><b>Parentheses:</b>
+		You can use parentheses to enforce a specific evaluation order.<br>
+		For example: <span class="code"><span class="str">"AB"</span> <span class="oper">or</span> <span class="str">A</span> <span class="oper">and</span> <span class="str">B</span></span> is equivalent to <span class="code">(<span class="str">"AB"</span> <span class="oper">or</span> <span class="str">A</span>) <span class="oper">and</span> <span class="str">B</span></span>, but you might want <span class="code"><span class="str">"AB"</span> <span class="oper">or</span> (<span class="str">A</span> <span class="oper">and</span> <span class="str">B</span>)</span>
+</ul>

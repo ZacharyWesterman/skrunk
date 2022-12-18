@@ -11,6 +11,7 @@
 @import url('/css/modal.css');
 @import url('/css/card.css');
 @import url('/css/button.css');
+@import url('/css/tooltip.css');
 
 progress {
 	display: block;
@@ -44,6 +45,27 @@ input.invalid {
 	height: 1.5rem;
 	padding: 2px 1px;
 	margin: 2px 0;
+}
+
+.code {
+	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+	background-color: #EEEEEE;
+	border-radius: 3px;
+	padding-left: 3px;
+	padding-right: 3px;
+	color: black;
+}
+
+.oper {
+	color: blue;
+}
+
+.func {
+	color: orange;
+}
+
+.str {
+	color: green;
 }
 
 .cursor {

@@ -2,10 +2,16 @@
 	<div class="card-inner">
 		<div name="page_list"></div><br>
 
+		<span class="tooltip" onclick="show_tags_how_to()">
+			<i class="fa-solid fa-circle-question"></i>
+			<span class="tooltiptext">What does this mean?</span>
+		</span>
+
 		<div class="code-input">
 			<input id="tag-query" placeholder="Custom tag query" onKeyUp="sync_tag_overlay(this, $('tag-query-overlay'))">
 			<code id="tag-query-overlay" onclick="$('tag-query').focus()"></code>
 		</div>
+
 		<div class="error" id="tag-error"></div>
 	</div>
 </div>
