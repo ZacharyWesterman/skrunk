@@ -256,13 +256,17 @@ window.set_blob_tags = async id => {
 		$('modal-tag-list').innerHTML = innerHTML
 		tagClicks()
 
-		$.on.enter($('modal-tag-input'), field => {
+		//when submitting a tag
+		const tagSubmit = field => {
 			const tag = field.value.trim()
 			blob_data.tags.push(tag)
 			$('modal-tag-list').innerHTML += tagHTML(tag)
 			field.value = ''
 			tagClicks()
-		})
+		}
+
+		$('modal-tag-input').nextElementSibling.onclick = () => tagSubmit($('modal-tag-input'))
+		$.on.enter($('modal-tag-input'), tagSubmit)
 	}, false).catch(() => 'cancel')
 
 	if (res !== 'ok') return

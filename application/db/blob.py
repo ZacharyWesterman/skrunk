@@ -132,6 +132,8 @@ def set_blob_tags(blob_id: str, tags: list) -> dict:
 	if not blob_data:
 		raise exceptions.BlobDoesNotExistError(blob_id)
 
+	tags = [ i.lower() for i in tags ]
+
 	db.data.blob.update_one({'_id': ObjectId(blob_id)}, {'$set': {'tags': tags}})
 	blob_data['tags'] = tags
 	return blob_data
