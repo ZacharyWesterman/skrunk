@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<span class="close" onclick="_.modal.cancel()">&times;</span>
 			{{?it.title}}<h4><b>{{=it.title}}</b></h4>{{?}}
-			{{?it.text}}<p>{{=it.text}}</p>{{?}}
+			{{?it.text}}<div>{{=it.text}}</div>{{?}}
 			{{~it.buttons : button : i}}
 				{{?typeof button === 'object'}}
 					<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button[0]}}')" class="big border">{{=button[1]}}</button>

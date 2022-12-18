@@ -1,6 +1,5 @@
 /* Tooltip container */
 .tooltip {
-	float: right;
 	position: relative;
 	margin-left: 10px;
 }

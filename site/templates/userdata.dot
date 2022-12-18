@@ -22,8 +22,12 @@
 			</table>
 		{{?}}
 		<p>
-			<i style="float:left;">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
-			<button style="float:right;" onclick="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
+			<i class="left">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
+			<button class="right" onclick="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
+			<span class="tooltip left" onclick="show_sessions_info()">
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext">What does this mean?</span>
+			</span>
 		</p>
 		{{?!it.self_view}}
 			<button class="big wide border" onclick="confirm_delete_user('{{=it.user.username}}')">Delete</button>

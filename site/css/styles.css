@@ -94,27 +94,27 @@ input.invalid {
 	color: var(--disabled-text);
 }
 
-.top {
+.navbar {
 	position: fixed;
+	padding-left: 1rem;
+	top: 0;
+	left: 0;
+}
+
+.top {
 	top: 0;
 }
 
 .left {
-	position: fixed;
-	left: 0;
-	padding-left: 1rem;
+	float: left;
 }
 
 .bottom {
-	position: fixed;
 	bottom: 0;
-	padding-bottom: 1rem;
 }
 
 .right {
-	position: fixed;
-	right: 0;
-	padding-right: 1rem;
+	float: right;
 }
 
 .hidden {

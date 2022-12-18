@@ -1,4 +1,4 @@
-<div class="top left">
+<div class="navbar">
 	<button class="icon" onclick="api.logout()"><i class="fa-solid fa-right-from-bracket fa-lg"></i></button><br>
 	{{?it.includes('admin')}}
 		<button class="icon alt" onclick="inject(document.all.content, '/html/users.html')"><i class="fa-solid fa-users fa-lg"></i></button><br>

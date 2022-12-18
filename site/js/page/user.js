@@ -125,9 +125,18 @@ window.update_password = async function(password, username)
 	})
 }
 
+window.show_sessions_info = async () => {
+	await _.modal({
+		title: 'What is a session?',
+		text: await api.get('/html/snippit/login_sessions.html'),
+		buttons: ['OK'],
+	}).catch(() => {})
+}
+
 window.unload.push(() => {
 	delete window.load_user_data
 	delete window.set_perms
 	delete window.revoke_sessions
 	delete window.update_password
+	delete window.show_sessions_info
 })
