@@ -86,7 +86,8 @@ window.update_password = async function(password, username)
 		]
 
 		_.modal({
-			title: '<span class="error">Invalid Password</span>',
+			type: 'error',
+			title: 'Invalid Password',
 			text: 'Password must fit <i>all</i> of the following criteria:<ul><li>' + criteria.join('</li><li>') + '</li></ul>',
 			buttons: ['OK'],
 		}).catch(() => {})
