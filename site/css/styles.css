@@ -41,11 +41,22 @@ input.invalid {
 	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 	color: black;
 	background-color: rgba(0,0,0,0);
-	/* display: inline-block; */
 	height: 1.5rem;
-	/* width: 100%; */
 	padding: 2px 1px;
 	margin: 2px 0;
+}
+
+.cursor {
+	color: black;
+	animation: blink 1s step-start infinite;
+	position: absolute;
+	margin-left: -3pt;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
 }
 
 .error {
