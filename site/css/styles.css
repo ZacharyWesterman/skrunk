@@ -51,7 +51,8 @@ input.invalid {
 }
 
 .bottom {
-	bottom: 0;
+	position: fixed;
+	bottom: 1rem;
 }
 
 .right {
