@@ -139,7 +139,8 @@ window.confirm_delete_blob = async function(id, name)
 	if (res.__typename !== 'Blob')
 	{
 		_.modal({
-			title: '<span class="error">ERROR</span>',
+			type: 'error',
+			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK'],
 		})
@@ -196,6 +197,7 @@ $.on.enter($('tag-query'), () => {
 
 window.show_tags_how_to = async () => {
 	await _.modal({
+		type: 'info',
 		title: 'What is a tag query?',
 		text: await api.get('/html/snippit/tag_query.html'),
 		buttons: ['OK'],

@@ -27,7 +27,8 @@ get_user_data(api.username).then(data => {
 	{
 		//If user data does not exist, we don't want them to have access. Kick them out.
 		_.modal({
-			title: '<span class="error">ERROR</span>',
+			type: 'error',
+			title: 'ERROR',
 			text: data.message,
 			buttons: ['OK']
 		}).then(() => api.logout()).catch(() => {})

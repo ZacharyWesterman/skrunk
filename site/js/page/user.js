@@ -52,7 +52,8 @@ window.set_perms = async function()
 	var res = await api(query, vars)
 	if (res.__typename !== 'UserData') {
 		_.modal({
-			title: '<span class="error">ERROR</span>',
+			type: 'error',
+			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK']
 		}).catch(()=>{})
@@ -111,7 +112,8 @@ window.update_password = async function(password, username)
 	if (res.__typename !== 'UserData')
 	{
 		_.modal({
-			title: '<span class="error">ERROR</span>',
+			type: 'error',
+			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK'],
 		})
@@ -127,6 +129,7 @@ window.update_password = async function(password, username)
 
 window.show_sessions_info = async () => {
 	await _.modal({
+		type: 'info',
 		title: 'What is a session?',
 		text: await api.get('/html/snippit/login_sessions.html'),
 		buttons: ['OK'],

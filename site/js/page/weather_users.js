@@ -37,7 +37,8 @@ window.create_user = async function()
 	if (response.__typename !== 'UserData')
 	{
 		_.modal({
-			title: '<span class="error">ERROR</span>',
+			type: 'error',
+			title: 'ERROR',
 			text: response.message,
 			buttons: ['OK']
 		}).catch(() => {})
