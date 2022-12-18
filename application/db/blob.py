@@ -44,7 +44,8 @@ def save_blob_data(file: object) -> str:
 def create_blob(name: str, tags: list = []) -> str:
 	global db
 	pos = name.rfind('.')
-	ext = name[pos+1::]
+	ext = name[pos::] if pos > -1 else ''
+	name = name[0:pos] if pos > -1 else name
 
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = db.data.users.find_one({'username': username})
@@ -61,7 +62,7 @@ def create_blob(name: str, tags: list = []) -> str:
 
 	return db.data.blob.insert_one({
 		'created': datetime.utcnow(),
-		'name': name[0:pos],
+		'name': name,
 		'ext': ext,
 		'mimetype': mime,
 		'tags': list(set(tags)),
