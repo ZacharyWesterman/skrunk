@@ -26,4 +26,4 @@ type BlobCount {
 
 union BlobCountResponse = BlobCount | BadTagQuery
 union BlobQueryResponse = BlobList | BadTagQuery
-union BlobDeleteResponse = Blob | BlobDoesNotExistError | InsufficientPerms
+union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms

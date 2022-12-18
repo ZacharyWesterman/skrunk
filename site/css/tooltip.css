@@ -2,6 +2,7 @@
 .tooltip {
 	position: relative;
 	margin-left: 10px;
+	cursor: pointer;
 }
 
 /* Tooltip text */

@@ -1,5 +1,6 @@
 button {
 	margin-right: 5px;
+	cursor: pointer;
 }
 
 button.icon > a {

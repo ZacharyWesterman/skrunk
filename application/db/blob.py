@@ -125,3 +125,13 @@ def delete_blob(blob_id: str) -> bool:
 		return blob_data
 
 	raise exceptions.BlobDoesNotExistError(blob_id)
+
+def set_blob_tags(blob_id: str, tags: list) -> dict:
+	global db
+	blob_data = db.data.blob.find_one({'_id': ObjectId(blob_id)})
+	if not blob_data:
+		raise exceptions.BlobDoesNotExistError(blob_id)
+
+	db.data.blob.update_one({'_id': ObjectId(blob_id)}, {'$set': {'tags': tags}})
+	blob_data['tags'] = tags
+	return blob_data

@@ -19,6 +19,14 @@
 			File Type = {{=it.mimetype}}
 		{{?}}
 
+		<br>
+
+		<button class="icon" onclick="set_blob_tags('{{=it.id}}')"><i class="fa-solid fa-tag fa-lg"></i></button>
+		{{~it.tags : tag}}
+			<div class="tag">{{=tag}}</div>
+		{{~}}
+		<br>
+
 		<div class="disabled">
 			Uploaded by {{=it.creator}}
 			<br>

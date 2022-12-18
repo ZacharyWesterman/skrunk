@@ -14,6 +14,7 @@ async function get_blobs(start, count)
 					name
 					creator
 					created
+					tags
 				}
 			}
 			...on BadTagQuery {
@@ -25,6 +26,23 @@ async function get_blobs(start, count)
 		start: start,
 		count: count,
 		tags: $('tag-query').value,
+	})
+}
+
+async function get_blob(blob_id)
+{
+	return await api(`query ($id: String!){
+		getBlob (id: $id) {
+			id
+			ext
+			mimetype
+			name
+			creator
+			created
+			tags
+		}
+	}`, {
+		id: blob_id,
 	})
 }
 
@@ -204,10 +222,85 @@ window.show_tags_how_to = async () => {
 	}).catch(() => {})
 }
 
+window.set_blob_tags = async id => {
+	const blob_data = await get_blob(id)
+
+	function tagHTML(tag)
+	{
+		return `<div class="tag clickable">${tag}\&nbsp;<b>\&times;</b></div>`
+	}
+
+	function tagClicks()
+	{
+		var taglist = $('modal-tag-list')
+		var kids = taglist.children
+		for (var i = 0; i < kids.length; ++i)
+		{
+			const child = kids[i]
+			const ix = i
+			child.onclick = () => {
+				blob_data.tags.splice(ix, 1)
+				taglist.removeChild(child)
+			}
+		}
+	}
+
+	const res = await _.modal({
+		title: 'Update Tags',
+		text: await api.get('/html/snippit/blob_tag_modal.html'),
+		buttons: ['OK', 'Cancel'],
+	}, () => {
+		//Once modal has loaded, inject list of tags.
+		var innerHTML = ''
+		for (var tag of blob_data.tags) { innerHTML += tagHTML(tag) }
+		$('modal-tag-list').innerHTML = innerHTML
+		tagClicks()
+
+		$.on.enter($('modal-tag-input'), field => {
+			const tag = field.value.trim()
+			blob_data.tags.push(tag)
+			$('modal-tag-list').innerHTML += tagHTML(tag)
+			field.value = ''
+			tagClicks()
+		})
+	}, false).catch(() => 'cancel')
+
+	if (res !== 'ok') return
+
+	const blob = await api(`mutation ($id: String!, $tags: [String!]!) {
+		setBlobTags (id: $id, tags: $tags) {
+			__typename
+			...on BlobDoesNotExistError {
+				message
+			}
+			...on InsufficientPerms {
+				message
+			}
+		}
+	}`, {
+		id: id,
+		tags: blob_data.tags,
+	})
+
+	if (blob.__typename !== 'Blob')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		})
+		return
+	}
+
+	await reload_blobs()
+}
+
 window.unload.push(() => {
 	delete window.reload_blobs
 	delete window.confirm_delete_blob
 	delete window.copy_to_clipboard
 	delete window.show_tags_how_to
+	delete window.set_blob_tags
 	_.modal.upload.return = old_modal_retn
 })

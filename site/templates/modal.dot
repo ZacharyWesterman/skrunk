@@ -12,7 +12,7 @@
 				{{?it.type === 'error'}}</span>{{?}}
 			</h4>{{?}}
 
-			{{?it.text}}<div style="max-width: 700px;">{{=it.text}}</div>{{?}}
+			{{?it.text}}<div id="modal-content-text" style="max-width: 700px;">{{=it.text}}</div>{{?}}
 			{{~it.buttons : button : i}}
 				{{?typeof button === 'object'}}
 					<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button[0]}}')" class="big border">{{=button[1]}}</button>

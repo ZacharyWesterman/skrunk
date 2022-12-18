@@ -1,6 +1,7 @@
-var modal = async function(config)
+var modal = async function(config, onload = () => {}, button_shortcuts = true)
 {
 	await _('modal', config)
+	onload()
 	$('modal-window').style.display = 'block'
 
 	return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ var modal = async function(config)
 		}
 
 		var field = $('modal-button-first')
-		if (field)
+		if (field && button_shortcuts)
 		{
 			$.on.enter(window, field.onclick)
 			$.on.escape(window, modal.cancel)
