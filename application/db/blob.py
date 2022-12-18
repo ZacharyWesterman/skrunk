@@ -43,6 +43,11 @@ def save_blob_data(file: object) -> str:
 
 def create_blob(name: str, tags: list = []) -> str:
 	global db
+
+	mime = mimetypes.guess_type(name)[0]
+	if mime is None:
+		mime = 'application/octet-stream'
+
 	pos = name.rfind('.')
 	ext = name[pos::] if pos > -1 else ''
 	name = name[0:pos] if pos > -1 else name
@@ -52,10 +57,6 @@ def create_blob(name: str, tags: list = []) -> str:
 
 	if not user_data:
 		raise exceptions.UserDoesNotExistError(username)
-
-	mime = mimetypes.guess_type(name)[0]
-	if mime is None:
-		mime = 'application/octet-stream'
 
 	auto_tags = mime.split('/')
 	tags += [ i for i in auto_tags if i != 'application' ]
