@@ -214,12 +214,16 @@ $.on.enter($('tag-query'), () => {
 })
 
 window.show_tags_how_to = async () => {
-	await _.modal({
+	const res = await _.modal({
 		type: 'info',
 		title: 'What is a tag query?',
 		text: await api.get('/html/snippit/tag_query.html'),
-		buttons: ['OK'],
-	}).catch(() => {})
+		buttons: ['OK', 'More Info'],
+	}).catch(() => 'ok')
+
+	if (res === 'ok') return
+
+	dashnav('/html/help/tag_query.html')
 }
 
 window.set_blob_tags = async id => {

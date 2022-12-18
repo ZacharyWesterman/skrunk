@@ -5,12 +5,11 @@ The tag query is a powerful option that lets you filter files by the state of th
 		Non-quoted words are also tags, but those must not have any spaces or odd characters in them.
 	</li>
 	<li><b>Operators:</b>
-		The operators <span class="code oper">and</span> or <span class="code oper">or</span> go inbetween tags, and filter files that either have <i>both</i> tags or <i>one of them</i>, respectively.
-		You can also use <span class="code oper">&</span>(and) or <span class="code oper">|</span>(or).
+		The operators <span class="code oper">and</span> or <span class="code oper">or</span> go inbetween tags, whereas <span class="code oper">not</span> goes before a tag.
 	</li>
 	<li><b>Functions:</b>
 		These go <i>before</i> a tag and indicate that, instead of being a tag, it actually refers to the <i>number of tags</i> a file has.
-		The available functions are <span class="code func">eq</span>(equals), <span class="code func">lt</span>(less than), <span class="code func">le</span>(less or equal), <span class="code func">gt</span>(greater than) and <span class="code func">ge</span>(greater or equal).
+		The available functions are <span class="code func">eq</span>, <span class="code func">lt</span>, <span class="code func">le</span>, <span class="code func">gt</span> and <span class="code func">ge</span>.
 	</li>
 	<li><b>Parentheses:</b>
 		You can use parentheses to enforce a specific evaluation order.

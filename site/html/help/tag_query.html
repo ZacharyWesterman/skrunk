@@ -1,0 +1,32 @@
+<h1>
+	<i class="fa-solid fa-circle-info fa-xl"></i>
+	All About Tag Queries
+</h1>
+
+<div class="card">
+	<div class="card-inner">
+		<h2>Tags</h2>
+		Anything in quotes is considered a <span class="code str">tag</span>.<br>
+		Non-quoted words are also tags, but those must not have any spaces or odd characters in them.<br>
+		For example:
+		<ul>
+			<li>
+				<span class="code str">"tag1 tag2"</span> is a single tag,
+				but <span class="code str">tag1 tag2</span> are <b>two separate tags</b>.
+			</li>
+			<li>
+				<span class="code str">"exclamation!"</span> is a valid tag, but <span class="code"><span class="str">exclamation</span>!</span> will cause a syntax error.
+			</li>
+		</ul>
+
+		Note that all tags must be separated by an <span class="code oper">operator</span>. This is on purpose.<br>
+		If you search for, say <span class="code str">tag1&nbsp;tag2</span>, would you expect to get files with <i>both tags</i> or with <i>either of them</i>?
+		<br>A better option is to just not guess, so you'd have to write either <span class="code"><span class="str">tag1</span>&nbsp;<span class="oper">and</span>&nbsp;<span class="str">tag2</span></span> or <span class="code"><span class="str">tag1</span>&nbsp;<span class="oper">or</span>&nbsp;<span class="str">tag2</span></span>.
+
+		<h4>Important notes:</h4>
+		<ul>
+			<li>Tags will never begin or end with spaces, but they may contain spaces.</li>
+			<li>Tags and tag queries are <i>case-insensitive</i>, e.g. the tag <span class="code str">TAG</span> is the same as <span class="code str">tag</span>.</li>
+			<li>Files will never have duplicate tags.</li>
+	</div>
+</div>

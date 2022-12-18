@@ -1,12 +1,12 @@
 <div class="navbar">
 	<button class="icon" onclick="api.logout()"><i class="fa-solid fa-right-from-bracket fa-lg"></i></button><br>
 	{{?it.includes('admin')}}
-		<button class="icon alt" onclick="inject(document.all.content, '/html/users.html')"><i class="fa-solid fa-users fa-lg"></i></button><br>
-		<button class="icon alt" onclick="inject(document.all.content, '/html/weather_users.html')"><i class="fa-solid fa-cloud-bolt fa-lg"></i></button><br>
+		<button class="icon alt" onclick="dashnav('/html/users.html')"><i class="fa-solid fa-users fa-lg"></i></button><br>
+		<button class="icon alt" onclick="dashnav('/html/weather_users.html')"><i class="fa-solid fa-cloud-bolt fa-lg"></i></button><br>
 	{{?}}
-	<button class="icon" onclick="inject(document.all.content, '/html/user.html')"><i class="fa-solid fa-user-pen fa-lg"></i></button><br>
-	<button class="icon" onclick="inject(document.all.content, '/html/edit_theme.html')"><i class="fa-solid fa-palette fa-lg"></i></button><br>
-	<button class="icon" onclick="inject(document.all.content, '/html/file_list.html')"><i class="fa-solid fa-server fa-lg"></i></button><br>
+	<button class="icon" onclick="dashnav('/html/user.html')"><i class="fa-solid fa-user-pen fa-lg"></i></button><br>
+	<button class="icon" onclick="dashnav('/html/edit_theme.html')"><i class="fa-solid fa-palette fa-lg"></i></button><br>
+	<button class="icon" onclick="dashnav('/html/file_list.html')"><i class="fa-solid fa-server fa-lg"></i></button><br>
 	<button class="icon" onclick="_.modal.upload()"><i class="fa-solid fa-file-arrow-up fa-lg"></i></button><br>
 
 	<button class="bottom icon"><i class="fa-solid fa-bug fa-lg"></i></button>

@@ -290,6 +290,11 @@ async function navigate(url)
 	await inject(document.all.body, url)
 }
 
+async function dashnav(url)
+{
+	await inject(document.all.content, url)
+}
+
 /*
 * Load content from URL into the given field.
 */
