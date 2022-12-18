@@ -19,7 +19,7 @@
 	position: absolute;
 	z-index: 1;
 	bottom: 125%;
-	left: 50%;
+	right: 0%;
 	margin-left: -60px;
 	outline: 1px solid var(--secondary-text);
 
@@ -33,7 +33,7 @@
 	content: "";
 	position: absolute;
 	top: 100%;
-	left: 30%;
+	right: 3%;
 	margin-left: -5px;
 	border-width: 5px;
 	border-style: solid;
