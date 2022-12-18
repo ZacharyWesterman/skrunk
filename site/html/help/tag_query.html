@@ -3,6 +3,7 @@
 	Tag Queries
 </h1>
 
+<!-- Info about tags -->
 <div class="card">
 	<div class="card-inner">
 		<h2>Tags</h2>
@@ -29,4 +30,36 @@
 			<li>Tags and tag queries are <i>case-insensitive</i>, e.g. the tag <span class="code str">TAG</span> is the same as <span class="code str">tag</span>.</li>
 			<li>Files will never have duplicate tags.</li>
 	</div>
+</div>
+
+<!-- Info about operators -->
+<div class="card">
+	<div class="card-inner">
+		<h2>Operators</h2>
+		Operators serve as a way to query for multiple tags or tag expression at the same time.<br>
+		The operators <span class="code oper">and</span> or <span class="code oper">or</span> go inbetween tags, whereas <span class="code oper">not</span> goes before a tag.<br>
+		Alternately, you may use <span class="code oper">&</span>, <span class="code oper">|</span> or <span class="code oper">~</span> respectively.<br>
+		<br>
+		Note that, unless specified otherwise, operators are evaluated from left to right, e.g.:<br>
+		<span class="code">
+			<span class="str">A</span>
+			<span class="oper">and</span>
+			<span class="str">B</span>
+			<span class="oper">or</span>
+			<span class="str">C</span>
+			<span class="oper">and not</span>
+			<span class="str">D</span>
+		</span>
+		is equivalent to
+		<span class="code">
+			((<span class="str">A</span>
+			<span class="oper">and</span>
+			<span class="str">B</span>)
+			<span class="oper">or</span>
+			<span class="str">C</span>)
+			<span class="oper">and not</span>
+			<span class="str">D</span>
+		</span>.
+		<br>
+		You can change this order by adding parentheses <span class="code">()</span> around expressions.
 </div>
