@@ -259,6 +259,7 @@ window.set_blob_tags = async id => {
 		//when submitting a tag
 		const tagSubmit = field => {
 			const tag = field.value.trim()
+			if (tag.length === 0) return
 			blob_data.tags.push(tag)
 			$('modal-tag-list').innerHTML += tagHTML(tag)
 			field.value = ''
