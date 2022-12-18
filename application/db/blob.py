@@ -56,12 +56,15 @@ def create_blob(name: str, tags: list = []) -> str:
 	if mime is None:
 		mime = 'application/octet-stream'
 
+	auto_tags = mime.split('/')
+	tags += auto_tags
+
 	return db.data.blob.insert_one({
 		'created': datetime.utcnow(),
 		'name': name[0:pos],
 		'ext': ext,
 		'mimetype': mime,
-		'tags': tags,
+		'tags': list(set(tags)),
 		'creator': user_data['_id'],
 		'complete': False,
 	}).inserted_id, ext
