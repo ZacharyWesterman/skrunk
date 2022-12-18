@@ -1,4 +1,4 @@
-const OPER = /^(and\b|or\b|&|\|)/i
+const OPER = /^(and\b|or\b|not\b|&|\||~)/i
 const FUNC = /^(eq|lt|le|gt|ge)\b/i
 const STR1 = /^"(\\"|[^"])*"/
 const STR2 = /^\w+\b/

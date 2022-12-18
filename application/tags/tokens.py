@@ -7,6 +7,7 @@ class Token:
 	def __init__(self, text: str):
 		self.text = text
 		self.children = []
+		self.negate = False
 
 	def operate(self, tokens: list, pos: int) -> list:
 		return tokens
@@ -34,6 +35,27 @@ class NoneToken(Token):
 
 class Operator(Token):
 	def operate(self, tokens: list, pos: int) -> list:
+		#NOT operator behaves a little differently from others.
+		if self.text == 'not':
+			if pos >= (len(tokens) - 1):
+				raise exceptions.MissingOperand(self.text)
+
+			rtype = tokens[pos+1].type()
+			rkids = len(tokens[pos+1].children)
+
+			#don't be greedy; let functions or other NOT opers try to get their param if they can.
+			if ((rtype == 'Function' or rtype == 'Operator') and rkids == 0) or rtype == 'LParen':
+				return tokens
+
+			if rtype != 'String' and rkids == 0:
+				raise exceptions.MissingOperand(self.text)
+
+			tokens[pos+1].negate = not tokens[pos+1].negate
+
+			return tokens[0:pos] + tokens[pos+1::]
+
+		#AND/OR operators start here
+
 		if pos == 0 or pos >= (len(tokens) - 1):
 			raise exceptions.MissingOperand(self.text)
 
@@ -47,6 +69,9 @@ class Operator(Token):
 		if (rtype == 'Function' and rkids == 0) or ltype == 'RParen' or rtype == 'LParen':
 			return tokens
 
+		if rtype == 'Operator' and tokens[pos+1].text == 'not' and rkids == 0:
+			return tokens
+
 		if (ltype != 'String' and lkids == 0) or (rtype != 'String' and rkids == 0):
 			raise exceptions.MissingOperand(self.text)
 
@@ -58,13 +83,22 @@ class Operator(Token):
 		return tokens[0:pos-1] + [self] + tokens[pos+2::]
 
 	def output(self) -> dict:
+		neg = {
+			'or': 'and',
+			'and': 'or',
+		}
+		text = neg[self.text] if self.negate else self.text
+		if self.negate:
+			for child in self.children:
+				child.negate = not child.negate
+
 		return {
-			f'${self.text}': [ i.output() for i in self.children ]
+			f'${text}': [ i.output() for i in self.children ]
 		}
 
 class String(Token):
 	def output(self) -> str:
-		return { 'tags': self.text }
+		return {'tags': {'$ne': self.text }} if self.negate else { 'tags': self.text }
 
 class LParen(Token):
 	def operate(self, tokens: list, pos: int) -> list:
@@ -123,17 +157,24 @@ class Function(Token):
 		count = int(self.children[0].text)
 
 		if self.text == 'eq':
-			return { 'tags': { '$size': count } }
+			if self.negate:
+				return {'$or': [
+					{ f'tags.{count-1}': { '$exists': False } },
+					{ f'tags.{count}': { '$exists': True } },
+				]}
+			else:
+				return { 'tags': { '$size': count } }
+
 		elif self.text == 'lt':
 			#don't allow filtering for blobs with fewer than 0 tags, that doesn't make sense.
 			if count < 1:
 				raise exceptions.BadFuncParam(f'Parameter for "{self.text}" must be a positive integer.')
-			return { f'tags.{count-1}': { '$exists': False } }
+			return { f'tags.{count-1}': { '$exists': self.negate } }
 		elif self.text == 'le':
-			return { f'tags.{count}': { '$exists': False } }
+			return { f'tags.{count}': { '$exists': self.negate } }
 		elif self.text == 'gt':
-			return { f'tags.{count}': { '$exists': True } }
+			return { f'tags.{count}': { '$exists': not self.negate } }
 		elif self.text == 'ge':
-			return { f'tags.{count-1}': { '$exists': True } }
+			return { f'tags.{count-1}': { '$exists': not self.negate } }
 
 		raise NotImplementedError(f'Output for function of type "{self.text}" is not implemented.')
