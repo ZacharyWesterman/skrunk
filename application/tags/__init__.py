@@ -12,7 +12,7 @@ def debug_print(tok, indent = 0):
 
 def parse(expression: str) -> tokens.Token:
 	prev_len = -1
-	tok = lexer.parse(expression)
+	tok = lexer.parse(expression.lower())
 	while len(tok) > 1:
 		pos = 0
 		while pos < len(tok):

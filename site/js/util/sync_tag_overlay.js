@@ -1,5 +1,5 @@
-const OPER = /^(and\b|or\b|&|\|)/
-const FUNC = /^(eq|lt|le|gt|ge)\b/
+const OPER = /^(and\b|or\b|&|\|)/i
+const FUNC = /^(eq|lt|le|gt|ge)\b/i
 const STR1 = /^"(\\"|[^"])*"/
 const STR2 = /^\w+\b/
 const Cursor = '<span class="cursor">|</span>'
