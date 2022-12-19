@@ -1,5 +1,3 @@
-import Yace from 'https://unpkg.com/yace?module'
-
 var BlobStart = 0
 var BlobListLen = 4
 

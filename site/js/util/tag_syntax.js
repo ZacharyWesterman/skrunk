@@ -46,7 +46,3 @@ window.tag_highlight = function(src)
 	const tokens = lexer(src)
 	return render(tokens)
 }
-
-window.unload.push(() => {
-	delete window.tag_highlight
-})

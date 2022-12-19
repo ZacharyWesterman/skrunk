@@ -316,11 +316,8 @@ async function inject(field, url)
 	async function do_script_eval(text, url, replaceUrl)
 	{
 		try {
-			const dataUri = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(text)
-			const m = await import(dataUri)
-			// console.log(m)
-			// const run = m.default
-			// run()
+			const objectURL = URL.createObjectURL(new Blob([text], {type: 'text/javascript'}))
+			const m = await import(objectURL)
 		} catch (error) {
 			var stack = error.stack.trim().split('\n')
 			stack = stack[stack.length-1].split(':')
