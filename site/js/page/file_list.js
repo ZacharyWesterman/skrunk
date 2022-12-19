@@ -1,5 +1,14 @@
+import Yace from 'https://unpkg.com/yace?module'
+
 var BlobStart = 0
 var BlobListLen = 4
+
+const Editor = new Yace("#tag-query", {
+	value: "",
+	lineNumbers: false,
+	highlighter: window.tag_highlight,
+})
+Editor.textarea.spellcheck = false
 
 async function get_blobs(start, count)
 {
@@ -25,7 +34,7 @@ async function get_blobs(start, count)
 		username: null,
 		start: start,
 		count: count,
-		tags: $('tag-query').value,
+		tags: Editor.value,
 	})
 }
 
@@ -75,7 +84,7 @@ async function reload_page_list()
 		}
 	}`, {
 		username: null,
-		tags: $('tag-query').value,
+		tags: Editor.value,
 	})
 	if (count.__typename !== 'BlobCount')
 	{
@@ -208,7 +217,7 @@ _.modal.upload.return = () => {
 	reload_blobs()
 }
 
-$.on.enter($('tag-query'), () => {
+$.on.enter(Editor.textarea, () => {
 	BlobStart = 0
 	reload_blobs()
 })

@@ -14,6 +14,10 @@
 @import url('/css/tooltip.css');
 @import url('/css/code.css');
 
+.editor { outline: none; overflow-y: auto; padding-left: 48px; counter-reset: line; }
+.editor div { display: block; position: relative; white-space: pre-wrap; }
+.editor div::before { content: counter(line); counter-increment: line; position: absolute; right: calc(100% + 16px); opacity: 0.5; }
+
 progress {
 	display: block;
 }

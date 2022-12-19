@@ -4,13 +4,11 @@
 
 		<span class="tooltip right" onclick="show_tags_how_to()">
 			<i class="fa-solid fa-circle-question"></i>
-			<span class="tooltiptext">What does this mean?</span>
+			<span class="tooltiptext">What is this?</span>
 		</span>
 
-		<div class="code-input">
-			<input id="tag-query" placeholder="Custom tag query" onKeyUp="sync_tag_overlay(this, $('tag-query-overlay'))">
-			<code id="tag-query-overlay" onclick="$('tag-query').focus()"></code>
-		</div>
+		<!-- Editor for tag query -->
+		<div class="code" id="tag-query"></div>
 
 		<div class="error" id="tag-error"></div>
 	</div>
@@ -24,5 +22,5 @@
 	</div>
 </div>
 
-<script src="/js/page/file_list.js" async></script>
-<script src="/js/util/sync_tag_overlay.js" async></script>
+<script src="/js/util/tag_syntax.js"></script>
+<script src="/js/page/file_list.js"></script>

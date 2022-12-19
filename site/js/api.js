@@ -313,10 +313,14 @@ async function inject(field, url)
 	setTimeout(() => $.show(field), 250)
 
 	//Eval script and (if it errors) give more accurate error info.
-	function do_script_eval(text, url, replaceUrl)
+	async function do_script_eval(text, url, replaceUrl)
 	{
 		try {
-			eval(text)
+			const dataUri = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(text)
+			const m = await import(dataUri)
+			// console.log(m)
+			// const run = m.default
+			// run()
 		} catch (error) {
 			var stack = error.stack.trim().split('\n')
 			stack = stack[stack.length-1].split(':')
@@ -369,12 +373,12 @@ async function inject(field, url)
 				} catch (error) {
 					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				}
-				do_script_eval(res, script.src, true)
+				await do_script_eval(res, script.src, true)
 			}
 		}
 		else //eval inline script text
 		{
-			do_script_eval(script.text, url, false)
+			await do_script_eval(script.text, url, false)
 		}
 	}
 
