@@ -12,9 +12,9 @@ import os
 db = None
 blob_path = None
 
-def path(id: str, ext: str = None) -> str:
+def path(id: str, ext: str = '') -> str:
 	global blob_path
-	return f'{blob_path}/{id}.{ext}' if ext is not None else f'{blob_path}/{id}'
+	return f'{blob_path}/{id}{ext}'
 
 def save_blob_data(file: object) -> str:
 	global blob_path
