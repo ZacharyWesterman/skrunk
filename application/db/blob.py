@@ -58,15 +58,14 @@ def create_blob(name: str, tags: list = []) -> str:
 	if not user_data:
 		raise exceptions.UserDoesNotExistError(username)
 
-	auto_tags = mime.split('/')
-	tags += [ i for i in auto_tags if i != 'application' ]
+	auto_tags = [ i for i in mime.split('/') if i != 'application' ]
 
 	return db.data.blob.insert_one({
 		'created': datetime.utcnow(),
 		'name': name,
 		'ext': ext,
 		'mimetype': mime,
-		'tags': list(set(tags)),
+		'tags': list(set(tags + auto_tags)),
 		'creator': user_data['_id'],
 		'complete': False,
 	}).inserted_id, ext
