@@ -1,136 +1,138 @@
-<h1>
-	<i class="fa-solid fa-circle-info fa-xl"></i>
-	Tag Queries
-</h1>
+<div style="max-width: 900px;">
+	<h1>
+		<i class="fa-solid fa-circle-info fa-xl"></i>
+		Tag Queries
+	</h1>
 
-<!-- Info about tags -->
-<div class="card">
-	<div class="card-inner">
-		<h2>Tags</h2>
-		Anything in quotes is considered a <span class="code str">tag</span>.<br>
-		Non-quoted words are also tags, but those must not have any spaces or odd characters in them.<br>
-		For example:
-		<ul>
-			<li>
-				<span class="code str">"tag1 tag2"</span> is a single tag,
-				but <span class="code str">tag1 tag2</span> are <b>two separate tags</b>.
-			</li>
-			<li>
-				<span class="code str">"exclamation!"</span> is a valid tag, but <span class="code"><span class="str">exclamation</span>!</span> will cause a syntax error.
-			</li>
-		</ul>
+	<!-- Info about tags -->
+	<div class="card">
+		<div class="card-inner">
+			<h2>Tags</h2>
+			Anything in quotes is considered a <span class="code str">tag</span>.
+			Non-quoted words are also tags, but those must not have any spaces or odd characters in them.
+			For example:
+			<ul>
+				<li>
+					<span class="code str">"tag1 tag2"</span> is a single tag,
+					but <span class="code str">tag1 tag2</span> are <b>two separate tags</b>.
+				</li>
+				<li>
+					<span class="code str">"exclamation!"</span> is a valid tag, but <span class="code"><span class="str">exclamation</span>!</span> will cause a syntax error.
+				</li>
+			</ul>
 
-		Note that all tags must be separated by an <span class="code oper">operator</span>. This is on purpose.<br>
-		If you search for, say <span class="code str">tag1&nbsp;tag2</span>, would you expect to get files with <i>both tags</i> or with <i>either of them</i>?
-		<br>A better option is to just not guess, so you'd have to write either <span class="code"><span class="str">tag1</span>&nbsp;<span class="oper">and</span>&nbsp;<span class="str">tag2</span></span> or <span class="code"><span class="str">tag1</span>&nbsp;<span class="oper">or</span>&nbsp;<span class="str">tag2</span></span>.
+			Note that all tags must be separated by an <span class="code oper">operator</span>. This is on purpose.
+			If you search for, say <span class="code str">tag1&nbsp;tag2</span>, would you expect to get files with <i>both tags</i> or with <i>either of them</i>?
+			A better option is to just not guess, so you'd have to write either <span class="code"><span class="str">tag1</span>&nbsp;<span class="oper">and</span>&nbsp;<span class="str">tag2</span></span> or <span class="code"><span class="str">tag1</span>&nbsp;<span class="oper">or</span>&nbsp;<span class="str">tag2</span></span>.
 
-		<h4>Important notes:</h4>
-		<ul>
-			<li>Tags will never begin or end with spaces, but they may contain spaces.</li>
-			<li>Tags and tag queries are <i>case-insensitive</i>, e.g. the tag <span class="code str">TAG</span> is the same as <span class="code str">tag</span>.</li>
-			<li>Files will never have duplicate tags.</li>
+			<h4>Important notes:</h4>
+			<ul>
+				<li>Tags will never begin or end with spaces, but they may contain spaces.</li>
+				<li>Tags and tag queries are <i>case-insensitive</i>, e.g. the tag <span class="code str">TAG</span> is the same as <span class="code str">tag</span>.</li>
+				<li>Files will never have duplicate tags.</li>
+			</ul>
+		</div>
 	</div>
-</div>
 
-<!-- Info about operators -->
-<div class="card">
-	<div class="card-inner">
-		<h2>Operators</h2>
-		Operators serve as a way to query for multiple tags or tag expression at the same time.<br>
-		The operators <span class="code oper">and</span> or <span class="code oper">or</span> go inbetween tags, whereas <span class="code oper">not</span> goes before a tag.<br>
-		Alternately, you may use <span class="code oper">+</span>, <span class="code oper">/</span> or <span class="code oper">-</span> respectively.<br>
-		<br>
-		Note that, unless specified otherwise, operators are evaluated from left to right, e.g.:<br>
-		<span class="code">
-			<span class="str">A</span>
-			<span class="oper">and</span>
-			<span class="str">B</span>
-			<span class="oper">or</span>
-			<span class="str">C</span>
-			<span class="oper">and not</span>
-			<span class="str">D</span>
-		</span>
-		is equivalent to
-		<span class="code">
-			((<span class="str">A</span>
-			<span class="oper">and</span>
-			<span class="str">B</span>)
-			<span class="oper">or</span>
-			<span class="str">C</span>)
-			<span class="oper">and not</span>
-			<span class="str">D</span>
-		</span>.<br>
-		(An even shorter version would be
-		<span class="code">
-			((<span class="str">A</span>
-			<span class="oper">+</span>
-			<span class="str">B</span>)
-			<span class="oper">/</span>
-			<span class="str">C</span>)
-			<span class="oper">-</span>
-			<span class="str">D</span>
-		</span>).<br>
-		<br>
+	<!-- Info about operators -->
+	<div class="card">
+		<div class="card-inner">
+			<h2>Operators</h2>
+			Operators serve as a way to query for multiple tags or tag expression at the same time.
+			The operators <span class="code oper">and</span> or <span class="code oper">or</span> go inbetween tags, whereas <span class="code oper">not</span> goes before a tag.
+			Alternately, you may use <span class="code oper">+</span>, <span class="code oper">/</span> or <span class="code oper">-</span> respectively.
+			<br>
+			Note that, unless specified otherwise, operators are evaluated from left to right, e.g.:<br>
+			<span class="code">
+				<span class="str">A</span>
+				<span class="oper">and</span>
+				<span class="str">B</span>
+				<span class="oper">or</span>
+				<span class="str">C</span>
+				<span class="oper">and not</span>
+				<span class="str">D</span>
+			</span>
+			is equivalent to
+			<span class="code">
+				((<span class="str">A</span>
+				<span class="oper">and</span>
+				<span class="str">B</span>)
+				<span class="oper">or</span>
+				<span class="str">C</span>)
+				<span class="oper">and not</span>
+				<span class="str">D</span>
+			</span>.<br>
+			(An even shorter version would be
+			<span class="code">
+				((<span class="str">A</span>
+				<span class="oper">+</span>
+				<span class="str">B</span>)
+				<span class="oper">/</span>
+				<span class="str">C</span>)
+				<span class="oper">-</span>
+				<span class="str">D</span>
+			</span>).<br>
+			<br>
 
-		You can change this order by adding parentheses <span class="code">()</span> around expressions.<br>
-		Also, as a shortcut,
-		<span class="code">
-			<span class="str">A</span>
-			<span class="oper">not</span>
-			<span class="str">B</span>
-		</span>
-		is equivalent to
-		<span class="code">
-			<span class="str">A</span>
-			<span class="oper">and</span>
-			<span class="oper">not</span>
-			<span class="str">B</span>
-		</span>.<br>
-		For example, if you want all files tagged with either <span class="code str">A</span> or <span class="code str">B</span> <i>but not both</i>,<br>
-		you can write either
-		<span class="code">
-			<span class="str">A</span>
-			<span class="oper">/</span>
-			<span class="str">B</span>
-			<span class="oper">-</span>
-			(<span class="str">A</span>
-			<span class="oper">+</span>
-			<span class="str">B</span>)
-		</span> or
-		<span class="code">
-			<span class="str">A</span>
-			<span class="oper">or</span>
-			<span class="str">B</span>
-			<span class="oper">not</span>
-			(<span class="str">A</span>
-			<span class="oper">and</span>
-			<span class="str">B</span>)
-		</span>. Both are equivalent.
+			You can change this order by adding parentheses <span class="code">()</span> around expressions.
+			Also, as a shortcut,
+			<span class="code">
+				<span class="str">A</span>
+				<span class="oper">not</span>
+				<span class="str">B</span>
+			</span>
+			is equivalent to
+			<span class="code">
+				<span class="str">A</span>
+				<span class="oper">and</span>
+				<span class="oper">not</span>
+				<span class="str">B</span>
+			</span>.
+			For example, if you want all files tagged with either <span class="code str">A</span> or <span class="code str">B</span> <i>but not both</i>, you can write either
+			<span class="code">
+				<span class="str">A</span>
+				<span class="oper">/</span>
+				<span class="str">B</span>
+				<span class="oper">-</span>
+				(<span class="str">A</span>
+				<span class="oper">+</span>
+				<span class="str">B</span>)
+			</span> or
+			<span class="code">
+				<span class="str">A</span>
+				<span class="oper">or</span>
+				<span class="str">B</span>
+				<span class="oper">not</span>
+				(<span class="str">A</span>
+				<span class="oper">and</span>
+				<span class="str">B</span>)
+			</span>. Both are equivalent.
+		</div>
 	</div>
-</div>
 
-<!-- Info about functions -->
-<div class="card">
-	<div class="card-inner">
-		<h2>Functions</h2>
-		Functions go before a tag and indicate that, instead of referring to the <i>text of</i> a tag,<br>
-		it actually refers to the <i>number of tags</i> a file has.<br>
-		The available functions are <span class="code func">eq</span>, <span class="code func">lt</span>, <span class="code func">le</span>, <span class="code func">gt</span> and <span class="code func">ge</span>.<br>
-		<ul>
-			<li><span class="code"><span class="func">eq</span> <span class="str">5</span></span>: The file has exactly 5 tags.</li>
-			<li><span class="code"><span class="func">lt</span> <span class="str">5</span></span>: The file has fewer than 5 tags.</li>
-			<li><span class="code"><span class="func">le</span> <span class="str">5</span></span>: The file has at most 5 tags.</li>
-			<li><span class="code"><span class="func">gt</span> <span class="str">5</span></span>: The file has more than 5 tags.</li>
-			<li><span class="code"><span class="func">ge</span> <span class="str">5</span></span>: The file has at least 5 tags.</li>
-		</ul>
+	<!-- Info about functions -->
+	<div class="card">
+		<div class="card-inner">
+			<h2>Functions</h2>
+			Functions go before a tag and indicate that, instead of referring to the <i>text of</i> a tag,
+			it actually refers to the <i>number of tags</i> a file has.
+			The available functions are <span class="code func">eq</span>, <span class="code func">lt</span>, <span class="code func">le</span>, <span class="code func">gt</span> and <span class="code func">ge</span>.
+			<ul>
+				<li><span class="code"><span class="func">eq</span> <span class="str">5</span></span>: The file has exactly 5 tags.</li>
+				<li><span class="code"><span class="func">lt</span> <span class="str">5</span></span>: The file has fewer than 5 tags.</li>
+				<li><span class="code"><span class="func">le</span> <span class="str">5</span></span>: The file has at most 5 tags.</li>
+				<li><span class="code"><span class="func">gt</span> <span class="str">5</span></span>: The file has more than 5 tags.</li>
+				<li><span class="code"><span class="func">ge</span> <span class="str">5</span></span>: The file has at least 5 tags.</li>
+			</ul>
 
-		For example,
-		<span class="code">
-			<span class="str">video</span>
-			<span class="oper">and</span>
-			<span class="func">ge</span>
-			<span class="str">2</span>
-		</span>
-		will select all files that have a <span class="code str">video</span> tag <i>and at least one other tag</i>.
+			For example,
+			<span class="code">
+				<span class="str">video</span>
+				<span class="oper">and</span>
+				<span class="func">ge</span>
+				<span class="str">2</span>
+			</span>
+			will select all files that have a <span class="code str">video</span> tag <i>and at least one other tag</i>.
+		</div>
 	</div>
 </div>
