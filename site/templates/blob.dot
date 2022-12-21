@@ -16,8 +16,10 @@
 			<image width="100%" height="auto" src="/blob/{{=it.id}}{{=it.ext}}"></image>
 		{{??it.mimetype.split('/')[0] == 'audio'}}
 			<audio src="/blob/{{=it.id}}{{=it.ext}}" controls></audio>
+		{{??it.mimetype.split('/')[0] == 'text'}}
+			<iframe src="blob/{{=it.id}}{{=it.ext}}"></iframe>
 		{{??}}
-			File Type = {{=it.mimetype}}
+			<i class="disabled">{{=it.mimetype}}</i>
 		{{?}}
 
 		<br>
