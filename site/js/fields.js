@@ -9,7 +9,7 @@ var _ = Template
 _.modal = Modal
 
 _.css = {
-	vars: () => document?.styleSheets[0]?.cssRules[0]?.styleSheet?.rules[0]?.style || [],
+	vars: () => document?.styleSheets[document.styleSheets.length-1]?.cssRules[0]?.styleSheet?.rules[0]?.style || [],
 	set_var: (name, value) => document.querySelector(':root').style.setProperty(name, value),
 	get_var: name => getComputedStyle(document.querySelector(':root')).getPropertyValue(name),
 }

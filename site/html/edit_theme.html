@@ -2,11 +2,16 @@
 
 <div class="card alt">
 	<div class="card-inner">
-		To reset colors to default values,<br>
+		To reset the theme to default values,<br>
 		click the button below.<br>
-		<button class="big wide border" onclick="reset_colors()">Reset Colors</button><br>
+		<button class="big wide border" onclick="reset_colors()">Reset Theme</button><br>
 		<p class="error">Here's some example error text.</p>
 		<p class="disabled">Here's some example disabled text.</p>
+
+		<p>
+			Border Radius
+			<input id="--border-radius" type="number" step="1" onchange="update_colors(this)">
+		</p>
 	</div>
 </div>
 
@@ -66,7 +71,7 @@
 
 <script>
 	window.update_colors = field => {
-		_.css.set_var(field.id, field.value)
+		_.css.set_var(field.id, field.value + ((field.type === 'number') ? 'px' : '') )
 		api.write_cookies()
 		savecolors()
 	}
@@ -85,7 +90,8 @@
 	{
 		for (var i of _.css.vars())
 		{
-			$(i).value = _.css.get_var(i)
+			const val = _.css.get_var(i)
+			$(i).value = ($(i).type === 'number') ? val.substring(0, val.length - 2) : val
 		}
 	}
 	setcolors()

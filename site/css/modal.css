@@ -37,7 +37,7 @@
 	margin: 5% auto;
 	padding: 2px 16px;
 	border: 1px solid var(--secondary-text);
-	border-radius: 5px;
+	border-radius: var(--border-radius);
 }
 
 .close {

@@ -24,10 +24,20 @@ progress {
 
 input {
 	height: 1.5rem;
+	border: none;
+	border-radius: var(--border-radius);
 }
 
 input.invalid {
 	background-color: #e09daf;
+}
+
+iframe {
+	background-color: #EEEEEE;
+	width: 100%;
+	height: 200px;
+	border: none;
+	border-radius: var(--border-radius);
 }
 
 .center {
@@ -78,7 +88,7 @@ input.invalid {
 .tag {
 	display: inline-flex;
 	border: 1px solid var(--secondary-text);
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 	margin-top: 5px;
 	margin-right: 5px;
 	padding-left: 2px;

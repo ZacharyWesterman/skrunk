@@ -1,7 +1,7 @@
 .code-input {
 	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 	background-color: #EEEEEE;
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 	padding-left: 3px;
 	padding-right: 3px;
 	color: black;
@@ -11,7 +11,7 @@
 .code {
 	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 	background-color: #EEEEEE;
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 	padding-left: 3px;
 	padding-right: 3px;
 	color: black;
