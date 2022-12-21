@@ -77,7 +77,6 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 	global db
 	blobs = []
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
-	print(mongo_tag_query)
 
 	if username is None:
 		selection = db.data.blob.find(mongo_tag_query, sort=[('created', -1)])

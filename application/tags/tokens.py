@@ -35,8 +35,8 @@ class NoneToken(Token):
 
 class Operator(Token):
 	def operate(self, tokens: list, pos: int) -> list:
-		#NOT operator behaves a little differently from others.
-		if self.text == 'not':
+		#NOT operator is unary, unless by itself, then it's actually "and not".
+		if self.text == 'not' and (pos <= 0 or (tokens[pos-1].type() == 'Operator' and len(tokens[pos-1].children) == 0)):
 			if pos >= (len(tokens) - 1):
 				raise exceptions.MissingOperand(self.text)
 
@@ -76,6 +76,11 @@ class Operator(Token):
 			raise exceptions.MissingOperand(self.text)
 
 		self.children = [ tokens[pos-1], tokens[pos+1] ]
+
+		# A not B -> A and not B
+		if self.text == 'not':
+			self.text = 'and'
+			self.children[1].negate = not self.children[1].negate
 
 		#fold together children for operators of the same type.
 		self.coalesce()

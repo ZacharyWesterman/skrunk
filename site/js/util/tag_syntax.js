@@ -3,7 +3,7 @@ function lexer(src) {
 		[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
 		[/^(eq|lt|le|gt|ge)\b/i, 'func'],
 		[/^"(\\"|[^"])*"/, 'str'],
-		[/^\w+\b/, 'str'],
+		[/^[a-zA-Z0-9_\.]+/, 'str'],
 	]
 
 	var tokens = []
