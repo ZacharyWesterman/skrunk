@@ -282,6 +282,7 @@ window.set_blob_tags = async id => {
 			child.onclick = () => {
 				blob_data.tags.splice(ix, 1)
 				taglist.removeChild(child)
+				tagClicks()
 			}
 		}
 	}
