@@ -20,10 +20,13 @@
 
 .oper {
 	color: blue;
+	font-weight: bold;
 }
 
 .func {
 	color: orange;
+	font-weight: bold;
+	font-style: italic;
 }
 
 .str {

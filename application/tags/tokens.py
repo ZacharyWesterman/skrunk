@@ -180,6 +180,9 @@ class Function(Token):
 		elif self.text == 'gt':
 			return { f'tags.{count}': { '$exists': not self.negate } }
 		elif self.text == 'ge':
+			#don't allow filtering for blobs with at least 0 tags, that's always true.
+			if count < 1:
+				raise exceptions.BadFuncParam(f'Parameter for "{self.text}" must be a positive integer.')
 			return { f'tags.{count-1}': { '$exists': not self.negate } }
 
 		raise NotImplementedError(f'Output for function of type "{self.text}" is not implemented.')
