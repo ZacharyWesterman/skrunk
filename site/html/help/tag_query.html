@@ -71,6 +71,7 @@
 			<span class="str">D</span>
 		</span>).<br>
 		<br>
+
 		You can change this order by adding parentheses <span class="code">()</span> around expressions.<br>
 		Also, as a shortcut,
 		<span class="code">
@@ -84,7 +85,27 @@
 			<span class="oper">and</span>
 			<span class="oper">not</span>
 			<span class="str">B</span>
-		</span>.
+		</span>.<br>
+		For example, if you want all files tagged with either <span class="code str">A</span> or <span class="code str">B</span> <i>but not both</i>,<br>
+		you can write either
+		<span class="code">
+			<span class="str">A</span>
+			<span class="oper">/</span>
+			<span class="str">B</span>
+			<span class="oper">-</span>
+			(<span class="str">A</span>
+			<span class="oper">+</span>
+			<span class="str">B</span>)
+		</span> or
+		<span class="code">
+			<span class="str">A</span>
+			<span class="oper">or</span>
+			<span class="str">B</span>
+			<span class="oper">not</span>
+			(<span class="str">A</span>
+			<span class="oper">and</span>
+			<span class="str">B</span>)
+		</span>. Both are equivalent.
 	</div>
 </div>
 
