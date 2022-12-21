@@ -38,7 +38,8 @@
 		<h2>Operators</h2>
 		Operators serve as a way to query for multiple tags or tag expression at the same time.<br>
 		The operators <span class="code oper">and</span> or <span class="code oper">or</span> go inbetween tags, whereas <span class="code oper">not</span> goes before a tag.<br>
-		Alternately, you may use <span class="code oper">&</span>, <span class="code oper">|</span> or <span class="code oper">~</span> respectively.<br>
+		Alternately, you may use <span class="code oper">+</span>, <span class="code oper">/</span> or <span class="code oper">-</span> respectively.<br>
+		Also, as a shortcut, <span class="code oper">not</span> is equivalent to <span class="code oper">and not</span>.<br>
 		<br>
 		Note that, unless specified otherwise, operators are evaluated from left to right, e.g.:<br>
 		<span class="code">
@@ -59,7 +60,17 @@
 			<span class="str">C</span>)
 			<span class="oper">and not</span>
 			<span class="str">D</span>
-		</span>.
+		</span>.<br>
+		(An even shorter version would be
+		<span class="code">
+			((<span class="str">A</span>
+			<span class="oper">+</span>
+			<span class="str">B</span>)
+			<span class="oper">/</span>
+			<span class="str">C</span>)
+			<span class="oper">-</span>
+			<span class="str">D</span>
+		</span>).<br>
 		<br>
 		You can change this order by adding parentheses <span class="code">()</span> around expressions.
 	</div>

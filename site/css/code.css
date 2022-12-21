@@ -1,23 +1,11 @@
 .code-input {
-	display: grid;
-}
-
-.code-input > input {
-	grid-column: 1;
-	grid-row: 1;
-	color: white;
-}
-
-.code-input > code {
-	grid-column: 1;
-	grid-row: 1;
-
 	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+	background-color: #EEEEEE;
+	border-radius: 3px;
+	padding-left: 3px;
+	padding-right: 3px;
 	color: black;
-	background-color: rgba(0,0,0,0);
 	height: 1.5rem;
-	padding: 2px 1px;
-	margin: 2px 0;
 }
 
 .code {
@@ -27,6 +15,7 @@
 	padding-left: 3px;
 	padding-right: 3px;
 	color: black;
+	display: inline-block;
 }
 
 .oper {

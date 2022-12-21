@@ -5,7 +5,7 @@ from . import exceptions
 from . import tokens
 
 SPAC = re.compile(r'[ \t\n\r]*')
-OPER = re.compile(r'\band\b|\bor\b|\bnot\b|\&|\||\~')
+OPER = re.compile(r'\band\b|\bor\b|\bnot\b|\+|/|\-')
 FUNC = re.compile(r'\b(eq|lt|gt|le|ge)\b')
 LPAR = re.compile(r'\(')
 RPAR = re.compile(r'\)')
@@ -31,9 +31,9 @@ def parse(expr: str) -> list:
 		#operators
 		token, expr = consume(OPER, expr)
 		if token is not None:
-			if token == '|': token = 'or'
-			if token == '&': token = 'and'
-			if token == '~': token = 'not'
+			if token == '/': token = 'or'
+			if token == '+': token = 'and'
+			if token == '-': token = 'not'
 			tok += [ tokens.Operator(token) ]
 			continue
 
