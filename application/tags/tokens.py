@@ -23,7 +23,7 @@ class Token:
 		kids = []
 		for child in self.children:
 			child.coalesce()
-			if child.type() == 'Operator' and self.text == child.text:
+			if child.type() == 'Operator' and self.text == child.text and not child.negate:
 				kids += child.children
 			else:
 				kids += [child]
