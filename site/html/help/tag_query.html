@@ -116,7 +116,6 @@
 		Functions go before a tag and indicate that, instead of referring to the <i>text of</i> a tag,<br>
 		it actually refers to the <i>number of tags</i> a file has.<br>
 		The available functions are <span class="code func">eq</span>, <span class="code func">lt</span>, <span class="code func">le</span>, <span class="code func">gt</span> and <span class="code func">ge</span>.<br>
-		For example:
 		<ul>
 			<li><span class="code"><span class="func">eq</span> <span class="str">5</span></span>: The file has exactly 5 tags.</li>
 			<li><span class="code"><span class="func">lt</span> <span class="str">5</span></span>: The file has fewer than 5 tags.</li>
@@ -125,12 +124,13 @@
 			<li><span class="code"><span class="func">ge</span> <span class="str">5</span></span>: The file has at least 5 tags.</li>
 		</ul>
 
-		The following will select all files that have a <span class="code str">video</span> tag <i>and at least one other tag</i>:<br>
+		For example,
 		<span class="code">
 			<span class="str">video</span>
 			<span class="oper">and</span>
 			<span class="func">ge</span>
 			<span class="str">2</span>
 		</span>
+		will select all files that have a <span class="code str">video</span> tag <i>and at least one other tag</i>.
 	</div>
 </div>
