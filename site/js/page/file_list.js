@@ -8,9 +8,25 @@ const Editor = new Yace("#tag-query", {
 })
 Editor.textarea.spellcheck = false
 
+//Convert blob data to be pretty for display purposes.
+function conv_blob(blob)
+{
+	blob.created = date.output(blob.created) //convert dates to local time
+
+	var sizes = ['GB', 'MB', 'KB']
+	var sizetype = 'B'
+	while (blob.size >= 1000)
+	{
+		sizetype = sizes.pop()
+		blob.size /= 1000
+	}
+	blob.size = blob.size.toFixed(2) + ' ' + sizetype //convert size to human-readable format
+	return blob
+}
+
 async function get_blobs(start, count)
 {
-	return await api(`query ($username: String, $start: Int!, $count: Int!, $tags: String){
+	var blobs = await api(`query ($username: String, $start: Int!, $count: Int!, $tags: String){
 		getBlobs(username: $username, start: $start, count: $count, tags: $tags) {
 			__typename
 			...on BlobList {
@@ -19,6 +35,7 @@ async function get_blobs(start, count)
 					ext
 					mimetype
 					name
+					size
 					creator
 					created
 					tags
@@ -34,16 +51,24 @@ async function get_blobs(start, count)
 		count: count,
 		tags: Editor.value,
 	})
+
+	if (blobs.blobs)
+	{
+		blobs.blobs = blobs.blobs.map(conv_blob)
+	}
+
+	return blobs
 }
 
 async function get_blob(blob_id)
 {
-	return await api(`query ($id: String!){
+	var blob = await api(`query ($id: String!){
 		getBlob (id: $id) {
 			id
 			ext
 			mimetype
 			name
+			size
 			creator
 			created
 			tags
@@ -51,6 +76,13 @@ async function get_blob(blob_id)
 	}`, {
 		id: blob_id,
 	})
+
+	if (blob.__typename === 'Blob')
+	{
+		blob = conv_blob(blob)
+	}
+
+	return blob
 }
 
 window.navigate_to_page = async function(page_num)
@@ -128,7 +160,6 @@ window.reload_blobs = async function()
 	var innerHTML = ''
 	for (var i in blobs)
 	{
-		blobs[i].created = date.output(blobs[i].created) //convert dates to local time
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML = innerHTML
@@ -196,7 +227,6 @@ async function remove_blob(id)
 
 	for (var i in blobs)
 	{
-		blobs[i].created = date.output(blobs[i].created) //convert dates to local time
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML += innerHTML

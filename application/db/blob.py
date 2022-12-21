@@ -18,26 +18,16 @@ def path(id: str, ext: str = '') -> str:
 
 def save_blob_data(file: object) -> str:
 	global blob_path
-	id, ext = create_blob(file.filename)
+	filename = file.filename
+	id, ext = create_blob(filename)
+	this_blob_path = path(id, ext)
 
-	# make file size readable
-	filesize = file.content_length
-	sizetype = 'B'
-	if filesize >= 1000:
-		filesize /= 1000
-		sizetype = 'KiB'
-	if filesize >= 1000:
-		filesize /= 1000
-		sizetype = 'MiB'
-	if filesize >= 1000:
-		filesize /= 1000
-		sizetype = 'GiB'
-	filesize = round(filesize, 3)
+	print(f'Beginning stream of file "{filename}"...')
+	file.save(this_blob_path)
+	print(f'Finished stream of file "{filename}".')
 
-	print(f'Beginning stream of file "{file.filename}" ({filesize} {sizetype})...')
-	file.save(path(id, ext))
-	print(f'Finished stream of file "{file.filename}" ({filesize} {sizetype}).')
-	mark_as_completed(id)
+	size = os.stat(this_blob_path).st_size
+	mark_as_completed(id, size)
 
 	return id
 
@@ -65,13 +55,14 @@ def create_blob(name: str, tags: list = []) -> str:
 		'name': name,
 		'ext': ext,
 		'mimetype': mime,
+		'size': 0,
 		'tags': list(set(tags + auto_tags)),
 		'creator': user_data['_id'],
 		'complete': False,
 	}).inserted_id, ext
 
-def mark_as_completed(id: str) -> None:
-	db.data.blob.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True}})
+def mark_as_completed(id: str, size: int) -> None:
+	db.data.blob.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size}})
 
 def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str]) -> list:
 	global db
