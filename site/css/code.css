@@ -33,6 +33,11 @@
 	color: green;
 }
 
+.wild {
+	color: #c800cc;
+	font-weight: bold;
+}
+
 .cursor {
 	color: black;
 	animation: blink 1s step-start infinite;

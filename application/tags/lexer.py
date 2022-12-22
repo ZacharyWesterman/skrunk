@@ -28,6 +28,12 @@ def parse(expr: str) -> list:
 		#ignore whitespace
 		token, expr = consume(SPAC, expr)
 
+		#glob operator
+		if expr[0] == '*':
+			expr = expr[1::]
+			tok += [ tokens.Glob('*') ]
+			continue
+
 		#operators
 		token, expr = consume(OPER, expr)
 		if token is not None:

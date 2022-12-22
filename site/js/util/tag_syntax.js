@@ -4,6 +4,7 @@ function lexer(src) {
 		[/^(eq|lt|le|gt|ge)\b/i, 'func'],
 		[/^"(\\"|[^"])*"/, 'str'],
 		[/^[a-zA-Z0-9_\.]+/, 'str'],
+		[/^\*/, 'wild'],
 	]
 
 	var tokens = []

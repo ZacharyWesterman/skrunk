@@ -11,7 +11,7 @@ class UnterminatedString(ParseError):
 
 class InvalidSymbol(ParseError):
 	def __init__(self, char: str):
-		super().__init__(f'Unvalid symbol "{char}".')
+		super().__init__(f'Invalid symbol "{char}".')
 
 class MissingOperand(ParseError):
 	def __init__(self, oper: str):
@@ -35,3 +35,7 @@ class MissingRightParen(ParseError):
 
 class BadFuncParam(ParseError):
 	pass
+
+class BadGlob(ParseError):
+	def __init__(self):
+		super().__init__('Glob "*" must be immediately adjacent to a tag.')

@@ -8,6 +8,10 @@ class Token:
 		self.text = text
 		self.children = []
 		self.negate = False
+		self.glob = {
+			'left': False,
+			'right': False,
+		}
 
 	def operate(self, tokens: list, pos: int) -> list:
 		return tokens
@@ -32,6 +36,24 @@ class Token:
 class NoneToken(Token):
 	def output(self) -> dict:
 		return {}
+
+class Glob(Token):
+	def operate(self, tokens: list, pos: int) -> list:
+		#remove redundant globs
+		if pos < (len(tokens) - 1) and tokens[pos+1].type() == 'Glob':
+			return tokens[0:pos-1] + tokens[pos+1::]
+
+		#if next token is a string, glob on the left (*X)
+		if pos < (len(tokens) - 1) and tokens[pos+1].type() == 'String':
+			tokens[pos+1].glob['left'] = True
+			return tokens[0:pos] + tokens[pos+1::]
+
+		#if prev token is a string, glob on the right (X*)
+		elif pos > 0 and tokens[pos-1].type() == 'String':
+			tokens[pos-1].glob['right'] = True
+			return tokens[0:pos] + tokens[pos+1::]
+
+		raise exceptions.BadGlob
 
 class Operator(Token):
 	def operate(self, tokens: list, pos: int) -> list:
@@ -103,7 +125,15 @@ class Operator(Token):
 
 class String(Token):
 	def output(self) -> str:
-		return {'tags': {'$ne': self.text }} if self.negate else { 'tags': self.text }
+		text = self.text
+		if self.glob['left'] and self.glob['right']:
+			text = re.compile(text)
+		elif self.glob['left']:
+			text = re.compile(text + '$')
+		elif self.glob['right']:
+			text = re.compile('^' + text)
+
+		return {'tags': {'$ne': text }} if self.negate else { 'tags': text }
 
 class LParen(Token):
 	def operate(self, tokens: list, pos: int) -> list:
