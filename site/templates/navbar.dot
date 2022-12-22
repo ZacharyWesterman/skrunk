@@ -9,5 +9,5 @@
 	<button class="icon" onclick="dashnav('/html/file_list.html')"><i class="fa-solid fa-server fa-lg"></i></button><br>
 	<button class="icon" onclick="_.modal.upload()"><i class="fa-solid fa-file-arrow-up fa-lg"></i></button><br>
 
-	<button class="bottom icon"><i class="fa-solid fa-bug fa-lg"></i></button>
+	<button class="bottom icon" onclick="dashnav('/html/bugs.html')"><i class="fa-solid fa-bug fa-lg"></i></button>
 </div>

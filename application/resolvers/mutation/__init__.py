@@ -3,6 +3,7 @@ from .users import *
 from .weather import *
 from .sessions import resolve_revoke_user_sessions
 from .blob import resolve_delete_blob, resolve_set_blob_tags
+from .bugs import resolve_report_bug
 
 mutation = MutationType()
 
@@ -21,3 +22,5 @@ mutation.set_field('updateWeatherUser', resolve_update_weather_user)
 
 mutation.set_field('deleteBlob', resolve_delete_blob)
 mutation.set_field('setBlobTags', resolve_set_blob_tags)
+
+mutation.set_field('reportBug', resolve_report_bug)
