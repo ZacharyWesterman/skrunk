@@ -13,6 +13,17 @@ def debug_print(tok, indent = 0):
 def parse(expression: str) -> tokens.Token:
 	prev_len = -1
 	tok = lexer.parse(expression.lower())
+
+	#first pass to condense any globs
+	pos = 0
+	while pos < len(tok):
+		if tok[pos].type() != 'Glob':
+			pos += 1
+			continue
+
+		tok = tok[pos].operate(tok, pos)
+
+	#then operate on all other tokens
 	while len(tok) > 1:
 		pos = 0
 		while pos < len(tok):

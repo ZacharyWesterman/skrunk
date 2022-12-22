@@ -37,6 +37,8 @@ class NoneToken(Token):
 	def output(self) -> dict:
 		return {}
 
+#Glob tokens are guaranteed to either reduce or raise an exception.
+#They don't have to wait for other exprs to reduce since globs must be adjacent to strings.
 class Glob(Token):
 	def operate(self, tokens: list, pos: int) -> list:
 		#remove redundant globs
