@@ -26,7 +26,7 @@ def get_user_data(username: str) -> dict:
 	else:
 		raise exceptions.UserDoesNotExistError(username)
 
-def update_user_theme(username: str, theme: list) -> dict:
+def update_user_theme(username: str, theme: dict) -> dict:
 	global db
 	userdata = db.find_one({'username': username})
 
@@ -65,7 +65,10 @@ def create_user(username: str, password: str) -> dict:
 		'username': username,
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
 		'created': datetime.now(),
-		'theme': [],
+		'theme': {
+			'colors': [],
+			'sizes': [],
+		},
 		'perms': [],
 	}
 

@@ -21,6 +21,10 @@ class InvalidColor(ValueError):
 	def __init__(self, value):
 		super().__init__(f'The string "{value}" is not a 7-character hex color.')
 
+class InvalidSize(ValueError):
+	def __init__(self, value):
+		super().__init__(f'The string "{value}" is not a valid CSS size.')
+
 class InvalidPhone(ValueError):
 	def __init__(self):
 		super().__init__('Phone number must be 10 digits exactly.')

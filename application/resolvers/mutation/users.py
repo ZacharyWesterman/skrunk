@@ -19,7 +19,7 @@ def resolve_delete_user(_, info, username: str) -> dict:
 		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
 @perms.require(['admin'])
-def resolve_update_user_theme(_, info, username: str, theme: list) -> dict:
+def resolve_update_user_theme(_, info, username: str, theme: dict) -> dict:
 	try:
 		userdata = update_user_theme(username, theme)
 		return { '__typename': 'UserData', **userdata }

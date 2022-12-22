@@ -1,6 +1,6 @@
 type UserData {
 	username: String!
-	theme: [ThemeColor_!]!
+	theme: UserTheme_!
 	perms: [String!]!
 }
 
@@ -20,14 +20,34 @@ type InsufficientPerms {
 	message: String!
 }
 
+type UserTheme_ {
+	colors: [ThemeColor_!]
+	sizes: [ThemeSize_!]
+}
+
 type ThemeColor_ {
 	name: String!
 	value: Color!
 }
 
+type ThemeSize_ {
+	name: String!
+	value: Size!
+}
+
+input UserTheme {
+	colors: [ThemeColor!]!
+	sizes: [ThemeSize!]!
+}
+
 input ThemeColor {
 	name: String!
 	value: Color!
+}
+
+input ThemeSize {
+	name: String!
+	value: Size!
 }
 
 union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientPerms

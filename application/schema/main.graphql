@@ -14,7 +14,7 @@ type Query {
 type Mutation {
 	createUser(username: String!, password: String!): UserCreateResponse!
 	deleteUser(username: String!): UserDeleteResponse!
-	updateUserTheme(username: String!, theme: [ThemeColor!]!): UserUpdateResponse!
+	updateUserTheme(username: String!, theme: UserTheme!): UserUpdateResponse!
 	updateUserPerms(username: String!, perms: [String!]!): UserUpdateResponse!
 	revokeSessions(username: String!): Int!
 	updateUserPassword(username: String!, password: String!): UserUpdateResponse!

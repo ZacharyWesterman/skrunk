@@ -6,8 +6,14 @@ window.get_user_data = async function(username)
 			...on UserData {
 				username
 				theme {
-					name
-					value
+					colors {
+						name
+						value
+					}
+					sizes {
+						name
+						value
+					}
 				}
 				perms
 			}
@@ -34,8 +40,14 @@ get_user_data(api.username).then(data => {
 		}).then(() => api.logout()).catch(() => {})
 	}
 
-	//Load user theme
-	for (var i of data.theme)
+	//Load user colors
+	for (var i of data.theme.colors || [])
+	{
+		_.css.set_var(i.name, i.value)
+	}
+
+	//Load user sizes
+	for (var i of data.theme.sizes || [])
 	{
 		_.css.set_var(i.name, i.value)
 	}

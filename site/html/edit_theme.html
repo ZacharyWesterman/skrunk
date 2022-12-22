@@ -99,19 +99,27 @@
 	function savecolors(wipe = false)
 	{
 		var colors = []
+		var sizes = []
 		for (var i of _.css.vars())
 		{
-			colors.push({name: i, value: _.css.get_var(i)})
+			var out = ($(i).type === 'color') ? colors : sizes
+			out.push({name: i, value: _.css.get_var(i)})
 		}
 
-		api(`mutation ($username: String!, $theme: [ThemeColor!]!){
+		api(`mutation ($username: String!, $theme: UserTheme!){
 			updateUserTheme(username: $username, theme: $theme) {
 				__typename
 				...on UserDoesNotExistError {
 					message
 				}
 			}
-		}`, {username: api.username, theme: colors})
+		}`, {
+			username: api.username,
+			theme: {
+				colors: colors,
+				sizes: sizes,
+			}
+		})
 	}
 
 	window.unload.push(() => {

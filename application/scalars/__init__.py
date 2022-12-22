@@ -1,3 +1,3 @@
-from . import datetime, phone, color
+from . import datetime, phone, color, size
 
-scalars = [phone.scalar, datetime.scalar, color.scalar]
+scalars = [phone.scalar, datetime.scalar, color.scalar, size.scalar]
