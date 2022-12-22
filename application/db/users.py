@@ -1,12 +1,21 @@
 import application.exceptions as exceptions
 from datetime import datetime
 import bcrypt
+from bson.objectid import ObjectId
 
 db = None
 
 def get_user_list() -> list:
 	global db
 	return [ data['username'] for data in db.data.users.find({}) ]
+
+def get_user_by_id(id: ObjectId) -> dict:
+	global db
+	userdata = db.data.users.find_one({'_id': id})
+	if userdata:
+		return userdata
+
+	raise exceptions.UserDoesNotExistError(f'ID:{id}')
 
 def get_user_data(username: str) -> dict:
 	global db

@@ -1,6 +1,7 @@
 from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 import application.tags as tags
+from . import users
 
 from typing import Optional
 from bson.objectid import ObjectId
@@ -43,14 +44,11 @@ def create_blob(name: str, tags: list = []) -> str:
 	name = name[0:pos] if pos > -1 else name
 
 	username = decode_user_token(get_request_token()).get('username')
-	user_data = db.data.users.find_one({'username': username})
-
-	if not user_data:
-		raise exceptions.UserDoesNotExistError(username)
+	user_data = users.get_user_data(username)
 
 	auto_tags = [ i for i in mime.split('/') if i != 'application' ]
 
-	return db.data.blob.insert_one({
+	return db.insert_one({
 		'created': datetime.utcnow(),
 		'name': name,
 		'ext': ext,
@@ -62,7 +60,7 @@ def create_blob(name: str, tags: list = []) -> str:
 	}).inserted_id, ext
 
 def mark_as_completed(id: str, size: int) -> None:
-	db.data.blob.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size}})
+	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size}})
 
 def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str]) -> list:
 	global db
@@ -70,18 +68,21 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
 	if username is None:
-		selection = db.data.blob.find(mongo_tag_query, sort=[('created', -1)])
+		selection = db.find(mongo_tag_query, sort=[('created', -1)])
 	else:
-		user_data = db.data.users.find_one({'username': username})
-		if not user_data:
+		try:
+			user_data = users.get_user_data(username)
+			selection = db.find({'$and': [{'creator': user_data['_id']}, mongo_tag_query]}, sort=[('created', -1)])
+		except exceptions.UserDoesNotExistError:
 			return []
 
-		selection = db.data.blob.find({'$and': [{'creator': user_data['_id']}, mongo_tag_query]}, sort=[('created', -1)])
-
 	for i in selection.limit(count).skip(start):
-		user_data = db.data.users.find_one({'_id': i['creator']})
-		i['creator'] = user_data['username'] if user_data else str(i['creator'])
 		i['id'] = i['_id']
+		try:
+			user_data = users.get_user_by_id(i['creator'])
+			i['creator'] = user_data['username']
+		except exceptions.UserDoesNotExistError:
+			i['creator'] = str(i['creator'])
 		blobs += [i]
 
 	return blobs
@@ -91,44 +92,48 @@ def count_blobs(username: Optional[str], tagstr: Optional[str]) -> int:
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
 	if username is None:
-		return db.data.blob.count_documents(mongo_tag_query)
+		return db.count_documents(mongo_tag_query)
 	else:
-		user_data = db.data.users.find_one({'username': username})
-		if not user_data:
+		try:
+			user_data = users.get_user_data(username)
+		except exceptions.UserDoesNotExistError:
 			return 0
 
-		return db.data.blob.count_documents({'$and': [{'creator': user_data['_id']}, mongo_tag_query]})
+		return db.count_documents({'$and': [{'creator': user_data['_id']}, mongo_tag_query]})
 
 def get_blob_data(blob_id: str) -> dict:
 	global db
-	blob_data = db.data.blob.find_one({'_id': ObjectId(blob_id)})
+	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:
-		user_data = db.data.users.find_one({'_id': blob_data['creator']})
-		blob_data['creator'] = user_data['username'] if user_data else str(blob_data['creator'])
 		blob_data['id'] = blob_data['_id']
+		try:
+			user_data = users.get_user_by_id(blob_data['creator'])
+			blob_data['creator'] = user_data['username']
+		except exceptions.UserDoesNotExistError:
+			blob_data['creator'] = str(blob_data['creator'])
 	return blob_data
 
 def delete_blob(blob_id: str) -> bool:
 	global db
-	blob_data = db.data.blob.find_one({'_id': ObjectId(blob_id)})
+	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:
 		try:
 			os.remove(path(blob_id, blob_data['ext']))
 		except FileNotFoundError:
 			pass
-		db.data.blob.delete_one({'_id': ObjectId(blob_id)})
+		db.delete_one({'_id': ObjectId(blob_id)})
 		return blob_data
 
 	raise exceptions.BlobDoesNotExistError(blob_id)
 
 def set_blob_tags(blob_id: str, tags: list) -> dict:
 	global db
-	blob_data = db.data.blob.find_one({'_id': ObjectId(blob_id)})
+	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if not blob_data:
 		raise exceptions.BlobDoesNotExistError(blob_id)
 
 	tags = [ i.lower() for i in list(set(tags)) ]
 
-	db.data.blob.update_one({'_id': ObjectId(blob_id)}, {'$set': {'tags': tags}})
+	db.update_one({'_id': ObjectId(blob_id)}, {'$set': {'tags': tags}})
 	blob_data['tags'] = tags
 	return blob_data
