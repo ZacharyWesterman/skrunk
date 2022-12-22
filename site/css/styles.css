@@ -43,6 +43,8 @@ iframe {
 textarea {
 	border: none;
 	border-radius: var(--border-radius);
+	width: 100%;
+	max-width: 100%;
 }
 
 .center {

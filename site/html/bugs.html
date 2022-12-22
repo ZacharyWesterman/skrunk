@@ -1,26 +1,28 @@
-<h1>
-	<i class="fa-solid fa-bug fa-xl"></i>
-	Bug Tracker
-</h1>
+<div style="max-width: 700px;">
+	<h1>
+		<i class="fa-solid fa-bug fa-xl"></i>
+		Bug Tracker
+	</h1>
 
-<div class="card">
-	<div class="card-inner">
-		<div onclick="$.toggle_expand('card-new-bug')">
-			<h4>Report a New Bug</h4>
-		</div>
+	<div class="card">
+		<div class="card-inner">
+			<div onclick="$.toggle_expand('card-new-bug')">
+				<h4>Report a New Bug</h4>
+			</div>
 
-		<div class="expand-container">
-			<div id="card-new-bug" class="expand-contract">
-				Please include the following in your description:
-				<ul>
-					<li>The behavior of the bug.</li>
-					<li>What actions seem to trigger it.</li>
-					<li>How often the action triggers it.</li>
-					<li>Where you encountered the bug.</li>
-				</ul>
-				<textarea id="new-bug-text" rows="8" cols="60"></textarea>
-				<br>
-				<button id="new-bug-submit" onclick="submit_bug_report()">Submit</button>
+			<div class="expand-container">
+				<div id="card-new-bug" class="expand-contract">
+					Please include the following in your description:
+					<ul>
+						<li>The behavior of the bug.</li>
+						<li>What actions seem to trigger it.</li>
+						<li>How often the action triggers it.</li>
+						<li>Where you encountered the bug.</li>
+					</ul>
+					<textarea id="new-bug-text" rows="8"></textarea>
+					<br>
+					<button id="new-bug-submit" onclick="submit_bug_report()">Submit</button>
+				</div>
 			</div>
 		</div>
 	</div>
