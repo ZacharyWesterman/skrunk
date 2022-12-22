@@ -20,7 +20,7 @@ def caller_info(info) -> str:
 	if username is None:
 		return None
 
-	userdata = db.data.users.find_one({'username': username})
+	userdata = db.find_one({'username': username})
 	if not userdata:
 		return None
 
