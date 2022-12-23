@@ -5,11 +5,11 @@ async function update_dom(name, data, instant = false)
 	for (var field of find_fields(name))
 	{
 		const template_name = field.attributes.template ? field.attributes.template.value : name
-
+		const url = 'templates/' + template_name + '.dot'
 		//Load template only once.
 		if (__template_map[template_name] === undefined)
 		{
-			const template_text = await api.get('templates/' + template_name + '.dot')
+			const template_text = await api.get(url)
 			__template_map[template_name] = doT.template(template_text, undefined, {})
 		}
 
@@ -17,6 +17,7 @@ async function update_dom(name, data, instant = false)
 		if (!instant) $.hide(field)
 		field.innerHTML = pagefn((data !== undefined) ? data : field)
 		if (!instant) $.show(field)
+		set_field_logic(field, url)
 	}
 }
 

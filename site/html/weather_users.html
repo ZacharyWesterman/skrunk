@@ -12,12 +12,12 @@
 					<tr>
 						<td></td>
 						<td>ID:</td>
-						<td><input id="create-id" onKeyUp="$.enforce.id(this); can_create()"></td>
+						<td><input id="create-id" format="id" onKeyUp="can_create()"></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>Phone:</td>
-						<td><input id="create-phone" type="tel" onchange="$.validate.phone(this)" onKeyUp="$.enforce.phone(this); can_create()"></td>
+						<td><input id="create-phone" type="tel" format="phone" onKeyUp="can_create()"></td>
 					</tr>
 					<tr>
 						<td></td>

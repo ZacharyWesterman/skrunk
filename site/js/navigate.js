@@ -100,7 +100,7 @@ async function do_script_eval(DOM, text, url, replaceUrl)
 	}
 }
 
-async function set_field_logic(DOM, url)
+window.set_field_logic = async function(DOM, url)
 {
 	try
 	{
@@ -112,8 +112,32 @@ async function set_field_logic(DOM, url)
 			if (enforce === undefined)
 				throw new Error(`Unknown format type "${format}"`)
 
+			//Enforce formatting
+			const keyup = field.onkeyup
 			field.onkeyup = () => {
-				enforce(field)
+				field.value = enforce(field.value)
+				keyup()
+			}
+
+			const validate = $.validate[format]
+			if (validate !== undefined)
+			{
+				//Validate on change
+				const change = field.onchange
+				field.onchange = () => {
+					field.value = enforce(field.value)
+					const valid = validate(field.value)
+					if (valid)
+					{
+						field.classList.remove('invalid')
+						change()
+					}
+					else
+					{
+						field.classList.add('invalid')
+						field.value = field.defaultValue || ''
+					}
+				}
 			}
 		})
 	} catch (error) {
