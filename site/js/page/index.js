@@ -1,6 +1,6 @@
 document.title = 'Authenticate'
 
-window.login = function()
+export function login()
 {
 	api.authenticate($.val('username'), $.val('password')).then(success => {
 		if (success)

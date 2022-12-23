@@ -1,12 +1,12 @@
 /*
 * Simple helper function for site navigation.
 */
-async function navigate(url)
+window.navigate = async function(url)
 {
 	await inject(document.all.body, url)
 }
 
-async function dashnav(url)
+window.dashnav = async function(url)
 {
 	await inject(document.all.content, url)
 }
@@ -15,7 +15,7 @@ async function dashnav(url)
 * Load content from URL into the given field.
 */
 window.unload = []
-async function inject(field, url)
+window.inject = async function(field, url)
 {
 	while (window.unload.length > 0)
 	{
@@ -27,28 +27,6 @@ async function inject(field, url)
 	$.hide(field)
 	field.innerHTML = '<i class="gg-spinner"></i>'
 	setTimeout(() => $.show(field), 250)
-
-	//Eval script and (if it errors) give more accurate error info.
-	async function do_script_eval(text, url, replaceUrl)
-	{
-		try {
-			const objectURL = URL.createObjectURL(new Blob([text], {type: 'text/javascript'}))
-			const m = await import(objectURL)
-		} catch (error) {
-			var stack = error.stack.trim().split('\n')
-			stack = stack[stack.length-1].split(':')
-			stack[2] = (replaceUrl ? '@' : stack[2]) + url
-			stack[3] = error.lineNumber
-			stack[4] = error.columnNumber
-			if (replaceUrl)
-			{
-				stack.shift()
-				stack.shift()
-			}
-			error.stack = stack.join(':')
-			console.log(error)
-		}
-	}
 
 	try {
 		var res = await api.get(url)
@@ -67,6 +45,9 @@ async function inject(field, url)
 	//show spinner to indicate resources are loading
 	$.show($('loader'))
 
+	//set custom tag-based field logic
+	set_field_logic(field, url)
+
 	for (var script of field.getElementsByTagName('script'))
 	{
 		if (script.src.length)
@@ -74,7 +55,7 @@ async function inject(field, url)
 			if (script.attributes.async) //async, so allow more scripts to be loaded
 			{
 				api.get(script.src).then(res => {
-					do_script_eval(res, script.src, true)
+					do_script_eval(field, res, script.src, true)
 				}).catch(error => {
 					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				})
@@ -86,14 +67,72 @@ async function inject(field, url)
 				} catch (error) {
 					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				}
-				await do_script_eval(res, script.src, true)
+				await do_script_eval(field, res, script.src, true)
 			}
 		}
 		else //eval inline script text
 		{
-			await do_script_eval(script.text, url, false)
+			await do_script_eval(field, script.text, url, false)
 		}
 	}
 
 	$.hide($('loader'))
+}
+
+//Eval script and (if it errors) give more accurate error info.
+async function do_script_eval(DOM, text, url, replaceUrl)
+{
+	try {
+		const objectURL = URL.createObjectURL(new Blob([text], {type: 'text/javascript'}))
+		const module = await import(objectURL)
+		if (module)
+		{
+			for (const key in module)
+			{
+				//Custom onClick logic
+				DOM.querySelectorAll(`[click="${key}"]`).forEach(field => {
+					field.onclick = module[key]
+				})
+			}
+		}
+	} catch (error) {
+		report_error(error, url, replaceUrl)
+	}
+}
+
+async function set_field_logic(DOM, url)
+{
+	try
+	{
+		//Enforce field value formatting
+		DOM.querySelectorAll(`[format]`).forEach(field => {
+			const format = field.getAttribute('format')
+			const enforce = $.enforce[format]
+
+			if (enforce === undefined)
+				throw new Error(`Unknown format type "${format}"`)
+
+			field.onkeyup = () => {
+				enforce(field)
+			}
+		})
+	} catch (error) {
+		report_error(error, url, true)
+	}
+}
+
+function report_error(error, url, replaceUrl)
+{
+	var stack = error.stack.trim().split('\n')
+	stack = stack[stack.length-1].split(':')
+	stack[2] = (replaceUrl ? '@' : stack[2]) + url
+	stack[3] = error.lineNumber
+	stack[4] = error.columnNumber
+	if (replaceUrl)
+	{
+		stack.shift()
+		stack.shift()
+	}
+	error.stack = stack.join(':')
+	console.log(error)
 }
