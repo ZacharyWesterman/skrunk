@@ -15,6 +15,3 @@ export function login()
 		}
 	})
 }
-
-$.on.blur($('username'), $.next)
-$.on.blur($('password'), login)

@@ -101,12 +101,23 @@ async function do_script_eval(DOM, text, url, replaceUrl)
 	}
 }
 
+function set_trigger(field, attr, trigger)
+{
+	if (!$.on[attr])
+		throw new Error(`Error: *${attr} trigger not implemented for *${trigger} action.`)
+
+	if (!$[trigger])
+		throw new Error(`Error: *${attr} trigger exists, but *${trigger} action not implemented.`)
+
+	$.on[attr](field, $[trigger])
+}
+
 window.set_field_logic = async function(DOM, url, module)
 {
 	try
 	{
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
-		const attrs = ['click', 'blur', 'change']
+		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab']
 		for (const attr of attrs)
 		{
 			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
@@ -114,20 +125,17 @@ window.set_field_logic = async function(DOM, url, module)
 
 				if (key[0] === '*')
 				{
-					const trigger = key.substring(1)
-					if (!$.on[attr])
-						throw new Error(`Error: *${attr} trigger not implemented for *${trigger} action.`)
-
-					if (!$[trigger])
-						throw new Error(`Error: *${attr} trigger exists, but *${trigger} action not implemented.`)
-
-					$.on[attr](field, $[trigger])
+					set_trigger(field, attr, key.substring(1))
 					return
 				}
 
 				if (typeof module[key] !== 'function')
 					throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
-				field[`on${attr}`] = module[key]
+
+				if ($.on[attr])
+					$.on[attr](field, module[key])
+				else
+					field[`on${attr}`] = module[key]
 			})
 		}
 
