@@ -12,17 +12,17 @@
 						<tr>
 							<td></td>
 							<td>Phone:</td>
-							<td><input id="phone-{{=user.username}}" type="tel" value="{{=user.phone}}" onchange="update_user('{{=user.username}}', this)" format="phone"></td>
+							<td><input id="phone-{{=user.username}}" type="tel" value="{{=user.phone}}" onchange="update_user('{{=user.username}}', this)" format="phone" required></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Lat:</td>
-							<td><input id="lat-{{=user.username}}" type="number" step="any" value="{{=user.lat}}" onchange="update_user('{{=user.username}}', this)" format="number"></td>
+							<td><input id="lat-{{=user.username}}" type="number" step="any" value="{{=user.lat}}" onchange="update_user('{{=user.username}}', this)" format="number" required></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Lon:</td>
-							<td><input id="lon-{{=user.username}}" type="number" step="any" value="{{=user.lon}}" onchange="update_user('{{=user.username}}', this)" format="number"></td>
+							<td><input id="lon-{{=user.username}}" type="number" step="any" value="{{=user.lon}}" onchange="update_user('{{=user.username}}', this)" format="number" required></td>
 						</tr>
 						<tr>
 							<td>

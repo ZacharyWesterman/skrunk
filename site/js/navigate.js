@@ -135,7 +135,8 @@ window.set_field_logic = async function(DOM, url)
 					field.value = field.value
 					if (field.value === '')
 					{
-						if (field.required) field.value = field.prevValue
+						if (field.required)
+							field.value = field.prevValue || field.defaultValue || ''
 						return
 					}
 
