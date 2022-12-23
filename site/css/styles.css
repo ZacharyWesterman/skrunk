@@ -40,6 +40,13 @@ iframe {
 	border-radius: var(--border-radius);
 }
 
+textarea {
+	border: none;
+	border-radius: var(--border-radius);
+	width: 100%;
+	max-width: 100%;
+}
+
 .center {
 	margin: 0 auto;
 	width: 90%;
