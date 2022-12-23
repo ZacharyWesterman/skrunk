@@ -85,13 +85,13 @@ async function get_blob(blob_id)
 	return blob
 }
 
-window.navigate_to_page = async function(page_num)
+export async function navigate_to_page(page_num)
 {
 	BlobStart = page_num * BlobListLen
 	await reload_blobs()
 }
 
-window.copy_to_clipboard = async function(id)
+export async function copy_to_clipboard(id)
 {
 	await navigator.clipboard.writeText(id)
 	_.modal({
@@ -144,7 +144,7 @@ async function reload_page_list()
 	}, true)
 }
 
-window.reload_blobs = async function()
+export async function reload_blobs()
 {
 	reload_page_list()
 
@@ -264,7 +264,8 @@ export async function show_tags_how_to()
 	dashnav('/html/help/tag_query.html')
 }
 
-window.set_blob_tags = async id => {
+export async function set_blob_tags(id)
+{
 	const blob_data = await get_blob(id)
 
 	function tagHTML(tag)
@@ -350,9 +351,5 @@ window.set_blob_tags = async id => {
 }
 
 window.unload.push(() => {
-	delete window.reload_blobs
-	delete window.confirm_delete_blob
-	delete window.copy_to_clipboard
-	delete window.set_blob_tags
 	_.modal.upload.return = old_modal_retn
 })
