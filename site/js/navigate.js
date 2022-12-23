@@ -112,8 +112,33 @@ function set_trigger(field, attr, trigger)
 	$.on[attr](field, $[trigger])
 }
 
+function parent_module(DOM)
+{
+	let element = DOM.parentElement
+	while (element)
+	{
+		if (element.module) return element.module
+		element = element.parentElement
+	}
+	return {}
+}
+
+function scoped_eval(context, expr)
+{
+	const evaluator = Function.apply(null, [...Object.keys(context), 'expr', 'return eval("expr = undefined;" + expr)'])
+	return function () {
+		evaluator.apply(null, [...Object.values(context), expr])
+	}
+}
+
 window.set_field_logic = async function(DOM, url, module)
 {
+
+	DOM.module = {
+		...parent_module(DOM),
+		...module,
+	}
+
 	try
 	{
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
@@ -129,13 +154,32 @@ window.set_field_logic = async function(DOM, url, module)
 					return
 				}
 
-				if (typeof module[key] !== 'function')
-					throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
+				const split_point = key.indexOf('(')
+				if (split_point > -1)
+				{
+					//If we're running the function with params
+					const funcname = key.substring(0, split_point)
+					if (typeof DOM.module[funcname] !== 'function')
+						throw new Error(`Unknown action for *${attr} attribute: "${funcname}" export not found.`)
 
-				if ($.on[attr])
-					$.on[attr](field, module[key])
+					const scope = scoped_eval(DOM.module, key)
+					if ($.on[attr])
+						$.on[attr](field, scope)
+					else
+						field[`on${attr}`] = () => { scope() }
+				}
 				else
-					field[`on${attr}`] = () => { module[key](field) }
+				{
+					//If we're not running the function with params,
+					if (typeof DOM.module[key] !== 'function')
+						throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
+
+					//can just put in the name and this will pass in the field as 1st param
+					if ($.on[attr])
+						$.on[attr](field, DOM.module[key])
+					else
+						field[`on${attr}`] = () => { DOM.module[key](field) }
+				}
 			})
 		}
 

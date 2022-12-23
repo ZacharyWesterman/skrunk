@@ -170,7 +170,7 @@ window.reload_blobs = async function()
 	}
 }
 
-window.confirm_delete_blob = async function(id, name)
+export async function confirm_delete_blob(id, name)
 {
 	const choice = await _.modal({
 		title: 'Permanently delete file?',

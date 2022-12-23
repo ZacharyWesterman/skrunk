@@ -17,7 +17,7 @@ async function update_dom(name, data, instant = false)
 		if (!instant) $.hide(field)
 		field.innerHTML = pagefn((data !== undefined) ? data : field)
 		if (!instant) $.show(field)
-		set_field_logic(field, url)
+		set_field_logic(field, url, {})
 	}
 }
 
