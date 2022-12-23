@@ -52,7 +52,7 @@ var delete_user = async function(username)
 	_('userlist', api('{listUsers}')) //refresh user list
 }
 
-window.create_user = async function()
+export async function create_user()
 {
 	const query = `
 	mutation ($username: String!, $password: String!){
@@ -91,8 +91,7 @@ window.create_user = async function()
 	_('userlist', api('{listUsers}')) //refresh user list
 }
 
-$.on.blur($('username'), $.next)
-$.on.blur($('password'), create_user)
+$.on.enter($('password'), create_user)
 
 window.unload.push(() => {
 	delete window.hide_user_data

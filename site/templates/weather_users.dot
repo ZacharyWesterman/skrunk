@@ -12,31 +12,31 @@
 						<tr>
 							<td></td>
 							<td>Phone:</td>
-							<td><input id="phone-{{=user.username}}" type="tel" value="{{=user.phone}}" onchange="$.validate.phone(this) && update_user('{{=user.username}}', this)" onKeyUp="$.enforce.phone(this)"></td>
+							<td><input id="phone-{{=user.username}}" type="tel" value="{{=user.phone}}" onchange="update_user('{{=user.username}}', this)" format="phone" required></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Lat:</td>
-							<td><input id="lat-{{=user.username}}" type="number" step="any" value="{{=user.lat}}" onchange="$.validate.number(this) && update_user('{{=user.username}}', this)"></td>
+							<td><input id="lat-{{=user.username}}" type="number" step="any" value="{{=user.lat}}" onchange="update_user('{{=user.username}}', this)" format="number" required></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Lon:</td>
-							<td><input id="lon-{{=user.username}}" type="number" step="any" value="{{=user.lon}}" onchange="$.validate.number(this) && update_user('{{=user.username}}', this)"></td>
+							<td><input id="lon-{{=user.username}}" type="number" step="any" value="{{=user.lon}}" onchange="update_user('{{=user.username}}', this)" format="number" required></td>
 						</tr>
 						<tr>
 							<td>
 								<input id="has-max-{{=user.username}}" type="checkbox" onclick="$('max-{{=user.username}}').value = ''; $('max-{{=user.username}}').disabled = !this.checked; update_user('{{=user.username}}', this)" {{?!user.max.disable}}checked{{?}}>
 							</td>
 							<td>Max:</td>
-							<td><input placeholder="default" id="max-{{=user.username}}" type="number" step="any" value="{{=(user.max.disable || user.max.default) ? '' : user.max.value}}" onchange="$.validate.number(this) && update_user('{{=user.username}}', this)" {{?user.max.disable}}disabled{{?}}></td>
+							<td><input placeholder="default" id="max-{{=user.username}}" type="number" step="any" value="{{=(user.max.disable || user.max.default) ? '' : user.max.value}}" onchange="update_user('{{=user.username}}', this)" format="number" {{?user.max.disable}}disabled{{?}}></td>
 						</tr>
 						<tr>
 							<td>
 								<input id="has-min-{{=user.username}}" type="checkbox" onclick="$('min-{{=user.username}}').value = ''; $('min-{{=user.username}}').disabled = !this.checked; update_user('{{=user.username}}', this)" {{?!user.min.disable}}checked{{?}}>
 							</td>
 							<td>Min:</td>
-							<td><input placeholder="default" id="min-{{=user.username}}" type="number" step="any" value="{{=(user.min.disable || user.min.default) ? '' : user.min.value}}" onchange="$.validate.number(this) && update_user('{{=user.username}}', this)" {{?user.min.disable}}disabled{{?}}></td>
+							<td><input placeholder="default" id="min-{{=user.username}}" type="number" step="any" value="{{=(user.min.disable || user.min.default) ? '' : user.min.value}}" onchange="update_user('{{=user.username}}', this)" format="number" {{?user.min.disable}}disabled{{?}}></td>
 						</tr>
 					</table>
 

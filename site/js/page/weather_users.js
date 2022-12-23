@@ -111,7 +111,7 @@ window.update_user = async function(username, self)
 window.can_create = function()
 {
 	const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon') ]
-	for (i of fields)
+	for (const i of fields)
 	{
 		if (i.value === '')
 		{

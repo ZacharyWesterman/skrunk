@@ -1,6 +1,6 @@
 document.title = 'Authenticate'
 
-window.login = function()
+export function login()
 {
 	api.authenticate($.val('username'), $.val('password')).then(success => {
 		if (success)
@@ -15,6 +15,3 @@ window.login = function()
 		}
 	})
 }
-
-$.on.blur($('username'), $.next)
-$.on.blur($('password'), login)

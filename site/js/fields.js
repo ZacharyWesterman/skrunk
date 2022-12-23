@@ -17,6 +17,10 @@ _.css = {
 //Field control and validation
 var $ = field => (typeof field === 'object') ? field : document.getElementById(field)
 $.val = id => $(id).value
+$.set = (id, value) => {
+	$(id).value = value
+	$(id).prevValue = value
+}
 $.toggle_expand = id => $(id).classList.toggle('expanded')
 
 $.show = (id, fade = true) => {
