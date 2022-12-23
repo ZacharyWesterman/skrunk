@@ -113,6 +113,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			'js/api.js',
 			'js/doT.js',
 			'js/fields.js',
+			'js/navigate.js',
 		]
 		jsfields = re.match(r'js/fields/[\w-]+\.js', path)
 		styles = re.match(r'css/[\w-]+\.css', path)
