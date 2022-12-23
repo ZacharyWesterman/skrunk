@@ -45,8 +45,7 @@ window.inject = async function(field, url)
 	//show spinner to indicate resources are loading
 	$.show($('loader'))
 
-	//set custom tag-based field logic
-	set_field_logic(field, url)
+	let module = {}
 
 	for (var script of field.getElementsByTagName('script'))
 	{
@@ -55,7 +54,7 @@ window.inject = async function(field, url)
 			if (script.attributes.async) //async, so allow more scripts to be loaded
 			{
 				api.get(script.src).then(res => {
-					do_script_eval(field, res, script.src, true)
+					do_script_eval(field, res, script.src, true) //async scripts can't be loaded as modules
 				}).catch(error => {
 					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				})
@@ -67,14 +66,25 @@ window.inject = async function(field, url)
 				} catch (error) {
 					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				}
-				await do_script_eval(field, res, script.src, true)
+				let new_mod = await do_script_eval(field, res, script.src, true)
+				module = {
+					...module,
+					...new_mod,
+				}
 			}
 		}
 		else //eval inline script text
 		{
-			await do_script_eval(field, script.text, url, false)
+			let new_mod = await do_script_eval(field, script.text, url, false)
+			module = {
+				...module,
+				...new_mod,
+			}
 		}
 	}
+
+	//set custom tag-based field logic
+	set_field_logic(field, url, module)
 
 	$.hide($('loader'))
 }
@@ -84,26 +94,43 @@ async function do_script_eval(DOM, text, url, replaceUrl)
 {
 	try {
 		const objectURL = URL.createObjectURL(new Blob([text], {type: 'text/javascript'}))
-		const module = await import(objectURL)
-		if (module)
-		{
-			for (const key in module)
-			{
-				//Custom onClick logic
-				DOM.querySelectorAll(`[click="${key}"]`).forEach(field => {
-					field.onclick = module[key]
-				})
-			}
-		}
+		const module = await import(objectURL) || {}
+		return module
 	} catch (error) {
 		report_error(error, url, replaceUrl)
 	}
 }
 
-window.set_field_logic = async function(DOM, url)
+window.set_field_logic = async function(DOM, url, module)
 {
 	try
 	{
+		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
+		const attrs = ['click', 'blur', 'change']
+		for (const attr of attrs)
+		{
+			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
+				const key = field.getAttribute(`*${attr}`)
+
+				if (key[0] === '*')
+				{
+					const trigger = key.substring(1)
+					if (!$.on[attr])
+						throw new Error(`Error: *${attr} trigger not implemented for *${trigger} action.`)
+
+					if (!$[trigger])
+						throw new Error(`Error: *${attr} trigger exists, but *${trigger} action not implemented.`)
+
+					$.on[attr](field, $[trigger])
+					return
+				}
+
+				if (typeof module[key] !== 'function')
+					throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
+				field[`on${attr}`] = module[key]
+			})
+		}
+
 		//Enforce field value formatting
 		DOM.querySelectorAll(`[format]`).forEach(field => {
 			const format = field.getAttribute('format')
