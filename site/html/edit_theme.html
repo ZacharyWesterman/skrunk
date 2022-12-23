@@ -10,7 +10,7 @@
 
 		<p>
 			Border Radius
-			<input id="--border-radius" type="number" step="1" onchange="update_colors(this)">
+			<input id="--border-radius" type="number" step="1" onchange="update_colors(this)" format="integer" required>
 		</p>
 	</div>
 </div>
@@ -91,7 +91,7 @@
 		for (var i of _.css.vars())
 		{
 			const val = _.css.get_var(i)
-			$(i).value = ($(i).type === 'number') ? val.substring(0, val.length - 2) : val
+			$.set(i, ($(i).type === 'number') ? val.substring(0, val.length - 2) : val)
 		}
 	}
 	setcolors()

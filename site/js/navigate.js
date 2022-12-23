@@ -129,16 +129,23 @@ window.set_field_logic = async function(DOM, url)
 			{
 				//Validate on blur
 				const blur = field.onblur
+				const change = field.onchange
+				field.onchange = () => {}
 				field.onblur = () => {
 					field.value = field.value
-					if (field.value === '') return
+					if (field.value === '')
+					{
+						if (field.required) field.value = field.prevValue
+						return
+					}
 
 					const valid = validate(field.value)
 					if (valid)
 					{
 						field.classList.remove('invalid')
+						if ((typeof change === 'function') && (field.value !== field.prevValue)) change()
 						field.prevValue = field.value
-						if (typeof change === 'function') blur()
+						if (typeof blur === 'function') blur()
 					}
 					else
 					{
