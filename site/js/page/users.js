@@ -91,8 +91,8 @@ window.create_user = async function()
 	_('userlist', api('{listUsers}')) //refresh user list
 }
 
-$.on.enter($('username'), $.next)
-$.on.enter($('password'), create_user)
+$.on.blur($('username'), $.next)
+$.on.blur($('password'), create_user)
 
 window.unload.push(() => {
 	delete window.hide_user_data

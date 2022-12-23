@@ -16,5 +16,5 @@ window.login = function()
 	})
 }
 
-$.on.enter($('username'), $.next)
-$.on.enter($('password'), login)
+$.on.blur($('username'), $.next)
+$.on.blur($('password'), login)

@@ -245,7 +245,7 @@ _.modal.upload.return = () => {
 	reload_blobs()
 }
 
-$.on.enter(Editor.textarea, () => {
+$.on.blur(Editor.textarea, () => {
 	BlobStart = 0
 	reload_blobs()
 })
