@@ -7,14 +7,12 @@ var UserData = {}
 
 window.revoke_sessions = async function(username)
 {
-	if (username === api.username)
-		msg = 'Are you sure you want to revoke your sessions? This will log you out of all devices, including this one.'
-	else
-		msg = 'Are you sure you want to revoke all sessions for user "' + username + '"? This will log them out.'
+	const self_msg = 'Are you sure you want to revoke your sessions? This will log you out of all devices, including this one.'
+	const other_msg = 'Are you sure you want to revoke all sessions for user "' + username + '"? This will log them out of all devices.'
 
 	const choice = await _.modal({
 		title: 'Revoke User Sessions',
-		text: msg,
+		text: (username === api.username) ? self_msg : other_msg,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
