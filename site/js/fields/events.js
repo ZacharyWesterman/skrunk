@@ -1,20 +1,17 @@
 export default {
-	enter: (field, action) => {
+	tab: (field, action) => register(field, action, 9),
+	enter: (field, action) => register(field, action, 13),
+	escape: (field, action) => register(field, action, 27),
+
+	blur: (field, action) => {
+		register(field, action, 9)
 		register(field, action, 13)
 	},
 
-	escape: (field, action) => {
-		register(field, action, 27)
-	},
-
 	detach: {
-		enter: (field) => {
-			unregister(field, 13)
-		},
-
-		escape: (field) => {
-			unregister(field, 27)
-		},
+		tab: field => unregister(field, 9),
+		enter: field => unregister(field, 13),
+		escape: field => unregister(field, 27),
 	}
 }
 
