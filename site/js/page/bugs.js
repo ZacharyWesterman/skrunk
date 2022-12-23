@@ -1,4 +1,5 @@
-window.submit_bug_report = async () => {
+export async function submit_bug_report()
+{
 	const report_text = $('new-bug-text').value
 	if (report_text === '') return
 
@@ -22,7 +23,3 @@ window.submit_bug_report = async () => {
 	$('new-bug-text').value = ''
 	$.toggle_expand('card-new-bug')
 }
-
-window.unload.push(() => {
-	delete window.submit_bug_report
-})
