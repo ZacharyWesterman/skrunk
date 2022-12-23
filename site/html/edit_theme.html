@@ -93,7 +93,7 @@
 		for (var i of _.css.vars())
 		{
 			const val = _.css.get_var(i)
-			$.set(i, ($(i).type === 'number') ? val.substring(0, val.length - 2) : val)
+			$.set(i, (($(i).type === 'number') ? val.substring(0, val.length - 2) : val).trim())
 		}
 	}
 	setcolors()
