@@ -108,34 +108,42 @@ window.set_field_logic = async function(DOM, url)
 		DOM.querySelectorAll(`[format]`).forEach(field => {
 			const format = field.getAttribute('format')
 			const enforce = $.enforce[format]
+			const validate = $.validate[format]
 
-			if (enforce === undefined)
+			if (enforce === undefined && validate === undefined)
 				throw new Error(`Unknown format type "${format}"`)
 
-			//Enforce formatting
-			const keyup = field.onkeyup
-			field.onkeyup = () => {
-				field.value = enforce(field.value)
-				keyup()
+			if (enforce !== undefined)
+			{
+				//Enforce formatting
+				const keyup = field.onkeyup
+				field.onkeyup = () => {
+					if (field.value !== '')
+						field.value = enforce(field.value)
+
+					if (typeof keyup === 'function') keyup()
+				}
 			}
 
-			const validate = $.validate[format]
 			if (validate !== undefined)
 			{
-				//Validate on change
-				const change = field.onchange
-				field.onchange = () => {
-					field.value = enforce(field.value)
+				//Validate on blur
+				const blur = field.onblur
+				field.onblur = () => {
+					field.value = field.value
+					if (field.value === '') return
+
 					const valid = validate(field.value)
 					if (valid)
 					{
 						field.classList.remove('invalid')
-						change()
+						field.prevValue = field.value
+						if (typeof change === 'function') blur()
 					}
 					else
 					{
 						field.classList.add('invalid')
-						field.value = field.defaultValue || ''
+						field.value = field.prevValue || field.defaultValue || ''
 					}
 				}
 			}
