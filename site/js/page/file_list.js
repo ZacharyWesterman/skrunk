@@ -250,7 +250,8 @@ $.on.blur(Editor.textarea, () => {
 	reload_blobs()
 })
 
-window.show_tags_how_to = async () => {
+export async function show_tags_how_to()
+{
 	const res = await _.modal({
 		type: 'info',
 		title: 'What is a tag query?',
@@ -352,7 +353,6 @@ window.unload.push(() => {
 	delete window.reload_blobs
 	delete window.confirm_delete_blob
 	delete window.copy_to_clipboard
-	delete window.show_tags_how_to
 	delete window.set_blob_tags
 	_.modal.upload.return = old_modal_retn
 })
