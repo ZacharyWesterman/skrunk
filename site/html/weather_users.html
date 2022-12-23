@@ -12,41 +12,41 @@
 					<tr>
 						<td></td>
 						<td>ID:</td>
-						<td><input id="create-id" format="id" onKeyUp="can_create()" required></td>
+						<td><input id="create-id" format="id" *change="can_create"></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>Phone:</td>
-						<td><input id="create-phone" type="tel" format="phone" onKeyUp="can_create()" required></td>
+						<td><input id="create-phone" type="tel" format="phone" *change="can_create"></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>Lat:</td>
-						<td><input id="create-lat" type="number" step="any" format="number" onKeyUp="can_create()" required></td>
+						<td><input id="create-lat" type="number" step="any" format="number" *change="can_create"></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>Lon:</td>
-						<td><input id="create-lon" type="number" step="any" format="number" onKeyUp="can_create()" required></td>
+						<td><input id="create-lon" type="number" step="any" format="number" *change="can_create"></td>
 					</tr>
 					<tr>
 						<td>
 							<input id="create-has-max" type="checkbox" onclick="$('create-max').value = ''; $('create-max').disabled = !this.checked" checked>
 						</td>
 						<td>Max:</td>
-						<td><input placeholder="default" id="create-max" type="number" step="any" value="{{=user.max}}" format="number" onkeyup="can_create()"></td>
+						<td><input placeholder="default" id="create-max" type="number" step="any" value="{{=user.max}}" format="number" *change="can_create"></td>
 					</tr>
 					<tr>
 						<td>
 							<input id="create-has-min" type="checkbox" onclick="$('create-min').value = ''; $('create-min').disabled = !this.checked" checked>
 						</td>
 						<td>Min:</td>
-						<td><input placeholder="default" id="create-min" type="number" step="any" value="{{=user.min}}" format="number" onkeyup="can_create()"></td>
+						<td><input placeholder="default" id="create-min" type="number" step="any" value="{{=user.min}}" format="number" *blur="can_create"></td>
 					</tr>
 				</table>
 
 				<br>
-				<button id='create-button' onclick="create_user()" disabled>Submit</button>
+				<button id='create-button' *click="create_user" disabled>Submit</button>
 			</div>
 		</div>
 	</div>

@@ -13,7 +13,7 @@ export async function refresh_users()
 	_('weather_users', weather.get_users())
 }
 
-window.create_user = async function()
+export async function create_user()
 {
 	const id = $.val('create-id')
 	const phone = $.val('create-phone')
@@ -22,12 +22,12 @@ window.create_user = async function()
 	const max = {
 		default: $.val('create-max') === '',
 		disable: !$('create-has-max').checked,
-		value: parseFloat($.val('create-max-')) || 0.0,
+		value: parseFloat($.val('create-max')) || 0.0,
 	}
 	const min = {
 		default: $.val('create-min') === '',
 		disable: !$('create-has-min').checked,
-		value: parseFloat($.val('create-min-')) || 0.0,
+		value: parseFloat($.val('create-min')) || 0.0,
 	}
 
 	const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon'), $('create-max'), $('create-min') ]
@@ -47,7 +47,7 @@ window.create_user = async function()
 
 	refresh_users()
 
-	for (i of fields)
+	for (var i of fields)
 	{
 		i.value = ''
 	}
@@ -55,7 +55,7 @@ window.create_user = async function()
 	can_create()
 }
 
-window.delete_user = async function(username, self)
+export async function delete_user(username, self)
 {
 	var choice = await _.modal({
 		title: 'Are you sure?',
@@ -73,21 +73,21 @@ window.delete_user = async function(username, self)
 	await refresh_users()
 }
 
-window.enable_user = async function(username, self)
+async function enable_user(username, self)
 {
 	self.disabled = true
 	await weather.enable_user(username)
 	await refresh_users()
 }
 
-window.disable_user = async function(username, self)
+async function disable_user(username, self)
 {
 	self.disabled = true
 	await weather.disable_user(username)
 	await refresh_users()
 }
 
-window.update_user = async function(username, self)
+async function update_user(username, self)
 {
 	self.disabled = true
 	const phone = $.val('phone-'+username)
@@ -108,7 +108,7 @@ window.update_user = async function(username, self)
 	self.disabled = false
 }
 
-window.can_create = function()
+export function can_create()
 {
 	const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon') ]
 	for (const i of fields)
@@ -122,13 +122,3 @@ window.can_create = function()
 
 	$('create-button').disabled = false
 }
-
-window.unload.push(() => {
-	delete window.refresh_users
-	delete window.create_user
-	delete window.delete_user
-	delete window.enable_user
-	delete window.disable_user
-	delete window.update_user
-	delete window.can_create
-})
