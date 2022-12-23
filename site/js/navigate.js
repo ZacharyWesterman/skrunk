@@ -135,7 +135,7 @@ window.set_field_logic = async function(DOM, url, module)
 				if ($.on[attr])
 					$.on[attr](field, module[key])
 				else
-					field[`on${attr}`] = module[key]
+					field[`on${attr}`] = () => { module[key](field) }
 			})
 		}
 

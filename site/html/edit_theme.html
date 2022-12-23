@@ -4,13 +4,13 @@
 	<div class="card-inner">
 		To reset the theme to default values,<br>
 		click the button below.<br>
-		<button class="big wide border" onclick="reset_colors()">Reset Theme</button><br>
+		<button class="big wide border" *click="reset_colors">Reset Theme</button><br>
 		<p class="error">Here's some example error text.</p>
 		<p class="disabled">Here's some example disabled text.</p>
 
 		<p>
 			Border Radius
-			<input id="--border-radius" type="number" step="1" onchange="update_colors(this)" format="integer" required>
+			<input id="--border-radius" type="number" step="1" *change="update_colors" *enter="update_colors" format="integer" required>
 		</p>
 	</div>
 </div>
@@ -21,23 +21,23 @@
 		<table>
 			<tr>
 				<td>Text on Background</td>
-				<td><input id="--primary-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--primary-text" type="color" *change="update_colors"></td>
 			</tr>
 			<tr>
 				<td>Text on Default Content</td>
-				<td><input id="--secondary-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--secondary-text" type="color" *change="update_colors"></td>
 			</tr>
 			<tr>
 				<td>Text on Alternate Content</td>
-				<td><input id="--tertiary-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--tertiary-text" type="color" *change="update_colors"></td>
 			</tr>
 			<tr>
 				<td>Error Text</td>
-				<td><input id="--error-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--error-text" type="color" *change="update_colors"></td>
 			</tr>
 			<tr>
 				<td>Disabled Text</td>
-				<td><input id="--disabled-text" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--disabled-text" type="color" *change="update_colors"></td>
 			</tr>
 		</table>
 		<p class="error">Here's some example error text.</p>
@@ -51,32 +51,34 @@
 		<table>
 			<tr>
 				<td>Primary Background</td>
-				<td><input id="--primary" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--primary" type="color" *change="update_colors"></td>
 			</tr>
 			<tr>
 				<td>Secondary Background</td>
-				<td><input id="--primary-alt" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--primary-alt" type="color" *change="update_colors"></td>
 			</tr>
 			<tr>
 				<td>Default Content</td>
-				<td><input id="--secondary" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--secondary" type="color" *change="update_colors"></td>
 			</tr>
 			<tr>
 				<td>Alternate Content</td>
-				<td><input id="--tertiary" type="color" onchange="update_colors(this)"></td>
+				<td><input id="--tertiary" type="color" *change="update_colors"></td>
 			</tr>
 		</table>
 	</div>
 </div>
 
 <script>
-	window.update_colors = field => {
+	export function update_colors(field)
+	{
 		_.css.set_var(field.id, field.value + ((field.type === 'number') ? 'px' : '') )
 		api.write_cookies()
 		savecolors()
 	}
 
-	window.reset_colors = () => {
+	export function reset_colors()
+	{
 		for (var i of _.css.vars())
 		{
 			_.css.set_var(i, '')
@@ -121,9 +123,4 @@
 			}
 		})
 	}
-
-	window.unload.push(() => {
-		delete window.update_colors
-		delete window.reset_colors
-	})
 </script>
