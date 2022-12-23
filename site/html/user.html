@@ -10,7 +10,7 @@
 <script>
 	load_user_data(api.username, true)
 
-	window.refresh_users = async function()
+	export async function refresh_users()
 	{
 		var users = (await weather.get_users()).filter(user => user.username === api.username)
 		_('weather_users', users)

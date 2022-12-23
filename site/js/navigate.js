@@ -235,6 +235,31 @@ window.set_field_logic = async function(DOM, url, module)
 				}
 			}
 		})
+
+		//At the very end, run all *load (onload) selectors
+		DOM.querySelectorAll(`[\\*load]`).forEach(field => {
+			const key = field.getAttribute('*load')
+			const split_point = key.indexOf('(')
+			if (split_point > -1)
+			{
+				//If we're running the function with params
+				const funcname = key.substring(0, split_point)
+				if (typeof DOM.module[funcname] !== 'function')
+					throw new Error(`Unknown action for *${attr} attribute: "${funcname}" export not found.`)
+
+				//evaluate immediately
+				scoped_eval(DOM.module, key)()
+			}
+			else
+			{
+				//If we're not running the function with params,
+				if (typeof DOM.module[key] !== 'function')
+					throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
+
+				//can just put in the name and this will pass in the field as 1st param
+				DOM.module[key](field)
+			}
+		})
 	} catch (error) {
 		report_error(error, url, true)
 	}

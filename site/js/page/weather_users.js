@@ -8,7 +8,7 @@ _.sync('weather_exec', () => api(`{
 }`), 60000)
 
 
-window.refresh_users = async function()
+export async function refresh_users()
 {
 	_('weather_users', weather.get_users())
 }
