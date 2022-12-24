@@ -109,7 +109,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 		allowed = [
 			'html/index.html',
 			'html/login.html',
-			'js/page/index.js',
+			'js/page/login.js',
 			'js/api.js',
 			'js/doT.js',
 			'js/fields.js',
