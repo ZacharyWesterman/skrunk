@@ -5,8 +5,8 @@ from flask import request
 
 from .db.sessions import start_session, valid_session
 
-__private_key = serialization.load_ssh_private_key(open('/home/'+os.environ['USER']+'/.ssh/id_rsa', 'r').read().encode(), password=b'')
-__public_key = serialization.load_ssh_public_key(open('/home/'+os.environ['USER']+'/.ssh/id_rsa.pub', 'r').read().encode())
+__private_key = serialization.load_ssh_private_key(open(os.environ['HOME']+'/.ssh/id_rsa', 'r').read().encode(), password=b'')
+__public_key = serialization.load_ssh_public_key(open(os.environ['HOME']+'/.ssh/id_rsa.pub', 'r').read().encode())
 
 def create_user_token(username: str) -> str:
 	global __private_key
