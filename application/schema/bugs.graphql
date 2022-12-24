@@ -3,6 +3,7 @@ type BugReport
 	id: String!
 	created: DateTime!
 	creator: String!
+	title: String!
 	body: String!
 	convo: [String!]!
 	resolved: Boolean!

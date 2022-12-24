@@ -1,0 +1,16 @@
+<h2>{{?it.length}}Outstanding Bugs{{??}}No Outstanding Bugs{{?}}</h2>
+
+{{~it: bug}}
+<div class="card">
+	<div class="card-inner">
+		<h4>{{=bug.title}}</h4>
+		<textarea readonly>{{=bug.body}}</textarea>
+
+		<div class="disabled">
+			Created by {{=bug.creator}}
+			<br>
+			{{=bug.created}}
+		</div>
+	</div>
+</div>
+{{~}}

@@ -19,13 +19,17 @@
 						<li>How often the action triggers it.</li>
 						<li>Where you encountered the bug.</li>
 					</ul>
-					<textarea id="new-bug-text" rows="8"></textarea>
+					<input id="new-bug-title" placeholder="Title" style="width: 90%" *change="check_can_submit">
+					<textarea id="new-bug-text" rows="8" placeholder="Description" style="width: 90%;" *change="check_can_submit"></textarea>
 					<br>
-					<button id="new-bug-submit" *click="submit_bug_report">Submit</button>
+					<button id="new-bug-submit" *click="submit_bug_report" disabled>Submit</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div name="buglist" *load="refresh_bug_list"></div>
 </div>
 
 <script src="/js/page/bugs.js"></script>
+<script src="/js/date.js"></script>

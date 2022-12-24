@@ -8,7 +8,7 @@ from typing import Optional
 
 db = None
 
-def report_bug(text: str) -> bool:
+def report_bug(title: str, text: str) -> bool:
 	global db
 	try:
 		username = decode_user_token(get_request_token()).get('username')
@@ -19,6 +19,7 @@ def report_bug(text: str) -> bool:
 	db.insert_one({
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
+		'title': title,
 		'body': text,
 		'convo': [],
 		'resolved': False,
@@ -34,7 +35,6 @@ def get_bug_report(id: str) -> dict:
 def get_bug_reports(username: Optional[str], start: int, count: int, resolved: bool) -> list:
 	global db
 	reports = []
-	print(username)
 	if username is None:
 		selection = db.find({'resolved': resolved}, sort=[('created', -1)])
 	else:
