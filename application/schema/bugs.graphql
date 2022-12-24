@@ -1,0 +1,9 @@
+type BugReport
+{
+	id: String!
+	created: DateTime!
+	creator: String!
+	body: String!
+	convo: [String!]!
+	resolved: Boolean!
+}

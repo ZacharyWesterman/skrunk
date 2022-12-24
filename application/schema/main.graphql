@@ -9,6 +9,10 @@ type Query {
 	getBlobs(username: String, start: Int!, count: Int!, tags: String): BlobQueryResponse!
 	countBlobs(username: String, tags: String): BlobCountResponse!
 	getBlob(id: String!): Blob
+
+	getBugReports(username: String, start: Int!, count: Int!, resolved: Boolean!) : [BugReport!]!
+	countBugReports(username: String, resolved: Boolean!) : Int!
+	getBugReport(id: String!): BugReport
 }
 
 type Mutation {
