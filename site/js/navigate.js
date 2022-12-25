@@ -45,46 +45,41 @@ window.inject = async function(field, url)
 	//show spinner to indicate resources are loading
 	$.show($('loader'))
 
-	let module = {}
+	let async_evals = []
 
-	for (var script of field.getElementsByTagName('script'))
+	for (const script of field.getElementsByTagName('script'))
 	{
+		let evaluate = undefined
 		if (script.src.length)
 		{
-			if (script.attributes.async) //async, so allow more scripts to be loaded
-			{
-				api.get(script.src).then(res => {
-					do_script_eval(field, res, script.src, true).then(new_mod => {
-						module = {
-							...module,
-							...new_mod,
-						}
-					})
-				}).catch(error => {
-					throw 'RESPONSE ' + error.status + ' ' + error.statusText
-				})
-			}
-			else //load scripts synchronously
-			{
+			evaluate = async () => {
+				let res = undefined
 				try {
 					res = await api.get(script.src)
 				} catch (error) {
 					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				}
-				let new_mod = await do_script_eval(field, res, script.src, true)
-				module = {
-					...module,
-					...new_mod,
-				}
+				return await do_script_eval(field, res, script.src, true)
 			}
 		}
 		else //eval inline script text
 		{
-			let new_mod = await do_script_eval(field, script.text, url, false)
-			module = {
-				...module,
-				...new_mod,
+			evaluate = async () => {
+				return await do_script_eval(field, script.text, url, false)
 			}
+		}
+
+		async_evals.push(script.attributes.async ? evaluate() : evaluate)
+	}
+
+	//wait for async evals to finish
+	let module = {}
+	for (const item of async_evals)
+	{
+		const new_mod = await (typeof item === 'function' ? item() : item)
+		module = {
+			...module,
+			...new_mod,
 		}
 	}
 
