@@ -54,7 +54,12 @@ window.inject = async function(field, url)
 			if (script.attributes.async) //async, so allow more scripts to be loaded
 			{
 				api.get(script.src).then(res => {
-					do_script_eval(field, res, script.src, true) //async scripts can't be loaded as modules
+					do_script_eval(field, res, script.src, true).then(new_mod => {
+						module = {
+							...module,
+							...new_mod,
+						}
+					})
 				}).catch(error => {
 					throw 'RESPONSE ' + error.status + ' ' + error.statusText
 				})

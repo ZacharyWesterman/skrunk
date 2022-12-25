@@ -4,7 +4,7 @@ var BlobListLen = 4
 const Editor = new Yace("#tag-query", {
 	value: "",
 	lineNumbers: false,
-	highlighter: window.tag_highlight,
+	highlighter: tag_highlight,
 })
 Editor.textarea.spellcheck = false
 
