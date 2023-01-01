@@ -1,4 +1,4 @@
-_('userlist', api('{listUsers}')) //initial load of user list
+_('userlist', query.users.list()) //initial load of user list
 
 window.hide_user_data = async function()
 {
@@ -22,23 +22,7 @@ window.confirm_delete_user = async function(username)
 
 var delete_user = async function(username)
 {
-	const query = `
-	mutation ($username: String!){
-		deleteUser(username: $username) {
-			__typename
-			...on UserDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`
-	const vars = {
-		'username' : username,
-	}
-
-	var res = await api(query, vars)
+	var res = await mutate.users.delete(username)
 	if (res.__typename !== 'UserData') {
 		_.modal({
 			type: 'error',
@@ -49,32 +33,15 @@ var delete_user = async function(username)
 		return
 	}
 
-	_('userlist', api('{listUsers}')) //refresh user list
+	_('userlist', query.users.list()) //refresh user list
 }
 
 export async function create_user()
 {
-	const query = `
-	mutation ($username: String!, $password: String!){
-		createUser(username: $username, password: $password) {
-			__typename
-			...on BadUserNameError {
-				message
-			}
-			...on UserExistsError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`
-	const vars = {
-		'username' : $.val('username'),
-		'password' : await api.hash($.val('password')),
-	}
-
-	var res = await api(query, vars)
+	var res = await mutate.users.create(
+		$.val('username'),
+		await api.hash($.val('password'))
+	)
 	if (res.__typename !== 'UserData') {
 		_.modal({
 			type: 'error',
@@ -88,7 +55,7 @@ export async function create_user()
 	$('username').value = ''
 	$('password').value = ''
 
-	_('userlist', api('{listUsers}')) //refresh user list
+	_('userlist', query.users.list()) //refresh user list
 }
 
 $.on.enter($('password'), create_user)

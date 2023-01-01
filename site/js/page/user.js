@@ -18,9 +18,8 @@ window.revoke_sessions = async function(username)
 
 	if (choice !== 'yes') return
 
-	await api(`mutation($username: String!){revokeSessions(username: $username)}`, {username: username})
-	const session_ct = await api(`query($username: String!){countSessions(username: $username)}`, {username: username})
-	$('session-ct-' + username).innerText = session_ct
+	await mutate.users.revoke(username)
+	$('session-ct-' + username).innerText = await query.users.sessions(username)
 }
 
 window.set_perms = async function()
@@ -31,23 +30,7 @@ window.set_perms = async function()
 		if ($('perm-'+perm).checked) UserData.perms.push(perm)
 	}
 
-	const query = `
-	mutation ($username: String!, $perms: [String!]!){
-		updateUserPerms(username: $username, perms: $perms) {
-			__typename
-			...on UserDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`
-	const vars = {
-		'username' : UserData.username,
-		'perms': UserData.perms,
-	}
-	var res = await api(query, vars)
+	const res = await mutate.users.permissions(UserData.username, UserData.perms)
 	if (res.__typename !== 'UserData') {
 		_.modal({
 			type: 'error',
@@ -64,12 +47,10 @@ window.load_user_data = async function(username, self_view = false)
 	$.hide('mainpage')
 
 	UserData = await get_user_data(username)
-	const session_ct = await api(`query($username: String!){countSessions(username: $username)}`, {username: username})
-
 	await _('userdata', {
 		perms: Perms,
 		user: UserData,
-		sessions: session_ct,
+		sessions: await query.users.sessions(username),
 		self_view: self_view,
 	})
 }
@@ -93,20 +74,7 @@ window.update_password = async function(password, username)
 	}
 
 	const hashed_pass = await api.hash(password)
-	const res = await api(`mutation ($username: String!, $password: String!) {
-		updateUserPassword(username: $username, password: $password) {
-			__typename
-			...on UserDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`, {
-		username: username,
-		password: hashed_pass,
-	})
+	const res = await mutate.users.password(username, hashed_pass)
 
 	if (res.__typename !== 'UserData')
 	{
