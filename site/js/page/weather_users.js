@@ -10,7 +10,7 @@ _.sync('weather_exec', () => api(`{
 
 export async function refresh_users()
 {
-	_('weather_users', weather.get_users())
+	_('weather_users', query.weather.get_users())
 }
 
 export async function create_user()
@@ -32,7 +32,7 @@ export async function create_user()
 
 	const fields = [ $('create-id'), $('create-phone'), $('create-lat'), $('create-lon'), $('create-max'), $('create-min') ]
 
-	const response = await weather.create_user(id, lat, lon, phone, max, min)
+	const response = await mutate.weather.create_user(id, lat, lon, phone, max, min)
 
 	if (response.__typename !== 'UserData')
 	{
@@ -69,25 +69,25 @@ export async function delete_user(username, self)
 	if (choice !== 'yes') return
 
 	self.disabled = true
-	await weather.delete_user(username)
+	await mutate.weather.delete_user(username)
 	await refresh_users()
 }
 
-async function enable_user(username, self)
+export async function enable_user(username, self)
 {
 	self.disabled = true
-	await weather.enable_user(username)
+	await mutate.weather.enable_user(username)
 	await refresh_users()
 }
 
-async function disable_user(username, self)
+export async function disable_user(username, self)
 {
 	self.disabled = true
-	await weather.disable_user(username)
+	await mutate.weather.disable_user(username)
 	await refresh_users()
 }
 
-async function update_user(username, self)
+export async function update_user(username, self)
 {
 	self.disabled = true
 	const phone = $.val('phone-'+username)
@@ -104,7 +104,7 @@ async function update_user(username, self)
 		value: parseFloat($.val('min-'+username)) || 0.0,
 	}
 
-	await weather.update_user(username, phone, lat, lon, max, min)
+	await mutate.weather.update_user(username, phone, lat, lon, max, min)
 	self.disabled = false
 }
 

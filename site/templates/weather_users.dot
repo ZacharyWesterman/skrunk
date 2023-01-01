@@ -42,11 +42,11 @@
 
 					<br>
 					{{?user.exclude}}
-						<button onclick="enable_user('{{=user.username}}', this)">Enable</button>
+						<button *click="enable_user('{{=user.username}}', this)">Enable</button>
 					{{??}}
-						<button onclick="disable_user('{{=user.username}}', this)">Disable</button>
+						<button *click="disable_user('{{=user.username}}', this)">Disable</button>
 					{{?}}
-					<button onclick="delete_user('{{=user.username}}', this)">Delete</button>
+					<button *click="delete_user('{{=user.username}}', this)">Delete</button>
 				</div>
 			</div>
 		</div>

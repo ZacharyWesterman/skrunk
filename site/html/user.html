@@ -5,14 +5,13 @@
 <div name="weather_users"></div>
 
 <script src="/js/page/user.js"></script>
-<script src="js/query/weather.js"></script>
 <script src="/js/page/weather_users.js"></script>
 <script>
 	load_user_data(api.username, true)
 
 	export async function refresh_users()
 	{
-		var users = (await weather.get_users()).filter(user => user.username === api.username)
+		var users = (await query.weather.get_users()).filter(user => user.username === api.username)
 		_('weather_users', users)
 	}
 
