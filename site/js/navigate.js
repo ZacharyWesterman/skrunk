@@ -90,14 +90,20 @@ window.inject = async function(field, url)
 }
 
 //Eval script and (if it errors) give more accurate error info.
-async function do_script_eval(DOM, text, url, replaceUrl)
+async function do_script_eval(DOM, text, url, imported)
 {
 	try {
-		const objectURL = URL.createObjectURL(new Blob([text], {type: 'text/javascript'}))
-		const module = await import(objectURL) || {}
-		return module
+		if (imported)
+		{
+			return await import(url) || {}
+		}
+		else
+		{
+			const objectURL = URL.createObjectURL(new Blob([text], {type: 'text/javascript'}))
+			return await import(objectURL) || {}
+		}
 	} catch (error) {
-		report_error(error, url, replaceUrl)
+		report_error(error, url, imported)
 	}
 }
 
