@@ -11,7 +11,7 @@
 
 	export async function refresh_users()
 	{
-		var users = (await query.weather.get_users()).filter(user => user.username === api.username)
+		var users = (await query.weather.users()).filter(user => user.username === api.username)
 		_('weather_users', users)
 	}
 
