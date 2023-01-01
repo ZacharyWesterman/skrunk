@@ -1,11 +1,14 @@
-import Weather from "/js/query/weather.js"
-import Users from "/js/query/users.js"
-import Blobs from "/js/query/blobs.js"
-import Bugs from "/js/query/bugs.js"
-
-window.query = {
-	weather: Weather,
-	users: Users,
-	blobs: Blobs,
-	bugs: Bugs,
+const Imports = {
+	weather: import('/js/query/weather.js'),
+	users: import('/js/query/users.js'),
+	blobs: import('/js/query/blobs.js'),
+	bugs: import('/js/query/bugs.js'),
 }
+
+let Query = {}
+for (const i in Imports)
+{
+	const module = await Imports[i]
+	Query[i] = module.default
+}
+window.query = Query

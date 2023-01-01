@@ -1,11 +1,14 @@
-import Weather from "/js/mutate/weather.js"
-import Users from "/js/mutate/users.js"
-import Blobs from "/js/mutate/blobs.js"
-import Bugs from "/js/mutate/bugs.js"
-
-window.mutate = {
-	weather: Weather,
-	users: Users,
-	blobs: Blobs,
-	bugs: Bugs,
+const Imports = {
+	weather: import('/js/mutate/weather.js'),
+	users: import('/js/mutate/users.js'),
+	blobs: import('/js/mutate/blobs.js'),
+	bugs: import('/js/mutate/bugs.js'),
 }
+
+let Mutate = {}
+for (const i in Imports)
+{
+	const module = await Imports[i]
+	Mutate[i] = module.default
+}
+window.mutate = Mutate
