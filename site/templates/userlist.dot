@@ -1,3 +1,3 @@
 {{~ it :i }}
-	<button class="big wide" onclick="load_user_data('{{=i}}')">{{=i}}</button><br>
+	<button class="big wide" *click="load_user_data('{{=i}}')">{{=i}}</button><br>
 {{~}}

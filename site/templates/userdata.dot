@@ -2,35 +2,35 @@
 	<div class="card-inner">
 		<h1>
 			{{?!it.self_view}}
-				<button class="icon" onclick="hide_user_data()"><i class="fa-solid fa-xmark fa-xl"></i></button>
+				<button class="icon" *click="hide_user_data"><i class="fa-solid fa-xmark fa-xl"></i></button>
 			{{?}}
 			Edit User Info
 		</h1>
 		<h2>{{=it.user.username}}</h2>
 		<div>
 			<input type="password" placeholder="New Password" autocomplete="new-password">
-			<button class="icon" onclick="update_password(this.previousSibling.value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
+			<button class="icon" *click="update_password(this.previousSibling.value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
 		</div>
 		{{?!it.self_view}}
 			<table>
 				{{~it.perms: perm}}
 					<tr>
 						<td>{{=perm}}</td>
-						<td><input id="perm-{{=perm}}" type="checkbox" {{?it.user.perms.includes(perm)}}checked{{?}} onclick="set_perms()" {{?(perm==='admin') && (api.username === it.user.username)}}disabled{{?}}></td>
+						<td><input id="perm-{{=perm}}" type="checkbox" {{?it.user.perms.includes(perm)}}checked{{?}} *click="set_perms()" {{?(perm==='admin') && (api.username === it.user.username)}}disabled{{?}}></td>
 					</tr>
 				{{~}}
 			</table>
 		{{?}}
 		<p>
 			<i class="left">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
-			<button class="right" onclick="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
-			<span class="tooltip left" onclick="show_sessions_info()">
+			<button class="right" *click="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
+			<span class="tooltip left" *click="show_sessions_info">
 				<i class="fa-solid fa-circle-question"></i>
 				<span class="tooltiptext">What does this mean?</span>
 			</span>
 		</p>
 		{{?!it.self_view}}
-			<button class="big wide border" onclick="confirm_delete_user('{{=it.user.username}}')">Delete</button>
+			<button class="big wide border" *click="confirm_delete_user('{{=it.user.username}}')">Delete</button>
 		{{??}}
 			<br>
 		{{?}}

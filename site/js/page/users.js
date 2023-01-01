@@ -1,12 +1,12 @@
 _('userlist', query.users.list()) //initial load of user list
 
-window.hide_user_data = async function()
+export async function hide_user_data()
 {
 	$.hide('userdata')
 	$.show('mainpage')
 }
 
-window.confirm_delete_user = async function(username)
+export async function confirm_delete_user(username)
 {
 	var choice = await _.modal({
 		title: 'Delete Credentials',
@@ -59,9 +59,3 @@ export async function create_user()
 }
 
 $.on.enter($('password'), create_user)
-
-window.unload.push(() => {
-	delete window.hide_user_data
-	delete window.confirm_delete_user
-	delete window.create_user
-})

@@ -5,7 +5,7 @@ const Perms = [
 
 var UserData = {}
 
-window.revoke_sessions = async function(username)
+export async function revoke_sessions(username)
 {
 	const self_msg = 'Are you sure you want to revoke your sessions? This will log you out of all devices, including this one.'
 	const other_msg = 'Are you sure you want to revoke all sessions for user "' + username + '"? This will log them out of all devices.'
@@ -22,7 +22,7 @@ window.revoke_sessions = async function(username)
 	$('session-ct-' + username).innerText = await query.users.sessions(username)
 }
 
-window.set_perms = async function()
+export async function set_perms()
 {
 	UserData.perms = []
 	for (var perm of Perms)
@@ -42,11 +42,11 @@ window.set_perms = async function()
 	}
 }
 
-window.load_user_data = async function(username, self_view = false)
+export async function load_user_data(username, self_view = false)
 {
 	$.hide('mainpage')
 
-	UserData = await get_user_data(username)
+	UserData = await query.users.get(username)
 	await _('userdata', {
 		perms: Perms,
 		user: UserData,
@@ -55,7 +55,7 @@ window.load_user_data = async function(username, self_view = false)
 	})
 }
 
-window.update_password = async function(password, username)
+export async function update_password(password, username)
 {
 	if ((password.length < 8) || (password === username) || (password.includes(username) && (password.length < username.length * 2)))
 	{
@@ -94,7 +94,8 @@ window.update_password = async function(password, username)
 	})
 }
 
-window.show_sessions_info = async () => {
+export async function show_sessions_info()
+{
 	await _.modal({
 		type: 'info',
 		title: 'What is a session?',
@@ -102,11 +103,3 @@ window.show_sessions_info = async () => {
 		buttons: ['OK'],
 	}).catch(() => {})
 }
-
-window.unload.push(() => {
-	delete window.load_user_data
-	delete window.set_perms
-	delete window.revoke_sessions
-	delete window.update_password
-	delete window.show_sessions_info
-})
