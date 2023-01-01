@@ -1,5 +1,6 @@
 export default {
-	get_users: async function() {
+	users: async () =>
+	{
 		return await api(`{
 			getWeatherUsers {
 				username
@@ -18,6 +19,17 @@ export default {
 				phone
 				last_sent
 				exclude
+			}
+		}`)
+	},
+
+	last_execution: async () =>
+	{
+		return await api(`{
+			getLastWeatherExec {
+				timestamp
+				users
+				error
 			}
 		}`)
 	},

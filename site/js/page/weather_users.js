@@ -1,16 +1,10 @@
 //periodically check api status
-_.sync('weather_exec', () => api(`{
-	getLastWeatherExec{
-		timestamp
-		users
-		error
-	}
-}`), 60000)
+_.sync('weather_exec', () => query.weather.last_execution(), 60000)
 
 
 export async function refresh_users()
 {
-	_('weather_users', query.weather.get_users())
+	_('weather_users', query.weather.users())
 }
 
 export async function create_user()
