@@ -71,6 +71,7 @@ export default {
 			'username' : username,
 			'perms': permission_list,
 		}
+		return await api(query, vars)
 	},
 
 	password: async (username, pass_hash) =>

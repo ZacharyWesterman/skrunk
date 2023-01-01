@@ -8,81 +8,14 @@ const Editor = new Yace("#tag-query", {
 })
 Editor.textarea.spellcheck = false
 
-//Convert blob data to be pretty for display purposes.
-function conv_blob(blob)
-{
-	blob.created = date.output(blob.created) //convert dates to local time
-
-	var sizes = ['GB', 'MB', 'KB']
-	var sizetype = 'B'
-	while (blob.size >= 1000)
-	{
-		sizetype = sizes.pop()
-		blob.size /= 1000
-	}
-	blob.size = blob.size.toFixed(2) + ' ' + sizetype //convert size to human-readable format
-	return blob
-}
-
 async function get_blobs(start, count)
 {
-	var blobs = await api(`query ($username: String, $start: Int!, $count: Int!, $tags: String){
-		getBlobs(username: $username, start: $start, count: $count, tags: $tags) {
-			__typename
-			...on BlobList {
-				blobs {
-					id
-					ext
-					mimetype
-					name
-					size
-					creator
-					created
-					tags
-				}
-			}
-			...on BadTagQuery {
-				message
-			}
-		}
-	}`, {
-		username: null,
-		start: start,
-		count: count,
-		tags: Editor.value,
-	})
-
-	if (blobs.blobs)
-	{
-		blobs.blobs = blobs.blobs.map(conv_blob)
-	}
-
-	return blobs
+	return await query.blobs.get(null, start, count, Editor.value)
 }
 
 async function get_blob(blob_id)
 {
-	var blob = await api(`query ($id: String!){
-		getBlob (id: $id) {
-			id
-			ext
-			mimetype
-			name
-			size
-			creator
-			created
-			tags
-		}
-	}`, {
-		id: blob_id,
-	})
-
-	if (blob.__typename === 'Blob')
-	{
-		blob = conv_blob(blob)
-	}
-
-	return blob
+	return await query.blobs.single(blob_id)
 }
 
 export async function navigate_to_page(page_num)
@@ -102,27 +35,14 @@ export async function copy_to_clipboard(id)
 
 async function reload_page_list()
 {
-	var count = await api(`query ($username: String, $tags: String){
-		countBlobs(username: $username, tags: $tags) {
-			__typename
-			...on BlobCount {
-				count
-			}
-			...on BadTagQuery {
-				message
-			}
-		}
-	}`, {
-		username: null,
-		tags: Editor.value,
-	})
-	if (count.__typename !== 'BlobCount')
+	const res = await query.blobs.count(null, Editor.value)
+	if (res.__typename !== 'BlobCount')
 	{
-		$('tag-error').innerText = count.message
+		$('tag-error').innerText = res.message
 		return
 	}
 	$('tag-error').innerText = ''
-	count = count.count
+	const count = res.count
 
 	const page_ct = Math.ceil(count / BlobListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
@@ -148,14 +68,14 @@ export async function reload_blobs()
 {
 	reload_page_list()
 
-	var blobs = await get_blobs(BlobStart, BlobListLen)
-	if (blobs.__typename !== 'BlobList')
+	const res = await get_blobs(BlobStart, BlobListLen)
+	if (res.__typename !== 'BlobList')
 	{
-		$('tag-error').innerText = blobs.message
+		$('tag-error').innerText = res.message
 		return
 	}
 	$('tag-error').innerText = ''
-	blobs = blobs.blobs
+	const blobs = res.blobs
 
 	var innerHTML = ''
 	for (var i in blobs)
@@ -180,18 +100,7 @@ export async function confirm_delete_blob(id, name)
 
 	if (choice !== 'yes') return
 
-	const res = await api(`mutation ($id: String!) {
-		deleteBlob(id: $id) {
-			__typename
-			...on BlobDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`, {id: id})
-
+	const res = await mutate.blobs.delete(id)
 	if (res.__typename !== 'Blob')
 	{
 		_.modal({
@@ -321,21 +230,7 @@ export async function set_blob_tags(id)
 
 	if (res !== 'ok') return
 
-	const blob = await api(`mutation ($id: String!, $tags: [String!]!) {
-		setBlobTags (id: $id, tags: $tags) {
-			__typename
-			...on BlobDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`, {
-		id: id,
-		tags: blob_data.tags,
-	})
-
+	const blob = await mutate.blobs.tags(id, blob_data.tags)
 	if (blob.__typename !== 'Blob')
 	{
 		_.modal({
