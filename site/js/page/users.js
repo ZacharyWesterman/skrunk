@@ -1,4 +1,8 @@
-_('userlist', query.users.list()) //initial load of user list
+export function init()
+{
+	_('userlist', query.users.list()) //initial load of user list
+	$.on.enter($('password'), create_user)
+}
 
 export async function hide_user_data()
 {
@@ -57,5 +61,3 @@ export async function create_user()
 
 	_('userlist', query.users.list()) //refresh user list
 }
-
-$.on.enter($('password'), create_user)
