@@ -53,13 +53,7 @@ window.inject = async function(field, url)
 		if (script.src.length)
 		{
 			evaluate = async () => {
-				let res = undefined
-				try {
-					res = await api.get(script.src)
-				} catch (error) {
-					throw 'RESPONSE ' + error.status + ' ' + error.statusText
-				}
-				return await do_script_eval(field, res, script.src, true)
+				return await do_script_eval(field, null, script.src, true)
 			}
 		}
 		else //eval inline script text
@@ -77,6 +71,13 @@ window.inject = async function(field, url)
 	for (const item of async_evals)
 	{
 		const new_mod = await (typeof item === 'function' ? item() : item)
+
+		//Always run init method on src load.
+		if (typeof new_mod.init === 'function')
+		{
+			new_mod.init()
+		}
+
 		module = {
 			...module,
 			...new_mod,

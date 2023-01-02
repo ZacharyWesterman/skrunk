@@ -8,6 +8,27 @@ const Editor = new Yace("#tag-query", {
 })
 Editor.textarea.spellcheck = false
 
+//run this everytime page is imported
+export function init()
+{
+	reload_blobs()
+
+	var old_modal_retn = _.modal.upload.return
+	_.modal.upload.return = () => {
+		old_modal_retn()
+		reload_blobs()
+	}
+
+	$.on.blur(Editor.textarea, () => {
+		BlobStart = 0
+		reload_blobs()
+	})
+
+	window.unload.push(() => {
+		_.modal.upload.return = old_modal_retn
+	})
+}
+
 async function get_blobs(start, count)
 {
 	return await query.blobs.get(null, start, count, Editor.value)
@@ -146,19 +167,6 @@ async function remove_blob(id)
 	}
 }
 
-reload_blobs()
-
-var old_modal_retn = _.modal.upload.return
-_.modal.upload.return = () => {
-	old_modal_retn()
-	reload_blobs()
-}
-
-$.on.blur(Editor.textarea, () => {
-	BlobStart = 0
-	reload_blobs()
-})
-
 export async function show_tags_how_to()
 {
 	const res = await _.modal({
@@ -244,7 +252,3 @@ export async function set_blob_tags(id)
 
 	await reload_blobs()
 }
-
-window.unload.push(() => {
-	_.modal.upload.return = old_modal_retn
-})

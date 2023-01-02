@@ -1,19 +1,15 @@
 <div id="mainpage"></div>
-<div id="userdata" name="userdata" class="hidden"></div>
+<div id="userdata" name="userdata" class="hidden" *load="load_user_data(api.username, true)"></div>
 
 <div name="weather_exec"></div>
 <div name="weather_users"></div>
 
 <script src="/js/page/user.js"></script>
 <script src="/js/page/weather_users.js"></script>
-<script>
-	load_user_data(api.username, true)
-
+<script *load="refresh_users">
 	export async function refresh_users()
 	{
 		var users = (await query.weather.users()).filter(user => user.username === api.username)
 		_('weather_users', users)
 	}
-
-	refresh_users()
 </script>
