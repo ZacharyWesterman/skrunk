@@ -1,3 +1,6 @@
+import Yace from 'https://unpkg.com/yace?module' //For code editing textareas
+window.Yace = Yace
+
 //Load user theme (regardless of cookies)
 query.users.get(api.username).then(data => {
 	if (data.__typename !== 'UserData')

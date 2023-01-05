@@ -1,16 +1,18 @@
 var BlobStart = 0
 var BlobListLen = 4
 
-const Editor = new Yace("#tag-query", {
-	value: "",
-	lineNumbers: false,
-	highlighter: tag_highlight,
-})
-Editor.textarea.spellcheck = false
+let Editor
 
 //run this everytime page is imported
 export function init()
 {
+	Editor = new Yace("#tag-query", {
+		value: "",
+		lineNumbers: false,
+		highlighter: tag_highlight,
+	})
+	Editor.textarea.spellcheck = false
+
 	reload_blobs()
 
 	var old_modal_retn = _.modal.upload.return
