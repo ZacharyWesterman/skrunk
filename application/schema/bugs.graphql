@@ -8,3 +8,16 @@ type BugReport
 	convo: [String!]!
 	resolved: Boolean!
 }
+
+type BugReportDoesNotExistError
+{
+	message: String!
+}
+
+type BugReportCreationFailedError
+{
+	message: String!
+}
+
+union BugReportCreateAction = BugReport | BugReportCreationFailedError
+union BugReportEditAction = BugReport | BugReportDoesNotExistError | InsufficientPerms

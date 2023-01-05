@@ -32,3 +32,7 @@ class InvalidPhone(ValueError):
 class BlobDoesNotExistError(ClientError):
 	def __init__(self, id: str):
 		super().__init__(f'No blob exists with ID {id}')
+
+class BugReportDoesNotExistError(ClientError):
+	def __init__(self, id: str):
+		super().__init__(f'No bug report exists with ID {id}')

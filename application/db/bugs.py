@@ -8,28 +8,34 @@ from typing import Optional
 
 db = None
 
-def report_bug(title: str, text: str) -> bool:
+def report_bug(title: str, text: str) -> dict:
 	global db
-	try:
-		username = decode_user_token(get_request_token()).get('username')
-		user_data = users.get_user_data(username)
-	except exceptions.UserDoesNotExistError:
-		return False
+	username = decode_user_token(get_request_token()).get('username')
+	user_data = users.get_user_data(username)
 
-	db.insert_one({
+	id = db.insert_one({
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
 		'title': title,
 		'body': text,
 		'convo': [],
 		'resolved': False,
-	})
+	}).inserted_id
 
-	return True
+	bug_report = db.find_one({'_id': id})
+	bug_report['id'] = bug_report['_id']
+	return bug_report
 
 def get_bug_report(id: str) -> dict:
 	report = db.find_one({'_id': ObjectId(id)})
 	report['id'] = report['_id']
+
+	try:
+		user_data = users.get_user_by_id(report['creator'])
+		report['creator'] = user_data['username']
+	except exceptions.UserDoesNotExistError:
+		report['creator'] = str(report['creator'])
+
 	return report
 
 def get_bug_reports(username: Optional[str], start: int, count: int, resolved: bool) -> list:
@@ -66,3 +72,13 @@ def count_bug_reports(username: Optional[str], resolved: bool) -> int:
 		return 0
 
 	return db.count_documents({'creator': user_data['_id'], 'resolved': resolved})
+
+def delete_bug_report(id: str) -> dict:
+	global db
+	bug_report = db.find_one({'_id': ObjectId(id)})
+	if bug_report is None:
+		raise exceptions.BugReportDoesNotExistError(id)
+
+	db.delete_one({'_id': ObjectId(id)})
+	bug_report['id'] = bug_report['_id']
+	return bug_report

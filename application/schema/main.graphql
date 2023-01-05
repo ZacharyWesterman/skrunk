@@ -32,5 +32,6 @@ type Mutation {
 	deleteBlob(id: String!): BlobUpdateResponse!
 	setBlobTags(id: String!, tags: [String!]!): BlobUpdateResponse!
 
-	reportBug(title: String!, text: String!): Boolean!
+	reportBug(title: String!, text: String!): BugReportCreateAction!
+	deleteBug(id: String!): BugReportEditAction!
 }

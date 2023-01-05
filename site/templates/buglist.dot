@@ -6,6 +6,8 @@
 		<h4>{{=bug.title}}</h4>
 		<textarea readonly>{{=bug.body}}</textarea>
 
+		<button class="icon right" *click="confirm_delete_bug('{{=bug.id}}', '{{=escape(bug.title)}}')"><i class="fa-solid fa-trash fa-lg"></i></button>
+
 		<div class="disabled">
 			Created by {{=bug.creator}}
 			<br>

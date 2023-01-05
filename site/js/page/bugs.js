@@ -5,7 +5,7 @@ export async function submit_bug_report()
 		$('new-bug-text').value,
 	)
 
-	if (!res)
+	if (res.__typename !== 'BugReport')
 	{
 		_.modal({
 			type: 'error',
@@ -17,6 +17,7 @@ export async function submit_bug_report()
 	}
 
 	$('new-bug-text').value = ''
+	$('new-bug-title').value = ''
 	$.toggle_expand('card-new-bug')
 
 	refresh_bug_list()
@@ -31,4 +32,29 @@ export async function refresh_bug_list()
 export function check_can_submit()
 {
 	$('new-bug-submit').disabled = ($.val('new-bug-title') === '') || ($.val('new-bug-text') === '')
+}
+
+export async function confirm_delete_bug(id, title)
+{
+	const choice = await _.modal({
+		title: 'Delete Bug Report?',
+		text: `"${title}" will be permanently removed from the list.`,
+		buttons: ['Yes', 'No']
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	const res = await mutate.bugs.delete(id)
+	if (res.__typename !== 'BugReport')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK']
+		}).catch(() => {})
+		return
+	}
+
+	await refresh_bug_list()
 }
