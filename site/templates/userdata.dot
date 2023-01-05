@@ -11,16 +11,19 @@
 			<input type="password" placeholder="New Password" autocomplete="new-password">
 			<button class="icon" *click="update_password(this.previousSibling.value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
 		</div>
-		{{?!it.self_view}}
-			<table>
-				{{~it.perms: perm}}
-					<tr>
-						<td>{{=perm}}</td>
-						<td><input id="perm-{{=perm}}" type="checkbox" {{?it.user.perms.includes(perm)}}checked{{?}} *click="set_perms()" {{?(perm==='admin') && (api.username === it.user.username)}}disabled{{?}}></td>
-					</tr>
-				{{~}}
-			</table>
-		{{?}}
+		<table>
+			{{~it.perms: perm}}
+				<tr>
+					<td>
+						<span class="tooltip">
+							{{=perm.name}}
+							<span class="tooltiptext" id="perm-tooltip-{{=perm.name}}">Placeholder Text. You should never see this!</span>
+						</span>
+					</td>
+					<td><input id="perm-{{=perm.name}}" type="checkbox" {{?it.user.perms.includes(perm.name)}}checked{{?}} *click="set_perms()" {{?((perm.name==='admin') && (api.username === it.user.username)) || it.self_view}}disabled{{?}}></td>
+				</tr>
+			{{~}}
+		</table>
 		<p>
 			<i class="left">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
 			<button class="right" *click="revoke_sessions('{{=it.user.username}}')">Revoke?</button>

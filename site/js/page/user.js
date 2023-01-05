@@ -1,9 +1,5 @@
-const Perms = [
-	'admin',
-	'adult',
-]
-
-var UserData = {}
+let Perms
+let UserData = {}
 
 export async function revoke_sessions(username)
 {
@@ -27,7 +23,7 @@ export async function set_perms()
 	UserData.perms = []
 	for (var perm of Perms)
 	{
-		if ($('perm-'+perm).checked) UserData.perms.push(perm)
+		if ($('perm-'+perm.name).checked) UserData.perms.push(perm.name)
 	}
 
 	const res = await mutate.users.permissions(UserData.username, UserData.perms)
@@ -40,11 +36,18 @@ export async function set_perms()
 		}).catch(()=>{})
 		return
 	}
+
+	sync_perm_descs()
 }
 
 export async function load_user_data(username, self_view = false)
 {
 	$.hide('mainpage')
+
+	if (!Perms)
+	{
+		Perms = await api.get_json('/config/permissions.json')
+	}
 
 	UserData = await query.users.get(username)
 	await _('userdata', {
@@ -53,6 +56,17 @@ export async function load_user_data(username, self_view = false)
 		sessions: await query.users.sessions(username),
 		self_view: self_view,
 	})
+
+	sync_perm_descs()
+}
+
+function sync_perm_descs()
+{
+	for (const perm of Perms)
+	{
+		const desc = $('perm-'+perm.name).checked ? "true" : "false"
+		$('perm-tooltip-'+perm.name).innerText = perm[desc]
+	}
 }
 
 export async function update_password(password, username)

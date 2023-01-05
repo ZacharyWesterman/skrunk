@@ -126,7 +126,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 		else:
 			ext = ''
 
-		if ext in ['js', 'css', 'html', 'dot']:
+		if ext in ['js', 'css', 'html', 'dot', 'json']:
 			try:
 				return read_file_data(f'site/{path}')
 			except FileNotFoundError as e:

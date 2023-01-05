@@ -1,0 +1,17 @@
+[
+	{
+		"name": "admin",
+		"true": "This user has full data access.",
+		"false": "This user has normal data access."
+	},
+	{
+		"name": "adult",
+		"true": "This user is an adult.",
+		"false": "This user is not an adult."
+	},
+	{
+		"name": "persistent",
+		"true": "Login token never times out.",
+		"false": "Login token times out after a while."
+	}
+]

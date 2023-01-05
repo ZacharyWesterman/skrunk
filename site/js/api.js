@@ -105,6 +105,12 @@ api.get = function(url) {
 	})
 }
 
+api.get_json = async url =>
+{
+	const result = await api.get(url)
+	return JSON.parse(result)
+}
+
 api.upload = function(file, progress_handler) {
 	return new Promise((resolve, reject) => {
 		var xhr = new XMLHttpRequest
