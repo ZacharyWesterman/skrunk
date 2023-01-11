@@ -48,6 +48,47 @@ $.on = Events
 $.next = Control.next
 $.prev = Control.prev
 
+$.bind = function(field, method, frequency = 500, run_on_start = false)
+{
+	if (run_on_start) method()
+
+	let last_run = Date.now()
+	let run_scheduled = false
+
+	$(field).addEventListener('keyup', () =>
+	{
+		last_run = Date.now()
+		if (run_scheduled) return
+
+		run_scheduled = true
+		function sync_method()
+		{
+			//only sync when field hasn't changed for at least {frequency} ms.
+			if (Date.now() - last_run < frequency)
+			{
+				setTimeout(sync_method, frequency)
+				return
+			}
+
+			if (typeof method.then === 'function')
+			{
+				method().then(() => {
+					run_scheduled = false
+					last_run = Date.now()
+				})
+			}
+			else
+			{
+				method()
+				run_scheduled = false
+				last_run = Date.now()
+			}
+		}
+
+		setTimeout(sync_method, frequency)
+	})
+}
+
 //Update globals $ (fields) and _ (screen)
 window.$ = $
 window._ = _

@@ -13,18 +13,16 @@ export function init()
 	})
 	Editor.textarea.spellcheck = false
 
-	reload_blobs()
+	$.bind(Editor.textarea, () => {
+		BlobStart = 0
+		reload_blobs()
+	}, 500, true)
 
 	var old_modal_retn = _.modal.upload.return
 	_.modal.upload.return = () => {
 		old_modal_retn()
 		reload_blobs()
 	}
-
-	$.on.blur(Editor.textarea, () => {
-		BlobStart = 0
-		reload_blobs()
-	})
 
 	window.unload.push(() => {
 		_.modal.upload.return = old_modal_retn
