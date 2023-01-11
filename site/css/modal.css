@@ -17,8 +17,6 @@
 	overflow: none;
 	background-color: rgba(0,0,0,0.4);
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-	animation-name: animatemodal;
-	animation-duration: 0.4s;
 }
 
 #modal-upload-window {
@@ -51,9 +49,4 @@
 .close:hover .close:focus {
 	filter: brightness(140%);
 	text-decoration: none;
-}
-
-@keyframes animatemodal {
-	from {top: -300px; opacity: 0}
-	to {top: 0; opacity: 1}
 }
