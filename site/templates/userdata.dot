@@ -17,7 +17,7 @@
 					<td>
 						<span class="tooltip">
 							{{=perm.name}}
-							<span class="tooltiptext" id="perm-tooltip-{{=perm.name}}">Placeholder Text. You should never see this!</span>
+							<span class="tooltiptext t-right" id="perm-tooltip-{{=perm.name}}">Placeholder Text. You should never see this!</span>
 						</span>
 					</td>
 					<td><input id="perm-{{=perm.name}}" type="checkbox" {{?it.user.perms.includes(perm.name)}}checked{{?}} *click="set_perms()" {{?((perm.name==='admin') && (api.username === it.user.username)) || it.self_view}}disabled{{?}}></td>
@@ -27,9 +27,9 @@
 		<p>
 			<i class="left">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
 			<button class="right" *click="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
-			<span class="tooltip left" *click="show_sessions_info">
+			<span class="tooltip" *click="show_sessions_info">
 				<i class="fa-solid fa-circle-question"></i>
-				<span class="tooltiptext">What does this mean?</span>
+				<span class="tooltiptext t-center">What does this mean?</span>
 			</span>
 		</p>
 		{{?!it.self_view}}

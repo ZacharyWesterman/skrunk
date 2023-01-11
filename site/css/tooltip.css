@@ -19,8 +19,6 @@
 	position: absolute;
 	z-index: 1;
 	bottom: 125%;
-	right: 0%;
-	margin-left: -60px;
 	outline: 1px solid var(--secondary-text);
 
 	/* Fade in tooltip */
@@ -28,16 +26,19 @@
 	transition: opacity 0.3s;
 }
 
-/* Tooltip arrow */
-.tooltip .tooltiptext::after {
-	content: "";
-	position: absolute;
-	top: 100%;
-	right: 3%;
-	margin-left: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: var(--secondary-text) transparent transparent transparent;
+.t-left {
+	right: 0%;
+	margin-left: -60px;
+}
+
+.t-center {
+	left: 0%;
+	margin-left: -100px;
+}
+
+.t-right {
+	left: 0%;
+	margin-left: 0px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
