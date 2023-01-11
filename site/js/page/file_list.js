@@ -162,6 +162,7 @@ async function remove_blob(id)
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML += innerHTML
+	set_field_logic($('blob-list'))
 
 	for (var i in blobs)
 	{
