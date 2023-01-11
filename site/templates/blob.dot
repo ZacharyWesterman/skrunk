@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" style="max-width: 500px;">
 	<div class="card-inner">
 		<div>
 			<button class="icon" *click="copy_to_clipboard('/blob/{{=it.id}}{{=it.ext}}')"><i class="fa-solid fa-copy fa-lg"></i></button>
