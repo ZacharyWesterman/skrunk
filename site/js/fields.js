@@ -10,8 +10,8 @@ _.modal = Modal
 
 _.css = {
 	vars: () => document?.styleSheets[document.styleSheets.length-1]?.cssRules[0]?.styleSheet?.rules[0]?.style || [],
-	set_var: (name, value) => document.querySelector(':root').style.setProperty(name, value),
-	get_var: name => getComputedStyle(document.querySelector(':root')).getPropertyValue(name),
+	set_var: (name, value) => document.querySelector(':root').style.setProperty(name, value.trim()),
+	get_var: name => getComputedStyle(document.querySelector(':root')).getPropertyValue(name).trim(),
 }
 
 //Field control and validation
