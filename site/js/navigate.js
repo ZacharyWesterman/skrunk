@@ -3,11 +3,13 @@
 */
 window.navigate = async function(url)
 {
+	clear_error_message()
 	await inject(document.all.body, url)
 }
 
 window.dashnav = async function(url)
 {
+	clear_error_message()
 	await inject(document.all.content, url)
 }
 
@@ -71,6 +73,7 @@ window.inject = async function(field, url)
 	for (const item of async_evals)
 	{
 		const new_mod = await (typeof item === 'function' ? item() : item)
+		if (!new_mod) continue
 
 		//Always run init method on src load.
 		if (typeof new_mod.init === 'function')
@@ -285,5 +288,6 @@ function report_error(error, url, replaceUrl)
 		stack.shift()
 	}
 	error.stack = stack.join(':')
-	console.log(error)
+	console.error(error)
+	window.show_error_message(error)
 }
