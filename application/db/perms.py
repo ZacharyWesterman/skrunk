@@ -29,29 +29,32 @@ def caller_info(info) -> str:
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return all(k in user_data['perms'] for k in perm_list)
 
+def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True) -> bool:
+	# Make sure the user making the request exists
+	user_data = caller_info(info)
+	if user_data is None:
+		return bad_perms()
+
+	# Unless otherwise specified,
+	# Ignore credentials if user is editing their own data.
+	if perform_on_self:
+		field = 'username' if 'username' in data else 'creator'
+		otherf = 'username' if 'username' in data else '_id'
+		other_user = data.get(field)
+
+		if other_user is not None and other_user == user_data.get(otherf):
+			return True
+
+	# If user does not have ALL required perms, fail.
+	return user_has_perms(user_data, perms)
+
 def require(perms: list, *, perform_on_self: bool = True) -> callable:
 	def inner(method: callable) -> callable:
 		def wrap(_, info, *args, **kwargs):
-			global db
-
-			# Make sure the user making the request exists
-			user_data = caller_info(info)
-			if user_data is None:
+			if satisfies(info, perms, kwargs):
+				return method(_, info, *args, **kwargs)
+			else:
 				return bad_perms()
-
-			# Unless otherwise specified,
-			# Ignore credentials if user is editing their own data.
-			if perform_on_self and 'username' in {**kwargs}:
-				other_user = {**kwargs}.get('username')
-
-				if other_user == user_data['username']:
-					return method(_, info, *args, **kwargs)
-
-			# If user does not have ALL required perms, fail.
-			if not user_has_perms(user_data, perms):
-				return bad_perms()
-
-			return method(_, info, *args, **kwargs)
 
 		return wrap
 
