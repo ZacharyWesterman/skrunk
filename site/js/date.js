@@ -55,7 +55,6 @@ window.date = {
 	{
 		const val = $.val(field)
 		if (!val) return null
-		console.log(val)
 		const parts = val.split('-')
 		const y = parts[0]
 		const m = parts[1]
