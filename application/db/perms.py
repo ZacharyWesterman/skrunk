@@ -39,10 +39,9 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True) ->
 	# Ignore credentials if user is editing their own data.
 	if perform_on_self:
 		field = 'username' if 'username' in data else 'creator'
-		otherf = 'username' if 'username' in data else '_id'
 		other_user = data.get(field)
 
-		if other_user is not None and other_user == user_data.get(otherf):
+		if other_user is not None and (other_user == user_data.get('username') or other_user == str(user_data.get('_id'))):
 			return True
 
 	# If user does not have ALL required perms, fail.
@@ -51,7 +50,7 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True) ->
 def require(perms: list, *, perform_on_self: bool = True) -> callable:
 	def inner(method: callable) -> callable:
 		def wrap(_, info, *args, **kwargs):
-			if satisfies(info, perms, kwargs):
+			if satisfies(info, perms, kwargs, perform_on_self):
 				return method(_, info, *args, **kwargs)
 			else:
 				return bad_perms()
