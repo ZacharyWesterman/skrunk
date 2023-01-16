@@ -31,7 +31,17 @@ export function init()
 
 async function get_blobs(start, count)
 {
-	return await query.blobs.get(null, start, count, Editor.value)
+	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
+	const date_from = date.from_field('blob-filter-from')
+	const date_to = date.from_field('blob-filter-to')
+	return await query.blobs.get(
+		creator,
+		start,
+		count,
+		Editor.value,
+		date_from,
+		date_to,
+	)
 }
 
 async function get_blob(blob_id)
@@ -56,7 +66,10 @@ export async function copy_to_clipboard(id)
 
 async function reload_page_list()
 {
-	const res = await query.blobs.count(null, Editor.value)
+	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
+	const date_from = date.from_field('blob-filter-from')
+	const date_to = date.from_field('blob-filter-to')
+	const res = await query.blobs.count(creator, Editor.value, date_from, date_to)
 	if (res.__typename !== 'BlobCount')
 	{
 		$('tag-error').innerText = res.message

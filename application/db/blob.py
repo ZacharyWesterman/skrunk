@@ -62,20 +62,27 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str, size: int) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size}})
 
-def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str]) -> list:
+def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime]) -> list:
 	global db
 	blobs = []
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	if username is None:
-		selection = db.find(mongo_tag_query, sort=[('created', -1)])
-	else:
+	# query = [ mongo_tag_query ]
+	query = []
+
+	if username is not None:
 		try:
 			user_data = users.get_user_data(username)
-			selection = db.find({'$and': [{'creator': user_data['_id']}, mongo_tag_query]}, sort=[('created', -1)])
+			query += [{'creator': user_data['_id']}]
 		except exceptions.UserDoesNotExistError:
-			return []
+			return 0
 
+	if begin_date is not None:
+		query += [{'created': {'$gte': begin_date}}]
+	if end_date is not None:
+		query += [{'created': {'$lte': end_date}}]
+
+	selection = db.find({'$and': query}, sort=[('created', -1)])
 	for i in selection.limit(count).skip(start):
 		i['id'] = i['_id']
 		try:
@@ -87,19 +94,25 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 
 	return blobs
 
-def count_blobs(username: Optional[str], tagstr: Optional[str]) -> int:
+def count_blobs(username: Optional[str], tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime]) -> int:
 	global db
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	if username is None:
-		return db.count_documents(mongo_tag_query)
-	else:
+	query = [ mongo_tag_query ]
+
+	if username is not None:
 		try:
 			user_data = users.get_user_data(username)
+			query += [{'creator': user_data['_id']}]
 		except exceptions.UserDoesNotExistError:
 			return 0
 
-		return db.count_documents({'$and': [{'creator': user_data['_id']}, mongo_tag_query]})
+	if begin_date is not None:
+		query += [{'created': {'$gte': begin_date}}]
+	if end_date is not None:
+		query += [{'created': {'$lte': end_date}}]
+
+	return db.count_documents({'$and': query})
 
 def get_blob_data(blob_id: str) -> dict:
 	global db

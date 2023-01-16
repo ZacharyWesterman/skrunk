@@ -2,6 +2,12 @@
 	<div class="card-inner">
 		<div name="page_list"></div><br>
 
+		<!-- Search Filters -->
+		Uploaded by
+		<input id="blob-filter-creator" format="id" placeholder="anyone" *change="reload_blobs"><br>
+		Uploaded between <input id="blob-filter-from" type="date" *change="reload_blobs">
+		and <input id="blob-filter-to" type="date" *change="reload_blobs"><br>
+
 		<!-- Editor for tag query -->
 		Tag Query
 		<span class="tooltip" *click="show_tags_how_to">

@@ -19,12 +19,14 @@ export default {
 	* start: int
 	* count: int
 	* tag_query: string or null
+	* date_from: Date or null
+	* date_to: Date or null
 	*/
-	get: async (username, start, count, tag_query) =>
+	get: async (username, start, count, tag_query, date_from, date_to) =>
 	{
 		var res = await api(`
-		query ($username: String, $start: Int!, $count: Int!, $tags: String){
-			getBlobs(username: $username, start: $start, count: $count, tags: $tags) {
+		query ($username: String, $start: Int!, $count: Int!, $tags: String, $beginDate: DateTime, $endDate: DateTime){
+			getBlobs(username: $username, start: $start, count: $count, tags: $tags, beginDate: $beginDate, endDate: $endDate) {
 				__typename
 				...on BlobList {
 					blobs {
@@ -47,6 +49,8 @@ export default {
 			start: start,
 			count: count,
 			tags: tag_query,
+			beginDate: date.db_output(date_from),
+			endDate: date.db_output(date_to),
 		})
 
 		if (res.blobs)
@@ -60,11 +64,13 @@ export default {
 	/**
 	* username: string or null
 	* tag_query: string or null
+	* date_from: Date or null
+	* date_to: Date or null
 	*/
-	count: async (username, tag_query) =>
+	count: async (username, tag_query, date_from, date_to) =>
 	{
-		return await api(`query ($username: String, $tags: String){
-			countBlobs(username: $username, tags: $tags) {
+		return await api(`query ($username: String, $tags: String, $beginDate: DateTime, $endDate: DateTime){
+			countBlobs(username: $username, tags: $tags, beginDate: $beginDate, endDate: $endDate) {
 				__typename
 				...on BlobCount {
 					count
@@ -76,6 +82,8 @@ export default {
 		}`, {
 			username: username,
 			tags: tag_query,
+			beginDate: date.db_output(date_from),
+			endDate: date.db_output(date_to),
 		})
 	},
 

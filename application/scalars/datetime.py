@@ -5,7 +5,7 @@ from ariadne import ScalarType
 
 scalar = ScalarType('DateTime')
 
-# @datetime_scalar.serializer
+# @scalar.serializer
 # def serialize_datetime(value: datetime) -> str:
 # 	return value.strftime('%Y-%m-%d %H:%M:%S')
 
