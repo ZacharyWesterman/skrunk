@@ -50,7 +50,7 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True) ->
 def require(perms: list, *, perform_on_self: bool = True) -> callable:
 	def inner(method: callable) -> callable:
 		def wrap(_, info, *args, **kwargs):
-			if satisfies(info, perms, kwargs, perform_on_self):
+			if satisfies(info, perms, kwargs, perform_on_self = perform_on_self):
 				return method(_, info, *args, **kwargs)
 			else:
 				return bad_perms()
