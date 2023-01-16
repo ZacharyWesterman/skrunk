@@ -56,12 +56,14 @@ modal.upload.return = () =>
 
 modal.upload.start = async function()
 {
+	const auto_unzip = $('modal-unpack-check').checked
+
 	async function do_upload(file, dom_progress)
 	{
 		await api.upload(file, progress => {
 			const percent = progress.loaded / progress.total * 100
 			dom_progress.value = percent
-		})
+		}, auto_unzip)
 		$.hide(dom_progress, true)
 	}
 
@@ -116,6 +118,21 @@ modal.upload.start = async function()
 	}).catch(() => {})
 
 	modal.upload.return()
+}
+
+modal.upload.activate = () =>
+{
+	$('modal-button').disabled = false
+	function zip_exists()
+	{
+		const files = $('modal-file').files
+		for (let i=0; i<files.length; ++i)
+		{
+			if (files[i].name.endsWith('.zip')) return true
+		}
+		return false
+	}
+	$.toggle('modal-auto-unpack', zip_exists())
 }
 
 export default modal

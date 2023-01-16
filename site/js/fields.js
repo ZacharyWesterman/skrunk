@@ -41,6 +41,12 @@ $.hide = (id, fade = false) => {
 	else
 		$(id).style.display = 'none'
 }
+$.toggle = (id, state, fade = true) => {
+	if (state === undefined) state = $(id).classList.contains('hidden')
+
+	const func = state ? $.show : $.hide
+	func(id, fade)
+}
 
 $.validate = Validate
 $.enforce = Enforce

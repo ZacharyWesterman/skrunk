@@ -6,8 +6,11 @@ from . import users
 from typing import Optional
 from bson.objectid import ObjectId
 from datetime import datetime
+from zipfile import ZipFile
 import mimetypes
 import threading
+import pathlib
+import uuid
 import os
 
 db = None
@@ -17,7 +20,7 @@ def path(id: str, ext: str = '') -> str:
 	global blob_path
 	return f'{blob_path}/{id}{ext}'
 
-def save_blob_data(file: object) -> str:
+def save_blob_data(file: object, auto_unzip: bool) -> str:
 	global blob_path
 	filename = file.filename
 	id, ext = create_blob(filename)
@@ -27,8 +30,26 @@ def save_blob_data(file: object) -> str:
 	file.save(this_blob_path)
 	print(f'Finished stream of file "{filename}".')
 
-	size = os.stat(this_blob_path).st_size
-	mark_as_completed(id, size)
+	if auto_unzip and ext == '.zip':
+		print(f'Unzipping file "{filename}"...')
+		extract_count = 0
+		with ZipFile(this_blob_path, 'r') as fp:
+			for name in fp.namelist():
+				#directly create new blobs from each item in the zip file
+				id2, ext2 = create_blob(name)
+				inner_blob_path = path(id2, ext2)
+				with fp.open(name, 'r') as input:
+					with open(inner_blob_path, 'wb') as output:
+						output.write(input.read())
+				size = os.stat(inner_blob_path).st_size
+				mark_as_completed(id2, size)
+				extract_count += 1
+
+		print(f'Finished unzipping "{filename}" (extracted {extract_count} files).')
+		delete_blob(id)
+	else:
+		size = os.stat(this_blob_path).st_size
+		mark_as_completed(id, size)
 
 	return id
 

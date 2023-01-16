@@ -3,7 +3,11 @@
 		<div class="modal-content">
 			<span class="close" onclick="_.modal.upload.return()">&times;</span>
 			<h4>Select files to upload</h4>
-			<input id="modal-file" type="file" name="file" onchange="$('modal-button').disabled = false" multiple>
+			<div id="modal-auto-unpack" class="hidden" style="display:none;">
+				Automatically extract ZIP files?
+				<input type="checkbox" id="modal-unpack-check">
+			</div>
+			<input id="modal-file" type="file" name="file" onchange="_.modal.upload.activate()" multiple>
 			<button class="icon" id="modal-button" onclick="_.modal.upload.start()" disabled>
 				<i class="fa-solid fa-file-arrow-up fa-lg"></i>
 			</button><br>

@@ -198,15 +198,16 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	def background_image():
 		return read_file_data('data/background.svg')
 
-	@application.route('/upload/<filename>', methods=['POST'])
-	def upload_file(filename):
+	@application.route('/upload', methods=['POST'])
+	def upload_file():
 		if not authorized():
 			return '', 403
 
 		if blob_path is None:
 			return 'No blob data path specified in server setup.', 404
 
-		id = blob.save_blob_data(request.files['file'])
+		auto_unzip = request.form['unzip'] == 'true'
+		id = blob.save_blob_data(request.files['file'], auto_unzip)
 
 		return str(id), 200
 
