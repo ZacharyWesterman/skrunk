@@ -57,9 +57,9 @@ export async function navigate_to_page(page_num)
 
 export async function copy_to_clipboard(id)
 {
-	await navigator.clipboard.writeText(id)
+	await navigator.clipboard.writeText(`${window.location}/blob/${id}`)
 	_.modal({
-		text: 'Copied file path to clipboard!',
+		text: 'Copied URL to clipboard!',
 	}).catch(() => {})
 	setTimeout(_.modal.cancel, 1200)
 }

@@ -1,7 +1,7 @@
 <div class="card" style="max-width: 500px;">
 	<div class="card-inner">
 		<div>
-			<button class="icon" *click="copy_to_clipboard('/blob/{{=it.id}}{{=it.ext}}')"><i class="fa-solid fa-copy fa-lg"></i></button>
+			<button class="icon" *click="copy_to_clipboard('{{=it.id}}{{=it.ext}}')"><i class="fa-solid fa-copy fa-lg"></i></button>
 			<button class="icon"><a href="/blob/{{=it.id}}{{=it.ext}}" download="{{=it.name.replace('&quot;', '&amp;quot;')}}{{=it.ext}}"><i class="fa-solid fa-file-arrow-down fa-lg"></i></a></button>
 			<span class="disabled">{{=it.size}}</span>
 			<button class="icon right" *click="confirm_delete_blob('{{=it.id}}', '{{=escape(it.name)}}{{=it.ext}}')"><i class="fa-solid fa-trash fa-lg"></i></button>
