@@ -8,8 +8,8 @@
 		</h1>
 		<h2>{{=it.user.username}}</h2>
 		<div>
-			<input type="password" placeholder="New Password" autocomplete="new-password">
-			<button class="icon" *click="update_password(this.previousSibling.value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
+			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password">
+			<button class="icon" *click="update_password($('user-new-password').value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
 		</div>
 		<table>
 			{{~it.perms: perm}}
