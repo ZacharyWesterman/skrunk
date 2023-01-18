@@ -88,8 +88,7 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 	blobs = []
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	# query = [ mongo_tag_query ]
-	query = []
+	query = [ mongo_tag_query ] if mongo_tag_query != {} else []
 
 	if username is not None:
 		try:
@@ -119,7 +118,7 @@ def count_blobs(username: Optional[str], tagstr: Optional[str], begin_date: Opti
 	global db
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	query = [ mongo_tag_query ]
+	query = [ mongo_tag_query ] if mongo_tag_query != {} else []
 
 	if username is not None:
 		try:
