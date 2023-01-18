@@ -154,6 +154,8 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 		else:
 			length = file_size - start
 
+		length = min(length, 1024*1024*5) #Max chunk size is 5MiB
+
 		with open(full_path, 'rb') as fp:
 			fp.seek(start)
 			chunk = fp.read(length)
