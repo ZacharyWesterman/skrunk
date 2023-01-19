@@ -1,0 +1,23 @@
+<div>
+	ID: <span id="book_id"></span><br>
+	<div id="nfc_status"></div>
+</div>
+
+<script>
+	//Start the NFC reader ONCE per session, and don't stop it.
+	//Trying to stop/restart it multiple times in a session
+	//just causes the browser to crash. :/
+	if (window.NFC === undefined)
+	{
+		try{
+			window.NFC = new NDEFReader
+			NFC.onreading = event =>
+			{
+				if (!$('nfc_status')) return
+
+				$('status').innerText = event.serialNumber
+			}
+			NFC.scan()
+		} catch(e) {}
+	}
+</script>
