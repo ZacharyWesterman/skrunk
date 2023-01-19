@@ -22,7 +22,10 @@ window.inject = async function(field, url)
 	while (window.unload.length > 0)
 	{
 		var unload_method = window.unload.pop()
-		unload_method()
+		if (unload_method?.constructor?.name === 'AsyncFunction')
+			await unload_method()
+		else
+			unload_method()
 	}
 
 	//show spinner to indicate stuff is loading
