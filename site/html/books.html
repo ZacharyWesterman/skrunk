@@ -1,6 +1,32 @@
-<div>
-	ID: <span id="book_id"></span><br>
-	<div id="nfc_status"></div>
+<div class="card">
+	<div class="card-inner">
+		<div onclick="$.toggle_expand('card-create')">
+			<h4>Add a New Book</h4>
+		</div>
+
+		<div class="expand-container">
+			<div id="card-create" class="expand-contract">
+				<table>
+					<tr>
+						<td>Tag ID</td>
+						<td><input id="new-tagid" format="hex"></td>
+					</tr>
+					<tr>
+						<td>Title</td>
+						<td><input id="new-title"></td>
+					</tr>
+					<tr>
+						<td>Author</td>
+						<td><input id="new-author"></td>
+					</tr>
+					<tr>
+						<td>Series</td>
+						<td><input id="new-series"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
@@ -9,15 +35,24 @@
 	//just causes the browser to crash. :/
 	if (window.NFC === undefined)
 	{
-		try{
+		try {
 			window.NFC = new NDEFReader
-			NFC.onreading = event =>
-			{
-				if (!$('nfc_status')) return
-
-				$('status').innerText = event.serialNumber
+		} catch(e) {
+			window.NFC = {
+				scan: () => {}
 			}
-			NFC.scan()
-		} catch(e) {}
+		}
 	}
+
+	NFC.onreading = event =>
+	{
+		$.toggle_expand('card-create', true)
+		$('new-tagid').value = event.serialNumber
+	}
+
+	NFC.scan()
+
+	window.unload.push(() => {
+		NFC.onreading = undefined
+	})
 </script>

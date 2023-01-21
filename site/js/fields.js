@@ -21,7 +21,7 @@ $.set = (id, value) => {
 	$(id).value = value
 	$(id).prevValue = value
 }
-$.toggle_expand = id => $(id).classList.toggle('expanded')
+$.toggle_expand = (id, expand) => $(id).classList.toggle('expanded', expand)
 
 $.show = (id, fade = true) => {
 	$(id).style.display = ''
