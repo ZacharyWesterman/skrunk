@@ -1,0 +1,31 @@
+type Book {
+	id: String!
+	title: String!
+	subtitle: String
+	authors: [String!]!
+	publisher: String!
+	publishedDate: String!
+	description: String!
+	industryIdentifiers: [BookIdent!]!
+	pageCount: Int!
+	categories: [String!]!
+	maturityRating: String!
+	language: String!
+	thumbnail: String!
+	smallThumbnail: String!
+}
+
+type BookIdent {
+	type: String!
+	identifier: String!
+}
+
+type BookList {
+	books: [Book!]!
+}
+
+type ApiFailedError {
+	message: String!
+}
+
+union BookQueryResponse = BookList | ApiFailedError

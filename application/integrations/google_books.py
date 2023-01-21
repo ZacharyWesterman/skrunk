@@ -46,4 +46,10 @@ def query(*, title: str = '', author: str = '') -> list:
 	if response.status_code != 200:
 		raise exceptions.ApiFailedError(f'API call failed with status code {response.status_code}')
 
-	return json.loads(response.text).get('items', [])
+	books = []
+	for i in json.loads(response.text).get('items', []):
+		book = i['volumeInfo']
+		book['id'] = i['id']
+		books += [book]
+
+	return books

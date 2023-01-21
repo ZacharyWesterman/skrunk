@@ -4,6 +4,7 @@ from .weather import resolve_get_weather_users, resolve_get_last_execution
 from .sessions import resolve_count_user_sessions
 from .blob import *
 from .bugs import *
+from .book import resolve_search_books
 
 query = QueryType()
 
@@ -21,3 +22,5 @@ query.set_field('getBlob', resolve_get_blob)
 query.set_field('getBugReports', resolve_get_bug_reports)
 query.set_field('countBugReports', resolve_count_bug_reports)
 query.set_field('getBugReport', resolve_get_bug_report)
+
+query.set_field('searchBooks', resolve_search_books)
