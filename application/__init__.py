@@ -15,6 +15,8 @@ import mimetypes
 import re
 import os
 
+from .integrations import google_books
+
 def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url = ''):
 	init_db(data_db_url, weather_db_url, blob_path)
 
