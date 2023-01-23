@@ -40,7 +40,6 @@
 
 	NFC.onreading = event =>
 	{
-		$.toggle_expand('card-create', true)
 		$('new-tagid').value = event.serialNumber
 	}
 
