@@ -30,11 +30,14 @@ def query(*, title: str = '', author: str = '') -> list:
 
 	query_fields = []
 
-	if len(title):
-		for i in title.replace(':', '').split(' '):
+	t = title.replace(':', '').strip()
+	a = author.replace(':', '').strip()
+
+	if len(t):
+		for i in t.split(' '):
 			query_fields += [f'intitle:{i}']
-	if len(author):
-		for i in author.replace(':', '').split(' '):
+	if len(a):
+		for i in a.split(' '):
 			query_fields += [f'inauthor:{i}']
 
 	text_query = '+'.join(query_fields)
@@ -50,6 +53,7 @@ def query(*, title: str = '', author: str = '') -> list:
 	for i in json.loads(response.text).get('items', []):
 		book = i['volumeInfo']
 		book['id'] = i['id']
-		books += [book]
+		book['authors'] = book.get('authors', [])
+		books += [{**book, **book.get('imageLinks', {})}]
 
 	return books

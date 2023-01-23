@@ -1,0 +1,11 @@
+{{~ it : book}}
+<div class="card clickable" style="max-width: 700px;" *click="select_book('{{=book.id}}', '{{=book.title}}')">
+	<div class="card-inner">
+		<b>{{=book.title}}</b><br>
+		{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
+		<div class="disabled">By {{=book.authors.join(', ')}}</div>
+		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="">{{?}}
+		{{?book.description}}<div>{{=book.description.replace('\n', '<br>')}}</div>{{?}}
+	</div>
+</div>
+{{~}}

@@ -5,14 +5,20 @@ type Book {
 	authors: [String!]!
 	publisher: String!
 	publishedDate: String!
-	description: String!
+	description: String
 	industryIdentifiers: [BookIdent!]!
 	pageCount: Int!
 	categories: [String!]!
 	maturityRating: String!
 	language: String!
-	thumbnail: String!
-	smallThumbnail: String!
+	thumbnail: String
+	smallThumbnail: String
+}
+
+type BookTag {
+	rfid: String!
+	bookId: String!
+	creator: String!
 }
 
 type BookIdent {
