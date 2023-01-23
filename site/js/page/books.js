@@ -9,7 +9,11 @@ export async function search_books()
 	const title = $.val('new-title')
 	const author = $.val('new-author')
 
-	if (`${author}${title}` === '') return
+	if (`${author}${title}` === '')
+	{
+		await _('booklist', [])
+		return
+	}
 
 	const res = await api(`
 	query ($title: String!, $author: String!) {
