@@ -73,5 +73,29 @@ export async function select_book(book_id, book_title)
 	}).catch(() => 'no')
 	if (choice !== 'yes') return
 
+	const res = await api(`
+	mutation ($rfid: String!, $bookId: String!) {
+		linkBookTag (rfid: $rfid, bookId: $bookId) {
+			__typename
+			...on BookTagExistsError {
+				message
+			}
+		}
+	}`, {
+		rfid: tagid,
+		bookId: book_id,
+	})
+
+	if (res.__typename !== 'BookTag')
+	{
+		_.modal({
+			type: 'error',
+			title: 'Failed to link book',
+			text: res.message,
+			buttons: ['OK']
+		}).catch(() => {})
+		return
+	}
+
 	$('new-tagid').value = '' //Wipe the tag ID
 }

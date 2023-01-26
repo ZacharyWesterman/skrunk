@@ -15,6 +15,7 @@ type Query {
 	getBugReport(id: String!): BugReport
 
 	searchBooks(title: String!, author: String!): BookQueryResponse!
+	getBookByTag(rfid: String!): BookResponse!
 }
 
 type Mutation {
@@ -36,4 +37,6 @@ type Mutation {
 
 	reportBug(title: String!, text: String!): BugReportCreateAction!
 	deleteBug(id: String!): BugReportEditAction!
+
+	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
 }

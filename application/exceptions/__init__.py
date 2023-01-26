@@ -36,3 +36,11 @@ class BlobDoesNotExistError(ClientError):
 class BugReportDoesNotExistError(ClientError):
 	def __init__(self, id: str):
 		super().__init__(f'No bug report exists with ID {id}')
+
+class BookTagDoesNotExistError(ClientError):
+	def __init__(self, id: str):
+		super().__init__(f'No book is tagged with RFID {id}')
+
+class BookTagExistsError(ClientError):
+	def __init__(self, id: str):
+		super().__init__(f'A book is already tagged with RFID {id}')

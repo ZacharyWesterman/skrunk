@@ -34,4 +34,14 @@ type ApiFailedError {
 	message: String!
 }
 
+type BookTagExistsError {
+	message: String!
+}
+
+type BookTagDoesNotExistError {
+	message: String!
+}
+
 union BookQueryResponse = BookList | ApiFailedError
+union BookTagCreateResponse = BookTag | BookTagExistsError
+union BookResponse = Book | BookTagDoesNotExistError | ApiFailedError
