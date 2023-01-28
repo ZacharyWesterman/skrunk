@@ -18,7 +18,7 @@ window.unload.push(() => {
 	NFC.onreading = undefined
 })
 
-ThisBook = null
+let ThisBook = null
 
 export function init()
 {
