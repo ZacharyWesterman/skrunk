@@ -12,46 +12,51 @@ if (window.NFC === undefined)
 	}
 }
 
-NFC.onreading = async event =>
-{
-	const res = await api(`
-	query ($rfid: String!) {
-		getBookByTag (rfid: $rfid) {
-			__typename
-			...on Book {
-				title
-				subtitle
-				authors
-				thumbnail
-				description
-			}
-			...on BookTagDoesNotExistError {
-				message
-			}
-			...on ApiFailedError {
-				message
-			}
-		}
-	}`, {
-		rfid: event.serialNumber,
-	})
-
-	if (res.__typename !== 'Book')
-	{
-		_.modal({
-			type: 'error',
-			title: 'ERROR',
-			text: res.message,
-			buttons: ['OK'],
-		}).catch(() => {})
-		return
-	}
-
-	_('book', res)
-}
-
 NFC.scan()
 
 window.unload.push(() => {
 	NFC.onreading = undefined
 })
+
+export function init()
+{
+	NFC.onreading = async event =>
+	{
+		const res = await api(`
+		query ($rfid: String!) {
+			getBookByTag (rfid: $rfid) {
+				__typename
+				...on Book {
+					title
+					subtitle
+					authors
+					thumbnail
+					description
+				}
+				...on BookTagDoesNotExistError {
+					message
+				}
+				...on ApiFailedError {
+					message
+				}
+			}
+		}`, {
+			rfid: event.serialNumber,
+		})
+
+		show_raw_error_message(JSON.stringify(res))
+
+		if (res.__typename !== 'Book')
+		{
+			_.modal({
+				type: 'error',
+				title: 'ERROR',
+				text: res.message,
+				buttons: ['OK'],
+			}).catch(() => {})
+			return
+		}
+
+		await _('book', res)
+	}
+}

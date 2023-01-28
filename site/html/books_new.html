@@ -40,9 +40,12 @@
 		}
 	}
 
-	NFC.onreading = event =>
+	export function init()
 	{
-		$('new-tagid').value = event.serialNumber
+		NFC.onreading = event =>
+		{
+			$('new-tagid').value = event.serialNumber
+		}
 	}
 
 	NFC.scan()
