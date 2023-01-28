@@ -11,7 +11,7 @@ def resolve_search_books(_, info, title: str, author: str) -> dict:
 def resolve_get_book_by_tag(_, info, rfid: str) -> dict:
 	try:
 		tag_data = get_book_tag(rfid)
-		book_data = google_books.get(tag_data['bookId'])
+		book_data = google_books.get(id = tag_data['bookId'])
 		return { '__typename': 'Book', **book_data }
 	except ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
