@@ -1,5 +1,5 @@
-<b>{{=book.title}}</b><br>
-{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
-<div class="disabled">By {{=book.authors.join(', ')}}</div>
-{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="">{{?}}
-{{?book.description}}<div>{{=book.description.replace('\n', '<br>')}}</div>{{?}}
+<b>{{=it.title}}</b><br>
+{{?it.subtitle}}<i>{{=it.subtitle}}</i>{{?}}
+<div class="disabled">By {{=it.authors.join(', ')}}</div>
+{{?it.thumbnail}}<img src="{{=it.thumbnail}}" alt="">{{?}}
+{{?it.description}}<div>{{=it.description.replace('\n', '<br>')}}</div>{{?}}
