@@ -61,7 +61,7 @@ def query(*, title: str = '', author: str = '') -> list:
 def get(*, id: str) -> dict:
 	response_fields = 'items(id,volumeInfo(authors,title,subtitle,description,industryIdentifiers,pageCount,categories,maturityRating,language,publisher,publishedDate,imageLinks))'
 
-	url = f'https://www.googleapis.com/books/v1/volumes?q={text_query}&key={API_KEY}&fields={response_fields}'
+	url = f'https://www.googleapis.com/books/v1/volumes?id={id}&key={API_KEY}&fields={response_fields}'
 	response = requests.get(url)
 	if response.status_code != 200:
 		raise exceptions.ApiFailedError(f'API call failed with status code {response.status_code}')
