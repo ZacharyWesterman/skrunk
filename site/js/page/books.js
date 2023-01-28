@@ -44,8 +44,6 @@ export function init()
 			rfid: event.serialNumber,
 		})
 
-		show_raw_error_message(JSON.stringify(res))
-
 		if (res.__typename !== 'Book')
 		{
 			_.modal({
