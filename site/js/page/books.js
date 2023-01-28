@@ -32,7 +32,9 @@ NFC.onreading = async event =>
 				message
 			}
 		}
-	}`)
+	}`, {
+		rfid: event.serialNumber,
+	})
 
 	if (res.__typename !== 'Book')
 	{
