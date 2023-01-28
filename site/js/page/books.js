@@ -18,6 +18,8 @@ window.unload.push(() => {
 	NFC.onreading = undefined
 })
 
+ThisBook = null
+
 export function init()
 {
 	NFC.onreading = async event =>
@@ -55,6 +57,44 @@ export function init()
 			return
 		}
 
+		ThisBook = event.serialNumber
 		await _('book', res)
 	}
+}
+
+export async function confirm_unlink_book(title)
+{
+	const choice = await _.modal({
+		title: 'Unlink this book?',
+		text: `"${title}" will no longer be associated with this RFID tag.`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	const res = await api(`
+	mutation ($rfid: String!) {
+		unlinkBookTag (rfid: $rfid) {
+			__typename
+			...on BookTagDoesNotExistError {
+				message
+			}
+			...on InsufficientPerms {
+				message
+			}
+		}
+	}`)
+
+	if (res.__typename !== 'BookTag')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	$('book').innerText = `Unlinked tag for "${title}"`
 }

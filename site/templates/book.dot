@@ -1,3 +1,4 @@
+<button class="icon right clickable" *click="confirm_unlink_book('{{=escape(it.title)}}')"><i class="fa-solid fa-trash fa-lg"></i></button>
 <b>{{=it.title}}</b><br>
 {{?it.subtitle}}<i>{{=it.subtitle}}</i>{{?}}
 <div class="disabled">By {{=it.authors.join(', ')}}</div>
