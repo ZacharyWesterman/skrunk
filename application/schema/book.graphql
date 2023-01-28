@@ -45,3 +45,4 @@ type BookTagDoesNotExistError {
 union BookQueryResponse = BookList | ApiFailedError
 union BookTagCreateResponse = BookTag | BookTagExistsError
 union BookResponse = Book | BookTagDoesNotExistError | ApiFailedError
+union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms

@@ -39,4 +39,5 @@ type Mutation {
 	deleteBug(id: String!): BugReportEditAction!
 
 	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
+	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
 }

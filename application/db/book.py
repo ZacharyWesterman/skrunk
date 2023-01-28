@@ -27,3 +27,11 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 
 	db.insert_one(book_data)
 	return book_data
+
+def unlink_book_tag(rfid: str) -> dict:
+	book_data = db.find_one({'rfid': rfid})
+	if not book_data:
+		raise exceptions.BookTagDoesNotExistError(rfid)
+
+	db.delete_one({'rfid': rfid})
+	return book_data
