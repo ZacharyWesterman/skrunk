@@ -83,7 +83,9 @@ export async function confirm_unlink_book(title)
 				message
 			}
 		}
-	}`)
+	}`, {
+		rfid: ThisBook,
+	})
 
 	if (res.__typename !== 'BookTag')
 	{
