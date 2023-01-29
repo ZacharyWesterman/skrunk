@@ -104,4 +104,5 @@ export async function select_book(book_id, book_title)
 	$('new-tagid').value = ''
 	$('new-title').value = ''
 	$('new-author').value = ''
+	await search_books()
 }
