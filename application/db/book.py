@@ -1,6 +1,7 @@
 from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 from . import users
+from application.integrations import google_books
 
 db = None
 
@@ -16,6 +17,8 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 	if db.find_one({'rfid': rfid}):
 		raise exceptions.BookTagExistsError(rfid)
 
+	google_book_data = google_books.get(id = tag_data['bookId'])
+
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
 
@@ -23,6 +26,7 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'rfid': rfid,
 		'bookId': book_id,
 		'creator': user_data['_id'],
+		**google_book_data,
 	}
 
 	db.insert_one(book_data)

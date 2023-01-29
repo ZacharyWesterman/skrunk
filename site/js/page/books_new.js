@@ -80,6 +80,9 @@ export async function select_book(book_id, book_title)
 			...on BookTagExistsError {
 				message
 			}
+			...on ApiFailedError {
+				message
+			}
 		}
 	}`, {
 		rfid: tagid,

@@ -38,9 +38,6 @@ export function init()
 				...on BookTagDoesNotExistError {
 					message
 				}
-				...on ApiFailedError {
-					message
-				}
 			}
 		}`, {
 			rfid: event.serialNumber,
