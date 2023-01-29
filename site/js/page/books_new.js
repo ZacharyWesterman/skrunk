@@ -100,5 +100,8 @@ export async function select_book(book_id, book_title)
 		return
 	}
 
-	$('new-tagid').value = '' //Wipe the tag ID
+	//Wipe all fields
+	$('new-tagid').value = ''
+	$('new-title').value = ''
+	$('new-author').value = ''
 }
