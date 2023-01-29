@@ -54,7 +54,7 @@ def query(*, title: str = '', author: str = '') -> list:
 		book = i['volumeInfo']
 		book['id'] = i['id']
 		book['authors'] = book.get('authors', [])
-		books += [{**book, **book.get('imageLinks', {})}]
+		books += [{**book, **book.get('imageLinks', {'thumbnail':None})}]
 
 	return books
 
@@ -69,4 +69,4 @@ def get(*, id: str) -> dict:
 	book = json.loads(response.text)['volumeInfo']
 	book['id'] = id
 	book['authors'] = book.get('authors', [])
-	return {**book, **book.get('imageLinks', {})}
+	return {**book, **book.get('imageLinks', {'thumbnail':None})}

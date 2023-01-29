@@ -17,7 +17,8 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 	if db.find_one({'rfid': rfid}):
 		raise exceptions.BookTagExistsError(rfid)
 
-	google_book_data = google_books.get(id = tag_data['bookId'])
+	google_book_data = google_books.get(id = book_id)
+	del google_book_data['id']
 
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
@@ -28,6 +29,8 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'creator': user_data['_id'],
 		**google_book_data,
 	}
+
+	print(book_data)
 
 	db.insert_one(book_data)
 	return book_data
