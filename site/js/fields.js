@@ -21,7 +21,7 @@ $.set = (id, value) => {
 	$(id).value = value
 	$(id).prevValue = value
 }
-$.toggle_expand = id => $(id).classList.toggle('expanded')
+$.toggle_expand = (id, expand) => $(id).classList.toggle('expanded', expand)
 
 $.show = (id, fade = true) => {
 	$(id).style.display = ''
@@ -61,7 +61,7 @@ $.bind = function(field, method, frequency = 500, run_on_start = false)
 	let last_run = Date.now()
 	let run_scheduled = false
 
-	$(field).addEventListener('keyup', () =>
+	function change_func()
 	{
 		last_run = Date.now()
 		if (run_scheduled) return
@@ -92,7 +92,10 @@ $.bind = function(field, method, frequency = 500, run_on_start = false)
 		}
 
 		setTimeout(sync_method, frequency)
-	})
+	}
+
+	$(field).addEventListener('keyup', change_func)
+	$(field).addEventListener('change', change_func)
 }
 
 //Update globals $ (fields) and _ (screen)

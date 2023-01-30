@@ -8,6 +8,7 @@
 	<button class="icon" onclick="dashnav('/html/edit_theme.html')"><i class="fa-solid fa-palette fa-lg"></i></button><br>
 	<button class="icon" onclick="dashnav('/html/file_list.html')"><i class="fa-solid fa-server fa-lg"></i></button><br>
 	<button class="icon" onclick="dashnav('/html/books.html')"><i class="fa-solid fa-book fa-lg"></i></button><br>
+	<button class="icon" onclick="dashnav('/html/books_new.html')"><i class="fa-solid fa-bookmark fa-lg"></i></button><br>
 
 	<button class="icon" onclick="_.modal.upload()"><i class="fa-solid fa-file-arrow-up fa-lg"></i></button><br>
 

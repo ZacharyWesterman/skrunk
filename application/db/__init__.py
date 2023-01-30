@@ -14,5 +14,6 @@ def init_db(data_db_url, weather_db_url, blob_path):
 	blob.blob_path = blob_path
 
 	bugs.db = data_client.data.bug_reports
+	book.db = data_client.data.books
 
 	weather.db = weather_client

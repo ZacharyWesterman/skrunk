@@ -1,0 +1,56 @@
+<div class="card">
+	<div class="card-inner">
+		<h4>Add a New Book</h4>
+
+		<table>
+			<tr>
+				<td>Tag ID</td>
+				<td><input id="new-tagid" format="hex"></td>
+			</tr>
+			<tr>
+				<td>Title</td>
+				<td><input id="new-title"></td>
+				<td><div class="button" onclick="$('new-title').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+			</tr>
+			<tr>
+				<td>Author</td>
+				<td><input id="new-author"></td>
+				<td><div class="button" onclick="$('new-author').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div name="booklist"></div>
+
+<script src="/js/page/books_new.js" async></script>
+
+<script>
+	//Start the NFC reader ONCE per session, and don't stop it.
+	//Trying to stop/restart it multiple times in a session
+	//just causes the browser to crash. :/
+	if (window.NFC === undefined)
+	{
+		try {
+			window.NFC = new NDEFReader
+		} catch(e) {
+			window.NFC = {
+				scan: () => {}
+			}
+		}
+	}
+
+	export function init()
+	{
+		NFC.onreading = event =>
+		{
+			$('new-tagid').value = event.serialNumber
+		}
+	}
+
+	NFC.scan()
+
+	window.unload.push(() => {
+		NFC.onreading = undefined
+	})
+</script>

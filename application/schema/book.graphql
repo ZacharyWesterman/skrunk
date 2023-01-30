@@ -1,0 +1,48 @@
+type Book {
+	id: String!
+	title: String!
+	subtitle: String
+	authors: [String!]!
+	publisher: String!
+	publishedDate: String!
+	description: String
+	industryIdentifiers: [BookIdent!]!
+	pageCount: Int!
+	categories: [String!]!
+	maturityRating: String!
+	language: String!
+	thumbnail: String
+	smallThumbnail: String
+}
+
+type BookTag {
+	rfid: String!
+	bookId: String!
+	creator: String!
+}
+
+type BookIdent {
+	type: String!
+	identifier: String!
+}
+
+type BookList {
+	books: [Book!]!
+}
+
+type ApiFailedError {
+	message: String!
+}
+
+type BookTagExistsError {
+	message: String!
+}
+
+type BookTagDoesNotExistError {
+	message: String!
+}
+
+union BookQueryResponse = BookList | ApiFailedError
+union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
+union BookResponse = Book | BookTagDoesNotExistError
+union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
