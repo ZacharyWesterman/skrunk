@@ -1,6 +1,24 @@
 import Yace from 'https://unpkg.com/yace?module' //For code editing textareas
 window.Yace = Yace
 
+window.set_book_dashboard_buttons = function()
+{
+	_('navbar', [
+		['arrow-up', "reset_dashboard_buttons()"],
+		['book', "dashnav('/html/books.html')"],
+		['bookmark', "dashnav('/html/books_new.html')"],
+	])
+}
+
+window.set_user_dashboard_buttons = function()
+{
+	_('navbar', [
+		['arrow-up', "reset_dashboard_buttons()"],
+		['user-pen', "dashnav('/html/user.html')"],
+		['palette', "dashnav('/html/edit_theme.html')"],
+	])
+}
+
 //Load user theme (regardless of cookies)
 query.users.get(api.username).then(data => {
 	if (data.__typename !== 'UserData')
@@ -31,11 +49,9 @@ query.users.get(api.username).then(data => {
 		//Load navbar based on user perms
 		let buttons = [
 			['right-from-bracket', "api.logout()"],
-			['user-pen', "dashnav('/html/user.html')"],
-			['palette', "dashnav('/html/edit_theme.html')"],
+			['user-pen', "set_user_dashboard_buttons()"],
+			['book', "set_book_dashboard_buttons()"],
 			['server', "dashnav('/html/file_list.html')"],
-			['book', "dashnav('/html/books.html')"],
-			['bookmark', "dashnav('/html/books_new.html')"],
 			['file-arrow-up', "_.modal.upload()"],
 			['bug', "dashnav('/html/bugs.html')", 'bottom'],
 		]
