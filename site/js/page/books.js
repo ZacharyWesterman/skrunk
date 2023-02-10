@@ -24,6 +24,8 @@ export function init()
 {
 	NFC.onreading = async event =>
 	{
+		$('tagid').value = event.serialNumber
+
 		const res = await api(`
 		query ($rfid: String!) {
 			getBookByTag (rfid: $rfid) {
@@ -56,6 +58,14 @@ export function init()
 
 		ThisBook = event.serialNumber
 		await _('book', res)
+	}
+}
+
+export function manual_input()
+{
+	if ($.val('tagid') !== '')
+	{
+		NFC.onreading({serialNumber: $.val('tagid')})
 	}
 }
 

@@ -1,7 +1,10 @@
 <div class="card" style="max-width: 700px;">
 	<div class="card-inner">
 		<div id="book" template="book">
-			Scan a book to get started.
+			Scan a book to get started, or input the tag ID.<br>
+			<input id="tagid" format="hex" placeholder="Tag ID">
+			<button class="icon" *click="manual_input"><i class="fa-solid fa-circle-check fa-lg"></i></button>
+			<button class="icon" onclick="$('tagid').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></button>
 		</div>
 	</div>
 </div>
