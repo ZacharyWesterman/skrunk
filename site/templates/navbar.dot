@@ -1,16 +1,5 @@
 <div class="navbar">
-	<button class="icon" onclick="api.logout()"><i class="fa-solid fa-right-from-bracket fa-lg"></i></button><br>
-	{{?it.includes('admin')}}
-		<button class="icon alt" onclick="dashnav('/html/users.html')"><i class="fa-solid fa-users fa-lg"></i></button><br>
-		<button class="icon alt" onclick="dashnav('/html/weather_users.html')"><i class="fa-solid fa-cloud-bolt fa-lg"></i></button><br>
-	{{?}}
-	<button class="icon" onclick="dashnav('/html/user.html')"><i class="fa-solid fa-user-pen fa-lg"></i></button><br>
-	<button class="icon" onclick="dashnav('/html/edit_theme.html')"><i class="fa-solid fa-palette fa-lg"></i></button><br>
-	<button class="icon" onclick="dashnav('/html/file_list.html')"><i class="fa-solid fa-server fa-lg"></i></button><br>
-	<button class="icon" onclick="dashnav('/html/books.html')"><i class="fa-solid fa-book fa-lg"></i></button><br>
-	<button class="icon" onclick="dashnav('/html/books_new.html')"><i class="fa-solid fa-bookmark fa-lg"></i></button><br>
-
-	<button class="icon" onclick="_.modal.upload()"><i class="fa-solid fa-file-arrow-up fa-lg"></i></button><br>
-
-	<button class="bottom icon" onclick="dashnav('/html/bugs.html')"><i class="fa-solid fa-bug fa-lg"></i></button>
+	{{~it : i}}
+		<button class="icon{{?i.length > 2}} {{=i[2]}}{{?}}" onclick="{{=i[1]}}"><i class="fa-solid fa-{{=i[0]}} fa-lg"></i></button><br>
+	{{~}}
 </div>

@@ -26,6 +26,27 @@ query.users.get(api.username).then(data => {
 		_.css.set_var(i.name, i.value)
 	}
 
-	//Load navbar based on user perms
-	_('navbar', data.perms)
+	window.reset_dashboard_buttons = function()
+	{
+		//Load navbar based on user perms
+		let buttons = [
+			['right-from-bracket', "api.logout()"],
+			['user-pen', "dashnav('/html/user.html')"],
+			['palette', "dashnav('/html/edit_theme.html')"],
+			['server', "dashnav('/html/file_list.html')"],
+			['book', "dashnav('/html/books.html')"],
+			['bookmark', "dashnav('/html/books_new.html')"],
+			['file-arrow-up', "_.modal.upload()"],
+			['bug', "dashnav('/html/bugs.html')", 'bottom'],
+		]
+
+		if (data.perms.includes('admin'))
+		{
+			buttons.push(['users', "dashnav('/html/users.html')", 'alt'])
+			buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'alt'])
+		}
+
+		_('navbar', buttons)
+	}
+	reset_dashboard_buttons()
 })
