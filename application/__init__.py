@@ -156,7 +156,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 		else:
 			length = file_size - start
 
-		length = min(length, 1024*1024*5) #Max chunk size is 5MiB
+		# length = min(length, 1024*1024*5) #Max chunk size is 5MiB
 
 		with open(full_path, 'rb') as fp:
 			fp.seek(start)
@@ -201,6 +201,17 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	@application.route('/background.svg', methods=['GET'])
 	def background_image():
 		return read_file_data('data/background.svg')
+
+	@application.route('/download/<path:path>', methods=['GET'])
+	def download_file(path: str):
+		if not authorized():
+			return '', 403
+
+		if blob_path is None:
+			return 'No blob data path specified in server setup.', 404
+
+		full_path = blob.path(path)
+		return read_file_data(full_path)
 
 	@application.route('/upload', methods=['POST'])
 	def upload_file():
