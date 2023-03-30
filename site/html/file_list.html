@@ -4,7 +4,8 @@
 
 		<!-- Search Filters -->
 		Uploaded by
-		<input id="blob-filter-creator" format="id" placeholder="anyone" *change="reload_blobs"><br>
+		<div name="user_dropdown"></div>
+		<!-- <input id="blob-filter-creator" format="id" placeholder="anyone" *change="reload_blobs"><br> -->
 		Uploaded within the date range:<br>
 		<input id="blob-filter-from" type="date" *change="reload_blobs"><br>
 		<input id="blob-filter-to" type="date" *change="reload_blobs"><br>

@@ -1,0 +1,6 @@
+<select id="{{=it.id}}">
+	<option value="" selected>Anyone</option>
+	{{~ it.users : i}}
+		<option value="{{=i}}">{{=i}}</option>
+	{{~}}
+</select>

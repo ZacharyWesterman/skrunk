@@ -4,8 +4,14 @@ var BlobListLen = 4
 let Editor
 
 //run this everytime page is imported
-export function init()
+export async function init()
 {
+	await _('user_dropdown', {
+		id: 'blob-filter-creator',
+		users: await query.users.list(),
+	})
+	$('blob-filter-creator').onchange = reload_blobs;
+
 	Editor = new Yace("#tag-query", {
 		value: "",
 		lineNumbers: false,
