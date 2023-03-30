@@ -172,7 +172,7 @@ window.set_field_logic = async function(DOM, url, module)
 				{
 					//If we're running the function with params
 					const funcname = key.substring(0, split_point)
-					if (typeof DOM.module[funcname] !== 'function')
+					if (typeof DOM.module[funcname] !== 'function' && typeof window[funcname] !== 'function')
 						throw new Error(`Unknown action for *${attr} attribute: "${funcname}" export not found.`)
 
 					const scope = scoped_eval(DOM.module, key)
