@@ -83,7 +83,7 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str, size: int) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size}})
 
-def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime]) -> list:
+def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime], name: Optional[str]) -> list:
 	global db
 	blobs = []
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
@@ -101,6 +101,9 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 		query += [{'created': {'$gte': begin_date}}]
 	if end_date is not None:
 		query += [{'created': {'$lte': end_date}}]
+	
+	if name is not None:
+		query += [{'name': {'$regex': name}}]
 
 	selection = db.find({'$and': query} if len(query) else {}, sort=[('created', -1)])
 	for i in selection.limit(count).skip(start):
@@ -114,7 +117,7 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 
 	return blobs
 
-def count_blobs(username: Optional[str], tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime]) -> int:
+def count_blobs(username: Optional[str], tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime], name: Optional[str]) -> int:
 	global db
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
@@ -131,6 +134,9 @@ def count_blobs(username: Optional[str], tagstr: Optional[str], begin_date: Opti
 		query += [{'created': {'$gte': begin_date}}]
 	if end_date is not None:
 		query += [{'created': {'$lte': end_date}}]
+
+	if name is not None:
+		query += [{'name': {'$regex': name}}]
 
 	return db.count_documents({'$and': query} if len(query) else {})
 
