@@ -6,8 +6,8 @@ type Query {
 	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
 
-	getBlobs(username: String, start: Int!, count: Int!, tags: String, beginDate: DateTime, endDate: DateTime): BlobQueryResponse!
-	countBlobs(username: String, tags: String, beginDate: DateTime, endDate: DateTime): BlobCountResponse!
+	getBlobs(username: String, start: Int!, count: Int!, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobQueryResponse!
+	countBlobs(username: String, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobCountResponse!
 	getBlob(id: String!): Blob
 
 	getBugReports(username: String, start: Int!, count: Int!, resolved: Boolean!) : [BugReport!]!
