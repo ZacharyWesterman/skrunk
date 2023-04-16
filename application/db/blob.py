@@ -8,9 +8,7 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from zipfile import ZipFile
 import mimetypes
-import threading
-import pathlib
-import uuid
+import hashlib
 import os
 
 db = None
@@ -19,6 +17,13 @@ blob_path = None
 def path(id: str, ext: str = '') -> str:
 	global blob_path
 	return f'{blob_path}/{id}{ext}'
+
+def file_info(filename: str) -> str:
+	with open(filename, 'rb') as fp:
+		md5sum = hashlib.md5(fp.read()).hexdigest()
+	size = os.stat(filename).st_size
+
+	return size, md5sum
 
 def save_blob_data(file: object, auto_unzip: bool) -> str:
 	global blob_path
@@ -41,15 +46,15 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 				with fp.open(name, 'r') as input:
 					with open(inner_blob_path, 'wb') as output:
 						output.write(input.read())
-				size = os.stat(inner_blob_path).st_size
-				mark_as_completed(id2, size)
+				size, md5sum = file_info(inner_blob_path)
+				mark_as_completed(id2, size, md5sum)
 				extract_count += 1
 
 		print(f'Finished unzipping "{filename}" (extracted {extract_count} files).')
 		delete_blob(id)
 	else:
-		size = os.stat(this_blob_path).st_size
-		mark_as_completed(id, size)
+		size, md5sum = file_info(this_blob_path)
+		mark_as_completed(id, size, md5sum)
 
 	return id
 
@@ -80,8 +85,8 @@ def create_blob(name: str, tags: list = []) -> str:
 		'complete': False,
 	}).inserted_id, ext
 
-def mark_as_completed(id: str, size: int) -> None:
-	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size}})
+def mark_as_completed(id: str, size: int, md5sum: str) -> None:
+	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size, 'md5sum': md5sum}})
 
 def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime], name: Optional[str]) -> list:
 	global db
