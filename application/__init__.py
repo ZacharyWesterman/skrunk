@@ -9,7 +9,7 @@ from .tokens import *
 from .db.users import authenticate
 from .scalars import scalars
 from .db import init_db, blob
-import exceptions
+from . import exceptions
 
 import mimetypes
 
