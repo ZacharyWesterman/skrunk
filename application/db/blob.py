@@ -103,7 +103,7 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 		query += [{'created': {'$lte': end_date}}]
 	
 	if name is not None:
-		query += [{'name': {'$regex': name}}]
+		query += [{'name': {'$regex': name, '$options': 'i'}}]
 
 	selection = db.find({'$and': query} if len(query) else {}, sort=[('created', -1)])
 	for i in selection.limit(count).skip(start):
@@ -136,7 +136,7 @@ def count_blobs(username: Optional[str], tagstr: Optional[str], begin_date: Opti
 		query += [{'created': {'$lte': end_date}}]
 
 	if name is not None:
-		query += [{'name': {'$regex': name}}]
+		query += [{'name': {'$regex': name, '$options': 'i'}}]
 
 	return db.count_documents({'$and': query} if len(query) else {})
 

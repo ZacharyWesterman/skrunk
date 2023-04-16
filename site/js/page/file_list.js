@@ -24,6 +24,8 @@ export async function init()
 		reload_blobs()
 	}, 500, true)
 
+	$.bind('blob-filter-title', reload_blobs)
+
 	var old_modal_retn = _.modal.upload.return
 	_.modal.upload.return = () => {
 		old_modal_retn()
