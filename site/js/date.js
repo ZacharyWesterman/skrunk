@@ -1,4 +1,14 @@
 window.date = {
+	//Precision formats
+	YEARS: 'year',
+	MONTHS: 'month',
+	WEEKS: 'week',
+	DAYS: 'day',
+	HOURS: 'hour',
+	MINUTES: 'minute',
+	SECONDS: 'second',
+	MILLISECONDS: 'millisecond',
+
 	months: {
 		abbrev: [
 			'Jan',
@@ -27,6 +37,20 @@ window.date = {
 			'October',
 			'November',
 			'December',
+		],
+		days: [
+			31,
+			28,
+			31,
+			30,
+			31,
+			30,
+			31,
+			31,
+			30,
+			31,
+			30,
+			31,
 		],
 	},
 
@@ -95,4 +119,66 @@ window.date = {
 
 		return `${y}-${m}-${d} ${h}:${n}:${s}`
 	},
+
+	/**
+	 * Takes a date and returns a human-readable representation of the difference between the date and now
+	 *
+	 * @exact If true, output the exact difference (down to precision level). Otherwise output only highest non-zero difference.
+	 * @precision The level of precision to show in the diff. See possible values at top.
+	 * @include_zero Whether to include zero-diffs in the output.
+	 */
+	elapsed: function(date_obj, exact = false, precision = date.SECOND, include_zero = false)
+	{
+		let from = (typeof date_obj === 'string') ? new Date(date_obj) : date_obj
+		let to = new Date()
+
+		const direction = (to - from >= 0) ? 'ago' : 'in'
+		if (direction === 'in') from = [to, to = from][0] //swap from/to to keep diff positive
+
+		let output = []
+		const diff = method => to[method]() - from[method]()
+
+		const diffs = {
+			year: diff('getFullYear'),
+			month: diff('getMonth'),
+			week: Math.floor(diff('getDate') / 7),
+			day: diff('getDate'),
+			hour: diff('getHours'),
+			minute: diff('getMinutes'),
+			second: diff('getSeconds'),
+			millisecond: diff('getMilliseconds'),
+		}
+
+		const list = ['year', 'month', (exact && (precision !== date.WEEKS)) ? 'day' :'week', 'hour', 'minute', 'second', 'millisecond']
+
+		//Make sure that all diffs are positive
+		const ratio = {
+			month: ['year', 12],
+			week: ['month', 4],
+			day: ['month', date.months.days[to.getMonth()]],
+			hour: ['day', 24],
+			minute: ['hour', 60],
+			second: ['minute', 60],
+			millisecond: ['second', 1000],
+		}
+		for (const i in ratio)
+		{
+			if (!list.includes(i)) continue
+			if (diffs[i] >= 0) continue
+			diffs[ratio[i][0]] -= 1
+			diffs[i] += ratio[i][1]
+		}
+
+		for (const i of list)
+		{
+			if (diffs[i] || include_zero)
+			{
+				output.push(diffs[i] + ' ' + i + ((diffs[i] === 1) ? '' : 's'))
+				if (!exact && diffs[i]) break
+			}
+			if (exact && i === precision) break
+		}
+
+		return (direction === 'ago') ? output.join(', ') + ' ' + direction : direction + ' ' + output.join(', ')
+	}
 }

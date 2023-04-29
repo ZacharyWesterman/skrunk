@@ -3,7 +3,7 @@
 		<div class="card-inner">
 			<div onclick="$.toggle_expand('card-{{=user.username}}')">
 				<h4><b>{{=user.username}}</b>{{?user.exclude}}<i> (disabled)</i>{{?}}</h4>
-				<p>Last sent at: {{=user.last_sent || 'Never'}}</p>
+				<p>Last sent at: {{?user.last_sent}}{{=user.last_sent}}<br><span class="disabled">({{=date.elapsed(user.last_sent)}})</span>{{??}}Never{{?}}</p>
 			</div>
 
 			<div class="expand-container">
