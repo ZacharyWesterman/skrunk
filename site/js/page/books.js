@@ -20,7 +20,7 @@ window.unload.push(() => {
 
 let ThisBook = null
 
-export function init()
+export async function init()
 {
 	NFC.onreading = async event =>
 	{
@@ -47,21 +47,25 @@ export function init()
 
 		if (res.__typename !== 'Book')
 		{
-			_.modal({
-				type: 'error',
-				title: 'ERROR',
-				text: res.message,
-				buttons: ['OK'],
-			}).catch(() => {})
+			$('book').innerText = 'No book with that RFID was found.'
 			return
 		}
 
 		ThisBook = event.serialNumber
 		await _('book', [res])
 	}
+
+	_('owner', {
+		id: 'owner',
+		users: await query.users.list(),
+	})
+
+	$.bind('tagid', manual_input)
+	$.bind('title', search_books)
+	$.bind('author', search_books)
 }
 
-export function manual_input()
+function manual_input()
 {
 	if ($.val('tagid') !== '')
 	{
@@ -106,4 +110,9 @@ export async function confirm_unlink_book(title)
 	}
 
 	$('book').innerText = `Deleted "${title}"`
+}
+
+export async function search_books()
+{
+
 }

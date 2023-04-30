@@ -121,6 +121,10 @@ textarea {
 	color: var(--error-text);
 }
 
+.inline {
+	display: inline;
+}
+
 /* Truncate text for different screen sizes */
 .truncate {
 	display: block;
