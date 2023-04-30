@@ -14,6 +14,8 @@ type Query {
 	countBugReports(username: String, resolved: Boolean!) : Int!
 	getBugReport(id: String!): BugReport
 
+	getBooks(owner: String, title: String, author: String, start: Int!, count: Int!): [Book!]!
+	countBooks(owner: String, title: String, author: String): Int!
 	searchBooks(title: String!, author: String!): BookQueryResponse!
 	getBookByTag(rfid: String!): BookResponse!
 }

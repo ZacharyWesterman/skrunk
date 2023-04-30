@@ -11,10 +11,11 @@
 		<p class="error">Here's some example error text.</p>
 		<p class="disabled">Here's some example disabled text.</p>
 
-		<p>
-			Border Radius
-			<input id="--border-radius" type="number" step="1" *change="update_colors" *enter="update_colors" format="integer" required>
-		</p>
+		<div style="width:90%; margin: 0 auto;">
+			<div style="text-align: center;">Border Radius</div>
+			<input style="width:100%" type="range" min="0" max="25" id="--border-radius" *change="update_colors">
+			<!-- <input id="--border-radius" type="number" step="1" *change="update_colors" *enter="update_colors" format="integer" required> -->
+		</div>
 	</div>
 </div>
 
@@ -75,7 +76,7 @@
 <script>
 	export function update_colors(field)
 	{
-		_.css.set_var(field.id, field.value + ((field.type === 'number') ? 'px' : '') )
+		_.css.set_var(field.id, field.value + ((['number','range'].includes(field.type)) ? 'px' : '') )
 		api.write_cookies()
 		savecolors()
 	}
@@ -89,6 +90,7 @@
 		setcolors()
 		api.write_cookies()
 		savecolors()
+		// $('--border-radius').value = _.css.get_var();
 	}
 
 	function setcolors()
@@ -96,7 +98,7 @@
 		for (var i of _.css.vars())
 		{
 			const val = _.css.get_var(i)
-			$.set(i, (($(i).type === 'number') ? val.substring(0, val.length - 2) : val).trim())
+			$.set(i, ((['number','range'].includes($(i).type)) ? val.substring(0, val.length - 2) : val).trim())
 		}
 	}
 	setcolors()

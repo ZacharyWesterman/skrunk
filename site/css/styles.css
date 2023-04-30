@@ -41,6 +41,14 @@ input.invalid {
 	background-color: #e09daf;
 }
 
+select {
+	height: 1.5rem;
+	border: none;
+	border-radius: var(--border-radius);
+	margin-bottom: 5px;
+	background-color: white;
+}
+
 iframe {
 	background-color: #EEEEEE;
 	width: 100%;
@@ -119,6 +127,10 @@ textarea {
 
 .error {
 	color: var(--error-text);
+}
+
+.inline {
+	display: inline;
 }
 
 /* Truncate text for different screen sizes */

@@ -1,12 +1,21 @@
-<div class="card">
+<div class="card alt">
 	<div class="card-inner">
-		Scan a book or input the tag ID.<br>
+		<h4><b>Search for existing books</b></h4>
+		Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div><br>
+		<input id="title" placeholder="Title"><br>
+		<input id="author" placeholder="Author"><br>
 		<input id="tagid" format="hex" placeholder="Tag ID">
-		<button class="icon" *click="manual_input"><i class="fa-solid fa-circle-check fa-lg"></i></button>
-		<button class="icon" onclick="$('tagid').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></button>
+
+		<div name="page_list"></div>
 	</div>
 </div>
 
-<div id="book" template="book"></div>
+<div id="book" template="userbooklist"></div>
+
+<div class="card alt">
+	<div class="card-inner">
+		<div name="page_list"></div>
+	</div>
+</div>
 
 <script src="/js/page/books.js"></script>

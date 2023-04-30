@@ -100,7 +100,7 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 			user_data = users.get_user_data(username)
 			query += [{'creator': user_data['_id']}]
 		except exceptions.UserDoesNotExistError:
-			return 0
+			return []
 
 	if begin_date is not None:
 		query += [{'created': {'$gte': begin_date}}]

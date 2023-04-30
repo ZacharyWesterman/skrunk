@@ -19,10 +19,10 @@
 						<li>How often the action triggers it.</li>
 						<li>Where you encountered the bug.</li>
 					</ul>
-					<input id="new-bug-title" placeholder="Title" style="width: 90%" *change="check_can_submit">
-					<textarea id="new-bug-text" rows="8" placeholder="Description" style="width: 90%;" *change="check_can_submit"></textarea>
+					<input id="new-bug-title" placeholder="Title" style="width: 90%">
+					<textarea id="new-bug-text" rows="8" placeholder="Description" style="width: 90%;"></textarea>
 					<br>
-					<button id="new-bug-submit" *click="submit_bug_report" disabled>Submit</button>
+					<button id="new-bug-submit" *click="submit_bug_report">Submit</button>
 				</div>
 			</div>
 		</div>

@@ -13,6 +13,10 @@ type Book {
 	language: String!
 	thumbnail: String
 	smallThumbnail: String
+	creator: String!
+	owner: String!
+	shared: Boolean!
+	shareHistory: [BookShare!]!
 }
 
 type BookTag {
@@ -40,6 +44,12 @@ type BookTagExistsError {
 
 type BookTagDoesNotExistError {
 	message: String!
+}
+
+type BookShare {
+	with: String!
+	start: DateTime!
+	end: DateTime
 }
 
 union BookQueryResponse = BookList | ApiFailedError

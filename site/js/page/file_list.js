@@ -1,5 +1,5 @@
 var BlobStart = 0
-var BlobListLen = 4
+var BlobListLen = 15
 
 let Editor
 
@@ -106,6 +106,8 @@ async function reload_page_list()
 		pages: pages,
 		count: page_ct,
 		current: this_page,
+		total: count,
+		no_results_msg: 'No files found matching the search criteria.',
 	}, true)
 }
 

@@ -1,0 +1,14 @@
+{{~ it : book}}
+<div class="card" style="max-width: 700px;">
+	<div class="card-inner">
+		<button class="icon right clickable" *click="confirm_unlink_book('{{=escape(book.title)}}')"><i class="fa-solid fa-trash fa-lg"></i></button>
+		<b>{{=book.title}}</b><br>
+		{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
+		<div class="disabled">By {{=book.authors.join(', ')}}</div>
+		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="">{{?}}
+		{{?book.description}}<div>{{=book.description.replace('\n', '<br>')}}</div>{{?}}
+
+		<div class="disabled">Physical copy owned by {{=book.owner}}</div>
+	</div>
+</div>
+{{~}}
