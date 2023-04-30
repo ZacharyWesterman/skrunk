@@ -1,5 +1,5 @@
 var BlobStart = 0
-var BlobListLen = 4
+var BlobListLen = 15
 
 let Editor
 
