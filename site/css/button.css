@@ -1,6 +1,11 @@
 button {
 	margin-right: 5px;
 	cursor: pointer;
+	background-color: var(--secondary);
+	color: var(--secondary-text);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--secondary-text);
+	height: 1.5rem;
 }
 
 button.icon > a {
@@ -16,6 +21,7 @@ button.big {
 	padding: 2px 16px;
 	font-size: 28px;
 	margin-top: 10px;
+	height: fit-content;
 }
 
 button.wide {
