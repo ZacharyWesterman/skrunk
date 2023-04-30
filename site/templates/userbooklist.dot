@@ -7,6 +7,8 @@
 		<div class="disabled">By {{=book.authors.join(', ')}}</div>
 		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="">{{?}}
 		{{?book.description}}<div>{{=book.description.replace('\n', '<br>')}}</div>{{?}}
+
+		<div class="disabled">Physical copy owned by {{=book.owner}}</div>
 	</div>
 </div>
 {{~}}

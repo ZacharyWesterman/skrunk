@@ -28,10 +28,11 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'rfid': rfid,
 		'bookId': book_id,
 		'creator': user_data['_id'],
+		'owner': user_data['_id'],
+		'shared': False,
+		'shareHistory': [],
 		**google_book_data,
 	}
-
-	print(book_data)
 
 	db.insert_one(book_data)
 	return book_data
@@ -51,18 +52,23 @@ def get_books(owner: Optional[str], title: Optional[str], author: Optional[str],
 	if owner is not None:
 		try:
 			user_data = users.get_user_data(owner)
-			query += [{'creator', user_data['_id']}]
+			query += [{'creator': user_data['_id']}]
 		except exceptions.UserDoesNotExistError:
 			return []
 
 	if title is not None:
-		query += [{'title': {'$regex': title}}]
+		query += [{'title': {'$regex': title, '$options': 'i'}}]
 
 	if author is not None:
-		query += [{'author': {'$regex': author}}]
+		query += [{'authors': {'$regex': author, '$options': 'i'}}]
 
-	selection = db.find({'$and': query} if len(query) else {}, sort=[('title', 1)])
+	selection = db.find({'$and': query} if len(query) else {}, sort = [('title', 1), ('authors', 1)])
 	for i in selection.limit(count).skip(start):
+		try:
+			i['owner'] = users.get_user_by_id(i['owner'])['username']
+		except exceptions.UserDoesNotExistError:
+			pass
+
 		books += [i]
 
 	return books

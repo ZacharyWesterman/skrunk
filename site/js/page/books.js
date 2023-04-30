@@ -75,6 +75,10 @@ function manual_input()
 	{
 		NFC.onreading({serialNumber: $.val('tagid')})
 	}
+	else
+	{
+		search_books()
+	}
 }
 
 export async function confirm_unlink_book(title)
@@ -130,6 +134,7 @@ export async function search_books()
 			authors
 			description
 			thumbnail
+			owner
 		}
 	}`, {
 		owner: owner,
@@ -139,5 +144,5 @@ export async function search_books()
 		count: BookListLen,
 	})
 
-	console.log(res)
+	await _('book', res)
 }
