@@ -1,5 +1,7 @@
 export async function submit_bug_report()
 {
+	if (!can_submit()) return
+
 	const res = await mutate.bugs.report(
 		$('new-bug-title').value,
 		$('new-bug-text').value,
@@ -29,9 +31,9 @@ export async function refresh_bug_list()
 	await _('buglist', bugs)
 }
 
-export function check_can_submit()
+function can_submit()
 {
-	$('new-bug-submit').disabled = ($.val('new-bug-title') === '') || ($.val('new-bug-text') === '')
+	return ($.val('new-bug-title') !== '') && ($.val('new-bug-text') !== '')
 }
 
 export async function confirm_delete_bug(id, title)
