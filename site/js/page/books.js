@@ -120,8 +120,16 @@ export async function confirm_unlink_book(title)
 	$('book').innerText = `Deleted "${title}"`
 }
 
+export async function navigate_to_page(page_num)
+{
+	BookStart = page_num * BookListLen
+	await search_books()
+}
+
 export async function search_books()
 {
+	reload_book_count()
+
 	const owner = $.val('owner') || null
 	const title = $.val('title') || null
 	const author = $.val('author') || null
@@ -145,4 +153,41 @@ export async function search_books()
 	})
 
 	await _('book', res)
+}
+
+async function reload_book_count()
+{
+	const owner = $.val('owner') || null
+	const title = $.val('title') || null
+	const author = $.val('author') || null
+
+	const count = await api(`
+	query ($owner: String, $title: String, $author: String) {
+		countBooks(owner: $owner, title: $title, author: $author)
+	}`, {
+		owner: owner,
+		title: title,
+		author: author,
+	})
+
+	const page_ct = Math.ceil(count / BookListLen)
+	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
+	var this_page = Math.floor(BookStart / BookListLen)
+	if (page_ct === 0)
+	{
+		this_page = BookStart = 0
+	}
+	else if (this_page >= page_ct)
+	{
+		this_page = page_ct - 1
+		BookStart = this_page * BookListLen
+	}
+
+	_('page_list', {
+		pages: pages,
+		count: page_ct,
+		current: this_page,
+		total: count,
+		no_results_msg: 'No books found matching the search criteria.',
+	}, true)
 }
