@@ -115,7 +115,7 @@ export async function confirm_unlink_book(title, rfid)
 		return
 	}
 
-	$('book').innerText = `Deleted "${title}"`
+	search_books()
 }
 
 export async function navigate_to_page(page_num)
