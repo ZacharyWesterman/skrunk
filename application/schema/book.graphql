@@ -17,6 +17,7 @@ type Book {
 	owner: String!
 	shared: Boolean!
 	shareHistory: [BookShare!]!
+	rfid: String!
 }
 
 type BookTag {
