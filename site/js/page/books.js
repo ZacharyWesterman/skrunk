@@ -57,7 +57,7 @@ export function init()
 		}
 
 		ThisBook = event.serialNumber
-		await _('book', res)
+		await _('book', [res])
 	}
 }
 
@@ -73,7 +73,7 @@ export async function confirm_unlink_book(title)
 {
 	const choice = await _.modal({
 		title: 'Unlink this book?',
-		text: `"${title}" will no longer be associated with this RFID tag.`,
+		text: `"${title}" will be removed from the library.`,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
@@ -105,5 +105,5 @@ export async function confirm_unlink_book(title)
 		return
 	}
 
-	$('book').innerText = `Unlinked tag for "${title}"`
+	$('book').innerText = `Deleted "${title}"`
 }
