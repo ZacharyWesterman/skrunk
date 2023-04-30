@@ -79,14 +79,14 @@ def count_books(owner: Optional[str], title: Optional[str], author: Optional[str
 	if owner is not None:
 		try:
 			user_data = users.get_user_data(owner)
-			query += [{'creator', user_data['_id']}]
+			query += [{'creator': user_data['_id']}]
 		except exceptions.UserDoesNotExistError:
 			return 0
 
 	if title is not None:
-		query += [{'title': {'$regex': title}}]
+		query += [{'title': {'$regex': title, '$options': 'i'}}]
 
 	if author is not None:
-		query += [{'author': {'$regex': author}}]
+		query += [{'authors': {'$regex': author, '$options': 'i'}}]
 
 	return db.count_documents({'$and': query} if len(query) else {})
