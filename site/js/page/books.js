@@ -21,7 +21,6 @@ window.unload.push(() => {
 	NFC.onreading = undefined
 })
 
-let ThisBook = null
 
 export async function init()
 {
@@ -54,7 +53,6 @@ export async function init()
 			return
 		}
 
-		ThisBook = event.serialNumber
 		await _('book', [res])
 	}
 
@@ -81,7 +79,7 @@ function manual_input()
 	}
 }
 
-export async function confirm_unlink_book(title)
+export async function confirm_unlink_book(title, rfid)
 {
 	const choice = await _.modal({
 		title: 'Unlink this book?',
@@ -103,7 +101,7 @@ export async function confirm_unlink_book(title)
 			}
 		}
 	}`, {
-		rfid: ThisBook,
+		rfid: rfid,
 	})
 
 	if (res.__typename !== 'BookTag')
@@ -144,6 +142,7 @@ export async function search_books()
 			thumbnail
 			owner
 			id
+			rfid
 		}
 	}`, {
 		owner: owner,
