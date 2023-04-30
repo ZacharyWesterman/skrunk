@@ -1,7 +1,10 @@
 {{?it.pages.length > 0}}
+	{{? it.total}}
+		Total {{= it.total}} result{{? it.total !== 1}}s{{?}}.<br>
+	{{?}}
 	{{~it.pages : page}}
 		<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
 	{{~}}
-{{??}}
-	<p>No files have been uploaded.</p>
+{{?? it.no_results_msg}}
+	<p>{{= it.no_results_msg}}</p>
 {{?}}
