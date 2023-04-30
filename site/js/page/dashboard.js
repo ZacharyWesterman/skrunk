@@ -7,6 +7,7 @@ window.set_book_dashboard_buttons = function()
 		['arrow-up', "reset_dashboard_buttons()"],
 		['book', "dashnav('/html/books.html')"],
 		['bookmark', "dashnav('/html/books_new.html')"],
+		['bug', "dashnav('/html/bugs.html')", 'bottom'],
 	])
 }
 
@@ -16,6 +17,7 @@ window.set_user_dashboard_buttons = function()
 		['arrow-up', "reset_dashboard_buttons()"],
 		['user-pen', "dashnav('/html/user.html')"],
 		['palette', "dashnav('/html/edit_theme.html')"],
+		['bug', "dashnav('/html/bugs.html')", 'bottom'],
 	])
 }
 
