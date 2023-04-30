@@ -3,7 +3,7 @@ from application.integrations import google_books
 from application.db.book import get_book_tag
 from application.exceptions import ClientError
 
-def resolve_search_books(_, info, title: str, author: str) -> dict:
+def resolve_search_google_books(_, info, title: str, author: str) -> dict:
 	try:
 		return { '__typename': 'BookList', 'books': google_books.query(title=title, author=author) }
 	except ApiFailedError as e:

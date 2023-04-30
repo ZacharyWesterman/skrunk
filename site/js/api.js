@@ -241,7 +241,8 @@ api.handle_query_failure = async function(res)
 {
 	if (await api.verify_token())
 	{
-		throw 'RESPONSE ' + res.status + ' ' + res.statusText
+		res.errors = JSON.parse(res.response).errors
+		show_api_errors(res)
 	}
 	else
 	{
@@ -270,14 +271,14 @@ api.__request = function(request_json, callback)
 		}
 		else
 		{
-			api.handle_query_failure({status: xhr.status, statusText: xhr.statusText})
+			api.handle_query_failure(xhr)
 		}
 
 		$.hide($('loader'))
 	}
 
 	xhr.onerror = () => {
-		api.handle_query_failure({status: xhr.status, statusText: xhr.statusText})
+		api.handle_query_failure(xhr)
 		$.hide($('loader'))
 	}
 }

@@ -1,3 +1,6 @@
+var BookStart = 0
+var BookListLen = 15
+
 //Start the NFC reader ONCE per session, and don't stop it.
 //Trying to stop/restart it multiple times in a session
 //just causes the browser to crash. :/
@@ -55,7 +58,7 @@ export async function init()
 		await _('book', [res])
 	}
 
-	_('owner', {
+	await _('owner', {
 		id: 'owner',
 		users: await query.users.list(),
 	})
@@ -63,6 +66,7 @@ export async function init()
 	$.bind('tagid', manual_input)
 	$.bind('title', search_books)
 	$.bind('author', search_books)
+	await search_books()
 }
 
 function manual_input()
@@ -114,5 +118,26 @@ export async function confirm_unlink_book(title)
 
 export async function search_books()
 {
+	const owner = $.val('owner') || null
+	const title = $.val('title') || null
+	const author = $.val('author') || null
 
+	const res = await api(`
+	query ($owner: String, $title: String, $author: String, $start: Int!, $count: Int!) {
+		getBooks(owner: $owner, title: $title, author: $author, start: $start, count: $count) {
+			title
+			subtitle
+			authors
+			description
+			thumbnail
+		}
+	}`, {
+		owner: owner,
+		title: title,
+		author: author,
+		start: BookStart,
+		count: BookListLen,
+	})
+
+	console.log(res)
 }
