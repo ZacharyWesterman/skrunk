@@ -3,6 +3,7 @@ window.Yace = Yace
 
 window.set_book_dashboard_buttons = function()
 {
+	dashnav('/html/books.html')
 	_('navbar', [
 		['arrow-up', "reset_dashboard_buttons()"],
 		['book', "dashnav('/html/books.html')"],
@@ -13,6 +14,7 @@ window.set_book_dashboard_buttons = function()
 
 window.set_user_dashboard_buttons = function()
 {
+	dashnav('/html/user.html')
 	_('navbar', [
 		['arrow-up', "reset_dashboard_buttons()"],
 		['user-pen', "dashnav('/html/user.html')"],
