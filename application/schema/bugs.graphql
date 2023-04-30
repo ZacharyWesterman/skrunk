@@ -1,5 +1,4 @@
-type BugReport
-{
+type BugReport {
 	id: String!
 	created: DateTime!
 	creator: String!
@@ -9,13 +8,11 @@ type BugReport
 	resolved: Boolean!
 }
 
-type BugReportDoesNotExistError
-{
+type BugReportDoesNotExistError {
 	message: String!
 }
 
-type BugReportCreationFailedError
-{
+type BugReportCreationFailedError {
 	message: String!
 }
 

@@ -1,13 +1,21 @@
-<div class="card">
+<div class="card alt">
 	<div class="card-inner">
 		<h4><b>Search for existing books</b></h4>
 		Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div><br>
 		<input id="title" placeholder="Title"><br>
 		<input id="author" placeholder="Author"><br>
 		<input id="tagid" format="hex" placeholder="Tag ID">
+
+		<div name="page_list"></div>
 	</div>
 </div>
 
 <div id="book" template="userbooklist"></div>
+
+<div class="card alt">
+	<div class="card-inner">
+		<div name="page_list"></div>
+	</div>
+</div>
 
 <script src="/js/page/books.js"></script>
