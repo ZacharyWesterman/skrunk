@@ -69,6 +69,7 @@ def get_books(owner: Optional[str], title: Optional[str], author: Optional[str],
 		except exceptions.UserDoesNotExistError:
 			pass
 
+		i['id'] = i['_id']
 		books += [i]
 
 	return books

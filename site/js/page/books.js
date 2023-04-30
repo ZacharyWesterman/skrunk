@@ -143,6 +143,7 @@ export async function search_books()
 			description
 			thumbnail
 			owner
+			id
 		}
 	}`, {
 		owner: owner,
