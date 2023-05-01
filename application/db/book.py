@@ -12,6 +12,11 @@ def get_book_tag(rfid: str) -> dict:
 	if not book_data:
 		raise exceptions.BookTagDoesNotExistError(rfid)
 
+	try:
+		book_data['owner'] = users.get_user_by_id(book_data['owner'])['username']
+	except exceptions.UserDoesNotExistError:
+		pass
+
 	return book_data
 
 def link_book_tag(rfid: str, book_id: str) -> dict:

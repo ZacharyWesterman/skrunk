@@ -38,6 +38,9 @@ export async function init()
 					authors
 					thumbnail
 					description
+					owner
+					id
+					rfid
 				}
 				...on BookTagDoesNotExistError {
 					message
