@@ -57,11 +57,16 @@ export async function init()
 			return
 		}
 
+
+
 		await _('book', {
 			books: [res],
 			is_admin: SelfUserData.perms.includes('admin'),
 		})
 	}
+
+	$.hide('book-header')
+	$.hide('book-footer')
 
 	await _('owner', {
 		id: 'owner',
