@@ -47,7 +47,7 @@ def query(*, title: str = '', author: str = '') -> list:
 	url = f'https://www.googleapis.com/books/v1/volumes?q={text_query}&key={API_KEY}&fields={response_fields}'
 	response = requests.get(url)
 	if response.status_code != 200:
-		raise exceptions.ApiFailedError(f'API call failed with status code {response.status_code}')
+		raise exceptions.ApiFailedError(f'Google Books API call failed with status code {response.status_code}: {response.text}')
 
 	books = []
 	for i in json.loads(response.text).get('items', []):
@@ -65,7 +65,7 @@ def get(*, id: str) -> dict:
 	url = f'https://www.googleapis.com/books/v1/volumes/{id}?key={API_KEY}&fields={response_fields}'
 	response = requests.get(url)
 	if response.status_code != 200:
-		raise exceptions.ApiFailedError(f'API call failed with status code {response.status_code}')
+		raise exceptions.ApiFailedError(f'Google Books API call failed with status code {response.status_code}: {response.text}')
 
 	book = json.loads(response.text)['volumeInfo']
 	book['id'] = id
