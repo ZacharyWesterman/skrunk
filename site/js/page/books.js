@@ -57,7 +57,10 @@ export async function init()
 			return
 		}
 
-		await _('book', [res])
+		await _('book', {
+			books: [res],
+			is_admin: SelfUserData.perms.includes('admin'),
+		})
 	}
 
 	await _('owner', {
