@@ -57,7 +57,8 @@ export async function init()
 			return
 		}
 
-
+		$.hide('book-header')
+		$.hide('book-footer')
 
 		await _('book', {
 			books: [res],
@@ -65,8 +66,6 @@ export async function init()
 		})
 	}
 
-	$.hide('book-header')
-	$.hide('book-footer')
 
 	await _('owner', {
 		id: 'owner',
