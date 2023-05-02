@@ -30,21 +30,18 @@ def query(*, title: str = '', author: str = '') -> list:
 
 	query_fields = []
 
-	t = title.replace(':', '').strip()
-	a = author.replace(':', '').strip()
+	t = title.replace(':', '').strip().replace(' ', '+')
+	a = author.replace(':', '').strip().replace(' ', '+')
 
 	if len(t):
-		for i in t.split(' '):
-			query_fields += [f'intitle:{i}']
+		query_fields += ['intitle:' + t] if len(a) else [t]
 	if len(a):
-		for i in a.split(' '):
-			query_fields += [f'inauthor:{i}']
+		query_fields += ['inauthor:"' + a + '"']
 
 	text_query = '+'.join(query_fields)
-
 	response_fields = 'items(id,volumeInfo(authors,title,subtitle,description,industryIdentifiers,pageCount,categories,maturityRating,language,publisher,publishedDate,imageLinks))'
 
-	url = f'https://www.googleapis.com/books/v1/volumes?q={text_query}&key={API_KEY}&fields={response_fields}'
+	url = f'https://www.googleapis.com/books/v1/volumes?q={text_query}&key={API_KEY}&fields={response_fields}&orderBy=relevance&maxResults=20'
 	response = requests.get(url)
 	if response.status_code != 200:
 		raise exceptions.ApiFailedError(f'Google Books API call failed with status code {response.status_code}: {response.text}')
