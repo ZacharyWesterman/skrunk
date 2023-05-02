@@ -7,7 +7,7 @@ db = None
 
 def get_user_list() -> list:
 	global db
-	return [ data['username'] for data in db.find({}) ]
+	return [ data['username'] for data in db.find({}, sort=[('username', 1)]) ]
 
 def get_user_by_id(id: ObjectId) -> dict:
 	global db
