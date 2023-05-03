@@ -29,4 +29,23 @@ export default {
 			id: id,
 		})
 	},
+
+	resolve: async (id, status) =>
+	{
+		return await api(`
+		mutation ($id: String!, $status: Boolean!) {
+			setBugStatus(id: $id, status: $status) {
+				__typename
+				...on BugReportDoesNotExistError {
+					message
+				}
+				...on InsufficientPerms {
+					message
+				}
+			}
+		}`, {
+			id: id,
+			status: status,
+		})
+	},
 }

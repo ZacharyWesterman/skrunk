@@ -3,6 +3,7 @@
 {{~it: bug}}
 <div class="card">
 	<div class="card-inner">
+		<button class="icon right" *click="confirm_resolve_bug('{{=bug.id}}')"><i class="fa-solid fa-check fa-lg"></i></button>
 		<h4>{{=bug.title}}</h4>
 		<p>{{=bug.body}}</p>
 
