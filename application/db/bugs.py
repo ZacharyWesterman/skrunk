@@ -82,3 +82,13 @@ def delete_bug_report(id: str) -> dict:
 	db.delete_one({'_id': ObjectId(id)})
 	bug_report['id'] = bug_report['_id']
 	return bug_report
+
+def set_bug_status(id: str, status: bool) -> dict:
+	global db
+	bug_report = db.find_one({'_id': ObjectId(id)})
+	if bug_report is None:
+		raise exceptions.BugReportDoesNotExistError(id)
+
+	db.update_one({'_id': ObjectId(id)}, {'$set':{'resolved': status}})
+	bug_report['resolved'] = status
+	return bug_report

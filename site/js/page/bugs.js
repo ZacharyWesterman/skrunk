@@ -60,3 +60,28 @@ export async function confirm_delete_bug(id, title)
 
 	await refresh_bug_list()
 }
+
+export async function confirm_resolve_bug(id)
+{
+	const choice = await _.modal({
+		title: 'Mark bug report as resolved?',
+		text: 'This will hide the report from the list of outstanding bugs, but will not delete it.',
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	const res = await mutate.bugs.resolve(id, true)
+	if (res.__typename !== 'BugReport')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK']
+		}).catch(() => {})
+		return
+	}
+
+	await refresh_bug_list()
+}
