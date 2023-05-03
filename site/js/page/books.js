@@ -1,6 +1,7 @@
 var BookStart = 0
 var BookListLen = 15
 var SelfUserData = null
+var InitialLoad = true
 
 //Start the NFC reader ONCE per session, and don't stop it.
 //Trying to stop/restart it multiple times in a session
@@ -25,6 +26,8 @@ window.unload.push(() => {
 
 export async function init()
 {
+	InitialLoad = true
+
 	NFC.onreading = async event =>
 	{
 		$('tagid').value = event.serialNumber
@@ -78,6 +81,8 @@ export async function init()
 	$.bind('title', search_books)
 	$.bind('author', search_books)
 	await search_books()
+
+	InitialLoad = false
 }
 
 function manual_input()
@@ -139,7 +144,8 @@ export async function navigate_to_page(page_num)
 
 export async function search_books()
 {
-	await reload_book_count()
+	const p = reload_book_count()
+	if (!InitialLoad) await p
 
 	const owner = $.val('owner') || null
 	const title = $.val('title') || null
