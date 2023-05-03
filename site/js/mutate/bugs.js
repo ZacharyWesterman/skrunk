@@ -30,11 +30,11 @@ export default {
 		})
 	},
 
-	resolve: async (id, state) =>
+	resolve: async (id, status) =>
 	{
 		return await api(`
-		mutation ($id: String!, $state: Boolean!) {
-			setBugState(id: $id, $state: state) {
+		mutation ($id: String!, $status: Boolean!) {
+			setBugStatus(id: $id, status: $status) {
 				__typename
 				...on BugReportDoesNotExistError {
 					message
@@ -45,7 +45,7 @@ export default {
 			}
 		}`, {
 			id: id,
-			state: state,
+			status: status,
 		})
 	},
 }
