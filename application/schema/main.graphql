@@ -39,7 +39,7 @@ type Mutation {
 
 	reportBug(title: String!, text: String!): BugReportCreateAction!
 	deleteBug(id: String!): BugReportEditAction!
-	setBugStatus(id: String!, status: Bool!): BugReportEditAction!
+	setBugStatus(id: String!, status: Boolean!): BugReportEditAction!
 
 	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
