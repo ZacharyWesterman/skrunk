@@ -52,6 +52,8 @@ def query(*, title: str = '', author: str = '') -> list:
 		book['id'] = i['id']
 		book['authors'] = book.get('authors', [])
 		book['thumbnail'] = book.get('imageLinks', {'thumbnail':None}).get('thumbnail')
+		if book.get('title') is None:
+			book['title'] = ''
 		books += [book]
 
 	return books
@@ -68,4 +70,6 @@ def get(*, id: str) -> dict:
 	book['id'] = id
 	book['authors'] = book.get('authors', [])
 	book['thumbnail'] = book.get('imageLinks', {'thumbnail':None}).get('thumbnail')
+	if book.get('title') is None:
+		book['title'] = ''
 	return book
