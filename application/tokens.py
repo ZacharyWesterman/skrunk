@@ -49,7 +49,7 @@ def decode_cookies(cookies: str) -> dict:
 	output = {}
 	for i in cookies.split(';'):
 		cookie = i.split('=')
-		key, value = cookie[0].strip(), cookie[1].strip()
+		key, value = cookie.get(0, '').strip(), cookie.get(1, '').strip()
 		if key != '':
 			output[key] = value
 	return output
