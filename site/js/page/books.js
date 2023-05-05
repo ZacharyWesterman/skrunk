@@ -1,6 +1,5 @@
 var BookStart = 0
 var BookListLen = 15
-var SelfUserData = null
 var InitialLoad = true
 
 //Start the NFC reader ONCE per session, and don't stop it.
@@ -70,19 +69,15 @@ export async function init()
 	}
 
 
-	await _('owner', {
-		id: 'owner',
-		users: await query.users.list(),
-	})
-
-	SelfUserData = await query.users.get(api.username)
-
 	$.bind('tagid', manual_input)
 	$.bind('title', search_books)
 	$.bind('author', search_books)
-	await search_books()
+	search_books()
 
-	InitialLoad = false
+	_('owner', {
+		id: 'owner',
+		users: query.users.list(),
+	})
 }
 
 function manual_input()
@@ -146,6 +141,7 @@ export async function search_books()
 {
 	const p = reload_book_count()
 	if (!InitialLoad) await p
+	InitialLoad = false
 
 	const owner = $.val('owner') || null
 	const title = $.val('title') || null

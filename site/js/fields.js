@@ -16,7 +16,7 @@ _.css = {
 
 //Field control and validation
 var $ = field => (typeof field === 'object') ? field : document.getElementById(field)
-$.val = id => $(id).value
+$.val = id => $(id)?.value
 $.set = (id, value) => {
 	$(id).value = value
 	$(id).prevValue = value

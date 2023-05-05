@@ -34,7 +34,10 @@ query.users.get(api.username).then(data => {
 			text: data.message,
 			buttons: ['OK']
 		}).then(() => api.logout()).catch(() => {})
+		return
 	}
+
+	window.SelfUserData = data
 
 	//Load user colors
 	for (var i of data.theme.colors || [])
