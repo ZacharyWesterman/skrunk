@@ -18,7 +18,11 @@ window.show_api_errors = function(error)
 	let html = `<div id="${thisError}">API Error: ${error.status} ${error.statusText}`
 	for (const err of error.errors)
 	{
-		html += `<br>&rarr;&nbsp;&nbsp;${err.message}`
+		const msg = err?.extensions?.exception?.stacktrace || [err.message]
+		for (const i of msg)
+		{
+			html += `<br>&rarr;&nbsp;&nbsp;${i}`
+		}
 	}
 	html += '</div>'
 	errorDOM.innerHTML += html
