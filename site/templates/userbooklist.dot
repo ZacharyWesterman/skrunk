@@ -8,8 +8,8 @@
 		{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
 		<div class="disabled">By {{=book.authors.join(', ')}}</div>
 		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="">{{?}}
-		<div class="expand-container">
-			<div id="card-{{=book.id}}" class="expand-contract">
+		<div class="expand-container" id="card-{{=book.id}}">
+			<div>
 				{{?book.description}}<br>{{=book.description.replace('\n', '<br>')}}{{?}}
 			</div>
 		</div>

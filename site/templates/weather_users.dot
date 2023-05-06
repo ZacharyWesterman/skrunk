@@ -6,8 +6,8 @@
 				<p>Last sent at: {{?user.last_sent}}{{=user.last_sent}}<br><span class="disabled">({{=date.elapsed(user.last_sent)}})</span>{{??}}Never{{?}}</p>
 			</div>
 
-			<div class="expand-container">
-				<div id="card-{{=user.username}}" class="expand-contract">
+			<div class="expand-container" id="card-{{=user.username}}">
+				<div>
 					<table>
 						<tr>
 							<td></td>
