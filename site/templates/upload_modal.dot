@@ -1,6 +1,6 @@
-<div id="modal-upload-window" class="modal-outer">
-	<div class="modal-inner">
-		<div class="modal-content">
+<dialog id="modal-upload-window">
+	<div id="modal-upload-expand" class="modal">
+		<div>
 			<span class="close" onclick="_.modal.upload.return()">&times;</span>
 			<h4>Select files to upload</h4>
 			<div id="modal-auto-unpack" class="hidden" style="display:none;">
@@ -15,4 +15,4 @@
 			<div id="upload-progress" class="hidden"></div>
 		</div>
 	</div>
-</div>
+</dialog>

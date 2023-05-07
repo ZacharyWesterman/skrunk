@@ -2,7 +2,9 @@ var modal = async function(config, onload = () => {}, button_shortcuts = true)
 {
 	await _('modal', config)
 	onload()
-	$('modal-window').style.display = 'block'
+	$('modal-window').close()
+	$('modal-window').showModal()
+	$('modal-window-expand').classList.add('expanded')
 
 	return new Promise((resolve, reject) => {
 		modal.awaiting = {
@@ -23,7 +25,8 @@ modal.cancel = () =>
 {
 	$.on.detach.enter(window)
 	$.on.detach.escape(window)
-	$('modal-window').style.display = 'none';
+	$('modal-window-expand').classList.remove('expanded')
+	setTimeout(() => {$('modal-window').close()}, 200)
 	modal.awaiting.reject()
 }
 
@@ -32,14 +35,17 @@ modal.return = value =>
 	$.on.detach.enter(window)
 	$.on.detach.escape(window)
 	if (typeof value === 'string') value = value.toLowerCase()
-	$('modal-window').style.display = 'none';
+	$('modal-window-expand').classList.remove('expanded')
+	setTimeout(() => {$('modal-window').close()}, 200)
 	modal.awaiting.resolve(value)
 }
 
 modal.upload = async function()
 {
 	await _('upload_modal', {})
-	$('modal-upload-window').style.display = 'block'
+	$('modal-upload-window').close()
+	$('modal-upload-window').showModal()
+	$('modal-upload-expand').classList.add('expanded')
 
 	return new Promise((resolve, reject) => {
 		modal.awaiting = {
@@ -51,7 +57,8 @@ modal.upload = async function()
 
 modal.upload.return = () =>
 {
-	$('modal-upload-window').style.display = 'none'
+	$('modal-upload-expand').classList.remove('expanded')
+	setTimeout(() => {$('modal-upload-window').close()}, 200)
 }
 
 modal.upload.start = async function()

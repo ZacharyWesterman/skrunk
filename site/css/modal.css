@@ -6,36 +6,28 @@
 	position: absolute;
 }
 
-.modal-outer {
-	position: fixed;
-	display: none;
-	z-index: 9999;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 200%;
-	overflow: none;
+dialog {
 	background-color: rgba(0,0,0,0.4);
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-#modal-upload-window {
-	z-index: 9998;
-}
-
-.modal-inner {
-	justify-content: center;
-	align-items: center;
-	display: flex;
-}
-
-.modal-content {
 	background-color: var(--secondary);
 	color: var(--secondary-text);
-	margin: 5% auto;
 	padding: 2px 16px;
 	border: 1px solid var(--secondary-text);
 	border-radius: var(--border-radius);
+}
+
+.modal {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 200ms;
+}
+
+.modal > div {
+	overflow: hidden;
+}
+
+.modal.expanded {
+	grid-template-rows: 1fr;
 }
 
 .close {

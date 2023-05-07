@@ -1,6 +1,6 @@
-<div id="modal-window" class="modal-outer">
-	<div class="modal-inner">
-		<div class="modal-content">
+<dialog id="modal-window">
+	<div id="modal-window-expand" class="modal">
+		<div>
 			<span class="close" onclick="_.modal.cancel()">&times;</span>
 			{{?it.title}}<h4>
 				{{?it.type === 'info'}}
@@ -22,4 +22,4 @@
 			{{~}}
 		</div>
 	</div>
-</div>
+</dialog>
