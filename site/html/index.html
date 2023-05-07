@@ -15,7 +15,7 @@
 
 	<link rel="stylesheet" href="css/styles.css">
 </head>
-<body onload="auto_login()">
+<body>
 	<!-- for background css -->
 	<div class="bg"></div>
 	<div class="bg bg2"></div>
@@ -30,7 +30,7 @@
 	<div id="loader" class="bottom left hidden"><i class="gg-spinner"></i></div>
 </body>
 
-<script>
+<script defer>
 	function auto_login()
 	{
 		api.read_cookies()
@@ -53,4 +53,6 @@
 			})
 		}
 	}
+
+	auto_login()
 </script>
