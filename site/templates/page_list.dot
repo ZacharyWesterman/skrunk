@@ -1,10 +1,20 @@
-{{?it.pages.length > 0}}
+{{?it.count > 0}}
 	{{? it.total}}
 		Total {{= it.total}} result{{? it.total !== 1}}s{{?}}.<br>
 	{{?}}
-	{{~it.pages : page}}
-		<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
-	{{~}}
+
+	{{?it.count > 9}}
+		<button class="icon alt" *click="navigate_to_page(0)">&larr;</button>
+		{{const start = Math.max(it.current - 3, 0);const end = Math.min(start + 7, it.count);}}
+		{{~it.pages.slice(start, end) : page}}
+			<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
+		{{~}}
+		<button class="icon alt" *click="navigate_to_page({{=it.count-1}})">&rarr;</button>
+	{{??}}
+		{{~it.pages : page}}
+			<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
+		{{~}}
+	{{?}}
 {{?? it.no_results_msg}}
 	<p>{{= it.no_results_msg}}</p>
 {{?}}
