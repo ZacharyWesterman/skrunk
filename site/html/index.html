@@ -33,8 +33,8 @@
 <script defer>
 	function auto_login()
 	{
-		//If api JS hasn't loaded yet, wait until it does.
-		if (top.api === undefined)
+		//If required JS hasn't loaded yet, wait until it does.
+		if (top.api === undefined || top._ === undefined || top.navigate === undefined)
 		{
 			setTimeout(auto_login, 50)
 			return
