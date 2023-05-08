@@ -38,6 +38,7 @@ export default {
 						creator
 						created
 						tags
+						preview
 					}
 				}
 				...on BadTagQuery {

@@ -6,7 +6,7 @@ authors = ["Zachary Westerman <westerman.zachary@gmail.com>"]
 license = "GPL 3"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.11"
 ariadne = "^0.15.1"
 Flask = "^2.1.2"
 pymongo = "^4.1.1"
@@ -14,6 +14,7 @@ bcrypt = "^3.2.2"
 PyJWT = "^2.4.0"
 cryptography = "^37.0.2"
 requests = "^2.28.2"
+aspose-3d = "^23.4.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -8,15 +8,17 @@
 			<div class="truncate">{{=it.name}}{{=it.ext}}</div>
 		</div>
 
-		{{?it.mimetype.split('/')[0] == 'video'}}
+		{{?it.mimetype.split('/')[0] === 'video'}}
 			<video width="100%" height="auto" controls>
 				<source type="{{=it.mimetype}}" src="/blob/{{=it.id}}{{=it.ext}}">
 			</video>
-		{{??it.mimetype.split('/')[0] == 'image'}}
+		{{??it.mimetype.split('/')[0] === 'image'}}
 			<image width="100%" height="auto" src="/blob/{{=it.id}}{{=it.ext}}"></image>
-		{{??it.mimetype.split('/')[0] == 'audio'}}
+		{{??it.mimetype.split('/')[0] === 'audio'}}
 			<audio src="/blob/{{=it.id}}{{=it.ext}}" controls></audio>
-		{{??it.mimetype.split('/')[0] == 'text'}}
+		{{??it.mimetype.split('/')[0] === 'model'}}
+			<model-viewer alt="3D model {{=escape(it.name)}}{{=it.ext}}" src="preview/{{=it.preview}}" poster="background.svg" auto-rotate camera-controls shadow-intensity="1"></model-viewer>
+		{{??it.mimetype.split('/')[0] === 'text'}}
 			<iframe src="blob/{{=it.id}}{{=it.ext}}"></iframe>
 		{{??}}
 			<i class="disabled">{{=it.mimetype}}</i>

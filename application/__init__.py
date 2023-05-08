@@ -26,12 +26,15 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
 	def read_file_data(path: str):
-		with open(path, 'rb') as fp:
-			mime = mimetypes.guess_type(path)
-			if mime:
-				return Response(fp.read(), 200, mimetype=mime[0])
-			else:
-				return fp.read(), 200
+		try:
+			with open(path, 'rb') as fp:
+				mime = mimetypes.guess_type(path)
+				if mime:
+					return Response(fp.read(), 200, mimetype=mime[0])
+				else:
+					return fp.read(), 200
+		except FileNotFoundError:
+			return '', 404
 
 	def authorized():
 		if no_auth:
@@ -210,6 +213,17 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			return 'No blob data path specified in server setup.', 404
 
 		full_path = blob.path(path)
+		return read_file_data(full_path)
+
+	@application.route('/preview/<path:path>', methods=['GET'])
+	def download_preview(path: str):
+		if not authorized():
+			return '', 403
+
+		if blob_path is None:
+			return 'No blob data path specified in server setup.', 404
+
+		full_path = blob.preview(path)
 		return read_file_data(full_path)
 
 	@application.route('/upload', methods=['POST'])

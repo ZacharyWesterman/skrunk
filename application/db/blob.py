@@ -2,6 +2,7 @@ from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 import application.tags as tags
 from . import users
+from application.integrations import models
 
 from typing import Optional
 from bson.objectid import ObjectId
@@ -17,6 +18,9 @@ blob_path = None
 def path(id: str, ext: str = '') -> str:
 	global blob_path
 	return f'{blob_path}/{id}{ext}'
+
+def preview(id: str, ext: str = '') -> str:
+	return path(f'{id}{ext}')
 
 def file_info(filename: str) -> str:
 	with open(filename, 'rb') as fp:
@@ -56,6 +60,9 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 		size, md5sum = file_info(this_blob_path)
 		mark_as_completed(id, size, md5sum)
 
+		if ext in models.extensions():
+			create_preview(this_blob_path, id)
+
 	return id
 
 def create_blob(name: str, tags: list = []) -> str:
@@ -83,6 +90,7 @@ def create_blob(name: str, tags: list = []) -> str:
 		'tags': list(set(tags + auto_tags)),
 		'creator': user_data['_id'],
 		'complete': False,
+		'preview': None,
 	}).inserted_id, ext
 
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
@@ -106,7 +114,7 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 		query += [{'created': {'$gte': begin_date}}]
 	if end_date is not None:
 		query += [{'created': {'$lte': end_date}}]
-	
+
 	if name is not None:
 		query += [{'name': {'$regex': name, '$options': 'i'}}]
 
@@ -165,6 +173,13 @@ def delete_blob(blob_id: str) -> bool:
 			os.remove(path(blob_id, blob_data['ext']))
 		except FileNotFoundError:
 			pass
+
+		if blob_data['preview'] is not None:
+			try:
+				os.remove(preview(blob_data['preview']))
+			except FileNotFoundError:
+				pass
+
 		db.delete_one({'_id': ObjectId(blob_id)})
 		return blob_data
 
@@ -181,3 +196,8 @@ def set_blob_tags(blob_id: str, tags: list) -> dict:
 	db.update_one({'_id': ObjectId(blob_id)}, {'$set': {'tags': tags}})
 	blob_data['tags'] = tags
 	return blob_data
+
+def create_preview(blob_path: str, preview_id: str) -> None:
+	preview_path = preview(f'{preview_id}_p.glb')
+	models.to_glb(blob_path, preview_path)
+	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': f'{preview_id}_p.glb'}})
