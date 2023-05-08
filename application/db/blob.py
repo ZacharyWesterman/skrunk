@@ -60,7 +60,7 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 		size, md5sum = file_info(this_blob_path)
 		mark_as_completed(id, size, md5sum)
 
-		if ext in models.extensions():
+		if ext.lower() in models.extensions():
 			create_preview(this_blob_path, id)
 
 	return id
@@ -69,12 +69,16 @@ def create_blob(name: str, tags: list = []) -> str:
 	global db
 
 	mime = mimetypes.guess_type(name)[0]
+
 	if mime is None:
 		mime = 'application/octet-stream'
 
 	pos = name.rfind('.')
 	ext = name[pos::] if pos > -1 else ''
 	name = name[0:pos] if pos > -1 else name
+
+	if ext.lower() in models.extensions():
+		mime = f'model/{ext[1::]}'
 
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
