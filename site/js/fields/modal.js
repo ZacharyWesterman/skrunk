@@ -74,14 +74,27 @@ modal.upload.start = async function()
 		$.hide(dom_progress, true)
 	}
 
+	function file_size(size)
+	{
+		const sizes = ['B', 'KB', 'MB', 'GB', 'EB']
+		let this_size = 0
+		while (size > 1024)
+		{
+			size /= 1024
+			this_size += 1
+		}
+
+		return `${size.toFixed(2)} ${sizes[this_size]}`
+	}
+
 	const files = $('modal-file').files
 
 	//make sure all files are <=10GB (max file size limit for uploads)
-	var too_big = []
-	for (var file of files)
+	let too_big = []
+	for (let file of files)
 	{
 		if (file.size > (5 * 1024 * 1024 * 1024))
-			too_big.push(`${file.name} (${(file.size / (1024 * 1024 * 1024)).toFixed(2)} GB)`)
+			too_big.push(`${file.name} (${file_size(file.size)})`)
 	}
 
 	if (too_big.length > 0)
@@ -89,31 +102,54 @@ modal.upload.start = async function()
 		const amt = too_big.length === 1 ? 'file exceeds' : 'files exceed'
 		const amt2 = too_big.length === 1 ? 'that file' : 'those files'
 
-		_.modal({
-			title: '<span class="error">Ow, right in the bandwidth!</span>',
+		await _.modal({
+			type: 'error',
+			title: 'Ow, right in the bandwidth!',
 			text: `<p>For the sake of performance, there's a <b>5GB</b> limit on file uploads.<br>The following ${amt} this limit:</p><i>${too_big.join('<br>')}</i><p>If you really need to upload ${amt2}, I suggest using an FTP client.`,
 			buttons: ['OK'],
-		})
+		}).catch(() => {})
 		return
 	}
 
+	//Show a warning if files are >=50MB (may take a long time)
+	let large_files = []
+	for (let file of files)
+	{
+		if (file.size >= (50 * 1024 * 1024))
+			large_files.push(`${file.name} (${file_size(file.size)})`)
+	}
+
+	if (large_files.length > 0)
+	{
+		const header = large_files.length === 1 ? 'a very large file' : 'some very large files'
+		const msg = large_files.length === 1 ? 'A file' : 'Some of the files'
+		const it_them = large_files.length === 1 ? 'it' : 'them'
+		const res = await _.modal({
+			title: `<span class="error">WARNING:</span> You're about to upload ${header}!`,
+			text: `<p>${msg} you've selected may take a very long time to upload:</p><i>${large_files.join('<br>')}</i><p>This is still under the hard limit of <b>5GB</b> per file, so you <i>can still upload ${it_them}</i>, but if you have a slow or spotty connection you may want to consider uploading a different way.<br><br><b>Do you want to go ahead and upload?</b></p>`,
+			buttons: ['Yes', 'No'],
+		}).catch(() => 'no')
+
+		if (res !== 'yes') return
+	}
+
 	//Add a progress bar for each file to be uploaded.
-	var innerHTML = ''
-	for (var i = 0; i < files.length; ++i)
+	let innerHTML = ''
+	for (let i = 0; i < files.length; ++i)
 	{
 		innerHTML += `<progress id="upload-progressbar-${i}" value="0" max="100"></progress>`
 	}
 	$('upload-progress').innerHTML = innerHTML
 	$.show('upload-progress')
 
-	var promises = []
-	for (var i = 0; i < files.length; ++i)
+	let promises = []
+	for (let i = 0; i < files.length; ++i)
 	{
-		var dom_progress = $('upload-progressbar-'+i)
+		let dom_progress = $('upload-progressbar-'+i)
 		promises.push(do_upload(files[i], dom_progress))
 	}
 
-	for (var p of promises)
+	for (const p of promises)
 	{
 		await p
 	}
