@@ -68,7 +68,7 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 def create_blob(name: str, tags: list = []) -> str:
 	global db
 
-	mime = mimetypes.guess_type(name)[0]
+	mime = mimetypes.guess_type(name)[0].lower()
 
 	if mime is None:
 		mime = 'application/octet-stream'
