@@ -39,6 +39,31 @@ function find_fields(name)
 	return fields
 }
 
+async function await_promises(data)
+{
+	if (typeof data?.then === 'function')
+	{
+		return await data
+	}
+	else if (typeof data === 'object')
+	{
+		let changed = false
+		for (let i in data)
+		{
+			const res = await await_promises(data[i])
+			if (res !== null)
+			{
+				changed = true
+				data[i] = res
+			}
+		}
+
+		if (changed) return data
+	}
+
+	return null
+}
+
 async function template(template_name, data, instant = false)
 {
 	//show spinner to indicate stuff is loading
@@ -49,11 +74,8 @@ async function template(template_name, data, instant = false)
 		if (!instant) $.show(field)
 	}
 
-	//if data is actually a Promise, update the dom whenever it resolves.
-	if (typeof data?.then === 'function')
-		data.then(res => { update_dom(template_name, res, instant) })
-	else
-		await update_dom(template_name, data, instant)
+	const res = await await_promises(data)
+	await update_dom(template_name, (res !== null) ? res : data, instant)
 }
 
 //Constantly refresh dom element(s) as long as at least 1 div with the template_name exists.
