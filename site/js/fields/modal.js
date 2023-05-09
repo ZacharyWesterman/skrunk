@@ -78,9 +78,9 @@ modal.upload.start = async function()
 	{
 		const sizes = ['B', 'KB', 'MB', 'GB', 'EB']
 		let this_size = 0
-		while (size > 1024)
+		while (size > 1000)
 		{
-			size /= 1024
+			size /= 1000
 			this_size += 1
 		}
 
@@ -93,7 +93,7 @@ modal.upload.start = async function()
 	let too_big = []
 	for (let file of files)
 	{
-		if (file.size > (5 * 1024 * 1024 * 1024))
+		if (file.size > (5 * 1000 * 1000 * 1000))
 			too_big.push(`${file.name} (${file_size(file.size)})`)
 	}
 
@@ -115,7 +115,7 @@ modal.upload.start = async function()
 	let large_files = []
 	for (let file of files)
 	{
-		if (file.size >= (50 * 1024 * 1024))
+		if (file.size >= (50 * 1000 * 1000))
 			large_files.push(`${file.name} (${file_size(file.size)})`)
 	}
 
