@@ -76,7 +76,7 @@ export async function init()
 
 	_('owner', {
 		id: 'owner',
-		users: await query.users.list(),
+		users: query.users.list(),
 	})
 }
 

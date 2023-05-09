@@ -53,7 +53,7 @@ export async function load_user_data(username, self_view = false)
 	await _('userdata', {
 		perms: Perms,
 		user: UserData,
-		sessions: await query.users.sessions(username),
+		sessions: query.users.sessions(username),
 		self_view: self_view,
 	})
 

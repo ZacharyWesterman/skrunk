@@ -8,7 +8,7 @@ export async function init()
 {
 	await _('user_dropdown', {
 		id: 'blob-filter-creator',
-		users: await query.users.list(),
+		users: query.users.list(),
 	})
 	$('blob-filter-creator').onchange = reload_blobs;
 
