@@ -68,7 +68,7 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 def create_blob(name: str, tags: list = []) -> str:
 	global db
 
-	mime = mimetypes.guess_type(name)[0].lower()
+	mime = mimetypes.guess_type(name)[0]
 
 	if mime is None:
 		mime = 'application/octet-stream'
@@ -79,6 +79,8 @@ def create_blob(name: str, tags: list = []) -> str:
 
 	if ext.lower() in models.extensions():
 		mime = f'model/{ext[1::]}'
+
+	mime = mime.lower()
 
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
