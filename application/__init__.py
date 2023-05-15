@@ -1,7 +1,6 @@
 import ariadne
 from flask import Flask, Response, request, jsonify
 
-from ariadne.constants import PLAYGROUND_HTML
 from ariadne.contrib.federation import make_federated_schema
 
 from .resolvers import query, mutation
