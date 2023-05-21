@@ -55,6 +55,9 @@ query.users.get(api.username).then(data => {
 
 	window.SelfUserData = data
 
+	//Wipe theme data
+	_.css.wipe()
+
 	//Load user colors
 	for (var i of data.theme.colors || [])
 	{

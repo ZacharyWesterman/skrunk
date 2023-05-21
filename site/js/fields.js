@@ -12,6 +12,7 @@ _.css = {
 	vars: () => document?.styleSheets[document.styleSheets.length-2]?.cssRules[0]?.styleSheet?.rules[0]?.style || [],
 	set_var: (name, value) => document.querySelector(':root').style.setProperty(name, value.trim()),
 	get_var: name => getComputedStyle(document.querySelector(':root')).getPropertyValue(name).trim(),
+	wipe: () => {for (const i of _.css.vars()) _.css.set_var(i, '')},
 }
 
 //Field control and validation
