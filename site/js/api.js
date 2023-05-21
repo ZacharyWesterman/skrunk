@@ -113,8 +113,8 @@ api.get_json = async url =>
 
 api.upload = function(file, progress_handler, auto_unzip = false) {
 	return new Promise((resolve, reject) => {
-		var xhr = new XMLHttpRequest
-		var data = new FormData
+		let xhr = new XMLHttpRequest
+		let data = new FormData
 
 		file.unzip = auto_unzip
 		data.append('file', file)
@@ -123,7 +123,10 @@ api.upload = function(file, progress_handler, auto_unzip = false) {
 		xhr.open('POST', '/upload', true)
 		xhr.send(data)
 
+		api.upload.xhr.push(xhr)
+
 		xhr.onload = () => {
+			delete api.upload.xhr
 			if (xhr.status >= 200 && xhr.status < 300)
 			{
 				resolve(xhr.responseText)
@@ -135,10 +138,25 @@ api.upload = function(file, progress_handler, auto_unzip = false) {
 		}
 
 		xhr.onerror = () => {
+			delete api.upload.xhr
 			console.error(xhr)
 			reject({text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText})
 		}
 	})
+}
+
+api.upload.xhr = []
+
+api.upload.cancel = () => {
+	const ret = api.upload.xhr.length > 0
+
+	for (let xhr of api.upload.xhr)
+	{
+		xhr.abort()
+	}
+	api.upload.xhr = []
+
+	return ret
 }
 
 api.post_json = function(url, json_data) {

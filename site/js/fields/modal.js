@@ -59,6 +59,16 @@ modal.upload = async function()
 
 modal.upload.return = () =>
 {
+	if (api.upload.cancel())
+	{
+		modal({
+			type: 'error',
+			title: 'Upload Canceled',
+			text: 'All pending file uploads have been stopped.',
+			buttons: ['OK'],
+		}).catch(() => {})
+	}
+
 	$('modal-upload-expand').classList.remove('expanded')
 	setTimeout(() => {$('modal-upload-window').close()}, 200)
 }
@@ -66,6 +76,7 @@ modal.upload.return = () =>
 modal.upload.start = async function()
 {
 	const auto_unzip = $('modal-unpack-check').checked
+	modal.upload.promises = []
 
 	async function do_upload(file, dom_progress)
 	{
@@ -150,6 +161,7 @@ modal.upload.start = async function()
 		let dom_progress = $('upload-progressbar-'+i)
 		promises.push(do_upload(files[i], dom_progress))
 	}
+	modal.upload.promises = promises
 
 	for (const p of promises)
 	{
@@ -162,6 +174,7 @@ modal.upload.start = async function()
 		buttons: ['OK']
 	}).catch(() => {})
 
+	modal.upload.promises = []
 	modal.upload.return()
 }
 
