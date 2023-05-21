@@ -1,6 +1,20 @@
 import Yace from 'https://unpkg.com/yace?module' //For code editing textareas
 window.Yace = Yace
 
+window.fullscreen = function()
+{
+	if (!document.fullscreenElement)
+	{
+		const elem = document.documentElement
+		if (elem.requestFullscreen) elem.requestFullscreen()
+		else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen()
+	}
+	else
+	{
+		document.exitFullscreen()
+	}
+}
+
 window.set_book_dashboard_buttons = function()
 {
 	dashnav('/html/books.html')
@@ -9,6 +23,7 @@ window.set_book_dashboard_buttons = function()
 		['book', "dashnav('/html/books.html')"],
 		['bookmark', "dashnav('/html/books_new.html')"],
 		['bug', "dashnav('/html/bugs.html')", 'bottom'],
+		['expand', 'fullscreen()', 'bottom'],
 	])
 }
 
@@ -20,6 +35,7 @@ window.set_user_dashboard_buttons = function()
 		['user-pen', "dashnav('/html/user.html')"],
 		['palette', "dashnav('/html/edit_theme.html')"],
 		['bug', "dashnav('/html/bugs.html')", 'bottom'],
+		['expand', 'fullscreen()', 'bottom'],
 	])
 }
 
@@ -61,6 +77,7 @@ query.users.get(api.username).then(data => {
 			['server', "dashnav('/html/file_list.html')"],
 			['file-arrow-up', "_.modal.upload()"],
 			['bug', "dashnav('/html/bugs.html')", 'bottom'],
+			['expand', 'fullscreen()', 'bottom'],
 		]
 
 		if (data.perms.includes('admin'))

@@ -1,5 +1,10 @@
 <div class="navbar">
 	{{~it : i}}
-		<button class="icon{{?i.length > 2}} {{=i[2]}}{{?}}" onclick="{{=i[1]}}"><i class="fa-solid fa-{{=i[0]}} fa-lg"></i></button><br>
+		{{?i.length <= 2 || i[2] !== 'bottom'}}<button class="icon{{?i.length > 2}} {{=i[2]}}{{?}}" onclick="{{=i[1]}}"><i class="fa-solid fa-{{=i[0]}} fa-lg"></i></button><br>{{?}}
 	{{~}}
+	<div class="bottom">
+	{{~it : i}}
+		{{?i.length > 2 && i[2] === 'bottom'}}<button class="icon" onclick="{{=i[1]}}"><i class="fa-solid fa-{{=i[0]}} fa-lg"></i></button><br>{{?}}
+	{{~}}
+	</div>
 </div>
