@@ -74,7 +74,7 @@ dialog {
 }
 
 .floating {
-	position: absolute;
+	position: fixed;
 	z-index: 9999;
 	top: 25%;
 	display: none;
