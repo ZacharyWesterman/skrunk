@@ -18,6 +18,8 @@ export async function submit_bug_report()
 		return
 	}
 
+	_.modal.checkmark()
+
 	$('new-bug-text').value = ''
 	$('new-bug-title').value = ''
 	$.toggle_expand('card-new-bug')

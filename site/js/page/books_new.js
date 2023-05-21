@@ -23,7 +23,7 @@ export function init()
 	NFC.onreading = event =>
 	{
 		$('new-tagid').value = event.serialNumber
-
+		_.modal.checkmark()
 	}
 
 	$.bind('new-title', search_books)

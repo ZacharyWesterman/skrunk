@@ -16,6 +16,7 @@ export async function revoke_sessions(username)
 
 	await mutate.users.revoke(username)
 	$('session-ct-' + username).innerText = await query.users.sessions(username)
+	_.modal.checkmark()
 }
 
 export async function set_perms()
