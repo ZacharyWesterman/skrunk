@@ -196,7 +196,7 @@ api.write_cookies = function()
 
 	for (i in cookie)
 	{
-		if (cookie[i] === null)
+		if (cookie[i] === null || cookie[i] === '')
 			document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 		else
 		{
