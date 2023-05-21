@@ -27,6 +27,14 @@ def resolve_update_user_theme(_, info, username: str, theme: dict) -> dict:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
 @perms.require(['admin'])
+def resolve_delete_user_theme(_, info, username: str) -> dict:
+	try:
+		userdata = update_user_theme(username, {'colors': [], 'sizes': []})
+		return { '__typename': 'UserData', **userdata }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['admin'])
 def resolve_update_user_perms(_, info, username: str, perms: list) -> dict:
 	try:
 		userdata = update_user_perms(username, perms)

@@ -89,8 +89,19 @@
 		}
 		setcolors()
 		api.write_cookies()
-		savecolors()
-		// $('--border-radius').value = _.css.get_var();
+
+		api(`mutation ($username: String!){
+			deleteUserTheme(username: $username) {
+				__typename
+				...on UserDoesNotExistError {
+					message
+				}
+			}
+		}`, {
+			username: api.username
+		}).then(() => {
+			_.modal.checkmark()
+		})
 	}
 
 	function setcolors()
