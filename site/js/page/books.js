@@ -58,6 +58,8 @@ export async function init()
 			return
 		}
 
+		_.modal.checkmark()
+
 		$.hide('book-header')
 		$.hide('book-footer')
 
