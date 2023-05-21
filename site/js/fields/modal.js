@@ -36,8 +36,10 @@ modal.return = value =>
 	$.on.detach.escape(window)
 	if (typeof value === 'string') value = value.toLowerCase()
 	$('modal-window-expand').classList.remove('expanded')
-	setTimeout(() => {$('modal-window').close()}, 200)
-	modal.awaiting.resolve(value)
+	setTimeout(() => {
+		$('modal-window').close()
+		modal.awaiting.resolve(value)
+	}, 200)
 }
 
 modal.upload = async function()
