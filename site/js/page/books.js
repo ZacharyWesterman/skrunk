@@ -18,14 +18,13 @@ if (window.NFC === undefined)
 
 NFC.scan()
 
-window.unload.push(() => {
-	NFC.onreading = undefined
-})
-
-
 export async function init()
 {
 	InitialLoad = true
+
+	window.unload.push(() => {
+		NFC.onreading = undefined
+	})
 
 	NFC.onreading = async event =>
 	{

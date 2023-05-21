@@ -178,4 +178,12 @@ modal.upload.activate = () =>
 	$.toggle('modal-auto-unpack', zip_exists())
 }
 
+modal.checkmark = () =>
+{
+	setTimeout(() => {
+		$('action-checkmark').classList.remove('checkmark')
+	}, 1000)
+	$('action-checkmark').classList.add('checkmark')
+}
+
 export default modal

@@ -24,33 +24,3 @@
 <div name="booklist"></div>
 
 <script src="/js/page/books_new.js" async></script>
-
-<script>
-	//Start the NFC reader ONCE per session, and don't stop it.
-	//Trying to stop/restart it multiple times in a session
-	//just causes the browser to crash. :/
-	if (window.NFC === undefined)
-	{
-		try {
-			window.NFC = new NDEFReader
-		} catch(e) {
-			window.NFC = {
-				scan: () => {}
-			}
-		}
-	}
-
-	export function init()
-	{
-		NFC.onreading = event =>
-		{
-			$('new-tagid').value = event.serialNumber
-		}
-	}
-
-	NFC.scan()
-
-	window.unload.push(() => {
-		NFC.onreading = undefined
-	})
-</script>
