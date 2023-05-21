@@ -126,6 +126,8 @@ export async function select_book(book_id, book_title)
 		return
 	}
 
+	_.modal.checkmark()
+
 	//Wipe all fields
 	$('new-tagid').value = ''
 	$('new-title').value = ''
