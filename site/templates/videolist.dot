@@ -1,5 +1,0 @@
-{{~it: vid}}
-	<video controls>
-		<source type="video/mp4" src="video/{{=vid}}">
-	</video>
-{{~}}

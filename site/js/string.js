@@ -1,1 +1,1 @@
-window.escape = string => string.replace('\'', '\\\'').replace('"', '&quot;')
+window.escape = string => string.replaceAll('\'', '\\\'').replaceAll('"', '&quot;')
