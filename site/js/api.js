@@ -126,7 +126,7 @@ api.upload = function(file, progress_handler, auto_unzip = false) {
 		api.upload.xhr.push(xhr)
 
 		xhr.onload = () => {
-			delete api.upload.xhr
+			api.upload.xhr = []
 			if (xhr.status >= 200 && xhr.status < 300)
 			{
 				resolve(xhr.responseText)
@@ -138,7 +138,7 @@ api.upload = function(file, progress_handler, auto_unzip = false) {
 		}
 
 		xhr.onerror = () => {
-			delete api.upload.xhr
+			api.upload.xhr = []
 			console.error(xhr)
 			reject({text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText})
 		}
