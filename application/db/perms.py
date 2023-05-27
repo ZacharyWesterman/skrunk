@@ -29,7 +29,7 @@ def caller_info(info) -> str:
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return all(k in user_data['perms'] for k in perm_list)
 
-def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True) -> bool:
+def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True, data_func: callable = None) -> bool:
 	# Make sure the user making the request exists
 	user_data = caller_info(info)
 	if user_data is None:
@@ -38,8 +38,11 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True) ->
 	# Unless otherwise specified,
 	# Ignore credentials if user is editing their own data.
 	if perform_on_self:
+		if data_func is not None:
+			data = data_func(**data)
+
 		field = 'username' if 'username' in data else 'creator'
-		other_user = data.get(field)
+		other_user = str(data.get(field))
 
 		if other_user is not None and (other_user == user_data.get('username') or other_user == str(user_data.get('_id'))):
 			return True
@@ -47,10 +50,10 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True) ->
 	# If user does not have ALL required perms, fail.
 	return user_has_perms(user_data, perms)
 
-def require(perms: list, *, perform_on_self: bool = True) -> callable:
+def require(perms: list, *, perform_on_self: bool = True, data_func: callable = None) -> callable:
 	def inner(method: callable) -> callable:
 		def wrap(_, info, *args, **kwargs):
-			if satisfies(info, perms, kwargs, perform_on_self = perform_on_self):
+			if satisfies(info, perms, kwargs, perform_on_self = perform_on_self, data_func = data_func):
 				return method(_, info, *args, **kwargs)
 			else:
 				return bad_perms()
