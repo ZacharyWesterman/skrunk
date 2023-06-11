@@ -180,7 +180,7 @@ def delete_blob(blob_id: str) -> bool:
 		except FileNotFoundError:
 			pass
 
-		if blob_data['preview'] is not None:
+		if blob_data.get('preview') is not None:
 			try:
 				os.remove(preview(blob_data['preview']))
 			except FileNotFoundError:
