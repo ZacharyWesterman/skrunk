@@ -96,6 +96,7 @@ function manual_input()
 export async function confirm_unlink_book(title, rfid)
 {
 	const choice = await _.modal({
+		type: 'question',
 		title: 'Unlink this book?',
 		text: `"${title}" will be removed from the library.`,
 		buttons: ['Yes', 'No'],

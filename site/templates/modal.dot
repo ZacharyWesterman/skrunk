@@ -6,10 +6,11 @@
 				{{?it.type === 'info'}}
 					<i style="padding-right: 1rem;" class="fa-solid fa-circle-info fa-2xl"></i>
 				{{??it.type === 'error'}}
-					<span class="error"><i style="padding-right: 1rem;" class="fa-solid fa-triangle-exclamation fa-2xl"></i>
+					<i style="padding-right: 1rem;" class="fa-solid fa-triangle-exclamation fa-2xl error"></i>
+				{{??it.type === 'question'}}
+					<i style="padding-right: 1rem;" class="fa-solid fa-circle-question fa-2xl"></i>
 				{{?}}
 				<b>{{=it.title}}</b>
-				{{?it.type === 'error'}}</span>{{?}}
 			</h4>{{?}}
 
 			{{?it.text}}<div id="modal-content-text" style="max-width: 700px;">{{=it.text}}</div>{{?}}

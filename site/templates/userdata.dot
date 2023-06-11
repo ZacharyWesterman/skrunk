@@ -8,7 +8,8 @@
 		</h1>
 		<h2>{{=it.user.username}}</h2>
 		<div>
-			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password">
+			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password"><br>
+			<input id="user-new-password2" type="password" placeholder="Confirm Password" autocomplete="new-password">
 			<button class="icon" *click="update_password($('user-new-password').value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
 		</div>
 		<table>

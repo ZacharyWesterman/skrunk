@@ -1,10 +1,22 @@
 <div class="card alt" id="book-header">
 	<div class="card-inner">
 		<h4><b>Search for existing books</b></h4>
-		Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div><br>
-		<input id="title" placeholder="Title"><br>
-		<input id="author" placeholder="Author"><br>
-		<input id="tagid" format="hex" placeholder="Tag ID">
+		Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div>
+		<table>
+			<tr>
+				<td><input id="title" placeholder="Title"></td>
+				<td><div class="button clickable" onclick="$('title').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+			</tr>
+			<tr>
+				<td><input id="author" placeholder="Author"></td>
+				<td><div class="button clickable" onclick="$('author').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+			</tr>
+			<tr>
+				<td><input id="genre" placeholder="Genre"></td>
+				<td><div class="button clickable" onclick="$('genre').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+			</tr>
+		</table>
+		<input id="tagid" format="hex" placeholder="Tag ID" hidden>
 
 		<div name="page_list"></div>
 	</div>

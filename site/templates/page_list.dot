@@ -4,12 +4,12 @@
 	{{?}}
 
 	{{?it.count > 9}}
-		<button class="icon alt" *click="navigate_to_page(0)">&larr;</button>
+		<button class="icon alt" *click="navigate_to_page(0)"><i class="fa-solid fa-caret-left fa-lg"></i></button>
 		{{const start = Math.max(it.current - 3, 0);const end = Math.min(start + 7, it.count);}}
 		{{~it.pages.slice(start, end) : page}}
 			<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
 		{{~}}
-		<button class="icon alt" *click="navigate_to_page({{=it.count-1}})">&rarr;</button>
+		<button class="icon alt" *click="navigate_to_page({{=it.count-1}})"><i class="fa-solid fa-caret-right fa-lg"></i></button>
 	{{??}}
 		{{~it.pages : page}}
 			<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>

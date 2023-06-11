@@ -140,6 +140,7 @@ export async function reload_blobs()
 export async function confirm_delete_blob(id, name)
 {
 	const choice = await _.modal({
+		type: 'question',
 		title: 'Permanently delete file?',
 		text: `Are you sure you want to delete "<i>${name}</i>"? This action is permanent and cannot be undone.`,
 		buttons: ['Yes', 'No'],

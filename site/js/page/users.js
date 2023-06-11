@@ -13,7 +13,8 @@ export async function hide_user_data()
 export async function confirm_delete_user(username)
 {
 	var choice = await _.modal({
-		title: 'Delete Credentials',
+		type: 'question',
+		title: 'Delete Credentials?',
 		text: 'Are you sure you want to delete the login for user "' + username + '"? This action cannot be undone!',
 		buttons: ['Yes', 'No']
 	}).catch(() => 'no')

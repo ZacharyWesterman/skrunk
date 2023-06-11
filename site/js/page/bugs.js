@@ -1,6 +1,6 @@
 export async function submit_bug_report()
 {
-	if (!can_submit()) return
+	if (!(await can_submit())) return
 
 	const res = await mutate.bugs.report(
 		$('new-bug-title').value,
@@ -33,14 +33,37 @@ export async function refresh_bug_list()
 	await _('buglist', bugs)
 }
 
-function can_submit()
+async function can_submit()
 {
-	return ($.val('new-bug-title') !== '') && ($.val('new-bug-text') !== '')
+	if ($.val('new-bug-title') === '')
+	{
+		_.modal({
+			type: 'error',
+			title: 'Missing Information',
+			text: 'Please fill out the Title and Description fields.',
+			buttons: ['OK'],
+		}).catch(() => {})
+		return false
+	}
+	if ($.val('new-bug-text') === '')
+	{
+		const res = await _.modal({
+			type: 'question',
+			title: 'Submit without description?',
+			text: 'Are you sure you want to submit a bug report with no description? Any information will be helpful to find and eliminate the bug.',
+			buttons: ['Yes', 'No'],
+		}).catch(() => 'no')
+
+		if (res === 'no') return false
+	}
+
+	return true
 }
 
 export async function confirm_delete_bug(id, title)
 {
 	const choice = await _.modal({
+		type: 'question',
 		title: 'Delete Bug Report?',
 		text: `"${title}" will be permanently removed from the list.`,
 		buttons: ['Yes', 'No']

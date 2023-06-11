@@ -7,7 +7,8 @@ export async function revoke_sessions(username)
 	const other_msg = 'Are you sure you want to revoke all sessions for user "' + username + '"? This will log them out of all devices.'
 
 	const choice = await _.modal({
-		title: 'Revoke User Sessions',
+		type: 'question',
+		title: 'Revoke User Sessions?',
 		text: (username === api.username) ? self_msg : other_msg,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
@@ -83,6 +84,17 @@ export async function update_password(password, username)
 			type: 'error',
 			title: 'Invalid Password',
 			text: 'Password must fit <i>all</i> of the following criteria:<ul><li>' + criteria.join('</li><li>') + '</li></ul>',
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	if (password !== $.val('user-new-password2'))
+	{
+		_.modal({
+			type: 'error',
+			title: 'Passwords don\'t match',
+			text: 'Make sure you typed the password in correctly!',
 			buttons: ['OK'],
 		}).catch(() => {})
 		return
