@@ -1,13 +1,15 @@
 {{~ it.books : book}}
 <div class="card" style="max-width: 700px;">
-	<div class="card-inner" onclick="$.toggle_expand('card-{{=book.id}}')">
+	<div class="card-inner">
 		{{? it.is_admin || book.owner === api.username}}
 		<button class="icon right clickable" *click="confirm_unlink_book('{{=escape(book.title)}}', '{{=book.rfid}}')"><i class="fa-solid fa-trash fa-lg"></i></button>
 		{{?}}
-		<b>{{=book.title}}</b><br>
-		{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
-		<div class="disabled">By {{=book.authors.join(', ')}}</div>
-		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="">{{?}}
+		<span onclick="$.toggle_expand('card-{{=book.id}}')">
+			<b>{{=book.title}}</b><br>
+			{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
+			<div class="disabled">By {{=book.authors.join(', ')}}</div>
+		</span>
+		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="" onclick="$.toggle_expand('card-{{=book.id}}')">{{?}}
 		<div class="expand-container" id="card-{{=book.id}}">
 			<div>
 				{{?book.description}}<br>{{=book.description.replace('\n', '<br>')}}{{?}}
