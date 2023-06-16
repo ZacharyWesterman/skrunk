@@ -81,6 +81,16 @@ textarea {
 	left: 0;
 }
 
+/* If iOS, shift navbar icons to the left a bit */
+@supports (-webkit-overflow-scrolling: touch) {
+	.navbar > button > i {
+		margin-left: -0.55rem;
+	}
+	.bottom > button > i {
+		margin-left: -0.55rem;
+	}
+}
+
 .top {
 	top: 0;
 }
