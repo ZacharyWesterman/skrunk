@@ -85,7 +85,10 @@ def get_books(owner: Optional[str], title: Optional[str], author: Optional[str],
 		if i['thumbnail'] is not None:
 			i['thumbnail'] = i['thumbnail'].replace('http://', 'https://')
 
-		i['categories'] = i.get('categories', [])
+		cat = []
+		for k in i.get('categories', []):
+			cat += k.split(' / ')
+		i['categories'] = sorted(list(set(cat)))
 
 		books += [i]
 
