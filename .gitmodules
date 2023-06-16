@@ -1,3 +1,4 @@
 [submodule "application/tags"]
 	path = application/tags
 	url = https://github.com/ZacharyWesterman/tag_query.git
+	branch = main
