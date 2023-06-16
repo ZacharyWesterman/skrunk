@@ -12,31 +12,36 @@
 						<tr>
 							<td></td>
 							<td>Phone:</td>
-							<td><input id="phone-{{=user.username}}" type="tel" value="{{=user.phone}}" *change="update_user('{{=user.username}}', this)" format="phone" required></td>
+							<td><input id="phone-{{=user.username}}" type="tel" value="{{=user.phone}}" *bind="update_user('{{=user.username}}', $('phone-{{=user.username}}'))" format="phone" required></td>
+							<td><i id="icon-phone-{{=user.username}}" class="fa-solid fa-circle-check hidden"></i></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Lat:</td>
-							<td><input id="lat-{{=user.username}}" type="number" step="any" value="{{=user.lat}}" *change="update_user('{{=user.username}}', this)" format="number" required></td>
+							<td><input id="lat-{{=user.username}}" type="number" step="any" value="{{=user.lat}}" *bind="update_user('{{=user.username}}', $('lat-{{=user.username}}'))" format="number" required></td>
+							<td><i id="icon-lat-{{=user.username}}" class="fa-solid fa-circle-check hidden"></i></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Lon:</td>
-							<td><input id="lon-{{=user.username}}" type="number" step="any" value="{{=user.lon}}" *change="update_user('{{=user.username}}', this)" format="number" required></td>
+							<td><input id="lon-{{=user.username}}" type="number" step="any" value="{{=user.lon}}" *bind="update_user('{{=user.username}}', $('lon-{{=user.username}}'))" format="number" required></td>
+							<td><i id="icon-lon-{{=user.username}}" class="fa-solid fa-circle-check hidden"></i></td>
 						</tr>
 						<tr>
 							<td>
 								<input id="has-max-{{=user.username}}" type="checkbox" *click="$('max-{{=user.username}}').value = ''; $('max-{{=user.username}}').disabled = !$('has-max-{{=user.username}}').checked; update_user('{{=user.username}}', $('has-max-{{=user.username}}'))" {{?!user.max.disable}}checked{{?}}>
 							</td>
 							<td>Max:</td>
-							<td><input placeholder="default" id="max-{{=user.username}}" type="number" step="any" value="{{=(user.max.disable || user.max.default) ? '' : user.max.value}}" *change="update_user('{{=user.username}}', this)" format="number" {{?user.max.disable}}disabled{{?}}></td>
+							<td><input placeholder="default" id="max-{{=user.username}}" type="number" step="any" value="{{=(user.max.disable || user.max.default) ? '' : user.max.value}}" *bind="update_user('{{=user.username}}', $('max-{{=user.username}}'))" format="number" {{?user.max.disable}}disabled{{?}}></td>
+							<td><i id="icon-max-{{=user.username}}" class="fa-solid fa-circle-check hidden"></i></td>
 						</tr>
 						<tr>
 							<td>
 								<input id="has-min-{{=user.username}}" type="checkbox" *click="$('min-{{=user.username}}').value = ''; $('min-{{=user.username}}').disabled = !$('has-min-{{=user.username}}').checked; update_user('{{=user.username}}', $('has-min-{{=user.username}}'))" {{?!user.min.disable}}checked{{?}}>
 							</td>
 							<td>Min:</td>
-							<td><input placeholder="default" id="min-{{=user.username}}" type="number" step="any" value="{{=(user.min.disable || user.min.default) ? '' : user.min.value}}" *change="update_user('{{=user.username}}', this)" format="number" {{?user.min.disable}}disabled{{?}}></td>
+							<td><input placeholder="default" id="min-{{=user.username}}" type="number" step="any" value="{{=(user.min.disable || user.min.default) ? '' : user.min.value}}" *bind="update_user('{{=user.username}}', $('min-{{=user.username}}'))" format="number" {{?user.min.disable}}disabled{{?}}></td>
+							<td><i id="icon-min-{{=user.username}}" class="fa-solid fa-circle-check hidden"></i></td>
 						</tr>
 					</table>
 

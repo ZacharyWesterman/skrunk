@@ -85,7 +85,6 @@ export async function disable_user(username, self)
 
 export async function update_user(username, self)
 {
-	self.disabled = true
 	const phone = $.val('phone-'+username)
 	const lat = parseFloat($.val('lat-'+username))
 	const lon = parseFloat($.val('lon-'+username))
@@ -101,7 +100,12 @@ export async function update_user(username, self)
 	}
 
 	await mutate.weather.update_user(username, phone, lat, lon, max, min)
-	self.disabled = false
+
+	const id = `icon-${self.id.replace('has-', '')}`
+	$.show(id)
+	setTimeout(() => {
+		$.hide(id, true)
+	}, 500)
 }
 
 export function can_create()

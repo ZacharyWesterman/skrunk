@@ -155,7 +155,7 @@ window.set_field_logic = async function(DOM, url, module)
 	try
 	{
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
-		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab']
+		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind']
 		for (const attr of attrs)
 		{
 			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
@@ -176,7 +176,9 @@ window.set_field_logic = async function(DOM, url, module)
 						throw new Error(`Unknown action for *${attr} attribute: "${funcname}" export not found.`)
 
 					const scope = scoped_eval(DOM.module, key)
-					if ($.on[attr])
+					if (attr === 'bind')
+						$.bind(field, () => { scope() })
+					else if ($.on[attr])
 						$.on[attr](field, scope)
 					else
 						field[`on${attr}`] = () => { scope() }
@@ -188,7 +190,9 @@ window.set_field_logic = async function(DOM, url, module)
 						throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
 
 					//can just put in the name and this will pass in the field as 1st param
-					if ($.on[attr])
+					if (attr === 'bind')
+						$.bind(field, () => { scope() })
+					else if ($.on[attr])
 						$.on[attr](field, DOM.module[key])
 					else
 						field[`on${attr}`] = () => { DOM.module[key](field) }
