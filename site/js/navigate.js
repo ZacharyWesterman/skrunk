@@ -191,7 +191,7 @@ window.set_field_logic = async function(DOM, url, module)
 
 					//can just put in the name and this will pass in the field as 1st param
 					if (attr === 'bind')
-						$.bind(field, () => { scope() })
+						$.bind(field, () => { DOM.module[key](field) })
 					else if ($.on[attr])
 						$.on[attr](field, DOM.module[key])
 					else

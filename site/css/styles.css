@@ -174,3 +174,10 @@ textarea {
 		max-width: 175px;
 	}
 }
+
+blockquote {
+	border-left: 3px solid var(--disabled-text);
+	padding-left: 1rem;
+	margin-left: 0;
+	margin-bottom: 0;
+}

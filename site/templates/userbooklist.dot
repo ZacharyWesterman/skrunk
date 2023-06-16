@@ -10,9 +10,15 @@
 			<div class="disabled">By {{=book.authors.join(', ')}}</div>
 		</span>
 		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="" class="clickable" onclick="$.toggle_expand('card-{{=book.id}}')">{{?}}
-		{{?book.description}}<button class="icon right clickable" onclick="$.toggle_expand('card-{{=book.id}}')"><i class="fa-solid fa-angles-down"></i></button>{{?}}
+		{{?book.description || book.categories.length}}<button class="icon right clickable" onclick="$.toggle_expand('card-{{=book.id}}')"><i class="fa-solid fa-angles-down"></i></button>{{?}}
 		<div class="expand-container clickable" id="card-{{=book.id}}" onclick="$.toggle_expand('card-{{=book.id}}')">
 			<div>
+				{{?book.categories.length}}
+				<blockquote>
+					<b><u>Genres</u></b>
+					{{~ book.categories : genre}}<br>{{=genre}}{{~}}
+				</blockquote>
+				{{?}}
 				{{?book.description}}<br>{{=book.description.replace('\n', '<br>')}}{{?}}
 			</div>
 		</div>

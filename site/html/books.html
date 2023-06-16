@@ -4,19 +4,19 @@
 		Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div>
 		<table>
 			<tr>
-				<td><input id="title" placeholder="Title"></td>
+				<td><input id="title" placeholder="Title" *bind="search_books"></td>
 				<td><div class="button clickable" onclick="$('title').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
 			</tr>
 			<tr>
-				<td><input id="author" placeholder="Author"></td>
+				<td><input id="author" placeholder="Author" *bind="search_books"></td>
 				<td><div class="button clickable" onclick="$('author').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
 			</tr>
 			<tr>
-				<td><input id="genre" placeholder="Genre"></td>
+				<td><input id="genre" placeholder="Genre" *bind="search_books"></td>
 				<td><div class="button clickable" onclick="$('genre').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
 			</tr>
 		</table>
-		<input id="tagid" format="hex" placeholder="Tag ID" hidden>
+		<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>
 
 		<div name="page_list"></div>
 	</div>

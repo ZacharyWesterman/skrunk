@@ -70,9 +70,6 @@ export async function init()
 	}
 
 
-	$.bind('tagid', manual_input)
-	$.bind('title', search_books)
-	$.bind('author', search_books)
 	search_books()
 
 	_('owner', {
@@ -81,7 +78,7 @@ export async function init()
 	})
 }
 
-function manual_input()
+export function manual_input()
 {
 	if ($.val('tagid') !== '')
 	{
@@ -148,10 +145,11 @@ export async function search_books()
 	const owner = $.val('owner') || null
 	const title = $.val('title') || null
 	const author = $.val('author') || null
+	const genre = $.val('genre') || null
 
 	const res = await api(`
-	query ($owner: String, $title: String, $author: String, $start: Int!, $count: Int!) {
-		getBooks(owner: $owner, title: $title, author: $author, start: $start, count: $count) {
+	query ($owner: String, $title: String, $author: String, $genre: String, $start: Int!, $count: Int!) {
+		getBooks(owner: $owner, title: $title, author: $author, genre: $genre, start: $start, count: $count) {
 			title
 			subtitle
 			authors
@@ -160,11 +158,13 @@ export async function search_books()
 			owner
 			id
 			rfid
+			categories
 		}
 	}`, {
 		owner: owner,
 		title: title,
 		author: author,
+		genre: genre,
 		start: BookStart,
 		count: BookListLen,
 	})
@@ -180,14 +180,16 @@ async function reload_book_count()
 	const owner = $.val('owner') || null
 	const title = $.val('title') || null
 	const author = $.val('author') || null
+	const genre = $.val('genre') || null
 
 	const count = await api(`
-	query ($owner: String, $title: String, $author: String) {
-		countBooks(owner: $owner, title: $title, author: $author)
+	query ($owner: String, $title: String, $author: String, $genre: String) {
+		countBooks(owner: $owner, title: $title, author: $author, genre: $genre)
 	}`, {
 		owner: owner,
 		title: title,
 		author: author,
+		genre: genre,
 	})
 
 	const page_ct = Math.ceil(count / BookListLen)
