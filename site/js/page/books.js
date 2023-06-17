@@ -137,8 +137,30 @@ export async function navigate_to_page(page_num)
 	await search_books()
 }
 
+function valid_fields()
+{
+	$.hide('error-message')
+	for (const i of ['author', 'title', 'genre'])
+	{
+		try
+		{
+			new RegExp($.val(i))
+		}
+		catch(e)
+		{
+			$('error-message').innerText = `Invalid RegEx in "${i}" field: ${e.message}.`
+			$.show('error-message', true)
+			return false
+		}
+	}
+
+	return true
+}
+
 export async function search_books()
 {
+	if (!valid_fields()) return
+
 	const p = reload_book_count()
 	if (!InitialLoad) await p
 	InitialLoad = false
