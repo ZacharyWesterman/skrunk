@@ -18,8 +18,6 @@ def get_book_tag(rfid: str) -> dict:
 		pass
 
 	book_data['id'] = book_data['_id']
-	if book_data['thumbnail'] is not None:
-		book_data['thumbnail'] = book_data['thumbnail'].replace('http://', 'https://')
 
 	return book_data
 
@@ -40,8 +38,11 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'owner': user_data['_id'],
 		'shared': False,
 		'shareHistory': [],
-		**google_book_data,
+		'thumbnail': None,
 	}
+	fields = ['title', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language']
+	for i in fields:
+		book_data[i] = google_book_data.get(i)
 
 	db.insert_one(book_data)
 	return book_data
@@ -82,8 +83,6 @@ def get_books(owner: Optional[str], title: Optional[str], author: Optional[str],
 			pass
 
 		i['id'] = i['_id']
-		if i['thumbnail'] is not None:
-			i['thumbnail'] = i['thumbnail'].replace('http://', 'https://')
 
 		cat = []
 		for k in i.get('categories', []):
