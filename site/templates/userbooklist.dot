@@ -9,17 +9,27 @@
 			{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
 			<div class="disabled">By {{=book.authors.join(', ')}}</div>
 		</span>
-		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="" class="clickable" onclick="$.toggle_expand('card-{{=book.id}}')">{{?}}
-		{{?book.description || book.categories.length}}<button class="icon right clickable" onclick="$.toggle_expand('card-{{=book.id}}')"><i class="fa-solid fa-angles-down"></i></button>{{?}}
+		<table class="clickable" onclick="$.toggle_expand('card-{{=book.id}}')">
+			<tr>
+				{{?book.thumbnail}}<td><img src="{{=book.thumbnail}}" alt=""></td>{{?}}
+				{{?book.categories.length && !environment.is_mobile}}
+					<td><blockquote style="valign: top;">
+						<b><u>Categories</u></b>
+						{{~ book.categories : genre}}<br>{{=genre}}{{~}}
+					</blockquote></td>
+				{{?}}
+				{{?book.description || (environment.is_mobile && book.categories.length)}}<button class="icon right clickable" onclick="$.toggle_expand('card-{{=book.id}}')"><i class="fa-solid fa-angles-down"></i></button>{{?}}
+			</tr>
+		</table>
 		<div class="expand-container clickable" id="card-{{=book.id}}" onclick="$.toggle_expand('card-{{=book.id}}')">
 			<div>
-				{{?book.categories.length}}
-				<blockquote>
-					<b><u>Genres</u></b>
-					{{~ book.categories : genre}}<br>{{=genre}}{{~}}
-				</blockquote>
+				{{?book.categories.length && environment.is_mobile}}
+					<blockquote style="valign: top;">
+						<b><u>Categories</u></b>
+						{{~ book.categories : genre}}<br>{{=genre}}{{~}}
+					</blockquote>
 				{{?}}
-				{{?book.description}}<br>{{=book.description.replace('\n', '<br>')}}{{?}}
+				{{?book.description}}{{=book.description.replace('\n', '<br>')}}{{?}}
 			</div>
 		</div>
 		<br><div class="disabled">Physical copy owned by {{=book.owner}}</div>
