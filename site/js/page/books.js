@@ -43,6 +43,7 @@ export async function init()
 					owner
 					id
 					rfid
+					categories
 				}
 				...on BookTagDoesNotExistError {
 					message
