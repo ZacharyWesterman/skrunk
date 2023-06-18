@@ -199,9 +199,9 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	def favicon():
 		return read_file_data('data/favicon.ico')
 
-	@application.route('/background.svg', methods=['GET'])
-	def background_image():
-		return read_file_data('data/background.svg')
+	@application.route('/<path:path>.svg', methods=['GET'])
+	def get_image(path: str):
+		return read_file_data(f'data/{path}.svg')
 
 	@application.route('/download/<path:path>', methods=['GET'])
 	def download_file(path: str):

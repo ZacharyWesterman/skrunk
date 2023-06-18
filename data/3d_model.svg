@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 32 32"
+   version="1.1"
+   xmlns="http://www.w3.org/2000/svg">
+  <defs
+     id="defs63">
+    <style
+       id="style61">.cls-1{fill:none;}</style>
+  </defs>
+  <title
+     id="title65" />
+  <polygon
+     points="11 2 2 2 2 11 4 11 4 4 11 4 11 2"
+     id="polygon67"
+     style="fill:#cccccc" />
+  <polygon
+     points="2 21 2 30 11 30 11 28 4 28 4 21 2 21"
+     id="polygon69"
+     style="fill:#cccccc" />
+  <polygon
+     points="30 11 30 2 21 2 21 4 28 4 28 11 30 11"
+     id="polygon71"
+     style="fill:#cccccc" />
+  <polygon
+     points="21 30 30 30 30 21 28 21 28 28 21 28 21 30"
+     id="polygon73"
+     style="fill:#cccccc" />
+  <path
+     d="M25.49,10.13l-9-5a1,1,0,0,0-1,0l-9,5A1,1,0,0,0,6,11V21a1,1,0,0,0,.51.87l9,5a1,1,0,0,0,1,0l9-5A1,1,0,0,0,26,21V11A1,1,0,0,0,25.49,10.13ZM16,7.14,22.94,11,16,14.86,9.06,11ZM8,12.7l7,3.89V24.3L8,20.41Zm9,11.6V16.59l7-3.89v7.71Z"
+     id="path75"
+     style="fill:#cccccc" />
+  <rect
+     class="cls-1"
+     data-name="&lt;Transparent Rectangle&gt;"
+     height="32"
+     id="_Transparent_Rectangle_"
+     width="32" />
+</svg>

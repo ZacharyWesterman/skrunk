@@ -179,6 +179,9 @@ window.date = {
 			if (exact && i === precision) break
 		}
 
-		return (direction === 'ago') ? output.join(', ') + ' ' + direction : direction + ' ' + output.join(', ')
+		if (output.length === 0)
+			return 'Just now'
+		else
+			return (direction === 'ago') ? output.join(', ') + ' ' + direction : direction + ' ' + output.join(', ')
 	}
 }
