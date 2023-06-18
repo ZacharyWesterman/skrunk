@@ -109,7 +109,7 @@ def authenticate(username: str, password: str) -> str:
 		raise exceptions.AuthenticationError
 
 	login_token = create_user_token(username)
-	db.update_one({'_id': userdata['_id']}, {'$set':{'last_login': datetime.now()}})
+	db.update_one({'_id': userdata['_id']}, {'$set':{'last_login': datetime.utcnow()}})
 
 	return login_token
 

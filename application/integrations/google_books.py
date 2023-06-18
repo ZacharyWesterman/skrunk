@@ -34,6 +34,8 @@ def query(*, title: str = '', author: str = '') -> list:
 			book['thumbnail'] = book['thumbnail'].replace('http://', 'https://')
 		if book.get('title') is None:
 			book['title'] = ''
+		if book.get('categories') is None:
+			book['categories'] = []
 		books += [book]
 
 	return books
@@ -54,4 +56,6 @@ def get(*, id: str) -> dict:
 		book['thumbnail'] = book['thumbnail'].replace('http://', 'https://')
 	if book.get('title') is None:
 		book['title'] = ''
+	if book.get('categories') is None:
+			book['categories'] = []
 	return book

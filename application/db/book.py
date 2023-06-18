@@ -38,9 +38,8 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'owner': user_data['_id'],
 		'shared': False,
 		'shareHistory': [],
-		'thumbnail': None,
 	}
-	fields = ['title', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language']
+	fields = ['title', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
 	for i in fields:
 		book_data[i] = google_book_data.get(i)
 
