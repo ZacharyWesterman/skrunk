@@ -2,6 +2,7 @@ type UserData {
 	username: String!
 	theme: UserTheme_!
 	perms: [String!]!
+	last_login: DateTime
 }
 
 type UserExistsError {

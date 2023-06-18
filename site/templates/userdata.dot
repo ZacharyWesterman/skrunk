@@ -33,6 +33,9 @@
 				<span class="tooltiptext t-center">What does this mean?</span>
 			</span>
 		</p>
+		<div>
+			Last Login: {{?it.last_login}}{{=it.last_login}}<br><span class="disabled">{{=date.elapsed(it.last_login)}}</span>{{??}}Never{{?}}
+		</div>
 		{{?!it.self_view}}
 			<button class="big wide border" *click="confirm_delete_user('{{=it.user.username}}')">Delete</button>
 		{{??}}

@@ -28,6 +28,7 @@ export default {
 						}
 					}
 					perms
+					lastLogin
 				}
 				...on UserDoesNotExistError {
 					message
