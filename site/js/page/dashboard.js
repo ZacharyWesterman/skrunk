@@ -70,7 +70,7 @@ query.users.get(api.username).then(data => {
 		_.css.set_var(i.name, i.value)
 	}
 
-	window.reset_dashboard_buttons = function()
+	window.reset_dashboard_buttons = async function()
 	{
 		//Load navbar based on user perms
 		let buttons = [
@@ -89,7 +89,10 @@ query.users.get(api.username).then(data => {
 			buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'alt'])
 		}
 
-		_('navbar', buttons)
+		await _('navbar', buttons)
 	}
-	reset_dashboard_buttons()
+
+	reset_dashboard_buttons().then(() => {
+		$('content').innerText = ''
+	})
 })
