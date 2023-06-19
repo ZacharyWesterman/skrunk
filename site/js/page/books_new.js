@@ -38,7 +38,7 @@ export function init()
 					title: 'Book Already Linked',
 					text: 'A book with this tag has already been cataloged. Please try a different tag or un-link the one from this book.',
 					buttons: ['OK'],
-				})
+				}).catch(() => {})
 			}
 			else
 			{

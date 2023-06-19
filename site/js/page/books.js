@@ -60,7 +60,7 @@ export async function init()
 				title: 'Book Not Found',
 				text: 'No book has been linked with this tag.',
 				buttons: ['OK'],
-			})
+			}).catch(() => {})
 			return
 		}
 
