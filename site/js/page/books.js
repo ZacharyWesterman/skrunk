@@ -55,7 +55,12 @@ export async function init()
 
 		if (res.__typename !== 'Book')
 		{
-			$('book').innerText = 'No book with that RFID was found.'
+			_.modal({
+				type: 'error',
+				title: 'Book Not Found',
+				text: 'No book has been linked with this tag.',
+				buttons: ['OK'],
+			})
 			return
 		}
 

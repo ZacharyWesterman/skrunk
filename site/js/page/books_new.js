@@ -22,8 +22,30 @@ export function init()
 
 	NFC.onreading = event =>
 	{
-		$('new-tagid').value = event.serialNumber
-		_.modal.checkmark()
+		//Check if a book with the tag ID already exists
+		api(`
+		query ($rfid: String!) {
+			getBookByTag (rfid: $rfid) {
+				__typename
+			}
+		}`, {
+			rfid: event.serialNumber,
+		}).then(res => {
+			if (res.__typename === 'Book')
+			{
+				_.modal({
+					type: 'error',
+					title: 'Book Already Linked',
+					text: 'A book with this tag has already been cataloged. Please try a different tag or un-link the one from this book.',
+					buttons: ['OK'],
+				})
+			}
+			else
+			{
+				$('new-tagid').value = event.serialNumber
+				_.modal.checkmark()
+			}
+		})
 	}
 
 	$.bind('new-title', search_books)
