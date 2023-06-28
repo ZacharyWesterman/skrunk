@@ -16,5 +16,18 @@ type BugReportCreationFailedError {
 	message: String!
 }
 
+type RepositoryIssue {
+	title: String!
+	state: String!
+	number: Int!
+	labels: [IssueLabel!]!
+}
+
+type IssueLabel {
+	name: String!
+	color: String!
+	description: String!
+}
+
 union BugReportCreateAction = BugReport | BugReportCreationFailedError
 union BugReportEditAction = BugReport | BugReportDoesNotExistError | InsufficientPerms

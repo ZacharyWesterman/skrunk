@@ -22,6 +22,7 @@ query.set_field('getBlob', resolve_get_blob)
 query.set_field('getBugReports', resolve_get_bug_reports)
 query.set_field('countBugReports', resolve_count_bug_reports)
 query.set_field('getBugReport', resolve_get_bug_report)
+query.set_field('getOpenIssues', resolve_get_issues)
 
 query.set_field('getBooks', resolve_get_books)
 query.set_field('countBooks', resolve_count_books)

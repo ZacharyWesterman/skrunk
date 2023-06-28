@@ -131,6 +131,23 @@ textarea {
 	cursor: default;
 }
 
+.issue-label {
+	display: inline-flex;
+	border: none;
+	border-radius: 1rem;
+	margin: 5px;
+	padding-left: 0.3rem;
+	padding-right: 0.5rem;
+	font-size: 10pt;
+	font-style: italic;
+}
+
+.issue-id {
+	font-style: italic;
+	color: var(--disabled-text);
+	float: right;
+}
+
 .clickable {
 	cursor: pointer;
 }

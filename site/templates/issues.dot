@@ -1,0 +1,18 @@
+{{? it.length }}
+	<h2>{{= it.length}} Open Issues</h2>
+
+	<div class="card" style="max-width: 700px;">
+		<div class="card-inner">
+			{{~ it : issue }}
+				<hr>
+				{{= issue.title }}
+				<span class="issue-id">#{{= issue.number}}</span>
+				<br>
+				{{~ issue.labels : label }}
+					<div class="issue-label" style="background-color:#{{= label.color }}; color:{{= invert_color(label.color) }}">{{= label.name }}</div>
+				{{~}}
+			{{~}}
+			<hr>
+		</div>
+	</div>
+{{?}}

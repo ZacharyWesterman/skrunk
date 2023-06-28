@@ -110,3 +110,17 @@ export async function confirm_resolve_bug(id)
 
 	await refresh_bug_list()
 }
+
+export function load_open_issues()
+{
+	_('issues', api(`{
+		getOpenIssues {
+			title
+			number
+			labels {
+				name
+				color
+			}
+		}
+	}`))
+}

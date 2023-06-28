@@ -13,6 +13,7 @@ type Query {
 	getBugReports(username: String, start: Int!, count: Int!, resolved: Boolean!) : [BugReport!]!
 	countBugReports(username: String, resolved: Boolean!) : Int!
 	getBugReport(id: String!): BugReport
+	getOpenIssues: [RepositoryIssue!]!
 
 	getBooks(owner: String, title: String, author: String, genre: String, start: Int!, count: Int!): [Book!]!
 	countBooks(owner: String, title: String, author: String, genre: String): Int!
