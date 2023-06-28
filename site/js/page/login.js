@@ -2,7 +2,7 @@ document.title = 'Authenticate'
 
 export function login()
 {
-	api.authenticate($.val('username'), $.val('password')).then(success => {
+	api.authenticate($.val('username').toLowerCase(), $.val('password')).then(success => {
 		if (success)
 		{
 			api.write_cookies()
