@@ -1,48 +1,10 @@
+#Resolvers are defined in their respective files, not here.
+#There is nothing for you here.
+
 type Query {
-	getUser(username: String!): UserQueryReponse!
-	listUsers: [String!]!
-	countSessions(username: String!): Int!
-
-	getWeatherUsers: [WeatherUser!]!
-	getLastWeatherExec: WeatherExecution
-
-	getBlobs(username: String, start: Int!, count: Int!, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobQueryResponse!
-	countBlobs(username: String, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobCountResponse!
-	getBlob(id: String!): Blob
-
-	getBugReports(username: String, start: Int!, count: Int!, resolved: Boolean!) : [BugReport!]!
-	countBugReports(username: String, resolved: Boolean!) : Int!
-	getBugReport(id: String!): BugReport
-	getOpenIssues: [RepositoryIssue!]!
-
-	getBooks(owner: String, title: String, author: String, genre: String, start: Int!, count: Int!): [Book!]!
-	countBooks(owner: String, title: String, author: String, genre: String): Int!
-	searchBooks(title: String!, author: String!): BookQueryResponse!
-	getBookByTag(rfid: String!): BookResponse!
+	_SRV_DUMMY_Q: Boolean
 }
 
 type Mutation {
-	createUser(username: String!, password: String!): UserCreateResponse!
-	deleteUser(username: String!): UserDeleteResponse!
-	updateUserTheme(username: String!, theme: UserTheme!): UserUpdateResponse!
-	deleteUserTheme(username: String!): UserUpdateResponse!
-	updateUserPerms(username: String!, perms: [String!]!): UserUpdateResponse!
-	revokeSessions(username: String!): Int!
-	updateUserPassword(username: String!, password: String!): UserUpdateResponse!
-
-	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
-	deleteWeatherUser(username: String!): UserDeleteResponse!
-	enableWeatherUser(username: String!): UserUpdateResponse!
-	disableWeatherUser(username: String!): UserUpdateResponse!
-	updateWeatherUser(userdata: WeatherUserInput!): UserUpdateResponse!
-
-	deleteBlob(id: String!): BlobUpdateResponse!
-	setBlobTags(id: String!, tags: [String!]!): BlobUpdateResponse!
-
-	reportBug(title: String!, text: String!): BugReportCreateAction!
-	deleteBug(id: String!): BugReportEditAction!
-	setBugStatus(id: String!, status: Boolean!): BugReportEditAction!
-
-	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
-	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
+	_SRV_DUMMY_M: Boolean
 }

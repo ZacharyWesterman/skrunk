@@ -57,3 +57,17 @@ union BookQueryResponse = BookList | ApiFailedError
 union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
 union BookResponse = Book | BookTagDoesNotExistError
 union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
+
+#Resolvers below this line:
+
+extend type Query {
+	getBooks(owner: String, title: String, author: String, genre: String, start: Int!, count: Int!): [Book!]!
+	countBooks(owner: String, title: String, author: String, genre: String): Int!
+	searchBooks(title: String!, author: String!): BookQueryResponse!
+	getBookByTag(rfid: String!): BookResponse!
+}
+
+extend type Mutation {
+	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
+	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
+}

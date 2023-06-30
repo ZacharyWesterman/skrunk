@@ -35,3 +35,18 @@ type WeatherTemp_ {
 	disable: Boolean!
 	value: Float!
 }
+
+#Resolvers below this line:
+
+extend type Query {
+	getWeatherUsers: [WeatherUser!]!
+	getLastWeatherExec: WeatherExecution
+}
+
+extend type Mutation {
+	createWeatherUser(userdata: WeatherUserInput!): UserCreateResponse!
+	deleteWeatherUser(username: String!): UserDeleteResponse!
+	enableWeatherUser(username: String!): UserUpdateResponse!
+	disableWeatherUser(username: String!): UserUpdateResponse!
+	updateWeatherUser(userdata: WeatherUserInput!): UserUpdateResponse!
+}

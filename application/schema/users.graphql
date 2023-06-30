@@ -55,3 +55,21 @@ union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserCreateResponse = UserData | BadUserNameError | UserExistsError | InsufficientPerms
 union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientPerms
+
+#Resolvers below this line:
+
+extend type Query {
+	getUser(username: String!): UserQueryReponse!
+	listUsers: [String!]!
+	countSessions(username: String!): Int!
+}
+
+extend type Mutation {
+	createUser(username: String!, password: String!): UserCreateResponse!
+	deleteUser(username: String!): UserDeleteResponse!
+	updateUserTheme(username: String!, theme: UserTheme!): UserUpdateResponse!
+	deleteUserTheme(username: String!): UserUpdateResponse!
+	updateUserPerms(username: String!, perms: [String!]!): UserUpdateResponse!
+	revokeSessions(username: String!): Int!
+	updateUserPassword(username: String!, password: String!): UserUpdateResponse!
+}

@@ -29,3 +29,16 @@ type BlobCount {
 union BlobCountResponse = BlobCount | BadTagQuery
 union BlobQueryResponse = BlobList | BadTagQuery
 union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
+
+#Resolvers below this line:
+
+extend type Query {
+	getBlobs(username: String, start: Int!, count: Int!, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobQueryResponse!
+	countBlobs(username: String, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobCountResponse!
+	getBlob(id: String!): Blob
+}
+
+extend type Mutation {
+	deleteBlob(id: String!): BlobUpdateResponse!
+	setBlobTags(id: String!, tags: [String!]!): BlobUpdateResponse!
+}
