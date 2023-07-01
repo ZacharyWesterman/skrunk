@@ -1,6 +1,3 @@
-import Yace from 'https://unpkg.com/yace?module' //For code editing textareas
-window.Yace = Yace
-
 window.fullscreen = function()
 {
 	if (!document.fullscreenElement)
@@ -96,3 +93,16 @@ query.users.get(api.username).then(data => {
 		$('content').innerText = ''
 	})
 })
+
+let HaveModelViewer = false
+
+window.load_model_viewer = () =>
+{
+	if (!HaveModelViewer)
+	{
+		HaveModelViewer = true
+		import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js') //Only import this when it's needed
+	}
+
+	return ''
+}
