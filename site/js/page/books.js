@@ -250,7 +250,7 @@ async function reload_book_count()
 	}, true)
 }
 
-export async function share_book(title, subtitle, author, id, owner)
+export async function share_book(is_shared, title, subtitle, author, id, owner)
 {
 	const bookinfo = `<b>${title}</b><br><i>${subtitle}</i><div class="disabled">By ${author}</div>`
 
@@ -327,6 +327,40 @@ export async function share_book(title, subtitle, author, id, owner)
 				title: 'Cannot Share Book',
 				text: res.message,
 				buttons: ['OK'],
+			}).catch(() => {})
+			return
+		}
+	}
+	else if (is_shared === api.username)
+	{
+		//User is returning this book.
+		let res = await _.modal({
+			icon: 'book-open',
+			title: 'Return Book',
+			text: `Are you returning this book?<hr>${bookinfo}`,
+			buttons: ['Yes', 'No'],
+		}).catch(() => 'no')
+
+		if (res !== 'yes') return
+
+		//Mark the book as borrowed by this user.
+		res = await api(`mutation ($id: String!) {
+			returnBook(id: $id) {
+				__typename
+				...on BookTagDoesNotExistError { message }
+				...on BookCannotBeShared { message }
+			}
+		}`, {
+			id: id,
+		})
+
+		if (res.__typename !== 'Book')
+		{
+			_.modal({
+				type: 'error',
+				title: 'Return Failed',
+				text: res.message,
+				buttons: ['OK']
 			}).catch(() => {})
 			return
 		}
