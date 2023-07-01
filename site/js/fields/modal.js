@@ -1,4 +1,4 @@
-var modal = async function(config, onload = () => {}, validate = choice => true, output = choice => choice, button_shortcuts = true)
+var modal = async function(config, onload = () => {}, validate = choice => true, transform = choice => choice, button_shortcuts = true)
 {
 	await _('modal', config)
 	onload()
@@ -11,7 +11,7 @@ var modal = async function(config, onload = () => {}, validate = choice => true,
 			resolve: resolve,
 			reject: reject,
 			validate : validate,
-			output: output,
+			transform: transform,
 		}
 
 		var field = $('modal-button-first')
@@ -42,7 +42,7 @@ modal.return = value =>
 		$('modal-window-expand').classList.remove('expanded')
 		setTimeout(() => {
 			$('modal-window').close()
-			modal.awaiting.resolve(modal.awaiting.output(value))
+			modal.awaiting.resolve(modal.awaiting.transform(value))
 		}, 200)
 	}
 

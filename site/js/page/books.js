@@ -261,7 +261,7 @@ export async function share_book(title, subtitle, author, id, owner)
 				users: query.users.list(name => name !== api.username),
 				default: 'Select User',
 			})
-		}, async choice => { //validate
+		}, choice => { //validate
 			if (choice !== 'ok') return true
 
 			const who = $('use_other_person').checked ? 'other_person' : 'person'
@@ -272,11 +272,20 @@ export async function share_book(title, subtitle, author, id, owner)
 				return false
 			}
 
-			//Share with use
 			return true
-		}).catch(() => 'cancel')
+		}, choice => { //transform result to something different than buttons
+			if (choice !== 'ok') return null
 
-		if (res !== 'ok') return //Don't refresh page if share was cancelled.
+			const non_user = $('use_other_person').checked
+			return {
+				is_user: !non_user,
+				name: $.val(non_user ? 'other_person' : 'person'),
+			}
+		}).catch(() => null)
+
+		if (res === null) return //Don't refresh page if share was cancelled.
+
+		console.log(res)
 	}
 	else
 	{
