@@ -49,6 +49,14 @@ $.toggle = (id, state, fade = true) => {
 	func(id, fade)
 }
 
+$.invalid = (id, state = true) => {
+	$(id).classList.toggle('invalid', state)
+}
+
+$.valid = (id, state = true) => {
+	$(id).classList.toggle('invalid', !state)
+}
+
 $.validate = Validate
 $.enforce = Enforce
 $.on = Events

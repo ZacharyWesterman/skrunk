@@ -255,23 +255,33 @@ export async function share_book(title, subtitle, author, id, owner)
 			text: `${bookinfo}<hr>` + await api.snippit('book_borrow'),
 			buttons: ['OK', 'Cancel'],
 		},
-		() => {
+		() => { //on load
 			_('user_dropdown', {
-				id: '_',
+				id: 'person',
 				users: query.users.list(name => name !== api.username),
 				default: 'Select User',
 			})
+		}, async choice => { //validate
+			if (choice !== 'ok') return true
+
+			const who = $('use_other_person').checked ? 'other_person' : 'person'
+			if ($.val(who) === '')
+			{
+				$.invalid(who)
+				setTimeout(() => $.valid(who), 350)
+				return false
+			}
+
+			//Share with use
+			return true
 		}).catch(() => 'cancel')
 
-		if (res !== 'ok') return
-
-		//User wants to share this book.
-		// if ($('use_other_person'))
+		if (res !== 'ok') return //Don't refresh page if share was cancelled.
 	}
 	else
 	{
 		//If user doesn't own this book, they're borrowing it.
-		const res = await _.modal({
+		let res = await _.modal({
 			icon: 'book-open',
 			title: 'Borrow Book',
 			text: `Are you borrowing this book?<hr>${bookinfo}`,
@@ -280,6 +290,28 @@ export async function share_book(title, subtitle, author, id, owner)
 
 		if (res !== 'yes') return
 
-		//User wants to borrow this book.
+		//Mark the book as borrowed by this user.
+		res = await api(`mutation ($id: String!) {
+			borrowBook(id: $id) {
+				__typename
+				...on BookTagDoesNotExistError { message }
+				...on BookCannotBeShared { message }
+			}
+		}`, {
+			id: id,
+		})
+
+		if (res.__typename !== 'Book')
+		{
+			_.modal({
+				type: 'error',
+				title: 'Borrow Failed',
+				text: res.message,
+				buttons: ['OK']
+			}).catch(() => {})
+			return
+		}
 	}
+
+	search_books()
 }

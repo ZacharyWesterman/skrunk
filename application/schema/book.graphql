@@ -47,7 +47,7 @@ type BookTagDoesNotExistError {
 	message: String!
 }
 
-type BookAlreadyShared {
+type BookCannotBeShared {
 	message: String!
 }
 
@@ -61,8 +61,8 @@ union BookQueryResponse = BookList | ApiFailedError
 union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
 union BookResponse = Book | BookTagDoesNotExistError
 union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
-union BookTagUpdateResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
-union BookTagShareResponse = BookTag | BookTagDoesNotExistError | BookAlreadyShared
+union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerms
+union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError
 
 #Resolvers below this line:
 
