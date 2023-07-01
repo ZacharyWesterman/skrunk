@@ -1,4 +1,4 @@
-var modal = async function(config, onload = () => {}, button_shortcuts = true)
+var modal = async function(config, onload = () => {}, validate = choice => true, transform = choice => choice, button_shortcuts = true)
 {
 	await _('modal', config)
 	onload()
@@ -10,6 +10,8 @@ var modal = async function(config, onload = () => {}, button_shortcuts = true)
 		modal.awaiting = {
 			resolve: resolve,
 			reject: reject,
+			validate : validate,
+			transform: transform,
 		}
 
 		var field = $('modal-button-first')
@@ -32,14 +34,29 @@ modal.cancel = () =>
 
 modal.return = value =>
 {
-	$.on.detach.enter(window)
-	$.on.detach.escape(window)
 	if (typeof value === 'string') value = value.toLowerCase()
-	$('modal-window-expand').classList.remove('expanded')
-	setTimeout(() => {
-		$('modal-window').close()
-		modal.awaiting.resolve(value)
-	}, 200)
+
+	const retn = () => {
+		$.on.detach.enter(window)
+		$.on.detach.escape(window)
+		$('modal-window-expand').classList.remove('expanded')
+		setTimeout(() => {
+			$('modal-window').close()
+			modal.awaiting.resolve(modal.awaiting.transform(value))
+		}, 200)
+	}
+
+	//Don't close the modal if any fields in it were invalid.
+	if (modal.awaiting.validate?.constructor?.name === 'AsyncFunction' || typeof modal.awaiting.validate.then === 'function')
+	{
+		modal.awaiting.validate(value).then(res => {
+			if (res) retn()
+		})
+	}
+	else
+	{
+		if (modal.awaiting.validate(value)) retn()
+	}
 }
 
 modal.upload = async function()

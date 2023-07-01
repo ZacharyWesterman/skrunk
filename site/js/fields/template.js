@@ -15,7 +15,8 @@ async function update_dom(name, data, instant = false)
 
 		const pagefn = __template_map[template_name]
 		if (!instant) $.hide(field)
-		field.innerHTML = pagefn((data !== undefined) ? data : field)
+		const txt = pagefn((data !== undefined) ? data : field)
+		field.innerHTML = txt
 		if (!instant) $.show(field)
 		set_field_logic(field, url, {})
 	}

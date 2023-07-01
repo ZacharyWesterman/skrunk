@@ -44,3 +44,7 @@ class BookTagDoesNotExistError(ClientError):
 class BookTagExistsError(ClientError):
 	def __init__(self, id: str):
 		super().__init__(f'A book is already tagged with RFID {id}')
+
+class BookCannotBeShared(ClientError):
+	def __init__(self, msg: str):
+		super().__init__(msg)

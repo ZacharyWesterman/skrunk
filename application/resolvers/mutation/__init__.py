@@ -4,7 +4,7 @@ from .weather import *
 from .sessions import resolve_revoke_user_sessions
 from .blob import resolve_delete_blob, resolve_set_blob_tags
 from .bugs import *
-from .book import resolve_link_book_tag, resolve_unlink_book_tag
+from .book import *
 
 mutation = MutationType()
 
@@ -31,3 +31,7 @@ mutation.set_field('setBugStatus', resolve_set_bug_status)
 
 mutation.set_field('linkBookTag', resolve_link_book_tag)
 mutation.set_field('unlinkBookTag', resolve_unlink_book_tag)
+mutation.set_field('shareBook', resolve_share_book_with_user)
+mutation.set_field('shareBookNonUser', resolve_share_book_with_non_user)
+mutation.set_field('borrowBook', resolve_borrow_book)
+mutation.set_field('returnBook', resolve_return_book)

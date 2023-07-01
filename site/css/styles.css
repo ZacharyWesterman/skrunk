@@ -35,10 +35,15 @@ input {
 	border: none;
 	border-radius: var(--border-radius);
 	margin-bottom: 5px;
+	transition: all 0.25s ease-in-out;
 }
 
-input.invalid {
-	background-color: #e09daf;
+input[type="checkbox"] {
+	transform: translateY(0.27rem);
+}
+
+.invalid {
+	background-color: var(--error-text);
 }
 
 select {
@@ -47,6 +52,7 @@ select {
 	border-radius: var(--border-radius);
 	margin-bottom: 5px;
 	background-color: white;
+	transition: all 0.25s ease-in-out;
 }
 
 iframe {

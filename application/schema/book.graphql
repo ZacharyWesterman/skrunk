@@ -47,16 +47,22 @@ type BookTagDoesNotExistError {
 	message: String!
 }
 
+type BookCannotBeShared {
+	message: String!
+}
+
 type BookShare {
-	with: String!
+	name: String!
 	start: DateTime!
-	end: DateTime
+	stop: DateTime
 }
 
 union BookQueryResponse = BookList | ApiFailedError
 union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
 union BookResponse = Book | BookTagDoesNotExistError
 union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
+union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerms
+union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError
 
 #Resolvers below this line:
 
@@ -70,4 +76,8 @@ extend type Query {
 extend type Mutation {
 	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
+	borrowBook(id: String!): BookTagShareResponse!
+	shareBook(id: String!, username: String!): BookTagShareResponse!
+	shareBookNonUser(id: String!, name: String!): BookTagShareResponse!
+	returnBook(id: String!): BookTagShareResponse!
 }

@@ -1,5 +1,9 @@
 export default {
-	list: async () => await api('{listUsers}'),
+	list: async (filter) =>
+	{
+		const res = await api('{listUsers}')
+		return filter ? res.filter(filter) : res
+	},
 
 	sessions: async username =>
 	{

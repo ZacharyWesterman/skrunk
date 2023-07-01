@@ -3,6 +3,8 @@ import application.exceptions as exceptions
 from . import users
 from application.integrations import google_books
 from typing import Optional
+from datetime import datetime
+from bson.objectid import ObjectId
 
 db = None
 
@@ -112,3 +114,89 @@ def count_books(owner: Optional[str], title: Optional[str], author: Optional[str
 		query += [{'categories': {'$regex': genre, '$options': 'i'}}]
 
 	return db.count_documents({'$and': query} if len(query) else {})
+
+def share_book_with_user(book_id: str, username: str) -> dict:
+	book_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_id})
+	if book_data is None:
+		raise exceptions.BookTagDoesNotExistError(book_id)
+
+	user_data = users.get_user_data(username)
+
+	if len(book_data['shareHistory']):
+		last_share = len(book_data['shareHistory']) - 1
+		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
+	else:
+		updates = {'shared': True}
+
+	db.update_one({'_id': book_id}, {'$set': updates})
+	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+		'user_id': user_data['_id'],
+		'name': username,
+		'start': datetime.utcnow(),
+		'stop': None,
+	}}})
+
+	return book_data
+
+def share_book_with_non_user(book_id: str, name: str) -> dict:
+	book_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_id})
+	if book_data is None:
+		raise exceptions.BookTagDoesNotExistError(book_id)
+
+	if len(book_data['shareHistory']):
+		last_share = len(book_data['shareHistory']) - 1
+		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
+	else:
+		updates = {'shared': True}
+
+	db.update_one({'_id': book_id}, {'$set': updates})
+	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+		'user_id': None,
+		'name': name,
+		'start': datetime.utcnow(),
+		'stop': None,
+	}}})
+
+	return book_data
+
+def borrow_book(book_id: str, user_data: dict) -> dict:
+	book_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_id})
+	if book_data is None:
+		raise exceptions.BookTagDoesNotExistError(book_id)
+
+	if len(book_data['shareHistory']):
+		last_share = len(book_data['shareHistory']) - 1
+		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
+	else:
+		updates = {'shared': True}
+
+	db.update_one({'_id': book_id}, {'$set': updates})
+	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+		'user_id': user_data['_id'],
+		'name': user_data['username'],
+		'start': datetime.utcnow(),
+		'stop': None,
+	}}})
+
+	return book_data
+
+def return_book(book_id: str, user_data: dict) -> dict:
+	book_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_id})
+	if book_data is None:
+		raise exceptions.BookTagDoesNotExistError(book_id)
+
+	if len(book_data['shareHistory']) == 0:
+		raise exceptions.BookCannotBeShared('Nobody is borrowing this book.')
+
+	last_share = len(book_data['shareHistory']) - 1
+	print(book_data['owner'], flush=True)
+	print(user_data['_id'], flush=True)
+	if book_data['shareHistory'][-1]['user_id'] != user_data['_id'] and book_data['owner'] != user_data['_id']:
+		raise exceptions.BookCannotBeShared('You did not borrow this book.')
+
+	db.update_one({'_id': book_id}, {'$set': {'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()}})
+	return book_data
