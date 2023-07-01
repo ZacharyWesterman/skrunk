@@ -52,9 +52,9 @@ type BookCannotBeShared {
 }
 
 type BookShare {
-	with: String!
+	name: String!
 	start: DateTime!
-	end: DateTime
+	stop: DateTime
 }
 
 union BookQueryResponse = BookList | ApiFailedError
@@ -76,7 +76,7 @@ extend type Query {
 extend type Mutation {
 	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
-	borrowBook(id: String!): BookTagUpdateResponse!
+	borrowBook(id: String!): BookTagShareResponse!
 	shareBook(id: String!, username: String!): BookTagShareResponse!
 	shareBookNonUser(id: String!, name: String!): BookTagShareResponse!
 	returnBook(id: String!): BookTagShareResponse!

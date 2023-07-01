@@ -44,6 +44,10 @@ export async function init()
 					id
 					rfid
 					categories
+					shared
+					shareHistory {
+						name
+					}
 				}
 				...on BookTagDoesNotExistError {
 					message
@@ -187,6 +191,10 @@ export async function search_books()
 			id
 			rfid
 			categories
+			shared
+			shareHistory {
+				name
+			}
 		}
 	}`, {
 		owner: owner,
@@ -249,7 +257,7 @@ export async function share_book(title, subtitle, author, id, owner)
 	if (owner === api.username)
 	{
 		//If user owns the book they're sharing, give options for who to share with.
-		const res = await _.modal({
+		let res = await _.modal({
 			icon: 'book-open',
 			title: 'Share Book',
 			text: `${bookinfo}<hr>` + await api.snippit('book_borrow'),
@@ -285,7 +293,43 @@ export async function share_book(title, subtitle, author, id, owner)
 
 		if (res === null) return //Don't refresh page if share was cancelled.
 
-		console.log(res)
+		if (res.is_user)
+		{
+			res = await api(`mutation ($id: String!, $username: String!) {
+				shareBook (id: $id, username: $username) {
+					__typename
+					...on BookTagDoesNotExistError { message }
+					...on BookCannotBeShared { message }
+				}
+			}`, {
+				id: id,
+				username: res.name,
+			})
+		}
+		else
+		{
+			res = await api(`mutation ($id: String!, $name: String!) {
+				shareBookNonUser (id: $id, name: $name) {
+					__typename
+					...on BookTagDoesNotExistError { message }
+					...on BookCannotBeShared { message }
+				}
+			}`, {
+				id: id,
+				name: res.name,
+			})
+		}
+
+		if (res.__typename !== 'Book')
+		{
+			_.modal({
+				type: 'error',
+				title: 'Cannot Share Book',
+				text: res.message,
+				buttons: ['OK'],
+			}).catch(() => {})
+			return
+		}
 	}
 	else
 	{

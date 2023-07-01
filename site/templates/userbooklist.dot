@@ -36,6 +36,7 @@
 			</div>
 		</div>
 		<br><div class="disabled">Physical copy owned by {{=book.owner}}</div>
+		{{? book.shared }}<i class="error">Currently being borrowed by {{= book.shareHistory[book.shareHistory.length - 1].name }}</i>{{?}}
 	</div>
 </div>
 {{~}}

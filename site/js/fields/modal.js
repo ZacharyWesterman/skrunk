@@ -46,7 +46,6 @@ modal.return = value =>
 		}, 200)
 	}
 
-	console.log(modal.awaiting.validate)
 	//Don't close the modal if any fields in it were invalid.
 	if (modal.awaiting.validate?.constructor?.name === 'AsyncFunction' || typeof modal.awaiting.validate.then === 'function')
 	{
