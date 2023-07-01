@@ -241,3 +241,44 @@ async function reload_book_count()
 		no_results_msg: 'No books found matching the search criteria.',
 	}, true)
 }
+
+export async function share_book(title, subtitle, author, id, owner)
+{
+	const bookinfo = `<b>${title}</b><br><i>${subtitle}</i><div class="disabled">By ${author}</div>`
+
+	if (owner === api.username)
+	{
+		//If user owns the book they're sharing, give options for who to share with.
+		const res = await _.modal({
+			icon: 'book-open',
+			title: 'Share Book',
+			text: `${bookinfo}<hr>` + await api.snippit('book_borrow'),
+			buttons: ['OK', 'Cancel'],
+		},
+		() => {
+			_('user_dropdown', {
+				id: '_',
+				users: query.users.list(name => name !== api.username),
+				default: 'Select User',
+			})
+		}).catch(() => 'cancel')
+
+		if (res !== 'ok') return
+
+		//User wants to share this book.
+	}
+	else
+	{
+		//If user doesn't own this book, they're borrowing it.
+		const res = await _.modal({
+			icon: 'book-open',
+			title: 'Borrow Book',
+			text: `Are you borrowing this book?<hr>${bookinfo}`,
+			buttons: ['Yes', 'No'],
+		}).catch(() => 'no')
+
+		if (res !== 'yes') return
+
+		//User wants to borrow this book.
+	}
+}

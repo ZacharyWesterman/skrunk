@@ -9,6 +9,8 @@
 					<i style="padding-right: 1rem;" class="fa-solid fa-triangle-exclamation fa-2xl error"></i>
 				{{??it.type === 'question'}}
 					<i style="padding-right: 1rem;" class="fa-solid fa-circle-question fa-2xl"></i>
+				{{??it.icon !== undefined}}
+					<i style="padding-right: 1rem;" class="fa-solid fa-{{= it.icon }} fa-2xl"></i>
 				{{?}}
 				<b>{{=it.title}}</b>
 			</h4>{{?}}

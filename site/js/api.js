@@ -309,3 +309,8 @@ api.logout = function()
 	api.write_cookies()
 	window.location.href = '/'
 }
+
+api.snippit = async name =>
+{
+	return await api.get(`/html/snippit/${name}.html`)
+}
