@@ -1,7 +1,10 @@
 Who is borrowing this book?<br>
-<div name="user_dropdown"></div>
+<div style="height: 2rem;">
+	<div name="user_dropdown" id="person"></div>
+	<input id="other_person" class="hidden" style="display:none;" placeholder="Name of Borrower">
+</div>
 
-Someone else is borrowing
-<input type="checkbox" onclick="$.toggle('other_person', this.checked)"/><br>
-
-<input id="other_person" class="hidden" style="display:none;" placeholder="Name of Borrower">
+<div>
+	Borrower is not a user
+	<input type="checkbox" id="use_other_person" onclick="$.toggle('person', !this.checked, false); $.toggle('other_person', this.checked, false)"/>
+</div>

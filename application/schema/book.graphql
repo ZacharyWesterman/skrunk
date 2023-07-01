@@ -47,6 +47,10 @@ type BookTagDoesNotExistError {
 	message: String!
 }
 
+type BookAlreadyShared {
+	message: String!
+}
+
 type BookShare {
 	with: String!
 	start: DateTime!
@@ -58,6 +62,7 @@ union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
 union BookResponse = Book | BookTagDoesNotExistError
 union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
 union BookTagUpdateResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
+union BookTagShareResponse = BookTag | BookTagDoesNotExistError | BookAlreadyShared
 
 #Resolvers below this line:
 
@@ -72,7 +77,7 @@ extend type Mutation {
 	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
 	borrowBook(id: String!): BookTagUpdateResponse!
-	shareBook(id: String!, username: String!): BookTagUpdateResponse!
-	shareBookNonUser(id: String!, name: String!): BookTagUpdateResponse!
-	returnBook(id: String!): BookTagUpdateResponse!
+	shareBook(id: String!, username: String!): BookTagShareResponse!
+	shareBookNonUser(id: String!, name: String!): BookTagShareResponse!
+	returnBook(id: String!): BookTagShareResponse!
 }

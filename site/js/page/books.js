@@ -266,6 +266,7 @@ export async function share_book(title, subtitle, author, id, owner)
 		if (res !== 'ok') return
 
 		//User wants to share this book.
+		// if ($('use_other_person'))
 	}
 	else
 	{
