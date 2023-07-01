@@ -261,7 +261,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 			icon: 'book-open',
 			title: 'Share Book',
 			text: `${bookinfo}<hr>` + await api.snippit('book_borrow'),
-			buttons: ['OK', 'Cancel'],
+			buttons: ['Share', 'Return', 'Cancel'],
 		},
 		() => { //on load
 			_('user_dropdown', {
@@ -270,7 +270,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 				default: 'Select User',
 			})
 		}, choice => { //validate
-			if (choice !== 'ok') return true
+			if (choice !== 'share') return true
 
 			const who = $('use_other_person').checked ? 'other_person' : 'person'
 			if ($.val(who) === '')
@@ -282,7 +282,46 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 
 			return true
 		}, choice => { //transform result to something different than buttons
-			if (choice !== 'ok') return null
+			if (choice === 'return')
+			{
+				//Pop a "return book" modal.
+				setTimeout(async () => {
+					let res = await _.modal({
+						icon: 'book-open',
+						title: 'Return Book',
+						text: `Has this book been returned?<hr>${bookinfo}`,
+						buttons: ['Yes', 'No'],
+					}).catch(() => 'no')
+
+					if (res !== 'yes') return
+
+					//Mark the book as no longer borrowed by any user.
+					res = await api(`mutation ($id: String!) {
+						returnBook(id: $id) {
+							__typename
+							...on BookTagDoesNotExistError { message }
+							...on BookCannotBeShared { message }
+						}
+					}`, {
+						id: id,
+					})
+
+					if (res.__typename !== 'Book')
+					{
+						_.modal({
+							type: 'error',
+							title: 'Return Failed',
+							text: res.message,
+							buttons: ['OK']
+						}).catch(() => {})
+						return
+					}
+
+					search_books()
+				}, 50)
+			}
+
+			if (choice !== 'share') return null
 
 			const non_user = $('use_other_person').checked
 			return {
@@ -343,7 +382,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 
 		if (res !== 'yes') return
 
-		//Mark the book as borrowed by this user.
+		//Mark the book as no longer borrowed by this user.
 		res = await api(`mutation ($id: String!) {
 			returnBook(id: $id) {
 				__typename

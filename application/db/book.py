@@ -190,10 +190,12 @@ def return_book(book_id: str, user_data: dict) -> dict:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
 	if len(book_data['shareHistory']) == 0:
-		raise exceptions.BookCannotBeShared('You did not borrow this book.')
+		raise exceptions.BookCannotBeShared('Nobody is borrowing this book.')
 
 	last_share = len(book_data['shareHistory']) - 1
-	if book_data['shareHistory'][-1]['user_id'] != user_data['_id']:
+	print(book_data['owner'], flush=True)
+	print(user_data['_id'], flush=True)
+	if book_data['shareHistory'][-1]['user_id'] != user_data['_id'] and book_data['owner'] != user_data['_id']:
 		raise exceptions.BookCannotBeShared('You did not borrow this book.')
 
 	db.update_one({'_id': book_id}, {'$set': {'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()}})
