@@ -18,7 +18,7 @@ button.big {
 	color: var(--secondary-text);
 	border: none;
 	border-radius: var(--border-radius);
-	padding: 2px 16px;
+	padding: 2px 8px;
 	font-size: 28px;
 	margin-top: 10px;
 	height: fit-content;
