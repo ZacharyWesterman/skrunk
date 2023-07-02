@@ -1,8 +1,8 @@
-var api = async function(query_string, variables = null)
+window.api = async function(query_string, variables = null)
 {
 	//shorthand for api.call
-	var res = await api.call(query_string, variables)
-	for (var elem in res.data)
+	const res = await api.call(query_string, variables)
+	for (const elem in res.data)
 	{
 		return res.data[elem]
 	}
@@ -53,7 +53,8 @@ api.refresh_token = async function()
 
 api.auto_refresh_token = function(enabled)
 {
-	var do_auto_refresh = () => {
+	function do_auto_refresh()
+	{
 		if (api.login_token === null) return
 		if (!api.__auto_refresh) return
 
@@ -84,7 +85,7 @@ api.verify_token = async function()
 
 api.get = function(url) {
 	return new Promise((resolve, reject) => {
-		var xhr = new XMLHttpRequest()
+		let xhr = new XMLHttpRequest()
 		xhr.open('GET', url)
 		xhr.onload = () => {
 			if (xhr.status >= 200 && xhr.status < 300)
@@ -161,7 +162,7 @@ api.upload.cancel = () => {
 
 api.post_json = function(url, json_data) {
 	return new Promise((resolve, reject) => {
-		var xhr = new XMLHttpRequest()
+		let xhr = new XMLHttpRequest()
 		xhr.open('POST', url, true)
 		xhr.setRequestHeader('Content-Type', 'application/json')
 		xhr.send(JSON.stringify(json_data))
@@ -184,24 +185,24 @@ api.post_json = function(url, json_data) {
 
 api.write_cookies = function()
 {
-	var cookie = {
+	let cookie = {
 		'Authorization': api.login_token || null,
 		'Username': api.username,
 	}
 
-	for (var i of _.css.vars())
+	for (const i of _.css.vars())
 	{
 		cookie[i] = _.css.get_var(i)
 	}
 
-	for (i in cookie)
+	for (const i in cookie)
 	{
 		if (cookie[i] === null || cookie[i] === '')
 			document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 		else
 		{
 			//All cookies expire after a week
-			var expires = new Date()
+			let expires = new Date()
 			expires.setDate(expires.getDate() + 7)
 
 			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax; Expires='+expires
@@ -211,12 +212,12 @@ api.write_cookies = function()
 
 api.wipe_cookies = function()
 {
-	var cookie = {
+	let cookie = {
 		'Authorization': null,
 		'Username': null,
 	}
-	for (var i of _.css.vars()) cookie[i] = null
-	for (i in cookie)
+	for (const i of _.css.vars()) cookie[i] = null
+	for (const i in cookie)
 	{
 		document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 	}
@@ -275,8 +276,8 @@ api.__request = function(request_json, callback)
 	//show spinner to indicate resources are loading
 	$.show($('loader'))
 
-	var url = '/api'
-	var xhr = new XMLHttpRequest()
+	const url = '/api'
+	let xhr = new XMLHttpRequest()
 	xhr.open('POST', url, true)
 
 	xhr.setRequestHeader('Content-Type', 'application/json')

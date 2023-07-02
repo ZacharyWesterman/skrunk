@@ -1,5 +1,5 @@
-var BlobStart = 0
-var BlobListLen = 15
+let BlobStart = 0
+let BlobListLen = 15
 
 let Editor
 
@@ -30,7 +30,7 @@ export async function init()
 
 	$.bind('blob-filter-title', reload_blobs)
 
-	var old_modal_retn = _.modal.upload.return
+	const old_modal_retn = _.modal.upload.return
 	_.modal.upload.return = () => {
 		old_modal_retn()
 		reload_blobs()
@@ -95,7 +95,7 @@ async function reload_page_list()
 
 	const page_ct = Math.ceil(count / BlobListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
-	var this_page = Math.floor(BlobStart / BlobListLen)
+	let this_page = Math.floor(BlobStart / BlobListLen)
 	if (page_ct === 0)
 	{
 		this_page = BlobStart = 0
@@ -128,14 +128,14 @@ export async function reload_blobs()
 	$('tag-error').innerText = ''
 	const blobs = res.blobs
 
-	var innerHTML = ''
-	for (var i in blobs)
+	let innerHTML = ''
+	for (const i in blobs)
 	{
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML = innerHTML
 
-	for (var i in blobs)
+	for (const i in blobs)
 	{
 		await _(`blob-card-${blobs[i].id}`, blobs[i])
 	}
@@ -171,13 +171,13 @@ export async function confirm_delete_blob(id, name)
 
 async function remove_blob(id)
 {
-	var card = $(`blob-card-${id}`)
+	let card = $(`blob-card-${id}`)
 	card.parentElement.removeChild(card)
 
 	const ct = $('blob-list').childElementCount
-	var innerHTML = ''
+	let innerHTML = ''
 
-	var blobs = await get_blobs(BlobStart + ct, BlobListLen - ct)
+	let blobs = await get_blobs(BlobStart + ct, BlobListLen - ct)
 	if (blobs.__typename !== 'BlobList')
 	{
 		$('tag-error').innerText = blobs.message
@@ -186,14 +186,14 @@ async function remove_blob(id)
 	$('tag-error').innerText = ''
 	blobs = blobs.blobs
 
-	for (var i in blobs)
+	for (const i in blobs)
 	{
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML += innerHTML
 	set_field_logic($('blob-list'))
 
-	for (var i in blobs)
+	for (const i in blobs)
 	{
 		await _(`blob-card-${blobs[i].id}`, blobs[i])
 	}
@@ -224,9 +224,9 @@ export async function set_blob_tags(id)
 
 	function tagClicks()
 	{
-		var taglist = $('modal-tag-list')
-		var kids = taglist.children
-		for (var i = 0; i < kids.length; ++i)
+		let taglist = $('modal-tag-list')
+		const kids = taglist.children
+		for (const i = 0; i < kids.length; ++i)
 		{
 			const child = kids[i]
 			const ix = i
@@ -244,8 +244,8 @@ export async function set_blob_tags(id)
 		buttons: ['OK', 'Cancel'],
 	}, () => {
 		//Once modal has loaded, inject list of tags.
-		var innerHTML = ''
-		for (var tag of blob_data.tags) { innerHTML += tagHTML(tag) }
+		let innerHTML = ''
+		for (const tag of blob_data.tags) { innerHTML += tagHTML(tag) }
 		$('modal-tag-list').innerHTML = innerHTML
 		tagClicks()
 

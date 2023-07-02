@@ -1,6 +1,6 @@
-var BookStart = 0
-var BookListLen = 15
-var InitialLoad = true
+let BookStart = 0
+let BookListLen = 15
+let InitialLoad = true
 
 //Start the NFC reader ONCE per session, and don't stop it.
 //Trying to stop/restart it multiple times in a session
@@ -233,7 +233,7 @@ async function reload_book_count()
 
 	const page_ct = Math.ceil(count / BookListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
-	var this_page = Math.floor(BookStart / BookListLen)
+	let this_page = Math.floor(BookStart / BookListLen)
 	if (page_ct === 0)
 	{
 		this_page = BookStart = 0

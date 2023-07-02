@@ -7,11 +7,11 @@ function lexer(src) {
 		[/^\*/, 'wild'],
 	]
 
-	var tokens = []
+	let tokens = []
 	while (src)
 	{
-		var matched = false
-		for (var type of types)
+		let matched = false
+		for (const type of types)
 		{
 			const m = type[0].exec(src)
 			if (m)

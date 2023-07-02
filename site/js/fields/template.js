@@ -1,8 +1,8 @@
-var __template_map = {}
+let __template_map = {}
 
 async function update_dom(name, data, instant = false)
 {
-	for (var field of find_fields(name))
+	for (let field of find_fields(name))
 	{
 		const template_name = field.attributes.template ? field.attributes.template.value : name
 		const url = 'templates/' + template_name + '.dot'
@@ -24,14 +24,14 @@ async function update_dom(name, data, instant = false)
 
 function find_fields(name)
 {
-	var fields = []
+	let fields = []
 	if (typeof name === 'object')
 	{
 		fields.push(name)
 	}
 	else
 	{
-		var elem = document.getElementById(name)
+		const elem = document.getElementById(name)
 		if (elem)
 			fields.push(elem)
 		else
@@ -68,7 +68,7 @@ async function await_promises(data)
 async function template(template_name, data, instant = false)
 {
 	//show spinner to indicate stuff is loading
-	for (var field of find_fields(template_name))
+	for (let field of find_fields(template_name))
 	{
 		if (!instant) $.hide(field)
 		field.innerHTML = '<i class="gg-spinner"></i>'
@@ -81,7 +81,7 @@ async function template(template_name, data, instant = false)
 
 //Constantly refresh dom element(s) as long as at least 1 div with the template_name exists.
 //Once it no longer exists, stop refreshing.
-var SyncList = {}
+let SyncList = {}
 template.sync = async function(template_name, data_method, frequency = 500, instant = false)
 {
 	const val = SyncList[template_name]

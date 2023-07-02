@@ -23,7 +23,7 @@ export async function revoke_sessions(username)
 export async function set_perms()
 {
 	UserData.perms = []
-	for (var perm of Perms)
+	for (const perm of Perms)
 	{
 		if ($('perm-'+perm.name).checked) UserData.perms.push(perm.name)
 	}

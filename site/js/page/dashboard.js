@@ -56,13 +56,13 @@ query.users.get(api.username).then(data => {
 	_.css.wipe()
 
 	//Load user colors
-	for (var i of data.theme.colors || [])
+	for (const i of data.theme.colors || [])
 	{
 		_.css.set_var(i.name, i.value)
 	}
 
 	//Load user sizes
-	for (var i of data.theme.sizes || [])
+	for (const i of data.theme.sizes || [])
 	{
 		_.css.set_var(i.name, i.value)
 	}

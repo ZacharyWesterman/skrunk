@@ -12,7 +12,7 @@ export async function hide_user_data()
 
 export async function confirm_delete_user(username)
 {
-	var choice = await _.modal({
+	const choice = await _.modal({
 		type: 'question',
 		title: 'Delete Credentials?',
 		text: 'Are you sure you want to delete the login for user "' + username + '"? This action cannot be undone!',
@@ -25,9 +25,9 @@ export async function confirm_delete_user(username)
 	hide_user_data()
 }
 
-var delete_user = async function(username)
+async function delete_user(username)
 {
-	var res = await mutate.users.delete(username)
+	const res = await mutate.users.delete(username)
 	if (res.__typename !== 'UserData') {
 		_.modal({
 			type: 'error',
@@ -43,7 +43,7 @@ var delete_user = async function(username)
 
 export async function create_user()
 {
-	var res = await mutate.users.create(
+	const res = await mutate.users.create(
 		$.val('username'),
 		await api.hash($.val('password'))
 	)

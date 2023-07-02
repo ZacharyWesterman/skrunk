@@ -21,7 +21,7 @@ window.inject = async function(field, url)
 {
 	while (window.unload.length > 0)
 	{
-		var unload_method = window.unload.pop()
+		const unload_method = window.unload.pop()
 		if (unload_method?.constructor?.name === 'AsyncFunction')
 			await unload_method()
 		else
@@ -33,8 +33,9 @@ window.inject = async function(field, url)
 	field.innerHTML = '<i class="gg-spinner"></i>'
 	setTimeout(() => $.show(field), 250)
 
+	let res
 	try {
-		var res = await api.get(url)
+		res = await api.get(url)
 	} catch (error) {
 		await api.handle_query_failure(error)
 	}
@@ -284,7 +285,7 @@ window.set_field_logic = async function(DOM, url, module)
 
 function report_error(error, url, replaceUrl)
 {
-	var stack = error.stack.trim().split('\n')
+	let stack = error.stack.trim().split('\n')
 	stack = stack[stack.length-1].split(':')
 	stack[2] = (replaceUrl ? '@' : stack[2]) + url
 	stack[3] = error.lineNumber

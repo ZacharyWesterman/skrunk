@@ -21,7 +21,7 @@ function register(field, action, keyCode)
 	{
 		field.listenedKeys = {}
 		field.eventListener = event => {
-			for (var i in field.listenedKeys)
+			for (const i in field.listenedKeys)
 			{
 				if (event.keyCode == i)
 				{

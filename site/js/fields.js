@@ -5,7 +5,7 @@ import Modal from './fields/modal.js'
 import Events from './fields/events.js'
 import Control from './fields/control.js'
 
-var _ = Template
+let _ = Template
 _.modal = Modal
 
 _.css = {
@@ -16,7 +16,7 @@ _.css = {
 }
 
 //Field control and validation
-var $ = field => (typeof field === 'object') ? field : document.getElementById(field)
+let $ = field => (typeof field === 'object') ? field : document.getElementById(field)
 $.val = id => $(id)?.value
 $.set = (id, value) => {
 	$(id).value = value
@@ -33,7 +33,7 @@ $.show = (id, fade = true) => {
 	}, 50)
 }
 $.hide = (id, fade = false) => {
-	var classes = $(id).classList
+	let classes = $(id).classList
 	classes.toggle('fade', fade)
 	classes.remove('visible')
 	classes.add('hidden')

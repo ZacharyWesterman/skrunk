@@ -43,7 +43,7 @@ export async function create_user()
 
 	refresh_users()
 
-	for (var i of fields)
+	for (let i of fields)
 	{
 		i.value = ''
 	}
@@ -53,7 +53,7 @@ export async function create_user()
 
 export async function delete_user(username, self)
 {
-	var choice = await _.modal({
+	const choice = await _.modal({
 		title: 'Are you sure?',
 		text: 'Deleting user "' + username + '" cannot be undone!',
 		buttons: [

@@ -1,6 +1,6 @@
 export default {
 	next: field => {
-		var sibling = field.nextElementSibling
+		let sibling = field.nextElementSibling
 		while (sibling) {
 			if (['INPUT', 'BUTTON'].includes(sibling.tagName))
 			{
@@ -13,7 +13,7 @@ export default {
 	},
 
 	prev: field => {
-		var sibling = field.previousElementSibling
+		let sibling = field.previousElementSibling
 		while (sibling) {
 			if (['INPUT', 'BUTTON'].includes(sibling.tagName))
 			{

@@ -9,7 +9,7 @@
 <script *load="refresh_users">
 	export async function refresh_users()
 	{
-		var users = (await query.weather.users()).filter(user => user.username === api.username)
+		const users = (await query.weather.users()).filter(user => user.username === api.username)
 		_('weather_users', users)
 	}
 </script>

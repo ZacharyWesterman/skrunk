@@ -2,8 +2,8 @@ function prettify(blob)
 {
 	blob.created = date.output(blob.created) //convert dates to local time
 
-	var sizes = ['GB', 'MB', 'KB']
-	var sizetype = 'B'
+	let sizes = ['GB', 'MB', 'KB']
+	let sizetype = 'B'
 	while (blob.size >= 1000)
 	{
 		sizetype = sizes.pop()
@@ -24,7 +24,7 @@ export default {
 	*/
 	get: async (username, start, count, tag_query, date_from, date_to, name) =>
 	{
-		var res = await api(`
+		let res = await api(`
 		query ($username: String, $start: Int!, $count: Int!, $tags: String, $beginDate: DateTime, $endDate: DateTime, $name: String){
 			getBlobs(username: $username, start: $start, count: $count, tags: $tags, beginDate: $beginDate, endDate: $endDate, name: $name) {
 				__typename
