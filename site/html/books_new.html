@@ -1,26 +1,38 @@
-<div class="card">
-	<div class="card-inner">
-		<h4>Add a New Book</h4>
+<div style="max-width: 900px;">
+	<h1>
+		<i class="fa-solid fa-bookmark fa-xl"></i>
+		Catalog Books
+	</h1>
+	<div class="card alt">
+		<div class="card-inner">
+			<p>
+				Input the title and/or author, then select a result.
+				<span class="tooltip" *click="help">
+					<i class="fa-solid fa-circle-question"></i>
+					<span class="tooltiptext t-center">What does this mean?</span>
+				</span>
+			</p>
+			<!-- <p>
+				To catalog a new book, search for the title and/or author, find the correct match, and click the checkmark.
+			</p> -->
 
-		<table>
-			<tr>
-				<td>Tag ID</td>
-				<td><input id="new-tagid" format="hex"></td>
-			</tr>
-			<tr>
-				<td>Title</td>
-				<td><input id="new-title"></td>
-				<td><div class="button" onclick="$('new-title').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
-			</tr>
-			<tr>
-				<td>Author</td>
-				<td><input id="new-author"></td>
-				<td><div class="button" onclick="$('new-author').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
-			</tr>
-		</table>
+			<input id="new-tagid" format="hex" hidden>
+			<table>
+				<tr>
+					<td>Title</td>
+					<td><input id="new-title"></td>
+					<td><div class="button" onclick="$('new-title').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+				</tr>
+				<tr>
+					<td>Author</td>
+					<td><input id="new-author"></td>
+					<td><div class="button" onclick="$('new-author').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+				</tr>
+			</table>
+		</div>
 	</div>
-</div>
 
-<div name="booklist"></div>
+	<div name="booklist"></div>
+</div>
 
 <script src="/js/page/books_new.js" async></script>

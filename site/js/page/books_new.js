@@ -156,3 +156,13 @@ export async function select_book(book_id, book_title)
 	$('new-author').value = ''
 	await search_books()
 }
+
+export function help()
+{
+	_.modal({
+		type: 'info',
+		title: 'Where does this data come from?',
+		text: api.snippit('new_book_help'),
+		buttons: ['OK'],
+	}).catch(() => {})
+}
