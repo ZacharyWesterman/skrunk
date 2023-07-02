@@ -310,7 +310,14 @@ api.logout = function()
 	window.location.href = '/'
 }
 
+api.__snippits = {}
 api.snippit = async name =>
 {
-	return await api.get(`/html/snippit/${name}.html`)
+	//Cache snippits so they're not re-fetched every single time.
+	if (api.__snippits[name] === undefined)
+	{
+		api.__snippits[name] = await api.get(`/html/snippit/${name}.html`)
+	}
+
+	return api.__snippits[name]
 }
