@@ -5,7 +5,7 @@
 
 	{{?it.count > 9}}
 		<button class="icon alt" *click="navigate_to_page(0)"><i class="fa-solid fa-caret-left fa-lg"></i></button>
-		{{const start = Math.max(it.current - (environment.is_mobile ? 3 : 8), 0);const end = Math.min(start + (environment.is_mobile ? 7 : 17), it.count);}}
+		{{const start = Math.max(it.current - (environment.mobile ? 3 : 8), 0);const end = Math.min(start + (environment.mobile ? 7 : 17), it.count);}}
 		{{~it.pages.slice(start, end) : page}}
 			<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
 		{{~}}
