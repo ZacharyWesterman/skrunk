@@ -4,7 +4,7 @@
 			<button class="icon" *click="copy_to_clipboard('{{=it.id}}{{=it.ext}}')"><i class="fa-solid fa-copy fa-lg"></i></button>
 			<button class="icon"><a href="/download/{{=it.id}}{{=it.ext}}" download="{{=it.name.replace('&quot;', '&amp;quot;')}}{{=it.ext}}"><i class="fa-solid fa-file-arrow-down fa-lg"></i></a></button>
 			<span class="disabled">{{=it.size}}</span>
-			<button class="icon right" *click="confirm_delete_blob('{{=it.id}}', '{{=escape(it.name)}}{{=it.ext}}')"><i class="fa-solid fa-trash fa-lg {{?it.creator !== api.username}}disabled{{?}}"></i></button>
+			<button class="icon right" *click="confirm_delete_blob('{{=it.id}}', '{{=safe_html(it.name)}}{{=it.ext}}')"><i class="fa-solid fa-trash fa-lg {{?it.creator !== api.username}}disabled{{?}}"></i></button>
 			<div class="truncate">{{=it.name}}{{=it.ext}}</div>
 		</div>
 
@@ -18,7 +18,7 @@
 			<audio src="blob/{{=it.id}}{{=it.ext}}" controls></audio>
 		{{??it.mimetype.split('/')[0] === 'model'}}
 			{{= load_model_viewer() }}
-			<model-viewer alt="3D model {{=escape(it.name)}}{{=it.ext}}" src="preview/{{=it.preview}}" poster="3d_model.svg" auto-rotate camera-controls shadow-intensity="1"></model-viewer>
+			<model-viewer alt="3D model {{=safe_html(it.name)}}{{=it.ext}}" src="preview/{{=it.preview}}" poster="3d_model.svg" auto-rotate camera-controls shadow-intensity="1"></model-viewer>
 		{{??it.mimetype.split('/')[0] === 'text'}}
 			<iframe src="blob/{{=it.id}}{{=it.ext}}"></iframe>
 		{{??}}
