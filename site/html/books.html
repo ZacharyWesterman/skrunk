@@ -1,33 +1,40 @@
-<div class="card alt" id="book-header">
-	<div class="card-inner">
-		<h4><b>Search for existing books</b></h4>
-		Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div>
-		<table>
-			<tr>
-				<td><input id="title" placeholder="Title" *bind="search_books"></td>
-				<td><div class="button clickable" *click="$('title').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
-			</tr>
-			<tr>
-				<td><input id="author" placeholder="Author" *bind="search_books"></td>
-				<td><div class="button clickable" *click="$('author').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
-			</tr>
-			<tr>
-				<td><input id="genre" placeholder="Genre" *bind="search_books"></td>
-				<td><div class="button clickable" *click="$('genre').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
-			</tr>
-		</table>
-		<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>
-		<div id="error-message" class="error hidden"></div>
+<div style="max-width: 900px;">
+	<h1>
+		<i class="fa-solid fa-book fa-xl"></i>
+		Library
+	</h1>
 
-		<div name="page_list"></div>
+	<div class="card alt" id="book-header">
+		<div class="card-inner">
+			<h3>Search for existing books:</h3>
+			Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div> Borrowed <input type="checkbox" id="shared" *click="search_books"/>
+			<table>
+				<tr>
+					<td><input id="title" placeholder="Title" *bind="search_books"></td>
+					<td><button class="reset clickable" *click="$('title').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
+				</tr>
+				<tr>
+					<td><input id="author" placeholder="Author" *bind="search_books"></td>
+					<td><button class="reset clickable" *click="$('author').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
+				</tr>
+				<tr>
+					<td><input id="genre" placeholder="Genre" *bind="search_books"></td>
+					<td><button class="reset clickable" *click="$('genre').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
+				</tr>
+			</table>
+			<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>
+			<div id="error-message" class="error hidden"></div>
+
+			<div name="page_list"></div>
+		</div>
 	</div>
-</div>
 
-<div id="book" template="userbooklist"></div>
+	<div id="book" template="userbooklist"></div>
 
-<div class="card alt" id="book-footer">
-	<div class="card-inner">
-		<div name="page_list"></div>
+	<div class="card alt" id="book-footer">
+		<div class="card-inner">
+			<div name="page_list"></div>
+		</div>
 	</div>
 </div>
 

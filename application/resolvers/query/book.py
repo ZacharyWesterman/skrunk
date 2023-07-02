@@ -17,20 +17,22 @@ def resolve_get_book_by_tag(_, info, rfid: str) -> dict:
 	except ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-def resolve_get_books(_, info, owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], start: int, count: int) -> list:
+def resolve_get_books(_, info, owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], shared: Optional[bool], start: int, count: int) -> list:
 	return get_books(
 		title = title,
 		author = author,
 		genre = genre,
 		owner = owner,
 		start = start,
-		count = count
+		count = count,
+		shared = shared
 	)
 
-def resolve_count_books(_, info, owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str]) -> int:
+def resolve_count_books(_, info, owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], shared: Optional[bool]) -> int:
 	return count_books(
 		title = title,
 		author = author,
 		genre = genre,
-		owner = owner
+		owner = owner,
+		shared = shared
 	)

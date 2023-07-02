@@ -67,8 +67,8 @@ union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShare
 #Resolvers below this line:
 
 extend type Query {
-	getBooks(owner: String, title: String, author: String, genre: String, start: Int!, count: Int!): [Book!]!
-	countBooks(owner: String, title: String, author: String, genre: String): Int!
+	getBooks(owner: String, title: String, author: String, genre: String, shared: Boolean, start: Int!, count: Int!): [Book!]!
+	countBooks(owner: String, title: String, author: String, genre: String, shared: Boolean): Int!
 	searchBooks(title: String!, author: String!): BookQueryResponse!
 	getBookByTag(rfid: String!): BookResponse!
 }

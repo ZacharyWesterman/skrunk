@@ -2,11 +2,10 @@
 	<div class="card-inner">
 		<div name="page_list"></div><br>
 
-		<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" onclick="$('blob-filter-title').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+		<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$('blob-filter-title').value = ''; reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
 		<!-- Search Filters -->
 		Uploaded by
 		<div name="user_dropdown"></div>
-		<!-- <input id="blob-filter-creator" format="id" placeholder="anyone" *change="reload_blobs"><br> -->
 		Uploaded within the date range:<br>
 		<input id="blob-filter-from" type="date" *change="reload_blobs"><br>
 		<input id="blob-filter-to" type="date" *change="reload_blobs"><br>

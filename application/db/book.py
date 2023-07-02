@@ -56,7 +56,7 @@ def unlink_book_tag(rfid: str) -> dict:
 	db.delete_one({'rfid': rfid})
 	return book_data
 
-def get_books(owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], start: int, count: int) -> list:
+def get_books(owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], shared: Optional[bool], start: int, count: int) -> list:
 	global db
 	books = []
 	query = []
@@ -76,6 +76,9 @@ def get_books(owner: Optional[str], title: Optional[str], author: Optional[str],
 	if genre is not None:
 		query += [{'categories': {'$regex': genre, '$options': 'i'}}]
 
+	if shared is not None:
+		query += [{'shared': shared}]
+
 	selection = db.find({'$and': query} if len(query) else {}, sort = [('title', 1), ('authors', 1)])
 	for i in selection.limit(count).skip(start):
 		try:
@@ -94,7 +97,7 @@ def get_books(owner: Optional[str], title: Optional[str], author: Optional[str],
 
 	return books
 
-def count_books(owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str]) -> list:
+def count_books(owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], shared: Optional[bool]) -> list:
 	global db
 	query = []
 	if owner is not None:
@@ -112,6 +115,9 @@ def count_books(owner: Optional[str], title: Optional[str], author: Optional[str
 
 	if genre is not None:
 		query += [{'categories': {'$regex': genre, '$options': 'i'}}]
+
+	if shared is not None:
+		query += [{'shared': shared}]
 
 	return db.count_documents({'$and': query} if len(query) else {})
 

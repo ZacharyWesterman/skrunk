@@ -52,3 +52,9 @@ button.icon.alt {
 	color: var(--tertiary-text);
 	background-color: var(--tertiary);
 }
+
+button.reset {
+	background: none;
+	border: none;
+	margin-bottom: 0.3rem;
+}

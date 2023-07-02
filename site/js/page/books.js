@@ -177,10 +177,11 @@ export async function search_books()
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
+	const shared = $('shared').checked || null //Only filter by shared if field is checked.
 
 	const res = await api(`
-	query ($owner: String, $title: String, $author: String, $genre: String, $start: Int!, $count: Int!) {
-		getBooks(owner: $owner, title: $title, author: $author, genre: $genre, start: $start, count: $count) {
+	query ($owner: String, $title: String, $author: String, $genre: String, $shared: Boolean, $start: Int!, $count: Int!) {
+		getBooks(owner: $owner, title: $title, author: $author, genre: $genre, shared: $shared, start: $start, count: $count) {
 			title
 			subtitle
 			authors
@@ -200,6 +201,7 @@ export async function search_books()
 		title: title,
 		author: author,
 		genre: genre,
+		shared: shared,
 		start: BookStart,
 		count: BookListLen,
 	})
@@ -216,15 +218,17 @@ async function reload_book_count()
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
+	const shared = $('shared').checked || null
 
 	const count = await api(`
-	query ($owner: String, $title: String, $author: String, $genre: String) {
-		countBooks(owner: $owner, title: $title, author: $author, genre: $genre)
+	query ($owner: String, $title: String, $author: String, $genre: String, $shared: Boolean) {
+		countBooks(owner: $owner, title: $title, author: $author, genre: $genre, shared: $shared)
 	}`, {
 		owner: owner,
 		title: title,
 		author: author,
 		genre: genre,
+		shared: shared,
 	})
 
 	const page_ct = Math.ceil(count / BookListLen)

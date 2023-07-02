@@ -22,6 +22,14 @@
 	z-index: 8999; /* above everything except modals */
 }
 
+h4 {
+	margin-bottom: 0.2rem;
+}
+
+h3 {
+	margin-bottom: 0.3rem;
+}
+
 .editor { outline: none; overflow-y: auto; padding-left: 48px; counter-reset: line; }
 .editor div { display: block; position: relative; white-space: pre-wrap; }
 .editor div::before { content: counter(line); counter-increment: line; position: absolute; right: calc(100% + 16px); opacity: 0.5; }

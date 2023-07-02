@@ -89,6 +89,7 @@ export async function confirm_delete_bug(id, title)
 export async function confirm_resolve_bug(id)
 {
 	const choice = await _.modal({
+		type: 'question',
 		title: 'Mark bug report as resolved?',
 		text: 'This will hide the report from the list of outstanding bugs, but will not delete it.',
 		buttons: ['Yes', 'No'],
