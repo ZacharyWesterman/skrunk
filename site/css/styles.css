@@ -107,6 +107,9 @@ textarea {
 	.bottom > button > i {
 		margin-left: -0.55rem;
 	}
+	.actions > button > i {
+		margin-left: -0.55rem;
+	}
 }
 
 .top {
