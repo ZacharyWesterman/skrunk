@@ -17,7 +17,6 @@ if (window.NFC === undefined)
 }
 
 NFC.scan()
-
 export async function init()
 {
 	InitialLoad = true
@@ -317,7 +316,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 						return
 					}
 
-					search_books()
+					manual_input()
 				}, 50)
 			}
 
@@ -439,5 +438,5 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 		}
 	}
 
-	search_books()
+	manual_input()
 }
