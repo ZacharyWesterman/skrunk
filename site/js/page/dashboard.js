@@ -15,25 +15,27 @@ window.fullscreen = function()
 window.set_book_dashboard_buttons = function()
 {
 	dashnav('/html/books.html')
-	_('navbar', [
+	let buttons = [
 		['arrow-up', "reset_dashboard_buttons()"],
 		['book', "dashnav('/html/books.html')"],
 		['bookmark', "dashnav('/html/books_new.html')"],
 		['bug', "dashnav('/html/bugs.html')", 'bottom'],
-		['expand', 'fullscreen()', 'bottom'],
-	])
+	]
+	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
+	_('navbar', buttons)
 }
 
 window.set_user_dashboard_buttons = function()
 {
 	dashnav('/html/user.html')
-	_('navbar', [
+	let buttons = [
 		['arrow-up', "reset_dashboard_buttons()"],
 		['user-pen', "dashnav('/html/user.html')"],
 		['palette', "dashnav('/html/edit_theme.html')"],
 		['bug', "dashnav('/html/bugs.html')", 'bottom'],
-		['expand', 'fullscreen()', 'bottom'],
-	])
+	]
+	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
+	_('navbar', buttons)
 }
 
 //Load user theme (regardless of cookies)
@@ -77,8 +79,9 @@ query.users.get(api.username).then(data => {
 			['server', "dashnav('/html/file_list.html')"],
 			['file-arrow-up', "_.modal.upload()"],
 			['bug', "dashnav('/html/bugs.html')", 'bottom'],
-			['expand', 'fullscreen()', 'bottom'],
 		]
+
+		if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
 
 		if (data.perms.includes('admin'))
 		{
