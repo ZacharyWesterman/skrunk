@@ -167,6 +167,9 @@ function valid_fields()
 
 export async function search_books()
 {
+	$.show('book-header')
+	$.show('book-footer')
+
 	if (!valid_fields()) return
 
 	const p = reload_book_count()
