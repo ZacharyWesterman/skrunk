@@ -1,35 +1,40 @@
-<div class="card alt">
-	<div class="card-inner">
-		<div name="page_list"></div><br>
+<div style="max-width: 900px;">
+	<h1>
+		<i class="fa-solid fa-hard-drive fa-xl"></i>
+		Files
+	</h1>
 
-		<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$('blob-filter-title').value = ''; reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
-		<!-- Search Filters -->
-		Uploaded by
-		<div name="user_dropdown"></div>
-		Uploaded within the date range:<br>
-		<input id="blob-filter-from" type="date" *change="reload_blobs"><br>
-		<input id="blob-filter-to" type="date" *change="reload_blobs"><br>
+	<div class="card alt">
+		<div class="card-inner">
+			<h4>Filter files by:</h4>
+			<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$('blob-filter-title').value = ''; reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+			<!-- Search Filters -->
+			Uploaded by
+			<div name="user_dropdown"></div>
+			Uploaded within the date range:<br>
+			<input id="blob-filter-from" type="date" *change="reload_blobs"><br>
+			<input id="blob-filter-to" type="date" *change="reload_blobs"><br>
 
-		<!-- Editor for tag query -->
-		Tag Query
-		<span class="tooltip" *click="show_tags_how_to">
-			<i class="fa-solid fa-circle-question"></i>
-			<span class="tooltiptext t-center">What is this?</span>
-		</span>
+			<!-- Editor for tag query -->
+			Tag Query
+			<span class="tooltip" *click="show_tags_how_to">
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-center">What is this?</span>
+			</span>
 
-		<div class="code-input" id="tag-query"></div>
-
-		<div class="error" id="tag-error"></div>
+			<div class="code-input" id="tag-query"></div>
+			<div class="error" id="tag-error"></div>
+			<div name="page_list"></div>
+		</div>
 	</div>
-</div>
 
-<div id="blob-list"></div>
+	<div id="blob-list"></div>
 
-<div class="card alt">
-	<div class="card-inner">
-		<div name="page_list"></div>
+	<div class="card alt">
+		<div class="card-inner">
+			<div name="page_list"></div>
+		</div>
 	</div>
-</div>
 
 <script src="/js/util/tag_syntax.js"></script>
 <script src="/js/page/file_list.js"></script>

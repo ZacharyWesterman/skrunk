@@ -1,11 +1,13 @@
+<h1>
+	{{?!it.self_view}}
+		<button class="icon" *click="hide_user_data"><i class="fa-solid fa-xmark fa-xl"></i></button>
+	{{?}}
+	<i class="fa-solid fa-user-pen fa-xl"></i>&nbsp;
+	Edit User Info
+</h1>
+
 <div class="card">
 	<div class="card-inner">
-		<h1>
-			{{?!it.self_view}}
-				<button class="icon" *click="hide_user_data"><i class="fa-solid fa-xmark fa-xl"></i></button>
-			{{?}}
-			Edit User Info
-		</h1>
 		<h2>{{=it.user.username}}</h2>
 		<div>
 			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password"><br>

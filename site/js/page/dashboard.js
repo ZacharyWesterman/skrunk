@@ -76,7 +76,7 @@ query.users.get(api.username).then(data => {
 			['right-from-bracket', "api.logout()"],
 			['user-pen', "set_user_dashboard_buttons()"],
 			['book', "set_book_dashboard_buttons()"],
-			['server', "dashnav('/html/file_list.html')"],
+			['hard-drive', "dashnav('/html/file_list.html')"],
 			['file-arrow-up', "_.modal.upload()"],
 			['bug', "dashnav('/html/bugs.html')", 'bottom'],
 		]

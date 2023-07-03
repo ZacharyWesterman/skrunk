@@ -1,5 +1,5 @@
 {{~it:user}}
-	<div class="card highlight {{?user.exclude}}disabled{{?}}">
+	<div class="card clickable highlight {{?user.exclude}}disabled{{?}}">
 		<div class="card-inner">
 			<div onclick="$.toggle_expand('card-{{=user.username}}')">
 				<h4><b>{{=user.username}}</b>{{?user.exclude}}<i> (disabled)</i>{{?}}</h4>
