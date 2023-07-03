@@ -13,9 +13,12 @@ if (window.NFC === undefined)
 }
 
 NFC.scan()
+let AWAITING_SCAN = false
 
 export function init()
 {
+	AWAITING_SCAN = false
+
 	window.unload.push(() => {
 		NFC.onreading = undefined
 	})
@@ -43,6 +46,7 @@ export function init()
 			else
 			{
 				$('new-tagid').value = event.serialNumber
+				if (AWAITING_SCAN) _.modal.return(event.serialNumber)
 				_.modal.checkmark()
 			}
 		})
@@ -102,17 +106,31 @@ export async function search_books()
 
 export async function select_book(book_id, book_title)
 {
-	const tagid = $.val('new-tagid')
+	let tagid = $.val('new-tagid')
 	if (tagid === '')
 	{
-		_.modal({
-			type: 'error',
-			title: 'Tag ID Missing',
-			text: 'Please scan an RFID tag so it can be associated with this book.',
-			buttons: ['OK'],
-		}).catch(() => {})
-		return
+		AWAITING_SCAN = true
+		const res = await _.modal({
+			icon: 'bookmark',
+			title: 'Ready to scan',
+			text: api.snippit('rfid_waiting'),
+			buttons: ['Cancel'],
+		}, () => {
+			const field = $('rfid_manual_input')
+			$.bind(field, () => {
+				_.modal.return(field.value)
+			})
+			field.focus()
+		}).catch(() => 'cancel')
+
+		AWAITING_SCAN = false
+
+		if (res === 'cancel') return
+
+		tagid = res
 	}
+
+	$('new-tagid').value = '' //Always wipe the RFID field
 
 	const choice = await _.modal({
 		title: book_title,

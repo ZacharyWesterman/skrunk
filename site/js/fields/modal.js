@@ -14,15 +14,18 @@ window.modal = async function(config, onload = () => {}, validate = choice => tr
 			transform: transform,
 		}
 
-		const field = $('modal-button-first')
+		modal.is_open = true
 	})
 }
+
+modal.is_open = false
 
 modal.cancel = () =>
 {
 	$('modal-window-expand').classList.remove('expanded')
 	setTimeout(() => {$('modal-window').close()}, 200)
 	modal.awaiting.reject()
+	modal.is_open = false
 }
 
 modal.return = value =>
@@ -30,12 +33,11 @@ modal.return = value =>
 	if (typeof value === 'string') value = value.toLowerCase()
 
 	const retn = () => {
-		$.on.detach.enter(window)
-		$.on.detach.escape(window)
 		$('modal-window-expand').classList.remove('expanded')
 		setTimeout(() => {
 			$('modal-window').close()
 			modal.awaiting.resolve(modal.awaiting.transform(value))
+			modal.is_open = false
 		}, 200)
 	}
 
