@@ -65,6 +65,31 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 
 	return id
 
+def get_tags_from_mime(mime: str) -> list:
+	return [ i for i in mime.split('/') ]
+
+def set_mime_from_ext(mime: str, ext: str) -> str:
+	documents = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.rtf', '.odf']
+	source = ['.c', '.cpp', '.h', '.hpp', '.py', '.html', '.xml', '.xhtml', '.htm', '.sh', '.bat', '.java', '.js', '.css', '.md', '.glsl']
+
+	mime = mime.replace('application/', '')
+
+	if ext in models.extensions():
+		mime = f'model/{ext[1::]}'
+	elif ext in documents:
+		mime = f'document/{ext[1::]}'
+	elif ext in source:
+		mime = f'text/code/{ext[1::]}'
+	elif ext == '.msi':
+		mime = 'application/installer/msi'
+	elif ext == '.exe':
+		mime = 'application/exe'
+	elif mime == 'octet-stream':
+		mime = 'binary'
+
+	return mime
+
+
 def create_blob(name: str, tags: list = []) -> str:
 	global db
 
@@ -73,25 +98,24 @@ def create_blob(name: str, tags: list = []) -> str:
 	if mime is None:
 		mime = 'application/octet-stream'
 
+	real_mime = mime
+
 	pos = name.rfind('.')
 	ext = name[pos::] if pos > -1 else ''
 	name = name[0:pos] if pos > -1 else name
 
-	if ext.lower() in models.extensions():
-		mime = f'model/{ext[1::]}'
-
-	mime = mime.lower()
+	mime = set_mime_from_ext(mime, ext.lower()).lower()
 
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
 
-	auto_tags = [ i for i in mime.split('/') if i != 'application' ]
+	auto_tags = get_tags_from_mime(mime)
 
 	return db.insert_one({
 		'created': datetime.utcnow(),
 		'name': name,
 		'ext': ext,
-		'mimetype': mime,
+		'mimetype': real_mime,
 		'size': 0,
 		'tags': list(set(tags + auto_tags)),
 		'creator': user_data['_id'],

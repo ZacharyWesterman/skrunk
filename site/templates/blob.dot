@@ -20,7 +20,7 @@
 			{{= load_model_viewer() }}
 			<model-viewer alt="3D model {{=safe_html(it.name)}}{{=it.ext}}" src="preview/{{=it.preview}}" poster="3d_model.svg" auto-rotate camera-controls shadow-intensity="1"></model-viewer>
 		{{??it.mimetype.split('/')[0] === 'text'}}
-			<iframe src="blob/{{=it.id}}{{=it.ext}}"></iframe>
+			<textarea id="ta-{{=it.id}}" *load="api.get('blob/{{=it.id}}{{=it.ext}}').then(res => $('ta-{{=it.id}}').value = res)" disabled></textarea>
 		{{??}}
 			<i class="disabled">{{=it.mimetype}}</i>
 		{{?}}
