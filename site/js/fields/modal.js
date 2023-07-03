@@ -1,4 +1,4 @@
-window.modal = async function(config, onload = () => {}, validate = choice => true, transform = choice => choice, button_shortcuts = true)
+window.modal = async function(config, onload = () => {}, validate = choice => true, transform = choice => choice)
 {
 	await _('modal', config)
 	onload()
@@ -15,7 +15,7 @@ window.modal = async function(config, onload = () => {}, validate = choice => tr
 		}
 
 		const field = $('modal-button-first')
-		if (field && button_shortcuts)
+		if (field && config.button_shortcuts)
 		{
 			$.on.enter(window, field.onclick)
 			$.on.escape(window, modal.cancel)

@@ -217,37 +217,38 @@ export async function set_blob_tags(id)
 {
 	const blob_data = await get_blob(id)
 
-	function tagHTML(tag)
-	{
-		return `<div class="tag clickable">${tag}\&nbsp;<b>\&times;</b></div>`
-	}
-
-	function tagClicks()
-	{
-		let taglist = $('modal-tag-list')
-		const kids = taglist.children
-		for (const i = 0; i < kids.length; ++i)
-		{
-			const child = kids[i]
-			const ix = i
-			child.onclick = () => {
-				blob_data.tags.splice(ix, 1)
-				taglist.removeChild(child)
-				tagClicks()
-			}
-		}
-	}
-
 	const res = await _.modal({
 		title: 'Update Tags',
-		text: await api.get('/html/snippit/blob_tag_modal.html'),
+		text: await api.snippit('blob_tag_modal'),
 		buttons: ['OK', 'Cancel'],
+		button_shortcuts: false,
 	}, () => {
 		//Once modal has loaded, inject list of tags.
 		let innerHTML = ''
 		for (const tag of blob_data.tags) { innerHTML += tagHTML(tag) }
-		$('modal-tag-list').innerHTML = innerHTML
-		tagClicks()
+		let tagList = $('modal-tag-list')
+		tagList.innerHTML = innerHTML
+
+		function tagHTML(tag)
+		{
+			return `<div class="tag clickable">${tag}\&nbsp;<b>\&times;</b></div>`
+		}
+
+		function tagClicks(tagList)
+		{
+			const kids = tagList.children
+			for (let i = 0; i < kids.length; ++i)
+			{
+				const child = kids[i]
+				const ix = i
+				child.onclick = () => {
+					blob_data.tags.splice(ix, 1)
+					tagList.removeChild(child)
+					tagClicks(tagList)
+				}
+			}
+		}
+		tagClicks(tagList)
 
 		//when submitting a tag
 		const tagSubmit = field => {
@@ -257,16 +258,16 @@ export async function set_blob_tags(id)
 			if (!blob_data.tags.includes(tag))
 			{
 				blob_data.tags.push(tag)
-				$('modal-tag-list').innerHTML += tagHTML(tag)
+				tagList.innerHTML += tagHTML(tag)
 			}
 
 			field.value = ''
-			tagClicks()
+			tagClicks(tagList)
 		}
 
 		$('modal-tag-input').nextElementSibling.onclick = () => tagSubmit($('modal-tag-input'))
 		$.on.enter($('modal-tag-input'), tagSubmit)
-	}, false).catch(() => 'cancel')
+	}).catch(() => 'cancel')
 
 	if (res !== 'ok') return
 
