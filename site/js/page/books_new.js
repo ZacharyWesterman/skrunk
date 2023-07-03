@@ -120,7 +120,22 @@ export async function select_book(book_id, book_title)
 			$.bind(field, () => {
 				_.modal.return(field.value)
 			})
-			field.focus()
+
+			function keep_focus()
+			{
+				if (AWAITING_SCAN)
+				{
+					if (!document.hasFocus() || field !== document.activeElement)
+					{
+						field.readOnly = true
+						field.focus()
+						setTimeout(() => {field.readOnly = false}, 50)
+					}
+					setTimeout(keep_focus, 200)
+				}
+			}
+
+			keep_focus()
 		}).catch(() => 'cancel')
 
 		AWAITING_SCAN = false

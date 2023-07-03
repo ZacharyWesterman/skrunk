@@ -58,6 +58,16 @@ input[type="checkbox"] {
 	background-color: var(--error-text);
 }
 
+.invisible {
+	background: none;
+	width: 0;
+	height: 0;
+	border: none;
+	color: transparent;
+	position: absolute;
+	left: -100%;
+}
+
 select {
 	height: 1.5rem;
 	border: none;
