@@ -15,18 +15,11 @@ window.modal = async function(config, onload = () => {}, validate = choice => tr
 		}
 
 		const field = $('modal-button-first')
-		if (field && config.button_shortcuts)
-		{
-			$.on.enter(window, field.onclick)
-			$.on.escape(window, modal.cancel)
-		}
 	})
 }
 
 modal.cancel = () =>
 {
-	$.on.detach.enter(window)
-	$.on.detach.escape(window)
 	$('modal-window-expand').classList.remove('expanded')
 	setTimeout(() => {$('modal-window').close()}, 200)
 	modal.awaiting.reject()

@@ -221,7 +221,6 @@ export async function set_blob_tags(id)
 		title: 'Update Tags',
 		text: await api.snippit('blob_tag_modal'),
 		buttons: ['OK', 'Cancel'],
-		button_shortcuts: false,
 	}, () => {
 		//Once modal has loaded, inject list of tags.
 		let innerHTML = ''
