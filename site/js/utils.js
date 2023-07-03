@@ -26,3 +26,35 @@ window.invert_color = hex => {
 		? '#000000'
 		: '#FFFFFF'
 }
+
+window.lookups = {
+	max_displayed_pages: () => {
+		const rem_px = parseFloat(getComputedStyle(document.documentElement).fontSize)
+		const max_width = Math.min(window.innerWidth - (4*rem_px), 700) - ( 6 * rem_px)
+		const max_pages = Math.floor(max_width / (2 * rem_px))
+
+		return max_pages
+	},
+
+	prev_pages: (index, total) => {
+		let ct = Math.floor(lookups.max_displayed_pages() / 2)
+
+		if (index + ct > total)
+		{
+			ct += ct - (total - index)
+		}
+
+		return Math.max(index - ct, 0)
+	},
+
+	next_pages: (index, total) => {
+		let ct = Math.ceil(lookups.max_displayed_pages() / 2)
+
+		if (index - ct < 0)
+		{
+			ct -= (index - ct)
+		}
+
+		return Math.min(index + ct, total)
+	},
+}
