@@ -30,8 +30,8 @@ window.invert_color = hex => {
 window.lookups = {
 	max_displayed_pages: () => {
 		const rem_px = parseFloat(getComputedStyle(document.documentElement).fontSize)
-		const max_width = Math.min(window.innerWidth - (4*rem_px), 700) - ( 6 * rem_px)
-		const max_pages = Math.floor(max_width / (2 * rem_px))
+		const max_width = Math.min(window.innerWidth/rem_px - 4, 700/rem_px) - 5
+		const max_pages = Math.floor(max_width / 2)
 
 		return max_pages
 	},
@@ -39,9 +39,9 @@ window.lookups = {
 	prev_pages: (index, total) => {
 		let ct = Math.floor(lookups.max_displayed_pages() / 2)
 
-		if (index + ct > total)
+		if (index + ct >= total)
 		{
-			ct += ct - (total - index)
+			ct += ct - (total - index) + 1
 		}
 
 		return Math.max(index - ct, 0)
@@ -52,7 +52,7 @@ window.lookups = {
 
 		if (index - ct < 0)
 		{
-			ct -= (index - ct)
+			ct -= (index - ct) + 1
 		}
 
 		return Math.min(index + ct, total)
