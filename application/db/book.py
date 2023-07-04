@@ -23,6 +23,34 @@ def get_book_tag(rfid: str) -> dict:
 
 	return book_data
 
+def next_out_of_date_book_rfid(before: datetime) -> str:
+	book_data = db.find_one({'lastSync': {'$lt': before}})
+	if book_data is None:
+		return None
+
+	return book_data['rfid']
+
+def refresh_book_data(rfid: str) -> None:
+	book_data = db.find_one({'rfid': rfid})
+
+	if book_data is None:
+		raise exceptions.BookTagDoesNotExistError(rfid)
+
+	google_book_data = google_books.get(id = book_data['bookId'])
+
+	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
+	updated = {'lastSync': datetime.utcnow()}
+	for i in fields:
+		if i in book_data.get('noSyncFields', []):
+			continue
+
+		new_val = google_book_data.get(i)
+		if new_val != book_data[i]:
+			updated[i] = new_val
+
+	db.update_one({'rfid': rfid}, {'$set': updated})
+
+
 def link_book_tag(rfid: str, book_id: str) -> dict:
 	if db.find_one({'rfid': rfid}):
 		raise exceptions.BookTagExistsError(rfid)
@@ -40,6 +68,9 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'owner': user_data['_id'],
 		'shared': False,
 		'shareHistory': [],
+		'lastSync': datetime.utcnow(),
+		'created': datetime.utcnow(),
+		'noSyncFields': [],
 	}
 	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
 	for i in fields:
