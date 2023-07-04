@@ -104,7 +104,7 @@ export async function confirm_unlink_book(title, rfid)
 	let choice = await _.modal({
 		type: 'question',
 		title: 'Delete this book?',
-		text: `"${title}" will be removed from the library.<br>This will also remove any borrowing history for this book.`,
+		text: `"${title}" will be removed from the library.<br>This will also remove any borrow history for this book.`,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
