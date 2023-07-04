@@ -46,12 +46,15 @@ export async function load_user_data(username, self_view = false)
 {
 	$.hide('mainpage')
 
+	let p
 	if (!Perms)
 	{
-		Perms = await api.get_json('/config/permissions.json')
+		p = api.get_json('/config/permissions.json')
 	}
 
 	UserData = await query.users.get(username)
+	if (p) Perms = await p
+
 	await _('userdata', {
 		perms: Perms,
 		user: UserData,
