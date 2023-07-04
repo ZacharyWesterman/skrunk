@@ -101,10 +101,19 @@ export function manual_input()
 
 export async function confirm_unlink_book(title, rfid)
 {
-	const choice = await _.modal({
+	let choice = await _.modal({
 		type: 'question',
-		title: 'Unlink this book?',
-		text: `"${title}" will be removed from the library.`,
+		title: 'Delete this book?',
+		text: `"${title}" will be removed from the library.<br>This will also remove any borrowing history for this book.`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	choice = await _.modal({
+		type: 'question',
+		title: 'Really delete this book?',
+		text: 'Are you sure?<br>This action is permanent and cannot be undone!',
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
