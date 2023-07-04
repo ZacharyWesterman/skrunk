@@ -9,7 +9,11 @@ if __name__ == '__main__':
 
 	#Sync books that were added more than 2 weeks ago
 	before = datetime.utcnow() - timedelta(weeks=2)
-	rfid = next_out_of_date_book_rfid(before)
 
-	if rfid is not None:
+	for i in range(10):
+		rfid = next_out_of_date_book_rfid(before)
+
+		if rfid is None:
+			break
+
 		refresh_book_data(rfid)
