@@ -2,7 +2,7 @@
 <div class="card" style="max-width: 700px;">
 	<div class="card-inner">
 		<div class="actions right">
-			{{? book.owner === api.username}}<button class="icon clickable" *click="confirm_unlink_book('{{=safe_html(book.title)}}', '{{=book.rfid}}')"><i class="fa-solid fa-trash fa-lg {{?book.owner !== api.username}}disabled{{?}}"></i></button><br>{{?}}
+			{{? book.owner === api.username}}<button class="icon clickable" *click="confirm_unlink_book('{{=safe_html(book.title)}}', '{{=book.rfid}}')"><i class="fa-solid fa-trash fa-lg disabled"></i></button><br>{{?}}
 			<button class="icon clickable" *click="share_book('{{= book.shared ? book.shareHistory[book.shareHistory.length - 1].name : ''}}', '{{=safe_html(book.title)}}', '{{=safe_html(book.subtitle)}}', '{{=safe_html(book.authors.join(', '))}}', '{{=book.id}}', '{{=book.owner}}')"><i class="fa-solid fa-handshake fa-lg"></i></button><br>
 			{{?book.description || (environment.mobile && book.categories.length)}}<button class="icon clickable" onclick="$.toggle_expand('card-{{=book.id}}')"><i class="fa-solid fa-angles-down fa-lg"></i></button>{{?}}
 		</div>
