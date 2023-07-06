@@ -61,7 +61,7 @@ export async function search_books()
 	const title = $.val('new-title')
 	const author = $.val('new-author')
 
-	if (`${author}${title}` === '')
+	if (!author && !title)
 	{
 		await _('booklist', [])
 		return
