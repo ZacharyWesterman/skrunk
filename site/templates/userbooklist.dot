@@ -13,7 +13,7 @@
 		</span>
 		<table class="clickable" onclick="$.toggle_expand('card-{{=book.id}}')">
 			<tr>
-				{{?book.thumbnail}}<td><img src="{{=book.thumbnail}}" alt=""></td>{{?}}
+				{{?book.thumbnail}}<td><img src="{{=book.thumbnail}}" alt="<BOOK COVER>" loading="lazy"></td>{{?}}
 				{{?book.categories.length && !environment.mobile}}
 					<td><blockquote style="valign: top;">
 						<b><u>Categories</u></b>

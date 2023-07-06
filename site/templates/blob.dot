@@ -13,7 +13,7 @@
 				<source type="{{=it.mimetype}}" src="blob/{{=it.id}}{{=it.ext}}">
 			</video>
 		{{??it.mimetype.split('/')[0] === 'image'}}
-			<image width="100%" height="auto" src="blob/{{=it.id}}{{=it.ext}}"></image>
+			<img width="100%" height="auto" src="blob/{{=it.id}}{{=it.ext}}" alt="<IMAGE PREVIEW>" loading="lazy"/>
 		{{??it.mimetype.split('/')[0] === 'audio'}}
 			<audio src="blob/{{=it.id}}{{=it.ext}}" controls></audio>
 		{{??it.mimetype.split('/')[0] === 'model'}}
