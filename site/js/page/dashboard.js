@@ -104,7 +104,25 @@ window.load_model_viewer = () =>
 	if (!HaveModelViewer)
 	{
 		HaveModelViewer = true
-		import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js') //Only import this when it's needed
+		let abort = new AbortController()
+		let im = import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js') //Only import this when it's needed
+		let slow_connection = false
+		const fn = () => {
+			slow_connection = true
+			show_raw_error_message('Loading model viewer. This will only happen once...')
+			slow_load = setTimeout(fn, 6000)
+		}
+
+		let slow_load = setTimeout(fn, 1000)
+
+		im.then(() => {
+			if (slow_connection)
+			{
+				clear_error_message()
+				show_raw_error_message('Model viewer loaded!')
+			}
+			clearTimeout(slow_load)
+		})
 	}
 
 	return ''

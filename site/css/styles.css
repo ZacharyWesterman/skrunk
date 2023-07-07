@@ -16,10 +16,13 @@
 
 #runtime-errors {
 	color: var(--error-text);
-	background-color: rgba(0,0,0, 0.4);
 	position: absolute;
 	top: 0;
 	z-index: 8999; /* above everything except modals */
+}
+
+.runtime-error {
+	background-color: rgba(0,0,0, 0.4);
 }
 
 h4 {

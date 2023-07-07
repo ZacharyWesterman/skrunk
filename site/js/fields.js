@@ -25,20 +25,24 @@ $.set = (id, value) => {
 $.toggle_expand = (id, expand) => $(id).classList.toggle('expanded', expand)
 
 $.show = (id, fade = true) => {
-	$(id).style.display = ''
+	let field = $(id)
+	if (!field) return
+	field.style.display = ''
 	setTimeout(() => {
-		$(id).classList.add('fade')
-		$(id).classList.remove('hidden')
-		$(id).classList.add('visible')
+		field.classList.add('fade')
+		field.classList.remove('hidden')
+		field.classList.add('visible')
 	}, 50)
 }
 $.hide = (id, fade = false) => {
-	let classes = $(id).classList
+	let field = $(id)
+	if (!field) return
+	let classes = field.classList
 	classes.toggle('fade', fade)
 	classes.remove('visible')
 	classes.add('hidden')
 	if (fade)
-		setTimeout(() => $(id).style.display = 'none', 300)
+		setTimeout(() => field.style.display = 'none', 300)
 	else
 		$(id).style.display = 'none'
 }

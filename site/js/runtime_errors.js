@@ -6,7 +6,9 @@ window.show_error_message = function(error)
 	const thisError = 'runtime-error-' + errorID
 	errorID += 1
 
-	errorDOM.innerHTML += `<div id="${thisError}">Error in ${error.fileName} line ${error.lineNumber} col ${error.columnNumber}<br>&rarr;&nbsp;&nbsp;${error.message}</div>`
+	errorDOM.innerHTML += `<div class="runtime-error fade hidden" id="${thisError}">Error in ${error.fileName} line ${error.lineNumber} col ${error.columnNumber}<br>&rarr;&nbsp;&nbsp;${error.message}</div>`
+	setTimeout(() => clear_error_message(thisError), 5000)
+	$.show(thisError, true)
 }
 
 window.show_api_errors = function(error)
@@ -15,7 +17,7 @@ window.show_api_errors = function(error)
 	const thisError = 'runtime-error-' + errorID
 	errorID += 1
 
-	let html = `<div id="${thisError}">API Error: ${error.status} ${error.statusText}`
+	let html = `<div class="runtime-error fade hidden" id="${thisError}">API Error: ${error.status} ${error.statusText}`
 	for (const err of error.errors)
 	{
 		const msg = err?.extensions?.exception?.stacktrace || [err.message]
@@ -26,6 +28,8 @@ window.show_api_errors = function(error)
 	}
 	html += '</div>'
 	errorDOM.innerHTML += html
+	setTimeout(() => clear_error_message(thisError), 5000)
+	$.show(thisError, true)
 }
 
 window.show_raw_error_message = function(text)
@@ -33,14 +37,24 @@ window.show_raw_error_message = function(text)
 	let errorDOM = document.getElementById('runtime-errors')
 	const thisError = 'runtime-error-' + errorID
 	errorID += 1
-	errorDOM.innerHTML += `<div id="${thisError}">${text}</div>`
+	errorDOM.innerHTML += `<div class="runtime-error fade hidden" id="${thisError}">${text}</div>`
+	setTimeout(() => clear_error_message(thisError), 5000)
+	$.show(thisError, true)
 }
 
-window.clear_error_message = function()
+window.clear_error_message = function(thisError)
 {
-	let errorDOM = document.getElementById('runtime-errors')
-	errorDOM.innerHTML = ''
-	errorID = 0
+	if (thisError === undefined)
+	{
+		let errorDOM = document.getElementById('runtime-errors')
+		errorDOM.innerHTML = ''
+		errorID = 0
+	}
+	else
+	{
+		let errorDOM = document.getElementById(thisError)
+		$.hide(thisError, true)
+	}
 }
 
 addEventListener('error', window.show_error_message);
