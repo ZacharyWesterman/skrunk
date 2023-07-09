@@ -60,5 +60,5 @@ export async function create_user()
 	$('username').value = ''
 	$('password').value = ''
 
-	_('userlist', query.users.list()) //refresh user list
+	_('userlist', query.users.list(() => {}, false)) //refresh user list, don't use cached result!
 }

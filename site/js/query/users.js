@@ -1,7 +1,16 @@
 export default {
-	list: async (filter) =>
+	__user_list: null,
+
+	list: async (filter, use_cache = true) =>
 	{
-		const res = await api('{listUsers}')
+		let res
+		if (query.users.__user_list === null || !use_cache)
+		{
+			res = await api('{listUsers}')
+			query.users.__user_list = res
+		}
+		else
+			res = query.users.__user_list
 		return filter ? res.filter(filter) : res
 	},
 
