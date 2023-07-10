@@ -51,9 +51,6 @@ export function init()
 			}
 		})
 	}
-
-	$.bind('new-title', search_books)
-	$.bind('new-author', search_books)
 }
 
 export async function search_books()

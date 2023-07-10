@@ -7,7 +7,7 @@
 	<div class="card alt">
 		<div class="card-inner">
 			<h4>Filter files by:</h4>
-			<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$('blob-filter-title').value = ''; reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+			<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$.wipe('blob-filter-title'); reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
 			<!-- Search Filters -->
 			Uploaded by
 			<div name="user_dropdown"></div>

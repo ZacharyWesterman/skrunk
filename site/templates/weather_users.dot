@@ -29,7 +29,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input id="has-max-{{=user.username}}" type="checkbox" *click="$('max-{{=user.username}}').value = ''; $('max-{{=user.username}}').disabled = !$('has-max-{{=user.username}}').checked; update_user('{{=user.username}}', $('has-max-{{=user.username}}'))" {{?!user.max.disable}}checked{{?}}>
+								<input id="has-max-{{=user.username}}" type="checkbox" *click="$.wipe('max-{{=user.username}}'); $('max-{{=user.username}}').disabled = !$('has-max-{{=user.username}}').checked; update_user('{{=user.username}}', $('has-max-{{=user.username}}'))" {{?!user.max.disable}}checked{{?}}>
 							</td>
 							<td>Max:</td>
 							<td><input placeholder="default" id="max-{{=user.username}}" type="number" step="any" value="{{=(user.max.disable || user.max.default) ? '' : user.max.value}}" *bind="update_user('{{=user.username}}', $('max-{{=user.username}}'))" format="number" {{?user.max.disable}}disabled{{?}}></td>
@@ -37,7 +37,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input id="has-min-{{=user.username}}" type="checkbox" *click="$('min-{{=user.username}}').value = ''; $('min-{{=user.username}}').disabled = !$('has-min-{{=user.username}}').checked; update_user('{{=user.username}}', $('has-min-{{=user.username}}'))" {{?!user.min.disable}}checked{{?}}>
+								<input id="has-min-{{=user.username}}" type="checkbox" *click="$.wipe('min-{{=user.username}}'); $('min-{{=user.username}}').disabled = !$('has-min-{{=user.username}}').checked; update_user('{{=user.username}}', $('has-min-{{=user.username}}'))" {{?!user.min.disable}}checked{{?}}>
 							</td>
 							<td>Min:</td>
 							<td><input placeholder="default" id="min-{{=user.username}}" type="number" step="any" value="{{=(user.min.disable || user.min.default) ? '' : user.min.value}}" *bind="update_user('{{=user.username}}', $('min-{{=user.username}}'))" format="number" {{?user.min.disable}}disabled{{?}}></td>

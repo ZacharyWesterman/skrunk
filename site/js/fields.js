@@ -69,46 +69,58 @@ $.prev = Control.prev
 
 $.bind = function(field, method, frequency = 500, run_on_start = false)
 {
+	$(field).__prev = $(field).value
 	if (run_on_start) method()
 
 	let last_run = Date.now()
 	let run_scheduled = false
 
-	function change_func()
+	function change_func(force)
 	{
+		let f = $(field)
+
 		last_run = Date.now()
-		if (run_scheduled) return
+		if (f.__prev === f.value) return
+		if (run_scheduled && !force) return
 
 		run_scheduled = true
 		function sync_method()
 		{
+
 			//only sync when field hasn't changed for at least {frequency} ms.
-			if (Date.now() - last_run < frequency)
+			const synced_recently = Date.now() - last_run < frequency
+			if ((f.__prev === f.value) || (synced_recently && !force))
 			{
 				setTimeout(sync_method, frequency)
 				return
 			}
 
+			f.__prev = f.value
+
 			if (typeof method.then === 'function')
 			{
-				method().then(() => {
-					run_scheduled = false
-					last_run = Date.now()
-				})
+				last_run = Date.now()
+				run_scheduled = false
+				method()
 			}
 			else
 			{
-				method()
-				run_scheduled = false
 				last_run = Date.now()
+				run_scheduled = false
+				method()
 			}
 		}
 
-		setTimeout(sync_method, frequency)
+		setTimeout(sync_method, force ? 10 : frequency)
 	}
 
-	$(field).addEventListener('keyup', change_func)
-	$(field).addEventListener('change', change_func)
+	$(field).addEventListener('keyup', () => change_func(false))
+	$(field).addEventListener('change', () => change_func(true))
+}
+
+$.wipe = (field) =>
+{
+	$(field).__prev = $(field).value = ''
 }
 
 //Update globals $ (fields) and _ (screen)

@@ -12,21 +12,16 @@
 					<span class="tooltiptext t-center">What does this mean?</span>
 				</span>
 			</p>
-			<!-- <p>
-				To catalog a new book, search for the title and/or author, find the correct match, and click the checkmark.
-			</p> -->
 
 			<input id="new-tagid" format="hex" hidden>
 			<table>
 				<tr>
-					<td>Title</td>
-					<td><input id="new-title"></td>
-					<td><div class="button" onclick="$('new-title').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+					<td><input id="new-title" *bind="search_books" placeholder="Search for Title, Author, etc."></td>
+					<td><div class="button" *click="$.wipe('new-title'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
 				</tr>
 				<tr>
-					<td>Author</td>
-					<td><input id="new-author"></td>
-					<td><div class="button" onclick="$('new-author').value = ''"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+					<td><input id="new-author" *bind="search_books" placeholder="Author (Strict)"></td>
+					<td><div class="button" *click="$.wipe('new-author'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
 				</tr>
 			</table>
 		</div>

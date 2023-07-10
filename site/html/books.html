@@ -11,15 +11,15 @@
 			<table>
 				<tr>
 					<td><input id="title" placeholder="Title" *bind="search_books"></td>
-					<td><button class="reset clickable" *click="$('title').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
+					<td><button class="reset clickable" *click="$.wipe('title'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
 				</tr>
 				<tr>
 					<td><input id="author" placeholder="Author" *bind="search_books"></td>
-					<td><button class="reset clickable" *click="$('author').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
+					<td><button class="reset clickable" *click="$.wipe('author'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
 				</tr>
 				<tr>
 					<td><input id="genre" placeholder="Genre" *bind="search_books"></td>
-					<td><button class="reset clickable" *click="$('genre').value = ''; search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
+					<td><button class="reset clickable" *click="$.wipe('genre'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
 				</tr>
 			</table>
 			<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>

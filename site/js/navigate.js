@@ -173,7 +173,7 @@ window.set_field_logic = async function(DOM, url, module)
 				{
 					//If we're running the function with params
 					const funcname = key.substring(0, split_point)
-					if (typeof DOM.module[funcname] !== 'function' && typeof window[funcname] !== 'function')
+					if (!['$','_'].includes(funcname[0]) && typeof DOM.module[funcname] !== 'function' && typeof window[funcname] !== 'function')
 						throw new Error(`Unknown action for *${attr} attribute: "${funcname}" export not found.`)
 
 					const scope = scoped_eval(DOM.module, key)
@@ -187,7 +187,7 @@ window.set_field_logic = async function(DOM, url, module)
 				else
 				{
 					//If we're not running the function with params,
-					if (typeof DOM.module[key] !== 'function')
+					if (!['$','_'].includes(key[0]) && typeof DOM.module[key] !== 'function')
 						throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
 
 					//can just put in the name and this will pass in the field as 1st param
