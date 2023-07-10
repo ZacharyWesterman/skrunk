@@ -8,6 +8,7 @@ from typing import Optional
 from bson.objectid import ObjectId
 from datetime import datetime
 from zipfile import ZipFile, Path
+import pathlib
 import mimetypes
 import hashlib
 import os
@@ -15,9 +16,13 @@ import os
 db = None
 blob_path = None
 
-def path(id: str, ext: str = '') -> str:
+def path(id: str, ext: str = '', *, create: bool = False) -> str:
 	global blob_path
-	return f'{blob_path}/{id}{ext}'
+	full_path = f'{blob_path}/{id[0:2]}/{id[2:4]}'
+	if create:
+		pathlib.Path(full_path).mkdir(parents=True, exist_ok=True)
+
+	return f'{full_path}/{id}{ext}'
 
 def preview(id: str, ext: str = '') -> str:
 	return path(f'{id}{ext}')
@@ -33,7 +38,7 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 	global blob_path
 	filename = file.filename
 	id, ext = create_blob(filename)
-	this_blob_path = path(id, ext)
+	this_blob_path = path(id, ext, create = True)
 
 	print(f'Beginning stream of file "{filename}"...')
 	file.save(this_blob_path)
@@ -50,7 +55,7 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 
 				#directly create new blobs from each item in the zip file
 				id2, ext2 = create_blob(name)
-				inner_blob_path = path(id2, ext2)
+				inner_blob_path = path(id2, ext2, create = True)
 				with fp.open(name, 'r') as input:
 					with open(inner_blob_path, 'wb') as output:
 						output.write(input.read())
@@ -117,7 +122,7 @@ def create_blob(name: str, tags: list = []) -> str:
 
 	auto_tags = get_tags_from_mime(mime)
 
-	return db.insert_one({
+	return str(db.insert_one({
 		'created': datetime.utcnow(),
 		'name': name,
 		'ext': ext,
@@ -127,7 +132,7 @@ def create_blob(name: str, tags: list = []) -> str:
 		'creator': user_data['_id'],
 		'complete': False,
 		'preview': None,
-	}).inserted_id, ext
+	}).inserted_id), ext
 
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size, 'md5sum': md5sum}})
