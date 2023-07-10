@@ -11,7 +11,6 @@ from zipfile import ZipFile, Path
 import pathlib
 import mimetypes
 import hashlib
-import os
 
 db = None
 blob_path = None
@@ -30,7 +29,7 @@ def preview(id: str, ext: str = '') -> str:
 def file_info(filename: str) -> str:
 	with open(filename, 'rb') as fp:
 		md5sum = hashlib.md5(fp.read()).hexdigest()
-	size = os.stat(filename).st_size
+	size = pathlib.Path(filename).stat().st_size
 
 	return size, md5sum
 
@@ -211,15 +210,24 @@ def delete_blob(blob_id: str) -> bool:
 	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:
 		try:
-			os.remove(path(blob_id, blob_data['ext']))
+			item = pathlib.Path(path(blob_id, blob_data['ext']))
+			item.unlink()
 		except FileNotFoundError:
 			pass
 
 		if blob_data.get('preview') is not None:
 			try:
-				os.remove(preview(blob_data['preview']))
+				prevw = pathlib.Path(preview(blob_data['preview']))
+				prevw.unlink()
 			except FileNotFoundError:
 				pass
+
+		#Delete volume dirs if empty
+		try:
+			item.parent.rmdir()
+			item.parent.parent.rmdir()
+		except OSError:
+			pass
 
 		db.delete_one({'_id': ObjectId(blob_id)})
 		return blob_data
