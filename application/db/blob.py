@@ -7,7 +7,7 @@ from application.integrations import models
 from typing import Optional
 from bson.objectid import ObjectId
 from datetime import datetime
-from zipfile import ZipFile
+from zipfile import ZipFile, Path
 import mimetypes
 import hashlib
 import os
@@ -44,6 +44,10 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 		extract_count = 0
 		with ZipFile(this_blob_path, 'r') as fp:
 			for name in fp.namelist():
+				print('Extracting ' + name, flush=True)
+				item = Path(fp, name)
+				if item.is_dir(): continue
+
 				#directly create new blobs from each item in the zip file
 				id2, ext2 = create_blob(name)
 				inner_blob_path = path(id2, ext2)
