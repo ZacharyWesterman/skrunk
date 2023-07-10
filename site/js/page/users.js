@@ -1,28 +1,33 @@
+import {load_user_data} from '/js/page/user.js'
+
 export function init()
 {
-	_('userlist', query.users.list()) //initial load of user list
+	refresh_users()
 	$.on.enter($('password'), create_user)
-}
-
-export async function hide_user_data()
-{
-	$.hide('userdata')
-	$.show('mainpage')
 }
 
 export async function confirm_delete_user(username)
 {
-	const choice = await _.modal({
+	let choice = await _.modal({
 		type: 'question',
-		title: 'Delete Credentials?',
-		text: 'Are you sure you want to delete the login for user "' + username + '"? This action cannot be undone!',
-		buttons: ['Yes', 'No']
+		title: 'Delete User?',
+		text: 'Do you want to delete the login for user "' + username + '"?<br>This will break any info that references this user!',
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	choice = await _.modal({
+		type: 'question',
+		title: 'Really Delete User?',
+		text: 'Are you sure you want to delete user "'+username+'"?<br>This action is permanent and cannot be undone!',
+		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
 	if (choice !== 'yes') return
 
 	delete_user(username)
-	hide_user_data()
+	$.hide('userdata', true)
 }
 
 async function delete_user(username)
@@ -38,7 +43,8 @@ async function delete_user(username)
 		return
 	}
 
-	_('userlist', query.users.list()) //refresh user list
+	_.modal.checkmark()
+	refresh_users()
 }
 
 export async function create_user()
@@ -57,8 +63,30 @@ export async function create_user()
 		return
 	}
 
+	_.modal.checkmark()
+	load_user_data($.val('username'))
+
 	$('username').value = ''
 	$('password').value = ''
+	$.toggle_expand('card-create')
 
-	_('userlist', query.users.list(() => {}, false)) //refresh user list, don't use cached result!
+	refresh_users()
+}
+
+function refresh_users()
+{
+	_('user_dropdown', {
+		id: 'userlist',
+		users: query.users.list(null, false), //Don't cache user list
+		default: 'Select User',
+		class: 'big',
+	}).then(() => {
+		$('userlist').onchange = () => {
+			const user = $.val('userlist')
+			if (user === '')
+				$.hide('userdata', true)
+			else
+				load_user_data(user)
+		}
+	})
 }

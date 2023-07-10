@@ -13,7 +13,7 @@ class AuthenticationError(ClientError):
 	def __init__(self):
 		super().__init__('Authentication failed.')
 
-class InvalidUsername(ClientError):
+class BadUserNameError(ClientError):
 	def __init__(self):
 		super().__init__('Invalid username.')
 

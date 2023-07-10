@@ -44,8 +44,6 @@ export async function set_perms()
 
 export async function load_user_data(username, self_view = false)
 {
-	$.hide('mainpage')
-
 	let p
 	if (!Perms)
 	{

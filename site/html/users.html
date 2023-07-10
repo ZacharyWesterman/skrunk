@@ -1,5 +1,10 @@
-<div id="mainpage">
-	<div class="card">
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-users fa-xl"></i>
+		User Admin
+	</h1>
+
+	<div class="card alt clickable">
 		<div class="card-inner">
 			<div onclick="$.toggle_expand('card-create')">
 				<h4>Create New User</h4>
@@ -9,18 +14,22 @@
 				<div>
 					<input id="username" placeholder="Username" format="id" *blur="*next"><br>
 					<input id="password" type="password" autocomplete="new-password" placeholder="Password">
-					<button class="icon" *click="create_user"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
+					<button class="icon alt" *click="create_user"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<h1>Existing Users</h1>
-	<p>Click on a username to edit that user's information.</p>
-	<div id="userlist" name="userlist"></div>
-</div>
+	<div class="card">
+		<div class="card-inner">
+			<h1>Existing Users</h1>
+			<p>Select a user to edit that user's information.</p>
+			<div name="user_dropdown"></div>
+		</div>
+	</div>
 
-<div id="userdata" name="userdata" class="hidden"></div>
+	<div id="userdata" name="userdata" class="hidden"></div>
+</div>
 
 <script src="/js/page/user.js"></script>
 <script src="/js/page/users.js"></script>

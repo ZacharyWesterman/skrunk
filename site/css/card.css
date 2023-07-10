@@ -36,3 +36,7 @@
 .expand-container.expanded {
 	grid-template-rows: 1fr;
 }
+
+div .page {
+	max-width: 900px;
+}

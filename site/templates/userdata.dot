@@ -1,10 +1,9 @@
+{{? it.self_view }}
 <h1>
-	{{?!it.self_view}}
-		<button class="icon" *click="hide_user_data"><i class="fa-solid fa-xmark fa-xl"></i></button>
-	{{?}}
 	<i class="fa-solid fa-user-pen fa-xl"></i>&nbsp;
 	Edit User Info
 </h1>
+{{?}}
 
 <div class="card">
 	<div class="card-inner">
@@ -38,7 +37,7 @@
 		<br>
 		<i>Last Login:</i> {{?it.user.last_login}}{{=date.output(it.user.last_login)}}<br><span class="disabled">{{=date.elapsed(it.user.last_login)}}</span>{{??}}Never{{?}}
 
-		{{?!it.self_view}}
+		{{? !it.self_view && it.user.username !== api.username }}
 			<button class="big wide border" *click="confirm_delete_user('{{=it.user.username}}')">Delete</button>
 		{{?}}
 	</div>

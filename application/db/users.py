@@ -54,7 +54,7 @@ def create_user(username: str, password: str) -> dict:
 	global db
 
 	if len(username) == 0:
-		raise exceptions.InvalidUsername
+		raise exceptions.BadUserNameError
 
 	userdata = db.find_one({'username': username})
 
@@ -89,7 +89,7 @@ def update_user_password(username: str, password: str) -> dict:
 	global db
 
 	if len(username) == 0:
-		raise exceptions.InvalidUsername
+		raise exceptions.BadUserNameError
 
 	userdata = db.find_one({'username': username})
 
