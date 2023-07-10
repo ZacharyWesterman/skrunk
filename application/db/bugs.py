@@ -4,7 +4,6 @@ from . import users
 
 from bson.objectid import ObjectId
 from datetime import datetime
-from typing import Optional
 
 db = None
 
@@ -38,7 +37,7 @@ def get_bug_report(id: str) -> dict:
 
 	return report
 
-def get_bug_reports(username: Optional[str], start: int, count: int, resolved: bool) -> list:
+def get_bug_reports(username: str|None, start: int, count: int, resolved: bool) -> list:
 	global db
 	reports = []
 	if username is None:
@@ -61,7 +60,7 @@ def get_bug_reports(username: Optional[str], start: int, count: int, resolved: b
 
 	return reports
 
-def count_bug_reports(username: Optional[str], resolved: bool) -> int:
+def count_bug_reports(username: str|None, resolved: bool) -> int:
 	global db
 	if username is None:
 		return db.count_documents({'resolved': resolved})

@@ -1,10 +1,9 @@
-from typing import Optional
 from application.db.blob import *
 from application.tags import exceptions
 from ariadne import convert_kwargs_to_snake_case
 
 @convert_kwargs_to_snake_case
-def resolve_get_blobs(_, info, username: Optional[str], start: int, count: int, tags: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime], name: Optional[str]) -> dict:
+def resolve_get_blobs(_, info, username: str|None, start: int, count: int, tags: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> dict:
 	try:
 		blobs = get_blobs(
 			username = username,
@@ -20,7 +19,7 @@ def resolve_get_blobs(_, info, username: Optional[str], start: int, count: int, 
 		return { '__typename': 'BadTagQuery', 'message': str(e) }
 
 @convert_kwargs_to_snake_case
-def resolve_count_blobs(_, info, username: Optional[str], tags: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime], name: Optional[str]) -> dict:
+def resolve_count_blobs(_, info, username: str|None, tags: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> dict:
 	try:
 		count = count_blobs(
 			username = username,

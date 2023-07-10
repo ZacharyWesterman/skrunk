@@ -2,7 +2,6 @@ from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 from . import users
 from application.integrations import google_books
-from typing import Optional
 from datetime import datetime
 from bson.objectid import ObjectId
 
@@ -87,7 +86,7 @@ def unlink_book_tag(rfid: str) -> dict:
 	db.delete_one({'rfid': rfid})
 	return book_data
 
-def get_books(owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], shared: Optional[bool], start: int, count: int) -> list:
+def get_books(owner: str|None, title: str|None, author: str|None, genre: str|None, shared: bool|None, start: int, count: int) -> list:
 	global db
 	books = []
 	query = []
@@ -128,7 +127,7 @@ def get_books(owner: Optional[str], title: Optional[str], author: Optional[str],
 
 	return books
 
-def count_books(owner: Optional[str], title: Optional[str], author: Optional[str], genre: Optional[str], shared: Optional[bool]) -> list:
+def count_books(owner: str|None, title: str|None, author: str|None, genre: str|None, shared: bool|None) -> list:
 	global db
 	query = []
 	if owner is not None:

@@ -4,7 +4,6 @@ import application.tags as tags
 from . import users
 from application.integrations import models
 
-from typing import Optional
 from bson.objectid import ObjectId
 from datetime import datetime
 from zipfile import ZipFile, Path
@@ -136,7 +135,7 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size, 'md5sum': md5sum}})
 
-def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime], name: Optional[str]) -> list:
+def get_blobs(username: str|None, start: int, count: int, tagstr: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> list:
 	global db
 	blobs = []
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
@@ -170,7 +169,7 @@ def get_blobs(username: Optional[str], start: int, count: int, tagstr: Optional[
 
 	return blobs
 
-def count_blobs(username: Optional[str], tagstr: Optional[str], begin_date: Optional[datetime], end_date: Optional[datetime], name: Optional[str]) -> int:
+def count_blobs(username: str|None, tagstr: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> int:
 	global db
 	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
