@@ -85,11 +85,13 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 	elif ext in source:
 		mime = f'text/code/{ext[1::]}'
 	elif ext == '.msi':
-		mime = 'application/installer/msi'
+		mime = 'application/installer/msi/binary'
 	elif ext == '.exe':
-		mime = 'application/exe'
+		mime = 'application/exe/binary'
+	elif ext == '.db':
+		mime = 'binary/database'
 	elif mime == 'octet-stream':
-		mime = 'binary'
+		mime = 'binary/unknown'
 
 	return mime
 
