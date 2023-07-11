@@ -8,20 +8,19 @@ then
 	exit 1
 fi
 
-declare -A MONGO_NAMES
-MONGO_NAMES[data]="blob books bug_reports user_sessions users"
-MONGO_NAMES[weather]="alert_history log users"
-
+rm -rf "$OUTPUT"
 mkdir -p "$OUTPUT"
 cd "$OUTPUT" || exit 1
 
-for db in "${!MONGO_NAMES[@]}"
+
+tmp="/tmp/$(uuidgen)"
+for db in weather data
 do
-	for coll in ${MONGO_NAMES[$db]}
-	do
-		echo "$db : $coll"
-		ssh "$SERVER" "mongoexport --db \"$db\" --collection \"$coll\"" > "${db}_${coll}".json &
-	done
+	echo "BACKING UP ${db^^}..."
+	while ! ssh "$SERVER" "mongodump --db $db --out $tmp"; do sleep 1; done
+	while ! rsync -a "$SERVER:$tmp/$db" "."; do sleep 1; done
+	while ! ssh "$SERVER" "rm -rf $tmp"; do sleep 1; done
+	echo
 done
 
-wait
+echo "Backed up $SERVER mongo data into $OUTPUT."
