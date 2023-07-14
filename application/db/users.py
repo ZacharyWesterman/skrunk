@@ -7,7 +7,7 @@ db = None
 
 def get_user_list() -> list:
 	global db
-	return [ data['username'] for data in db.find({}, sort=[('username', 1)]) ]
+	return [ {'username': data['username'], 'display_name': data['display_name']} for data in db.find({}, sort=[('username', 1)]) ]
 
 def get_user_by_id(id: ObjectId) -> dict:
 	global db
@@ -70,6 +70,7 @@ def create_user(username: str, password: str) -> dict:
 			'sizes': [],
 		},
 		'perms': [],
+		'display_name': username.title(),
 	}
 
 	db.insert_one(userdata)
@@ -100,6 +101,25 @@ def update_user_password(username: str, password: str) -> dict:
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
 	}})
 
+	return userdata
+
+def update_user_display_name(username: str, display_name: str) -> dict:
+	global db
+
+	if len(username) == 0:
+		raise exceptions.BadUserNameError
+
+	userdata = db.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	if display_name == '':
+		display_name = username.title()
+
+	db.update_one({'username': username}, {'$set': {'display_name': display_name}})
+
+	userdata['display_name'] = display_name
 	return userdata
 
 def authenticate(username: str, password: str) -> str:

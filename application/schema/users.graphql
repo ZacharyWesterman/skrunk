@@ -1,8 +1,14 @@
 type UserData {
 	username: String!
+	display_name: String!
 	theme: UserTheme_!
 	perms: [String!]!
 	last_login: DateTime
+}
+
+type UserMinData {
+	username: String!
+	display_name: String!
 }
 
 type UserExistsError {
@@ -60,7 +66,7 @@ union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientPerms
 
 extend type Query {
 	getUser(username: String!): UserQueryReponse!
-	listUsers: [String!]!
+	listUsers: [UserMinData!]!
 	countSessions(username: String!): Int!
 }
 
@@ -72,4 +78,5 @@ extend type Mutation {
 	updateUserPerms(username: String!, perms: [String!]!): UserUpdateResponse!
 	revokeSessions(username: String!): Int!
 	updateUserPassword(username: String!, password: String!): UserUpdateResponse!
+	updateUserDisplayName(username: String!, display_name: String!): UserUpdateResponse!
 }

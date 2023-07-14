@@ -6,7 +6,7 @@ export default {
 		let res
 		if (query.users.__user_list === null || !use_cache)
 		{
-			res = await api('{listUsers}')
+			res = await api('{listUsers { username display_name } }')
 			query.users.__user_list = res
 		}
 		else
@@ -42,6 +42,7 @@ export default {
 					}
 					perms
 					last_login
+					display_name
 				}
 				...on UserDoesNotExistError {
 					message
