@@ -7,6 +7,19 @@ from bson.objectid import ObjectId
 
 db = None
 
+def process_share_hist(share_history: list) -> list:
+	share_hist = []
+	for hist in share_history:
+		if hist['user_id'] == None:
+			hist['display_name'] = hist['name']
+		else:
+			shared_with = users.get_user_by_id(hist['user_id'])
+			hist['display_name'] = shared_with['display_name'] if shared_with is not None else hist['name']
+
+		share_hist += [hist]
+
+	return share_hist
+
 def get_book_tag(rfid: str) -> dict:
 	book_data = db.find_one({'rfid': rfid})
 
@@ -14,10 +27,15 @@ def get_book_tag(rfid: str) -> dict:
 		raise exceptions.BookTagDoesNotExistError(rfid)
 
 	try:
-		book_data['owner'] = users.get_user_by_id(book_data['owner'])['username']
+		userdata = users.get_user_by_id(book_data['owner'])
+		book_data['owner'] = userdata
 	except exceptions.UserDoesNotExistError:
-		pass
+		book_data['owner'] = {
+			'username': book_data['owner'],
+			'display_name': book_data['owner'],
+		}
 
+	book_data['shareHistory'] = process_share_hist(book_data['shareHistory'])
 	book_data['id'] = book_data['_id']
 
 	return book_data
@@ -76,6 +94,10 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		book_data[i] = google_book_data.get(i)
 
 	db.insert_one(book_data)
+
+	book_data['owner'] = user_data
+	book_data['shareHistory'] = process_share_hist(book_data['shareHistory'])
+
 	return book_data
 
 def unlink_book_tag(rfid: str) -> dict:
@@ -112,11 +134,16 @@ def get_books(owner: str|None, title: str|None, author: str|None, genre: str|Non
 	selection = db.find({'$and': query} if len(query) else {}, sort = [('title', 1), ('authors', 1)])
 	for i in selection.limit(count).skip(start):
 		try:
-			i['owner'] = users.get_user_by_id(i['owner'])['username']
+			userdata = users.get_user_by_id(i['owner'])
+			i['owner'] = userdata
 		except exceptions.UserDoesNotExistError:
-			pass
+			i['owner'] = {
+				'username': i['owner'],
+				'display_name': i['owner'],
+			}
 
 		i['id'] = i['_id']
+		i['shareHistory'] = process_share_hist(i['shareHistory'])
 
 		cat = []
 		for k in i.get('categories', []):

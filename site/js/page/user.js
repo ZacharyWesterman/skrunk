@@ -122,6 +122,30 @@ export async function update_password(password, username)
 	})
 }
 
+export async function update_user_display_name(username)
+{
+	const display_name = $.val('user-display-name')
+	const res = await mutate.users.display_name(username, display_name)
+
+	if (res.__typename !== 'UserData')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		})
+		return
+	}
+
+	$('user-display-name').value = res.display_name
+	const id = `icon-user-display-name`
+	$.show(id)
+	setTimeout(() => {
+		$.hide(id, true)
+	}, 500)
+}
+
 export async function show_sessions_info()
 {
 	await _.modal({

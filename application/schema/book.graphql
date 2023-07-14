@@ -14,7 +14,7 @@ type Book {
 	thumbnail: String
 	smallThumbnail: String
 	creator: String!
-	owner: String!
+	owner: UserMinData!
 	shared: Boolean!
 	shareHistory: [BookShare!]!
 	rfid: String!
@@ -52,7 +52,9 @@ type BookCannotBeShared {
 }
 
 type BookShare {
+	user_id: String
 	name: String!
+	display_name: String!
 	start: DateTime!
 	stop: DateTime
 }

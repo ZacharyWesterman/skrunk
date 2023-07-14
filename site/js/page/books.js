@@ -39,13 +39,18 @@ export async function init()
 					authors
 					thumbnail
 					description
-					owner
+					owner {
+						username
+						display_name
+					}
 					id
 					rfid
 					categories
 					shared
 					shareHistory {
+						user_id
 						name
+						display_name
 					}
 				}
 				...on BookTagDoesNotExistError {
@@ -199,13 +204,18 @@ export async function search_books()
 			authors
 			description
 			thumbnail
-			owner
+			owner {
+				username
+				display_name
+			}
 			id
 			rfid
 			categories
 			shared
 			shareHistory {
+				user_id
 				name
+				display_name
 			}
 		}
 	}`, {
@@ -281,7 +291,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 		() => { //on load
 			_('user_dropdown', {
 				id: 'person',
-				users: query.users.list(name => name !== api.username),
+				users: query.users.list(u => u.username !== api.username),
 				default: 'Select User',
 			})
 		}, choice => { //validate

@@ -49,3 +49,11 @@ def resolve_update_user_password(_, info, username: str, password: str) -> dict:
 		return { '__typename': 'UserData', **userdata }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['admin'])
+def resolve_update_user_display_name(_, info, username: str, display_name: str) -> dict:
+	try:
+		userdata = update_user_display_name(username, display_name)
+		return { '__typename': 'UserData', **userdata }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }

@@ -90,5 +90,26 @@ export default {
 			username: username,
 			password: pass_hash,
 		})
+	},
+
+	display_name: async (username, disp_name) =>
+	{
+		return await api(`mutation ($username: String!, $display_name: String!) {
+			updateUserDisplayName (username: $username, display_name: $display_name) {
+				__typename
+				...on UserData {
+					display_name
+				}
+				...on UserDoesNotExistError {
+					message
+				}
+				...on InsufficientPerms {
+					message
+				}
+			}
+		}`, {
+			'username': username,
+			'display_name': disp_name,
+		})
 	}
 }
