@@ -8,8 +8,24 @@ import Control from './fields/control.js'
 let _ = Template
 _.modal = Modal
 
+function get_css_styles()
+{
+	for (let sheet of document.styleSheets)
+	{
+		for (let rule of sheet.cssRules)
+		{
+			if (rule.href === '/css/theme.css')
+			{
+				return rule.styleSheet.rules[0].style
+			}
+		}
+	}
+
+	return []
+}
+
 _.css = {
-	vars: () => document?.styleSheets[document.styleSheets.length-2]?.cssRules[0]?.styleSheet?.rules[0]?.style || [],
+	vars: () => get_css_styles(),
 	set_var: (name, value) => document.querySelector(':root').style.setProperty(name, value.trim()),
 	get_var: name => getComputedStyle(document.querySelector(':root')).getPropertyValue(name).trim(),
 	wipe: () => {for (const i of _.css.vars()) _.css.set_var(i, '')},
