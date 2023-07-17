@@ -12,6 +12,7 @@ from . import exceptions
 
 import mimetypes
 
+import json
 import re
 import os
 
@@ -234,7 +235,8 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			return 'No blob data path specified in server setup.', 404
 
 		auto_unzip = request.form['unzip'] == 'true'
-		id = blob.save_blob_data(request.files['file'], auto_unzip)
+		tag_list = json.loads(request.form['tags'])
+		id = blob.save_blob_data(request.files['file'], auto_unzip, tag_list)
 
 		return str(id), 200
 

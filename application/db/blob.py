@@ -32,10 +32,10 @@ def file_info(filename: str) -> str:
 
 	return size, md5sum
 
-def save_blob_data(file: object, auto_unzip: bool) -> str:
+def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> str:
 	global blob_path
 	filename = file.filename
-	id, ext = create_blob(filename)
+	id, ext = create_blob(filename, tags)
 	this_blob_path = path(id, ext, create = True)
 
 	print(f'Beginning stream of file "{filename}"...')
@@ -52,7 +52,7 @@ def save_blob_data(file: object, auto_unzip: bool) -> str:
 				if item.is_dir(): continue
 
 				#directly create new blobs from each item in the zip file
-				id2, ext2 = create_blob(name)
+				id2, ext2 = create_blob(name, tags)
 				inner_blob_path = path(id2, ext2, create = True)
 				with fp.open(name, 'r') as input:
 					with open(inner_blob_path, 'wb') as output:

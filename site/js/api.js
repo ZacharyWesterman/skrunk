@@ -112,7 +112,7 @@ api.get_json = async url =>
 	return JSON.parse(result)
 }
 
-api.upload = function(file, progress_handler, auto_unzip = false) {
+api.upload = function(file, progress_handler, auto_unzip = false, tag_list = []) {
 	return new Promise((resolve, reject) => {
 		let xhr = new XMLHttpRequest
 		let data = new FormData
@@ -120,6 +120,7 @@ api.upload = function(file, progress_handler, auto_unzip = false) {
 		file.unzip = auto_unzip
 		data.append('file', file)
 		data.append('unzip', auto_unzip)
+		data.append('tags', JSON.stringify(tag_list))
 		xhr.upload.addEventListener('progress', progress_handler, false)
 		xhr.open('POST', '/upload', true)
 		xhr.send(data)

@@ -12,6 +12,12 @@
 				<i class="fa-solid fa-file-arrow-up fa-lg"></i>
 			</button><br>
 
+			<hr>
+			Uploaded files will be tagged with:
+			<div id="modal-tag-list"></div>
+			<input id="modal-tag-input" placeholder="Input new tag" format="tag">
+			<button class="icon"><i class="fa-solid fa-tag fa-lg"></i></button>
+
 			<div id="upload-progress" class="hidden"></div>
 		</div>
 	</div>

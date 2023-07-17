@@ -61,6 +61,52 @@ modal.upload = async function()
 	$('modal-upload-window').showModal()
 	$('modal-upload-expand').classList.add('expanded')
 
+	//Once modal has loaded, inject list of tags.
+	let tagList = $('modal-tag-list')
+	tagList.innerHTML = ''
+	modal.upload.tag_list = []
+
+	function tagHTML(tag)
+	{
+		return `<div class="tag clickable">${tag}\&nbsp;<b>\&times;</b></div>`
+	}
+
+	function tagClicks(tagList)
+	{
+		const kids = tagList.children
+		for (let i = 0; i < kids.length; ++i)
+		{
+			const child = kids[i]
+			const ix = i
+			child.onclick = () => {
+				modal.upload.tag_list.splice(ix, 1)
+				tagList.removeChild(child)
+				tagClicks(tagList)
+			}
+		}
+		if (kids.length === 0) tagList.innerHTML = '<i class="disabled">Automatic tags only</i>'
+	}
+	tagClicks(tagList)
+
+	//when submitting a tag
+	const tagSubmit = field => {
+		const tag = field.value.trim()
+		if (tag.length === 0) return
+
+		if (!modal.upload.tag_list.includes(tag))
+		{
+			if (modal.upload.tag_list.length === 0) tagList.innerHTML = ''
+			modal.upload.tag_list.push(tag)
+			tagList.innerHTML += tagHTML(tag)
+		}
+
+		field.value = ''
+		tagClicks(tagList)
+	}
+
+	$('modal-tag-input').nextElementSibling.onclick = () => tagSubmit($('modal-tag-input'))
+	$.on.enter($('modal-tag-input'), tagSubmit)
+
 	return new Promise((resolve, reject) => {
 		modal.awaiting = {
 			resolve: resolve,
@@ -89,13 +135,14 @@ modal.upload.start = async function()
 {
 	const auto_unzip = $('modal-unpack-check').checked
 	modal.upload.promises = []
+	const tag_list = modal.upload.tag_list
 
 	async function do_upload(file, dom_progress)
 	{
 		await api.upload(file, progress => {
 			const percent = progress.loaded / progress.total * 100
 			dom_progress.value = percent
-		}, auto_unzip)
+		}, auto_unzip, tag_list)
 		$.hide(dom_progress, true)
 	}
 
