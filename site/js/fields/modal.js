@@ -108,7 +108,7 @@ modal.upload = async function()
 	$.on.enter($('modal-tag-input'), tagSubmit)
 
 	return new Promise((resolve, reject) => {
-		modal.awaiting = {
+		modal.upload.awaiting = {
 			resolve: resolve,
 			reject: reject,
 		}
@@ -117,6 +117,9 @@ modal.upload = async function()
 
 modal.upload.return = () =>
 {
+	$('modal-upload-expand').classList.remove('expanded')
+	setTimeout(() => {$('modal-upload-window').close()}, 200)
+
 	if (api.upload.cancel())
 	{
 		modal({
@@ -125,10 +128,13 @@ modal.upload.return = () =>
 			text: 'All pending file uploads have been stopped.',
 			buttons: ['OK'],
 		}).catch(() => {})
-	}
 
-	$('modal-upload-expand').classList.remove('expanded')
-	setTimeout(() => {$('modal-upload-window').close()}, 200)
+		modal.upload.awaiting.reject(modal.upload.blobs)
+	}
+	else
+	{
+		modal.upload.awaiting.resolve(modal.upload.blobs)
+	}
 }
 
 modal.upload.start = async function()
@@ -136,14 +142,17 @@ modal.upload.start = async function()
 	const auto_unzip = $('modal-unpack-check').checked
 	modal.upload.promises = []
 	const tag_list = modal.upload.tag_list
+	modal.upload.blobs = []
 
 	async function do_upload(file, dom_progress)
 	{
-		await api.upload(file, progress => {
+		const blobs = await api.upload(file, progress => {
 			const percent = progress.loaded / progress.total * 100
 			dom_progress.value = percent
 		}, auto_unzip, tag_list)
 		$.hide(dom_progress, true)
+
+		modal.upload.blobs.push(...blobs)
 	}
 
 	function file_size(size)

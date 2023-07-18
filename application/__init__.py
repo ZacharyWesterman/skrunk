@@ -236,8 +236,8 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 		auto_unzip = request.form['unzip'] == 'true'
 		tag_list = json.loads(request.form['tags'])
-		id = blob.save_blob_data(request.files['file'], auto_unzip, tag_list)
+		uploaded_blobs = blob.save_blob_data(request.files['file'], auto_unzip, tag_list)
 
-		return str(id), 200
+		return jsonify(uploaded_blobs), 200
 
 	return application

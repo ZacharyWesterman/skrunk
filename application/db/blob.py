@@ -32,7 +32,7 @@ def file_info(filename: str) -> str:
 
 	return size, md5sum
 
-def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> str:
+def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> list:
 	global blob_path
 	filename = file.filename
 	id, ext = create_blob(filename, tags)
@@ -41,6 +41,8 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> str:
 	print(f'Beginning stream of file "{filename}"...')
 	file.save(this_blob_path)
 	print(f'Finished stream of file "{filename}".')
+
+	uploaded_blobs = []
 
 	if auto_unzip and ext == '.zip':
 		print(f'Unzipping file "{filename}"...')
@@ -61,6 +63,8 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> str:
 				mark_as_completed(id2, size, md5sum)
 				extract_count += 1
 
+				uploaded_blobs += [{'id': id2, 'ext': ext2}]
+
 		print(f'Finished unzipping "{filename}" (extracted {extract_count} files).')
 		delete_blob(id)
 	else:
@@ -70,7 +74,9 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> str:
 		if ext.lower() in models.extensions():
 			create_preview(this_blob_path, id)
 
-	return id
+		uploaded_blobs += [{'id': id, 'ext': ext}]
+
+	return uploaded_blobs
 
 def get_tags_from_mime(mime: str) -> list:
 	return [ i for i in mime.split('/') ]

@@ -131,7 +131,7 @@ api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [])
 			api.upload.xhr = []
 			if (xhr.status >= 200 && xhr.status < 300)
 			{
-				resolve(xhr.responseText)
+				resolve(JSON.parse(xhr.responseText))
 			}
 			else
 			{
