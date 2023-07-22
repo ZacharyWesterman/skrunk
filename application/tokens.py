@@ -1,18 +1,21 @@
 from cryptography.hazmat.primitives import serialization
 import jwt, os
-from datetime import datetime, timedelta
 from flask import request
+import random
 
 from .db.sessions import start_session, valid_session
 
 __private_key = serialization.load_ssh_private_key(open(os.environ['HOME']+'/.ssh/id_rsa', 'r').read().encode(), password=b'')
 __public_key = serialization.load_ssh_public_key(open(os.environ['HOME']+'/.ssh/id_rsa.pub', 'r').read().encode())
 
+__max_int = 2**32 - 1
+
 def create_user_token(username: str) -> str:
-	global __private_key
+	global __private_key, __max_int
 	token = jwt.encode(
 		payload = {
 			'username': username,
+			'token_id': random.randint(0, __max_int),
 		},
 		key = __private_key,
 		algorithm = 'RS256'
