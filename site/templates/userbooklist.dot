@@ -47,7 +47,7 @@
 		<br><div class="disabled">Owned by {{= book.owner.display_name }}{{? (book.owner.display_name.toLowerCase() !== book.owner.username.toLowerCase()) }} ({{= book.owner.username }}){{?}}</div>
 		{{? book.shared }}<i class="error">Borrowed by {{= book.shareHistory[book.shareHistory.length - 1].display_name }}{{? (book.shareHistory[book.shareHistory.length - 1].display_name.toLowerCase() !== book.shareHistory[book.shareHistory.length - 1].name.toLowerCase()) }} ({{= book.shareHistory[book.shareHistory.length - 1].name }}){{?}}{{? book.shareHistory[book.shareHistory.length - 1].user_id === null }}<span class="tooltip">
 			<i class="fa-solid fa-user-slash fa-sm"></i>
-			<span class="tooltiptext t-center t-always">Not a user</span>
+			<span class="tooltiptext t-center t-persist">Not a user</span>
 		</span>{{?}}</i>{{?}}
 	</div>
 </div>

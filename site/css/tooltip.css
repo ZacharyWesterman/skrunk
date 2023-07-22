@@ -51,16 +51,13 @@
 	margin-left: 0px;
 }
 
-@media (hover: hover) {
-	/* Show the tooltip text when you mouse over the tooltip container */
-	.tooltip:hover .tooltiptext {
-		visibility: visible;
-		opacity: 1;
-	}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:active:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .t-always {
+.tooltip:hover .t-persist {
 	visibility: visible;
 	opacity: 1;
 }
