@@ -134,6 +134,6 @@ window.load_dashboard = async () =>
 
 	//Load random xkcd comic
 	api.get_json('xkcd').then(res => {
-		$('xkcd').innerHTML = `<br><img src="${res.img}"/>`
+		$('xkcd').innerHTML = `<br><img width="100%" height="auto" src="${res.img}"/>`
 	})
 }
