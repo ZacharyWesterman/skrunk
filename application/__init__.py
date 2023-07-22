@@ -11,6 +11,8 @@ from .db import init_db, blob
 from . import exceptions
 
 import mimetypes
+import requests
+import random
 
 import json
 import re
@@ -106,6 +108,13 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	@application.route('/', methods=['GET'])
 	def main_page():
 		return site('html/index.html')
+
+	@application.route('/xkcd', methods=['GET'])
+	def random_xkcd():
+		comic_num = random.randint(0, 600)
+		response = requests.get(f'https://xkcd.com/{comic_num}/info.0.json')
+
+		return response.text, response.status_code
 
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):

@@ -38,6 +38,30 @@ window.set_user_dashboard_buttons = function()
 	_('navbar', buttons)
 }
 
+window.reset_dashboard_buttons = async () =>
+{
+	//Load navbar based on user perms
+	let buttons = [
+		['right-from-bracket', "api.logout()"],
+		['home', 'load_dashboard()'],
+		['user-pen', "set_user_dashboard_buttons()"],
+		['book', "set_book_dashboard_buttons()"],
+		['hard-drive', "dashnav('/html/file_list.html')"],
+		['file-arrow-up', "_.modal.upload()"],
+		['bug', "dashnav('/html/bugs.html')", 'bottom'],
+	]
+
+	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
+
+	if (SelfUserData.perms.includes('admin'))
+	{
+		buttons.push(['users', "dashnav('/html/users.html')", 'alt'])
+		buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'alt'])
+	}
+
+	await _('navbar', buttons)
+}
+
 //Load user theme (regardless of cookies)
 query.users.get(api.username).then(data => {
 	if (data.__typename !== 'UserData')
@@ -69,32 +93,8 @@ query.users.get(api.username).then(data => {
 		_.css.set_var(i.name, i.value)
 	}
 
-	window.reset_dashboard_buttons = async function()
-	{
-		//Load navbar based on user perms
-		let buttons = [
-			['right-from-bracket', "api.logout()"],
-			['user-pen', "set_user_dashboard_buttons()"],
-			['book', "set_book_dashboard_buttons()"],
-			['hard-drive', "dashnav('/html/file_list.html')"],
-			['file-arrow-up', "_.modal.upload()"],
-			['bug', "dashnav('/html/bugs.html')", 'bottom'],
-		]
-
-		if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
-
-		if (data.perms.includes('admin'))
-		{
-			buttons.push(['users', "dashnav('/html/users.html')", 'alt'])
-			buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'alt'])
-		}
-
-		await _('navbar', buttons)
-	}
-
-	reset_dashboard_buttons().then(() => {
-		$('content').innerText = ''
-	})
+	reset_dashboard_buttons()
+	load_dashboard()
 })
 
 let HaveModelViewer = false
@@ -126,4 +126,14 @@ window.load_model_viewer = () =>
 	}
 
 	return ''
+}
+
+window.load_dashboard = async () =>
+{
+	await api.snippit('dashboard_header').then(res => $('content').innerHTML = res)
+
+	//Load random xkcd comic
+	api.get_json('xkcd').then(res => {
+		$('xkcd').innerHTML = `<br><img src="${res.img}"/>`
+	})
 }
