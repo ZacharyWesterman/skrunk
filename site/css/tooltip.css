@@ -51,8 +51,10 @@
 	margin-left: 0px;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-	visibility: visible;
-	opacity: 1;
+@media (hover: hover) {
+	/* Show the tooltip text when you mouse over the tooltip container */
+	.tooltip:hover .tooltiptext {
+		visibility: visible;
+		opacity: 1;
+	}
 }
