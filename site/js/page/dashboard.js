@@ -16,12 +16,12 @@ window.set_book_dashboard_buttons = function()
 {
 	dashnav('/html/books.html')
 	let buttons = [
-		['arrow-up', "reset_dashboard_buttons()"],
-		['book', "dashnav('/html/books.html')"],
-		['bookmark', "dashnav('/html/books_new.html')"],
-		['bug', "dashnav('/html/bugs.html')", 'bottom'],
+		['arrow-up', "reset_dashboard_buttons()", 'Back'],
+		['book', "dashnav('/html/books.html')", 'Library'],
+		['bookmark', "dashnav('/html/books_new.html')", 'Catalog Books'],
+		['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'],
 	]
-	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
+	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 	_('navbar', buttons)
 }
 
@@ -29,12 +29,12 @@ window.set_user_dashboard_buttons = function()
 {
 	dashnav('/html/user.html')
 	let buttons = [
-		['arrow-up', "reset_dashboard_buttons()"],
-		['user-pen', "dashnav('/html/user.html')"],
-		['palette', "dashnav('/html/edit_theme.html')"],
-		['bug', "dashnav('/html/bugs.html')", 'bottom'],
+		['arrow-up', "reset_dashboard_buttons()", 'Back'],
+		['user-pen', "dashnav('/html/user.html')", 'Edit User Info'],
+		['palette', "dashnav('/html/edit_theme.html')", 'Customize Theme'],
+		['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'],
 	]
-	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
+	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 	_('navbar', buttons)
 }
 
@@ -42,21 +42,21 @@ window.reset_dashboard_buttons = async () =>
 {
 	//Load navbar based on user perms
 	let buttons = [
-		['right-from-bracket', "api.logout()"],
-		['home', 'load_dashboard()'],
-		['user-pen', "set_user_dashboard_buttons()"],
-		['book', "set_book_dashboard_buttons()"],
-		['hard-drive', "dashnav('/html/file_list.html')"],
-		['file-arrow-up', "_.modal.upload()"],
-		['bug', "dashnav('/html/bugs.html')", 'bottom'],
+		['right-from-bracket', "api.logout()", 'Logout'],
+		['home', 'load_dashboard()', 'Home'],
+		['user-pen', "set_user_dashboard_buttons()", 'Edit User Info'],
+		['book', "set_book_dashboard_buttons()", 'Library'],
+		['hard-drive', "dashnav('/html/file_list.html')", 'Files'],
+		['file-arrow-up', "_.modal.upload()", 'Upload Files'],
+		['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'],
 	]
 
-	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'bottom'])
+	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 
 	if (SelfUserData.perms.includes('admin'))
 	{
-		buttons.push(['users', "dashnav('/html/users.html')", 'alt'])
-		buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'alt'])
+		buttons.push(['users', "dashnav('/html/users.html')", 'Edit Users (Admin)', 'alt'])
+		buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'Weather Users (Admin)', 'alt'])
 	}
 
 	await _('navbar', buttons)

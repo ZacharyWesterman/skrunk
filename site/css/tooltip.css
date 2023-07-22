@@ -5,6 +5,12 @@
 	cursor: pointer;
 }
 
+.t-float-right {
+	left: 0%;
+	bottom: 0% !important;
+	margin-left: 2.5rem;
+}
+
 /* Tooltip text */
 .tooltip .tooltiptext {
 	visibility: hidden;
@@ -24,6 +30,10 @@
 	/* Fade in tooltip */
 	opacity: 0;
 	transition: opacity 0.3s;
+
+	font-style: normal;
+	font-weight: normal;
+	font-family: 'Poppins', sans-serif;
 }
 
 .t-left {

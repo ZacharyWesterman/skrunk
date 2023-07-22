@@ -4,12 +4,18 @@
 	{{?}}
 
 	{{? it.count > lookups.max_displayed_pages() }}
-		<button class="icon alt" *click="navigate_to_page(0)"><i class="fa-solid fa-caret-left fa-lg"></i></button>
+		<button class="icon alt tooltip" *click="navigate_to_page(0)">
+			<i class="fa-solid fa-caret-left fa-lg"></i>
+			<span class="tooltiptext t-right">Go to first page</span>
+		</button>
 		{{const start = lookups.prev_pages(it.current, it.count);const end = lookups.next_pages(it.current, it.count);}}
 		{{~it.pages.slice(start, end) : page}}
 			<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
 		{{~}}
-		<button class="icon alt" *click="navigate_to_page({{=it.count-1}})"><i class="fa-solid fa-caret-right fa-lg"></i></button>
+		<button class="icon alt tooltip" *click="navigate_to_page({{=it.count-1}})">
+			<i class="fa-solid fa-caret-right fa-lg"></i>
+			<span class="tooltiptext t-left">Go to last page</span>
+		</button>
 	{{??}}
 		{{~it.pages : page}}
 			<button class="icon {{?page !== it.current}}alt{{?}}" *click="navigate_to_page({{=page}})">{{=page+1}}</button>
