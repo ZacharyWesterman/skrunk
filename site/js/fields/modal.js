@@ -135,6 +135,7 @@ modal.upload.return = () =>
 	{
 		modal.upload.awaiting.resolve(modal.upload.blobs)
 	}
+	return modal.upload.blobs
 }
 
 modal.upload.start = async function()

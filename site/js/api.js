@@ -83,13 +83,31 @@ api.verify_token = async function()
 	return response.valid
 }
 
-api.get = function(url) {
+api.__url_cache = {}
+api.__url_cache_filetypes = ['.html', '.js', '.css']
+
+api.get = function(url, use_cache = true) {
 	return new Promise((resolve, reject) => {
+		//Don't re-fetch urls that are cached
+		if (use_cache && api.__url_cache[url] !== undefined)
+		{
+			resolve(api.__url_cache[url])
+			return
+		}
+
 		let xhr = new XMLHttpRequest()
 		xhr.open('GET', url)
 		xhr.onload = () => {
 			if (xhr.status >= 200 && xhr.status < 300)
 			{
+				for (const filetype of api.__url_cache_filetypes)
+				{
+					if (url.endsWith(filetype))
+					{
+						api.__url_cache[url] = xhr.response
+						break
+					}
+				}
 				resolve(xhr.response)
 			}
 			else

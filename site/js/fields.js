@@ -4,6 +4,7 @@ import Template from './fields/template.js'
 import Modal from './fields/modal.js'
 import Events from './fields/events.js'
 import Control from './fields/control.js'
+// import Stackedit from 'https://unpkg.com/stackedit-js@1.0.7/docs/lib/stackedit.min.js'
 
 let _ = Template
 _.modal = Modal
@@ -138,6 +139,55 @@ $.wipe = (field) =>
 {
 	$(field).__prev = $(field).value = ''
 }
+
+$.editor = {
+	open: async function (text = '')
+	{
+		return new Promise(resolve => {
+			const stackedit = new Stackedit()
+
+			stackedit.openFile({
+				name: 'Filename',
+				content: {
+					text: text
+				}
+			})
+
+			let editor_file
+
+			stackedit.on('fileChange', file => {
+				editor_file = file
+			})
+
+			stackedit.on('close', () => {
+				resolve({
+					text: editor_file.content.text,
+					html: editor_file.content.html,
+				})
+			})
+		})
+	},
+
+	md_to_html: async function (text)
+	{
+		return new Promise(resolve => {
+			const stackedit = new Stackedit()
+
+			stackedit.openFile({
+				name: 'Filename',
+				content: {
+					text: text
+				}
+			}, true /*Don't open the editor, just convert text to html*/)
+
+			stackedit.on('fileChange', file => {
+				resolve(file.content.html)
+			})
+		})
+	},
+}
+
+$.all = name => document.getElementsByName(name)
 
 //Update globals $ (fields) and _ (screen)
 window.$ = $
