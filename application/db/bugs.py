@@ -7,7 +7,7 @@ from datetime import datetime
 
 db = None
 
-def report_bug(title: str, text: str) -> dict:
+def report_bug(text: str, html: str) -> dict:
 	global db
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
@@ -15,8 +15,8 @@ def report_bug(title: str, text: str) -> dict:
 	id = db.insert_one({
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
-		'title': title,
 		'body': text,
+		'body_html': html,
 		'convo': [],
 		'resolved': False,
 	}).inserted_id

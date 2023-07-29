@@ -177,8 +177,8 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 	@application.route('/blob/<path:path>', methods=['GET'])
 	def blob_stream(path: str):
-		if not authorized():
-			return '', 403
+		# if not authorized():
+		# 	return '', 403
 
 		if blob_path is None:
 			return 'No blob data path specified in server setup.', 404

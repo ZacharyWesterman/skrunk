@@ -4,8 +4,7 @@
 <div class="card">
 	<div class="card-inner">
 		<button class="icon right" *click="confirm_resolve_bug('{{=bug.id}}')"><i class="fa-solid fa-check fa-lg"></i></button>
-		<h4>{{=bug.title}}</h4>
-		<p>{{=bug.body}}</p>
+		<div>{{=bug.body_html}}</div>
 
 		<button class="icon right" *click="confirm_delete_bug('{{=bug.id}}', '{{=safe_html(bug.title)}}')"><i class="fa-solid fa-trash fa-lg {{?bug.creator !== api.username}}disabled{{?}}"></i></button>
 

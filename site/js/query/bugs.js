@@ -12,8 +12,8 @@ export default {
 				id
 				created
 				creator
-				title
 				body
+				body_html
 				convo
 				resolved
 			}

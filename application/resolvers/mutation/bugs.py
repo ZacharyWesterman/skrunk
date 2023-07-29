@@ -2,9 +2,9 @@ import application.exceptions as exceptions
 from application.db.bugs import *
 import application.db.perms as perms
 
-def resolve_report_bug(_, info, title: str, text: str) -> dict:
+def resolve_report_bug(_, info, text: str, html: str) -> dict:
 	try:
-		return { '__typename': 'BugReport', **report_bug(title, text) }
+		return { '__typename': 'BugReport', **report_bug(text, html) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 

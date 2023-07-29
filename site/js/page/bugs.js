@@ -1,14 +1,36 @@
+export function init()
+{
+	const old_modal_retn = _.modal.upload.return
+	_.modal.upload.return = () => {
+		const id_list = old_modal_retn()
+		navigator.clipboard.writeText(`${window.location}blob/${id_list[0].id+id_list[0].ext}`).then(() => {
+			_.modal({
+				text: 'Copied URL to clipboard!',
+			}).catch(() => {})
+			setTimeout(_.modal.cancel, 800)
+		})
+	}
+
+	window.unload.push(() => {
+		_.modal.upload.return = old_modal_retn
+	})
+}
+
 export async function submit_bug_report()
 {
 	if (!(await can_submit())) return
 
+	$.toggle_expand('card-new-bug')
+
 	const res = await mutate.bugs.report(
-		$('new-bug-title').value,
 		$('new-bug-text').value,
+		await $.editor.md_to_html($('new-bug-text').value),
 	)
 
 	if (res.__typename !== 'BugReport')
 	{
+		$.toggle_expand('card-new-bug')
+
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
@@ -21,8 +43,6 @@ export async function submit_bug_report()
 	_.modal.checkmark()
 
 	$('new-bug-text').value = ''
-	$('new-bug-title').value = ''
-	$.toggle_expand('card-new-bug')
 
 	refresh_bug_list()
 }
@@ -33,28 +53,24 @@ export async function refresh_bug_list()
 	await _('buglist', bugs)
 }
 
+export function open_editor()
+{
+	$.editor.open($.val('new-bug-text')).then(result => {
+		$('new-bug-text').value = result.text
+	}).catch(() => {})
+}
+
 async function can_submit()
 {
-	if ($.val('new-bug-title') === '')
+	if ($.val('new-bug-text') === '')
 	{
 		_.modal({
 			type: 'error',
 			title: 'Missing Information',
-			text: 'Please fill out the Title and Description fields.',
+			text: 'Please put something in the description.',
 			buttons: ['OK'],
 		}).catch(() => {})
 		return false
-	}
-	if ($.val('new-bug-text') === '')
-	{
-		const res = await _.modal({
-			type: 'question',
-			title: 'Submit without description?',
-			text: 'Are you sure you want to submit a bug report with no description? Any information will be helpful to find and eliminate the bug.',
-			buttons: ['Yes', 'No'],
-		}).catch(() => 'no')
-
-		if (res === 'no') return false
 	}
 
 	return true
@@ -65,7 +81,7 @@ export async function confirm_delete_bug(id, title)
 	const choice = await _.modal({
 		type: 'question',
 		title: 'Delete Bug Report?',
-		text: `"${title}" will be permanently removed from the list.`,
+		text: `This bug report will be permanently removed from the list.`,
 		buttons: ['Yes', 'No']
 	}).catch(() => 'no')
 

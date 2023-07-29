@@ -1,14 +1,14 @@
 export default {
-	report: async (title, text) =>
+	report: async (text, html) =>
 	{
 		return await api(`
-		mutation ($title: String!, $text: String!) {
-			reportBug (title: $title, text: $text) {
+		mutation ($text: String!, $html: String!) {
+			reportBug (text: $text, html: $html) {
 				__typename
 			}
 		}`, {
-			title: title,
 			text: text,
+			html: html,
 		})
 	},
 
