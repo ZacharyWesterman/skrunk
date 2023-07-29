@@ -28,7 +28,12 @@
 							<span class="tooltiptext t-right t-persist" id="perm-tooltip-{{=perm.name}}">Placeholder Text. You should never see this!</span>
 						</span>
 					</td>
-					<td><input id="perm-{{=perm.name}}" type="checkbox" {{?it.user.perms.includes(perm.name)}}checked{{?}} *click="set_perms()" {{?((perm.name==='admin') && (api.username === it.user.username)) || it.self_view}}disabled{{?}}></td>
+					<td>
+						<input id="perm-{{=perm.name}}" type="checkbox" {{?it.user.perms.includes(perm.name)}}checked{{?}} *click="set_perms()" {{?((perm.name==='admin') && (api.username === it.user.username)) || it.self_view}}disabled{{?}}>
+					</td>
+					<td>
+						<i id="icon-perm-{{=perm.name}}" class="fa-solid fa-circle-check hidden"></i>
+					</td>
 				</tr>
 			{{~}}
 		</table>

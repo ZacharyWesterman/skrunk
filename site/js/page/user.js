@@ -22,11 +22,15 @@ export async function revoke_sessions(username)
 
 export async function set_perms()
 {
-	UserData.perms = []
+	let new_perms = []
+	let perms_changed = []
 	for (const perm of Perms)
 	{
-		if ($('perm-'+perm.name).checked) UserData.perms.push(perm.name)
+		const checked = $('perm-'+perm.name).checked
+		if (checked !== UserData.perms.includes(perm.name)) perms_changed.push(perm.name)
+		if (checked) new_perms.push(perm.name)
 	}
+	UserData.perms = new_perms
 
 	const res = await mutate.users.permissions(UserData.username, UserData.perms)
 	if (res.__typename !== 'UserData') {
@@ -37,6 +41,15 @@ export async function set_perms()
 			buttons: ['OK']
 		}).catch(()=>{})
 		return
+	}
+
+	for (const perm of perms_changed)
+	{
+		const id = `icon-perm-${perm}`
+		$.show(id)
+		setTimeout(() => {
+			$.hide(id, true)
+		}, 500)
 	}
 
 	sync_perm_descs()
