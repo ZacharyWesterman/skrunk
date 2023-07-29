@@ -142,14 +142,14 @@ window.date = {
 			year: diff('getFullYear'),
 			month: diff('getMonth'),
 			week: Math.floor(diff('getDate') / 7),
-			day: diff('getDate'),
+			day: (exact && (precision !== date.WEEKS)) ? diff('getDate') : (diff('getDate') % 7),
 			hour: diff('getHours'),
 			minute: diff('getMinutes'),
 			second: diff('getSeconds'),
 			millisecond: diff('getMilliseconds'),
 		}
 
-		const list = ['year', 'month', (exact && (precision !== date.WEEKS)) ? 'day' :'week', 'hour', 'minute', 'second', 'millisecond']
+		const list = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond']
 
 		//Make sure that all diffs are positive
 		const ratio = {
