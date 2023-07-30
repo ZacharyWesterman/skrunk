@@ -13,7 +13,11 @@ def process_share_hist(share_history: list) -> list:
 		if hist['user_id'] == None:
 			hist['display_name'] = hist['name']
 		else:
-			shared_with = users.get_user_by_id(hist['user_id'])
+			try:
+				shared_with = users.get_user_by_id(hist['user_id'])
+			except exceptions.UserDoesNotExistError:
+				shared_with = None
+
 			hist['display_name'] = shared_with['display_name'] if shared_with is not None else hist['name']
 
 		share_hist += [hist]
