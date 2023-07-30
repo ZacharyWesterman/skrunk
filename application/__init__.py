@@ -5,9 +5,9 @@ from ariadne.contrib.federation import make_federated_schema
 
 from .resolvers import query, mutation
 from .tokens import *
-from .db.users import authenticate
+from .db.users import authenticate, count_users, create_user
 from .scalars import scalars
-from .db import init_db, blob
+from .db import init_db, blob, setup_db
 from . import exceptions
 
 import mimetypes
@@ -27,6 +27,13 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
+	USER_COUNT = count_users()
+
+	#Create temporary admin user if server hasn't been set up yet
+	if USER_COUNT == 0:
+		setup_db()
+
+
 	def read_file_data(path: str):
 		try:
 			with open(path, 'rb') as fp:
@@ -39,8 +46,12 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 			return '', 404
 
 	def authorized():
+		if USER_COUNT == 0:
+			print('NO-AUTH: No users exist, giving access for database setup!', flush=True)
+			return True
+
 		if no_auth:
-			print('NO-AUTH: Auth set to True')
+			print('NO-AUTH: Auth set to True', flush=True)
 			return True
 
 		token = get_request_token()
@@ -51,6 +62,9 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 	@application.route('/auth/verify', methods=['POST', 'GET'])
 	def verify_token():
+		if USER_COUNT == 0:
+			return jsonify({'valid': True}), 200
+
 		data = request.get_json()
 
 		if 'token' not in data:
@@ -64,6 +78,9 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 	@application.route('/auth', methods=['POST', 'GET'])
 	def auth_user():
+		if USER_COUNT == 0:
+			return jsonify({'token': create_user_token('admin')}), 200
+
 		data = request.get_json()
 
 		#Refresh user login token
@@ -118,6 +135,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):
+
 		# Allow only specific files in site/, as other files may have "sensitive" data.
 		allowed = [
 			'html/index.html',
@@ -134,6 +152,10 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 		if not authorized() and path not in allowed and not jsfields and not styles:
 			return '', 403
 
+		if USER_COUNT == 0 and path == 'html/login.html':
+			with open(f'site/{path}') as fp:
+				return fp.read().replace('Authentication Required', '<b class="error">This server has not been set up.<br><br>Login as user "admin" (any password) and create at least one user.<br><br>Then restart the server, and (optionally) delete the admin user.</b>'), 200
+
 		i = path.rindex('.')
 		if i > -1:
 			ext = path[i+1::]
@@ -142,7 +164,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 		if ext in ['js', 'css', 'html', 'dot', 'json']:
 			try:
-				return read_file_data(f'site/{path}')
+				return read_file_data(f'site/{path}'), 200
 			except FileNotFoundError as e:
 				return '', 404
 		else:

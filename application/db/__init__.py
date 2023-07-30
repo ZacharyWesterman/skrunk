@@ -17,3 +17,13 @@ def init_db(data_db_url: str = 'localhost', weather_db_url: str = 'localhost', b
 	book.db = data_client.data.books
 
 	weather.db = weather_client
+
+def setup_db() -> None:
+	try:
+		users.create_user('admin', '', admin = True, ephemeral = True)
+	except:
+		pass
+
+	#Create all indexes that are needed for the db to function properly
+	sessions.db.create_index([('expires', 1)], expireAfterSeconds = 1)
+	book.db.create_index([('title', 1)])

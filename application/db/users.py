@@ -5,6 +5,10 @@ from bson.objectid import ObjectId
 
 db = None
 
+def count_users() -> int:
+	global db
+	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})
+
 def get_user_list() -> list:
 	global db
 	return [ {'username': data['username'], 'display_name': data['display_name']} for data in db.find({}, sort=[('username', 1)]) ]
@@ -50,7 +54,7 @@ def update_user_perms(username: str, perms: list) -> dict:
 	userdata['perms'] = perms
 	return userdata
 
-def create_user(username: str, password: str) -> dict:
+def create_user(username: str, password: str, *, admin: bool = False, ephemeral: bool = False) -> dict:
 	global db
 
 	if len(username) == 0:
@@ -69,8 +73,9 @@ def create_user(username: str, password: str) -> dict:
 			'colors': [],
 			'sizes': [],
 		},
-		'perms': [],
+		'perms': ['admin'] if admin else [],
 		'display_name': username.title(),
+		'ephemeral': ephemeral,
 	}
 
 	db.insert_one(userdata)
