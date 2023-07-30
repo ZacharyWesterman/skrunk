@@ -2,7 +2,7 @@
 	<div class="card-inner">
 		<h4><b>Weather API Status</b></h4>
 		<i>Routine is run once per hour from 6AM to 10PM.</i><br>
-		Last Run: {{?it}}{{=it.timestamp}}{{??}}Never{{?}}<br><span class="disabled">({{=date.elapsed(it.timestamp)}})</span>
+		Last Run: {{?it}}{{=it.timestamp}}<br><span class="disabled">({{=date.elapsed(it.timestamp)}})</span>{{??}}Never{{?}}
 		{{?it}}{{?it.error !== null}}<span class="error"><b>RUNTIME ERROR:</b> {{=it.error}}</span>{{?}}{{?}}
 	</div>
 </div>

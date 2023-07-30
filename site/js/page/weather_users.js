@@ -1,7 +1,7 @@
 export function init()
 {
 	//periodically check api status
-	_.sync('weather_exec', () => query.weather.last_execution(), 60000)
+	_.sync('weather_exec', query.weather.last_execution, 60000)
 }
 
 export async function refresh_users()

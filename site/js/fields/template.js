@@ -92,7 +92,13 @@ template.sync = async function(template_name, data_method, frequency = 500, inst
 			delete SyncList[template_name]
 			return
 		}
-		await template(template_name, data_method(), instant)
+
+		let loaded_data = data_method()
+		if (typeof loaded_data?.then === 'function')
+		{
+			loaded_data = await loaded_data
+		}
+		await template(template_name, loaded_data, instant)
 	}
 
 	if (val !== undefined) {
