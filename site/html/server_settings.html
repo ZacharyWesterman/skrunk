@@ -37,7 +37,7 @@
 		})
 
 		const is_enabled = res.includes(module_id)
-		if (is_enabled)
+		if (is_enabled === enabled)
 		{
 			const id = `icon-module-${module_id}`
 			$.show(id)
