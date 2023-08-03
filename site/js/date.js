@@ -171,6 +171,7 @@ window.date = {
 
 		for (const i of list)
 		{
+			if (diffs[i] < 0) diffs[i] = 0
 			if (diffs[i] || include_zero)
 			{
 				output.push(diffs[i] + ' ' + i + ((diffs[i] === 1) ? '' : 's'))
