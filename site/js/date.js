@@ -154,24 +154,25 @@ window.date = {
 		//Make sure that all diffs are positive
 		const ratio = {
 			month: ['year', 12],
-			week: ['month', 4],
-			day: ['month', date.months.days[to.getMonth()]],
+			week: ['month', Math.ceil(date.months.days[to.getMonth()] / 7)],
+			day: (exact && (precision !== date.WEEKS)) ? ['month', date.months.days[to.getMonth()]] : ['week', 7],
 			hour: ['day', 24],
 			minute: ['hour', 60],
 			second: ['minute', 60],
 			millisecond: ['second', 1000],
 		}
-		for (const i in ratio)
+
+		for (const i of [...list].reverse())
 		{
-			if (!list.includes(i)) continue
-			if (diffs[i] >= 0) continue
-			diffs[ratio[i][0]] -= 1
-			diffs[i] += ratio[i][1]
+			if (diffs[i] < 0)
+			{
+				diffs[i] += ratio[i][1]
+				diffs[ratio[i][0]] -= 1
+			}
 		}
 
 		for (const i of list)
 		{
-			if (diffs[i] < 0) diffs[i] = 0
 			if (diffs[i] || include_zero)
 			{
 				output.push(diffs[i] + ' ' + i + ((diffs[i] === 1) ? '' : 's'))
