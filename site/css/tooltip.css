@@ -52,12 +52,24 @@
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:active:hover .tooltiptext {
-	visibility: visible;
-	opacity: 1;
+
+/* Show on hover if using a PC */
+@media (pointer: fine) {
+	.tooltip:hover .tooltiptext {
+		visibility: visible;
+		opacity: 1;
+	}
 }
 
-.tooltip:hover .t-persist {
-	visibility: visible;
-	opacity: 1;
+/* Show on press & hold if using a mobile device */
+@media (pointer: coarse) {
+	.tooltip:active:hover .tooltiptext {
+		visibility: visible;
+		opacity: 1;
+	}
+
+	.tooltip:hover .t-persist {
+		visibility: visible;
+		opacity: 1;
+	}
 }
