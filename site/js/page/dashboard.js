@@ -55,7 +55,7 @@ window.reset_dashboard_buttons = async () =>
 		buttons.push(['file-arrow-up', "_.modal.upload()", 'Upload Files'])
 	}
 
-
+	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'])
 	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 
 	if (SelfUserData.perms.includes('admin'))
