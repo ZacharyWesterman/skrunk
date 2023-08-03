@@ -2,7 +2,7 @@
 	{{~it : i}}
 		{{?i.length <= 3 || i[3] !== 'bottom'}}<button class="icon{{?i.length > 3}} {{=i[3]}}{{?}} tooltip" onclick="{{=i[1]}}">
 			<i class="fa-solid fa-{{=i[0]}} fa-lg"></i>
-			<span class="tooltiptext t-float-right">{{= i[2] }}</span>
+			<span class="tooltiptext t-float-right{{?i.length > 3}} {{=i[3]}}{{?}}">{{= i[2] }}</span>
 		</button><br>{{?}}
 	{{~}}
 	<div class="bottom">

@@ -9,7 +9,10 @@
 <script *load="refresh_users">
 	export async function refresh_users()
 	{
-		const users = (await query.weather.users()).filter(user => user.username === api.username)
-		_('weather_users', users)
+		if (EnabledModules.includes('weather'))
+		{
+			const users = (await query.weather.users()).filter(user => user.username === api.username)
+			_('weather_users', users)
+		}
 	}
 </script>

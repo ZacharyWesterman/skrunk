@@ -1,3 +1,5 @@
+window.EnabledModules = [] //These are loaded on page load
+
 window.fullscreen = function()
 {
 	if (!document.fullscreenElement)
@@ -19,8 +21,8 @@ window.set_book_dashboard_buttons = function()
 		['arrow-up', "reset_dashboard_buttons()", 'Back'],
 		['book', "dashnav('/html/books.html')", 'Library'],
 		['bookmark', "dashnav('/html/books_new.html')", 'Catalog Books'],
-		['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'],
 	]
+	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'])
 	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 	_('navbar', buttons)
 }
@@ -31,9 +33,9 @@ window.set_user_dashboard_buttons = function()
 	let buttons = [
 		['arrow-up', "reset_dashboard_buttons()", 'Back'],
 		['user-pen', "dashnav('/html/user.html')", 'Edit User Info'],
-		['palette', "dashnav('/html/edit_theme.html')", 'Customize Theme'],
-		['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'],
 	]
+	if (EnabledModules.includes('theme')) buttons.push(['palette', "dashnav('/html/edit_theme.html')", 'Customize Theme'])
+	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'])
 	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 	_('navbar', buttons)
 }
@@ -45,57 +47,27 @@ window.reset_dashboard_buttons = async () =>
 		['right-from-bracket', "api.logout()", 'Logout'],
 		['home', 'load_dashboard()', 'Home'],
 		['user-pen', "set_user_dashboard_buttons()", 'Edit User Info'],
-		['book', "set_book_dashboard_buttons()", 'Library'],
-		['hard-drive', "dashnav('/html/file_list.html')", 'Files'],
-		['file-arrow-up', "_.modal.upload()", 'Upload Files'],
-		['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'],
 	]
+
+	if (EnabledModules.includes('books')) buttons.push(['book', "set_book_dashboard_buttons()", 'Library'])
+	if (EnabledModules.includes('files')) {
+		buttons.push(['hard-drive', "dashnav('/html/file_list.html')", 'Files'])
+		buttons.push(['file-arrow-up', "_.modal.upload()", 'Upload Files'])
+	}
+
 
 	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 
 	if (SelfUserData.perms.includes('admin'))
 	{
 		buttons.push(['users', "dashnav('/html/users.html')", 'Edit Users (Admin)', 'alt'])
-		buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'Weather Users (Admin)', 'alt'])
+		if (EnabledModules.includes('weather'))
+			buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'Weather Users (Admin)', 'alt'])
+		buttons.push(['gear', "dashnav('/html/server_settings.html')", 'Server Settings', 'alt'])
 	}
 
 	await _('navbar', buttons)
 }
-
-//Load user theme (regardless of cookies)
-query.users.get(api.username).then(data => {
-	if (data.__typename !== 'UserData')
-	{
-		//If user data does not exist, we don't want them to have access. Kick them out.
-		_.modal({
-			type: 'error',
-			title: 'ERROR',
-			text: data.message,
-			buttons: ['OK']
-		}).then(() => api.logout()).catch(() => {})
-		return
-	}
-
-	window.SelfUserData = data
-
-	//Wipe theme data
-	_.css.wipe()
-
-	//Load user colors
-	for (const i of data.theme.colors || [])
-	{
-		_.css.set_var(i.name, i.value)
-	}
-
-	//Load user sizes
-	for (const i of data.theme.sizes || [])
-	{
-		_.css.set_var(i.name, i.value)
-	}
-
-	reset_dashboard_buttons()
-	load_dashboard()
-})
 
 let HaveModelViewer = false
 
@@ -137,3 +109,51 @@ window.load_dashboard = async () =>
 		$('xkcd').innerHTML = `<br><img width="100%" height="auto" src="${res.img}"/>`
 	})
 }
+
+window.reset_modules = async modules => {
+	EnabledModules = modules
+	reset_dashboard_buttons()
+}
+
+async function init()
+{
+	const promise = api('{getEnabledModules}')
+
+	//Load user theme (regardless of cookies)
+	query.users.get(api.username).then(data => {
+		if (data.__typename !== 'UserData')
+		{
+			//If user data does not exist, we don't want them to have access. Kick them out.
+			_.modal({
+				type: 'error',
+				title: 'ERROR',
+				text: data.message,
+				buttons: ['OK']
+			}).then(() => api.logout()).catch(() => {})
+			return
+		}
+
+		window.SelfUserData = data
+
+		//Wipe theme data
+		_.css.wipe()
+
+		//Load user colors
+		for (const i of data.theme.colors || [])
+		{
+			_.css.set_var(i.name, i.value)
+		}
+
+		//Load user sizes
+		for (const i of data.theme.sizes || [])
+		{
+			_.css.set_var(i.name, i.value)
+		}
+
+		promise.then(reset_modules)
+	})
+
+	load_dashboard()
+}
+
+init()

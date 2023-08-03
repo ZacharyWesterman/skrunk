@@ -1,0 +1,27 @@
+[
+	{
+		"id": "books",
+		"name": "Books",
+		"description": "Library and book cataloging system."
+	},
+	{
+		"id": "bugs",
+		"name": "Bug Tracker",
+		"description": "Enable in-site bug reports and list planned features."
+	},
+	{
+		"id": "files",
+		"name": "Files",
+		"description": "Allow uploading and serving of blob data."
+	},
+	{
+		"id": "theme",
+		"name": "Edit Theme",
+		"description": "Allow users to customize how the site looks for them."
+	},
+	{
+		"id": "weather",
+		"name": "Weather Monitor",
+		"description": "Enable interface with the weather-monitoring API"
+	}
+]

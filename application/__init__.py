@@ -135,8 +135,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 	@application.route('/<path:path>', methods=['GET'])
 	def site(path):
-
-		# Allow only specific files in site/, as other files may have "sensitive" data.
+		# Allow only specific files in site/ to be accessed without auth, as other files may have "sensitive" data.
 		allowed = [
 			'html/index.html',
 			'html/login.html',
@@ -164,7 +163,7 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 
 		if ext in ['js', 'css', 'html', 'dot', 'json']:
 			try:
-				return read_file_data(f'site/{path}'), 200
+				return read_file_data(f'site/{path}')
 			except FileNotFoundError as e:
 				return '', 404
 		else:

@@ -1,0 +1,53 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-gear fa-xl"></i>
+		Server Settings
+	</h1>
+
+	<div class="card">
+		<div class="card-inner">
+			<h2 style="text-align: center;">Modules</h2>
+			<hr>
+			<div id="server_modules"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+	export async function init()
+	{
+		let promise = _('server_modules', api.get_json('/config/modules.json'))
+		const modules = await api('{getEnabledModules}')
+		await promise
+
+		for (const m of modules)
+		{
+			$(`module-${m}`).checked = true
+		}
+	}
+
+	export async function set_module_enabled(module_id, enabled)
+	{
+		const res = await api(`
+		mutation ($module_id: String!, $enabled: Boolean!) {
+			setModuleEnabled(module_id: $module_id, enabled: $enabled)
+		}`, {
+			module_id: module_id,
+			enabled: enabled,
+		})
+
+		const is_enabled = res.includes(module_id)
+		if (is_enabled)
+		{
+			const id = `icon-module-${module_id}`
+			$.show(id)
+			setTimeout(() => {
+				$.hide(id, true)
+			}, 500)
+		}
+
+		$(`module-${module_id}`).checked = is_enabled
+
+		reset_modules(res)
+	}
+</script>

@@ -36,6 +36,10 @@
 	font-family: 'Poppins', sans-serif;
 }
 
+.tooltip .alt {
+	background-color: var(--tertiary);
+}
+
 .t-left {
 	right: 0%;
 	margin-left: -60px;

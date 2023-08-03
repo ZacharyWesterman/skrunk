@@ -5,6 +5,7 @@ from .sessions import resolve_revoke_user_sessions
 from .blob import resolve_delete_blob, resolve_set_blob_tags
 from .bugs import *
 from .book import *
+from .settings import resolve_set_module_enabled
 
 mutation = MutationType()
 
@@ -36,3 +37,5 @@ mutation.set_field('shareBook', resolve_share_book_with_user)
 mutation.set_field('shareBookNonUser', resolve_share_book_with_non_user)
 mutation.set_field('borrowBook', resolve_borrow_book)
 mutation.set_field('returnBook', resolve_return_book)
+
+mutation.set_field('setModuleEnabled', resolve_set_module_enabled)

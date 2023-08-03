@@ -1,0 +1,9 @@
+#Resolvers below this line
+
+extend type Query {
+	getEnabledModules: [String!]!
+}
+
+extend type Mutation {
+	setModuleEnabled(module_id: String!, enabled: Boolean!): [String!]!
+}

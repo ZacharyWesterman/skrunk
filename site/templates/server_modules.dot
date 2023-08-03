@@ -1,0 +1,17 @@
+<table>
+	<tr>
+		<th></th>
+		<th>Name</th>
+		<th style="width: 2rem;"></th>
+		<th>Description</th>
+	</tr>
+
+	{{~ it : module }}
+	<tr>
+		<td><input type="checkbox" id="module-{{= module.id }}" *click="set_module_enabled('{{= module.id}}', $('module-{{= module.id }}').checked)"></td>
+		<td>{{= module.name }}</td>
+		<td><i id="icon-module-{{= module.id }}" class="fa-solid fa-circle-check hidden"></i></td>
+		<td>{{= module.description }}</td>
+	</tr>
+	{{~}}
+</table>

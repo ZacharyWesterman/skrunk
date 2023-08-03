@@ -237,3 +237,7 @@ blockquote {
 	margin-left: 0;
 	margin-bottom: 0.3rem;
 }
+
+th {
+	text-align: left;
+}
