@@ -31,8 +31,8 @@ def create_user(user_data: dict) -> None:
 	if userdata:
 		raise exceptions.UserExistsError(user_data["username"])
 	else:
-		user_max = None if user_data['max']['disable'] else (False if user_data['max']['default'] else user_data['max'])
-		user_min = None if user_data['min']['disable'] else (False if user_data['min']['default'] else user_data['min'])
+		user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max'])
+		user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min'])
 
 		userdata = {
 			'_id': user_data['username'],
