@@ -5,10 +5,10 @@ from ariadne.contrib.federation import make_federated_schema
 
 from .resolvers import query, mutation
 from .tokens import *
-from .db.users import authenticate, count_users, create_user
+from .db.users import count_users
 from .scalars import scalars
 from .db import init_db, blob, setup_db
-from . import exceptions
+from . import routes
 
 import mimetypes
 import requests
@@ -27,12 +27,14 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = make_federated_schema(type_defs, [query, mutation] + scalars)
 
-	USER_COUNT = count_users()
+	application.is_initialized = count_users() > 0
+	application.no_auth = no_auth
 
 	#Create temporary admin user if server hasn't been set up yet
-	if USER_COUNT == 0:
+	if not application.is_initialized:
 		setup_db()
 
+	routes.init(application)
 
 	def read_file_data(path: str):
 		try:
@@ -44,66 +46,6 @@ def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url 
 					return fp.read(), 200
 		except FileNotFoundError:
 			return '', 404
-
-	def authorized():
-		if USER_COUNT == 0:
-			print('NO-AUTH: No users exist, giving access for database setup!', flush=True)
-			return True
-
-		if no_auth:
-			print('NO-AUTH: Auth set to True', flush=True)
-			return True
-
-		token = get_request_token()
-		if token is None:
-			return False
-
-		return token_is_valid(token)
-
-	@application.route('/auth/verify', methods=['POST', 'GET'])
-	def verify_token():
-		if USER_COUNT == 0:
-			return jsonify({'valid': True}), 200
-
-		data = request.get_json()
-
-		if 'token' not in data:
-			return '{"valid":false}', 200
-
-		token = data['token'].split(' ')
-		if len(token) < 2:
-			return '{"error":"Invalid Token"}', 400
-
-		return jsonify({'valid': token_is_valid(token[1])}), 200
-
-	@application.route('/auth', methods=['POST', 'GET'])
-	def auth_user():
-		if USER_COUNT == 0:
-			return jsonify({'token': create_user_token('admin')}), 200
-
-		data = request.get_json()
-
-		#Refresh user login token
-		if 'token' in data:
-			token = data['token'].split(' ')
-			if len(token) < 2:
-				return '{"error":"Invalid Token"}', 400
-
-			if not token_is_valid(token[1]):
-				return '{"error":"Expired Token"}', 400
-
-			username = decode_user_token(token[1])['username']
-			login_token = create_user_token(username)
-			return f'{{"token":"Bearer {login_token}"}}', 200
-
-		if 'username' not in data or 'password' not in data:
-			return '{"error":"Authentication failed"}', 400
-
-		try:
-			login_token = authenticate(data['username'], data['password'])
-			return f'{{"token":"{login_token}"}}', 200
-		except exceptions.ClientError as e:
-			return jsonify({'error': str(e)}), 403
 
 	@application.route('/api', methods=['POST'])
 	def graphql():
