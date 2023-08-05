@@ -256,7 +256,7 @@ def return_book(book_id: str, user_data: dict) -> dict:
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
-	if len(book_data['shareHistory']) == 0:
+	if not book_data['shared']:
 		raise exceptions.BookCannotBeShared('Nobody is borrowing this book.')
 
 	last_share = len(book_data['shareHistory']) - 1
