@@ -1,4 +1,2 @@
 *.lock
 __pycache__
-ssl
-data/secrets.json
