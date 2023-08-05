@@ -17,6 +17,11 @@ def init(application) -> None:
 	application.route('/favicon.ico', methods=['GET'])(site.favicon)
 	application.route('/<path:path>.svg', methods=['GET'])(site.get_svg)
 
+	application.route('/blob/<path:path>', methods=['GET'])(blob.stream)
+	application.route('/download/<path:path>', methods=['GET'])(blob.download)
+	application.route('/preview/<path:path>', methods=['GET'])(blob.preview)
+	application.route('/upload', methods=['POST'])(blob.upload)
+
 	@application.after_request
 	def after_request(response):
 		response.headers.add('Accept-Ranges', 'bytes')

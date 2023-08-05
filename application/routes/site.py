@@ -17,11 +17,11 @@ def get(path: str) -> Response:
 	jsfields = re.match(r'js/fields/[\w-]+\.js', path)
 	styles = re.match(r'css/[\w-]+\.css', path)
 	if not auth.authorized() and path not in __NO_AUTH_FILES and not jsfields and not styles:
-		return '', 403
+		return Response('Access denied.', 403)
 
 	if not application.is_initialized and path == 'html/login.html':
 		with open(f'site/{path}') as fp:
-			return fp.read().replace('Authentication Required', '<b class="error">This server has not been set up.<br><br>Login as user "admin" (any password) and create at least one user.<br><br>Then restart the server, and (optionally) delete the admin user.</b>'), 200
+			return Response(fp.read().replace('Authentication Required', '<b class="error">This server has not been set up.<br><br>Login as user "admin" (any password) and create at least one user.<br><br>Then restart the server, and (optionally) delete the admin user.</b>'), 200)
 
 	i = path.rindex('.')
 	if i > -1:

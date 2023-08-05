@@ -1,4 +1,4 @@
-import ariadne
+import ariadne, json
 from flask import jsonify, request, Response
 from . import auth
 
@@ -18,4 +18,4 @@ def graphql() -> Response:
 	else:
 		result_code = 200
 
-	return Response(jsonify(result), result_code)
+	return jsonify(result), result_code
