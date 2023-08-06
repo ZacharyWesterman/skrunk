@@ -14,7 +14,7 @@ def init(application) -> None:
 
 	application.route('/', methods=['GET'])(site.main_page)
 	application.route('/<path:path>', methods=['GET'])(site.get)
-	application.route('/favicon.ico', methods=['GET'])(site.favicon)
+	application.route('/<path:path>.ico', methods=['GET'])(site.get_icon)
 	application.route('/<path:path>.svg', methods=['GET'])(site.get_svg)
 
 	application.route('/blob/<path:path>', methods=['GET'])(blob.stream)

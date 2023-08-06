@@ -37,8 +37,8 @@ def get(path: str) -> Response:
 		else:
 			return Response('Access denied.', 403)
 
-def favicon() -> Response:
-	return files.read_file_data('data/favicon.ico')
+def get_icon(path: str) -> Response:
+	return files.read_file_data(f'data/{path}.ico')
 
 def get_svg(path: str) -> Response:
 	return files.read_file_data(f'data/{path}.svg')

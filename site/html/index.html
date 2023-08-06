@@ -15,6 +15,7 @@
 	<script src="https://unpkg.com/stackedit-js@1.0.7/docs/lib/stackedit.min.js" async></script>
 
 	<link rel="stylesheet" href="css/styles.css">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon-light.ico" id="favicon">
 </head>
 <body onload="auto_login()">
 	<!-- for background css -->
@@ -67,4 +68,19 @@
 			})
 		}
 	}
+
+	let is_dark_mode = false
+	function auto_favicon()
+	{
+		const element = document.getElementById('favicon')
+		const dark_mode = matchMedia('(prefers-color-scheme: dark)')
+		if (dark_mode.matches !== is_dark_mode)
+		{
+			is_dark_mode = dark_mode.matches
+			element.href = is_dark_mode ? 'favicon-dark.ico' : 'favicon-light.ico'
+		}
+	}
+
+	auto_favicon()
+	setInterval(auto_favicon, 1000)
 </script>
