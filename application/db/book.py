@@ -4,6 +4,7 @@ from . import users
 from application.integrations import google_books
 from datetime import datetime
 from bson.objectid import ObjectId
+import re
 
 db = None
 
@@ -124,7 +125,11 @@ def get_books(owner: str|None, title: str|None, author: str|None, genre: str|Non
 			return []
 
 	if title is not None:
-		query += [{'title': {'$regex': title, '$options': 'i'}}]
+		isbn = title.strip().replace('-', '')
+		if re.match(r'^\d{9,13}$', isbn):
+			query += [{'industryIdentifiers.identifier': isbn}]
+		else:
+			query += [{'title': {'$regex': title, '$options': 'i'}}]
 
 	if author is not None:
 		query += [{'authors': {'$regex': author, '$options': 'i'}}]
@@ -169,7 +174,11 @@ def count_books(owner: str|None, title: str|None, author: str|None, genre: str|N
 			return 0
 
 	if title is not None:
-		query += [{'title': {'$regex': title, '$options': 'i'}}]
+		isbn = title.strip().replace('-', '')
+		if re.match(r'^\d{9,13}$', isbn):
+			query += [{'industryIdentifiers.identifier': isbn}]
+		else:
+			query += [{'title': {'$regex': title, '$options': 'i'}}]
 
 	if author is not None:
 		query += [{'authors': {'$regex': author, '$options': 'i'}}]

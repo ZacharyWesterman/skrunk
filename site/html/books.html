@@ -10,7 +10,7 @@
 			Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div> Borrowed <input type="checkbox" id="shared" *click="search_books"/>
 			<table>
 				<tr>
-					<td><input id="title" placeholder="Title" *bind="search_books"></td>
+					<td><input id="title" placeholder="Title/ISBN" *bind="search_books"></td>
 					<td><button class="reset clickable" *click="$.wipe('title'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
 				</tr>
 				<tr>

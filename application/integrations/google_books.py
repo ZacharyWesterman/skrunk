@@ -2,6 +2,7 @@ __all__ = ['query']
 
 import requests
 import json
+import re
 
 from . import exceptions
 
@@ -12,7 +13,15 @@ def query(*, title: str = '', author: str = '') -> list:
 	a = author.replace(':', '').strip().replace(' ', '+')
 
 	if len(t):
-		query_fields += ['intitle:' + t] if len(a) else [t]
+		if len(a):
+			query_fields += ['intitle:' + t]
+		else:
+			#Check if field is an ISBN number
+			isbn = t.replace('-', '')
+			if re.match(r'^\d{9,13}$', isbn):
+				query_fields += ['isbn:' + isbn]
+			else:
+				query_fields += [t]
 	if len(a):
 		query_fields += ['inauthor:"' + a + '"']
 
