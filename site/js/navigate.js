@@ -9,8 +9,9 @@ window.navigate = async function(url)
 
 window.dashnav = async function(url)
 {
+	window.history.replaceState({}, '', '?page='+url)
 	clear_error_message()
-	await inject(document.all.content, url)
+	await inject(document.all.content, `/html/${url}.html`)
 }
 
 /*

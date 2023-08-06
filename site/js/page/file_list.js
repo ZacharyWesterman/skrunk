@@ -210,7 +210,7 @@ export async function show_tags_how_to()
 
 	if (res === 'ok') return
 
-	dashnav('/html/help/tag_query.html')
+	dashnav('help/tag_query')
 }
 
 export async function set_blob_tags(id)

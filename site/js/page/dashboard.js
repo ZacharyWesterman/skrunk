@@ -16,26 +16,26 @@ window.fullscreen = function()
 
 window.set_book_dashboard_buttons = function()
 {
-	dashnav('/html/books.html')
+	dashnav('books')
 	let buttons = [
 		['arrow-up', "reset_dashboard_buttons()", 'Back'],
-		['book', "dashnav('/html/books.html')", 'Library'],
-		['bookmark', "dashnav('/html/books_new.html')", 'Catalog Books'],
+		['book', "dashnav('books')", 'Library'],
+		['bookmark', "dashnav('books_new')", 'Catalog Books'],
 	]
-	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'])
+	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('bugs')", 'Bug Tracker', 'bottom'])
 	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 	_('navbar', buttons)
 }
 
 window.set_user_dashboard_buttons = function()
 {
-	dashnav('/html/user.html')
+	dashnav('user')
 	let buttons = [
 		['arrow-up', "reset_dashboard_buttons()", 'Back'],
-		['user-pen', "dashnav('/html/user.html')", 'Edit User Info'],
+		['user-pen', "dashnav('user')", 'Edit User Info'],
 	]
-	if (EnabledModules.includes('theme')) buttons.push(['palette', "dashnav('/html/edit_theme.html')", 'Customize Theme'])
-	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'])
+	if (EnabledModules.includes('theme')) buttons.push(['palette', "dashnav('edit_theme')", 'Customize Theme'])
+	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('bugs')", 'Bug Tracker', 'bottom'])
 	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 	_('navbar', buttons)
 }
@@ -51,19 +51,19 @@ window.reset_dashboard_buttons = async () =>
 
 	if (EnabledModules.includes('books')) buttons.push(['book', "set_book_dashboard_buttons()", 'Library'])
 	if (EnabledModules.includes('files')) {
-		buttons.push(['hard-drive', "dashnav('/html/file_list.html')", 'Files'])
+		buttons.push(['hard-drive', "dashnav('file_list')", 'Files'])
 		buttons.push(['file-arrow-up', "_.modal.upload()", 'Upload Files'])
 	}
 
-	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('/html/bugs.html')", 'Bug Tracker', 'bottom'])
+	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('bugs')", 'Bug Tracker', 'bottom'])
 	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
 
 	if (SelfUserData.perms.includes('admin'))
 	{
-		buttons.push(['users', "dashnav('/html/users.html')", 'Edit Users (Admin)', 'alt'])
+		buttons.push(['users', "dashnav('users')", 'Edit Users (Admin)', 'alt'])
 		if (EnabledModules.includes('weather'))
-			buttons.push(['cloud-bolt', "dashnav('/html/weather_users.html')", 'Weather Users (Admin)', 'alt'])
-		buttons.push(['gear', "dashnav('/html/server_settings.html')", 'Server Settings', 'alt'])
+			buttons.push(['cloud-bolt', "dashnav('weather_users')", 'Weather Users (Admin)', 'alt'])
+		buttons.push(['gear', "dashnav('server_settings')", 'Server Settings', 'alt'])
 	}
 
 	await _('navbar', buttons)
@@ -102,6 +102,7 @@ window.load_model_viewer = () =>
 
 window.load_dashboard = async () =>
 {
+	window.history.replaceState({}, '', '/')
 	await api.snippit('dashboard_header').then(res => $('content').innerHTML = res)
 
 	//Load random xkcd comic
@@ -153,7 +154,11 @@ async function init()
 		promise.then(reset_modules)
 	})
 
-	load_dashboard()
+	const page = (new URLSearchParams(location.search)).get('page')
+	if (page === null)
+		load_dashboard()
+	else
+		dashnav(page)
 }
 
 init()
