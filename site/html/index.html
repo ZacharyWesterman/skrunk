@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Main Page</title>
+	<title>Index</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="Main Page" />
+	<meta name="description" content="Data Management" />
 
 	<script src="https://kit.fontawesome.com/f78d847193.js" crossorigin="anonymous" async></script>
 	<script type="module" src="/js/runtime_errors.js" async></script>
@@ -15,7 +15,7 @@
 	<script src="https://unpkg.com/stackedit-js@1.0.7/docs/lib/stackedit.min.js" async></script>
 
 	<link rel="stylesheet" href="css/styles.css">
-	<link rel="shortcut icon" type="image/x-icon" href="favicon-light.ico" id="favicon">
+	<link rel="icon" sizes="32x32" type="image/png" href="favicon-light.png" id="favicon">
 </head>
 <body onload="auto_login()">
 	<!-- for background css -->
@@ -73,11 +73,11 @@
 	function auto_favicon()
 	{
 		const element = document.getElementById('favicon')
-		const dark_mode = matchMedia('(prefers-color-scheme: dark)')
-		if (dark_mode.matches !== is_dark_mode)
+		const dark_mode = matchMedia('(prefers-color-scheme: dark)').matches && !(window?.environment?.mobile)
+		if (dark_mode !== is_dark_mode)
 		{
-			is_dark_mode = dark_mode.matches
-			element.href = is_dark_mode ? 'favicon-dark.ico' : 'favicon-light.ico'
+			is_dark_mode = dark_mode
+			element.href = is_dark_mode ? 'favicon-dark.png' : 'favicon-light.png'
 		}
 	}
 

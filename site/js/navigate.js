@@ -12,6 +12,29 @@ window.dashnav = async function(url)
 	window.history.replaceState({}, '', '?page='+url)
 	clear_error_message()
 	await inject(document.all.content, `/html/${url}.html`)
+
+	set_title()
+}
+
+window.set_title = function()
+{
+	//Set page title if page has a title header
+	const header = document.querySelector('div[class="page"]>h1')
+	if (header)
+	{
+		for (const child of header.childNodes)
+		{
+			if (child.nodeType === 3) //Text node
+			{
+				const text = child.textContent.trim()
+				if (text !== '')
+				{
+					document.title = text
+					break
+				}
+			}
+		}
+	}
 }
 
 /*

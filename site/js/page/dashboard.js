@@ -104,6 +104,7 @@ window.load_dashboard = async () =>
 {
 	window.history.replaceState({}, '', '/')
 	await api.snippit('dashboard_header').then(res => $('content').innerHTML = res)
+	set_title()
 
 	//Load random xkcd comic
 	api.get_json('xkcd').then(res => {

@@ -38,7 +38,7 @@ def get(path: str) -> Response:
 			return Response('Access denied.', 403)
 
 def get_icon(path: str) -> Response:
-	return files.read_file_data(f'data/{path}.ico')
+	return files.read_file_data(f'data/{path}.png')
 
 def get_svg(path: str) -> Response:
 	return files.read_file_data(f'data/{path}.svg')
