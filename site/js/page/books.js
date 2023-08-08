@@ -197,8 +197,8 @@ export async function search_books()
 	const shared = $('shared').checked || null //Only filter by shared if field is checked.
 
 	const res = await api(`
-	query ($owner: String, $title: String, $author: String, $genre: String, $shared: Boolean, $start: Int!, $count: Int!) {
-		getBooks(owner: $owner, title: $title, author: $author, genre: $genre, shared: $shared, start: $start, count: $count) {
+	query ($filter: BookSearchFilter!, $start: Int!, $count: Int!) {
+		getBooks(filter: $filter, start: $start, count: $count) {
 			title
 			subtitle
 			authors
@@ -219,11 +219,13 @@ export async function search_books()
 			}
 		}
 	}`, {
-		owner: owner,
-		title: title,
-		author: author,
-		genre: genre,
-		shared: shared,
+		filter: {
+			owner: owner,
+			title: title,
+			author: author,
+			genre: genre,
+			shared: shared,
+		},
 		start: BookStart,
 		count: BookListLen,
 	})
@@ -243,14 +245,16 @@ async function reload_book_count()
 	const shared = $('shared').checked || null
 
 	const count = await api(`
-	query ($owner: String, $title: String, $author: String, $genre: String, $shared: Boolean) {
-		countBooks(owner: $owner, title: $title, author: $author, genre: $genre, shared: $shared)
+	query ($filter: BookSearchFilter!) {
+		countBooks(filter: $filter)
 	}`, {
-		owner: owner,
-		title: title,
-		author: author,
-		genre: genre,
-		shared: shared,
+		filter: {
+			owner: owner,
+			title: title,
+			author: author,
+			genre: genre,
+			shared: shared,
+		},
 	})
 
 	const page_ct = Math.ceil(count / BookListLen)

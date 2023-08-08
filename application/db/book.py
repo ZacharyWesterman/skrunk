@@ -1,5 +1,6 @@
 from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
+from application.objects import BookSearchFilter
 from . import users
 from application.integrations import google_books
 from datetime import datetime
@@ -113,34 +114,40 @@ def unlink_book_tag(rfid: str) -> dict:
 	db.delete_one({'rfid': rfid})
 	return book_data
 
-def get_books(owner: str|None, title: str|None, author: str|None, genre: str|None, shared: bool|None, start: int, count: int) -> list:
-	global db
-	books = []
+def build_book_query(filter: BookSearchFilter) -> dict:
 	query = []
-	if owner is not None:
-		try:
-			user_data = users.get_user_data(owner)
-			query += [{'creator': user_data['_id']}]
-		except exceptions.UserDoesNotExistError:
-			return []
+	if filter.get('owner') is not None:
+		user_data = users.get_user_data(filter.get('owner'))
+		query += [{'owner': user_data['_id']}]
 
-	if title is not None:
-		isbn = title.strip().replace('-', '')
+	if filter.get('title') is not None:
+		isbn = filter.get('title').strip().replace('-', '')
 		if re.match(r'^\d{9,13}$', isbn):
 			query += [{'industryIdentifiers.identifier': isbn}]
 		else:
-			query += [{'title': {'$regex': title, '$options': 'i'}}]
+			query += [{'title': {'$regex': filter.get('title'), '$options': 'i'}}]
 
-	if author is not None:
-		query += [{'authors': {'$regex': author, '$options': 'i'}}]
+	if filter.get('author') is not None:
+		query += [{'authors': {'$regex': filter.get('author'), '$options': 'i'}}]
 
-	if genre is not None:
-		query += [{'categories': {'$regex': genre, '$options': 'i'}}]
+	if filter.get('genre') is not None:
+		query += [{'categories': {'$regex': filter.get('genre'), '$options': 'i'}}]
 
-	if shared is not None:
-		query += [{'shared': shared}]
+	if filter.get('shared') is not None:
+		query += [{'shared': filter.get('shared')}]
 
-	selection = db.find({'$and': query} if len(query) else {}, sort = [('title', 1), ('authors', 1)])
+	return {'$and': query} if len(query) else {}
+
+def get_books(filter: BookSearchFilter, start: int, count: int) -> list:
+	global db
+	books = []
+
+	try:
+		query = build_book_query(filter)
+	except exceptions.UserDoesNotExistError:
+		return []
+
+	selection = db.find(query, sort = [('title', 1), ('authors', 1)])
 	for i in selection.limit(count).skip(start):
 		try:
 			userdata = users.get_user_by_id(i['owner'])
@@ -163,33 +170,14 @@ def get_books(owner: str|None, title: str|None, author: str|None, genre: str|Non
 
 	return books
 
-def count_books(owner: str|None, title: str|None, author: str|None, genre: str|None, shared: bool|None) -> list:
+def count_books(filter: BookSearchFilter) -> list:
 	global db
-	query = []
-	if owner is not None:
-		try:
-			user_data = users.get_user_data(owner)
-			query += [{'creator': user_data['_id']}]
-		except exceptions.UserDoesNotExistError:
-			return 0
+	try:
+		query = build_book_query(filter)
+	except exceptions.UserDoesNotExistError:
+		return 0
 
-	if title is not None:
-		isbn = title.strip().replace('-', '')
-		if re.match(r'^\d{9,13}$', isbn):
-			query += [{'industryIdentifiers.identifier': isbn}]
-		else:
-			query += [{'title': {'$regex': title, '$options': 'i'}}]
-
-	if author is not None:
-		query += [{'authors': {'$regex': author, '$options': 'i'}}]
-
-	if genre is not None:
-		query += [{'categories': {'$regex': genre, '$options': 'i'}}]
-
-	if shared is not None:
-		query += [{'shared': shared}]
-
-	return db.count_documents({'$and': query} if len(query) else {})
+	return db.count_documents(query)
 
 def share_book_with_user(book_id: str, username: str) -> dict:
 	book_id = ObjectId(book_id)
