@@ -197,7 +197,7 @@ export async function search_books()
 	const shared = $('shared').checked || null //Only filter by shared if field is checked.
 
 	const res = await api(`
-	query ($filter: BookSearchFilter, $start: Int!, $count: Int!) {
+	query ($filter: BookSearchFilter!, $start: Int!, $count: Int!) {
 		getBooks(filter: $filter, start: $start, count: $count) {
 			title
 			subtitle
@@ -245,7 +245,7 @@ async function reload_book_count()
 	const shared = $('shared').checked || null
 
 	const count = await api(`
-	query ($filter: BookSearchFilter) {
+	query ($filter: BookSearchFilter!) {
 		countBooks(filter: $filter)
 	}`, {
 		filter: {

@@ -59,7 +59,7 @@ type BookShare {
 	stop: DateTime
 }
 
-type BookSearchFilter {
+input BookSearchFilter {
 	owner: String
 	title: String
 	author: String
@@ -77,8 +77,8 @@ union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShare
 #Resolvers below this line:
 
 extend type Query {
-	getBooks(filter: BookSearchFilter, start: Int!, count: Int!): [Book!]!
-	countBooks(filter: BookSearchFilter): Int!
+	getBooks(filter: BookSearchFilter!, start: Int!, count: Int!): [Book!]!
+	countBooks(filter: BookSearchFilter!): Int!
 	searchBooks(title: String!, author: String!): BookQueryResponse!
 	getBookByTag(rfid: String!): BookResponse!
 }
