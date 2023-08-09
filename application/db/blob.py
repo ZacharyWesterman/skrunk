@@ -3,6 +3,7 @@ import application.exceptions as exceptions
 import application.tags as tags
 from . import users
 from application.integrations import models
+from application.objects import BlobSearchFilter
 
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -141,29 +142,37 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size, 'md5sum': md5sum}})
 
-def get_blobs(username: str|None, start: int, count: int, tagstr: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> list:
+def build_blob_query(filter: BlobSearchFilter) -> dict:
+	query = []
+
+	if filter.get('tag_expr') is not None:
+		query += tags.parse(filter.get('tag_expr')).output()
+
+	if filter.get('creator') is not None:
+		user_data = users.get_user_data(filter.get('creator'))
+		query += [{'creator': user_data['_id']}]
+
+	if filter.get('begin_date') is not None:
+		query += [{'created': {'$gte': filter.get('begin_date')}}]
+
+	if filter.get('end_date') is not None:
+		query += [{'created': {'$lte': filter.get('end_date')}}]
+
+	if filter.get('name') is not None:
+		query += [{'name': {'$regex': filter.get('name'), '$options': 'i'}}]
+
+	return {'$and': query} if len(query) else {}
+
+def get_blobs(filter: BlobSearchFilter, start: int, count: int) -> list:
 	global db
+	try:
+		query = build_blob_query(filter)
+	except exceptions.UserDoesNotExistError:
+		return []
+
 	blobs = []
-	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	query = [ mongo_tag_query ] if mongo_tag_query != {} else []
-
-	if username is not None:
-		try:
-			user_data = users.get_user_data(username)
-			query += [{'creator': user_data['_id']}]
-		except exceptions.UserDoesNotExistError:
-			return []
-
-	if begin_date is not None:
-		query += [{'created': {'$gte': begin_date}}]
-	if end_date is not None:
-		query += [{'created': {'$lte': end_date}}]
-
-	if name is not None:
-		query += [{'name': {'$regex': name, '$options': 'i'}}]
-
-	selection = db.find({'$and': query} if len(query) else {}, sort=[('created', -1)])
+	selection = db.find(query, sort=[('created', -1)])
 	for i in selection.limit(count).skip(start):
 		i['id'] = i['_id']
 		try:
@@ -175,28 +184,15 @@ def get_blobs(username: str|None, start: int, count: int, tagstr: str|None, begi
 
 	return blobs
 
-def count_blobs(username: str|None, tagstr: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> int:
+def count_blobs(filter: BlobSearchFilter) -> int:
 	global db
-	mongo_tag_query = tags.parse(tagstr).output() if type(tagstr) is str else {}
 
-	query = [ mongo_tag_query ] if mongo_tag_query != {} else []
+	try:
+		query = build_blob_query(filter)
+	except exceptions.UserDoesNotExistError:
+		return 0
 
-	if username is not None:
-		try:
-			user_data = users.get_user_data(username)
-			query += [{'creator': user_data['_id']}]
-		except exceptions.UserDoesNotExistError:
-			return 0
-
-	if begin_date is not None:
-		query += [{'created': {'$gte': begin_date}}]
-	if end_date is not None:
-		query += [{'created': {'$lte': end_date}}]
-
-	if name is not None:
-		query += [{'name': {'$regex': name, '$options': 'i'}}]
-
-	return db.count_documents({'$and': query} if len(query) else {})
+	return db.count_documents(query)
 
 def get_blob_data(blob_id: str) -> dict:
 	global db

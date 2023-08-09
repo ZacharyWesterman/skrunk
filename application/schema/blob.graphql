@@ -26,6 +26,14 @@ type BlobCount {
 	count: Int!
 }
 
+input BlobSearchFilter {
+	creator: String
+	begin_date: DateTime
+	end_date: DateTime
+	name: String
+	tag_expr: String
+}
+
 union BlobCountResponse = BlobCount | BadTagQuery
 union BlobQueryResponse = BlobList | BadTagQuery
 union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
@@ -33,8 +41,8 @@ union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
 #Resolvers below this line:
 
 extend type Query {
-	getBlobs(username: String, start: Int!, count: Int!, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobQueryResponse!
-	countBlobs(username: String, tags: String, beginDate: DateTime, endDate: DateTime, name: String): BlobCountResponse!
+	getBlobs(filter: BlobSearchFilter!, start: Int!, count: Int!): BlobQueryResponse!
+	countBlobs(filter: BlobSearchFilter!): BlobCountResponse!
 	getBlob(id: String!): Blob
 }
 

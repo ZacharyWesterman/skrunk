@@ -1,33 +1,20 @@
 from application.db.blob import *
 from application.tags import exceptions
 from ariadne import convert_kwargs_to_snake_case
+from application.objects import BlobSearchFilter
 
 @convert_kwargs_to_snake_case
-def resolve_get_blobs(_, info, username: str|None, start: int, count: int, tags: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> dict:
+def resolve_get_blobs(_, info, filter: BlobSearchFilter, start: int, count: int) -> dict:
 	try:
-		blobs = get_blobs(
-			username = username,
-			start = start,
-			count = count,
-			tagstr = tags,
-			begin_date = begin_date,
-			end_date = end_date,
-			name = name,
-		)
+		blobs = get_blobs(filter, start, count)
 		return { '__typename': 'BlobList', 'blobs': blobs }
 	except exceptions.ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }
 
 @convert_kwargs_to_snake_case
-def resolve_count_blobs(_, info, username: str|None, tags: str|None, begin_date: datetime|None, end_date: datetime|None, name: str|None) -> dict:
+def resolve_count_blobs(_, info, filter: BlobSearchFilter) -> dict:
 	try:
-		count = count_blobs(
-			username = username,
-			tagstr = tags,
-			begin_date = begin_date,
-			end_date = end_date,
-			name = name,
-		)
+		count = count_blobs(filter)
 		return { '__typename': 'BlobCount', 'count': count }
 	except exceptions.ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }
