@@ -26,12 +26,7 @@ def process_share_hist(share_history: list) -> list:
 
 	return share_hist
 
-def get_book_tag(rfid: str) -> dict:
-	book_data = db.find_one({'rfid': rfid})
-
-	if not book_data:
-		raise exceptions.BookTagDoesNotExistError(rfid)
-
+def process_book_tag(book_data: dict) -> dict:
 	try:
 		userdata = users.get_user_by_id(book_data['owner'])
 		book_data['owner'] = userdata
@@ -43,8 +38,22 @@ def get_book_tag(rfid: str) -> dict:
 
 	book_data['shareHistory'] = process_share_hist(book_data['shareHistory'])
 	book_data['id'] = book_data['_id']
-
 	return book_data
+
+def get_book_tag(rfid: str, *, parse: bool = False) -> dict:
+	book_data = db.find_one({'rfid': rfid})
+
+	if not book_data:
+		raise exceptions.BookTagDoesNotExistError(rfid)
+
+	return process_book_tag(book_data) if parse else book_data
+
+def get_book(id: str, *, parse: bool = False) -> dict:
+	book_data = db.find_one({'_id': ObjectId(id)})
+	if not book_data:
+		raise exceptions.BookTagDoesNotExistError(id)
+
+	return process_book_tag(book_data) if parse else book_data
 
 def next_out_of_date_book_rfid(before: datetime) -> str:
 	book_data = db.find_one({'lastSync': {'$lt': before}})
@@ -263,4 +272,29 @@ def return_book(book_id: str, user_data: dict) -> dict:
 		raise exceptions.BookCannotBeShared('You did not borrow this book.')
 
 	db.update_one({'_id': book_id}, {'$set': {'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()}})
+	return book_data
+
+def set_book_owner(id: str, username: str) -> dict:
+	book_data = get_book(id, parse = True)
+	user_data = users.get_user_data(username)
+
+	owner_hist = book_data.get('ownerHistory', [])
+	if len(owner_hist):
+		owner_hist[-1]['stop'] = datetime.utcnow()
+	else:
+		owner_hist = [{
+			'user_id': book_data['owner'],
+			'start': book_data['created'],
+			'stop': datetime.utcnow(),
+		}]
+	owner_hist += [{
+		'user_id': user_data['_id'],
+		'start': datetime.utcnow(),
+		'stop': None,
+	}]
+
+	book_data['owner'] = user_data['_id']
+
+	db.update_one({'_id': ObjectId(id)}, {'$set': {'owner': user_data['_id']}})
+
 	return book_data
