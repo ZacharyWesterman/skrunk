@@ -45,3 +45,10 @@ def resolve_return_book(_, info, id: str) -> dict:
 		return { '__typename': 'Book', **return_book(id, user_data) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['admin'], data_func = get_book)
+def resolve_change_book_owner(_, info, id: str, username: str) -> dict:
+	try:
+		return { '__typename': 'Book', **set_book_owner(id, username) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }

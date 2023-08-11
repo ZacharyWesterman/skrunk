@@ -78,6 +78,11 @@ $.valid = (id, state = true) => {
 	$(id).classList.toggle('invalid', !state)
 }
 
+$.flash = id => {
+	$.invalid(id)
+	setTimeout(() => $.valid(id), 350)
+}
+
 $.validate = Validate
 $.enforce = Enforce
 $.on = Events

@@ -2,6 +2,7 @@ __all__ = ['require']
 
 import application.exceptions as exceptions
 from application.tokens import decode_user_token
+from inspect import getfullargspec
 
 db = None
 
@@ -39,10 +40,12 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True, da
 	# Ignore credentials if user is editing their own data.
 	if perform_on_self:
 		if data_func is not None:
-			data = data_func(**data)
+			spec = getfullargspec(data_func)
+			args = dict((i, data[i]) for i in spec[0] + spec[4] if i in data)
+			data = data_func(**args)
 
-		field = 'username' if 'username' in data else 'creator'
-		other_user = str(data.get(field))
+		fields = [i for i in ['owner', 'creator', 'username'] if i in data]
+		other_user = str(data.get(fields[0]))
 
 		if other_user is not None and (other_user == user_data.get('username') or other_user == str(user_data.get('_id'))):
 			return True

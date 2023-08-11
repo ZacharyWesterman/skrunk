@@ -18,6 +18,7 @@ type Book {
 	shared: Boolean!
 	shareHistory: [BookShare!]!
 	rfid: String!
+	ownerHistory: [BookOwnerHist!]!
 }
 
 type BookTag {
@@ -59,6 +60,14 @@ type BookShare {
 	stop: DateTime
 }
 
+type BookOwnerHist {
+	user_id: String!
+	name: String!
+	display_name: String!
+	start: DateTime!
+	stop: DateTime!
+}
+
 input BookSearchFilter {
 	owner: String
 	title: String
@@ -73,6 +82,7 @@ union BookResponse = Book | BookTagDoesNotExistError
 union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
 union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerms
 union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError
+union BookEditResponse = Book | BookTagDoesNotExistError | UserDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:
 
@@ -90,4 +100,5 @@ extend type Mutation {
 	shareBook(id: String!, username: String!): BookTagShareResponse!
 	shareBookNonUser(id: String!, name: String!): BookTagShareResponse!
 	returnBook(id: String!): BookTagShareResponse!
+	setBookOwner(id: String!, username: String!): BookEditResponse!
 }
