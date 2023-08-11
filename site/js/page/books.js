@@ -153,6 +153,134 @@ export async function confirm_unlink_book(title, rfid)
 	search_books()
 }
 
+export async function edit_book(rfid)
+{
+	let promise_data = api(`
+	query ($rfid: String!) {
+		getBookByTag(rfid: $rfid) {
+			__typename
+			...on Book {
+				title
+				subtitle
+				authors
+				thumbnail
+				description
+				owner {
+					username
+					display_name
+				}
+				id
+				rfid
+				categories
+				shared
+				shareHistory {
+					user_id
+					name
+					display_name
+				}
+			}
+			...on BookTagDoesNotExistError {
+				message
+			}
+		}
+	}`, {
+		rfid: rfid,
+	})
+
+	let book_data
+	let new_owner = api.username
+
+	const choice = await _.modal({
+		title: 'Edit Book Info',
+		text: api.snippit('edit_book'),
+		buttons: ['Update', 'Cancel']
+	}, async () => {
+		//On modal load, fill in data
+		let promise_users = _('user_dropdown', {
+			id: 'book-owner',
+			users: query.users.list(),
+			default: 'Select User',
+		})
+
+		book_data = await promise_data
+		promise_users.then(() => {
+			$('title').innerText = book_data.title
+			$('subtitle').innerText = book_data.subtitle
+			$('author').innerText = book_data.authors.join(', ')
+			$('book-owner').value = book_data.owner.username
+		})
+
+		$('delete').onclick = () => {
+			_.modal.return('delete')
+		}
+	}, choice => {
+		//validate input
+		if (choice !== 'update') return true
+
+		if (!$.val('book-owner'))
+		{
+			$.flash('book-owner')
+			return false
+		}
+
+		new_owner = $.val('book-owner')
+		return true
+	}).catch(() => 'cancel')
+
+	if (choice === 'delete') confirm_unlink_book(book_data.title, book_data.rfid)
+	if (choice !== 'update') return
+
+	//Verify that user wants to transfer ownership
+	const confirm = await _.modal({
+		type: 'question',
+		title: 'Change Book Ownership?',
+		text: 'You will no longer be able to edit this book\'s info.',
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (confirm !== 'yes') return
+
+	//Update book id (only owner for now)
+	if (new_owner === api.username)
+	{
+		_.modal.checkmark()
+		return
+	}
+
+	const res = await api(`
+	mutation ($id: String!, $username: String!) {
+		setBookOwner (id: $id, username: $username) {
+			__typename
+			...on BookTagDoesNotExistError {
+				message
+			}
+			...on UserDoesNotExistError {
+				message
+			}
+			...on InsufficientPerms {
+				message
+			}
+		}
+	}`, {
+		id: book_data.id,
+		username: new_owner,
+	})
+
+	if (res.__typename !== 'Book')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	_.modal.checkmark()
+	search_books()
+}
+
 export async function navigate_to_page(page_num)
 {
 	BookStart = page_num * BookListLen
@@ -304,8 +432,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 			const who = $('use_other_person').checked ? 'other_person' : 'person'
 			if ($.val(who) === '')
 			{
-				$.invalid(who)
-				setTimeout(() => $.valid(who), 350)
+				$.flash(who)
 				return false
 			}
 

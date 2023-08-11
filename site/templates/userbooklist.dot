@@ -3,9 +3,9 @@
 	<div class="card-inner">
 		<div class="actions right">
 			{{? book.owner.username === api.username}}
-			<button class="icon clickable tooltip" *click="confirm_unlink_book('{{=safe_html(book.title)}}', '{{=book.rfid}}')">
-					<i class="fa-solid fa-trash fa-lg disabled"></i>
-					<span class="tooltiptext t-left">Delete this book</span>
+			<button class="icon clickable tooltip" *click="edit_book('{{= book.rfid }}')">
+				<i class="fa-solid fa-pen-to-square fa-lg"></i>
+				<span class="tooltiptext t-left">Edit this book</span>
 			</button><br>
 			{{?}}
 			<button class="icon clickable tooltip" *click="share_book('{{= book.shared ? book.shareHistory[book.shareHistory.length - 1].name : ''}}', '{{=safe_html(book.title)}}', '{{=safe_html(book.subtitle)}}', '{{=safe_html(book.authors.join(', '))}}', '{{=book.id}}', '{{=book.owner.username}}')">
