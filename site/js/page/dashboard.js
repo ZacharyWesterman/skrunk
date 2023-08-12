@@ -107,9 +107,18 @@ window.load_dashboard = async () =>
 	set_title()
 
 	//Load random xkcd comic
-	api.get_json('xkcd').then(res => {
-		$('xkcd').innerHTML = `<br><img width="100%" height="auto" src="${res.img}"/>`
-	})
+	new_xkcd()
+}
+
+window.new_xkcd = async () =>
+{
+	const res = await api.get_json('xkcd')
+	$('xkcd').innerHTML = `
+	<h3 style="text-align:center;">${res.title}</h3>
+	<div title="${res.alt}" style="text-align: center;">
+		<img style="max-width: 100%;" src="${res.img}" alt="${safe_html(res.alt)}"/>
+	</div>
+	`
 }
 
 window.reset_modules = async modules => {
