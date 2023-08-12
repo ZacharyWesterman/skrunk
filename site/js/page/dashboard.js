@@ -102,8 +102,7 @@ window.load_model_viewer = () =>
 
 window.load_dashboard = async () =>
 {
-	window.history.replaceState({}, '', '/')
-	environment.page = 'home'
+	environment.set_page('/', 'home')
 	await api.snippit('dashboard_header').then(res => $('content').innerHTML = res)
 	set_title()
 

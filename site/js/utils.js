@@ -5,6 +5,10 @@ window.environment = {
 	apple: navigator.userAgent.includes('Macintosh'),
 	ios: /iPhone|iPod|iPad/.test(navigator.userAgent),
 	page: null,
+	set_page: (location, name) => {
+		environment.page = name || location
+		window.history.replaceState({}, '', (name ? '' : '?page=') + location)
+	},
 }
 
 window.invert_color = hex => {
