@@ -45,7 +45,7 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True, da
 			data = data_func(**args)
 
 		fields = [i for i in ['owner', 'creator', 'username'] if i in data]
-		other_user = str(data.get(fields[0]))
+		other_user = str(data.get(fields[0])) if len(fields) else None
 
 		if other_user is not None and (other_user == user_data.get('username') or other_user == str(user_data.get('_id'))):
 			return True
