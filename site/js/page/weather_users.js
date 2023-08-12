@@ -9,7 +9,13 @@ export function init()
 
 export async function refresh_users()
 {
-	_('weather_users', query.weather.users())
+	let res = await query.weather.users()
+	if (environment.page === 'user')
+	{
+		//If single user view, only show info for that user.
+		res = res.filter(user => user.username === api.username)
+	}
+	await _('weather_users', res)
 }
 
 export async function create_user()
