@@ -1,0 +1,140 @@
+{
+	"default": [
+		{
+			"text": "Logout",
+			"icon": "right-from-bracket",
+			"action": "api.logout()"
+		},
+		{
+			"text": "Home",
+			"icon": "home",
+			"action": "load_dashboard()"
+		},
+		{
+			"text": "Edit User Info",
+			"icon": "user-pen",
+			"action": "dashnav('user')",
+			"goto": "user"
+		},
+		{
+			"text": "Library",
+			"icon": "book",
+			"action": "dashnav('books')",
+			"goto": "books",
+			"module": "books"
+		},
+		{
+			"text": "Files",
+			"icon": "hard-drive",
+			"action": "dashnav('file_list')",
+			"module": "files"
+		},
+		{
+			"text": "Upload Files",
+			"icon": "file-arrow-up",
+			"action": "_.modal.upload()",
+			"module": "files"
+		},
+		{
+			"text": "Bug Tracker",
+			"icon": "bug",
+			"action": "dashnav('bugs')",
+			"module": "bugs",
+			"class": "bottom"
+		},
+		{
+			"text": "Toggle Fullscreen",
+			"icon": "expand",
+			"action": "fullscreen()",
+			"class": "bottom",
+			"show_if": "!environment.ios"
+		},
+		{
+			"text": "Edit Users (Admin)",
+			"icon": "users",
+			"action": "dashnav('users')",
+			"perms": ["admin"],
+			"class": "alt"
+		},
+		{
+			"text": "Weather Users (Admin)",
+			"icon": "cloud-bolt",
+			"action": "dashnav('weather_users')",
+			"perms": ["admin"],
+			"module": "weather",
+			"class": "alt"
+		},
+		{
+			"text": "Server Settings",
+			"icon": "gear",
+			"action": "dashnav('server_settings')",
+			"perms": ["admin"],
+			"class": "alt"
+		}
+	],
+
+	"books": [
+		{
+			"text": "Back",
+			"icon": "arrow-up",
+			"goto": "default"
+		},
+		{
+			"text": "Library",
+			"icon": "book",
+			"action": "dashnav('books')"
+		},
+		{
+			"text": "Catalog Books",
+			"icon": "bookmark",
+			"action": "dashnav('books_new')"
+		},
+		{
+			"text": "Bug Tracker",
+			"icon": "bug",
+			"action": "dashnav('bugs')",
+			"module": "bugs",
+			"class": "bottom"
+		},
+		{
+			"text": "Toggle Fullscreen",
+			"icon": "expand",
+			"action": "fullscreen()",
+			"class": "bottom",
+			"show_if": "!environment.ios"
+		}
+	],
+
+	"user": [
+		{
+			"text": "Back",
+			"icon": "arrow-up",
+			"goto": "default"
+		},
+		{
+			"text": "Edit User Info",
+			"icon": "user-pen",
+			"action": "dashnav('user')"
+		},
+		{
+			"text": "Customize Theme",
+			"icon": "palette",
+			"action": "dashnav('edit_theme')",
+			"module": "theme"
+		},
+		{
+			"text": "Bug Tracker",
+			"icon": "bug",
+			"action": "dashnav('bugs')",
+			"module": "bugs",
+			"class": "bottom"
+		},
+		{
+			"text": "Toggle Fullscreen",
+			"icon": "expand",
+			"action": "fullscreen()",
+			"class": "bottom",
+			"show_if": "!environment.ios"
+		}
+	]
+}

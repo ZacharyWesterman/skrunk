@@ -1,4 +1,6 @@
 window.EnabledModules = [] //These are loaded on page load
+let ModuleConfig = {}
+let HaveModelViewer = false
 
 window.fullscreen = function()
 {
@@ -13,63 +15,6 @@ window.fullscreen = function()
 		document.exitFullscreen()
 	}
 }
-
-window.set_book_dashboard_buttons = function()
-{
-	dashnav('books')
-	let buttons = [
-		['arrow-up', "reset_dashboard_buttons()", 'Back'],
-		['book', "dashnav('books')", 'Library'],
-		['bookmark', "dashnav('books_new')", 'Catalog Books'],
-	]
-	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('bugs')", 'Bug Tracker', 'bottom'])
-	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
-	_('navbar', buttons)
-}
-
-window.set_user_dashboard_buttons = function()
-{
-	dashnav('user')
-	let buttons = [
-		['arrow-up', "reset_dashboard_buttons()", 'Back'],
-		['user-pen', "dashnav('user')", 'Edit User Info'],
-	]
-	if (EnabledModules.includes('theme')) buttons.push(['palette', "dashnav('edit_theme')", 'Customize Theme'])
-	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('bugs')", 'Bug Tracker', 'bottom'])
-	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
-	_('navbar', buttons)
-}
-
-window.reset_dashboard_buttons = async () =>
-{
-	//Load navbar based on user perms
-	let buttons = [
-		['right-from-bracket', "api.logout()", 'Logout'],
-		['home', 'load_dashboard()', 'Home'],
-		['user-pen', "set_user_dashboard_buttons()", 'Edit User Info'],
-	]
-
-	if (EnabledModules.includes('books')) buttons.push(['book', "set_book_dashboard_buttons()", 'Library'])
-	if (EnabledModules.includes('files')) {
-		buttons.push(['hard-drive', "dashnav('file_list')", 'Files'])
-		buttons.push(['file-arrow-up', "_.modal.upload()", 'Upload Files'])
-	}
-
-	if (EnabledModules.includes('bugs')) buttons.push(['bug', "dashnav('bugs')", 'Bug Tracker', 'bottom'])
-	if (!environment.ios) buttons.push(['expand', 'fullscreen()', 'Toggle Fullscreen', 'bottom'])
-
-	if (SelfUserData.perms.includes('admin'))
-	{
-		buttons.push(['users', "dashnav('users')", 'Edit Users (Admin)', 'alt'])
-		if (EnabledModules.includes('weather'))
-			buttons.push(['cloud-bolt', "dashnav('weather_users')", 'Weather Users (Admin)', 'alt'])
-		buttons.push(['gear', "dashnav('server_settings')", 'Server Settings', 'alt'])
-	}
-
-	await _('navbar', buttons)
-}
-
-let HaveModelViewer = false
 
 window.load_model_viewer = () =>
 {
@@ -121,17 +66,35 @@ window.new_xkcd = async () =>
 	`
 }
 
+window.set_navbar = function(name)
+{
+	let result = []
+	for (let config of ModuleConfig[name])
+	{
+		if (config.module && !EnabledModules.includes(config.module)) continue
+		if (config.perms && SelfUserData.perms.filter(x => config.perms.includes(x)).length !== config.perms.length) continue
+
+		let btn_config = [config.icon, config.goto ? `set_navbar('${config.goto}'); ${config.action}` : config.action, config.text]
+		if (config.class) btn_config.push(config.class)
+
+		result.push(btn_config)
+	}
+
+	_('navbar', result)
+}
+
 window.reset_modules = async modules => {
 	EnabledModules = modules
-	reset_dashboard_buttons()
+	set_navbar('default')
 }
 
 async function init()
 {
 	const promise = api('{getEnabledModules}')
+	const promise2 = api.get_json('config/navbar.json')
 
 	//Load user theme (regardless of cookies)
-	query.users.get(api.username).then(data => {
+	query.users.get(api.username).then(async data => {
 		if (data.__typename !== 'UserData')
 		{
 			//If user data does not exist, we don't want them to have access. Kick them out.
@@ -161,6 +124,7 @@ async function init()
 			_.css.set_var(i.name, i.value)
 		}
 
+		ModuleConfig = await promise2
 		promise.then(reset_modules)
 	})
 
