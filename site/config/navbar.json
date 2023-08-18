@@ -50,6 +50,29 @@
 			"show_if": "!environment.ios"
 		},
 		{
+			"text": "Server Settings",
+			"icon": "gear",
+			"action": "dashnav('server_settings')",
+			"goto": "settings",
+			"perms": ["admin"],
+			"class": "alt"
+		}
+	],
+
+	"settings": [
+		{
+			"text": "Back",
+			"icon": "arrow-up",
+			"goto": "default"
+		},
+		{
+			"text": "Server Settings",
+			"icon": "gear",
+			"action": "dashnav('server_settings')",
+			"perms": ["admin"],
+			"class": "alt"
+		},
+		{
 			"text": "Edit Users (Admin)",
 			"icon": "users",
 			"action": "dashnav('users')",
@@ -62,13 +85,6 @@
 			"action": "dashnav('weather_users')",
 			"perms": ["admin"],
 			"module": "weather",
-			"class": "alt"
-		},
-		{
-			"text": "Server Settings",
-			"icon": "gear",
-			"action": "dashnav('server_settings')",
-			"perms": ["admin"],
 			"class": "alt"
 		}
 	],
