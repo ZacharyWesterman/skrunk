@@ -50,10 +50,9 @@ export async function submit_bug_report()
 	refresh_bug_list()
 }
 
-export async function refresh_bug_list()
+export function refresh_bug_list()
 {
-	const bugs = await query.bugs.list(null, 0, 100, false)
-	await _('buglist', bugs)
+	_('buglist', query.bugs.list(null, 0, 100, false))
 }
 
 export function open_editor()
