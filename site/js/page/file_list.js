@@ -7,6 +7,10 @@ let Editor
 import Yace from 'https://unpkg.com/yace?module' //For code editing textareas
 window.Yace = Yace
 
+await mutate.require('blobs')
+await query.require('blobs')
+await query.require('users')
+
 //run this everytime page is imported
 export async function init()
 {

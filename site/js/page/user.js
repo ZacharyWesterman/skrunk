@@ -1,3 +1,6 @@
+await mutate.require('users')
+await query.require('users')
+
 let Perms
 let UserData = {}
 

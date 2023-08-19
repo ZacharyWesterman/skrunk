@@ -1,3 +1,6 @@
+await mutate.require('bugs')
+await query.require('bugs')
+
 export function init()
 {
 	const old_modal_retn = _.modal.upload.return

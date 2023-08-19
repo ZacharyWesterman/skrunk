@@ -1,4 +1,6 @@
 import {load_user_data} from '/js/page/user.js'
+await mutate.require('users')
+await query.require('users')
 
 export function init()
 {

@@ -1,3 +1,6 @@
+await mutate.require('weather')
+await query.require('weather')
+
 export function init()
 {
 	if (EnabledModules.includes('weather'))

@@ -3,12 +3,21 @@ const Imports = {
 	users: import('/js/mutate/users.js'),
 	blobs: import('/js/mutate/blobs.js'),
 	bugs: import('/js/mutate/bugs.js'),
+	books: import('/js/mutate/books.js'),
 }
 
-let Mutate = {}
+let Mutate = {
+	require: async module =>
+	{
+		if (Mutate[module] === undefined)
+		{
+			await Imports[module]
+		}
+	}
+}
+
 for (const i in Imports)
 {
-	const module = await Imports[i]
-	Mutate[i] = module.default
+	Imports[i].then(module => Mutate[i] = module.default)
 }
 window.mutate = Mutate

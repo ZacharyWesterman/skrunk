@@ -93,6 +93,8 @@ async function init()
 	const promise = api('{getEnabledModules}')
 	const promise2 = api.get_json('config/navbar.json')
 
+	await query.require('users')
+
 	//Load user theme (regardless of cookies)
 	query.users.get(api.username).then(async data => {
 		if (data.__typename !== 'UserData')

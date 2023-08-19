@@ -2,6 +2,10 @@ let BookStart = 0
 let BookListLen = 15
 let InitialLoad = true
 
+await mutate.require('books')
+await query.require('books')
+await query.require('users')
+
 //Start the NFC reader ONCE per session, and don't stop it.
 //Trying to stop/restart it multiple times in a session
 //just causes the browser to crash. :/
@@ -29,37 +33,7 @@ export async function init()
 	{
 		$('tagid').value = event.serialNumber
 
-		const res = await api(`
-		query ($rfid: String!) {
-			getBookByTag (rfid: $rfid) {
-				__typename
-				...on Book {
-					title
-					subtitle
-					authors
-					thumbnail
-					description
-					owner {
-						username
-						display_name
-					}
-					id
-					rfid
-					categories
-					shared
-					shareHistory {
-						user_id
-						name
-						display_name
-					}
-				}
-				...on BookTagDoesNotExistError {
-					message
-				}
-			}
-		}`, {
-			rfid: event.serialNumber,
-		})
+		const res = await query.books.by_rfid(event.serialNumber)
 
 		if (res.__typename !== 'Book')
 		{
@@ -124,20 +98,7 @@ export async function confirm_unlink_book(title, rfid)
 
 	if (choice !== 'yes') return
 
-	const res = await api(`
-	mutation ($rfid: String!) {
-		unlinkBookTag (rfid: $rfid) {
-			__typename
-			...on BookTagDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`, {
-		rfid: rfid,
-	})
+	const res = await mutate.books.delete(rfid)
 
 	if (res.__typename !== 'BookTag')
 	{
@@ -155,37 +116,7 @@ export async function confirm_unlink_book(title, rfid)
 
 export async function edit_book(rfid)
 {
-	let promise_data = api(`
-	query ($rfid: String!) {
-		getBookByTag(rfid: $rfid) {
-			__typename
-			...on Book {
-				title
-				subtitle
-				authors
-				thumbnail
-				description
-				owner {
-					username
-					display_name
-				}
-				id
-				rfid
-				categories
-				shared
-				shareHistory {
-					user_id
-					name
-					display_name
-				}
-			}
-			...on BookTagDoesNotExistError {
-				message
-			}
-		}
-	}`, {
-		rfid: rfid,
-	})
+	let promise_data = query.books.by_rfid(rfid)
 
 	let book_data
 	let new_owner = api.username
@@ -224,7 +155,9 @@ export async function edit_book(rfid)
 		}
 
 		new_owner = $.val('book-owner')
-		return true
+
+		//Don't allow update if none of the data has changed
+		return new_owner !== api.username
 	}).catch(() => 'cancel')
 
 	if (choice === 'delete') confirm_unlink_book(book_data.title, book_data.rfid)
@@ -234,37 +167,24 @@ export async function edit_book(rfid)
 	const confirm = await _.modal({
 		type: 'question',
 		title: 'Change Book Ownership?',
-		text: 'You will no longer be able to edit this book\'s info.',
+		text: `You will no longer be able to edit this book's info, and only ${new_owner} will be able to return ownership to you!`,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
-	if (confirm !== 'yes') return
+	if (confirm !== 'yes')
+	{
+		edit_book(rfid)
+		return
+	}
 
-	//Update book id (only owner for now)
+	//Update book info (only owner for now)
 	if (new_owner === api.username)
 	{
 		_.modal.checkmark()
 		return
 	}
 
-	const res = await api(`
-	mutation ($id: String!, $username: String!) {
-		setBookOwner (id: $id, username: $username) {
-			__typename
-			...on BookTagDoesNotExistError {
-				message
-			}
-			...on UserDoesNotExistError {
-				message
-			}
-			...on InsufficientPerms {
-				message
-			}
-		}
-	}`, {
-		id: book_data.id,
-		username: new_owner,
-	})
+	const res = await mutate.books.set_owner(book_data.id, new_owner)
 
 	if (res.__typename !== 'Book')
 	{
@@ -324,39 +244,14 @@ export async function search_books()
 	const genre = $.val('genre') || null
 	const shared = $('shared').checked || null //Only filter by shared if field is checked.
 
-	const res = await api(`
-	query ($filter: BookSearchFilter!, $start: Int!, $count: Int!) {
-		getBooks(filter: $filter, start: $start, count: $count) {
-			title
-			subtitle
-			authors
-			description
-			thumbnail
-			owner {
-				username
-				display_name
-			}
-			id
-			rfid
-			categories
-			shared
-			shareHistory {
-				user_id
-				name
-				display_name
-			}
-		}
-	}`, {
-		filter: {
-			owner: owner,
-			title: title,
-			author: author,
-			genre: genre,
-			shared: shared,
-		},
-		start: BookStart,
-		count: BookListLen,
-	})
+	const filter = {
+		owner: owner,
+		title: title,
+		author: author,
+		genre: genre,
+		shared: shared,
+	}
+	const res = await query.books.get(filter, BookStart, BookListLen)
 
 	await _('book', {
 		books: res,
@@ -372,18 +267,14 @@ async function reload_book_count()
 	const genre = $.val('genre') || null
 	const shared = $('shared').checked || null
 
-	const count = await api(`
-	query ($filter: BookSearchFilter!) {
-		countBooks(filter: $filter)
-	}`, {
-		filter: {
-			owner: owner,
-			title: title,
-			author: author,
-			genre: genre,
-			shared: shared,
-		},
-	})
+	const filter = {
+		owner: owner,
+		title: title,
+		author: author,
+		genre: genre,
+		shared: shared,
+	}
+	const count = await query.books.count(filter)
 
 	const page_ct = Math.ceil(count / BookListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
@@ -452,15 +343,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 					if (res !== 'yes') return
 
 					//Mark the book as no longer borrowed by any user.
-					res = await api(`mutation ($id: String!) {
-						returnBook(id: $id) {
-							__typename
-							...on BookTagDoesNotExistError { message }
-							...on BookCannotBeShared { message }
-						}
-					}`, {
-						id: id,
-					})
+					res = await mutate.books.return(id)
 
 					if (res.__typename !== 'Book')
 					{
@@ -490,29 +373,11 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 
 		if (res.is_user)
 		{
-			res = await api(`mutation ($id: String!, $username: String!) {
-				shareBook (id: $id, username: $username) {
-					__typename
-					...on BookTagDoesNotExistError { message }
-					...on BookCannotBeShared { message }
-				}
-			}`, {
-				id: id,
-				username: res.name,
-			})
+			res = await mutate.books.share(id, res.name)
 		}
 		else
 		{
-			res = await api(`mutation ($id: String!, $name: String!) {
-				shareBookNonUser (id: $id, name: $name) {
-					__typename
-					...on BookTagDoesNotExistError { message }
-					...on BookCannotBeShared { message }
-				}
-			}`, {
-				id: id,
-				name: res.name,
-			})
+			res = await mutate.books.share_nonuser(id, res.name)
 		}
 
 		if (res.__typename !== 'Book')
@@ -539,15 +404,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 		if (res !== 'yes') return
 
 		//Mark the book as no longer borrowed by this user.
-		res = await api(`mutation ($id: String!) {
-			returnBook(id: $id) {
-				__typename
-				...on BookTagDoesNotExistError { message }
-				...on BookCannotBeShared { message }
-			}
-		}`, {
-			id: id,
-		})
+		res = await mutate.books.return(id)
 
 		if (res.__typename !== 'Book')
 		{
@@ -573,15 +430,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 		if (res !== 'yes') return
 
 		//Mark the book as borrowed by this user.
-		res = await api(`mutation ($id: String!) {
-			borrowBook(id: $id) {
-				__typename
-				...on BookTagDoesNotExistError { message }
-				...on BookCannotBeShared { message }
-			}
-		}`, {
-			id: id,
-		})
+		res = await mutate.books.borrow(id)
 
 		if (res.__typename !== 'Book')
 		{

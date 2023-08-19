@@ -3,12 +3,20 @@ const Imports = {
 	users: import('/js/query/users.js'),
 	blobs: import('/js/query/blobs.js'),
 	bugs: import('/js/query/bugs.js'),
+	books: import('/js/query/books.js'),
 }
 
-let Query = {}
+let Query = {
+	require: async module =>
+	{
+		if (Query[module] === undefined)
+		{
+			await Imports[module]
+		}
+	}
+}
 for (const i in Imports)
 {
-	const module = await Imports[i]
-	Query[i] = module.default
+	Imports[i].then(module => Query[i] = module.default)
 }
 window.query = Query
