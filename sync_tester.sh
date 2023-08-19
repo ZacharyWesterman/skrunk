@@ -23,3 +23,5 @@ ssh -t tester "
 	trap 'sudo systemctl stop server; exit' INT
 	journalctl -f -u server
 "
+
+kill -TERM -$$
