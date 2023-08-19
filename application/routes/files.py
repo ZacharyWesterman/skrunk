@@ -6,7 +6,6 @@ def sanitize_path(path: str) -> str:
 	return os.path.relpath(os.path.normpath(os.path.join("/", path)), "/")
 
 def read_file_data(path: str) -> Response:
-	path = sanitize_path(path)
 	try:
 		with open(path, 'rb') as fp:
 			mime = mimetypes.guess_type(path)

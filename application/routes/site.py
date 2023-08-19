@@ -14,6 +14,8 @@ def main_page() -> Response:
 	return files.read_file_data('site/html/index.html')
 
 def get(path: str) -> Response:
+	path = files.sanitize_path(path)
+
 	jsfields = re.match(r'js/fields/[\w-]+\.js', path)
 	styles = re.match(r'css/[\w-]+\.css', path)
 	if not auth.authorized() and path not in __NO_AUTH_FILES and not jsfields and not styles:
@@ -38,7 +40,9 @@ def get(path: str) -> Response:
 			return Response('Access denied.', 403)
 
 def get_icon(path: str) -> Response:
+	path = files.sanitize_path(path)
 	return files.read_file_data(f'data/{path}.png')
 
 def get_svg(path: str) -> Response:
+	path = files.sanitize_path(path)
 	return files.read_file_data(f'data/{path}.svg')
