@@ -24,6 +24,7 @@ NFC.scan()
 export async function init()
 {
 	InitialLoad = true
+	three_state_checkbox()
 
 	window.unload.push(() => {
 		NFC.onreading = undefined
@@ -64,6 +65,17 @@ export async function init()
 		id: 'owner',
 		users: query.users.list(),
 	})
+}
+
+export function three_state_checkbox()
+{
+	const f = $('shared')
+	if (f.state === undefined) f.state = 0 //will transition to indeterminate
+
+	f.state = [1, 2, 0][f.state]
+
+	f.checked = f.state === 2
+	f.indeterminate = f.state === 1
 }
 
 export function manual_input()
@@ -242,7 +254,7 @@ export async function search_books()
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
-	const shared = $('shared').checked || null //Only filter by shared if field is checked.
+	const shared = $('shared').indeterminate ? null : $('shared').checked //Only filter by shared if field is not indeterminate.
 
 	const filter = {
 		owner: owner,
@@ -265,7 +277,7 @@ async function reload_book_count()
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
-	const shared = $('shared').checked || null
+	const shared = $('shared').indeterminate ? null : $('shared').checked //Only filter by shared if field is not indeterminate.
 
 	const filter = {
 		owner: owner,

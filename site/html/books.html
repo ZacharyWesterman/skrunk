@@ -7,7 +7,8 @@
 	<div class="card alt" id="book-header">
 		<div class="card-inner">
 			<h3>Search for existing books:</h3>
-			Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div> Borrowed <input type="checkbox" id="shared" *click="search_books"/>
+			Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div> Borrowed
+			<input type="checkbox" id="shared" *click="three_state_checkbox(); search_books()"/>
 			<table>
 				<tr>
 					<td><input id="title" placeholder="Title/ISBN" *bind="search_books"></td>
