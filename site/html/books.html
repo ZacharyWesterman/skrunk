@@ -11,15 +11,15 @@
 			<input type="checkbox" id="shared" *click="three_state_checkbox(); search_books()"/>
 			<table>
 				<tr>
-					<td><input id="title" placeholder="Title/ISBN" *bind="search_books"></td>
+					<td><input id="title" placeholder="Keywords/ISBN" *bind="search_books"></td>
 					<td><button class="reset clickable" *click="$.wipe('title'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
 				</tr>
 				<tr>
-					<td><input id="author" placeholder="Author" *bind="search_books"></td>
+					<td><input id="author" placeholder="Author (strict)" *bind="search_books"></td>
 					<td><button class="reset clickable" *click="$.wipe('author'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
 				</tr>
 				<tr>
-					<td><input id="genre" placeholder="Genre" *bind="search_books"></td>
+					<td><input id="genre" placeholder="Category" *bind="search_books"></td>
 					<td><button class="reset clickable" *click="$.wipe('genre'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
 				</tr>
 			</table>

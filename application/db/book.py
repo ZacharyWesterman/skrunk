@@ -9,6 +9,11 @@ import re
 
 db = None
 
+_P = {
+	'tag': re.compile(r'</?\w+>'),
+	'nonwd': re.compile(r'[^\w]+'),
+}
+
 def process_share_hist(share_history: list) -> list:
 	share_hist = []
 	for hist in share_history:
@@ -26,6 +31,24 @@ def process_share_hist(share_history: list) -> list:
 
 	return share_hist
 
+def keyword_tokenize(text: str) -> list[str]:
+	return list(set([
+		i for i in _P['nonwd'].sub(' ', _P['tag'].sub(' ', text.replace('\'', ''))).lower().split() if len(i) > 2
+	]))
+
+def build_keywords(book_data: dict) -> list[str]:
+	keywords = []
+	for field in ['title', 'subtitle', 'description', 'authors']:
+		field_data = book_data.get(field)
+		if field_data is None: continue
+		if type(field_data) is list:
+			for i in field_data:
+				keywords += keyword_tokenize(i)
+		else:
+			keywords += keyword_tokenize(field_data)
+
+	return sorted(list(set(keywords)))
+
 def process_book_tag(book_data: dict) -> dict:
 	try:
 		userdata = users.get_user_by_id(book_data['owner'])
@@ -38,6 +61,8 @@ def process_book_tag(book_data: dict) -> dict:
 
 	book_data['shareHistory'] = process_share_hist(book_data['shareHistory'])
 	book_data['id'] = book_data['_id']
+	book_data['keywords'] = build_keywords(book_data)
+
 	return book_data
 
 def get_book_tag(rfid: str, *, parse: bool = False) -> dict:
@@ -80,6 +105,8 @@ def refresh_book_data(rfid: str) -> None:
 		if new_val != book_data[i]:
 			updated[i] = new_val
 
+	updated['keywords'] = build_keywords({**book_data, **updated})
+
 	db.update_one({'rfid': rfid}, {'$set': updated})
 
 
@@ -108,6 +135,8 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 	for i in fields:
 		book_data[i] = google_book_data.get(i)
 
+	book_data['keywords'] = build_keywords(book_data)
+
 	db.insert_one(book_data)
 
 	book_data['owner'] = user_data
@@ -124,40 +153,64 @@ def unlink_book_tag(rfid: str) -> dict:
 	return book_data
 
 def build_book_query(filter: BookSearchFilter) -> dict:
-	query = []
+	query = {}
+	aggregate = None
+
 	if filter.get('owner') is not None:
 		user_data = users.get_user_data(filter.get('owner'))
-		query += [{'owner': user_data['_id']}]
+		query['owner'] = user_data['_id']
+
+	if filter.get('author') is not None:
+		query['authors'] = {'$regex': filter.get('author'), '$options': 'i'}
+
+	if filter.get('genre') is not None:
+		query['categories'] = {'$regex': filter.get('genre'), '$options': 'i'}
+
+	if filter.get('shared') is not None:
+		query['shared'] = filter.get('shared')
 
 	if filter.get('title') is not None:
 		isbn = filter.get('title').strip().replace('-', '')
 		if re.match(r'^\d{9,13}$', isbn):
-			query += [{'industryIdentifiers.identifier': isbn}]
+			query['industryIdentifiers.identifier'] = isbn
 		else:
-			query += [{'title': {'$regex': filter.get('title'), '$options': 'i'}}]
+			keywords = keyword_tokenize(filter.get('title'))
+			query['keywords'] = {'$in': keywords}
+			query['score'] = {'$gt': (len(keywords)+1) // 2 if len(keywords) > 1 else 0 }
 
-	if filter.get('author') is not None:
-		query += [{'authors': {'$regex': filter.get('author'), '$options': 'i'}}]
+			aggregate = [
+				{'$addFields': {
+					'score': {
+						'$size': {
+							'$setIntersection': [keywords, '$keywords']
+						}
+					}
+				}},
+				{'$match': query},
+				{'$sort': {'score': -1, 'title': 1, 'authors': 1}}
+			]
 
-	if filter.get('genre') is not None:
-		query += [{'categories': {'$regex': filter.get('genre'), '$options': 'i'}}]
-
-	if filter.get('shared') is not None:
-		query += [{'shared': filter.get('shared')}]
-
-	return {'$and': query} if len(query) else {}
+	return aggregate, query
 
 def get_books(filter: BookSearchFilter, start: int, count: int) -> list:
 	global db
 	books = []
 
 	try:
-		query = build_book_query(filter)
+		aggregate, query = build_book_query(filter)
 	except exceptions.UserDoesNotExistError:
 		return []
 
-	selection = db.find(query, sort = [('title', 1), ('authors', 1)])
-	for i in selection.limit(count).skip(start):
+	if aggregate:
+		aggr_filter = [{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}}]
+		for i in db.aggregate(aggregate + aggr_filter):
+			selection = i['results']
+	else:
+		selection = db.find(query, sort = [('title', 1), ('authors', 1)]).limit(count).skip(start)
+
+	for i in selection:
+		i = i.get('results', i)
+
 		try:
 			userdata = users.get_user_by_id(i['owner'])
 			i['owner'] = userdata
@@ -182,11 +235,17 @@ def get_books(filter: BookSearchFilter, start: int, count: int) -> list:
 def count_books(filter: BookSearchFilter) -> list:
 	global db
 	try:
-		query = build_book_query(filter)
+		aggregate, query = build_book_query(filter)
 	except exceptions.UserDoesNotExistError:
 		return 0
 
-	return db.count_documents(query)
+	if aggregate:
+		aggr_filter = [{'$facet': {'count': [{'$count': 'count'}]}}]
+		for i in db.aggregate(aggregate + aggr_filter):
+			ct = i['count']
+			return ct[0]['count'] if len(ct) else 0
+	else:
+		return db.count_documents(query)
 
 def share_book_with_user(book_id: str, username: str) -> dict:
 	book_id = ObjectId(book_id)
