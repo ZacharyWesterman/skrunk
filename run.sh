@@ -12,7 +12,7 @@ json_array()
 	for i in "$@"
 	do
 		c=$((c+1))
-		i="${i/site/}
+		i="${i/site/}"
 		[ "$c" == "$#" ] && echo $opt "    \"$i\"" || echo $opt "    \"$i\","
 	done
 	[ "$is_last" == 1 ] && echo $opt '  ]' || echo $opt '  ],'
@@ -36,4 +36,4 @@ json_array()
 
 
 #Start server
-poetry run python3 main.py "$@"
+# poetry run python3 main.py "$@"
