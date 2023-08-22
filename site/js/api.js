@@ -84,7 +84,7 @@ api.verify_token = async function()
 }
 
 api.__url_cache = {}
-api.__url_cache_filetypes = ['.html', '.js', '.css']
+api.__url_cache_filetypes = ['.html', '.js', '.css', '.dot']
 
 api.get = function(url, use_cache = true) {
 	return new Promise((resolve, reject) => {
@@ -330,14 +330,19 @@ api.logout = function()
 	window.location.href = '/'
 }
 
-api.__snippits = {}
 api.snippit = async name =>
 {
-	//Cache snippits so they're not re-fetched every single time.
-	if (api.__snippits[name] === undefined)
-	{
-		api.__snippits[name] = await api.get(`/html/snippit/${name}.html`)
-	}
+	return await api.get(`/html/snippit/${name}.html`)
+}
 
-	return api.__snippits[name]
+api.preload = async () =>
+{
+	const resources = await api.get_json('/config/sitemap.json')
+
+	for (const i of resources.js) import(i)
+	for (const i of resources.html) api.get(i)
+	for (const i of resources.dot) api.get(i)
+	for (const i of resources.json) api.get(i)
+
+	query.require('users').then(query.users.list)
 }

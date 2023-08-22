@@ -5,7 +5,7 @@ async function update_dom(name, data, instant = false)
 	for (let field of find_fields(name))
 	{
 		const template_name = field.attributes.template ? field.attributes.template.value : name
-		const url = 'templates/' + template_name + '.dot'
+		const url = '/templates/' + template_name + '.dot'
 		//Load template only once.
 		if (__template_map[template_name] === undefined)
 		{

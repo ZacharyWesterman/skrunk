@@ -131,10 +131,9 @@ async function init()
 	})
 
 	const page = (new URLSearchParams(location.search)).get('page')
-	if (page === null)
-		load_dashboard()
-	else
-		dashnav(page)
+	await (page ? dashnav(page) : load_dashboard())
+
+	api.preload()
 }
 
 init()
