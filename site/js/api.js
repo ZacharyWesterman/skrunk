@@ -84,7 +84,7 @@ api.verify_token = async function()
 }
 
 api.__url_cache = {}
-api.__url_cache_filetypes = ['.html', '.js', '.css', '.dot']
+api.__url_cache_filetypes = ['.html', '.js', '.css', '.dot', '.json']
 
 api.get = function(url, use_cache = true) {
 	return new Promise((resolve, reject) => {
