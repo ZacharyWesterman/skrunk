@@ -52,7 +52,7 @@ window.load_dashboard = async () =>
 	set_title()
 
 	//Load random xkcd comic
-	new_xkcd()
+	await new_xkcd()
 }
 
 window.new_xkcd = async () =>
@@ -83,7 +83,7 @@ window.set_navbar = function(name)
 	_('navbar', result)
 }
 
-window.reset_modules = async modules => {
+window.reset_modules = modules => {
 	EnabledModules = modules
 	set_navbar('default')
 }
@@ -132,6 +132,9 @@ async function init()
 
 	const page = (new URLSearchParams(location.search)).get('page')
 	await (page ? dashnav(page) : load_dashboard())
+
+	await promise
+	await promise2
 
 	api.preload()
 }
