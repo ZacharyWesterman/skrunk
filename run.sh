@@ -28,8 +28,8 @@ json_array()
 		c=$((c+1))
 		[ "$c" == "${#items[@]}" ] && is_last=1
 		echo -n "  \"$i\":"
-		[ "$i" == js ] && find=site/js/page || find=site
-		json_array $(find "$find" -name "*.$i" -type f)
+		[ "$i" == js ] && find="site/js/util site/js/page" || find=site
+		json_array $(find $find -name "*.$i" -type f)
 	done
 	echo '}'
 } > site/config/sitemap.json
