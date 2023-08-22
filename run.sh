@@ -36,4 +36,4 @@ json_array()
 
 
 #Start server
-# poetry run python3 main.py "$@"
+poetry run python3 main.py "$@"
