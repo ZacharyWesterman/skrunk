@@ -6,7 +6,7 @@ export function init()
 	const old_modal_retn = _.modal.upload.return
 	_.modal.upload.return = () => {
 		const id_list = old_modal_retn()
-		navigator.clipboard.writeText(`${window.location}blob/${id_list[0].id+id_list[0].ext}`).then(() => {
+		navigator.clipboard.writeText(`${window.location.href.split('?')[0]}blob/${id_list[0].id+id_list[0].ext}`).then(() => {
 			_.modal({
 				text: 'Copied URL to clipboard!',
 			}).catch(() => {})
