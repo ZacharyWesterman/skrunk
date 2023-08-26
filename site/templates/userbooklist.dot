@@ -58,7 +58,7 @@
 		</i>{{?}}
 
 		<div class="disabled">
-			ISBN: {{=book.industryIdentifiers[0].identifier}}
+			ISBN: {{=book.industryIdentifiers[0]?.identifier}}
 		</div>
 	</div>
 </div>

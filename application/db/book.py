@@ -130,8 +130,9 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'lastSync': datetime.utcnow(),
 		'created': datetime.utcnow(),
 		'noSyncFields': [],
+		'industryIdentifiers': google_book_data.get('industryIdentifiers', []),
 	}
-	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
+	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
 	for i in fields:
 		book_data[i] = google_book_data.get(i)
 
