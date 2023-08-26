@@ -24,6 +24,10 @@ export default {
 						name
 						display_name
 					}
+					industryIdentifiers {
+						type
+						identifier
+					}
 				}
 				...on BookTagDoesNotExistError {
 					message
@@ -56,6 +60,10 @@ export default {
 					user_id
 					name
 					display_name
+				}
+				industryIdentifiers {
+					type
+					identifier
 				}
 			}
 		}`, {
