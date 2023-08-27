@@ -76,6 +76,13 @@ input BookSearchFilter {
 	shared: Boolean
 }
 
+input BookEditData {
+	title: String!
+	subtitle: String!
+	description: String!
+	authors: [String!]!
+}
+
 union BookQueryResponse = BookList | ApiFailedError
 union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
 union BookResponse = Book | BookTagDoesNotExistError
@@ -101,4 +108,5 @@ extend type Mutation {
 	shareBookNonUser(id: String!, name: String!): BookTagShareResponse!
 	returnBook(id: String!): BookTagShareResponse!
 	setBookOwner(id: String!, username: String!): BookEditResponse!
+	editBook(id: String!, changes: BookEditData!): BookEditResponse!
 }

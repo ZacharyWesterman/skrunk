@@ -1,0 +1,26 @@
+<hr>
+<div class="right">
+	<button class="icon clickable tooltip" id="delete">
+		<i class="fa-solid fa-trash fa-lg disabled"></i>
+		<span class="tooltiptext t-left">Delete this book</span>
+	</button>
+</div>
+
+<table>
+	<tr>
+		<td>Title</td>
+		<td><input id="book-title" placeholder="<No Title>" value="{{= it.title || '' }}"/></td>
+	</tr>
+	<tr>
+		<td>Subtitle</td>
+		<td><input id="book-subtitle" placeholder="<No Subtitle>" value="{{= it.subtitle || '' }}"/></td>
+	</tr>
+	<tr>
+		<td>Author(s)</td>
+		<td><input id="book-author" placeholder="<No Authors>" value="{{= it.authors.join(', ') }}"/></td>
+	</tr>
+	<tr>
+		<td>Owned by</td>
+		<td><div class="inline" name="user_dropdown"></div></td>
+	</tr>
+</table>
