@@ -146,7 +146,7 @@ def build_blob_query(filter: BlobSearchFilter) -> dict:
 	query = []
 
 	if filter.get('tag_expr') is not None:
-		query += tags.parse(filter.get('tag_expr')).output()
+		query += [tags.parse(filter.get('tag_expr')).output()]
 
 	if filter.get('creator') is not None:
 		user_data = users.get_user_data(filter.get('creator'))
