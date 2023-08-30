@@ -189,7 +189,7 @@ export async function edit_book(rfid)
 	if (choice !== 'update') return
 
 	//Check if book data has changed
-	let data_changed = new_owner !== book_data.owner.username
+	let data_changed = false
 	for (const i in new_data)
 	{
 		if (Array.isArray(new_data[i]))
@@ -202,7 +202,7 @@ export async function edit_book(rfid)
 		}
 	}
 
-	if (!data_changed)
+	if (!data_changed && new_owner === book_data.owner.username)
 	{
 		_.modal({
 			text: 'No changes made.',
@@ -210,6 +210,23 @@ export async function edit_book(rfid)
 		}).catch(() => {})
 		setTimeout(_.modal.cancel, 700)
 		return
+	}
+
+	//Update book data with changes
+	if (data_changed)
+	{
+		const res = await mutate.books.edit(book_data.id, new_data)
+
+		if (res.__typename !== 'Book')
+		{
+			_.modal({
+				type: 'error',
+				title: 'ERROR',
+				text: res.message,
+				buttons: ['OK'],
+			}).catch(() => {})
+			return
+		}
 	}
 
 	if (new_owner !== book_data.owner.username)
