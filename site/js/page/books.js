@@ -353,7 +353,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 			icon: 'book-open',
 			title: 'Share Book',
 			text: `${bookinfo}<hr>` + await api.snippit('book_borrow'),
-			buttons: ['Share', 'Return', 'Cancel'],
+			buttons: is_shared ?['Share', 'Return', 'Cancel'] : ['Share', 'Cancel'],
 		},
 		() => { //on load
 			_('user_dropdown', {
