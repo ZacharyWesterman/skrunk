@@ -224,9 +224,10 @@ def get_books(filter: BookSearchFilter, start: int, count: int) -> list:
 		i['id'] = i['_id']
 		i['shareHistory'] = process_share_hist(i['shareHistory'])
 
-		cat = []
-		for k in i.get('categories', []):
-			cat += k.split(' / ')
+		# cat = []
+		# for k in i.get('categories', []):
+		# 	cat += k.split(' / ')
+		cat = i.get('categories', [])
 		i['categories'] = sorted(list(set(cat)))
 
 		books += [i]
