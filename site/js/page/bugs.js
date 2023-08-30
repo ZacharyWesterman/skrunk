@@ -9,6 +9,7 @@ export function init()
 		navigator.clipboard.writeText(`${window.location.href.split('?')[0]}blob/${id_list[0].id+id_list[0].ext}`).then(() => {
 			_.modal({
 				text: 'Copied URL to clipboard!',
+				no_cancel: true,
 			}).catch(() => {})
 			setTimeout(_.modal.cancel, 800)
 		})

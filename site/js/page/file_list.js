@@ -78,6 +78,7 @@ export async function copy_to_clipboard(id)
 	await navigator.clipboard.writeText(`${window.location}blob/${id}`)
 	_.modal({
 		text: 'Copied URL to clipboard!',
+		no_cancel: true,
 	}).catch(() => {})
 	setTimeout(_.modal.cancel, 1200)
 }

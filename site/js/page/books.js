@@ -201,7 +201,7 @@ export async function edit_book(rfid)
 	if (!data_changed)
 	{
 		_.modal({
-			title: 'No&nbsp;changes&nbsp;made',
+			text: 'No changes made.',
 			no_cancel: true,
 		}).catch(() => {})
 		setTimeout(_.modal.cancel, 700)
