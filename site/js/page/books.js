@@ -136,7 +136,7 @@ export async function edit_book(rfid)
 	let new_owner
 
 	const choice = await _.modal({
-		title: 'Edit Book Info',
+		title: await api.snippit('delete_button') + 'Edit Book Info',
 		text: '<div name="edit_book">Loading...</div>',
 		buttons: ['Update', 'Cancel']
 	}, async () => {
@@ -146,7 +146,10 @@ export async function edit_book(rfid)
 			id: 'book-owner',
 			users: query.users.list(),
 			default: 'Select User',
-		}).then(() => { $('book-owner').value = book_data.owner.username })
+		}).then(() => {
+			$.wipe('book-owner', book_data.owner.username)
+			$.bind('book-owner', () => $.show('button-owner'))
+		})
 
 		$('delete').onclick = () => {
 			_.modal.return('delete')
