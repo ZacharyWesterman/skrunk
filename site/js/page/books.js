@@ -136,6 +136,7 @@ export async function edit_book(rfid)
 	let new_owner
 
 	const choice = await _.modal({
+		icon: 'pen-to-square',
 		title: await api.snippit('delete_button') + 'Edit Book Info',
 		text: '<div name="edit_book">Loading...</div>',
 		buttons: ['Update', 'Cancel']
