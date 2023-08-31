@@ -4,7 +4,7 @@ type Book {
 	subtitle: String
 	authors: [String!]!
 	publisher: String!
-	publishedDate: String!
+	publishedDate: Date!
 	description: String
 	industryIdentifiers: [BookIdent!]!
 	pageCount: Int!
@@ -90,7 +90,7 @@ input BookCreateData {
 	pageCount: Int!
 	isbn: String!
 	publisher: String!
-	publishedDate: DateTime!
+	publishedDate: Date!
 	rfid: String!
 }
 
