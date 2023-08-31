@@ -82,6 +82,18 @@ input BookEditData {
 	authors: [String!]!
 }
 
+input BookCreateData {
+	title: String!
+	subtitle: String
+	authors: [String!]!
+	description: String
+	pageCount: Int!
+	isbn: String!
+	publisher: String!
+	publishedDate: DateTime!
+	rfid: String!
+}
+
 union BookQueryResponse = BookList | ApiFailedError
 union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
 union BookResponse = Book | BookTagDoesNotExistError
