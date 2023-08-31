@@ -38,5 +38,6 @@ mutation.set_field('shareBookNonUser', resolve_share_book_with_non_user)
 mutation.set_field('borrowBook', resolve_borrow_book)
 mutation.set_field('returnBook', resolve_return_book)
 mutation.set_field('setBookOwner', resolve_change_book_owner)
+mutation.set_field('editBook', resolve_edit_book)
 
 mutation.set_field('setModuleEnabled', resolve_set_module_enabled)

@@ -355,3 +355,19 @@ def set_book_owner(id: str, username: str) -> dict:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'owner': user_data['_id']}})
 
 	return book_data
+
+def edit_book(id: str, new_data: dict) -> dict:
+	book_data = get_book(id, parse = True)
+
+	changed_fields = {}
+	for i in new_data:
+		if i in book_data and new_data[i] != book_data[i]:
+			changed_fields[i] = new_data[i]
+			book_data[i] = new_data[i]
+
+	changed_fields['noSyncFields'] = list(set(book_data.get('noSyncFields',[]) + [i for i in changed_fields]))
+	book_data['noSyncFields'] = changed_fields['noSyncFields']
+
+	db.update_one({'_id': ObjectId(id)}, {'$set': changed_fields})
+
+	return book_data
