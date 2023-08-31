@@ -106,5 +106,17 @@ export default {
 			id: id,
 			changes: changes,
 		})
-	}
+	},
+
+	create: async book_data =>
+	{
+		return await api(`mutation ($data: BookCreateData!) {
+			createBook (data: $data) {
+				__typename
+				...on BookTagExistsError { message }
+			}
+		}`, {
+			data: book_data,
+		})
+	},
 }

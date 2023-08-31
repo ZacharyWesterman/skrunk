@@ -108,4 +108,5 @@ extend type Mutation {
 	returnBook(id: String!): BookTagShareResponse!
 	setBookOwner(id: String!, username: String!): BookEditResponse!
 	editBook(id: String!, changes: BookEditData!): BookEditResponse!
+	createBook(data: BookCreateData!): BookTagCreateResponse!
 }

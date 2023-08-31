@@ -14,14 +14,15 @@
 			</p>
 
 			<input id="new-tagid" format="hex" hidden>
+			<button class="icon clickable right alt" style="margin-top:.1rem" *click="create_book"><i class="fa-solid fa-square-plus fa-xl"></i></button>
 			<table>
 				<tr>
 					<td><input id="new-title" *bind="search_books" placeholder="Search for Title, Author, etc."></td>
-					<td><div class="button" *click="$.wipe('new-title'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+					<td><div class="button clickable" *click="$.wipe('new-title'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
 				</tr>
 				<tr>
 					<td><input id="new-author" *bind="search_books" placeholder="Author (Strict)"></td>
-					<td><div class="button" *click="$.wipe('new-author'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+					<td><div class="button clickable" *click="$.wipe('new-author'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
 				</tr>
 			</table>
 		</div>

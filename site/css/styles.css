@@ -131,6 +131,7 @@ textarea {
 	max-width: 100%;
 	margin-bottom: 5px;
 	height: 200px;
+	transition: all 0.25s ease-in-out;
 }
 
 textarea:disabled {
