@@ -101,6 +101,7 @@ export async function create_book()
 			isbn: isbn,
 			publisher: $.val('book-publisher').trim(),
 			publishedDate: $.val('book-published').trim(),
+			thumbnail: $.val('book-thumbnail').trim() || null,
 		}
 
 		return true

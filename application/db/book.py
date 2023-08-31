@@ -145,6 +145,47 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 
 	return book_data
 
+def create_book(data: dict) -> dict:
+	username = decode_user_token(get_request_token()).get('username')
+	user_data = users.get_user_data(username)
+
+	book_data = {
+		'rfid': data['rfid'],
+		'bookId': None,
+		'creator': user_data['_id'],
+		'owner': user_data['_id'],
+		'shared': False,
+		'shareHistory': [],
+		'lastSync': datetime.utcnow(),
+		'created': datetime.utcnow(),
+		'noSyncFields': [],
+		'industryIdentifiers': [],
+		'title': data['title'],
+		'subtitle': data['subtitle'],
+		'authors': data['authors'],
+		'publisher': data['publisher'],
+		'publishedDate': data['publishedDate'],
+		'description': data['description'],
+		'pageCount': data['pageCount'],
+		'categories': [],
+		'maturityRating': 'NOT_MATURE',
+		'language': 'en',
+		'thumbnail': data['thumbnail'].replace('http://', 'https://') if data['thumbnail'] else data['thumbnail'],
+	}
+
+	if data.get('isbn'):
+		book_data['industryIdentifiers'] = [{
+			'type': 'ISBN_' + str(len(data['isbn'])),
+			'identifier': data['isbn'],
+		}]
+
+	book_data['keywords'] = build_keywords(book_data)
+
+	db.insert_one(book_data)
+
+	return book_data
+
+
 def unlink_book_tag(rfid: str) -> dict:
 	book_data = db.find_one({'rfid': rfid})
 	if not book_data:

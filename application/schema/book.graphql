@@ -92,6 +92,7 @@ input BookCreateData {
 	publisher: String!
 	publishedDate: Date!
 	rfid: String!
+	thumbnail: String
 }
 
 union BookQueryResponse = BookList | ApiFailedError
