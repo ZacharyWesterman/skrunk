@@ -90,7 +90,7 @@ export function manual_input()
 	}
 }
 
-export async function confirm_unlink_book(title, rfid)
+async function confirm_unlink_book(title, rfid)
 {
 	let choice = await _.modal({
 		type: 'question',
@@ -99,7 +99,7 @@ export async function confirm_unlink_book(title, rfid)
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
-	if (choice !== 'yes') return
+	if (choice !== 'yes') return false
 
 	choice = await _.modal({
 		type: 'question',
@@ -108,7 +108,7 @@ export async function confirm_unlink_book(title, rfid)
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
-	if (choice !== 'yes') return
+	if (choice !== 'yes') return false
 
 	const res = await mutate.books.delete(rfid)
 
@@ -120,93 +120,143 @@ export async function confirm_unlink_book(title, rfid)
 			text: res.message,
 			buttons: ['OK'],
 		}).catch(() => {})
-		return
+		return true
 	}
 
 	search_books()
+	return true
 }
 
 export async function edit_book(rfid)
 {
 	let promise_data = query.books.by_rfid(rfid)
-
 	let book_data
-	let new_owner = api.username
+	promise_data.then(d => book_data = d)
+	let new_data = {}
+	let new_owner
 
 	const choice = await _.modal({
-		title: 'Edit Book Info',
-		text: api.snippit('edit_book'),
+		icon: 'pen-to-square',
+		title: await api.snippit('delete_button') + 'Edit Book Info',
+		text: '<div name="edit_book">Loading...</div>',
 		buttons: ['Update', 'Cancel']
 	}, async () => {
-		//On modal load, fill in data
-		let promise_users = _('user_dropdown', {
+		await _('edit_book', promise_data)
+
+		_('user_dropdown', {
 			id: 'book-owner',
 			users: query.users.list(),
 			default: 'Select User',
-		})
-
-		book_data = await promise_data
-		promise_users.then(() => {
-			$('title').innerText = book_data.title
-			$('subtitle').innerText = book_data.subtitle
-			$('author').innerText = book_data.authors.join(', ')
-			$('book-owner').value = book_data.owner.username
+		}).then(() => {
+			$.wipe('book-owner', book_data.owner.username)
+			$.bind('book-owner', () => $.show('button-owner'))
 		})
 
 		$('delete').onclick = () => {
 			_.modal.return('delete')
 		}
-	}, choice => {
+	}, async choice => {
 		//validate input
 		if (choice !== 'update') return true
 
-		if (!$.val('book-owner'))
+		const fields = ['book-owner', 'book-title', 'book-author']
+		let valid = true
+		for (const i of fields)
 		{
-			$.flash('book-owner')
-			return false
+			if (!$.val(i))
+			{
+				$.flash(i)
+				valid = false
+			}
 		}
 
 		new_owner = $.val('book-owner')
+		new_data = {
+			title: $.val('book-title'),
+			subtitle: $.val('book-subtitle') || null,
+			authors: $.val('book-author').split(',').map(x => x.trim()),
+		}
 
 		//Don't allow update if none of the data has changed
-		return new_owner !== api.username
+		return valid
 	}).catch(() => 'cancel')
 
-	if (choice === 'delete') confirm_unlink_book(book_data.title, book_data.rfid)
+	if (choice === 'delete')
+	{
+		if ( !(await confirm_unlink_book(book_data.title, book_data.rfid)) ) edit_book(rfid)
+		return
+	}
 	if (choice !== 'update') return
 
-	//Verify that user wants to transfer ownership
-	const confirm = await _.modal({
-		type: 'question',
-		title: 'Change Book Ownership?',
-		text: `You will no longer be able to edit this book's info, and only ${new_owner} will be able to return ownership to you!`,
-		buttons: ['Yes', 'No'],
-	}).catch(() => 'no')
-
-	if (confirm !== 'yes')
+	//Check if book data has changed
+	let data_changed = false
+	for (const i in new_data)
 	{
-		edit_book(rfid)
-		return
+		if (Array.isArray(new_data[i]))
+		{
+			if (!new_data[i].every((value, index) => value === book_data[i][index])) data_changed = true
+		}
+		else
+		{
+			if (new_data[i] !== book_data[i]) data_changed = true
+		}
 	}
 
-	//Update book info (only owner for now)
-	if (new_owner === api.username)
-	{
-		_.modal.checkmark()
-		return
-	}
-
-	const res = await mutate.books.set_owner(book_data.id, new_owner)
-
-	if (res.__typename !== 'Book')
+	if (!data_changed && new_owner === book_data.owner.username)
 	{
 		_.modal({
-			type: 'error',
-			title: 'ERROR',
-			text: res.message,
-			buttons: ['OK'],
+			text: 'No changes made.',
+			no_cancel: true,
 		}).catch(() => {})
+		setTimeout(_.modal.cancel, 700)
 		return
+	}
+
+	//Update book data with changes
+	if (data_changed)
+	{
+		const res = await mutate.books.edit(book_data.id, new_data)
+
+		if (res.__typename !== 'Book')
+		{
+			_.modal({
+				type: 'error',
+				title: 'ERROR',
+				text: res.message,
+				buttons: ['OK'],
+			}).catch(() => {})
+			return
+		}
+	}
+
+	if (new_owner !== book_data.owner.username)
+	{
+		//Verify that user wants to transfer ownership
+		const confirm = await _.modal({
+			type: 'question',
+			title: 'Change Book Ownership?',
+			text: `You will no longer be able to edit this book's info, and only ${new_owner} will be able to return ownership to you!`,
+			buttons: ['Yes', 'No'],
+		}).catch(() => 'no')
+
+		if (confirm !== 'yes')
+		{
+			edit_book(rfid)
+			return
+		}
+
+		const res = await mutate.books.set_owner(book_data.id, new_owner)
+
+		if (res.__typename !== 'Book')
+		{
+			_.modal({
+				type: 'error',
+				title: 'ERROR',
+				text: res.message,
+				buttons: ['OK'],
+			}).catch(() => {})
+			return
+		}
 	}
 
 	_.modal.checkmark()
@@ -321,7 +371,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 			icon: 'book-open',
 			title: 'Share Book',
 			text: `${bookinfo}<hr>` + await api.snippit('book_borrow'),
-			buttons: ['Share', 'Return', 'Cancel'],
+			buttons: is_shared ?['Share', 'Return', 'Cancel'] : ['Share', 'Cancel'],
 		},
 		() => { //on load
 			_('user_dropdown', {

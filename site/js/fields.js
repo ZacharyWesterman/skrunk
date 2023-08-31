@@ -51,17 +51,20 @@ $.show = (id, fade = true) => {
 		field.classList.add('visible')
 	}, 50)
 }
-$.hide = (id, fade = false) => {
+$.hide = (id, fade = false, remove = true) => {
 	let field = $(id)
 	if (!field) return
 	let classes = field.classList
 	classes.toggle('fade', fade)
 	classes.remove('visible')
 	classes.add('hidden')
-	if (fade)
-		setTimeout(() => field.style.display = 'none', 300)
-	else
-		$(id).style.display = 'none'
+	if (remove)
+	{
+		if (fade)
+			setTimeout(() => field.style.display = 'none', 300)
+		else
+			$(id).style.display = 'none'
+	}
 }
 $.toggle = (id, state, fade = true) => {
 	if (state === undefined) state = $(id).classList.contains('hidden')
@@ -140,9 +143,9 @@ $.bind = function(field, method, frequency = 500, run_on_start = false)
 	$(field).addEventListener('change', () => change_func(true))
 }
 
-$.wipe = (field) =>
+$.wipe = (field, value = '') =>
 {
-	$(field).__prev = $(field).value = ''
+	$(field).__prev = $(field).value = value
 }
 
 $.editor = {

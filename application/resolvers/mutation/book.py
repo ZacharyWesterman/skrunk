@@ -52,3 +52,16 @@ def resolve_change_book_owner(_, info, id: str, username: str) -> dict:
 		return { '__typename': 'Book', **set_book_owner(id, username) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['admin'], data_func = get_book)
+def resolve_edit_book(_, info, id: str, changes: dict) -> dict:
+	try:
+		return { '__typename': 'Book', **edit_book(id, changes) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+def resolve_create_book(_, info, data: dict) -> dict:
+	try:
+		return { '__typename': 'BookTag', **create_book(data) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }

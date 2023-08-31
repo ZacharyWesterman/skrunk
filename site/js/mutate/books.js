@@ -70,7 +70,7 @@ export default {
 	return: async id =>
 	{
 		return await api(`mutation ($id: String!) {
-			returnBook(id: $id) {
+			returnBook (id: $id) {
 				__typename
 				...on BookTagDoesNotExistError { message }
 				...on BookCannotBeShared { message }
@@ -83,13 +83,40 @@ export default {
 	borrow: async id =>
 	{
 		return await api(`mutation ($id: String!) {
-			borrowBook(id: $id) {
+			borrowBook (id: $id) {
 				__typename
 				...on BookTagDoesNotExistError { message }
 				...on BookCannotBeShared { message }
 			}
 		}`, {
 			id: id,
+		})
+	},
+
+	edit: async (id, changes) =>
+	{
+		return await api(`mutation ($id: String!, $changes: BookEditData!) {
+			editBook (id: $id, changes: $changes) {
+				__typename
+				...on BookTagDoesNotExistError { message }
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			id: id,
+			changes: changes,
+		})
+	},
+
+	create: async book_data =>
+	{
+		return await api(`mutation ($data: BookCreateData!) {
+			createBook (data: $data) {
+				__typename
+				...on BookTagExistsError { message }
+			}
+		}`, {
+			data: book_data,
 		})
 	},
 }

@@ -1,7 +1,9 @@
 <dialog id="modal-window">
 	<div id="modal-window-expand" class="modal">
 		<div>
+			{{? !it.no_cancel }}
 			<span class="close" onclick="_.modal.cancel()">&times;</span>
+			{{?}}
 			{{?it.title}}<h4>
 				{{?it.type === 'info'}}
 					<i style="padding-right: 1rem;" class="fa-solid fa-circle-info fa-2xl"></i>

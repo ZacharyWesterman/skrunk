@@ -71,6 +71,42 @@ input[type="checkbox"] {
 	left: -100%;
 }
 
+.marquee {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	position: relative;
+}
+
+.marquee p {
+	position: absolute;
+	font-family: Tahoma, Arial, sans-serif;
+	width: 100%;
+	height: 100%;
+	text-align: left;
+	animation: marquee-left 10s ease infinite;
+	transform: translateX(100%);
+}
+
+@keyframes marquee-left {
+	0% {
+		transform: translateX(0);
+	}
+	30% {
+		transform: translateX(0);
+	}
+	80% {
+		transform: translateX(-150%);
+	}
+	90% {
+		transform: translateX(-150%);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
 select {
 	height: 1.5rem;
 	border: none;
@@ -95,6 +131,7 @@ textarea {
 	max-width: 100%;
 	margin-bottom: 5px;
 	height: 200px;
+	transition: all 0.25s ease-in-out;
 }
 
 textarea:disabled {
@@ -235,6 +272,7 @@ blockquote {
 	border-left: 3px solid var(--disabled-text);
 	padding-left: 1rem;
 	margin-left: 0;
+	margin-right: 0;
 	margin-bottom: 0.3rem;
 }
 

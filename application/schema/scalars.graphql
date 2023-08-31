@@ -1,4 +1,5 @@
 scalar PhoneNumber
 scalar DateTime
+scalar Date
 scalar Color
 scalar Size

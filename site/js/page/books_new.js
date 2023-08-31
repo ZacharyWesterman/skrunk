@@ -53,6 +53,83 @@ export function init()
 	}
 }
 
+export async function create_book()
+{
+	let book_data
+
+	const res = await _.modal({
+		icon: 'bookmark',
+		title: 'Manually Enter Book',
+		text: api.snippit('create_book'),
+		buttons: ['OK', 'Cancel'],
+	}, () => {}, //on load
+	choice => { //validate
+		if (choice === 'cancel') return true
+
+		const req_fields = ['book-title', 'book-author', 'book-isbn', 'book-publisher', 'book-published', 'book-pages']
+		let valid = true
+		for (const i of req_fields)
+		{
+			if ($.val(i) === '')
+			{
+				$.flash(i)
+				valid = false
+			}
+		}
+
+		const isbn = $.val('book-isbn').replaceAll('-', '')
+		if (!isbn.match(/^\d{10}(\d{3})?$/))
+		{
+			$.flash('book-isbn')
+			valid = false
+		}
+
+		if (!$.val('book-pages').match(/^\d+$/))
+		{
+			$.flash('book-pages')
+			valid = false
+		}
+
+		if (!valid) return false
+
+		book_data = {
+			title: $.val('book-title').trim(),
+			subtitle: $.val('book-subtitle').trim() || null,
+			authors: $.val('book-author').split(',').map(x => x.trim()),
+			description: $.val('book-description').trim() || null,
+			pageCount: parseInt($.val('book-pages').trim()),
+			isbn: isbn,
+			publisher: $.val('book-publisher').trim(),
+			publishedDate: $.val('book-published').trim(),
+			thumbnail: $.val('book-thumbnail').trim() || null,
+		}
+
+		return true
+	}).catch(() => 'cancel')
+
+	if (res !== 'ok') return
+
+	//Now that book data is entered, wait for rfid to be scanned.
+	const rfid = await scanning_modal()
+	if (rfid === 'cancel') return
+	book_data.rfid = rfid
+
+	const result = await mutate.books.create(book_data)
+
+	if (result.__typename !== 'BookTag')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: result.message,
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	_.modal.checkmark()
+}
+
 export async function search_books()
 {
 	const title = $.val('new-title')
@@ -101,44 +178,48 @@ export async function search_books()
 	await _('booklist', res.books)
 }
 
+async function scanning_modal()
+{
+	AWAITING_SCAN = true
+	const res = await _.modal({
+		icon: 'bookmark',
+		title: 'Ready to scan',
+		text: api.snippit('rfid_waiting'),
+		buttons: ['Cancel'],
+	}, () => {
+		const field = $('rfid_manual_input')
+		$.bind(field, () => {
+			_.modal.return(field.value)
+		})
+
+		function keep_focus()
+		{
+			if (AWAITING_SCAN)
+			{
+				if (!document.hasFocus() || field !== document.activeElement)
+				{
+					field.readOnly = true
+					field.focus()
+					setTimeout(() => {field.readOnly = false}, 50)
+				}
+				setTimeout(keep_focus, 200)
+			}
+		}
+
+		keep_focus()
+	}).catch(() => 'cancel')
+
+	AWAITING_SCAN = false
+	return res
+}
+
 export async function select_book(book_id, book_title)
 {
 	let tagid = $.val('new-tagid')
 	if (tagid === '')
 	{
-		AWAITING_SCAN = true
-		const res = await _.modal({
-			icon: 'bookmark',
-			title: 'Ready to scan',
-			text: api.snippit('rfid_waiting'),
-			buttons: ['Cancel'],
-		}, () => {
-			const field = $('rfid_manual_input')
-			$.bind(field, () => {
-				_.modal.return(field.value)
-			})
-
-			function keep_focus()
-			{
-				if (AWAITING_SCAN)
-				{
-					if (!document.hasFocus() || field !== document.activeElement)
-					{
-						field.readOnly = true
-						field.focus()
-						setTimeout(() => {field.readOnly = false}, 50)
-					}
-					setTimeout(keep_focus, 200)
-				}
-			}
-
-			keep_focus()
-		}).catch(() => 'cancel')
-
-		AWAITING_SCAN = false
-
+		const res = await scanning_modal()
 		if (res === 'cancel') return
-
 		tagid = res
 	}
 

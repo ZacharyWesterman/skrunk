@@ -4,7 +4,7 @@ type Book {
 	subtitle: String
 	authors: [String!]!
 	publisher: String!
-	publishedDate: String!
+	publishedDate: Date!
 	description: String
 	industryIdentifiers: [BookIdent!]!
 	pageCount: Int!
@@ -76,6 +76,25 @@ input BookSearchFilter {
 	shared: Boolean
 }
 
+input BookEditData {
+	title: String!
+	subtitle: String
+	authors: [String!]!
+}
+
+input BookCreateData {
+	title: String!
+	subtitle: String
+	authors: [String!]!
+	description: String
+	pageCount: Int!
+	isbn: String!
+	publisher: String!
+	publishedDate: Date!
+	rfid: String!
+	thumbnail: String
+}
+
 union BookQueryResponse = BookList | ApiFailedError
 union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
 union BookResponse = Book | BookTagDoesNotExistError
@@ -101,4 +120,6 @@ extend type Mutation {
 	shareBookNonUser(id: String!, name: String!): BookTagShareResponse!
 	returnBook(id: String!): BookTagShareResponse!
 	setBookOwner(id: String!, username: String!): BookEditResponse!
+	editBook(id: String!, changes: BookEditData!): BookEditResponse!
+	createBook(data: BookCreateData!): BookTagCreateResponse!
 }
