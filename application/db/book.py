@@ -102,7 +102,7 @@ def refresh_book_data(rfid: str) -> None:
 			continue
 
 		new_val = google_book_data.get(i)
-		if new_val != book_data[i]:
+		if new_val is not None and new_val != book_data[i]:
 			updated[i] = new_val
 
 	updated['keywords'] = build_keywords({**book_data, **updated})
