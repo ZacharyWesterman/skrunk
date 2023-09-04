@@ -1,5 +1,3 @@
-__all__ = ['BookSearchFilter']
-
 from typing import TypedDict
 from datetime import datetime
 
