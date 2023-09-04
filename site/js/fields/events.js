@@ -1,3 +1,5 @@
+let __resize_listeners = []
+
 export default {
 	tab: (field, action) => register(field, action, 9),
 	enter: (field, action) => register(field, action, 13),
@@ -8,11 +10,27 @@ export default {
 		register(field, action, 13)
 	},
 
+	resize: action => {
+		const listener = event => {
+			action(event)
+		}
+		__resize_listeners.push(listener)
+
+		window.addEventListener('resize', listener)
+	},
+
 	detach: {
 		tab: field => unregister(field, 9),
 		enter: field => unregister(field, 13),
 		escape: field => unregister(field, 27),
-	}
+		resize: () => {
+			for (const i of __resize_listeners)
+			{
+				window.removeEventListener('resize', i)
+			}
+			__resize_listeners = []
+		},
+	},
 }
 
 function register(field, action, keyCode)

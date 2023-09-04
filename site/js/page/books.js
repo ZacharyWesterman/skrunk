@@ -323,6 +323,8 @@ export async function search_books()
 
 async function reload_book_count()
 {
+	$.on.detach.resize()
+
 	const owner = $.val('owner') || null
 	const title = $.val('title') || null
 	const author = $.val('author') || null
@@ -351,13 +353,16 @@ async function reload_book_count()
 		BookStart = this_page * BookListLen
 	}
 
-	_('page_list', {
+	const fn = () => _('page_list', {
 		pages: pages,
 		count: page_ct,
 		current: this_page,
 		total: count,
 		no_results_msg: 'No books found matching the search criteria.',
 	}, true)
+
+	fn()
+	$.on.resize(fn) //automatically adjust page nav on window resize
 }
 
 export async function share_book(is_shared, title, subtitle, author, id, owner)

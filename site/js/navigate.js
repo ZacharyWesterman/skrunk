@@ -43,6 +43,8 @@ window.set_title = function()
 window.unload = []
 window.inject = async function(field, url)
 {
+	$.on.detach.resize() //Stop watching for any resize events the previous page might be watching for.
+
 	while (window.unload.length > 0)
 	{
 		const unload_method = window.unload.pop()

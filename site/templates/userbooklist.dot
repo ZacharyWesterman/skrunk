@@ -26,7 +26,7 @@
 						<blockquote style="valign: top;">
 							<b><u>Categories</u></b>
 							<div {{? environment.mobile }}class="marquee" style="height: {{= book.categories.length * 1.2 + 1 }}rem"{{?}}>
-								<p>{{~ book.categories : genre}}{{= genre.replaceAll(' ', '&nbsp;')}}<br>{{~}}</p>
+								<p>{{~ book.categories : genre}}{{= no_line_break(genre) }}<br>{{~}}</p>
 							</div>
 						</blockquote>
 					</td>
