@@ -14,6 +14,12 @@
 @import url('/css/tooltip.css');
 @import url('/css/code.css');
 
+#loader {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
 #runtime-errors {
 	color: var(--error-text);
 	position: absolute;
