@@ -18,13 +18,15 @@
 			</h4>{{?}}
 
 			{{?it.text}}<div id="modal-content-text" style="max-width: 700px;">{{=it.text}}</div>{{?}}
-			{{~it.buttons : button : i}}
-				{{?typeof button === 'object'}}
-					<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button[0]}}')" class="big border">{{=button[1]}}</button>
-				{{??}}
-					<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button}}')" class="big border">{{=button}}</button>
-				{{?}}
-			{{~}}
+			<div class="spread-out">
+				{{~it.buttons : button : i}}
+					{{?typeof button === 'object'}}
+						<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button[0]}}')" class="modal-button">{{=button[1]}}</button>
+					{{??}}
+						<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button}}')" class="modal-button">{{=button}}</button>
+					{{?}}
+				{{~}}
+			</div>
 		</div>
 	</div>
 </dialog>

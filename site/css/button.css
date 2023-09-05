@@ -58,3 +58,16 @@ button.reset {
 	border: none;
 	margin-bottom: 0.3rem;
 }
+
+button.modal-button {
+	margin-left: 3px;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	font-size: 16pt;
+	height: 2.5rem;
+}
+
+.spread-out {
+	display: flex;
+	justify-content: space-between;
+}
