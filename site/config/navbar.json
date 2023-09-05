@@ -72,13 +72,13 @@
 			"class": "alt"
 		},
 		{
-			"text": "Edit Users (Admin)",
+			"text": "User Admin",
 			"icon": "users",
 			"action": "dashnav('users')",
 			"class": "alt"
 		},
 		{
-			"text": "Weather Users (Admin)",
+			"text": "Weather Users",
 			"icon": "cloud-bolt",
 			"action": "dashnav('weather_users')",
 			"module": "weather",

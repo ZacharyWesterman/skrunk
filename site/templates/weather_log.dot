@@ -4,7 +4,7 @@
 		{{~ it : item }}
 		<hr>
 		<div>
-			<div class="disabled">{{= item.sent }} ({{= date.elapsed(item.sent) }})</div>
+			<div class="disabled">{{= date.output(item.sent) }} ({{= date.elapsed(item.sent) }})</div>
 			Sent to <b><u>{{= item.recipient }}</u></b>
 		</div>
 		<blockquote>{{= html_encode(item.message) }}</blockquote>

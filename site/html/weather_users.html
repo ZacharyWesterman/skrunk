@@ -1,57 +1,64 @@
-<div name="weather_exec"></div>
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-cloud-bolt fa-xl"></i>
+		Weather Users
+	</h1>
 
-<div class="card highlight">
-	<div class="card-inner">
-		<div onclick="$.toggle_expand('card-create')">
-			<h4><b>Create New User</b></h4>
-		</div>
+	<div name="weather_exec"></div>
 
-		<div class="expand-container" id="card-create">
-			<div>
-				<table>
-					<tr>
-						<td></td>
-						<td>ID:</td>
-						<td><input id="create-id" format="id" *change="can_create"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>Phone:</td>
-						<td><input id="create-phone" type="tel" format="phone" *change="can_create"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>Lat:</td>
-						<td><input id="create-lat" type="number" step="any" format="number" *change="can_create"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>Lon:</td>
-						<td><input id="create-lon" type="number" step="any" format="number" *change="can_create"></td>
-					</tr>
-					<tr>
-						<td>
-							<input id="create-has-max" type="checkbox" onclick="$.wipe('create-max'); $('create-max').disabled = !this.checked" checked>
-						</td>
-						<td>Max:</td>
-						<td><input placeholder="default" id="create-max" type="number" step="any" value="{{=user.max}}" format="number" *change="can_create"></td>
-					</tr>
-					<tr>
-						<td>
-							<input id="create-has-min" type="checkbox" onclick="$.wipe('create-min'); $('create-min').disabled = !this.checked" checked>
-						</td>
-						<td>Min:</td>
-						<td><input placeholder="default" id="create-min" type="number" step="any" value="{{=user.min}}" format="number" *blur="can_create"></td>
-					</tr>
-				</table>
+	<div class="card highlight">
+		<div class="card-inner">
+			<div onclick="$.toggle_expand('card-create')">
+				<h4><b>Create New User</b></h4>
+			</div>
 
-				<br>
-				<button id='create-button' *click="create_user" disabled>Submit</button>
+			<div class="expand-container" id="card-create">
+				<div>
+					<table>
+						<tr>
+							<td></td>
+							<td>ID:</td>
+							<td><input id="create-id" format="id" *change="can_create"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>Phone:</td>
+							<td><input id="create-phone" type="tel" format="phone" *change="can_create"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>Lat:</td>
+							<td><input id="create-lat" type="number" step="any" format="number" *change="can_create"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>Lon:</td>
+							<td><input id="create-lon" type="number" step="any" format="number" *change="can_create"></td>
+						</tr>
+						<tr>
+							<td>
+								<input id="create-has-max" type="checkbox" onclick="$.wipe('create-max'); $('create-max').disabled = !this.checked" checked>
+							</td>
+							<td>Max:</td>
+							<td><input placeholder="default" id="create-max" type="number" step="any" value="{{=user.max}}" format="number" *change="can_create"></td>
+						</tr>
+						<tr>
+							<td>
+								<input id="create-has-min" type="checkbox" onclick="$.wipe('create-min'); $('create-min').disabled = !this.checked" checked>
+							</td>
+							<td>Min:</td>
+							<td><input placeholder="default" id="create-min" type="number" step="any" value="{{=user.min}}" format="number" *blur="can_create"></td>
+						</tr>
+					</table>
+
+					<br>
+					<button id='create-button' *click="create_user" disabled>Submit</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<div name="weather_users" *load="refresh_users"></div>
+	<div name="weather_users" *load="refresh_users"></div>
+</div>
 
 <script src="/js/page/weather_users.js"></script>
