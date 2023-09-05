@@ -1,0 +1,17 @@
+<div class="card">
+	<div class="card-inner">
+		<div>Showing the first {{= it.length }} messages.</div>
+		{{~ it : item }}
+		<hr>
+		<div>
+			<div class="disabled">{{= item.sent }} ({{= date.elapsed(item.sent) }})</div>
+			Sent to <b><u>{{= item.recipient }}</u></b>
+		</div>
+		<blockquote>{{= html_encode(item.message) }}</blockquote>
+		<br>
+		{{~}}
+		<div style="font-size:28pt;">
+			...
+		</div>
+	</div>
+</div>

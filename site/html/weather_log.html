@@ -1,0 +1,21 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-wind fa-xl"></i>
+		Weather Alert Log
+	</h1>
+
+	<div name="weather_log"></div>
+</div>
+
+<script>
+	export function init()
+	{
+		_('weather_log', api(`{
+			weatherAlertHistory (start: 0, count: 20) {
+				recipient
+				message
+				sent
+			}
+		}`))
+	}
+</script>

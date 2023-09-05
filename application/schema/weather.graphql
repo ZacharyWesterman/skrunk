@@ -36,11 +36,18 @@ type WeatherTemp_ {
 	value: Float!
 }
 
+type WeatherAlert {
+	recipient: String!
+	message: String!
+	sent: DateTime!
+}
+
 #Resolvers below this line:
 
 extend type Query {
 	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
+	weatherAlertHistory(start: Int!, count: Int!): [WeatherAlert!]!
 }
 
 extend type Mutation {

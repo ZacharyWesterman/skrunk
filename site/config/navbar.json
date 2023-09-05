@@ -69,21 +69,25 @@
 			"text": "Server Settings",
 			"icon": "gear",
 			"action": "dashnav('server_settings')",
-			"perms": ["admin"],
 			"class": "alt"
 		},
 		{
 			"text": "Edit Users (Admin)",
 			"icon": "users",
 			"action": "dashnav('users')",
-			"perms": ["admin"],
 			"class": "alt"
 		},
 		{
 			"text": "Weather Users (Admin)",
 			"icon": "cloud-bolt",
 			"action": "dashnav('weather_users')",
-			"perms": ["admin"],
+			"module": "weather",
+			"class": "alt"
+		},
+		{
+			"text": "Weather Alert Log",
+			"icon": "wind",
+			"action": "dashnav('weather_log')",
 			"module": "weather",
 			"class": "alt"
 		}

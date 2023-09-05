@@ -1,7 +1,5 @@
 import application.exceptions as exceptions
 
-import bcrypt
-
 db = None
 
 def get_users() -> list:
@@ -97,3 +95,16 @@ def get_last_exec() -> dict:
 
 	last_exec = db.weather.log.find_one({}, sort=[('timestamp', -1)])
 	return last_exec
+
+def get_alert_history(start: int, count: int) -> list:
+	selection = db.weather.alert_history.find({}, sort=[('_id', -1)])
+
+	result = []
+	for i in selection.limit(count).skip(start):
+		result += [{
+			'recipient': i['to'],
+			'message': i['message'],
+			'sent': i['_id'].generation_time,
+		}]
+
+	return result
