@@ -18,6 +18,28 @@ json_array()
 	[ "$is_last" == 1 ] && echo $opt '  ]' || echo $opt '  ],'
 }
 
+contains()
+{
+	local i
+	local item="$1"
+	shift 1
+
+	for i in "$@"
+	do
+		[ "site/$i" == "$item" ] && return 0
+	done
+	return 1
+}
+
+filter()
+{
+	local file
+	while read file
+	do
+		contains "$file" "$@" || echo "$file"
+	done
+}
+
 #Build site map for pre-loading of site resources
 {
 	echo '{'
@@ -29,7 +51,9 @@ json_array()
 		[ "$c" == "${#items[@]}" ] && is_last=1
 		echo -n "  \"$i\":"
 		[ "$i" == js ] && find="site/js/util site/js/page" || find=site
-		json_array $(find $find -name "*.$i" -type f)
+
+		#Don't include files that should not be cached on page load.
+		json_array $(find $find -name "*.$i" -type f | filter $(cat data/no_auth_files.txt))
 	done
 	echo '}'
 } > site/config/sitemap.json
