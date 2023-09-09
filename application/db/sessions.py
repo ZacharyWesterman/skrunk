@@ -6,13 +6,13 @@ db = None
 def start_session(token: str, username: str) -> None:
 	userdata = get_user_data(username)
 
-	expiry = timedelta(days = 365 * 9001) if 'persistent' in userdata['perms'] else timedelta(days = 7)
+	expiry = datetime(9001, 1, 1) if 'persistent' in userdata['perms'] else datetime.now() + timedelta(days = 7)
 
 	db.insert_one({
 		'username': username,
 		'token': token,
 		'created': datetime.now(),
-		'expires': datetime.now() + expiry
+		'expires': expiry
 	})
 
 def valid_session(token: str) -> bool:
