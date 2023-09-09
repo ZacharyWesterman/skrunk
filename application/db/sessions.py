@@ -6,7 +6,7 @@ db = None
 def start_session(token: str, username: str) -> None:
 	userdata = get_user_data(username)
 
-	expiry = timedelta(years = 9001) if 'persistent' in userdata['perms'] else timedelta(days = 7)
+	expiry = timedelta(days = 365 * 9001) if 'persistent' in userdata['perms'] else timedelta(days = 7)
 
 	db.insert_one({
 		'username': username,
