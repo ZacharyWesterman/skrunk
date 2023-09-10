@@ -26,3 +26,17 @@ def set_module_enabled(module_id: str, enabled: bool) -> None:
 		modules.remove(module_id)
 
 	db.update_one({'name': 'modules'}, {'$set': {'enabled': modules}})
+
+def add_groups(new_groups: list) -> None:
+	groups = db.find_one({'name': 'groups'})
+	if groups is None:
+		db.insert_one({
+			'name': 'groups',
+			'groups': list(set(new_groups)),
+		})
+	else:
+		db.update_one({'name': 'groups'}, {'$set': {'groups': list(set(groups['groups'] + new_groups))}})
+
+def get_groups() -> list:
+	groups = db.find_one({'name': 'groups'})
+	return [] if groups is None else groups['groups']

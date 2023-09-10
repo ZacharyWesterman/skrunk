@@ -43,6 +43,7 @@ export default {
 					perms
 					last_login
 					display_name
+					groups
 				}
 				...on UserDoesNotExistError {
 					message

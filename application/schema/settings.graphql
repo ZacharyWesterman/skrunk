@@ -2,6 +2,7 @@
 
 extend type Query {
 	getEnabledModules: [String!]!
+	getUserGroups: [String!]!
 }
 
 extend type Mutation {

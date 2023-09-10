@@ -42,6 +42,8 @@ function find_fields(name)
 
 async function await_promises(data)
 {
+	if (!data) return null
+
 	if (typeof data?.then === 'function')
 	{
 		return await data
@@ -49,7 +51,7 @@ async function await_promises(data)
 	else if (typeof data === 'object')
 	{
 		let changed = false
-		for (let i in data)
+		for (let i of Object.keys(data))
 		{
 			const res = await await_promises(data[i])
 			if (res !== null)
