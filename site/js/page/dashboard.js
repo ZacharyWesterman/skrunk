@@ -48,11 +48,15 @@ window.load_model_viewer = () =>
 window.load_dashboard = async () =>
 {
 	environment.set_page('/', 'home')
+
+	$.hide('content')
 	await api.snippit('dashboard_header').then(res => $('content').innerHTML = res)
+
 	set_title()
 
 	//Load random xkcd comic
 	await new_xkcd()
+	setTimeout(() => $.show('content'), 200)
 }
 
 window.new_xkcd = async () =>
