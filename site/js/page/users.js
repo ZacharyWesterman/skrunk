@@ -92,7 +92,7 @@ function refresh_users()
 {
 	_('user_dropdown', {
 		id: 'userlist',
-		users: query.users.list(null, false), //Don't cache user list
+		users: query.users.list(null, false, false), //Don't cache user list, and don't restrict to our group.
 		default: 'Select User',
 		class: 'big',
 	}).then(() => {

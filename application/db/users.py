@@ -10,9 +10,16 @@ def count_users() -> int:
 	global db
 	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})
 
-def get_user_list() -> list:
-	global db
-	return [ {'username': data['username'], 'display_name': data['display_name']} for data in db.find({}, sort=[('username', 1)]) ]
+def get_user_list(groups: list = []) -> list:
+	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
+	return [ {'username': data['username'], 'display_name': data['display_name']} for data in db.find(query, sort=[('username', 1)]) ]
+
+def userids_in_groups(groups: list) -> list:
+	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
+	result = []
+	for i in db.find(query):
+		result += [i['_id']]
+	return result
 
 def get_user_by_id(id: ObjectId) -> dict:
 	global db

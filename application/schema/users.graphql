@@ -67,7 +67,7 @@ union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientPerms
 
 extend type Query {
 	getUser(username: String!): UserQueryReponse!
-	listUsers: [UserMinData!]!
+	listUsers(restrict: Boolean!): [UserMinData!]!
 	countSessions(username: String!): Int!
 }
 
