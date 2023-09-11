@@ -194,13 +194,25 @@ def unlink_book_tag(rfid: str) -> dict:
 	db.delete_one({'rfid': rfid})
 	return book_data
 
+def norm_query(query: dict, ownerq: dict|None) -> dict:
+	if ownerq is not None:
+		if query:
+			return {'$and': [query, ownerq]}
+		return ownerq
+	return query
+
 def build_book_query(filter: BookSearchFilter) -> dict:
 	query = {}
 	aggregate = None
 
-	if filter.get('owner') is not None:
-		user_data = users.get_user_data(filter.get('owner'))
-		query['owner'] = user_data['_id']
+	owner = filter.get('owner')
+	ownerq = None
+	if owner is not None:
+		if type(owner) is str:
+			user_data = users.get_user_data(owner)
+			query['owner'] = user_data['_id']
+		elif len(owner):
+			ownerq = {'$or': [{'owner': i} for i in owner]}
 
 	if filter.get('author') is not None:
 		query['authors'] = {'$regex': filter.get('author'), '$options': 'i'}
@@ -215,10 +227,12 @@ def build_book_query(filter: BookSearchFilter) -> dict:
 		isbn = filter.get('title').strip().replace('-', '')
 		if re.match(r'^\d{9,13}$', isbn):
 			query['industryIdentifiers.identifier'] = isbn
+			query = norm_query(query, ownerq)
 		else:
 			keywords = keyword_tokenize(filter.get('title'))
 			query['keywords'] = {'$in': keywords}
 			query['score'] = {'$gt': (len(keywords)+1) // 2 if len(keywords) > 1 else 0 }
+			query = norm_query(query, ownerq)
 
 			aggregate = [
 				{'$addFields': {
@@ -231,6 +245,8 @@ def build_book_query(filter: BookSearchFilter) -> dict:
 				{'$match': query},
 				{'$sort': {'score': -1, 'title': 1, 'authors': 1}}
 			]
+	else:
+		query = norm_query(query, ownerq)
 
 	return aggregate, query
 
@@ -364,8 +380,6 @@ def return_book(book_id: str, user_data: dict) -> dict:
 		raise exceptions.BookCannotBeShared('Nobody is borrowing this book.')
 
 	last_share = len(book_data['shareHistory']) - 1
-	print(book_data['owner'], flush=True)
-	print(user_data['_id'], flush=True)
 	if book_data['shareHistory'][-1]['user_id'] != user_data['_id'] and book_data['owner'] != user_data['_id']:
 		raise exceptions.BookCannotBeShared('You did not borrow this book.')
 

@@ -1,12 +1,19 @@
 export default {
 	__user_list: null,
 
-	list: async (filter, use_cache = true) =>
+	list: async (filter, use_cache = true, restrict = true) =>
 	{
 		let res
 		if (query.users.__user_list === null || !use_cache)
 		{
-			res = await api('{listUsers { username display_name } }')
+			res = await api(`query ($restrict: Boolean!) {
+				listUsers (restrict: $restrict) {
+					username
+					display_name
+				}
+			}`, {
+				restrict: restrict,
+			})
 			query.users.__user_list = res
 		}
 		else
@@ -43,6 +50,7 @@ export default {
 					perms
 					last_login
 					display_name
+					groups
 				}
 				...on UserDoesNotExistError {
 					message

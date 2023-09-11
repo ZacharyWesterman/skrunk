@@ -66,6 +66,8 @@ export async function load_user_data(username, self_view = false)
 		p = api.get_json('/config/permissions.json')
 	}
 
+	let p2 = api('{ getUserGroups }')
+
 	UserData = await query.users.get(username)
 	if (p) Perms = await p
 
@@ -76,7 +78,48 @@ export async function load_user_data(username, self_view = false)
 		self_view: self_view,
 	})
 
+	await _('usrgrp', {
+		id: 'user-group',
+		items: p2,
+	})
+	$('user-group').value = UserData.groups ? (UserData.groups[0] || '') : ''
+
 	sync_perm_descs()
+}
+
+export async function update_groups(username)
+{
+	const groups = $.val('user-group')
+
+	const res = await api(`mutation ($username: String!, $groups: [String!]!) {
+		updateUserGroups (username: $username, groups: $groups) {
+			__typename
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+		}
+	}`, {
+		username: username,
+		groups: groups ? [groups] : [],
+	})
+
+	if (res.__typename !== 'UserData')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		})
+		return
+	}
+
+	_.modal.checkmark()
+	_('usrgrp', {
+		id: 'user-group',
+		items: api('{ getUserGroups }'),
+	}).then(() => {
+		$('user-group').value = groups
+	})
 }
 
 function sync_perm_descs()

@@ -5,7 +5,7 @@ from .sessions import resolve_count_user_sessions
 from .blob import *
 from .bugs import *
 from .book import *
-from .settings import resolve_get_enabled_modules
+from .settings import resolve_get_enabled_modules, resolve_get_groups
 
 query = QueryType()
 
@@ -32,3 +32,4 @@ query.set_field('searchBooks', resolve_search_google_books)
 query.set_field('getBookByTag', resolve_get_book_by_tag)
 
 query.set_field('getEnabledModules', resolve_get_enabled_modules)
+query.set_field('getUserGroups', resolve_get_groups)

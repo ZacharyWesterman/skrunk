@@ -19,11 +19,11 @@ export default {
 		return await api(query, vars)
 	},
 
-	create: async (username, pass_hash) =>
+	create: async (username, pass_hash, groups) =>
 	{
 		const query = `
-		mutation ($username: String!, $password: String!){
-			createUser(username: $username, password: $password) {
+		mutation ($username: String!, $password: String!, $groups: [String!]!){
+			createUser(username: $username, password: $password, groups: $groups) {
 				__typename
 				...on BadUserNameError {
 					message
@@ -37,8 +37,9 @@ export default {
 			}
 		}`
 		const vars = {
-			'username' : username,
-			'password' : pass_hash,
+			'username': username,
+			'password': pass_hash,
+			'groups': groups || [],
 		}
 		return await api(query, vars)
 	},

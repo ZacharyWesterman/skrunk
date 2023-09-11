@@ -4,6 +4,7 @@ await query.require('users')
 
 export function init()
 {
+	refresh_user_groups()
 	refresh_users()
 	$.on.enter($('password'), create_user)
 }
@@ -32,6 +33,14 @@ export async function confirm_delete_user(username)
 	$.hide('userdata', true)
 }
 
+function refresh_user_groups()
+{
+	_('user_group_list', {
+		id: 'user-group-list',
+		items: api('{ getUserGroups }'),
+	})
+}
+
 async function delete_user(username)
 {
 	const res = await mutate.users.delete(username)
@@ -51,9 +60,12 @@ async function delete_user(username)
 
 export async function create_user()
 {
+	const group = $.val('user-group-list')
+
 	const res = await mutate.users.create(
 		$.val('username'),
-		await api.hash($.val('password'))
+		await api.hash($.val('password')),
+		group ? [group] : []
 	)
 	if (res.__typename !== 'UserData') {
 		_.modal({
@@ -73,13 +85,14 @@ export async function create_user()
 	$.toggle_expand('card-create')
 
 	refresh_users()
+	refresh_user_groups()
 }
 
 function refresh_users()
 {
 	_('user_dropdown', {
 		id: 'userlist',
-		users: query.users.list(null, false), //Don't cache user list
+		users: query.users.list(null, false, false), //Don't cache user list, and don't restrict to our group.
 		default: 'Select User',
 		class: 'big',
 	}).then(() => {

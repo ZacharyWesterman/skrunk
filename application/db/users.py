@@ -2,6 +2,7 @@ import application.exceptions as exceptions
 from datetime import datetime
 import bcrypt
 from bson.objectid import ObjectId
+import application.db.settings as settings
 
 db = None
 
@@ -9,9 +10,16 @@ def count_users() -> int:
 	global db
 	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})
 
-def get_user_list() -> list:
-	global db
-	return [ {'username': data['username'], 'display_name': data['display_name']} for data in db.find({}, sort=[('username', 1)]) ]
+def get_user_list(groups: list = []) -> list:
+	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
+	return [ {'username': data['username'], 'display_name': data['display_name']} for data in db.find(query, sort=[('username', 1)]) ]
+
+def userids_in_groups(groups: list) -> list:
+	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
+	result = []
+	for i in db.find(query):
+		result += [i['_id']]
+	return result
 
 def get_user_by_id(id: ObjectId) -> dict:
 	global db
@@ -54,7 +62,7 @@ def update_user_perms(username: str, perms: list) -> dict:
 	userdata['perms'] = perms
 	return userdata
 
-def create_user(username: str, password: str, *, admin: bool = False, ephemeral: bool = False) -> dict:
+def create_user(username: str, password: str, *, groups: list = [], admin: bool = False, ephemeral: bool = False) -> dict:
 	global db
 
 	if len(username) == 0:
@@ -76,9 +84,12 @@ def create_user(username: str, password: str, *, admin: bool = False, ephemeral:
 		'perms': ['admin'] if admin else [],
 		'display_name': username.title(),
 		'ephemeral': ephemeral,
+		'groups': groups,
 	}
 
 	db.insert_one(userdata)
+	settings.add_groups(groups)
+
 	return userdata
 
 def delete_user(username: str) -> None:
@@ -125,6 +136,21 @@ def update_user_display_name(username: str, display_name: str) -> dict:
 	db.update_one({'username': username}, {'$set': {'display_name': display_name}})
 
 	userdata['display_name'] = display_name
+	return userdata
+
+def update_user_groups(username: str, groups: list) -> dict:
+	if len(username) == 0:
+		raise exceptions.BadUserNameError
+
+	userdata = db.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	db.update_one({'username': username}, {'$set': {'groups': groups}})
+	settings.add_groups(groups)
+
+	userdata['groups'] = groups
 	return userdata
 
 def authenticate(username: str, password: str) -> str:

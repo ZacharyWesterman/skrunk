@@ -146,9 +146,11 @@ def build_blob_query(filter: BlobSearchFilter) -> dict:
 	query = []
 
 	if filter.get('tag_expr') is not None:
-		query += [tags.parse(filter.get('tag_expr')).output()]
+		tag_q = tags.parse(filter.get('tag_expr')).output()
+		if tag_q:
+			query += [tag_q]
 
-	if filter.get('creator') is not None:
+	if type(filter.get('creator')) is str:
 		user_data = users.get_user_data(filter.get('creator'))
 		query += [{'creator': user_data['_id']}]
 
@@ -160,6 +162,10 @@ def build_blob_query(filter: BlobSearchFilter) -> dict:
 
 	if filter.get('name') is not None:
 		query += [{'name': {'$regex': filter.get('name'), '$options': 'i'}}]
+
+	creator = filter.get('creator')
+	if type(creator) is list and len(creator):
+		query += [{'$or': [{'creator': i} for i in creator]}]
 
 	return {'$and': query} if len(query) else {}
 
