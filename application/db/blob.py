@@ -76,13 +76,13 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> list:
 	#Create file previews
 	for blob in uploaded_blobs:
 		if blob['ext'].lower() in images.extensions():
-			this_blob_path = path(blob['id'], ext)
-			preview_path = preview(f'{blob["id"]}_p{ext}')
+			this_blob_path = path(blob['id'], blob['ext'])
+			preview_path = preview(f'{blob["id"]}_p{blob["ext"]}')
 			if images.downscale(this_blob_path, 1024, preview_path):
-				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': f'{blob["id"]}_p{ext}'}})
+				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': f'{blob["id"]}_p{blob["ext"]}'}})
 
 		elif blob['ext'].lower() in models.extensions():
-			this_blob_path = path(blob['id'], ext)
+			this_blob_path = path(blob['id'], blob['ext'])
 			create_preview(this_blob_path, blob['id'])
 
 	return uploaded_blobs
