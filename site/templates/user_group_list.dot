@@ -1,4 +1,4 @@
-<input list="{{= it.id }}-datalist" id="{{= it.id }}" placeholder="Group">
+<input list="{{= it.id }}-datalist" id="{{= it.id }}" placeholder="Group (optional)">
 <datalist id="{{= it.id }}-datalist">
 	{{~ it.items : group }}<option value="{{= group }}">{{= group }}</option>{{~}}
 </datalist>
