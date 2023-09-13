@@ -6,23 +6,23 @@
 
 	<div class="card alt" id="book-header">
 		<div class="card-inner">
-			<h3>Search for existing books:</h3>
+			<div class="clickable" onclick="$.toggle_expand('extra-search-fields')">
+				<h3>
+					Search for existing books:
+					<i class="right fa-solid fa-angles-down"></i>
+				</h3>
+			</div>
 			Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div> Borrowed
-			<input type="checkbox" id="shared" *click="three_state_checkbox(); search_books()"/>
-			<table>
-				<tr>
-					<td><input id="title" placeholder="Keywords/ISBN" *bind="search_books"></td>
-					<td><button class="reset clickable" *click="$.wipe('title'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
-				</tr>
-				<tr>
-					<td><input id="author" placeholder="Author (strict)" *bind="search_books"></td>
-					<td><button class="reset clickable" *click="$.wipe('author'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
-				</tr>
-				<tr>
-					<td><input id="genre" placeholder="Category" *bind="search_books"></td>
-					<td><button class="reset clickable" *click="$.wipe('genre'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button></td>
-				</tr>
-			</table>
+			<input type="checkbox" id="shared" *click="three_state_checkbox(); search_books()"/><br>
+
+			<input id="title" placeholder="Keywords/ISBN" *bind="search_books"><button class="reset clickable" *click="$.wipe('title'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
+			<div class="expand-container" id="extra-search-fields">
+				<div>
+					<input id="author" placeholder="Author (strict)" *bind="search_books"><button class="reset clickable" *click="$.wipe('author'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button><br>
+					<input id="genre" placeholder="Category" *bind="search_books"><button class="reset clickable" *click="$.wipe('genre'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
+				</div>
+			</div>
+
 			<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>
 			<div id="error-message" class="error hidden"></div>
 
