@@ -117,20 +117,20 @@
 			<h2>Functions</h2>
 			Functions go before a tag and indicate that, instead of referring to the <i>text of</i> a tag,
 			it actually refers to the <i>number of tags</i> a file has.
-			The available functions are <span class="code func">eq</span>, <span class="code func">lt</span>, <span class="code func">le</span>, <span class="code func">gt</span> and <span class="code func">ge</span>.
+			The available functions are <span class="code func">exactly</span>, <span class="code func">fewer</span>, <span class="code func">maximum</span>, <span class="code func">greater</span> and <span class="code func">minimum</span>.
 			<ul>
-				<li><span class="code"><span class="func">eq</span> <span class="str">5</span></span>: (Equals) The file has exactly 5 tags.</li>
-				<li><span class="code"><span class="func">lt</span> <span class="str">5</span></span>: (Less Than) The file has fewer than 5 tags.</li>
-				<li><span class="code"><span class="func">le</span> <span class="str">5</span></span>: (Less or Equal) The file has at most 5 tags.</li>
-				<li><span class="code"><span class="func">gt</span> <span class="str">5</span></span>: (Greater Than) The file has more than 5 tags.</li>
-				<li><span class="code"><span class="func">ge</span> <span class="str">5</span></span>: (Greater or Equal) The file has at least 5 tags.</li>
+				<li><span class="code"><span class="func">exactly</span> <span class="str">5</span></span>: The file has exactly 5 tags.</li>
+				<li><span class="code"><span class="func">fewer</span> <span class="str">5</span></span>: The file has fewer than 5 tags.</li>
+				<li><span class="code"><span class="func">maximum</span> <span class="str">5</span></span>: The file has at most 5 tags.</li>
+				<li><span class="code"><span class="func">greater</span> <span class="str">5</span></span>: The file has more than 5 tags.</li>
+				<li><span class="code"><span class="func">minimum</span> <span class="str">5</span></span>: The file has at least 5 tags.</li>
 			</ul>
 
 			For example,
 			<span class="code">
 				<span class="str">video</span>
 				<span class="oper">and</span>
-				<span class="func">ge</span>
+				<span class="func">minimum</span>
 				<span class="str">2</span>
 			</span>
 			will select all files that have a <span class="code str">video</span> tag <i>and at least one other tag</i>.
