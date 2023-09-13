@@ -1,15 +1,7 @@
 function prettify(blob)
 {
 	blob.created = date.output(blob.created) //convert dates to local time
-
-	let sizes = ['GB', 'MB', 'KB']
-	let sizetype = 'B'
-	while (blob.size >= 1000)
-	{
-		sizetype = sizes.pop()
-		blob.size /= 1000
-	}
-	blob.size = blob.size.toFixed(2) + ' ' + sizetype //convert size to human-readable format
+	blob.size = format.file_size(blob.size) //convert size to human-readable format
 	return blob
 }
 
@@ -75,6 +67,35 @@ export default {
 	{
 		return await api(`query ($filter: BlobSearchFilter!){
 			countBlobs(filter: $filter) {
+				__typename
+				...on BlobCount {
+					count
+				}
+				...on BadTagQuery {
+					message
+				}
+			}
+		}`, {
+			filter: {
+				creator: username,
+				tag_expr: tag_query,
+				begin_date: date.db_output(date_from),
+				end_date: date.db_output(date_to),
+				name: name,
+			},
+		})
+	},
+
+	/**
+	* username: string or null
+	* tag_query: string or null
+	* date_from: Date or null
+	* date_to: Date or null
+	*/
+	size: async (username, tag_query, date_from, date_to, name) =>
+	{
+		return await api(`query ($filter: BlobSearchFilter!){
+			totalBlobSize(filter: $filter) {
 				__typename
 				...on BlobCount {
 					count

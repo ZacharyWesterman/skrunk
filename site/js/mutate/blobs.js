@@ -33,4 +33,30 @@ export default {
 			tags: tag_list,
 		})
 	},
+
+	create_zip: async (username, tag_query, date_from, date_to, name) =>
+	{
+		return await api(`
+		mutation ($filter: BlobSearchFilter!) {
+			createZipArchive (filter: $filter) {
+				__typename
+				...on Blob {
+					id
+					ext
+					name
+					size
+				}
+				...on BadTagQuery { message }
+				...on UserDoesNotExistError { message }
+			}
+		}`, {
+			filter: {
+				creator: username,
+				tag_expr: tag_query,
+				begin_date: date.db_output(date_from),
+				end_date: date.db_output(date_to),
+				name: name,
+			}
+		})
+	},
 }

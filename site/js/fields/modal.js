@@ -156,19 +156,6 @@ modal.upload.start = async function()
 		modal.upload.blobs.push(...blobs)
 	}
 
-	function file_size(size)
-	{
-		const sizes = ['B', 'KB', 'MB', 'GB', 'EB']
-		let this_size = 0
-		while (size > 1000)
-		{
-			size /= 1000
-			this_size += 1
-		}
-
-		return `${size.toFixed(2)} ${sizes[this_size]}`
-	}
-
 	const files = $('modal-file').files
 
 	//make sure all files are <=10GB (max file size limit for uploads)
@@ -176,7 +163,7 @@ modal.upload.start = async function()
 	for (let file of files)
 	{
 		if (file.size > (5 * 1000 * 1000 * 1000))
-			too_big.push(`${file.name} (${file_size(file.size)})`)
+			too_big.push(`${file.name} (${format.file_size(file.size)})`)
 	}
 
 	if (too_big.length > 0)
@@ -198,7 +185,7 @@ modal.upload.start = async function()
 	for (let file of files)
 	{
 		if (file.size >= (50 * 1000 * 1000))
-			large_files.push(`${file.name} (${file_size(file.size)})`)
+			large_files.push(`${file.name} (${format.file_size(file.size)})`)
 	}
 
 	if (large_files.length > 0)

@@ -74,3 +74,19 @@ window.lookups = {
 		return Math.min(index + ct, total)
 	},
 }
+
+
+window.format = {
+	file_size: size =>
+	{
+		const sizes = ['B', 'KB', 'MB', 'GB', 'EB']
+		let this_size = 0
+		while (size > 1000)
+		{
+			size /= 1000
+			this_size += 1
+		}
+
+		return `${size.toFixed(2)} ${sizes[this_size]}`
+	},
+}

@@ -11,6 +11,7 @@ from zipfile import ZipFile, Path
 import pathlib
 import mimetypes
 import hashlib
+import uuid
 
 db = None
 blob_path = None
@@ -207,6 +208,64 @@ def count_blobs(filter: BlobSearchFilter) -> int:
 		return 0
 
 	return db.count_documents(query)
+
+def sum_blob_size(filter: BlobSearchFilter) -> int:
+	try:
+		query = build_blob_query(filter)
+	except exceptions.UserDoesNotExistError:
+		return 0
+
+	aggregate = db.aggregate([{
+		'$match': query
+	},{
+		'$group': {
+			'_id': None,
+			'total': {
+				'$sum': '$size'
+			}
+		}
+	}])
+
+	for result in aggregate:
+		return result['total']
+
+	return 0
+
+def zip_matching_blobs(filter: BlobSearchFilter) -> dict:
+	query = build_blob_query(filter)
+	if query:
+		query['$and'] += [{'complete': True}]
+	else:
+		query = {'complete': True}
+
+	id, ext = create_blob(f'ARCHIVE-{uuid.uuid4()}.zip', [])
+	this_blob_path = path(id, ext, create = True)
+
+	file_names = {}
+
+	with ZipFile(this_blob_path, 'w') as fp:
+		for blob in db.find(query):
+			print(f'Adding {blob["_id"]} to ZIP archive...', flush=True)
+			sub_blob_path = path(str(blob['_id']), blob['ext'])
+
+			file_name = f'{blob["name"]}{blob["ext"]}'
+			if file_name in file_names:
+				file_names[file_name] += 1
+				file_name = f'{blob["name"]} ({file_names[file_name]}){blob["ext"]}'
+			else:
+				file_names[file_name] = 0
+
+			fp.write(sub_blob_path, file_name)
+
+	print('Finished ZIP archive.', flush=True)
+
+	size, md5sum = file_info(this_blob_path)
+	mark_as_completed(id, size, md5sum)
+
+	blob = db.find_one({'_id': ObjectId(id)})
+	blob['id'] = blob['_id']
+	return blob
+
 
 def get_blob_data(blob_id: str) -> dict:
 	global db
