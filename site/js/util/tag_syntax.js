@@ -1,7 +1,7 @@
 function lexer(src) {
 	const types = [
 		[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
-		[/^(eq|lt|le|gt|ge)\b/i, 'func'],
+		[/^(eq|lt|gt|le|ge|equals?|exact(ly)?|min(imum)?|max(imum)?|fewer|greater|below|above)\b/i, 'func'],
 		[/^"(\\"|[^"])*"/, 'str'],
 		[/^[a-zA-Z0-9_\.]+/, 'str'],
 		[/^\*/, 'wild'],
