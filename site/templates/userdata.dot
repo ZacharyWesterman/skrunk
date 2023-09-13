@@ -14,18 +14,17 @@
 			<button class="icon" *click="update_password($('user-new-password').value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
 		</div>
 
-		{{? SelfUserData.perms.includes('admin') }}
 		<div>
-			Group:<br>
-			<span id="usrgrp" template="user_group_list"></span>
-			<button class="icon" *click="update_groups('{{= it.user.username }}')"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
-		</div>
-		{{?}}
-
-		<div>
+			<br>
 			Display Name:<br>
 			<input id="user-display-name" placeholder="{{= it.user.username.substring(0,1).toUpperCase() + it.user.username.substring(1)}}" value="{{= it.user.display_name }}" *bind="update_user_display_name('{{= it.user.username }}')">
 			&nbsp;<i id="icon-user-display-name" class="fa-solid fa-circle-check hidden"></i>
+
+			{{? SelfUserData.perms.includes('admin') }}
+				<br>
+				<span id="usrgrp" template="user_group_list"></span>
+				<button class="icon" *click="update_groups('{{= it.user.username }}')"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
+			{{?}}
 		</div>
 		<table>
 			{{~it.perms: perm}}
