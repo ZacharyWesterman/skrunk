@@ -6,17 +6,26 @@
 
 	<div class="card alt">
 		<div class="card-inner">
-			<button class="icon right alt" *click="download_all"><i class="fa-solid fa-file-arrow-down fa-lg"></i></button>
 
-			<h4>Filter files by:</h4>
-			<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$.wipe('blob-filter-title'); reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+			<div class="clickable" onclick="$.toggle_expand('extra-search-fields')">
+				<h4>
+					Filter files by:
+					<i class="right fa-solid fa-angles-down fa-lg"></i>
+				</h4>
+			</div>
 
-			<!-- Search Filters -->
-			Uploaded by
-			<div name="user_dropdown"></div>
-			Uploaded within the date range:<br>
-			<input id="blob-filter-from" type="date" *change="reload_blobs"><br>
-			<input id="blob-filter-to" type="date" *change="reload_blobs"><br>
+			<div class="expand-container" id="extra-search-fields">
+				<div>
+					<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$.wipe('blob-filter-title'); reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+
+					<!-- Search Filters -->
+					Uploaded by
+					<div name="user_dropdown"></div>
+					Uploaded within the date range:<br>
+					<input id="blob-filter-from" type="date" *change="reload_blobs"><br>
+					<input id="blob-filter-to" type="date" *change="reload_blobs">
+				</div>
+			</div>
 
 			<!-- Editor for tag query -->
 			Tag Query
@@ -27,7 +36,9 @@
 
 			<div class="code-input" id="tag-query"></div>
 			<div class="error" id="tag-error"></div>
-			<div name="page_list"></div>
+
+			<button class="icon alt" *click="download_all"><i class="fa-solid fa-file-arrow-down fa-lg"></i></button>
+			<div style="display: inline;" name="page_list"></div>
 		</div>
 	</div>
 
