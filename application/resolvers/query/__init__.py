@@ -20,6 +20,7 @@ query.set_field('weatherAlertHistory', resolve_get_alert_history)
 query.set_field('getBlobs', resolve_get_blobs)
 query.set_field('countBlobs', resolve_count_blobs)
 query.set_field('getBlob', resolve_get_blob)
+query.set_field('totalBlobSize', resolve_total_blob_size)
 
 query.set_field('getBugReports', resolve_get_bug_reports)
 query.set_field('countBugReports', resolve_count_bug_reports)

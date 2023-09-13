@@ -1,6 +1,18 @@
 import application.exceptions as exceptions
-from application.db.blob import delete_blob, get_blob_data, set_blob_tags
+from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs
 import application.db.perms as perms
+from application.db.users import userids_in_groups
+from application.objects import BlobSearchFilter
+from application.tags.exceptions import ParseError
+
+def group_filter(info, filter: dict) -> dict:
+	if filter.get('creator') is None:
+		user_data = perms.caller_info(info)
+		groups = user_data.get('groups', [])
+		if len(groups):
+			filter['creator'] = userids_in_groups(groups)
+
+	return filter
 
 def resolve_delete_blob(_, info, id: str) -> dict:
 	try:
@@ -20,5 +32,14 @@ def resolve_delete_blob(_, info, id: str) -> dict:
 def resolve_set_blob_tags(_, info, id: str, tags: list) -> dict:
 	try:
 		return { '__typename': 'Blob', **set_blob_tags(id, tags) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
+	try:
+		blob = zip_matching_blobs(group_filter(info, filter))
+		return { '__typename': 'Blob', **blob }
+	except ParseError as e:
+		return { '__typename': 'BadTagQuery', 'message': str(e) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }

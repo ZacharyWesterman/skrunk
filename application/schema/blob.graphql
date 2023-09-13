@@ -37,6 +37,7 @@ input BlobSearchFilter {
 union BlobCountResponse = BlobCount | BadTagQuery
 union BlobQueryResponse = BlobList | BadTagQuery
 union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
+union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError
 
 #Resolvers below this line:
 
@@ -44,9 +45,11 @@ extend type Query {
 	getBlobs(filter: BlobSearchFilter!, start: Int!, count: Int!): BlobQueryResponse!
 	countBlobs(filter: BlobSearchFilter!): BlobCountResponse!
 	getBlob(id: String!): Blob
+	totalBlobSize(filter: BlobSearchFilter!): BlobCountResponse!
 }
 
 extend type Mutation {
 	deleteBlob(id: String!): BlobUpdateResponse!
 	setBlobTags(id: String!, tags: [String!]!): BlobUpdateResponse!
+	createZipArchive(filter: BlobSearchFilter!): BlobZipResponse!
 }

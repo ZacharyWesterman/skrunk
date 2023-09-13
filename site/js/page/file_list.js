@@ -85,10 +85,10 @@ export async function copy_to_clipboard(id)
 
 async function reload_page_list()
 {
-	const title = $.val('blob-filter-title');
-	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
-	const date_from = date.from_field('blob-filter-from')
-	const date_to = date.from_field('blob-filter-to')
+	const title = $.val('blob-filter-title') || null
+	const creator = $.val('blob-filter-creator') || null
+	const date_from = date.from_field('blob-filter-from') || null
+	const date_to = date.from_field('blob-filter-to') || null
 	const res = await query.blobs.count(creator, Editor.value, date_from, date_to, title)
 	if (res.__typename !== 'BlobCount')
 	{
@@ -288,4 +288,63 @@ export async function set_blob_tags(id)
 	}
 
 	await reload_blobs()
+}
+
+export async function download_all()
+{
+	const title = $.val('blob-filter-title') || null
+	const creator = $.val('blob-filter-creator') || null
+	const date_from = date.from_field('blob-filter-from') || null
+	const date_to = date.from_field('blob-filter-to') || null
+
+	const size = await query.blobs.size(creator, Editor.value, date_from, date_to, title)
+
+	if (size.__typename !== 'BlobCount')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: size.message,
+			buttons: ['OK'],
+		})
+		return
+	}
+
+	const res = await _.modal({
+		title: 'Download all matching current query?',
+		text: `This will create a zip file containing <b>${format.file_size(size.count).replace(' ', '&nbsp;')}</b> of file data, which will then be downloaded to your device.<br><br>Depending on your network speed and the amount of files involved, this may take a while.`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (res !== 'yes') return
+
+	//Show a spinner so users know to wait for the ZIP archive to be generated.
+	_.modal({
+		title: 'Creating ZIP Archive, Please be Patient...',
+		text: '<div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 47%; top: 50%;"></i></div>',
+		no_cancel: true,
+	}).catch(() => {})
+	const zip = await mutate.blobs.create_zip(creator, Editor.value, date_from, date_to, title)
+	_.modal.cancel()
+
+	if (zip.__typename !== 'Blob')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: zip.message,
+			buttons: ['OK'],
+		})
+		return
+	}
+
+	//Now that ZIP has been created, download it
+	let link = document.createElement('a')
+	link.download = `${zip.name}${zip.ext}`
+	link.href = `/download/${zip.id}${zip.ext}`
+	link.target = '_blank'
+	link.click()
+	setTimeout(() => {
+		mutate.blobs.delete(zip.id)
+	}, 100)
 }

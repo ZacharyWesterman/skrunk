@@ -6,8 +6,11 @@
 
 	<div class="card alt">
 		<div class="card-inner">
+			<button class="icon right alt" *click="download_all"><i class="fa-solid fa-file-arrow-down fa-lg"></i></button>
+
 			<h4>Filter files by:</h4>
 			<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$.wipe('blob-filter-title'); reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+
 			<!-- Search Filters -->
 			Uploaded by
 			<div name="user_dropdown"></div>

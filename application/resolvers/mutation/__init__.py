@@ -2,7 +2,7 @@ from ariadne import MutationType
 from .users import *
 from .weather import *
 from .sessions import resolve_revoke_user_sessions
-from .blob import resolve_delete_blob, resolve_set_blob_tags
+from .blob import resolve_delete_blob, resolve_set_blob_tags, resolve_create_zip_archive
 from .bugs import *
 from .book import *
 from .settings import resolve_set_module_enabled
@@ -27,6 +27,7 @@ mutation.set_field('updateWeatherUser', resolve_update_weather_user)
 
 mutation.set_field('deleteBlob', resolve_delete_blob)
 mutation.set_field('setBlobTags', resolve_set_blob_tags)
+mutation.set_field('createZipArchive', resolve_create_zip_archive)
 
 mutation.set_field('reportBug', resolve_report_bug)
 mutation.set_field('deleteBug', resolve_delete_bug)
