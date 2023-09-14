@@ -130,6 +130,39 @@ api.get_json = async url =>
 	return JSON.parse(result)
 }
 
+api.file_prompt = function (contentType = '*', multiple = false, capture = null)
+{
+	return new Promise((resolve, reject) => {
+		let input = document.createElement('input')
+		input.type = 'file'
+		input.multiple = multiple
+		input.accept = contentType
+		if (capture) input.capture = capture
+
+		let resolved = false
+
+		input.onchange = _ => {
+			resolved = true
+			let files = Array.from(input.files)
+			resolve(multiple ? files : files[0])
+		}
+
+		const callback = () =>
+		{
+			setTimeout(() => {
+				if (!resolved) reject()
+				document.removeEventListener('focus', callback, true)
+			}, 100)
+		}
+
+		input.click()
+
+		setTimeout(() => {
+			document.addEventListener('focus', callback, true)
+		}, 50)
+	})
+}
+
 api.upload = function(file, progress_handler, auto_unzip = false, tag_list = []) {
 	return new Promise((resolve, reject) => {
 		let xhr = new XMLHttpRequest

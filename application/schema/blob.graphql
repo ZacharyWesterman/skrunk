@@ -26,6 +26,11 @@ type BlobCount {
 	count: Int!
 }
 
+type QRParseResponse {
+	data: String
+	error: String
+}
+
 input BlobSearchFilter {
 	creator: String
 	begin_date: DateTime
@@ -46,6 +51,7 @@ extend type Query {
 	countBlobs(filter: BlobSearchFilter!): BlobCountResponse!
 	getBlob(id: String!): Blob
 	totalBlobSize(filter: BlobSearchFilter!): BlobCountResponse!
+	getQRFromBlob(id: String!): QRParseResponse!
 }
 
 extend type Mutation {

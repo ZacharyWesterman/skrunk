@@ -3,6 +3,7 @@ from application.tags import exceptions
 from application.objects import BlobSearchFilter
 import application.db.perms as perms
 from application.db.users import userids_in_groups
+from application.integrations import qrcode
 
 def group_filter(info, filter: dict) -> dict:
 	if filter.get('creator') is None:
@@ -36,3 +37,11 @@ def resolve_total_blob_size(_, info, filter: BlobSearchFilter) -> dict:
 		return { '__typename': 'BlobCount', 'count': count }
 	except exceptions.ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }
+
+def resolve_process_qr_from_blob(_, info, id: str) -> str|None:
+	try:
+		blob_data = get_blob_data(id)
+		return qrcode.process(str(blob_data['_id']), blob_data['ext'])
+	except Exception as e:
+		print(e, flush=True)
+		return None
