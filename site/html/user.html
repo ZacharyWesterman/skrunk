@@ -1,8 +1,13 @@
-<div id="mainpage"></div>
-<div id="userdata" name="userdata" class="hidden" *load="load_user_data(api.username, true)"></div>
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-user-pen fa-xl"></i>&nbsp;
+		Edit User Info
+	</h1>
+	<div id="userdata" name="userdata" class="hidden" *load="load_user_data(api.username, true)"></div>
 
-<div name="weather_exec"></div>
-<div name="weather_users"></div>
+	<div name="weather_exec"></div>
+	<div name="weather_users"></div>
+</div>
 
 <script src="/js/page/user.js"></script>
 <script src="/js/page/weather_users.js"></script>
