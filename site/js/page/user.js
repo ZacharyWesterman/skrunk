@@ -210,7 +210,17 @@ export async function show_sessions_info()
 	await _.modal({
 		type: 'info',
 		title: 'What is a session?',
-		text: await api.get('/html/snippit/login_sessions.html'),
+		text: await api.snippit('login_sessions'),
+		buttons: ['OK'],
+	}).catch(() => {})
+}
+
+export async function show_group_tooltip()
+{
+	await _.modal({
+		type: 'info',
+		title: 'What are user groups?',
+		text: await api.snippit('user_groups'),
 		buttons: ['OK'],
 	}).catch(() => {})
 }

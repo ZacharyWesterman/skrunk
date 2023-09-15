@@ -17,6 +17,10 @@
 				<br>
 				<span id="usrgrp" template="user_group_list"></span>
 				<button class="icon" *click="update_groups('{{= it.user.username }}')"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
+				<span class="tooltip" *click="show_group_tooltip">
+					<i class="fa-solid fa-circle-question"></i>
+					<span class="tooltiptext t-left">What is this?</span>
+				</span>
 			{{?}}
 		</div>
 		<table>
