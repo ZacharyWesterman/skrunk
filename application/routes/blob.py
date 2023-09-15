@@ -67,8 +67,8 @@ def download(path: str) -> Response:
 	return files.read_file_data(full_path)
 
 def preview(path: str) -> Response:
-	# if not auth.authorized():
-	# 	return Response('Access denied.', 403)
+	if not auth.authorized():
+		return Response('Access denied.', 403)
 
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)

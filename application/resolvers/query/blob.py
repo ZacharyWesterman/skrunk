@@ -41,8 +41,9 @@ def resolve_total_blob_size(_, info, filter: BlobSearchFilter) -> dict:
 def resolve_process_qr_from_blob(_, info, id: str) -> str|None:
 	try:
 		blob_data = get_blob_data(id)
-		dir = f'preview/{blob_data["preview"]}' if blob_data.get('preview') is not None else f'blob/{blob_data["id"]}{blob_data["ext"]}'
-		return qrcode.process(dir)
+		prevw = blob_data.get('preview')
+		dir = preview(prevw) if prevw is not None else path(id, blob_data['ext'])
+		return qrcode.process(f'{id}{blob_data["ext"]}', dir)
 	except Exception as e:
 		print(e, flush=True)
 		return None

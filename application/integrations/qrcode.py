@@ -3,12 +3,22 @@ import urllib
 import json
 import flask
 
-def process(dir: str) -> str:
-	domain_name = urllib.parse.urlparse(flask.request.base_url).hostname
-	my_url = urllib.parse.quote_plus(f'https://{domain_name}/{dir}')
-	api_url = f'http://api.qrserver.com/v1/read-qr-code/?fileurl={my_url}'
+def process(basename: str, real_filename: str) -> str:
+	files = {'file': (
+		basename,
+		open(real_filename, 'rb'),
+		'application-type',
+	)}
+	payload = {
+		'file-name': 'Filename',
+		'category': '19',
+	}
+	api_url = f'http://api.qrserver.com/v1/read-qr-code/'
 
-	res = json.loads(requests.get(api_url).text)[0]
+	session = requests.Session()
+	res = json.loads(session.post(api_url, data=payload, file=files).text)[0]
+
+	print(res, flush=True)
 
 	if res['type'] != 'qrcode' or len(res['symbol']) == 0:
 		return {
