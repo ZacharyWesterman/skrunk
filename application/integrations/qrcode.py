@@ -1,9 +1,11 @@
 import requests
 import urllib
 import json
+import flask
 
 def process(id: str, ext: str) -> str:
-	my_url = urllib.parse.quote_plus(f'https://ftp.skrunky.com/blob/{id}{ext}')
+	domain_name = urllib.parse.urlparse(flask.request.base_url).hostname
+	my_url = urllib.parse.quote_plus(f'https://{domain_name}/blob/{id}{ext}')
 	api_url = f'http://api.qrserver.com/v1/read-qr-code/?fileurl={my_url}'
 
 	res = json.loads(requests.get(api_url).text)[0]
@@ -13,8 +15,6 @@ def process(id: str, ext: str) -> str:
 			'data': None,
 			'error': 'No QR code detected.',
 		}
-
-	print(res, flush=True)
 
 	return {
 		'data': res['symbol'][0]['data'],
