@@ -89,8 +89,7 @@ def update_user(user_data: dict) -> None:
 	else:
 		raise exceptions.UserDoesNotExistError(user_data["username"])
 
-#May return None if weather alerts has never been run.
-def get_last_exec() -> dict:
+def get_last_exec() -> dict|None:
 	global db
 
 	last_exec = db.weather.log.find_one({}, sort=[('timestamp', -1)])
