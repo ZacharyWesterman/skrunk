@@ -46,7 +46,7 @@ window.invert_color = hex => {
 window.lookups = {
 	max_displayed_pages: () => {
 		const rem_px = parseFloat(getComputedStyle(document.documentElement).fontSize)
-		const max_width = Math.min(window.innerWidth/rem_px - 4, 700/rem_px) - 5
+		const max_width = Math.min(window.innerWidth/rem_px - 4, 900/rem_px) - 5
 		const max_pages = Math.floor(max_width / 2)
 
 		return max_pages

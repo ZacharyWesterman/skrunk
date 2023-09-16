@@ -1,5 +1,5 @@
 {{~ it.books : book}}
-<div class="card" style="max-width: 700px;">
+<div class="card">
 	<div class="card-inner">
 		<div class="actions right">
 			<button class="icon clickable tooltip" *click="share_book('{{= book.shared ? book.shareHistory[book.shareHistory.length - 1].name : ''}}', '{{=safe_html(book.title)}}', '{{=safe_html(book.subtitle)}}', '{{=safe_html(book.authors.join(', '))}}', '{{=book.id}}', '{{=book.owner.username}}')">

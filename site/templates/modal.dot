@@ -17,7 +17,7 @@
 				<b>{{=it.title}}</b>
 			</h4>{{?}}
 
-			{{?it.text}}<div id="modal-content-text" style="max-width: 700px;">{{=it.text}}</div>{{?}}
+			{{?it.text}}<div id="modal-content-text">{{=it.text}}</div>{{?}}
 			<div class="spread-out">
 				{{~it.buttons : button : i}}
 					{{?typeof button === 'object'}}
