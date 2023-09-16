@@ -33,7 +33,8 @@
 			"text": "Upload Files",
 			"icon": "file-arrow-up",
 			"action": "_.modal.upload()",
-			"module": "files"
+			"module": "files",
+			"class": "bottom"
 		},
 		{
 			"text": "Bug Tracker",
@@ -110,6 +111,13 @@
 			"action": "dashnav('books_new')"
 		},
 		{
+			"text": "Upload Files",
+			"icon": "file-arrow-up",
+			"action": "_.modal.upload()",
+			"module": "files",
+			"class": "bottom"
+		},
+		{
 			"text": "Bug Tracker",
 			"icon": "bug",
 			"action": "dashnav('bugs')",
@@ -141,6 +149,13 @@
 			"icon": "palette",
 			"action": "dashnav('edit_theme')",
 			"module": "theme"
+		},
+		{
+			"text": "Upload Files",
+			"icon": "file-arrow-up",
+			"action": "_.modal.upload()",
+			"module": "files",
+			"class": "bottom"
 		},
 		{
 			"text": "Bug Tracker",
