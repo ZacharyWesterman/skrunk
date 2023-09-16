@@ -54,8 +54,18 @@ window.load_dashboard = async () =>
 
 	set_title()
 
+	$('xkcd').innerHTML = `
+	<h3 style="text-align:center;">Number of Tagged Books Per User</h3>
+	<canvas id="user-book-chart"></canvas>
+	`
+
+	let chart_data = await api(`{countAllUserBooks { owner { username display_name } count }}`)
+	chart_data = chart_data.sort((a,b) => a.owner.username.localeCompare(b.owner.username) )
+
+	await chart.bar('user-book-chart', chart_data.map(i => i.owner.display_name), chart_data.map(i => i.count))
+
 	//Load random xkcd comic
-	await new_xkcd()
+	// await new_xkcd()
 	setTimeout(() => $.show('content'), 200)
 }
 

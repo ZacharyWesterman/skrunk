@@ -426,3 +426,31 @@ def edit_book(id: str, new_data: dict) -> dict:
 	db.update_one({'_id': ObjectId(id)}, {'$set': changed_fields})
 
 	return book_data
+
+def count_all_user_books(filter_users: list|None = None) -> list:
+	aggregate = db.aggregate([
+		{ '$group': { '_id': '$owner', 'count': { '$sum': 1 } } }
+	])
+
+	result = []
+
+	for i in aggregate:
+		#Allow user group filtering
+		if filter_users != None and i['_id'] not in filter_users:
+			continue
+
+		try:
+			user_data = users.get_user_by_id(i['_id'])
+			result += [{
+				'owner': {
+					'username': user_data['username'],
+					'display_name': user_data['display_name'],
+				},
+				'count': i['count'],
+			}]
+
+		except exceptions.UserDoesNotExistError:
+			#Just ignore users that no longer exist.
+			pass
+
+	return result

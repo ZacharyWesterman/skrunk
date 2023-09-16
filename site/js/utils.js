@@ -90,3 +90,41 @@ window.format = {
 		return `${size.toFixed(2)} ${sizes[this_size]}`
 	},
 }
+
+window.chart = {
+	bar: async (field, labels, data) =>
+	{
+		await import('https://cdn.jsdelivr.net/npm/chart.js')
+		Chart.defaults.color = _.css.get_var('--secondary-text')
+		const disabled_text = _.css.get_var('--disabled-text')
+
+		new Chart($(field), {
+			type: 'bar',
+			data: {
+				labels: labels,
+				datasets: [{
+					data: data,
+					borderWidth: 1
+				}]
+			},
+			options: {
+				plugins: {
+					legend: {
+						display: false
+					}
+				},
+				scales: {
+					y: {
+						beginAtZero: true,
+						grid: {
+							color: disabled_text,
+						},
+						border: {
+							color: disabled_text,
+						},
+					},
+				}
+			}
+		})
+	},
+}

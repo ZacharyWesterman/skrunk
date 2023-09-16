@@ -68,6 +68,11 @@ type BookOwnerHist {
 	stop: DateTime!
 }
 
+type UserBookCount {
+	owner: UserMinData!
+	count: Int!
+}
+
 input BookSearchFilter {
 	owner: String
 	title: String
@@ -110,6 +115,7 @@ extend type Query {
 	countBooks(filter: BookSearchFilter!): Int!
 	searchBooks(title: String!, author: String!): BookQueryResponse!
 	getBookByTag(rfid: String!): BookResponse!
+	countAllUserBooks: [UserBookCount!]!
 }
 
 extend type Mutation {

@@ -1,6 +1,6 @@
 from application.integrations.exceptions import ApiFailedError
 from application.integrations import google_books
-from application.db.book import get_book_tag, get_books, count_books
+from application.db.book import get_book_tag, get_books, count_books, count_all_user_books
 from application.exceptions import ClientError
 from application.objects import BookSearchFilter
 import application.db.perms as perms
@@ -36,3 +36,8 @@ def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
 			filter['owner'] = userids_in_groups(groups)
 
 	return count_books(filter)
+
+def resolve_count_all_user_books(_, info) -> list:
+	user_data = perms.caller_info(info)
+	groups = user_data.get('groups', [])
+	return count_all_user_books(groups if len(groups) else None)
