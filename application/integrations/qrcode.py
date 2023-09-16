@@ -16,7 +16,7 @@ def process(basename: str, real_filename: str) -> str:
 	api_url = f'http://api.qrserver.com/v1/read-qr-code/'
 
 	session = requests.Session()
-	res = json.loads(session.post(api_url, data=payload, file=files).text)[0]
+	res = json.loads(session.post(api_url, data=payload, files=files).text)[0]
 
 	print(res, flush=True)
 
