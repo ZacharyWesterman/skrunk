@@ -123,12 +123,14 @@ def create_blob(name: str, tags: list = []) -> str:
 	if mime is None:
 		mime = 'application/octet-stream'
 
-	real_mime = mime
-
 	pos = name.rfind('.')
 	ext = name[pos::] if pos > -1 else ''
 	name = name[0:pos] if pos > -1 else name
 
+	if ext == '.webp':
+		mime = 'image/webp'
+
+	real_mime = mime
 	mime = set_mime_from_ext(mime, ext.lower()).lower()
 
 	username = decode_user_token(get_request_token()).get('username')
