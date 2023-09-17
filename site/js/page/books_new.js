@@ -211,54 +211,12 @@ async function scanning_modal()
 
 	if (res === 'use qr')
 	{
-		const file = await api.file_prompt('image/*', false, 'camera')
-		let rfid = null
-
-		await _.modal({
-			title: '<span id="qr-title">Uploading QR Code...</span>',
-			text: '<div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 45%; top: 50%;"></i></div><progress id="upload-progressbar-qr" value="0" max="100"></progress>',
-			no_cancel: true,
-		}, async () => { //On modal load
-
-			const upload_res = await api.upload(file, progress => {
-				const percent = progress.loaded / progress.total * 100
-				$('upload-progressbar-qr').value = percent
-			})
-
-			$.hide('upload-progressbar-qr', true)
-			$('qr-title').innerText = 'Processing QR Code...'
-
-			const res = await api(`query ($id: String!) {
-				getQRFromBlob (id: $id) {
-					data
-					error
-				}
-			}`, {
-				id: upload_res[0].id
-			})
-
-			for (const blob of upload_res)
-			{
-				mutate.blobs.delete(blob.id)
-			}
-
-			if (res.error !== null)
-			{
-				_.modal({
-					type: 'error',
-					title: 'ERROR',
-					text: res.error,
-					buttons: ['OK'],
-				}).catch(() => {})
-				return
-			}
-			_.modal.return()
-
-			rfid = $.enforce.hex(res.data)
-		}).catch(() => {})
-
+		const qrcode = await api.load_and_process_qr()
 		AWAITING_SCAN = false
-		return rfid || 'cancel'
+
+		if (qrcode === null) return 'cancel'
+
+		return $.enforce.hex(qrcode)
 	}
 
 	AWAITING_SCAN = false
