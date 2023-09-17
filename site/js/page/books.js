@@ -26,8 +26,19 @@ export async function init()
 	InitialLoad = true
 	three_state_checkbox()
 
+	window.search_by_qrcode = async () =>
+	{
+		const qrcode = await api.load_and_process_qr()
+		if (qrcode !== null)
+		{
+			$('tagid').value = qrcode
+			manual_input()
+		}
+	}
+
 	window.unload.push(() => {
 		NFC.onreading = undefined
+		delete window.search_by_qrcode
 	})
 
 	NFC.onreading = async event =>

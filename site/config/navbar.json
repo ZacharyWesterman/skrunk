@@ -111,6 +111,11 @@
 			"action": "dashnav('books_new')"
 		},
 		{
+			"text": "Search by QR",
+			"icon": "qrcode",
+			"action": "search_by_qrcode()"
+		},
+		{
 			"text": "Upload Files",
 			"icon": "file-arrow-up",
 			"action": "_.modal.upload()",
