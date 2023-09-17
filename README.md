@@ -1,6 +1,6 @@
 My personal database solution for managing other projects and viewing related data.
 
-Requires linux and python >= 3.10. The database is MongoDB.
+Requires some flavor of Linux, Python >= 3.10, MongoDB >= 5, and OpenJDK >= 8.
 
 ---
 
