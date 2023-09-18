@@ -18,11 +18,12 @@ class Repository:
 			raise RepoFetchFailed(self.url)
 
 class CurrentRepository(Repository):
-	def __init__(self):
+	def __init__(self, repo: str|None = None):
 		repo_url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
 		info = repo_url.decode().strip().split(':')[1].split('/')
 
 		owner = info[0]
-		repo = info[1][:-4]
+		if repo is None:
+			repo = info[1][:-4]
 
 		super().__init__(owner, repo)
