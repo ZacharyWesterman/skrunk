@@ -185,7 +185,7 @@ async function scanning_modal()
 		icon: 'bookmark',
 		title: 'Ready to scan',
 		text: api.snippit('rfid_waiting'),
-		buttons: ['Use QR', 'Cancel'],
+		buttons: EnabledModules.includes('qr') ? ['Use QR', 'Cancel'] : ['Cancel'],
 	}, () => {
 		const field = $('rfid_manual_input')
 		$.bind(field, () => {

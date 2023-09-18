@@ -22,6 +22,12 @@
 	{
 		"id": "weather",
 		"name": "Weather Monitor",
-		"description": "Enable interface with the weather-monitoring API"
+		"description": "Enable interface with the weather-monitoring API."
+	},
+	{
+		"id": "qr",
+		"name": "QR Codes",
+		"description": "Allow users to scan QR codes on certain screens.",
+		"requires": ["files"]
 	}
 ]

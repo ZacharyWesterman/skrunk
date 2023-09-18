@@ -11,7 +11,10 @@
 		<td><input type="checkbox" id="module-{{= module.id }}" *click="set_module_enabled('{{= module.id}}', $('module-{{= module.id }}').checked)"></td>
 		<td>{{= module.name }}</td>
 		<td><i id="icon-module-{{= module.id }}" class="fa-solid fa-circle-check hidden"></i></td>
-		<td>{{= module.description }}</td>
+		<td>
+			{{= module.description }}
+			{{? module.requires?.length }}<br><sup><sub><i>Depends on the following module{{? module.requires.length !== 1 }}s{{?}}: {{= module.requires.map(x => it.find(v => v.id === x).name).join(', ') }}.</i></sub></sup>{{?}}
+		</td>
 	</tr>
 	{{~}}
 </table>

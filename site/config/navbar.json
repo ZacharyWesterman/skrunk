@@ -113,7 +113,8 @@
 		{
 			"text": "Search by QR",
 			"icon": "qrcode",
-			"action": "search_by_qrcode()"
+			"action": "if (window.search_by_qrcode) search_by_qrcode()",
+			"module": "qr"
 		},
 		{
 			"text": "Upload Files",
