@@ -128,3 +128,74 @@ window.chart = {
 		})
 	},
 }
+
+window.qr = {
+	load_and_process: async () =>
+	{
+		const file = await api.file_prompt('image/*', false, 'camera')
+		let qrcode = null
+
+		await _.modal({
+			title: '<span id="qr-title">Uploading QR Code...</span>',
+			text: '<div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 45%; top: 50%;"></i></div><progress id="upload-progressbar-qr" value="0" max="100"></progress>',
+			no_cancel: true,
+		}, async () => { //On modal load
+
+			const upload_res = await api.upload(file, progress => {
+				const percent = progress.loaded / progress.total * 100
+				$('upload-progressbar-qr').value = percent
+			})
+
+			$.hide('upload-progressbar-qr', true)
+			$('qr-title').innerText = 'Processing QR Code...'
+
+			const res = await api(`query ($id: String!) {
+				getQRFromBlob (id: $id) {
+					data
+					error
+				}
+			}`, {
+				id: upload_res[0].id
+			})
+
+			for (const blob of upload_res)
+			{
+				mutate.blobs.delete(blob.id)
+			}
+
+			if (res.error !== null)
+			{
+				_.modal({
+					type: 'error',
+					title: 'ERROR',
+					text: res.error,
+					buttons: ['OK'],
+				}).catch(() => {})
+				return
+			}
+
+			qrcode = res.data
+
+			_.modal.return()
+		}).catch(() => {})
+
+		return qrcode
+	},
+
+	generate: async (text = null) =>
+	{
+		const blob_data = await api('mutation ($text: String) { getBlobFromQR (text: $text) { id ext } }', {text: text})
+
+		//Now that QR code image has been created, download it
+		let link = document.createElement('a')
+		link.download = `${blob_data.id}${blob_data.ext}`
+		link.href = `/download/${blob_data.id}${blob_data.ext}`
+		link.target = '_blank'
+		link.click()
+
+		//Delete the blob when we're done.
+		setTimeout(() => {
+			mutate.blobs.delete(blob_data.id)
+		}, 100)
+	},
+}

@@ -211,7 +211,7 @@ async function scanning_modal()
 
 	if (res === 'use qr')
 	{
-		const qrcode = await api.load_and_process_qr()
+		const qrcode = await qr.load_and_process()
 		AWAITING_SCAN = false
 
 		if (qrcode === null) return 'cancel'

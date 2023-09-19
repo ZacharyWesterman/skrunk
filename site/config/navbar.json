@@ -111,9 +111,9 @@
 			"action": "dashnav('books_new')"
 		},
 		{
-			"text": "Search by QR",
+			"text": "Generate QR Code",
 			"icon": "qrcode",
-			"action": "if (window.search_by_qrcode) search_by_qrcode()",
+			"action": "qr.generate()",
 			"module": "qr"
 		},
 		{

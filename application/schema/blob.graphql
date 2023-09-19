@@ -58,4 +58,5 @@ extend type Mutation {
 	deleteBlob(id: String!): BlobUpdateResponse!
 	setBlobTags(id: String!, tags: [String!]!): BlobUpdateResponse!
 	createZipArchive(filter: BlobSearchFilter!): BlobZipResponse!
+	getBlobFromQR(text: String): Blob!
 }
