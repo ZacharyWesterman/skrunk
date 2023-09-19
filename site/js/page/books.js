@@ -23,6 +23,8 @@ if (window.NFC === undefined)
 NFC.scan()
 export async function init()
 {
+	if (EnabledModules.includes('qr')) _('qrcode-search')
+
 	InitialLoad = true
 	three_state_checkbox()
 

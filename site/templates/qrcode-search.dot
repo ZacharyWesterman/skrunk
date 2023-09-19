@@ -1,0 +1,4 @@
+<span class="tooltip right">
+	<i class="clickable fa-solid fa-qrcode fa-lg" *click="search_by_qrcode"></i>
+	<span class="tooltiptext t-left">Search by QR</span>
+</span>

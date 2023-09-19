@@ -35,7 +35,7 @@ function find_fields(name)
 		if (elem)
 			fields.push(elem)
 		else
-			fields = document.querySelectorAll('div[name="' + name + '"]')
+			fields = document.querySelectorAll('[name="' + name + '"]')
 	}
 	return fields
 }

@@ -17,10 +17,7 @@
 
 			<input id="title" placeholder="Keywords/ISBN" *bind="search_books"><button class="reset clickable" *click="$.wipe('title'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
 
-			<span class="tooltip right">
-				<i class="clickable fa-solid fa-qrcode fa-lg" *click="search_by_qrcode"></i>
-				<span class="tooltiptext t-left">Search by QR</span>
-			</span>
+			<span name="qrcode-search"></span>
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
