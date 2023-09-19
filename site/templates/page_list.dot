@@ -1,6 +1,6 @@
 {{?it.count > 0}}
 	{{? it.total}}
-		Total {{= it.total}} result{{? it.total !== 1}}s{{?}}.<br>
+		Found {{= it.total}} result{{? it.total !== 1}}s{{?}}{{? it.count > lookups.max_displayed_pages() }} ({{= it.count }} pages){{?}}.<br>
 	{{?}}
 
 	{{? it.count > lookups.max_displayed_pages() }}
