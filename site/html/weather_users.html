@@ -43,14 +43,14 @@
 								<input id="create-has-max" type="checkbox" onclick="$.wipe('create-max'); $('create-max').disabled = !this.checked" checked>
 							</td>
 							<td>Max:</td>
-							<td><input placeholder="default" id="create-max" type="number" step="any" value="{{=user.max}}" format="number" *change="can_create"></td>
+							<td><input placeholder="105 (default)" id="create-max" type="number" step="any" value="{{=user.max}}" format="number" *change="can_create"></td>
 						</tr>
 						<tr>
 							<td>
 								<input id="create-has-min" type="checkbox" onclick="$.wipe('create-min'); $('create-min').disabled = !this.checked" checked>
 							</td>
 							<td>Min:</td>
-							<td><input placeholder="default" id="create-min" type="number" step="any" value="{{=user.min}}" format="number" *blur="can_create"></td>
+							<td><input placeholder="34 (default)" id="create-min" type="number" step="any" value="{{=user.min}}" format="number" *blur="can_create"></td>
 						</tr>
 					</table>
 
