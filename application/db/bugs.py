@@ -4,10 +4,11 @@ from . import users
 
 from bson.objectid import ObjectId
 from datetime import datetime
+import markdown, html
 
 db = None
 
-def report_bug(text: str, html: str) -> dict:
+def report_bug(text: str, plaintext: bool = True) -> dict:
 	global db
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
@@ -16,7 +17,7 @@ def report_bug(text: str, html: str) -> dict:
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
 		'body': text,
-		'body_html': html,
+		'body_html': html.escape(text) if plaintext else markdown.markdown(text, output_format = 'html'),
 		'convo': [],
 		'resolved': False,
 	}).inserted_id
@@ -25,8 +26,29 @@ def report_bug(text: str, html: str) -> dict:
 	bug_report['id'] = bug_report['_id']
 	return bug_report
 
-def get_bug_report(id: str) -> dict:
+def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
+	username = decode_user_token(get_request_token()).get('username')
+	user_data = users.get_user_data(username)
+
 	report = db.find_one({'_id': ObjectId(id)})
+	if report is None:
+		raise exceptions.BugReportDoesNotExistError(id)
+
+	convo_data = {
+		'created': datetime.utcnow(),
+		'creator': user_data['_id'],
+		'body': text,
+		'body_html': html.escape(text) if plaintext else markdown.markdown(text, output_format = 'html'),
+	}
+
+	db.update_one({'_id': ObjectId(id)}, {
+		'$push': {'convo': convo_data }
+	})
+
+	report['convo'] += [convo_data]
+	return process_bug_report(report)
+
+def process_bug_report(report: dict) -> dict:
 	report['id'] = report['_id']
 
 	try:
@@ -35,7 +57,25 @@ def get_bug_report(id: str) -> dict:
 	except exceptions.UserDoesNotExistError:
 		report['creator'] = str(report['creator'])
 
+	processed_comments = []
+	for comment in report['convo']:
+		try:
+			user_data = users.get_user_by_id(comment['creator'])
+			comment['creator'] = user_data['username']
+		except exceptions.UserDoesNotExistError:
+			comment['creator'] = str(comment['creator'])
+
+		processed_comments += [comment]
+
+	report['convo'] = processed_comments
 	return report
+
+def get_bug_report(id: str) -> dict:
+	report = db.find_one({'_id': ObjectId(id)})
+	if report is None:
+		raise exceptions.BugReportDoesNotExistError(id)
+
+	return process_bug_report(report)
 
 def get_bug_reports(username: str|None, start: int, count: int, resolved: bool) -> list:
 	global db
@@ -50,13 +90,7 @@ def get_bug_reports(username: str|None, start: int, count: int, resolved: bool) 
 			return []
 
 	for i in selection.limit(count).skip(start):
-		i['id'] = i['_id']
-		try:
-			user_data = users.get_user_by_id(i['creator'])
-			i['creator'] = user_data['username']
-		except exceptions.UserDoesNotExistError:
-			i['creator'] = str(i['creator'])
-		reports += [i]
+		reports += [process_bug_report(i)]
 
 	return reports
 

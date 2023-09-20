@@ -28,10 +28,7 @@ export async function submit_bug_report()
 
 	$.toggle_expand('card-new-bug')
 
-	const res = await mutate.bugs.report(
-		$('new-bug-text').value,
-		await $.editor.md_to_html($('new-bug-text').value),
-	)
+	const res = await mutate.bugs.report($('new-bug-text').value)
 
 	if (res.__typename !== 'BugReport')
 	{
@@ -65,6 +62,52 @@ export function open_editor()
 	}).catch(() => {})
 }
 
+export function open_editor_comment(bug_id)
+{
+	$.editor.open($.val(`text-${bug_id}`)).then(result => {
+		$(`text-${bug_id}`).value = result.text
+	}).catch(() => {})
+}
+
+export async function comment_on_bug_report(bug_id)
+{
+	const text = $.val(`text-${bug_id}`)
+	if (text === '') return
+
+	$.toggle_expand(`newcomment-${bug_id}`)
+
+	const res = await mutate.bugs.comment(bug_id, text)
+
+	if (res.__typename !== 'BugReport')
+	{
+		$.toggle_expand(`newcomment-${bug_id}`)
+
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: 'Failed to comment on bug report!',
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	$(`text-${bug_id}`).value = ''
+	_.modal.checkmark()
+
+	let html_content = '<hr>'
+	for (const comment of res.convo)
+	{
+		html_content += `
+		<blockquote>
+			<div class="disabled">
+				${comment.creator} @ ${date.output(comment.created)}
+			</div>
+			${image_restrict(comment.body_html)}
+		</blockquote>`
+	}
+	$(`comments-inner-${bug_id}`).innerHTML = html_content
+}
+
 async function can_submit()
 {
 	if ($.val('new-bug-text') === '')
@@ -86,7 +129,7 @@ export async function confirm_delete_bug(id, title)
 	const choice = await _.modal({
 		type: 'question',
 		title: 'Delete Bug Report?',
-		text: `This bug report will be permanently removed from the list.`,
+		text: `This bug report will be permanently removed from the list.<br><br><b>This action is permanent!</b>`,
 		buttons: ['Yes', 'No']
 	}).catch(() => 'no')
 

@@ -4,8 +4,15 @@ type BugReport {
 	creator: String!
 	body: String!
 	body_html: String!
-	convo: [String!]!
+	convo: [BugComment!]!
 	resolved: Boolean!
+}
+
+type BugComment {
+	created: DateTime!
+	creator: String!
+	body: String!
+	body_html: String!
 }
 
 type BugReportDoesNotExistError {
@@ -42,7 +49,8 @@ extend type Query {
 }
 
 extend type Mutation {
-	reportBug(text: String!, html: String!): BugReportCreateAction!
+	reportBug(text: String!, plaintext: Boolean!): BugReportCreateAction!
 	deleteBug(id: String!): BugReportEditAction!
 	setBugStatus(id: String!, status: Boolean!): BugReportEditAction!
+	commentOnBug(id: String!, text: String!, plaintext: Boolean!): BugReportEditAction!
 }

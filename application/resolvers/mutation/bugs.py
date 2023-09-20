@@ -2,9 +2,9 @@ import application.exceptions as exceptions
 from application.db.bugs import *
 import application.db.perms as perms
 
-def resolve_report_bug(_, info, text: str, html: str) -> dict:
+def resolve_report_bug(_, info, text: str, plaintext: bool) -> dict:
 	try:
-		return { '__typename': 'BugReport', **report_bug(text, html) }
+		return { '__typename': 'BugReport', **report_bug(text, plaintext) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
@@ -25,5 +25,11 @@ def resolve_delete_bug(_, info, id: str) -> dict:
 def resolve_set_bug_status(_, info, id: str, status: bool) -> dict:
 	try:
 		return { '__typename': 'BugReport', **set_bug_status(id, status) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+def resolve_comment_on_bug(_, info, id: str, text: str, plaintext: bool) -> dict:
+	try:
+		return { '__typename': 'BugReport', **comment_on_bug(id, text, plaintext) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }

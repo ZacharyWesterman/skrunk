@@ -1,14 +1,14 @@
 export default {
-	report: async (text, html) =>
+	report: async (text, plaintext = false) =>
 	{
 		return await api(`
-		mutation ($text: String!, $html: String!) {
-			reportBug (text: $text, html: $html) {
+		mutation ($text: String!, $plaintext: Boolean!) {
+			reportBug (text: $text, plaintext: $plaintext) {
 				__typename
 			}
 		}`, {
 			text: text,
-			html: html,
+			plaintext: plaintext,
 		})
 	},
 
@@ -46,6 +46,28 @@ export default {
 		}`, {
 			id: id,
 			status: status,
+		})
+	},
+
+	comment: async (id, text, plaintext = false) =>
+	{
+		return await api(`
+		mutation ($id: String!, $text: String!, $plaintext: Boolean!) {
+			commentOnBug (id: $id, text: $text, plaintext: $plaintext) {
+				__typename
+				...on BugReport {
+					convo {
+						created
+						creator
+						body
+						body_html
+					}
+				}
+			}
+		}`, {
+			id: id,
+			text: text,
+			plaintext: plaintext,
 		})
 	},
 }

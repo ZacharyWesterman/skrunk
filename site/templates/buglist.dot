@@ -3,16 +3,51 @@
 {{~it: bug}}
 <div class="card">
 	<div class="card-inner">
-		<button class="icon right" *click="confirm_resolve_bug('{{=bug.id}}')"><i class="fa-solid fa-check fa-lg"></i></button>
-		<div>{{=bug.body_html.replaceAll('<img ', '<img width="100%" height="auto" ')}}</div>
-
-		<button class="icon right" *click="confirm_delete_bug('{{=bug.id}}', '{{=safe_html(bug.title)}}')"><i class="fa-solid fa-trash fa-lg {{?bug.creator !== api.username}}disabled{{?}}"></i></button>
-
+		{{? bug.creator === api.username || SelfUserData.perms.includes('admin') }}<button class="icon right" *click="confirm_resolve_bug('{{=bug.id}}')"><i class="fa-solid fa-check fa-lg"></i></button>{{?}}
+		{{? bug.creator === api.username || SelfUserData.perms.includes('admin') }}<button class="icon right" *click="confirm_delete_bug('{{=bug.id}}', '{{=safe_html(bug.title)}}')"><i class="fa-solid fa-trash fa-lg disabled"></i></button>{{?}}
 		<div class="disabled">
-			Created by {{=bug.creator}}
-			<br>
-			{{=bug.created}}
+			{{= bug.creator }} @ {{= date.output(bug.created) }}
 		</div>
+
+		<div>{{= image_restrict(bug.body_html) }}</div>
+
+		{{? bug.convo.length }}
+			<hr>
+			<h3 class="clickable" onclick="$.toggle_expand('comments-{{=bug.id}}')">
+				{{= bug.convo.length }} comment{{? bug.convo.length !== 1}}s{{?}}
+				<i class="right fa-solid fa-angles-down"></i>
+			</h3>
+
+			<div class="expand-container" id="comments-{{=bug.id}}">
+				<div id="comments-inner-{{=bug.id}}">
+					<hr>
+					{{~ bug.convo : comment }}
+					<blockquote>
+						<div class="disabled">
+							{{= comment.creator }} @ {{= date.output(comment.created) }}
+						</div>
+						{{= image_restrict(comment.body_html) }}
+					</blockquote>
+					{{~}}
+				</div>
+			</div>
+
+			{{? bug.creator === api.username || SelfUserData.perms.includes('admin') }}
+			<hr>
+			<h4 class="clickable" onclick="$.toggle_expand('newcomment-{{=bug.id}}')">
+				Add a comment
+				<i class="right fa-solid fa-angles-down fa-lg"></i>
+			</h4>
+			<div class="expand-container" id="newcomment-{{=bug.id}}">
+				<div>
+					<button *click="open_editor_comment('{{= bug.id }}')">Open Advanced Editor</button><br>
+					<textarea id="text-{{=bug.id}}" placeholder="Comments are parsed as Markdown. Use the advanced editor to see how this works." style="width: 90%; height: 5rem;"></textarea>
+					<br>
+					<button *click="comment_on_bug_report('{{= bug.id }}')">Submit Comment</button>
+				</div>
+			</div>
+			{{?}}
+		{{?}}
 	</div>
 </div>
 {{~}}
