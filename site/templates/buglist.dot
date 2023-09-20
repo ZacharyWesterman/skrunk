@@ -32,7 +32,8 @@
 				</div>
 			</div>
 
-			{{? bug.creator === api.username || SelfUserData.perms.includes('admin') }}
+		{{?}}
+		{{? bug.creator === api.username || SelfUserData.perms.includes('admin') }}
 			<hr>
 			<h4 class="clickable" onclick="$.toggle_expand('newcomment-{{=bug.id}}')">
 				Add a comment
@@ -46,7 +47,6 @@
 					<button *click="comment_on_bug_report('{{= bug.id }}')">Submit Comment</button>
 				</div>
 			</div>
-			{{?}}
 		{{?}}
 	</div>
 </div>
