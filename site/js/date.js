@@ -120,6 +120,19 @@ window.date = {
 		return `${y}-${m}-${d} ${h}:${n}:${s}`
 	},
 
+	short: function(date_obj)
+	{
+		const dt = (typeof date_obj === 'string') ? new Date(date_obj) : date_obj
+		const y = dt.getFullYear()
+		const m = dt.getMonth()+1
+		const d = dt.getDate()
+		const h = String(dt.getHours()).padStart(2, '0')
+		const n = String(dt.getMinutes()).padStart(2, '0')
+		const s = String(dt.getSeconds()).padStart(2, '0')
+
+		return `${y}-${m}-${d} ${h}:${n}`
+	},
+
 	/**
 	 * Takes a date and returns a human-readable representation of the difference between the date and now
 	 *

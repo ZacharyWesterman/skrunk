@@ -100,7 +100,7 @@ export async function comment_on_bug_report(bug_id)
 		html_content += `
 		<blockquote>
 			<div class="disabled">
-				${comment.creator} @ ${date.output(comment.created)}
+				${comment.creator} @ ${date.short(comment.created)}
 			</div>
 			${image_restrict(comment.body_html)}
 		</blockquote>`

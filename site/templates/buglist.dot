@@ -6,7 +6,7 @@
 		{{? bug.creator === api.username || SelfUserData.perms.includes('admin') }}<button class="icon right" *click="confirm_resolve_bug('{{=bug.id}}')"><i class="fa-solid fa-check fa-lg"></i></button>{{?}}
 		{{? bug.creator === api.username || SelfUserData.perms.includes('admin') }}<button class="icon right" *click="confirm_delete_bug('{{=bug.id}}', '{{=safe_html(bug.title)}}')"><i class="fa-solid fa-trash fa-lg disabled"></i></button>{{?}}
 		<div class="disabled">
-			{{= bug.creator }} @ {{= date.output(bug.created) }}
+			{{= bug.creator }} @ {{= date.short(bug.created) }}
 		</div>
 
 		<div>{{= image_restrict(bug.body_html) }}</div>
@@ -24,7 +24,7 @@
 					{{~ bug.convo : comment }}
 					<blockquote>
 						<div class="disabled">
-							{{= comment.creator }} @ {{= date.output(comment.created) }}
+							{{= comment.creator }} @ {{= date.short(comment.created) }}
 						</div>
 						{{= image_restrict(comment.body_html) }}
 					</blockquote>
