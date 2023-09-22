@@ -58,6 +58,8 @@ filter()
 	echo '}'
 } > site/config/sitemap.json
 
+#Make sure all dependencies are up to date
+poetry update
 
 #Start server
 poetry run python3 main.py "$@"
