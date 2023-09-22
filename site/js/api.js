@@ -83,16 +83,17 @@ api.verify_token = async function()
 	return response.valid
 }
 
-api.__url_cache = {}
-api.__url_cache_filetypes = ['.html', '.js', '.css', '.dot', '.json']
-
 api.get = function(url, use_cache = true) {
 	return new Promise((resolve, reject) => {
 		//Don't re-fetch urls that are cached
-		if (use_cache && api.__url_cache[url] !== undefined)
+		if (use_cache)
 		{
-			resolve(api.__url_cache[url])
-			return
+			const cache_data = cache.read(url)
+			if (cache_data !== null)
+			{
+				resolve(cache_data)
+				return
+			}
 		}
 
 		let xhr = new XMLHttpRequest()
@@ -100,11 +101,12 @@ api.get = function(url, use_cache = true) {
 		xhr.onload = () => {
 			if (xhr.status >= 200 && xhr.status < 300)
 			{
-				for (const filetype of api.__url_cache_filetypes)
+				//Only cache certain file types.
+				for (const filetype of ['.html', '.js', '.css', '.dot', '.json'])
 				{
 					if (url.endsWith(filetype))
 					{
-						api.__url_cache[url] = xhr.response
+						cache.write(url, xhr.response)
 						break
 					}
 				}
@@ -235,6 +237,9 @@ api.post_json = function(url, json_data) {
 	})
 }
 
+/**
+ * Write relevant application variables to site cookies.
+ */
 api.write_cookies = function()
 {
 	let cookie = {
@@ -262,6 +267,9 @@ api.write_cookies = function()
 	}
 }
 
+/**
+ * Delete all cookies for this site.
+ */
 api.wipe_cookies = function()
 {
 	let cookie = {
@@ -275,6 +283,9 @@ api.wipe_cookies = function()
 	}
 }
 
+/**
+ * Read site cookies and set related application variables.
+ */
 api.read_cookies = function()
 {
 	if (!document.cookie) return
@@ -300,6 +311,11 @@ api.read_cookies = function()
 	})
 }
 
+/**
+ * Hash a password in-browser.
+ * @param {string} password The plaintext password to hash.
+ * @returns {string} A SHA-512 hash of the given text.
+ */
 api.hash = async function(password)
 {
 	const data = new TextEncoder().encode(password)
@@ -355,6 +371,9 @@ api.__request = function(request_json, callback)
 	}
 }
 
+/**
+ * Log out of the application and go back to the login page.
+ */
 api.logout = function()
 {
 	api.__auto_refresh = false
@@ -363,13 +382,23 @@ api.logout = function()
 	window.location.href = '/'
 }
 
+/**
+ * Helper function for easily fetching the text of an HTML snippet.
+ * @param {string} name The base name of the snippet to fetch.
+ * @returns {string} The text contents of the snippet.
+ */
 api.snippit = async name =>
 {
 	return await api.get(`/html/snippit/${name}.html`)
 }
 
+/**
+ * Fetch all site data in the background.
+ */
 api.preload = async () =>
 {
+	if (!cache.enabled) return
+
 	const resources = await api.get_json('/config/sitemap.json')
 
 	for (const i of resources.js) import(i)
@@ -378,4 +407,51 @@ api.preload = async () =>
 	for (const i of resources.json) api.get(i)
 
 	query.require('users').then(query.users.list)
+}
+
+/**
+ * Methods for handling browser data caching.
+ */
+let cache = {
+	enabled: true,
+
+	__data: {},
+
+	/**
+	 * Write data to the browser cache based on configured cache settings.
+	 * @param {string} name An ID identifying the cached data.
+	 * @param {string} data The data to cache.
+	 */
+	write: function(name, data)
+	{
+		if (cache.enabled)
+			cache.__data[name] = data
+	},
+
+	/**
+	 * Read data from the browser cache based on configured cache settings.
+	 * @param {string} name An ID identifying the cached data.
+	 * @returns {(string|null)} The cached data for the given name, if it exists. Null otherwise.
+	 */
+	read: function(name)
+	{
+		return cache.enabled ? (cache.__data[name] || null) : null
+	},
+
+	/**
+	 * Remove data from the browser cache.
+	 * @param {string} name An ID identifying the cached data.
+	 */
+	remove: function(name)
+	{
+		delete cache.__data[name]
+	},
+
+	/**
+	 * Delete all cached data.
+	 */
+	clear: function()
+	{
+		cache.data = {}
+	},
 }
