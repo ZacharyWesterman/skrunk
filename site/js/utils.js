@@ -14,7 +14,7 @@ window.html_decode = string => {
 }
 
 window.image_restrict = string => {
-	return string.replaceAll('<img ', '<img width="100%" height="auto" ')
+	return string.replaceAll('<img ', '<img style="width:100%; max-width: 400px;" height="auto" ')
 }
 
 window.environment = {
