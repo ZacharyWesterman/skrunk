@@ -31,6 +31,7 @@ export default {
 						created
 						tags
 						preview
+						thumbnail
 					}
 				}
 				...on BadTagQuery {
