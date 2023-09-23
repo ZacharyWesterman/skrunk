@@ -31,9 +31,11 @@
 		</div>
 	</div>
 
-	<div name="buglist" *load="refresh_bug_list"></div>
+	<div id="open-bugs" template="buglist" *load="refresh_bug_list"></div>
 
 	<div name="issues" *load="load_open_issues"></div>
+
+	<div id="resolved-bugs" template="buglist" *load="refresh_bug_list"></div>
 </div>
 
 <script src="/js/page/bugs.js"></script>

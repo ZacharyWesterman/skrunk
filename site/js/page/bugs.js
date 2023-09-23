@@ -52,7 +52,16 @@ export async function submit_bug_report()
 
 export function refresh_bug_list()
 {
-	_('buglist', query.bugs.list(null, 0, 100, false))
+	_('open-bugs', {
+		list: query.bugs.list(null, 0, 100, false),
+		locked: false,
+		bug_type: 'Outstanding',
+	})
+	_('resolved-bugs', {
+		list: query.bugs.list(null, 0, 5, true),
+		locked: true,
+		bug_type: 'Resolved',
+	})
 }
 
 export function open_editor()
@@ -93,6 +102,12 @@ export async function comment_on_bug_report(bug_id)
 
 	$(`text-${bug_id}`).value = ''
 	_.modal.checkmark()
+
+	if (!$(`comments-inner-${bug_id}`))
+	{
+		refresh_bug_list()
+		return
+	}
 
 	let html_content = '<hr>'
 	for (const comment of res.convo)
