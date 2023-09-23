@@ -1,17 +1,26 @@
 {{? it.length }}
-	<h2>{{= it.length}} Open Issues</h2>
+	<h2>Open Issues</h2>
 
 	<div class="card">
 		<div class="card-inner">
-			{{~ it : issue }}
-				<hr>
-				{{= issue.title }}
-				<span class="issue-id">#{{= issue.number}}</span>
-				<br>
-				{{~ issue.labels : label }}
-					<div class="issue-label" style="background-color:#{{= label.color }}; color:{{= invert_color(label.color) }}">{{= label.name }}</div>
+			<h3 class="clickable" onclick="$.toggle_expand('issue-list')">
+				{{= it.length}} Planned Features / Bug Fixes
+				<i class="right fa-solid fa-angles-down"></i>
+			</h3>
+
+			<div class="expand-container expanded" id="issue-list">
+				<div>
+				{{~ it : issue }}
+					<hr>
+					{{= issue.title }}
+					<span class="issue-id">#{{= issue.number}}</span>
+					<br>
+					{{~ issue.labels : label }}
+						<div class="issue-label" style="background-color:#{{= label.color }}; color:{{= invert_color(label.color) }}">{{= label.name }}</div>
+					{{~}}
 				{{~}}
-			{{~}}
+				</div>
+			</div>
 			<hr>
 		</div>
 	</div>
