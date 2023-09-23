@@ -16,16 +16,31 @@ import uuid
 db = None
 blob_path = None
 
-def path(id: str, ext: str = '', *, create: bool = False) -> str:
-	global blob_path
-	full_path = f'{blob_path}/{id[0:2]}/{id[2:4]}'
-	if create:
-		pathlib.Path(full_path).mkdir(parents=True, exist_ok=True)
+class BlobStorage:
+	def __init__(self, id: str, ext: str = ''):
+		self.id = id
+		self.ext = ext
 
-	return f'{full_path}/{id}{ext}'
+	def path(self, *, create: bool = False) -> str:
+		global blob_path
+		full_path = f'{blob_path}/{self.id[0:2]}/{self.id[2:4]}'
+		if create:
+			pathlib.Path(full_path).mkdir(parents=True, exist_ok=True)
 
-def preview(id: str, ext: str = '') -> str:
-	return path(f'{id}{ext}')
+		return f'{full_path}/{self.basename()}'
+
+	def basename(self) -> str:
+		return f'{self.id}{self.ext}'
+
+class BlobPreview(BlobStorage):
+	def __init__(self, id: str, ext: str = ''):
+		super().__init__(f'{id}_p' if ext != '' else str(id), ext)
+
+class BlobThumbnail(BlobStorage):
+	def __init__(self, id: str, ext: str = ''):
+		super().__init__(f'{id}_t' if ext != '' else str(id), ext)
+
+
 
 def file_info(filename: str) -> str:
 	with open(filename, 'rb') as fp:
@@ -38,7 +53,7 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> list:
 	global blob_path
 	filename = file.filename
 	id, ext = create_blob(filename, tags)
-	this_blob_path = path(id, ext, create = True)
+	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	print(f'Beginning stream of file "{filename}"...')
 	file.save(this_blob_path)
@@ -57,7 +72,7 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> list:
 
 				#directly create new blobs from each item in the zip file
 				id2, ext2 = create_blob(name, tags)
-				inner_blob_path = path(id2, ext2, create = True)
+				inner_blob_path = BlobStorage(id2, ext2).path(create = True)
 				with fp.open(name, 'r') as input:
 					with open(inner_blob_path, 'wb') as output:
 						output.write(input.read())
@@ -77,13 +92,17 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> list:
 	#Create file previews
 	for blob in uploaded_blobs:
 		if blob['ext'].lower() in images.extensions():
-			this_blob_path = path(blob['id'], blob['ext'])
-			preview_path = preview(f'{blob["id"]}_p{blob["ext"]}')
-			if images.downscale(this_blob_path, 512, preview_path):
-				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': f'{blob["id"]}_p{blob["ext"]}'}})
+			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
+			preview = BlobPreview(blob['id'], blob['ext'])
+			if images.downscale(this_blob_path, 512, preview.path()):
+				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
+
+			thumbnail = BlobThumbnail(blob['id'], blob['ext'])
+			if images.downscale(this_blob_path, 128, thumbnail.path()):
+				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'thumbnail': thumbnail.basename()}})
 
 		elif blob['ext'].lower() in models.extensions():
-			this_blob_path = path(blob['id'], blob['ext'])
+			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
 			create_preview(this_blob_path, blob['id'])
 
 	return uploaded_blobs
@@ -148,6 +167,7 @@ def create_blob(name: str, tags: list = []) -> str:
 		'creator': user_data['_id'],
 		'complete': False,
 		'preview': None,
+		'thumbnail': None,
 	}).inserted_id), ext
 
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
@@ -241,23 +261,23 @@ def zip_matching_blobs(filter: BlobSearchFilter) -> dict:
 		query = {'complete': True}
 
 	id, ext = create_blob(f'ARCHIVE-{uuid.uuid4()}.zip', [])
-	this_blob_path = path(id, ext, create = True)
+	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	file_names = {}
 
 	with ZipFile(this_blob_path, 'w') as fp:
 		for blob in db.find(query):
 			print(f'Adding {blob["_id"]} to ZIP archive...', flush=True)
-			sub_blob_path = path(str(blob['_id']), blob['ext'])
+			sub_blob = BlobStorage(blob['_id'], blob['ext'])
 
-			file_name = f'{blob["name"]}{blob["ext"]}'
+			file_name = sub_blob.basename()
 			if file_name in file_names:
 				file_names[file_name] += 1
 				file_name = f'{blob["name"]} ({file_names[file_name]}){blob["ext"]}'
 			else:
 				file_names[file_name] = 0
 
-			fp.write(sub_blob_path, file_name)
+			fp.write(sub_blob.path(), file_name)
 
 	print('Finished ZIP archive.', flush=True)
 
@@ -286,14 +306,14 @@ def delete_blob(blob_id: str) -> bool:
 	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:
 		try:
-			item = pathlib.Path(path(blob_id, blob_data['ext']))
+			item = pathlib.Path(BlobStorage(blob_id, blob_data['ext']).path())
 			item.unlink()
 		except FileNotFoundError:
 			pass
 
 		if blob_data.get('preview') is not None:
 			try:
-				prevw = pathlib.Path(preview(blob_data['preview']))
+				prevw = pathlib.Path(BlobPreview(blob_data['preview']).path())
 				prevw.unlink()
 			except FileNotFoundError:
 				pass
@@ -323,6 +343,6 @@ def set_blob_tags(blob_id: str, tags: list) -> dict:
 	return blob_data
 
 def create_preview(blob_path: str, preview_id: str) -> None:
-	preview_path = preview(f'{preview_id}_p.glb')
-	models.to_glb(blob_path, preview_path)
-	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': f'{preview_id}_p.glb'}})
+	preview = BlobPreview(preview_id, '.glb')
+	models.to_glb(blob_path, preview.path())
+	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})

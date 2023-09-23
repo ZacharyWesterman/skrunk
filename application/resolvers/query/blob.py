@@ -42,7 +42,7 @@ def resolve_process_qr_from_blob(_, info, id: str) -> str|None:
 	try:
 		blob_data = get_blob_data(id)
 		prevw = blob_data.get('preview')
-		file_path = preview(prevw) if prevw is not None else path(id, blob_data['ext'])
+		file_path = BlobPreview(prevw).path() if prevw is not None else BlobStorage(id, blob_data['ext']).path()
 		return qrcode.process(file_path)
 	except Exception as e:
 		print(e, flush=True)

@@ -8,6 +8,7 @@ type Blob {
 	size: Int!
 	tags: [String!]!
 	preview: String
+	thumbnail: String
 }
 
 type BlobDoesNotExistError {

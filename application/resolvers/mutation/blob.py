@@ -1,5 +1,5 @@
 import application.exceptions as exceptions
-from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, path
+from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, BlobStorage
 import application.db.perms as perms
 from application.db.users import userids_in_groups
 from application.objects import BlobSearchFilter
@@ -47,8 +47,8 @@ def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
 
 def resolve_generate_blob_from_qr(_, info, text: str|None) -> dict:
 	try:
-		id, ext = create_blob('QR.png')
-		qrcode.generate(path(id, ext, create = True), text if text is not None else id)
+		id, ext = create_blob('QR.png', tags = ['qr', '__temp_file'])
+		qrcode.generate(BlobStorage(id, ext).path(create = True), text if text is not None else id)
 		return { '__typename': 'Blob', **get_blob_data(id) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
