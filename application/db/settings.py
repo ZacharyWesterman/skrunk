@@ -64,9 +64,10 @@ def get_all_configs() -> list:
 	result = []
 
 	for i in db.find({'type': 'value'}):
-		result += [{
-			'name': i['name'],
-			'value': i.get('value'),
-		}]
+		if i['name'][0:7] == 'config:':
+			result += [{
+				'name': i['name'][7::],
+				'value': i.get('value'),
+			}]
 
 	return result

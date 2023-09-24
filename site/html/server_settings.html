@@ -75,6 +75,7 @@
 		const set_configs = await s_cfg
 		let configs = (await cfg).map(c => {
 			c.enabled = c.module ? $(`module-${c.module}`).checked : true
+			c.value = set_configs.find(x => x.name === c.id)?.value || ''
 			return c
 		})
 
@@ -105,6 +106,7 @@
 		const set_configs = await api('{getConfigs { name value } }')
 		let configs = (await cfg).map(c => {
 			c.enabled = c.module ? $(`module-${c.module}`).checked : true
+			c.value = set_configs.find(x => x.name === c.id)?.value || ''
 			return c
 		})
 		await _('server_configs', configs)
