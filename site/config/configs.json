@@ -1,0 +1,17 @@
+[
+	{
+		"id": "subsonic:url",
+		"name": "Subsonic Server URL",
+		"module": "subsonic"
+	},
+	{
+		"id": "subsonic:username",
+		"name": "Username for Subsonic Server",
+		"module": "subsonic"
+	},
+	{
+		"id": "subsonic:password",
+		"name": "Password for Subsonic Server",
+		"module": "subsonic"
+	}
+]

@@ -5,7 +5,7 @@ from .sessions import resolve_revoke_user_sessions
 from .blob import *
 from .bugs import *
 from .book import *
-from .settings import resolve_set_module_enabled
+from .settings import resolve_set_module_enabled, resolve_set_config_value
 
 mutation = MutationType()
 
@@ -46,3 +46,4 @@ mutation.set_field('editBook', resolve_edit_book)
 mutation.set_field('createBook', resolve_create_book)
 
 mutation.set_field('setModuleEnabled', resolve_set_module_enabled)
+mutation.set_field('setConfig', resolve_set_config_value)

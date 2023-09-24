@@ -49,10 +49,7 @@ export async function set_perms()
 	for (const perm of perms_changed)
 	{
 		const id = `icon-perm-${perm}`
-		$.show(id)
-		setTimeout(() => {
-			$.hide(id, true)
-		}, 500)
+		$.blink(id)
 	}
 
 	sync_perm_descs()

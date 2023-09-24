@@ -114,10 +114,7 @@ export async function update_user(username, self)
 	await mutate.weather.update_user(username, phone, lat, lon, max, min)
 
 	const id = `icon-${self.id.replace('has-', '')}`
-	$.show(id)
-	setTimeout(() => {
-		$.hide(id, true)
-	}, 500)
+	$.blink(id)
 }
 
 export function can_create()

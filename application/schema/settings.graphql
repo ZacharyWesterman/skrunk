@@ -1,10 +1,17 @@
+type Config {
+	name: String!
+	value: String
+}
+
 #Resolvers below this line
 
 extend type Query {
 	getEnabledModules: [String!]!
 	getUserGroups: [String!]!
+	getConfigs: [Config!]!
 }
 
 extend type Mutation {
 	setModuleEnabled(module_id: String!, enabled: Boolean!): [String!]!
+	setConfig(name: String!, value: String): Boolean!
 }

@@ -1,0 +1,9 @@
+{{~ it : config }}
+{{? config.enabled }}
+	<div>
+		{{= config.name }}<br>
+		<input style="width:90%;" id="config-{{= config.id }}" value="{{= safe_html(config.value) }}" placeholder="<no value>" *bind="set_config('{{= config.id}}')">
+		&nbsp;<i id="icon-config-{{= config.id }}" class="fa-solid fa-circle-check hidden"></i>
+	</div>
+{{?}}
+{{~}}

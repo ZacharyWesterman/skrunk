@@ -11,11 +11,22 @@
 			<div id="server_modules"></div>
 		</div>
 	</div>
+
+	<div class="card">
+		<div class="card-inner">
+			<h2 style="text-align: center;">Configuration</h2>
+			<hr>
+			<div id="server_configs"></div>
+		</div>
+	</div>
 </div>
 
 <script>
 	export async function init()
 	{
+		let cfg = api.get_json('/config/configs.json')
+		let s_cfg = api('{getConfigs { name value } }')
+
 		let modl = api.get_json('/config/modules.json')
 		let promise = _('server_modules', modl)
 		const modules = await api('{getEnabledModules}')
@@ -59,6 +70,15 @@
 		{
 			$(`module-${m}`).checked = true
 		}
+
+		//Build configs list
+		const set_configs = await s_cfg
+		let configs = (await cfg).map(c => {
+			c.enabled = c.module ? $(`module-${c.module}`).checked : true
+			return c
+		})
+
+		await _('server_configs', configs)
 	}
 
 	export async function set_module_enabled(module_id, enabled)
@@ -75,14 +95,45 @@
 		if (is_enabled === enabled)
 		{
 			const id = `icon-module-${module_id}`
-			$.show(id)
-			setTimeout(() => {
-				$.hide(id, true)
-			}, 500)
+			$.blink(id)
 		}
 
 		$(`module-${module_id}`).checked = is_enabled
 
+		//Build configs list
+		let cfg = api.get_json('/config/configs.json')
+		const set_configs = await api('{getConfigs { name value } }')
+		let configs = (await cfg).map(c => {
+			c.enabled = c.module ? $(`module-${c.module}`).checked : true
+			return c
+		})
+		await _('server_configs', configs)
+
 		reset_modules(res)
+	}
+
+	export async function set_config(config_id)
+	{
+		const value = $.val(`config-${config_id}`) || null
+		const res = api(`mutation ($name: String!, $value: String) {
+			setConfig (name: $name, value: $value)
+		}`, {
+			name: config_id,
+			value: value,
+		})
+
+		if (res)
+		{
+			$.blink(`icon-config-${config_id}`)
+		}
+		else
+		{
+			_.modal({
+				type: 'error',
+				title: 'ERROR',
+				text: 'Failed to set config value for "'+config_id+'".',
+				buttons: ['OK'],
+			}).catch(() => {})
+		}
 	}
 </script>

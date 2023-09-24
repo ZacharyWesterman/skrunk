@@ -86,6 +86,13 @@ $.flash = id => {
 	setTimeout(() => $.valid(id), 350)
 }
 
+$.blink = id => {
+	$.show(id)
+	setTimeout(() => {
+		$.hide(id, true)
+	}, 500)
+}
+
 $.validate = Validate
 $.enforce = Enforce
 $.on = Events

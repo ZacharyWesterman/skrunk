@@ -10,6 +10,7 @@ def set_module_enabled(module_id: str, enabled: bool) -> None:
 	if enabled and modules is None:
 		db.insert_one({
 			'name': 'modules',
+			'type': 'list',
 			'enabled': [module_id],
 		})
 		return
@@ -32,6 +33,7 @@ def add_groups(new_groups: list) -> None:
 	if groups is None:
 		db.insert_one({
 			'name': 'groups',
+			'type': 'list',
 			'groups': list(set(new_groups)),
 		})
 	else:
@@ -40,3 +42,31 @@ def add_groups(new_groups: list) -> None:
 def get_groups() -> list:
 	groups = db.find_one({'name': 'groups'})
 	return [] if groups is None else groups['groups']
+
+def set_config(name: str, value: str|None) -> None:
+	real_name = f'config:{name}'
+
+	if value is None:
+		db.delete_one({'name': real_name})
+	else:
+		db.update_one({'name': real_name}, {'$set': {'value': value, 'type': 'value'}}, upsert=True)
+
+def get_config(name: str) -> str|None:
+	real_name = f'config:{name}'
+	config = db.find_one({'name': real_name})
+
+	if config is None:
+		return None
+
+	return config.get('value')
+
+def get_all_configs() -> list:
+	result = []
+
+	for i in db.find({'type': 'value'}):
+		result += [{
+			'name': i['name'],
+			'value': i.get('value'),
+		}]
+
+	return result

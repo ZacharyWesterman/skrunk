@@ -29,5 +29,10 @@
 		"name": "QR Codes",
 		"description": "Allow users to scan QR codes on certain screens.",
 		"requires": ["files"]
+	},
+	{
+		"id": "subsonic",
+		"name": "Music Server",
+		"description": "Enable integration with a Subsonic music server."
 	}
 ]
