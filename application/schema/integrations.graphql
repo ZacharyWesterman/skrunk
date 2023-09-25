@@ -1,0 +1,29 @@
+type SubsonicSearch {
+	album: [SubsonicAlbum!]!
+}
+
+type SubsonicAlbum {
+	id: String!
+	parent: String!
+	isDir: Boolean!
+	title: String!
+	album: String!
+	artist: String!
+	year: Int
+	genre: String
+	coverArt: String!
+	playCount: Int!
+	created: DateTime!
+}
+
+type SubsonicError {
+	message: String!
+}
+
+union SubsonicSearchResult = SubsonicSearch | SubsonicError
+
+#Resolvers below this line:
+
+extend type Query {
+	searchSubsonic (query: String!, start: Int!, count: Int!): SubsonicSearchResult!
+}
