@@ -18,8 +18,8 @@ blob_path = None
 
 class BlobStorage:
 	def __init__(self, id: str, ext: str = ''):
-		self.id = id
-		self.ext = ext
+		self.id = str(id)
+		self.ext = str(ext)
 
 	def path(self, *, create: bool = False) -> str:
 		global blob_path
