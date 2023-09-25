@@ -9,6 +9,7 @@ extend type Query {
 	getEnabledModules: [String!]!
 	getUserGroups: [String!]!
 	getConfigs: [Config!]!
+	getConfig(name: String!): String
 }
 
 extend type Mutation {

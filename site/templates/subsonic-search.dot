@@ -1,0 +1,9 @@
+{{~ it.album : album }}
+<div class="card">
+	<div class="card-inner">
+		<b>{{= album.title }}</b><br>
+		<i>{{= album.artist }}</b><br>
+		<img src="{{= album.coverArt }}" alt="<no cover art>">
+	</div>
+</div>
+{{~}}

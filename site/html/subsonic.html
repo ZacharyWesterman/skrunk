@@ -1,0 +1,68 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-bookmark fa-xl"></i>
+		Audio Catalog
+	</h1>
+
+	<div class="card alt">
+		<div class="card-inner">
+			<p>
+				Search for existing albums<br>
+				<input id="subsonic-query" *bind="subsonic_search"><br><br>
+				To see more detailed information, or to browse/stream audio,<br>
+				<a href="#" target="_blank" *load="set_subsonic_link">login to the music server</a> or use a Subsonic-compatible mobile app.
+				<br><br>
+				<sub>(if images fail to load, click the above link and login, then retry the search)</sub>
+			</p>
+		</div>
+	</div>
+
+	<div name="subsonic-search"></div>
+</div>
+
+<script>
+export async function subsonic_search()
+{
+	const res = await api(`
+	query ($query: String!, $start: Int!, $count: Int!) {
+		searchSubsonic (query: $query, start: $start, count: $count) {
+			__typename
+			...on SubsonicSearch {
+				album {
+					id
+					title
+					album
+					artist
+					coverArt
+				}
+			}
+			...on SubsonicError {
+				message
+			}
+		}
+	}`, {
+		query: $.val('subsonic-query'),
+		start: 0,
+		count: 20,
+	})
+
+	if (res.__typename !== 'SubsonicSearch')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	await _('subsonic-search', res)
+}
+
+export async function set_subsonic_link(field)
+{
+	const url = await api('{getConfig(name: "subsonic:url")}')
+	field.href = url
+}
+</script>

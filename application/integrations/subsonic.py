@@ -11,7 +11,7 @@ class SessionError(Exception):
 
 class Session:
 	def __init__(self, host: str, username: str, password: str, *, client: str = 'serverclient', version: str = '1.15.0'):
-		salt = '%32x' % random.randrange(16**32) #random 32 digit hex string
+		salt = ('%32x' % random.randrange(16**32)).strip() #random 32 digit hex string
 
 		# Note that the password you pass in depends on how the credentials are stored on the server side!
 		# E.g. if it's stored in plaintext, pass in the plain text password
@@ -34,7 +34,7 @@ class Session:
 
 		data = json.loads(res.text)
 		if data['subsonic-response']['status'] != 'ok':
-			raise SessionError('')
+			raise SessionError(data['subsonic-response']['error']['message'])
 
 		return data['subsonic-response']
 

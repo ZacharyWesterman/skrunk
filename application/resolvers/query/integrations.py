@@ -12,7 +12,7 @@ def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list
 		res = session.search(query)
 		if 'album' in res:
 			for i in res['album']:
-				i['coverArt'] = session.cover_art(i['coverArt'])
+				i['coverArt'] = session.cover_art(i['coverArt']) if 'coverArt' in i else ''
 
 		return {
 			'__typename': 'SubsonicSearch',

@@ -24,6 +24,12 @@
 			"module": "books"
 		},
 		{
+			"text": "Audio Catalog",
+			"icon": "music",
+			"action": "dashnav('subsonic')",
+			"module": "subsonic"
+		},
+		{
 			"text": "Files",
 			"icon": "hard-drive",
 			"action": "dashnav('file_list')",
