@@ -11,7 +11,7 @@ type SubsonicAlbum {
 	artist: String!
 	year: Int
 	genre: String
-	coverArt: String!
+	coverArt: String
 	playCount: Int!
 	created: DateTime!
 }
