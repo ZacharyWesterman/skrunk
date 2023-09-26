@@ -11,8 +11,13 @@ def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list
 	try:
 		res = session.search(query)
 		if 'album' in res:
+			album_ids = [i['coverArt'] for i in res['album'] if 'coverArt' in i]
+			covers = session.get_all_cover_art(album_ids)
+
 			for i in res['album']:
-				i['coverArt'] = session.cover_art(i['coverArt']) if 'coverArt' in i else ''
+				if 'coverArt' in i:
+					i['coverArt'] = covers[i['coverArt']]
+
 
 		return {
 			'__typename': 'SubsonicSearch',

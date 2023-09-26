@@ -4,6 +4,9 @@ import random
 import json
 import functools
 import urllib
+import base64
+import asyncio
+from aiohttp import ClientSession
 
 class SessionError(Exception):
 	def __init__(self, message: str):
@@ -21,16 +24,19 @@ class Session:
 		self.rest_params = f'u={username}&t={md5sum}&s={salt}&c={client}&v={version}&f=json'
 		self.connection_uri = host
 
-	def query(self, action: str, parameters: dict = {}) -> dict:
+	def query(self, action: str, parameters: dict = {}, *, process: bool = True) -> dict:
 		url = f'{self.connection_uri}/rest/{action}.view?{self.rest_params}'
 		for p in parameters:
 			if parameters[p] is not None:
-				url += f'&{p}={urllib.parse.quote_plus(parameters[p])}'
+				url += f'&{p}={urllib.parse.quote_plus(str(parameters[p]))}'
 
 		res = requests.get(url)
 
 		if res.status_code >= 300 or res.status_code < 200:
 			raise SessionError(f'Failed to connect to server (code {res.status_code})')
+
+		if not process:
+			return res.content
 
 		data = json.loads(res.text)
 		if data['subsonic-response']['status'] != 'ok':
@@ -65,7 +71,21 @@ class Session:
 		})
 		return data['searchResult2']
 
-	def cover_art(self, album_id: str) -> str:
-		return f'{self.connection_uri}/coverArt.view?size=160&id={album_id}'
+	def cover_art_url(self, album_id: str) -> str:
+		return f'{self.connection_uri}/coverArt.view?size=160&id={album_id}&{self.rest_params}'
 
+	async def cover_art(self, album_id: str) -> str:
+		url = f'{self.connection_uri}/rest/getCoverArt.view?{self.rest_params}&id={album_id}&size=160'
 
+		async with ClientSession() as session, session.get(url) as result:
+			res = await result.read()
+
+			return album_id, base64.b64encode(res).decode()
+
+	async def _multi_albums(self, album_ids: list) -> list:
+		tasks = [self.cover_art(i) for i in album_ids]
+		result = await asyncio.gather(*tasks)
+		return {id: data for id, data in result}
+
+	def get_all_cover_art(self, album_ids: list) -> list:
+		return asyncio.run(self._multi_albums(album_ids))

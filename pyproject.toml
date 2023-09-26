@@ -19,6 +19,7 @@ Pillow = "^10.0.0"
 pyzxing = "^1.0.2"
 qrcode = "^7.4.2"
 Markdown = "^3.4.4"
+aiohttp = "^3.8.5"
 
 [tool.poetry.dev-dependencies]
 
