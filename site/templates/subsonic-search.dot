@@ -3,7 +3,7 @@
 	<div class="card-inner">
 		<b>{{= album.title }}</b><br>
 		<i>{{= album.artist }}</i><br>
-		<img src="data:image/png;base64,{{= album.coverArt }}" alt="{{? album.coverArt === '' }}<no cover art>{{??}}FAILED TO LOAD COVER ART{{?}}">
+		<img src="data:image/png;base64,{{= album.coverArt }}" alt="{{? !album.coverArt }}<no cover art>{{??}}FAILED TO LOAD COVER ART{{?}}">
 	</div>
 </div>
 {{~}}
