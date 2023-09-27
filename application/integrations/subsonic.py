@@ -74,6 +74,7 @@ class Session:
 	def cover_art_url(self, album_id: str) -> str:
 		return f'{self.connection_uri}/coverArt.view?size=160&id={album_id}&{self.rest_params}'
 
+	@functools.cache
 	async def cover_art(self, album_id: str) -> str:
 		url = f'{self.connection_uri}/rest/getCoverArt.view?{self.rest_params}&id={album_id}&size=160'
 
