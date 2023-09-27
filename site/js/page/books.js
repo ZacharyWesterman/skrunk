@@ -525,3 +525,43 @@ export async function search_by_qrcode()
 		manual_input()
 	}
 }
+
+export async function prompt_ebooks(book_rfid)
+{
+	const book_data = await query.books.by_rfid(book_rfid)
+	if (book_data.__typename !== 'Book')
+	{
+		_.modal({
+			type: 'error',
+			title: 'Error',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	let buttons = book_data.ebooks.map(b => b.fileType.toUpperCase())
+	let btn_map = {}
+	for (const b of book_data.ebooks)
+	{
+		btn_map[b.fileType.toLowerCase()] = b.url
+	}
+
+	buttons.push('Cancel')
+
+	const res = await _.modal({
+		icon: 'file-pdf',
+		title: 'Download E-Book',
+		text: 'Please select the file format you would like to download, or hit cancel.',
+		buttons: buttons,
+	})
+
+	if (res === 'cancel') return
+
+	//Download the selected e-book
+	let link = document.createElement('a')
+	link.download = btn_map[res]
+	link.href = btn_map[res]
+	link.target = '_blank'
+	link.click()
+}

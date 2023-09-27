@@ -38,6 +38,13 @@
 				{{?book.description}}{{=book.description.replace('\n', '<br>')}}{{?}}
 			</div>
 		</div>
+		{{? book.ebooks.length == 0 }}
+			<hr>
+			<div class="clickable" *click="prompt_ebooks('{{=book.rfid}}')">
+				<i class="icon fa-solid fa-file-pdf fa-lg"></i>
+				This book is available in digital form
+			</div>
+		{{?}}
 		<br>
 		<div class="disabled">
 			Owned by {{= book.owner.display_name }}{{? (book.owner.display_name.toLowerCase() !== book.owner.username.toLowerCase()) }} ({{= book.owner.username }}){{?}}

@@ -28,6 +28,10 @@ export default {
 						type
 						identifier
 					}
+					ebooks {
+						url
+						fileType
+					}
 				}
 				...on BookTagDoesNotExistError {
 					message
@@ -64,6 +68,10 @@ export default {
 				industryIdentifiers {
 					type
 					identifier
+				}
+				ebooks {
+					url
+					fileType
 				}
 			}
 		}`, {

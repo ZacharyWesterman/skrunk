@@ -19,6 +19,7 @@ type Book {
 	shareHistory: [BookShare!]!
 	rfid: String!
 	ownerHistory: [BookOwnerHist!]!
+	ebooks: [EBook!]!
 }
 
 type BookTag {
@@ -71,6 +72,11 @@ type BookOwnerHist {
 type UserBookCount {
 	owner: UserMinData!
 	count: Int!
+}
+
+type EBook {
+	url: String!
+	fileType: String!
 }
 
 input BookSearchFilter {
