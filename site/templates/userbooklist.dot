@@ -38,7 +38,7 @@
 				{{?book.description}}{{=book.description.replace('\n', '<br>')}}{{?}}
 			</div>
 		</div>
-		{{? book.ebooks.length == 0 }}
+		{{? book.ebooks.length > 0 }}
 			<hr>
 			<div class="clickable" *click="prompt_ebooks('{{=book.rfid}}')">
 				<i class="icon fa-solid fa-file-pdf fa-lg"></i>
