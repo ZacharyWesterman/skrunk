@@ -77,34 +77,29 @@ def get_bug_report(id: str) -> dict:
 
 	return process_bug_report(report)
 
-def get_bug_reports(username: str|None, start: int, count: int, resolved: bool) -> list:
-	global db
+def get_bug_reports(userids: list, start: int, count: int, resolved: bool) -> list:
 	reports = []
-	if username is None:
+	if len(userids) == 0:
 		selection = db.find({'resolved': resolved}, sort=[('created', -1)])
 	else:
-		try:
-			user_data = users.get_user_data(username)
-			selection = db.find({'creator': user_data['_id'], 'resolved': resolved}, sort=[('created', -1)])
-		except exceptions.UserDoesNotExistError:
-			return []
+		selection = db.find({
+			'resolved': resolved,
+			'$or': [ {'creator': i} for i in userids ],
+		}, sort = [('created', -1)])
 
 	for i in selection.limit(count).skip(start):
 		reports += [process_bug_report(i)]
 
 	return reports
 
-def count_bug_reports(username: str|None, resolved: bool) -> int:
-	global db
-	if username is None:
+def count_bug_reports(userids: list, resolved: bool) -> int:
+	if len(userids) == 0:
 		return db.count_documents({'resolved': resolved})
-
-	try:
-		user_data = users.get_user_data(username)
-	except exceptions.UserDoesNotExistError:
-		return 0
-
-	return db.count_documents({'creator': user_data['_id'], 'resolved': resolved})
+	else:
+		return db.count_documents({
+			'resolved': resolved,
+			'$or': [ {'creator': i} for i in userids ],
+		})
 
 def delete_bug_report(id: str) -> dict:
 	global db
