@@ -1,11 +1,13 @@
 __all__ = ['query']
 
+import functools
 import requests
 import json
 import re
 
 from . import exceptions
 
+@functools.cache
 def query(*, title: str = '', author: str = '') -> list:
 	query_fields = []
 
@@ -49,6 +51,7 @@ def query(*, title: str = '', author: str = '') -> list:
 
 	return books
 
+@functools.cache
 def get(*, id: str) -> dict:
 	response_fields = 'id,volumeInfo(authors,title,subtitle,description,industryIdentifiers,pageCount,categories,maturityRating,language,publisher,publishedDate,imageLinks)'
 
