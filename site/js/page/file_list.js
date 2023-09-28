@@ -59,6 +59,10 @@ async function get_blobs(start, count)
 		date_from,
 		date_to,
 		title,
+		{
+			field: $.val('sort-by') || 'created',
+			descending: true,
+		}
 	)
 }
 

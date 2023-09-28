@@ -315,7 +315,7 @@ export async function search_books()
 		genre: genre,
 		shared: shared,
 	}
-	const res = await query.books.get(filter, BookStart, BookListLen)
+	const res = await query.books.get(filter, BookStart, BookListLen, {field: $.val('sort-by') || 'title', descending: false})
 
 	await _('book', {
 		books: res,

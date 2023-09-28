@@ -1,6 +1,6 @@
 from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
-from application.objects import BookSearchFilter
+from application.objects import BookSearchFilter, Sorting
 from . import users
 from application.integrations import google_books
 from datetime import datetime
@@ -201,7 +201,7 @@ def norm_query(query: dict, ownerq: dict|None) -> dict:
 		return ownerq
 	return query
 
-def build_book_query(filter: BookSearchFilter) -> dict:
+def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
 	query = {}
 	aggregate = None
 
@@ -243,19 +243,25 @@ def build_book_query(filter: BookSearchFilter) -> dict:
 					}
 				}},
 				{'$match': query},
-				{'$sort': {'score': -1, 'title': 1, 'authors': 1}}
+				{'$sort': {'score': -1, **{i[0]:i[1] for i in sort} }}
 			]
 	else:
 		query = norm_query(query, ownerq)
 
 	return aggregate, query
 
-def get_books(filter: BookSearchFilter, start: int, count: int) -> list:
+def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	global db
 	books = []
 
+	sort = [(sorting['field'], -1 if sorting['descending'] else 1)]
+	if sorting['field'] != 'title':
+		sort += [('title', 1)]
+	if sorting['field'] != 'authors':
+		sort += [('authors', 1)]
+
 	try:
-		aggregate, query = build_book_query(filter)
+		aggregate, query = build_book_query(filter, sort)
 	except exceptions.UserDoesNotExistError:
 		return []
 
@@ -264,7 +270,7 @@ def get_books(filter: BookSearchFilter, start: int, count: int) -> list:
 		for i in db.aggregate(aggregate + aggr_filter):
 			selection = i['results']
 	else:
-		selection = db.find(query, sort = [('title', 1), ('authors', 1)]).limit(count).skip(start)
+		selection = db.find(query, sort = sort).limit(count).skip(start)
 
 	for i in selection:
 		i = i.get('results', i)

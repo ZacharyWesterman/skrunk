@@ -14,3 +14,7 @@ class BlobSearchFilter(TypedDict):
 	end_date: datetime|None
 	name: str|None
 	tag_expr: str|None
+
+class Sorting(TypedDict):
+	field: str
+	descending: bool

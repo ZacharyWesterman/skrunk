@@ -1,6 +1,6 @@
 from application.db.blob import *
 from application.tags import exceptions
-from application.objects import BlobSearchFilter
+from application.objects import BlobSearchFilter, Sorting
 import application.db.perms as perms
 from application.db.users import userids_in_groups
 from application.integrations import qrcode
@@ -14,9 +14,9 @@ def group_filter(info, filter: dict) -> dict:
 
 	return filter
 
-def resolve_get_blobs(_, info, filter: BlobSearchFilter, start: int, count: int) -> dict:
+def resolve_get_blobs(_, info, filter: BlobSearchFilter, start: int, count: int, sorting: Sorting) -> dict:
 	try:
-		blobs = get_blobs(group_filter(info, filter), start, count)
+		blobs = get_blobs(group_filter(info, filter), start, count, sorting)
 		return { '__typename': 'BlobList', 'blobs': blobs }
 	except exceptions.ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }

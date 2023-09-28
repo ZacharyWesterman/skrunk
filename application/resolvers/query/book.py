@@ -2,7 +2,7 @@ from application.integrations.exceptions import ApiFailedError
 from application.integrations import google_books
 from application.db.book import get_book_tag, get_books, count_books, count_all_user_books
 from application.exceptions import ClientError
-from application.objects import BookSearchFilter
+from application.objects import BookSearchFilter, Sorting
 import application.db.perms as perms
 from application.db.users import userids_in_groups
 
@@ -19,14 +19,14 @@ def resolve_get_book_by_tag(_, info, rfid: str) -> dict:
 	except ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int) -> list:
+def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	if filter.get('owner') is None:
 		user_data = perms.caller_info(info)
 		groups = user_data.get('groups', [])
 		if len(groups):
 			filter['owner'] = userids_in_groups(groups)
 
-	return get_books(filter, start, count)
+	return get_books(filter, start, count, sorting)
 
 def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
 	if filter.get('owner') is None:

@@ -117,7 +117,7 @@ union BookEditResponse = Book | BookTagDoesNotExistError | UserDoesNotExistError
 #Resolvers below this line:
 
 extend type Query {
-	getBooks(filter: BookSearchFilter!, start: Int!, count: Int!): [Book!]!
+	getBooks(filter: BookSearchFilter!, start: Int!, count: Int!, sorting: Sorting!): [Book!]!
 	countBooks(filter: BookSearchFilter!): Int!
 	searchBooks(title: String!, author: String!): BookQueryResponse!
 	getBookByTag(rfid: String!): BookResponse!

@@ -42,11 +42,11 @@ export default {
 		})
 	},
 
-	get: async (filter, start, count) =>
+	get: async (filter, start, count, sorting) =>
 	{
 		return await api(`
-		query ($filter: BookSearchFilter!, $start: Int!, $count: Int!) {
-			getBooks(filter: $filter, start: $start, count: $count) {
+		query ($filter: BookSearchFilter!, $start: Int!, $count: Int!, $sorting: Sorting!) {
+			getBooks(filter: $filter, start: $start, count: $count, sorting: $sorting) {
 				title
 				subtitle
 				authors
@@ -78,6 +78,7 @@ export default {
 			filter: filter,
 			start: start,
 			count: count,
+			sorting: sorting,
 		})
 	},
 

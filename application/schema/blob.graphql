@@ -48,7 +48,7 @@ union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError
 #Resolvers below this line:
 
 extend type Query {
-	getBlobs(filter: BlobSearchFilter!, start: Int!, count: Int!): BlobQueryResponse!
+	getBlobs(filter: BlobSearchFilter!, start: Int!, count: Int!, sorting: Sorting!): BlobQueryResponse!
 	countBlobs(filter: BlobSearchFilter!): BlobCountResponse!
 	getBlob(id: String!): Blob
 	totalBlobSize(filter: BlobSearchFilter!): BlobCountResponse!

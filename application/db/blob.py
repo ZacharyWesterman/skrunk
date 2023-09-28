@@ -3,7 +3,7 @@ import application.exceptions as exceptions
 import application.tags as tags
 from . import users
 from application.integrations import models, images
-from application.objects import BlobSearchFilter
+from application.objects import BlobSearchFilter, Sorting
 
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -200,7 +200,7 @@ def build_blob_query(filter: BlobSearchFilter) -> dict:
 
 	return {'$and': query} if len(query) else {}
 
-def get_blobs(filter: BlobSearchFilter, start: int, count: int) -> list:
+def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	global db
 	try:
 		query = build_blob_query(filter)
@@ -209,7 +209,11 @@ def get_blobs(filter: BlobSearchFilter, start: int, count: int) -> list:
 
 	blobs = []
 
-	selection = db.find(query, sort=[('created', -1)])
+	sort = [(sorting['field'], -1 if sorting['descending'] else 1)]
+	if sorting['field'] != 'created':
+		sort += [('created', -1)]
+
+	selection = db.find(query, sort = sort)
 	for i in selection.limit(count).skip(start):
 		i['id'] = i['_id']
 		try:

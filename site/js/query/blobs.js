@@ -14,11 +14,11 @@ export default {
 	* date_from: Date or null
 	* date_to: Date or null
 	*/
-	get: async (username, start, count, tag_query, date_from, date_to, name) =>
+	get: async (username, start, count, tag_query, date_from, date_to, name, sorting) =>
 	{
 		let res = await api(`
-		query ($filter: BlobSearchFilter!, $start: Int!, $count: Int!){
-			getBlobs(filter: $filter, start: $start, count: $count) {
+		query ($filter: BlobSearchFilter!, $start: Int!, $count: Int!, $sorting: Sorting!){
+			getBlobs(filter: $filter, start: $start, count: $count, sorting: $sorting) {
 				__typename
 				...on BlobList {
 					blobs {
@@ -48,6 +48,7 @@ export default {
 			},
 			start: start,
 			count: count,
+			sorting: sorting,
 		})
 
 		if (res.blobs)

@@ -37,6 +37,16 @@
 			<div class="code-input" id="tag-query"></div>
 			<div class="error" id="tag-error"></div>
 
+			<div style="padding-top: .5rem;">
+				Sort by
+				<select id="sort-by" *bind="reload_blobs">
+					<option value="created">Upload Date</option>
+					<option value="ext">File Type</option>
+					<option value="name">Name</option>
+					<option value="size">Size</option>
+				</select>
+			</div>
+
 			<button class="icon alt" *click="download_all"><i class="fa-solid fa-file-arrow-down fa-lg"></i></button>
 			<div style="display: inline;" name="page_list"></div>
 		</div>

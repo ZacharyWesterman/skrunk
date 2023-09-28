@@ -8,3 +8,8 @@ type Query {
 type Mutation {
 	_SRV_DUMMY_M: Boolean
 }
+
+input Sorting {
+	field: String!
+	descending: Boolean!
+}
