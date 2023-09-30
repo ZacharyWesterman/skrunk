@@ -4,7 +4,7 @@
 	<div class="card">
 		<div class="card-inner">
 			<h3 class="clickable" onclick="$.toggle_expand('pending-issue-list')">
-				{{= it.length}} Issues Will be Resolved in the Next Update
+				{{= it.length}} Issue{{? it.length !== 1 }}s{{?}} Will be Resolved in the Next Update
 				<i class="right fa-solid fa-angles-down"></i>
 			</h3>
 
