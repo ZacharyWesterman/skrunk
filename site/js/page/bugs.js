@@ -203,4 +203,15 @@ export function load_open_issues()
 			}
 		}
 	}`))
+
+	_('pending-issues', api(`{
+		getPendingIssues {
+			title
+			number
+			labels {
+				name
+				color
+			}
+		}
+	}`))
 }

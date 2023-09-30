@@ -4,18 +4,22 @@ import json
 import requests
 import subprocess
 from .exceptions import RepoFetchFailed
+from datetime import datetime
 
 class Repository:
 	def __init__(self, owner, repo):
 		self.url = f'https://api.github.com/repos/{owner}/{repo}'
 
-	def issues(self) -> list:
-		url = self.url + '/issues?state=open'
+	def issues(self, *, filter: str = 'state=open') -> list:
+		url = self.url + '/issues?' + filter
 		res = requests.get(url)
 		if res.status_code >= 200 and res.status_code < 300:
 			return json.loads(res.text)
 		else:
 			raise RepoFetchFailed(self.url)
+
+	def resolved_issues(self, since: str) -> list:
+		return self.issues(filter = 'state=closed&since=' + since)
 
 class CurrentRepository(Repository):
 	def __init__(self, repo: str|None = None):
@@ -27,3 +31,7 @@ class CurrentRepository(Repository):
 			repo = info[1][:-4]
 
 		super().__init__(owner, repo)
+
+	def issues_pending_resolution(self) -> list:
+		last_commit = subprocess.check_output(['git', 'log', '-1', '--date=format:%Y-%m-%dT%T', '--format=%ad']).decode().strip()
+		return self.resolved_issues(last_commit)

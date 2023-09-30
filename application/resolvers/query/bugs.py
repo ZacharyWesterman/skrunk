@@ -28,3 +28,7 @@ def resolve_get_bug_report(_, info, id: str) -> dict:
 def resolve_get_issues(_, info) -> list:
 	repo = github.CurrentRepository()
 	return repo.issues()
+
+def resolve_get_pending_issues(_, info) -> list:
+	repo = github.CurrentRepository()
+	return repo.issues_pending_resolution()

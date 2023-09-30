@@ -46,6 +46,7 @@ extend type Query {
 	countBugReports(username: String, resolved: Boolean!) : Int!
 	getBugReport(id: String!): BugReport
 	getOpenIssues: [RepositoryIssue!]!
+	getPendingIssues: [RepositoryIssue!]!
 }
 
 extend type Mutation {
