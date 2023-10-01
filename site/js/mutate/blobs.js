@@ -59,4 +59,26 @@ export default {
 			}
 		})
 	},
+
+	set_hidden: async (blob_id, hidden) =>
+	{
+		return await api(`
+		mutation ($id: String!, $hidden: Boolean!) {
+			setBlobHidden (id: $id, hidden: $hidden) {
+				__typename
+				...on Blob {
+					hidden
+				}
+				...on BlobDoesNotExistError {
+					message
+				}
+				...on InsufficientPerms {
+					message
+				}
+			}
+		}`, {
+			id: blob_id,
+			hidden: hidden,
+		})
+	}
 }

@@ -32,6 +32,7 @@ export default {
 						tags
 						preview
 						thumbnail
+						hidden
 					}
 				}
 				...on BadTagQuery {

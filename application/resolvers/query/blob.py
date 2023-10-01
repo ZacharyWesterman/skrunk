@@ -5,9 +5,8 @@ import application.db.perms as perms
 from application.db.users import userids_in_groups
 from application.integrations import qrcode
 
-def group_filter(info, filter: dict) -> dict:
+def group_filter(filter: dict, user_data: dict) -> dict:
 	if filter.get('creator') is None:
-		user_data = perms.caller_info(info)
 		groups = user_data.get('groups', [])
 		if len(groups):
 			filter['creator'] = userids_in_groups(groups)
@@ -16,14 +15,16 @@ def group_filter(info, filter: dict) -> dict:
 
 def resolve_get_blobs(_, info, filter: BlobSearchFilter, start: int, count: int, sorting: Sorting) -> dict:
 	try:
-		blobs = get_blobs(group_filter(info, filter), start, count, sorting)
+		user_data = perms.caller_info(info)
+		blobs = get_blobs(group_filter(filter, user_data), start, count, sorting, user_data['_id'])
 		return { '__typename': 'BlobList', 'blobs': blobs }
 	except exceptions.ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }
 
 def resolve_count_blobs(_, info, filter: BlobSearchFilter) -> dict:
 	try:
-		count = count_blobs(group_filter(info, filter))
+		user_data = perms.caller_info(info)
+		count = count_blobs(group_filter(filter, user_data), user_data['_id'])
 		return { '__typename': 'BlobCount', 'count': count }
 	except exceptions.ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }
@@ -33,7 +34,8 @@ def resolve_get_blob(_, info, id: str) -> dict:
 
 def resolve_total_blob_size(_, info, filter: BlobSearchFilter) -> dict:
 	try:
-		count = sum_blob_size(group_filter(info, filter))
+		user_data = perms.caller_info(info)
+		count = sum_blob_size(group_filter(filter, user_data), user_data['_id'])
 		return { '__typename': 'BlobCount', 'count': count }
 	except exceptions.ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }

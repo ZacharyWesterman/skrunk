@@ -9,6 +9,7 @@ type Blob {
 	tags: [String!]!
 	preview: String
 	thumbnail: String
+	hidden: Boolean!
 }
 
 type BlobDoesNotExistError {
@@ -60,4 +61,5 @@ extend type Mutation {
 	setBlobTags(id: String!, tags: [String!]!): BlobUpdateResponse!
 	createZipArchive(filter: BlobSearchFilter!): BlobZipResponse!
 	getBlobFromQR(text: String): Blob!
+	setBlobHidden(id: String!, hidden: Boolean!): BlobUpdateResponse!
 }

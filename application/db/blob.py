@@ -173,8 +173,13 @@ def create_blob(name: str, tags: list = []) -> str:
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size, 'md5sum': md5sum}})
 
-def build_blob_query(filter: BlobSearchFilter) -> dict:
-	query = []
+def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
+	query = [{
+		'$or': [
+			{'hidden': False},
+			{'creator': user_id},
+		]
+	}]
 
 	if filter.get('tag_expr') is not None:
 		tag_q = tags.parse(filter.get('tag_expr')).output()
@@ -200,10 +205,10 @@ def build_blob_query(filter: BlobSearchFilter) -> dict:
 
 	return {'$and': query} if len(query) else {}
 
-def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting) -> list:
+def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting, user_id: ObjectId) -> list:
 	global db
 	try:
-		query = build_blob_query(filter)
+		query = build_blob_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
 		return []
 
@@ -225,19 +230,19 @@ def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting
 
 	return blobs
 
-def count_blobs(filter: BlobSearchFilter) -> int:
+def count_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 	global db
 
 	try:
-		query = build_blob_query(filter)
+		query = build_blob_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
 		return 0
 
 	return db.count_documents(query)
 
-def sum_blob_size(filter: BlobSearchFilter) -> int:
+def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 	try:
-		query = build_blob_query(filter)
+		query = build_blob_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
 		return 0
 
@@ -257,8 +262,8 @@ def sum_blob_size(filter: BlobSearchFilter) -> int:
 
 	return 0
 
-def zip_matching_blobs(filter: BlobSearchFilter) -> dict:
-	query = build_blob_query(filter)
+def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
+	query = build_blob_query(filter, user_id)
 	if query:
 		query['$and'] += [{'complete': True}]
 	else:
@@ -350,3 +355,13 @@ def create_preview(blob_path: str, preview_id: str) -> None:
 	preview = BlobPreview(preview_id, '.glb')
 	models.to_glb(blob_path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
+
+def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
+	blob_data = get_blob_data(blob_id)
+	if not blob_data:
+		raise exceptions.BlobDoesNotExistError(blob_id)
+
+	db.update_one({'_id': ObjectId(blob_id)}, {'$set': {'hidden': hidden}})
+	blob_data['hidden'] = hidden
+
+	return blob_data

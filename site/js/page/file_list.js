@@ -352,3 +352,40 @@ export async function download_all()
 		mutate.blobs.delete(zip.id)
 	}, 100)
 }
+
+export async function toggle_blob_hidden(blob_id)
+{
+	const field = $(`hide-button-${blob_id}`)
+	const icon = field.children[0]
+	const tooltip = field.children[1]
+
+	const hidden = icon.classList.contains('fa-eye-slash')
+
+	const res = await mutate.blobs.set_hidden(blob_id, !hidden)
+	if (res.__typename !== 'Blob')
+	{
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => {})
+		return
+	}
+
+	_.modal.checkmark()
+
+	const old_icon = res.hidden ? 'fa-eye' : 'fa-eye-slash'
+	const new_icon = res.hidden ? 'fa-eye-slash' : 'fa-eye'
+
+	tooltip.innerText = res.hidden ? 'File is only visible to you.' : 'File is visible to everyone.'
+
+	icon.classList.remove(old_icon)
+	icon.classList.add(new_icon)
+
+	//Make icon pop a bit if hidden
+	if (res.hidden)
+		icon.classList.add('error')
+	else
+		icon.classList.remove('error')
+}
