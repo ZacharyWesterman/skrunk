@@ -165,7 +165,7 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
 	})
 }
 
-api.upload = function(file, progress_handler, auto_unzip = false, tag_list = []) {
+api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false) {
 	return new Promise((resolve, reject) => {
 		let xhr = new XMLHttpRequest
 		let data = new FormData
@@ -173,6 +173,7 @@ api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [])
 		file.unzip = auto_unzip
 		data.append('file', file)
 		data.append('unzip', auto_unzip)
+		data.append('hidden', hidden)
 		data.append('tags', JSON.stringify(tag_list))
 		xhr.upload.addEventListener('progress', progress_handler, false)
 		xhr.open('POST', '/upload', true)

@@ -84,7 +84,8 @@ def upload() -> Response:
 		return Response('No blob data path specified in server setup.', 404)
 
 	auto_unzip = request.form['unzip'] == 'true'
+	hidden = request.form['hidden'] == 'true'
 	tag_list = json.loads(request.form['tags'])
-	uploaded_blobs = blob.save_blob_data(request.files['file'], auto_unzip, tag_list)
+	uploaded_blobs = blob.save_blob_data(request.files['file'], auto_unzip, tag_list, hidden)
 
 	return jsonify(uploaded_blobs)

@@ -49,10 +49,10 @@ def file_info(filename: str) -> str:
 
 	return size, md5sum
 
-def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> list:
+def save_blob_data(file: object, auto_unzip: bool, tags: list = [], hidden: bool = False) -> list:
 	global blob_path
 	filename = file.filename
-	id, ext = create_blob(filename, tags)
+	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and ext == '.zip'))
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	print(f'Beginning stream of file "{filename}"...')
@@ -71,7 +71,7 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = []) -> list:
 				if item.is_dir(): continue
 
 				#directly create new blobs from each item in the zip file
-				id2, ext2 = create_blob(name, tags)
+				id2, ext2 = create_blob(name, tags, hidden)
 				inner_blob_path = BlobStorage(id2, ext2).path(create = True)
 				with fp.open(name, 'r') as input:
 					with open(inner_blob_path, 'wb') as output:
@@ -134,7 +134,7 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 	return mime
 
 
-def create_blob(name: str, tags: list = []) -> str:
+def create_blob(name: str, tags: list = [], hidden: bool = False) -> str:
 	global db
 
 	mime = mimetypes.guess_type(name)[0]
@@ -168,6 +168,7 @@ def create_blob(name: str, tags: list = []) -> str:
 		'complete': False,
 		'preview': None,
 		'thumbnail': None,
+		'hidden': hidden,
 	}).inserted_id), ext
 
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:

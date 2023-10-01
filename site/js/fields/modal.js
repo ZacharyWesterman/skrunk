@@ -141,6 +141,7 @@ modal.upload.return = () =>
 modal.upload.start = async function()
 {
 	const auto_unzip = $('modal-unpack-check').checked
+	const hidden = $('modal-hidden-check').checked
 	modal.upload.promises = []
 	const tag_list = modal.upload.tag_list
 	modal.upload.blobs = []
@@ -150,7 +151,7 @@ modal.upload.start = async function()
 		const blobs = await api.upload(file, progress => {
 			const percent = progress.loaded / progress.total * 100
 			dom_progress.value = percent
-		}, auto_unzip, tag_list)
+		}, auto_unzip, tag_list, hidden)
 		$.hide(dom_progress, true)
 
 		modal.upload.blobs.push(...blobs)
@@ -247,6 +248,7 @@ modal.upload.activate = () =>
 		return false
 	}
 	$.toggle('modal-auto-unpack', zip_exists())
+	$.show('modal-hide-file')
 }
 
 modal.checkmark = () =>

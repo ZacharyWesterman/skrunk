@@ -7,6 +7,10 @@
 				Automatically extract ZIP files?
 				<input type="checkbox" id="modal-unpack-check">
 			</div>
+			<div id="modal-hide-file" class="hidden" style="display:none;">
+				Hide files from other users?
+				<input type="checkbox" id="modal-hidden-check">
+			</div>
 			<input id="modal-file" type="file" name="file" onchange="_.modal.upload.activate()" multiple>
 			<button class="icon" id="modal-button" onclick="_.modal.upload.start()" disabled>
 				<i class="fa-solid fa-file-arrow-up fa-lg"></i>
