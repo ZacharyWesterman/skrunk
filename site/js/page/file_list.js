@@ -378,7 +378,7 @@ export async function toggle_blob_hidden(blob_id)
 	const old_icon = res.hidden ? 'fa-eye' : 'fa-eye-slash'
 	const new_icon = res.hidden ? 'fa-eye-slash' : 'fa-eye'
 
-	tooltip.innerText = res.hidden ? 'File is only visible to you.' : 'File is visible to everyone.'
+	tooltip.innerText = res.hidden ? 'File is only visible to you' : 'File is visible to everyone'
 
 	icon.classList.remove(old_icon)
 	icon.classList.add(new_icon)
