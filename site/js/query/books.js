@@ -32,6 +32,7 @@ export default {
 						url
 						fileType
 					}
+					audiobook
 				}
 				...on BookTagDoesNotExistError {
 					message
@@ -73,6 +74,7 @@ export default {
 					url
 					fileType
 				}
+				audiobook
 			}
 		}`, {
 			filter: filter,

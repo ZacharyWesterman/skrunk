@@ -40,3 +40,28 @@
 div .page {
 	max-width: 900px;
 }
+
+.book-icon {
+	position: relative;
+}
+
+.book-icon img {
+	display: block;
+	border-radius: var(--border-radius);
+}
+
+.book-icon .audiobook-icon {
+	position: absolute;
+	top: 75%;
+	left: 0;
+	padding: 3px;
+
+	border-bottom-right-radius: var(--border-radius);
+	border-top-left-radius: var(--border-radius);
+
+	/* border-top: solid 1px var(--secondary-text); */
+	/* border-left: solid 1px var(--secondary-text); */
+
+	background-color: var(--secondary-text);
+	color: var(--secondary);
+}

@@ -1,18 +1,34 @@
 from application.tokens import decode_user_token, get_request_token
+from application.db.settings import get_config
 import application.exceptions as exceptions
 from application.objects import BookSearchFilter, Sorting
 from . import users
-from application.integrations import google_books
+from application.integrations import google_books, subsonic
 from datetime import datetime
 from bson.objectid import ObjectId
 import re
 
 db = None
+SUBSONIC = None
 
 _P = {
 	'tag': re.compile(r'</?\w+>'),
 	'nonwd': re.compile(r'[^\w]+'),
 }
+
+def init() -> None:
+	global SUBSONIC
+
+	url = get_config('subsonic:url')
+	if url is not None:
+		username = get_config('subsonic:username')
+		password = get_config('subsonic:password')
+		SUBSONIC = subsonic.Session(url, username, password)
+		try:
+			SUBSONIC.all_albums('Audiobooks') #Get albums on startup so it's cached for later use.
+		except subsonic.SessionError:
+			pass
+
 
 def process_share_hist(share_history: list) -> list:
 	share_hist = []
@@ -50,6 +66,8 @@ def build_keywords(book_data: dict) -> list[str]:
 	return sorted(list(set(keywords)))
 
 def process_book_tag(book_data: dict) -> dict:
+	global SUBSONIC
+
 	try:
 		userdata = users.get_user_by_id(book_data['owner'])
 		book_data['owner'] = userdata
@@ -62,6 +80,13 @@ def process_book_tag(book_data: dict) -> dict:
 	book_data['shareHistory'] = process_share_hist(book_data['shareHistory'])
 	book_data['id'] = book_data['_id']
 	book_data['keywords'] = build_keywords(book_data)
+	book_data['audiobook'] = None
+
+	if SUBSONIC:
+		try:
+			book_data['audiobook'] = SUBSONIC.get_album_id(book_data['title'], 'Audiobooks')
+		except subsonic.SessionError:
+			pass
 
 	return book_data
 
@@ -273,22 +298,7 @@ def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting
 		selection = db.find(query, sort = sort).limit(count).skip(start)
 
 	for i in selection:
-		i = i.get('results', i)
-
-		try:
-			userdata = users.get_user_by_id(i['owner'])
-			i['owner'] = userdata
-		except exceptions.UserDoesNotExistError:
-			i['owner'] = {
-				'username': i['owner'],
-				'display_name': i['owner'],
-			}
-
-		i['id'] = i['_id']
-		i['shareHistory'] = process_share_hist(i['shareHistory'])
-
-		i['categories'] = sorted(list(set(i.get('categories', []))))
-
+		i = process_book_tag(i.get('results', i))
 		books += [i]
 
 	return books

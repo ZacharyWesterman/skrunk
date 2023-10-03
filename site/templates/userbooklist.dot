@@ -20,7 +20,16 @@
 		</span>
 		<table class="clickable" onclick="$.toggle_expand('card-{{=book.id}}')" style="padding-left:0;">
 			<tr>
-				{{?book.thumbnail}}<td><img src="{{=book.thumbnail}}" alt="<BOOK COVER>" loading="lazy"></td>{{?}}
+				{{?book.thumbnail}}
+					<td>
+						<span class="book-icon">
+							<img src="{{=book.thumbnail}}" alt="<BOOK COVER>" loading="lazy">
+							{{? book.audiobook }}
+								<span class="audiobook-icon"><i class="fa-solid fa-headphones fa-xl"></i></span>
+							{{?}}
+						</span>
+					</td>
+				{{?}}
 				{{?book.categories.length}}
 					<td style="width: 100%;">
 						<blockquote style="valign: top;">
