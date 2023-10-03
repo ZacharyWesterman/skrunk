@@ -59,9 +59,12 @@ div .page {
 	border-bottom-right-radius: var(--border-radius);
 	border-top-left-radius: var(--border-radius);
 
-	/* border-top: solid 1px var(--secondary-text); */
-	/* border-left: solid 1px var(--secondary-text); */
-
 	background-color: var(--secondary-text);
 	color: var(--secondary);
+}
+
+@media (pointer: coarse) {
+	.book-icon .audiobook-icon {
+		top: 0%;
+	}
 }
