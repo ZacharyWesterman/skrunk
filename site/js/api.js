@@ -1,3 +1,10 @@
+
+/**
+ * Call the GraphQL API.
+ * @param {string} query_string The appropriate query or mutation string.
+ * @param {object} variables Any variables that need to be passed in for queries or mutations.
+ * @returns {object} The API response per the schema.
+ */
 window.api = function(query_string, variables = null)
 {
 	const query_data = {
@@ -44,10 +51,22 @@ window.api = function(query_string, variables = null)
 	})
 }
 
+/**
+ * Keep track of the logged in user's session token.
+ */
 api.login_token = null
-api.username = null
-api.__auto_refresh = false
 
+/**
+ * Keep track of the logged in user's username.
+ */
+api.username = null
+
+/**
+ * Login to the server, generating a session token on success.
+ * @param {string} username The username.
+ * @param {string} password The plaintext password (this gets hashed).
+ * @returns {boolean} Whether the login was successful.
+ */
 api.authenticate = async function(username, password)
 {
 	const hashed_pass = await api.hash(password)
@@ -64,6 +83,10 @@ api.authenticate = async function(username, password)
 	return true
 }
 
+/**
+ * Refresh the session token, generating a new one.
+ * @returns {boolean} Whether the token refreshed successfully.
+ */
 api.refresh_token = async function()
 {
 	if (api.login_token === null) return false
@@ -75,6 +98,15 @@ api.refresh_token = async function()
 	return true
 }
 
+/**
+ * Keep track of whether the session token is being automatically refreshed.
+ */
+api.__auto_refresh = false
+
+/**
+ * Specify whether session token automatically refreshes while the page is open.
+ * @param {boolean} enabled Whether to enable/disable auto-refresh.
+ */
 api.auto_refresh_token = function(enabled)
 {
 	function do_auto_refresh()
@@ -99,6 +131,10 @@ api.auto_refresh_token = function(enabled)
 	api.__auto_refresh = enabled
 }
 
+/**
+ * Check if the current session token is valid.
+ * @returns {boolean} Whether the current session token is valid.
+ */
 api.verify_token = async function()
 {
 	if (api.login_token === null) return false
@@ -107,6 +143,12 @@ api.verify_token = async function()
 	return response.valid
 }
 
+/**
+ * Get data from the server.
+ * @param {string} url The path to set GET request.
+ * @param {boolean} use_cache Use cached static data if it exists.
+ * @returns {string} The response text from the server.
+ */
 api.get = function(url, use_cache = true) {
 	return new Promise((resolve, reject) => {
 		//Don't re-fetch urls that are cached
@@ -150,12 +192,26 @@ api.get = function(url, use_cache = true) {
 	})
 }
 
+/**
+ * Get data from the server, parsing the response as JSON.
+ * @param {string} url
+ * @returns {any} The response from the server.
+ */
 api.get_json = async url =>
 {
 	const result = await api.get(url)
 	return JSON.parse(result)
 }
 
+/**
+ * Launch a file upload dialog.
+ * If the user cancels, this throws an exception.
+ *
+ * @param {string} contentType Values like "image/png,video/*" or "image/*", etc.
+ * @param {boolean} multiple Allow selecting multiple files.
+ * @param {string} capture If specified, can be values like "camera".
+ * @returns {File} The uploaded file, if one was uploaded. An array of files if the multiple flag is true.
+ */
 api.file_prompt = function (contentType = '*', multiple = false, capture = null)
 {
 	return new Promise((resolve, reject) => {
@@ -189,6 +245,16 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
 	})
 }
 
+/**
+ * Upload a file to the server.
+ *
+ * @param {File} file
+ * @param {function({loaded:number, total:number})} progress_handler A callback to run when the progress bar updates.
+ * @param {boolean} auto_unzip Automatically unpack any zip files once upload completes.
+ * @param {string[]} tag_list Tags to attach to the file on upload.
+ * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
+ * @returns {any} The JSON response from the server.
+ */
 api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false) {
 	return new Promise((resolve, reject) => {
 		let xhr = new XMLHttpRequest
@@ -225,8 +291,16 @@ api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [],
 	})
 }
 
+/**
+ * Keep track of files currently being uploaded.
+ */
 api.upload.xhr = []
 
+/**
+ * Cancel any pending file uploads.
+ *
+ * @returns {boolean} Whether any file uploads were canceled.
+ */
 api.upload.cancel = () => {
 	const ret = api.upload.xhr.length > 0
 
@@ -239,6 +313,13 @@ api.upload.cancel = () => {
 	return ret
 }
 
+/**
+ * Send a POST request to the server.
+ *
+ * @param {string} url The path to POST to.
+ * @param {any} json_data Data to send.
+ * @returns {string} The response text from the POST request.
+ */
 api.post_json = function(url, json_data) {
 	return new Promise((resolve, reject) => {
 		let xhr = new XMLHttpRequest()
@@ -350,6 +431,10 @@ api.hash = async function(password)
 	return btoa(hex)
 }
 
+/**
+ * When a query fails, check why, and log the failure.
+ * @param {object} res Result from api call.
+ */
 api.handle_query_failure = async function(res)
 {
 	if (await api.verify_token())
