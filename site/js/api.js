@@ -1,28 +1,52 @@
-window.api = async function(query_string, variables = null)
-{
-	//shorthand for api.call
-	const res = await api.call(query_string, variables)
-	for (const elem in res.data)
-	{
-		return res.data[elem]
-	}
-}
-
-api.login_token = null
-api.username = null
-api.__auto_refresh = false
-
-api.call = async function(query_string, variables = null)
+window.api = function(query_string, variables = null)
 {
 	const query_data = {
 		'query' : query_string,
 		'variables': variables,
 	}
 
-	return new Promise(resolve => {
-		api.__request(query_data, resolve)
+	return new Promise((resolve, reject) => {
+		//show spinner to indicate resources are loading
+		$.show($('loader'))
+
+		const url = '/api'
+		let xhr = new XMLHttpRequest()
+		xhr.open('POST', url, true)
+
+		xhr.setRequestHeader('Content-Type', 'application/json')
+		xhr.setRequestHeader('Authorization', api.login_token)
+		xhr.send(JSON.stringify(query_data))
+
+		xhr.onload = () => {
+			if (xhr.status >= 200 && xhr.status < 300)
+			{
+				const res = JSON.parse(xhr.responseText)
+				for (const elem in res.data)
+				{
+					resolve(res.data[elem])
+					break
+				}
+			}
+			else
+			{
+				api.handle_query_failure(xhr)
+				reject(xhr.responseText)
+			}
+
+			$.hide($('loader'))
+		}
+
+		xhr.onerror = () => {
+			api.handle_query_failure(xhr)
+			$.hide($('loader'))
+			reject(xhr.responseText)
+		}
 	})
 }
+
+api.login_token = null
+api.username = null
+api.__auto_refresh = false
 
 api.authenticate = async function(username, password)
 {
@@ -337,38 +361,6 @@ api.handle_query_failure = async function(res)
 	{
 		console.log('Token expired, logging out.')
 		api.logout()
-	}
-}
-
-api.__request = function(request_json, callback)
-{
-	//show spinner to indicate resources are loading
-	$.show($('loader'))
-
-	const url = '/api'
-	let xhr = new XMLHttpRequest()
-	xhr.open('POST', url, true)
-
-	xhr.setRequestHeader('Content-Type', 'application/json')
-	xhr.setRequestHeader('Authorization', api.login_token)
-	xhr.send(JSON.stringify(request_json))
-
-	xhr.onload = () => {
-		if (xhr.status >= 200 && xhr.status < 300)
-		{
-			callback(JSON.parse(xhr.responseText))
-		}
-		else
-		{
-			api.handle_query_failure(xhr)
-		}
-
-		$.hide($('loader'))
-	}
-
-	xhr.onerror = () => {
-		api.handle_query_failure(xhr)
-		$.hide($('loader'))
 	}
 }
 
