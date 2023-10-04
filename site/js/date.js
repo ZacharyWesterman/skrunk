@@ -136,9 +136,10 @@ window.date = {
 	/**
 	 * Takes a date and returns a human-readable representation of the difference between the date and now
 	 *
-	 * @exact If true, output the exact difference (down to precision level). Otherwise output only highest non-zero difference.
-	 * @precision The level of precision to show in the diff. See possible values at top.
-	 * @include_zero Whether to include zero-diffs in the output.
+	 * @param {boolean} exact If true, output the exact difference (down to precision level). Otherwise output only highest non-zero difference.
+	 * @param {string} precision The level of precision to show in the diff. See possible values at top.
+	 * @param {boolean} include_zero Whether to include zero-diffs in the output.
+	 * @returns {string} The elapsed time between the date and now.
 	 */
 	elapsed: function(date_obj, exact = false, precision = date.SECOND, include_zero = false)
 	{
