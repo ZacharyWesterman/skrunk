@@ -249,7 +249,7 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
  * Upload a file to the server.
  *
  * @param {File} file
- * @param {function({loaded:number, total:number})} progress_handler A callback to run when the progress bar updates.
+ * @param {function({loaded:number, total:number}):void} progress_handler A callback to run when the progress bar updates.
  * @param {boolean} auto_unzip Automatically unpack any zip files once upload completes.
  * @param {string[]} tag_list Tags to attach to the file on upload.
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
