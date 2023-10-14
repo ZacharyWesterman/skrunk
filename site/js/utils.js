@@ -306,3 +306,11 @@ window.qr = {
 		}, 100)
 	},
 }
+
+/**
+ * Check if the currently logged in user is an admin.
+ * Note that changing this does NOT actually give user admin access, just whether admin logic is triggered.
+ *
+ * @returns {boolean} True if the logged in user has admin permissions.
+ */
+window.i_am_admin = () => SelfUserData.perms.includes('admin')

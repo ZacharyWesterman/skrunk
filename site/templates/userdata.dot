@@ -13,7 +13,7 @@
 			<input id="user-display-name" placeholder="{{= it.user.username.substring(0,1).toUpperCase() + it.user.username.substring(1)}}" value="{{= it.user.display_name }}" *bind="update_user_display_name('{{= it.user.username }}')">
 			&nbsp;<i id="icon-user-display-name" class="fa-solid fa-circle-check hidden"></i>
 
-			{{? SelfUserData.perms.includes('admin') }}
+			{{? i_am_admin() }}
 				<br>
 				<span id="usrgrp" template="user_group_list"></span>
 				<button class="icon" *click="update_groups('{{= it.user.username }}')"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
