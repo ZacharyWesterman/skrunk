@@ -156,6 +156,7 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 		'created': datetime.utcnow(),
 		'noSyncFields': [],
 		'industryIdentifiers': google_book_data.get('industryIdentifiers', []),
+		'ebooks': [],
 	}
 	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
 	for i in fields:
@@ -196,6 +197,7 @@ def create_book(data: dict) -> dict:
 		'maturityRating': 'NOT_MATURE',
 		'language': 'en',
 		'thumbnail': data['thumbnail'].replace('http://', 'https://') if data['thumbnail'] else data['thumbnail'],
+		'ebooks': [],
 	}
 
 	if data.get('isbn'):
