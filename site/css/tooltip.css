@@ -23,6 +23,7 @@
 
 	/* Position the tooltip text */
 	position: absolute;
+	z-index: 999;
 	bottom: 125%;
 	outline: 1px solid var(--secondary-text);
 
@@ -52,6 +53,10 @@
 .t-right {
 	left: 0%;
 	margin-left: 0px;
+}
+
+.t-bottom {
+	translate: 0 calc(100% + 1.75rem);
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
