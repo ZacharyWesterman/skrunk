@@ -16,7 +16,10 @@
 					<span class="issue-id">#{{= issue.number}}</span>
 					<br>
 					{{~ issue.labels : label }}
-						<div class="issue-label" style="background-color:#{{= label.color }}; color:{{= invert_color(label.color) }}">{{= label.name }}</div>
+						<div class="issue-label tooltip" style="background-color:#{{= label.color }}; color:{{= invert_color(label.color) }}">
+							{{= label.name }}
+							<span class="tooltiptext t-right">{{= label.description }}</span>
+						</div>
 					{{~}}
 				{{~}}
 				</div>

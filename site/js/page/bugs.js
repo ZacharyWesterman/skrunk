@@ -200,6 +200,7 @@ export function load_open_issues()
 			labels {
 				name
 				color
+				description
 			}
 		}
 	}`))
@@ -211,6 +212,7 @@ export function load_open_issues()
 			labels {
 				name
 				color
+				description
 			}
 		}
 	}`))

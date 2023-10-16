@@ -23,7 +23,6 @@
 
 	/* Position the tooltip text */
 	position: absolute;
-	z-index: 1;
 	bottom: 125%;
 	outline: 1px solid var(--secondary-text);
 
