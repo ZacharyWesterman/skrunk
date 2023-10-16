@@ -12,10 +12,21 @@ class Repository:
 
 	def issues(self, *, filter: str = 'state=open') -> list:
 		url = self.url + '/issues?' + filter
-		res = requests.get(url)
+
+		headers = None
+		try:
+			with open('data/auth.json', 'r') as fp:
+				headers = {
+					'Authorization': 'Bearer ' + json.load(fp)['github'],
+				}
+		except:
+			pass
+
+		res = requests.get(url, headers = headers)
 		if res.status_code >= 200 and res.status_code < 300:
 			return json.loads(res.text)
 		else:
+			print(res.text, flush=True)
 			raise RepoFetchFailed(self.url)
 
 	def resolved_issues(self, since: str) -> list:
