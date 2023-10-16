@@ -227,6 +227,7 @@ textarea:disabled {
 	font-style: italic;
 	color: var(--disabled-text);
 	float: right;
+	padding-right: .5rem;
 }
 
 .clickable {
