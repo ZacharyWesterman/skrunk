@@ -36,7 +36,10 @@ class Session:
 			if parameters[p] is not None:
 				url += f'&{p}={urllib.parse.quote_plus(str(parameters[p]))}'
 
-		res = requests.get(url)
+		try:
+			res = requests.get(url)
+		except requests.exceptions.ConnectionError as e:
+			raise SessionError(e)
 
 		if res.status_code >= 300 or res.status_code < 200:
 			raise SessionError(f'Failed to connect to server (code {res.status_code})')
