@@ -6,9 +6,9 @@
 				<i class="fa-solid fa-handshake fa-lg"></i>
 				<span class="tooltiptext t-left">Sharing options</span>
 			</button>
-			{{? book.owner.username === api.username}}
+			{{? book.owner.username === api.username || i_am_admin()}}
 			<button class="icon clickable tooltip" *click="edit_book('{{= book.rfid }}')">
-				<i class="fa-solid fa-pen-to-square fa-lg"></i>
+				<i class="fa-solid fa-pen-to-square fa-lg {{? book.owner.username !== api.username}}disabled{{?}}"></i>
 				<span class="tooltiptext t-left">Edit this book</span>
 			</button>
 			{{?}}
