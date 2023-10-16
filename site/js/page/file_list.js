@@ -316,7 +316,7 @@ export async function download_all()
 
 	const res = await _.modal({
 		title: 'Download all matching current query?',
-		text: `This will create a zip file containing <b>${format.file_size(size.count).replace(' ', '&nbsp;')}</b> of file data, which will then be downloaded to your device.<br><br>Depending on your network speed and the amount of files involved, this may take a while.`,
+		text: `This will create a zip file containing <b>${format.file_size(size.count)}</b> of file data, which will then be downloaded to your device.<br><br>Depending on your network speed and the amount of files involved, this may take a while.`,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 

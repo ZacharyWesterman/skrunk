@@ -173,7 +173,7 @@ window.format = {
 			this_size += 1
 		}
 
-		return `${size.toFixed(2)} ${sizes[this_size]}`
+		return `${size.toFixed(2)}&nbsp;${sizes[this_size]}`
 	},
 }
 
