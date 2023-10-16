@@ -18,7 +18,7 @@
 					{{~ issue.labels : label }}
 						<div class="issue-label tooltip" style="background-color:#{{= label.color }}; color:{{= invert_color(label.color) }}">
 							{{= label.name }}
-							<span class="tooltiptext t-right t-bottom">{{= label.description }}</span>
+							<span class="tooltiptext t-right t-bottom t-persist">{{= label.description }}</span>
 						</div>
 					{{~}}
 				{{~}}
