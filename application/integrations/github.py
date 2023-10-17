@@ -5,29 +5,37 @@ import requests
 import subprocess
 from .exceptions import RepoFetchFailed
 from datetime import datetime
+import cachetools.func
+
+@cachetools.func.ttl_cache()
+def gh_request(url: str) -> dict:
+	headers = None
+	try:
+		with open('data/auth.json', 'r') as fp:
+			headers = {
+				'Authorization': 'Bearer ' + json.load(fp)['github'],
+			}
+	except:
+		pass
+
+	res = requests.get(url, headers = headers)
+	if res.status_code >= 200 and res.status_code < 300:
+		return json.loads(res.text)
+	else:
+		print(res.text, flush=True)
+		raise RepoFetchFailed(url)
 
 class Repository:
 	def __init__(self, owner, repo):
 		self.url = f'https://api.github.com/repos/{owner}/{repo}'
+		self.cache = {}
 
 	def issues(self, *, filter: str = 'state=open') -> list:
+		if filter in self.cache:
+			return json.loads(self.cache[filter])
+
 		url = self.url + '/issues?' + filter
-
-		headers = None
-		try:
-			with open('data/auth.json', 'r') as fp:
-				headers = {
-					'Authorization': 'Bearer ' + json.load(fp)['github'],
-				}
-		except:
-			pass
-
-		res = requests.get(url, headers = headers)
-		if res.status_code >= 200 and res.status_code < 300:
-			return json.loads(res.text)
-		else:
-			print(res.text, flush=True)
-			raise RepoFetchFailed(self.url)
+		return gh_request(url)
 
 	def resolved_issues(self, since: str) -> list:
 		return self.issues(filter = 'state=closed&since=' + since)
