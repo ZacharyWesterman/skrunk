@@ -35,7 +35,12 @@
 						<blockquote style="valign: top;">
 							<b><u>Categories</u></b>
 							<div {{? environment.mobile }}class="marquee" style="height: {{= book.categories.length * 1.5 + 1 }}rem"{{?}}>
-								<p>{{~ book.categories : genre}}{{= no_line_break(genre) }}<br>{{~}}</p>
+								{{? book.categories.length > 10 }}
+									{{~ book.categories.slice(0,9) : genre }}{{= no_line_break(genre) }}<br>{{~}}
+									<span class="disabled">... And {{= book.categories.length - 9 }} more.</span>
+								{{??}}
+									{{~ book.categories : genre }}{{= no_line_break(genre) }}<br>{{~}}
+								{{?}}
 							</div>
 						</blockquote>
 					</td>
@@ -44,6 +49,14 @@
 		</table>
 		<div class="expand-container clickable" id="card-{{=book.id}}" onclick="$.toggle_expand('card-{{=book.id}}')">
 			<div>
+				{{? book.categories.length > 10 }}
+					<blockquote style="valign: top;">
+						<b><u>Categories (cont.)</u></b>
+						<div>
+							{{~ book.categories.slice(10,book.categories.length) : genre }}{{= no_line_break(genre) }}<br>{{~}}
+						</div>
+					</blockquote>
+				{{?}}
 				{{?book.description}}{{=book.description.replace('\n', '<br>')}}{{?}}
 			</div>
 		</div>
