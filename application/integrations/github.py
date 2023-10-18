@@ -4,7 +4,6 @@ import json
 import requests
 import subprocess
 from .exceptions import RepoFetchFailed
-from datetime import datetime
 import cachetools.func
 
 @cachetools.func.ttl_cache()
