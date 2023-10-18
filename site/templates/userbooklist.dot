@@ -53,7 +53,7 @@
 					<blockquote style="valign: top;">
 						<b><u>Categories (cont.)</u></b>
 						<div>
-							{{~ book.categories.slice(10,book.categories.length) : genre }}{{= no_line_break(genre) }}<br>{{~}}
+							{{~ book.categories.slice(10,book.categories.length) : genre }}{{= genre }}<br>{{~}}
 						</div>
 					</blockquote>
 				{{?}}
