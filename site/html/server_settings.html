@@ -19,11 +19,21 @@
 			<div id="server_configs"></div>
 		</div>
 	</div>
+
+	<div class="card alt">
+		<div class="card-inner">
+			<h2 style="text-align: center;">Server Info</h2>
+			<hr>
+			<div id="server_info"></div>
+		</div>
+	</div>
 </div>
 
 <script>
 	export async function init()
 	{
+		_('server_info', api('{ getSystemInfo { storage { name total free used } } }'))
+
 		let cfg = api.get_json('/config/configs.json')
 		let s_cfg = api('{getConfigs { name value } }')
 

@@ -21,6 +21,7 @@ qrcode = "^7.4.2"
 Markdown = "^3.4.4"
 aiohttp = "^3.8.5"
 cachetools = "^5.3.1"
+psutil = "^5.9.6"
 
 [tool.poetry.dev-dependencies]
 

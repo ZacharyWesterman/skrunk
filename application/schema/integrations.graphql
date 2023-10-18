@@ -20,10 +20,22 @@ type SubsonicError {
 	message: String!
 }
 
+type DiskUsage {
+	name: String!
+	total: Float!
+	free: Float!
+	used: Float!
+}
+
+type SystemInfo {
+	storage: [DiskUsage!]!
+}
+
 union SubsonicSearchResult = SubsonicSearch | SubsonicError
 
 #Resolvers below this line:
 
 extend type Query {
 	searchSubsonic (query: String!, start: Int!, count: Int!): SubsonicSearchResult!
+	getSystemInfo: SystemInfo!
 }

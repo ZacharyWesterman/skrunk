@@ -165,7 +165,7 @@ window.format = {
 	 */
 	file_size: size =>
 	{
-		const sizes = ['B', 'KB', 'MB', 'GB', 'EB']
+		const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'EB']
 		let this_size = 0
 		while (size > 1000)
 		{

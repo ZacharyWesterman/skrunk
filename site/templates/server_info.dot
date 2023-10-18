@@ -1,0 +1,8 @@
+{{~ it.storage : disk }}
+	<b><u>{{= disk.name }} Disk Usage</u></b>
+	<blockquote>
+		Total: {{= format.file_size(disk.total) }}<br>
+		Used: {{= format.file_size(disk.used) }} <span class="{{? (disk.free/disk.total) < 0.2 }}error{{??}}disabled{{?}}">({{= (disk.used / disk.total * 100).toFixed(2) }}%)</span><br>
+		Free: {{= format.file_size(disk.free) }} <span class="{{? (disk.free/disk.total) < 0.2 }}error{{??}}disabled{{?}}">({{= (disk.free / disk.total * 100).toFixed(2) }}%)</span>
+	</blockquote>
+{{~}}
