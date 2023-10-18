@@ -3,6 +3,7 @@ import mimetypes
 import os, re, json
 from . import auth, files
 from application.db import blob
+import application.db.perms as perms
 
 application = None
 
@@ -82,6 +83,9 @@ def upload() -> Response:
 
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
+
+	if not perms.satisfies(['edit']):
+		return Response('You are not allowed to perform this action.', 403)
 
 	auto_unzip = request.form['unzip'] == 'true'
 	hidden = request.form['hidden'] == 'true'

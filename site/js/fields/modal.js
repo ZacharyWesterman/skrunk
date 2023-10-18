@@ -212,24 +212,31 @@ modal.upload.start = async function()
 	$('upload-progress').innerHTML = innerHTML
 	$.show('upload-progress')
 
-	let promises = []
-	for (let i = 0; i < files.length; ++i)
+	try
 	{
-		let dom_progress = $('upload-progressbar-'+i)
-		promises.push(do_upload(files[i], dom_progress))
-	}
-	modal.upload.promises = promises
+		let promises = []
+		for (let i = 0; i < files.length; ++i)
+		{
+			let dom_progress = $('upload-progressbar-'+i)
+			promises.push(do_upload(files[i], dom_progress))
+		}
+		modal.upload.promises = promises
 
-	for (const p of promises)
+		for (const p of promises)
+		{
+			await p
+		}
+
+		await modal({
+			title: 'Success',
+			text: 'Upload complete',
+			buttons: ['OK']
+		}).catch(() => {})
+	}
+	catch (xfer)
 	{
-		await p
+		modal.error(xfer.text)
 	}
-
-	await modal({
-		title: 'Success',
-		text: 'Upload complete',
-		buttons: ['OK']
-	}).catch(() => {})
 
 	modal.upload.promises = []
 	modal.upload.return()
@@ -257,6 +264,16 @@ modal.checkmark = () =>
 		$('action-checkmark').classList.remove('checkmark')
 	}, 1000)
 	$('action-checkmark').classList.add('checkmark')
+}
+
+modal.error = async (text, title = 'ERROR') =>
+{
+	return await _.modal({
+		type: 'error',
+		title: title,
+		text: text,
+		buttons: ['OK'],
+	}).catch(() => 'ok')
 }
 
 export default modal

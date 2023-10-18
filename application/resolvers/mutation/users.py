@@ -2,7 +2,7 @@ import application.exceptions as exceptions
 from application.db.users import *
 import application.db.perms as perms
 
-@perms.require(['admin'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_create_user(_, info, username: str, password: str, groups: list) -> dict:
 	try:
 		userdata = create_user(username, password, groups = groups)
@@ -10,7 +10,7 @@ def resolve_create_user(_, info, username: str, password: str, groups: list) -> 
 	except exceptions.ClientError as e:
 		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
-@perms.require(['admin'], perform_on_self = False)
+@perms.require(['admin'])
 def resolve_delete_user(_, info, username: str) -> dict:
 	try:
 		userdata = delete_user(username)
@@ -18,7 +18,7 @@ def resolve_delete_user(_, info, username: str) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
-@perms.require(['admin'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_update_user_theme(_, info, username: str, theme: dict) -> dict:
 	try:
 		userdata = update_user_theme(username, theme)
@@ -26,7 +26,7 @@ def resolve_update_user_theme(_, info, username: str, theme: dict) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-@perms.require(['admin'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_delete_user_theme(_, info, username: str) -> dict:
 	try:
 		userdata = update_user_theme(username, {'colors': [], 'sizes': []})
@@ -34,7 +34,7 @@ def resolve_delete_user_theme(_, info, username: str) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-@perms.require(['admin'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_update_user_perms(_, info, username: str, perms: list) -> dict:
 	try:
 		userdata = update_user_perms(username, perms)
@@ -42,7 +42,7 @@ def resolve_update_user_perms(_, info, username: str, perms: list) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-@perms.require(['admin'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_update_user_password(_, info, username: str, password: str) -> dict:
 	try:
 		userdata = update_user_password(username, password)
@@ -50,7 +50,7 @@ def resolve_update_user_password(_, info, username: str, password: str) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-@perms.require(['admin'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_update_user_display_name(_, info, username: str, display_name: str) -> dict:
 	try:
 		userdata = update_user_display_name(username, display_name)
@@ -58,7 +58,7 @@ def resolve_update_user_display_name(_, info, username: str, display_name: str) 
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-@perms.require(['admin'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_set_user_groups(_, info, username: str, groups: list) -> dict:
 	try:
 		return { '__typename': 'UserData', **update_user_groups(username, groups) }

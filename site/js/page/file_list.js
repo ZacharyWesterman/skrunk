@@ -164,12 +164,7 @@ export async function confirm_delete_blob(id, name)
 	const res = await mutate.blobs.delete(id)
 	if (res.__typename !== 'Blob')
 	{
-		_.modal({
-			type: 'error',
-			title: 'ERROR',
-			text: res.message,
-			buttons: ['OK'],
-		})
+		_.modal.error(res.message)
 		return
 	}
 
@@ -282,12 +277,7 @@ export async function set_blob_tags(id)
 	const blob = await mutate.blobs.tags(id, blob_data.tags)
 	if (blob.__typename !== 'Blob')
 	{
-		_.modal({
-			type: 'error',
-			title: 'ERROR',
-			text: res.message,
-			buttons: ['OK'],
-		})
+		_.modal.error(blob.message)
 		return
 	}
 
@@ -329,18 +319,13 @@ export async function download_all()
 		no_cancel: true,
 	}).catch(() => {})
 	const zip = await mutate.blobs.create_zip(creator, Editor.value, date_from, date_to, title)
-	_.modal.cancel()
 
 	if (zip.__typename !== 'Blob')
 	{
-		_.modal({
-			type: 'error',
-			title: 'ERROR',
-			text: zip.message,
-			buttons: ['OK'],
-		})
+		_.modal.error(zip.message)
 		return
 	}
+	_.modal.cancel()
 
 	//Now that ZIP has been created, download it
 	let link = document.createElement('a')

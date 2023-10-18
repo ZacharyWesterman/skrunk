@@ -36,7 +36,7 @@ type IssueLabel {
 	description: String!
 }
 
-union BugReportCreateAction = BugReport | BugReportCreationFailedError
+union BugReportCreateAction = BugReport | BugReportCreationFailedError | InsufficientPerms
 union BugReportEditAction = BugReport | BugReportDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:

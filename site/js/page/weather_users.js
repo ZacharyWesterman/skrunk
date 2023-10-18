@@ -111,7 +111,13 @@ export async function update_user(username, self)
 		value: parseFloat($.val('min-'+username)) || 0.0,
 	}
 
-	await mutate.weather.update_user(username, phone, lat, lon, max, min)
+	const res = await mutate.weather.update_user(username, phone, lat, lon, max, min)
+
+	if (res.__typename !== 'UserData')
+	{
+		_.modal.error(res.message)
+		return
+	}
 
 	const id = `icon-${self.id.replace('has-', '')}`
 	$.blink(id)

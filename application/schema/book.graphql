@@ -108,11 +108,11 @@ input BookCreateData {
 }
 
 union BookQueryResponse = BookList | ApiFailedError
-union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError
+union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError | InsufficientPerms
 union BookResponse = Book | BookTagDoesNotExistError
 union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
 union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerms
-union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError
+union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError | InsufficientPerms
 union BookEditResponse = Book | BookTagDoesNotExistError | UserDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:

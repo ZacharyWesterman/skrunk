@@ -7,7 +7,7 @@ def users_in_group(info, username: str|None) -> dict:
 	if username is not None:
 		return [get_user_data(username)['_id']]
 
-	user_data = perms.caller_info(info)
+	user_data = perms.caller_info()
 	groups = user_data.get('groups', [])
 	return userids_in_groups(groups)
 

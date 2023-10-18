@@ -268,12 +268,7 @@ window.qr = {
 
 			if (res.error !== null)
 			{
-				_.modal({
-					type: 'error',
-					title: 'ERROR',
-					text: res.error,
-					buttons: ['OK'],
-				}).catch(() => {})
+				_.modal.error(res.error)
 				return
 			}
 
@@ -291,7 +286,20 @@ window.qr = {
 	 */
 	generate: async (text = null) =>
 	{
-		const blob_data = await api('mutation ($text: String) { getBlobFromQR (text: $text) { id ext } }', {text: text})
+		const blob_data = await api(`
+		mutation ($text: String) {
+			getBlobFromQR (text: $text) {
+				__typename
+				...on Blob { id ext }
+				...on InsufficientPerms { message }
+			}
+		}`, {text: text})
+
+		if (blob_data.__typename !== 'Blob')
+		{
+			_.modal.error(blob_data.message)
+			return
+		}
 
 		//Now that QR code image has been created, download it
 		let link = document.createElement('a')
@@ -313,4 +321,4 @@ window.qr = {
  *
  * @returns {boolean} True if the logged in user has admin permissions.
  */
-window.i_am_admin = () => SelfUserData.perms.includes('admin')
+window.has_perm = id => SelfUserData.perms.includes(id)

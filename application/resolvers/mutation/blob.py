@@ -14,14 +14,11 @@ def group_filter(filter: dict, user_data: dict) -> dict:
 
 	return filter
 
+@perms.require(['edit'])
+@perms.require(['admin'], perform_on_self = True, data_func = get_blob_data)
 def resolve_delete_blob(_, info, id: str) -> dict:
 	try:
 		blob_data = get_blob_data(id)
-
-		# Make sure user is either an admin,
-		# or are trying to delete their own blob.
-		if not perms.satisfies(info, ['admin'], blob_data):
-			return perms.bad_perms()
 
 		blob_data = delete_blob(id)
 		blob_data['id'] = blob_data['_id']
@@ -29,15 +26,17 @@ def resolve_delete_blob(_, info, id: str) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
+@perms.require(['edit'])
 def resolve_set_blob_tags(_, info, id: str, tags: list) -> dict:
 	try:
 		return { '__typename': 'Blob', **set_blob_tags(id, tags) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
+@perms.require(['edit'])
 def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
 	try:
-		user_data = perms.caller_info(info)
+		user_data = perms.caller_info()
 		blob = zip_matching_blobs(group_filter(filter, user_data), user_data['_id'])
 		return { '__typename': 'Blob', **blob }
 	except ParseError as e:
@@ -45,6 +44,7 @@ def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
+@perms.require(['edit'])
 def resolve_generate_blob_from_qr(_, info, text: str|None) -> dict:
 	try:
 		id, ext = create_blob('QR.png', tags = ['qr', '__temp_file'])
@@ -53,7 +53,8 @@ def resolve_generate_blob_from_qr(_, info, text: str|None) -> dict:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-@perms.require(['admin'])
+@perms.require(['edit'])
+@perms.require(['admin'], perform_on_self = True)
 def resolve_set_blob_hidden(_, info, id: str, hidden: bool) -> dict:
 	try:
 		return { '__typename': 'Blob', **set_blob_hidden(id, hidden) }

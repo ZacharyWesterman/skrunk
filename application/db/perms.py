@@ -1,7 +1,6 @@
 __all__ = ['require']
 
-import application.exceptions as exceptions
-from application.tokens import decode_user_token
+from application import tokens
 from inspect import getfullargspec
 
 db = None
@@ -9,15 +8,11 @@ db = None
 def bad_perms() -> dict:
 	return {
 		'__typename': 'InsufficientPerms',
-		'message': 'You are not qualified to perform this action.',
+		'message': 'You are not allowed to perform this action.',
 	}
 
-def caller_info(info) -> str:
-	token = info.context.headers.get('Authorization', '').split(' ')
-	if len(token) < 2:
-		return None
-
-	username = decode_user_token(token[1]).get('username')
+def caller_info() -> str:
+	username = tokens.decode_user_token(tokens.get_request_token()).get('username')
 	if username is None:
 		return None
 
@@ -30,9 +25,20 @@ def caller_info(info) -> str:
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return all(k in user_data['perms'] for k in perm_list)
 
-def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True, data_func: callable = None) -> bool:
+def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = True, data_func: callable = None) -> bool:
+	"""Check if the calling user has certain permissions.
+
+	### Parameters:
+	@perms: The permissions that must ALL be satisfied.
+	@perform_on_self: If True, permissions will be ignored when the user is editing their own data.
+	@data_func: If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
+
+	### Returns:
+	- True if the user has all required permissions, or if perform_on_self is True AND the data being operated on belongs to the user.
+	"""
+
 	# Make sure the user making the request exists
-	user_data = caller_info(info)
+	user_data = caller_info()
 	if user_data is None:
 		return bad_perms()
 
@@ -53,10 +59,24 @@ def satisfies(info, perms: list, data: dict, *, perform_on_self: bool = True, da
 	# If user does not have ALL required perms, fail.
 	return user_has_perms(user_data, perms)
 
-def require(perms: list, *, perform_on_self: bool = True, data_func: callable = None) -> callable:
+def require(perms: list[str], *, perform_on_self: bool = False, data_func: callable = None) -> callable:
+	"""Require the calling user to have certain permissions.
+
+	This is a decorator for application resolvers, to avoid redundant permission-checking logic all over the place.
+	If the permissions are not satisfied when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
+
+	### Parameters:
+	@perms: The permissions that must ALL be satisfied.
+	@perform_on_self: If True, permissions will be ignored when the user is editing their own data.
+	@data_func: If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
+
+	### Returns:
+	- The resolver function, with decorator applied.
+	"""
+
 	def inner(method: callable) -> callable:
 		def wrap(_, info, *args, **kwargs):
-			if satisfies(info, perms, kwargs, perform_on_self = perform_on_self, data_func = data_func):
+			if satisfies(perms, kwargs, perform_on_self = perform_on_self, data_func = data_func):
 				return method(_, info, *args, **kwargs)
 			else:
 				return bad_perms()

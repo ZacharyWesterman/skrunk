@@ -15,7 +15,7 @@ def group_filter(filter: dict, user_data: dict) -> dict:
 
 def resolve_get_blobs(_, info, filter: BlobSearchFilter, start: int, count: int, sorting: Sorting) -> dict:
 	try:
-		user_data = perms.caller_info(info)
+		user_data = perms.caller_info()
 		blobs = get_blobs(group_filter(filter, user_data), start, count, sorting, user_data['_id'])
 		return { '__typename': 'BlobList', 'blobs': blobs }
 	except exceptions.ParseError as e:
@@ -23,7 +23,7 @@ def resolve_get_blobs(_, info, filter: BlobSearchFilter, start: int, count: int,
 
 def resolve_count_blobs(_, info, filter: BlobSearchFilter) -> dict:
 	try:
-		user_data = perms.caller_info(info)
+		user_data = perms.caller_info()
 		count = count_blobs(group_filter(filter, user_data), user_data['_id'])
 		return { '__typename': 'BlobCount', 'count': count }
 	except exceptions.ParseError as e:
@@ -34,7 +34,7 @@ def resolve_get_blob(_, info, id: str) -> dict:
 
 def resolve_total_blob_size(_, info, filter: BlobSearchFilter) -> dict:
 	try:
-		user_data = perms.caller_info(info)
+		user_data = perms.caller_info()
 		count = sum_blob_size(group_filter(filter, user_data), user_data['_id'])
 		return { '__typename': 'BlobCount', 'count': count }
 	except exceptions.ParseError as e:

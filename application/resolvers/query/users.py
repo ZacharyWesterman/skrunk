@@ -9,7 +9,7 @@ def resolve_get_user(_, info, username: str) -> dict:
 		return { '__typename': 'UserDoesNotExistError', 'message': str(e) }
 
 def resolve_list_users(_, info, restrict: bool) -> list:
-	user_data = perms.caller_info(info)
+	user_data = perms.caller_info()
 	if not restrict and perms.user_has_perms(user_data, ['admin']):
 		return get_user_list()
 	else:

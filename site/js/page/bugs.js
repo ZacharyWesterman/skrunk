@@ -33,13 +33,7 @@ export async function submit_bug_report()
 	if (res.__typename !== 'BugReport')
 	{
 		$.toggle_expand('card-new-bug')
-
-		_.modal({
-			type: 'error',
-			title: 'ERROR',
-			text: 'Failed to submit bug report!',
-			buttons: ['OK']
-		}).catch(() => {})
+		_.modal.error(res.message)
 		return
 	}
 

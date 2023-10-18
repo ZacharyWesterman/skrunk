@@ -5,6 +5,9 @@ export default {
 		mutation ($text: String!, $plaintext: Boolean!) {
 			reportBug (text: $text, plaintext: $plaintext) {
 				__typename
+				...on InsufficientPerms {
+					message
+				}
 			}
 		}`, {
 			text: text,
@@ -62,6 +65,9 @@ export default {
 						body
 						body_html
 					}
+				}
+				...on InsufficientPerms {
+					message
 				}
 			}
 		}`, {

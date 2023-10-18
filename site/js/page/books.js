@@ -503,12 +503,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 
 		if (res.__typename !== 'Book')
 		{
-			_.modal({
-				type: 'error',
-				title: 'Borrow Failed',
-				text: res.message,
-				buttons: ['OK']
-			}).catch(() => {})
+			_.modal.error(res.message)
 			return
 		}
 	}

@@ -46,6 +46,7 @@ export default {
 				__typename
 				...on BookTagDoesNotExistError { message }
 				...on BookCannotBeShared { message }
+				...on InsufficientPerms { message }
 			}
 		}`, {
 			id: id,
@@ -60,6 +61,7 @@ export default {
 				__typename
 				...on BookTagDoesNotExistError { message }
 				...on BookCannotBeShared { message }
+				...on InsufficientPerms { message }
 			}
 		}`, {
 			id: id,
@@ -74,6 +76,7 @@ export default {
 				__typename
 				...on BookTagDoesNotExistError { message }
 				...on BookCannotBeShared { message }
+				...on InsufficientPerms { message }
 			}
 		}`, {
 			id: id,
@@ -87,6 +90,7 @@ export default {
 				__typename
 				...on BookTagDoesNotExistError { message }
 				...on BookCannotBeShared { message }
+				...on InsufficientPerms { message }
 			}
 		}`, {
 			id: id,
@@ -114,6 +118,7 @@ export default {
 			createBook (data: $data) {
 				__typename
 				...on BookTagExistsError { message }
+				...on InsufficientPerms { message }
 			}
 		}`, {
 			data: book_data,

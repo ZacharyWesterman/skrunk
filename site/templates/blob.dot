@@ -4,7 +4,7 @@
 			<button class="icon" *click="copy_to_clipboard('{{=it.id}}{{=it.ext}}')"><i class="fa-solid fa-copy fa-lg"></i></button>
 			<button class="icon"><a href="/download/{{=it.id}}{{=it.ext}}" download="{{=it.name.replace('&quot;', '&amp;quot;')}}{{=it.ext}}"><i class="fa-solid fa-file-arrow-down fa-lg"></i></a></button>
 			<span class="disabled">{{=it.size}}</span>
-			{{?it.creator === api.username || i_am_admin()}}
+			{{?it.creator === api.username || has_perm('admin')}}
 				<button class="icon right tooltip" *click="confirm_delete_blob('{{=it.id}}', '{{=safe_html(it.name)}}{{=it.ext}}')">
 					<i class="fa-solid fa-trash fa-lg {{? it.creator !== api.username }}disabled{{?}}"></i>
 					<span class="tooltiptext t-left">Delete this file</span>
