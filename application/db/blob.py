@@ -299,9 +299,9 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 	return blob
 
 
-def get_blob_data(blob_id: str) -> dict:
+def get_blob_data(id: str) -> dict:
 	global db
-	blob_data = db.find_one({'_id': ObjectId(blob_id)})
+	blob_data = db.find_one({'_id': ObjectId(id)})
 	if blob_data:
 		blob_data['id'] = blob_data['_id']
 		try:
