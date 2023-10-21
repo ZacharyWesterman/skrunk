@@ -37,6 +37,14 @@
 	grid-template-rows: 1fr;
 }
 
+.fa-solid {
+	transition: all 0.2s ease-in-out;
+}
+
+.inverted {
+	rotate: 180deg;
+}
+
 div .page {
 	max-width: 900px;
 }

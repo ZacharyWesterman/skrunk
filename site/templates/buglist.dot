@@ -1,5 +1,5 @@
 
-<h2 {{? it.list.length }}class="clickable" onclick="$.toggle_expand('buglist-{{= it.bug_type }}')"{{?}}>
+<h2 {{? it.list.length }}class="clickable" *toggles="buglist-{{= it.bug_type }}"{{?}}>
 {{?it.list.length}}
 	{{= it.list.length }} {{= it.bug_type }} Bug{{? it.list.length !== 1 }}s{{?}}
 	&nbsp;<i class="fa-solid fa-angles-down"></i>
@@ -24,7 +24,7 @@
 
 				{{? bug.convo.length }}
 					<hr>
-					<h3 class="clickable" onclick="$.toggle_expand('comments-{{=bug.id}}')">
+					<h3 class="clickable" *toggles="comments-{{=bug.id}}">
 						{{= bug.convo.length }} comment{{? bug.convo.length !== 1}}s{{?}}
 						<i class="right fa-solid fa-angles-down"></i>
 					</h3>
@@ -46,7 +46,7 @@
 				{{?}}
 				{{? (bug.creator === api.username || has_perm('admin')) && !it.locked }}
 					<hr>
-					<h4 class="clickable" onclick="$.toggle_expand('newcomment-{{=bug.id}}')">
+					<h4 class="clickable" *toggles="newcomment-{{=bug.id}}">
 						Add a comment
 						<i class="right fa-solid fa-angles-down fa-lg"></i>
 					</h4>

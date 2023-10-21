@@ -13,12 +13,12 @@
 			</button>
 			{{?}}
 		</div>
-		<span onclick="$.toggle_expand('card-{{=book.id}}')" class="clickable">
+		<span *toggles="card-{{=book.id}}" class="clickable">
 			<b>{{=book.title}}</b><br>
 			{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
 			<div class="disabled">By {{=book.authors.join(', ')}}</div>
 		</span>
-		<table class="clickable" onclick="$.toggle_expand('card-{{=book.id}}')" style="padding-left:0;">
+		<table class="clickable" *toggles="card-{{=book.id}}" style="padding-left:0;">
 			<tr>
 				{{?book.thumbnail}}
 					<td>
@@ -49,7 +49,7 @@
 				{{?}}
 			</tr>
 		</table>
-		<div class="expand-container clickable" id="card-{{=book.id}}" onclick="$.toggle_expand('card-{{=book.id}}')">
+		<div class="expand-container clickable" id="card-{{=book.id}}" *toggles="card-{{=book.id}}">
 			<div>
 				{{? book.categories.length > 10 }}
 					<blockquote style="valign: top;">
@@ -73,7 +73,7 @@
 		<div class="disabled">
 			Owned by {{= book.owner.display_name }}{{? (book.owner.display_name.toLowerCase() !== book.owner.username.toLowerCase()) }} ({{= book.owner.username }}){{?}}
 			{{?book.description}}<div class="actions right">
-				<button class="icon clickable tooltip" onclick="$.toggle_expand('card-{{=book.id}}')">
+				<button class="icon clickable tooltip" *toggles="card-{{=book.id}}">
 					<i class="fa-solid fa-angles-down fa-lg"></i>
 					<span class="tooltiptext t-left">Show/hide description</span>
 				</button>

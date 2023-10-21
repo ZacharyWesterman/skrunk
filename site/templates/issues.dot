@@ -3,7 +3,7 @@
 
 	<div class="card">
 		<div class="card-inner">
-			<h3 class="clickable" onclick="$.toggle_expand('issue-list')">
+			<h3 class="clickable" *toggles="issue-list">
 				{{= it.length}} Planned Features/Bugfixes
 				<i class="right fa-solid fa-angles-down"></i>
 			</h3>

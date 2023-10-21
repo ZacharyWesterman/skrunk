@@ -182,7 +182,7 @@ window.set_field_logic = async function(DOM, url, module)
 	try
 	{
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
-		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind']
+		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles']
 		for (const attr of attrs)
 		{
 			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
@@ -191,6 +191,25 @@ window.set_field_logic = async function(DOM, url, module)
 				if (key[0] === '*')
 				{
 					set_trigger(field, attr, key.substring(1))
+					return
+				}
+
+				if (attr === 'toggles')
+				{
+					field.addEventListener('click', () => {
+						$.toggle_expand(key)
+						//Automatically flip any "expand" arrows to reflect whether content is expanded
+						for (const i of field.getElementsByClassName('fa-angles-down'))
+						{
+							i.classList.toggle('inverted', $(key).classList.contains('expanded'))
+						}
+					})
+
+					//Automatically flip any "expand" arrows to reflect whether content is expanded
+					for (const i of field.getElementsByClassName('fa-angles-down'))
+					{
+						i.classList.toggle('inverted', $(key).classList.contains('expanded'))
+					}
 					return
 				}
 
