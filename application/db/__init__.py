@@ -13,6 +13,7 @@ def init_db(data_db_url: str = 'localhost', weather_db_url: str = 'localhost', b
 
 	blob.db = data_client.data.blob
 	blob.blob_path = blob_path
+	blob.init()
 
 	bugs.db = data_client.data.bug_reports
 	book.db = data_client.data.books

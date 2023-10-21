@@ -41,6 +41,17 @@ class BlobThumbnail(BlobStorage):
 		super().__init__(f'{id}_t' if ext != '' else str(id), ext)
 
 
+def init() -> None:
+	#Delete all ephemeral files on startup
+	#Restart should be scheduled regularly for this to apply
+	deleted_ct = 0
+
+	for i in db.find({'ephemeral': True}):
+		delete_blob(i['_id'])
+		deleted_ct += 1
+
+	if deleted_ct:
+		print(f'Deleted {deleted_ct} ephemeral blob entries.', flush=True)
 
 def file_info(filename: str) -> str:
 	with open(filename, 'rb') as fp:
@@ -134,7 +145,7 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 	return mime
 
 
-def create_blob(name: str, tags: list = [], hidden: bool = False) -> str:
+def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> str:
 	global db
 
 	mime = mimetypes.guess_type(name)[0]
@@ -169,6 +180,7 @@ def create_blob(name: str, tags: list = [], hidden: bool = False) -> str:
 		'preview': None,
 		'thumbnail': None,
 		'hidden': hidden,
+		'ephemeral': ephemeral,
 	}).inserted_id), ext
 
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
@@ -270,7 +282,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 	else:
 		query = {'complete': True}
 
-	id, ext = create_blob(f'ARCHIVE-{uuid.uuid4()}.zip', [])
+	id, ext = create_blob(f'ARCHIVE-{uuid.uuid4()}.zip', [], ephemeral = True)
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	file_names = {}
