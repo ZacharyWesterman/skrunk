@@ -1,53 +1,68 @@
-<h2>{{?it.list.length}}{{= it.bug_type }} Bugs{{??}}No {{= it.bug_type }} Bugs{{?}}</h2>
 
-{{~it.list: bug}}
-<div class="card">
-	<div class="card-inner">
-		{{? (bug.creator === api.username || has_perm('admin')) && !it.locked }}<button class="icon right" *click="confirm_resolve_bug('{{=bug.id}}')"><i class="fa-solid fa-check fa-lg"></i></button>{{?}}
-		{{? bug.creator === api.username || has_perm('admin') }}<button class="icon right" *click="confirm_delete_bug('{{=bug.id}}', '{{=safe_html(bug.title)}}')"><i class="fa-solid fa-trash fa-lg disabled"></i></button>{{?}}
-		<div class="disabled">
-			{{= bug.creator }} @ {{= date.short(bug.created) }}
-		</div>
+<h2 {{? it.list.length }}class="clickable" onclick="$.toggle_expand('buglist-{{= it.bug_type }}')"{{?}}>
+{{?it.list.length}}
+	{{= it.list.length }} {{= it.bug_type }} Bug{{? it.list.length !== 1 }}s{{?}}
+	&nbsp;<i class="fa-solid fa-angles-down"></i>
+{{??}}
+	No {{= it.bug_type }} Bugs
+{{?}}
+</h2>
 
-		<div>{{= image_restrict(bug.body_html) }}</div>
+{{? it.list.length }}
+<div class="expand-container {{? it.expanded }}expanded{{?}}" id="buglist-{{= it.bug_type }}">
+	<div>
+		{{~it.list: bug}}
+		<div class="card">
+			<div class="card-inner">
+				{{? (bug.creator === api.username || has_perm('admin')) && !it.locked }}<button class="icon right" *click="confirm_resolve_bug('{{=bug.id}}')"><i class="fa-solid fa-check fa-lg"></i></button>{{?}}
+				{{? bug.creator === api.username || has_perm('admin') }}<button class="icon right" *click="confirm_delete_bug('{{=bug.id}}', '{{=safe_html(bug.title)}}')"><i class="fa-solid fa-trash fa-lg disabled"></i></button>{{?}}
+				<div class="disabled">
+					{{= bug.creator }} @ {{= date.short(bug.created) }}
+				</div>
 
-		{{? bug.convo.length }}
-			<hr>
-			<h3 class="clickable" onclick="$.toggle_expand('comments-{{=bug.id}}')">
-				{{= bug.convo.length }} comment{{? bug.convo.length !== 1}}s{{?}}
-				<i class="right fa-solid fa-angles-down"></i>
-			</h3>
+				<div>{{= image_restrict(bug.body_html) }}</div>
 
-			<div class="expand-container" id="comments-{{=bug.id}}">
-				<div id="comments-inner-{{=bug.id}}">
+				{{? bug.convo.length }}
 					<hr>
-					{{~ bug.convo : comment }}
-					<blockquote>
-						<div class="disabled">
-							{{= comment.creator }} @ {{= date.short(comment.created) }}
-						</div>
-						{{= image_restrict(comment.body_html) }}
-					</blockquote>
-					{{~}}
-				</div>
-			</div>
+					<h3 class="clickable" onclick="$.toggle_expand('comments-{{=bug.id}}')">
+						{{= bug.convo.length }} comment{{? bug.convo.length !== 1}}s{{?}}
+						<i class="right fa-solid fa-angles-down"></i>
+					</h3>
 
-		{{?}}
-		{{? (bug.creator === api.username || has_perm('admin')) && !it.locked }}
-			<hr>
-			<h4 class="clickable" onclick="$.toggle_expand('newcomment-{{=bug.id}}')">
-				Add a comment
-				<i class="right fa-solid fa-angles-down fa-lg"></i>
-			</h4>
-			<div class="expand-container" id="newcomment-{{=bug.id}}">
-				<div>
-					<button *click="open_editor_comment('{{= bug.id }}')">Open Advanced Editor</button><br>
-					<textarea id="text-{{=bug.id}}" placeholder="Comments are parsed as Markdown. Use the advanced editor to see how this works." style="width: 90%; height: 5rem;"></textarea>
-					<br>
-					<button *click="comment_on_bug_report('{{= bug.id }}')">Submit Comment</button>
-				</div>
+					<div class="expand-container" id="comments-{{=bug.id}}">
+						<div id="comments-inner-{{=bug.id}}">
+							<hr>
+							{{~ bug.convo : comment }}
+							<blockquote>
+								<div class="disabled">
+									{{= comment.creator }} @ {{= date.short(comment.created) }}
+								</div>
+								{{= image_restrict(comment.body_html) }}
+							</blockquote>
+							{{~}}
+						</div>
+					</div>
+
+				{{?}}
+				{{? (bug.creator === api.username || has_perm('admin')) && !it.locked }}
+					<hr>
+					<h4 class="clickable" onclick="$.toggle_expand('newcomment-{{=bug.id}}')">
+						Add a comment
+						<i class="right fa-solid fa-angles-down fa-lg"></i>
+					</h4>
+					<div class="expand-container" id="newcomment-{{=bug.id}}">
+						<div>
+							<button *click="open_editor_comment('{{= bug.id }}')">Open Advanced Editor</button><br>
+							<textarea id="text-{{=bug.id}}" placeholder="Comments are parsed as Markdown. Use the advanced editor to see how this works." style="width: 90%; height: 5rem;"></textarea>
+							<br>
+							<button *click="comment_on_bug_report('{{= bug.id }}')">Submit Comment</button>
+						</div>
+					</div>
+				{{?}}
 			</div>
-		{{?}}
+		</div>
+		{{~}}
+
 	</div>
 </div>
-{{~}}
+{{?}}
