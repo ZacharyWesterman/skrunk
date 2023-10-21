@@ -49,7 +49,7 @@
 				{{?}}
 			</tr>
 		</table>
-		<div class="expand-container clickable" id="card-{{=book.id}}" *toggles="card-{{=book.id}}">
+		<div class="expand-container clickable" id="card-{{=book.id}}" *toggles="card-{{=book.id}}" *expand_invert="btn-{{= book.id }}">
 			<div>
 				{{? book.categories.length > 10 }}
 					<blockquote style="valign: top;">
@@ -73,7 +73,7 @@
 		<div class="disabled">
 			Owned by {{= book.owner.display_name }}{{? (book.owner.display_name.toLowerCase() !== book.owner.username.toLowerCase()) }} ({{= book.owner.username }}){{?}}
 			{{?book.description}}<div class="actions right">
-				<button class="icon clickable tooltip" *toggles="card-{{=book.id}}">
+				<button class="icon clickable tooltip" *toggles="card-{{=book.id}}" id="btn-{{= book.id }}">
 					<i class="fa-solid fa-angles-down fa-lg"></i>
 					<span class="tooltiptext t-left">Show/hide description</span>
 				</button>

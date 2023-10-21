@@ -182,7 +182,7 @@ window.set_field_logic = async function(DOM, url, module)
 	try
 	{
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
-		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles']
+		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles', 'expand']
 		for (const attr of attrs)
 		{
 			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
@@ -206,6 +206,8 @@ window.set_field_logic = async function(DOM, url, module)
 					$.sync_invert_to_expand(field, key)
 					return
 				}
+
+				if (attr === 'expand_invert') return
 
 				const split_point = key.indexOf('(')
 				if (split_point > -1)

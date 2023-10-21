@@ -39,7 +39,17 @@ $.set = (id, value) => {
 	$(id).value = value
 	$(id).prevValue = value
 }
-$.toggle_expand = (id, expand) => $(id).classList.toggle('expanded', expand)
+$.toggle_expand = (id, expand) =>
+{
+	const field = $(id)
+	field.classList.toggle('expanded', expand)
+	const attr = field.getAttribute('*expand_invert')
+	if (attr)
+	{
+		$.sync_invert_to_expand(attr, field)
+	}
+}
+
 $.sync_invert_to_expand = (field1, field2) =>
 {
 	for (const i of $(field1).getElementsByClassName('fa-angles-down'))
