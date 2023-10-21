@@ -40,6 +40,13 @@ $.set = (id, value) => {
 	$(id).prevValue = value
 }
 $.toggle_expand = (id, expand) => $(id).classList.toggle('expanded', expand)
+$.sync_invert_to_expand = (field1, field2) =>
+{
+	for (const i of $(field1).getElementsByClassName('fa-angles-down'))
+	{
+		i.classList.toggle('inverted', $(field2).classList.contains('expanded'))
+	}
+}
 
 $.show = (id, fade = true) => {
 	let field = $(id)

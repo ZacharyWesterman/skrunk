@@ -199,17 +199,11 @@ window.set_field_logic = async function(DOM, url, module)
 					field.addEventListener('click', () => {
 						$.toggle_expand(key)
 						//Automatically flip any "expand" arrows to reflect whether content is expanded
-						for (const i of field.getElementsByClassName('fa-angles-down'))
-						{
-							i.classList.toggle('inverted', $(key).classList.contains('expanded'))
-						}
+						$.sync_invert_to_expand(field, key)
 					})
 
 					//Automatically flip any "expand" arrows to reflect whether content is expanded
-					for (const i of field.getElementsByClassName('fa-angles-down'))
-					{
-						i.classList.toggle('inverted', $(key).classList.contains('expanded'))
-					}
+					$.sync_invert_to_expand(field, key)
 					return
 				}
 
