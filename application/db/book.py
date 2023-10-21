@@ -25,9 +25,17 @@ def init() -> None:
 		password = get_config('subsonic:password')
 		SUBSONIC = subsonic.Session(url, username, password)
 		try:
-			SUBSONIC.all_albums('Audiobooks') #Get albums on startup so it's cached for later use.
+			print('Caching Subsonic data on startup...', flush=True)
+			#Get albums on startup so it's cached for later use.
+			SUBSONIC.all_albums('Audiobooks')
+
+			#Cache as many album IDs as possible
+			for book_data in db.find({}).limit(subsonic.SUBSONIC_ALBUMID_CACHESZ):
+				SUBSONIC.get_album_id(book_data['title'], 'Audiobooks')
+
+			print('Finished caching Subsonic data.', flush=True)
 		except subsonic.SessionError:
-			pass
+			print('Unable to connect to Subsonic server!', flush=True)
 
 
 def process_share_hist(share_history: list) -> list:

@@ -18,6 +18,8 @@ class SessionError(Exception):
 
 _P = re.compile('[\[\(][^\)]*[\[\)\]]')
 
+SUBSONIC_ALBUMID_CACHESZ = 8196
+
 class Session:
 	def __init__(self, host: str, username: str, password: str, *, client: str = 'serverclient', version: str = '1.15.0'):
 		salt = ('%32x' % random.randrange(16**32)).strip() #random 32 digit hex string
@@ -157,7 +159,7 @@ class Session:
 
 		return False
 
-	@functools.cache
+	@functools.lru_cache(maxsize = SUBSONIC_ALBUMID_CACHESZ)
 	def get_album_id(self, album: str, folder: str) -> str:
 		global _P
 
