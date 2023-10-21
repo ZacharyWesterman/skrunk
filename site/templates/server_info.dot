@@ -1,5 +1,5 @@
 {{~ it.storage : disk }}
-	<b><u>{{= disk.name }} Disk Usage</u></b>
+	<b><u>{{= disk.name }}</u></b>
 	<blockquote>
 		<table style="text-align:right; font-family: monospace;">
 			<tr>
