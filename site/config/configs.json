@@ -12,6 +12,7 @@
 	{
 		"id": "subsonic:password",
 		"name": "Password for Subsonic Server",
-		"module": "subsonic"
+		"module": "subsonic",
+		"type": "password"
 	}
 ]
