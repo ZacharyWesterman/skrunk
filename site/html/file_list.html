@@ -16,14 +16,14 @@
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
-					<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$.wipe('blob-filter-title'); reload_blobs()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+					<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable" *click="$.wipe('blob-filter-title'); reset_and_search()"><i class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
 
 					<!-- Search Filters -->
 					Uploaded by
 					<div name="user_dropdown"></div>
 					Uploaded within the date range:<br>
-					<input id="blob-filter-from" type="date" *change="reload_blobs"><br>
-					<input id="blob-filter-to" type="date" *change="reload_blobs">
+					<input id="blob-filter-from" type="date" *change="reset_and_search"><br>
+					<input id="blob-filter-to" type="date" *change="reset_and_search">
 				</div>
 			</div>
 
@@ -39,7 +39,7 @@
 
 			<div style="padding-top: .5rem;">
 				Sort by
-				<select id="sort-by" *bind="reload_blobs">
+				<select id="sort-by" *bind="reset_and_search">
 					<option value="created">Upload Date</option>
 					<option value="ext">File Type</option>
 					<option value="name">Name</option>

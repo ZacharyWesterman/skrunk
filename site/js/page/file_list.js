@@ -18,7 +18,7 @@ export async function init()
 		id: 'blob-filter-creator',
 		users: query.users.list(),
 	})
-	$('blob-filter-creator').onchange = reload_blobs;
+	$('blob-filter-creator').onchange = reset_and_search;
 
 	Editor = new Yace("#tag-query", {
 		value: "",
@@ -29,10 +29,10 @@ export async function init()
 
 	$.bind(Editor.textarea, () => {
 		BlobStart = 0
-		reload_blobs()
+		reset_and_search()
 	}, 500, true)
 
-	$.bind('blob-filter-title', reload_blobs)
+	$.bind('blob-filter-title', reset_and_search)
 
 	const old_modal_retn = _.modal.upload.return
 	_.modal.upload.return = () => {
@@ -122,6 +122,12 @@ async function reload_page_list()
 		total: count,
 		no_results_msg: 'No files found matching the search criteria.',
 	}, true)
+}
+
+export async function reset_and_search()
+{
+	BlobStart = 0
+	await reload_blobs()
 }
 
 export async function reload_blobs()

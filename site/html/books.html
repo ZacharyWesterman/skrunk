@@ -12,22 +12,22 @@
 					<i class="right fa-solid fa-angles-down"></i>
 				</h3>
 			</div>
-			Owned by <div class="inline" name="owner" template="user_dropdown" *change="search_books"></div> Borrowed
-			<input type="checkbox" id="shared" *click="three_state_checkbox(); search_books()"/><br>
+			Owned by <div class="inline" name="owner" template="user_dropdown" *change="reset_and_search"></div> Borrowed
+			<input type="checkbox" id="shared" *click="three_state_checkbox(); reset_and_search()"/><br>
 
-			<input id="title" placeholder="Keywords/ISBN" *bind="search_books"><button class="reset clickable" *click="$.wipe('title'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
+			<input id="title" placeholder="Keywords/ISBN" *bind="reset_and_search"><button class="reset clickable" *click="$.wipe('title'); reset_and_search()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
 
 			<span name="qrcode-search"></span>
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
-					<input id="author" placeholder="Author (strict)" *bind="search_books"><button class="reset clickable" *click="$.wipe('author'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button><br>
-					<input id="genre" placeholder="Category" *bind="search_books"><button class="reset clickable" *click="$.wipe('genre'); search_books()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
+					<input id="author" placeholder="Author (strict)" *bind="reset_and_search"><button class="reset clickable" *click="$.wipe('author'); reset_and_search()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button><br>
+					<input id="genre" placeholder="Category" *bind="reset_and_search"><button class="reset clickable" *click="$.wipe('genre'); reset_and_search()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
 				</div>
 			</div>
 
 			Sort by
-			<select id="sort-by" *bind="search_books">
+			<select id="sort-by" *bind="reset_and_search">
 				<option value="title">Title</option>
 				<option value="authors">Author</option>
 				<option value="description">Description</option>

@@ -291,6 +291,12 @@ function valid_fields()
 	return true
 }
 
+export async function reset_and_search()
+{
+	BookStart = 0
+	await search_books()
+}
+
 export async function search_books()
 {
 	$.show('book-header')
@@ -298,9 +304,7 @@ export async function search_books()
 
 	if (!valid_fields()) return
 
-	const p = reload_book_count()
-	if (!InitialLoad) await p
-	InitialLoad = false
+	reload_book_count()
 
 	const owner = $.val('owner') || null
 	const title = $.val('title') || null
