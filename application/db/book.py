@@ -485,7 +485,7 @@ def append_ebook(book_id: str, ebook_url: str) -> dict:
 	book_data = get_book(book_id)
 
 	pos = ebook_url.rfind('.')
-	ext = ebook_url[pos::] if pos > -1 else 'unk'
+	ext = ebook_url[pos+1::] if pos > -1 else 'unk'
 
 	book_data['ebooks'] += [{
 		'url': ebook_url,
