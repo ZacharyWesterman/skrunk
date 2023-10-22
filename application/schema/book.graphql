@@ -135,4 +135,6 @@ extend type Mutation {
 	setBookOwner(id: String!, username: String!): BookEditResponse!
 	editBook(id: String!, changes: BookEditData!): BookEditResponse!
 	createBook(data: BookCreateData!): BookTagCreateResponse!
+
+	appendEBook(id: String!, url: String!): BookEditResponse!
 }

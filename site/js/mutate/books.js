@@ -124,4 +124,19 @@ export default {
 			data: book_data,
 		})
 	},
+
+	append_ebook: async (id, ebook_url) =>
+	{
+		return await api(`mutation ($id: String!, $url: String!) {
+			appendEBook(id: $id, url: $url) {
+				__typename
+				...on BookTagDoesNotExistError { message }
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			id: id,
+			url: ebook_url,
+		})
+	},
 }

@@ -129,6 +129,43 @@ async function confirm_unlink_book(title, rfid)
 	return true
 }
 
+async function confirm_edit_ebooks(book_data)
+{
+	let ebook_link
+
+	const modal = await _.modal({
+		icon: 'file-pdf',
+		title: 'Add an E-Book',
+		text: `Input a URL to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>'+book_data.subtitle+'</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" placeholder="E-Book URL" style="width:90%;">`,
+		buttons: ['Submit', 'Cancel'],
+	}, () => {}, choice => { //on validate
+		if (choice === 'submit')
+		{
+			if (!$.val('ebook-input'))
+			{
+				$.flash('ebook-input')
+				return false
+			}
+
+			ebook_link = $.val('ebook-input')
+		}
+
+		return true
+	}).catch(() => 'cancel')
+
+	if (modal !== 'submit') return
+
+	const res = await mutate.books.append_ebook(book_data.id, ebook_link)
+	if (res.__typename !== 'Book')
+	{
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	search_books()
+}
+
 export async function edit_book(rfid)
 {
 	let promise_data = query.books.by_rfid(rfid)
@@ -139,7 +176,7 @@ export async function edit_book(rfid)
 
 	const choice = await _.modal({
 		icon: 'pen-to-square',
-		title: await api.snippit('delete_button') + 'Edit Book Info',
+		title: await api.snippit('delete_button') + (has_perm('admin') ? await api.snippit('ebook_button') : '') + 'Edit Book Info',
 		text: '<div name="edit_book">Loading...</div>',
 		buttons: ['Update', 'Cancel']
 	}, async () => {
@@ -156,6 +193,10 @@ export async function edit_book(rfid)
 
 		$('delete').onclick = () => {
 			_.modal.return('delete')
+		}
+
+		$('ebook').onclick = () => {
+			_.modal.return('ebook')
 		}
 	}, async choice => {
 		//validate input
@@ -188,6 +229,12 @@ export async function edit_book(rfid)
 		if ( !(await confirm_unlink_book(book_data.title, book_data.rfid)) ) edit_book(rfid)
 		return
 	}
+	if (choice === 'ebook')
+	{
+		await confirm_edit_ebooks(book_data)
+		return
+	}
+
 	if (choice !== 'update') return
 
 	//Check if book data has changed
@@ -559,7 +606,7 @@ export async function prompt_ebooks(book_rfid)
 
 	//Download the selected e-book
 	let link = document.createElement('a')
-	link.download = btn_map[res]
+	link.download = book_data.title + '.' + res
 	link.href = btn_map[res]
 	link.target = '_blank'
 	link.click()

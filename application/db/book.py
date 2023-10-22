@@ -480,3 +480,17 @@ def count_all_user_books(filter_users: list|None = None) -> list:
 			pass
 
 	return result
+
+def append_ebook(book_id: str, ebook_url: str) -> dict:
+	book_data = get_book(book_id)
+
+	pos = ebook_url.rfind('.')
+	ext = ebook_url[pos::] if pos > -1 else 'unk'
+
+	book_data['ebooks'] += [{
+		'url': ebook_url,
+		'fileType': ext.lower(),
+	}]
+
+	db.update_one({'_id': ObjectId(book_id)}, {'$set': {'ebooks': book_data['ebooks']}})
+	return book_data

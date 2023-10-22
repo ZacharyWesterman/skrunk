@@ -1,6 +1,5 @@
 from application.db.book import *
 import application.exceptions as exceptions
-from ariadne import convert_kwargs_to_snake_case
 import application.db.perms as perms
 from application.integrations.exceptions import ApiFailedError
 
@@ -71,5 +70,12 @@ def resolve_edit_book(_, info, id: str, changes: dict) -> dict:
 def resolve_create_book(_, info, data: dict) -> dict:
 	try:
 		return { '__typename': 'BookTag', **create_book(data) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['admin'])
+def resolve_append_ebook(_, info, id: str, url: str) -> dict:
+	try:
+		return { '__typename': 'Book', **append_ebook(id, url) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }

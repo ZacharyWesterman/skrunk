@@ -45,6 +45,7 @@ mutation.set_field('returnBook', resolve_return_book)
 mutation.set_field('setBookOwner', resolve_change_book_owner)
 mutation.set_field('editBook', resolve_edit_book)
 mutation.set_field('createBook', resolve_create_book)
+mutation.set_field('appendEBook', resolve_append_ebook)
 
 mutation.set_field('setModuleEnabled', resolve_set_module_enabled)
 mutation.set_field('setConfig', resolve_set_config_value)

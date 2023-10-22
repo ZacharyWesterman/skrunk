@@ -25,7 +25,7 @@ def get(path: str) -> Response:
 		with open(f'site/{path}') as fp:
 			return Response(fp.read().replace('Authentication Required', '<b class="error">This server has not been set up.<br><br>Login as user "admin" (any password) and create at least one user.<br><br>Then restart the server, and (optionally) delete the admin user.</b>'), 200)
 
-	i = path.rindex('.')
+	i = path.rfind('.')
 	if i > -1:
 		ext = path[i+1::]
 	else:
