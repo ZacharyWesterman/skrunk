@@ -141,6 +141,8 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 		mime = 'binary/database'
 	elif mime == 'octet-stream':
 		mime = 'binary/unknown'
+	elif mime == 'application/epub+zip':
+		mime = 'ebook/epub'
 
 	return mime
 
