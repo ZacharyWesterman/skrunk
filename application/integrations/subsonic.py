@@ -75,7 +75,6 @@ class Session:
 	def cover_art_url(self, album_id: str) -> str:
 		return f'{self.connection_uri}/coverArt.view?size=160&id={album_id}&{self.rest_params}'
 
-	@functools.cache
 	async def cover_art(self, album_id: str) -> str:
 		url = f'{self.connection_uri}/rest/getCoverArt.view?{self.rest_params}&id={album_id}&size=160'
 
@@ -84,15 +83,35 @@ class Session:
 
 			return album_id, base64.b64encode(res).decode()
 
+	async def album_info(self, album_id: str) -> dict:
+		url = f'{self.connection_uri}/rest/getMusicDirectory.view?{self.rest_params}&id={album_id}'
+
+		async with ClientSession() as session, session.get(url) as result:
+			res = await result.read()
+			return album_id, json.loads(res)['subsonic-response'].get('directory', {}).get('child', [])
+
 	def get_all_cover_art(self, album_ids: list) -> list:
 
 		#Async helper func to get all album covers for the given id list
-		async def multi_albums(self, album_ids: list) -> list:
+		async def multi_albums(album_ids: list) -> list:
 			tasks = [self.cover_art(i) for i in album_ids]
 			result = await asyncio.gather(*tasks)
 			return {id: data for id, data in result}
 
-		return asyncio.run(multi_albums(self, album_ids))
+		async def multi_infos(album_ids: list) -> list:
+			tasks = [self.album_info(i) for i in album_ids]
+			result = await asyncio.gather(*tasks)
+			return {id: data for id, data in result}
+
+		async def m2(album_ids: list) -> list:
+			t1 = multi_albums(album_ids)
+			t2 = multi_infos(album_ids)
+
+			r1 = await t1
+			r2 = await t2
+			return r1, r2
+
+		return asyncio.run(m2(album_ids))
 
 
 	@functools.cached_property

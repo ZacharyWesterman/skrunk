@@ -35,6 +35,11 @@ export async function subsonic_search()
 					album
 					artist
 					coverArt
+					tracks {
+						id
+						title
+						duration
+					}
 				}
 			}
 			...on SubsonicError {

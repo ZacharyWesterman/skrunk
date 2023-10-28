@@ -2,23 +2,33 @@ from application.integrations import subsonic, system
 from application.db.settings import get_config
 from application.db import perms
 
+SUBSONIC = None
+
 def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list:
+	global SUBSONIC
+
 	url = get_config('subsonic:url')
 	username = get_config('subsonic:username')
 	password = get_config('subsonic:password')
 
-	session = subsonic.Session(url, username, password)
+	if SUBSONIC is None:
+		SUBSONIC = subsonic.Session(url, username, password)
 
 	try:
-		res = session.search(query)
+		res = SUBSONIC.search(query)
 		if 'album' in res:
-			album_ids = [i['coverArt'] for i in res['album'] if 'coverArt' in i]
-			covers = session.get_all_cover_art(album_ids)
+			album_ids = [i['id'] for i in res['album']]
+			covers, tracks = SUBSONIC.get_all_cover_art(album_ids)
 
 			for i in res['album']:
 				if 'coverArt' in i:
-					i['coverArt'] = covers[i['coverArt']]
+					i['coverArt'] = covers[i['id']]
 
+				i['tracks'] = [{
+					'id': a['id'],
+					'title': a['title'],
+					'duration': a['duration'],
+				} for a in tracks[i['id']]]
 
 		return {
 			'__typename': 'SubsonicSearch',
