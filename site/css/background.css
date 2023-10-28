@@ -13,7 +13,7 @@ body {
 }
 
 .bg {
-	animation:slide 6s ease-in-out infinite alternate;
+	animation:slide calc(3s / var(--bg-animation-speed)) ease-in-out infinite alternate;
 	background-image: linear-gradient(-60deg, var(--primary) 50%, var(--primary-alt) 50%);
 	bottom:0;
 	left:-50%;
@@ -27,11 +27,11 @@ body {
 .bg2 {
 	transition: color 0.5s ease-in-out;
 	animation-direction:alternate-reverse;
-	animation-duration:8s;
+	animation-duration: calc(4s / var(--bg-animation-speed));
 }
 
 .bg3 {
-	animation-duration:10s;
+	animation-duration: calc(5s / var(--bg-animation-speed));
 }
 
 @keyframes slide {

@@ -82,6 +82,18 @@
 		}
 	}
 
-	auto_favicon()
 	setInterval(auto_favicon, 1000)
+
+	//Automatically adjust background animation speed.
+	let orig_rate
+	let adjust_anim = () => {
+		if (orig_rate === undefined)
+		{
+			orig_rate = parseFloat(_.css.get_var('--bg-animation-speed'))
+		}
+
+		_.css.set_var('--bg-animation-speed', String(1 / (orig_rate * window.innerWidth / 50)))
+	}
+	addEventListener('resize', adjust_anim)
+	setTimeout(adjust_anim, 100)
 </script>
