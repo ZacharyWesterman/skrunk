@@ -7,6 +7,11 @@ function inotif()
 		[ "$(<<<"$dir" grep git)" != "" ] && continue
 		path="$dir$file"
 		scp "$path" tester:/home/tester/server/"$path"
+
+		if [ "${file##*.}" == 'graphql' ]
+		then
+			ssh -t tester "sudo systemctl restart server"
+		fi
 	done
 }
 
