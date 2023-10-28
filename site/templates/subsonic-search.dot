@@ -8,7 +8,7 @@
 			<img src="data:image/png;base64,{{= album.coverArt }}" alt="{{? !album.coverArt }}<no cover art>{{??}}FAILED TO LOAD COVER ART{{?}}">
 
 			<div>
-				{{= album.tracks.length }} tracks
+				{{= album.tracks.length }} track{{? album.tracks.length !== 1 }}s{{?}}
 				<i class="right fa-solid fa-angles-down"></i>
 			</div>
 		</div>
