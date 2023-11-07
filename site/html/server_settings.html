@@ -6,17 +6,27 @@
 
 	<div class="card">
 		<div class="card-inner">
-			<h2 style="text-align: center;">Modules</h2>
+			<h2 style="text-align: center;" class="clickable" *toggles="server-modules">
+				Modules
+				<i class="right fa-solid fa-angles-down"></i>
+			</h2>
 			<hr>
-			<div id="server_modules"></div>
+			<div id="server-modules" class="expand-container">
+				<div id="server_modules"></div>
+			</div>
 		</div>
 	</div>
 
 	<div class="card">
 		<div class="card-inner">
-			<h2 style="text-align: center;">Configuration</h2>
+			<h2 style="text-align: center;" class="clickable" *toggles="server-configs">
+				Configuration
+				<i class="right fa-solid fa-angles-down"></i>
+			</h2>
 			<hr>
-			<div id="server_configs"></div>
+			<div id="server-configs" class="expand-container">
+				<div id="server_configs"></div>
+			</div>
 		</div>
 	</div>
 
