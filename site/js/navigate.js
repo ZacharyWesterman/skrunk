@@ -1,6 +1,7 @@
-/*
-* Simple helper function for site navigation.
-*/
+/**
+ * A simple helper function for site navigation.
+ * @param {string} url The url to fetch and insert into the document.
+ */
 window.navigate = async function(url)
 {
 	clear_error_message()
