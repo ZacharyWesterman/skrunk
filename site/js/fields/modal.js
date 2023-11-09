@@ -1,3 +1,23 @@
+/**
+ * Open a dialog box to show information or prompt the user for a choice.
+ *
+ * Config is an object of the form:
+ * {
+ * 	type: "info", "error", or "question",
+ * 	icon: any string (refer to font-awesome icons),
+ * 	title: the title of the modal (large text),
+ * 	text: the body text, can be arbitrary HTML,
+ * 	buttons: ['Yes', 'No', 'Cancel', 'OK', etc],
+ * 	no_cancel: if true, remove the "X" button in the top right of the modal.
+ * }
+ * Note that all fields in the above object are optional.
+ *
+ * @param {object} config The modal configuration.
+ * @param {function() => void} onload Run this function when the modal opens.
+ * @param {function(string) => boolean} validate Run this function when the user clicks any button (except the X button). Only closes the modal if this returns true.
+ * @param {function(string) => string} transform Change the output text when the modal returns.
+ * @returns A promise that will resolve when a selection is made, or will throw if the X button is pressed.
+ */
 window.modal = async function(config, onload = () => {}, validate = choice => true, transform = choice => choice)
 {
 	await _('modal', config)
@@ -18,8 +38,12 @@ window.modal = async function(config, onload = () => {}, validate = choice => tr
 	})
 }
 
+///No modals are open when this src loads.
 modal.is_open = false
 
+/**
+ * Close the currently open modal. This is identical to the user clicking the X button.
+ */
 modal.cancel = () =>
 {
 	$('modal-window-expand').classList.remove('expanded')
@@ -28,6 +52,12 @@ modal.cancel = () =>
 	modal.is_open = false
 }
 
+/**
+ * Close the modal and return a value back to the waiting process.
+ * This will behave as if the user clicked a button containing the given value.
+ *
+ * @param {any} value The value to return from the modal.
+ */
 modal.return = value =>
 {
 	if (typeof value === 'string') value = value.toLowerCase()
@@ -54,6 +84,10 @@ modal.return = value =>
 	}
 }
 
+/**
+ * Open a dialog box that allows users to select and upload files.
+ * @returns A promise that will resolve to a list of uploaded files.
+ */
 modal.upload = async function()
 {
 	await _('upload_modal', {})
@@ -115,6 +149,9 @@ modal.upload = async function()
 	})
 }
 
+/**
+ * Close the currently open upload modal. This is identical to the user cancelling the upload(s).
+ */
 modal.upload.return = () =>
 {
 	$('modal-upload-expand').classList.remove('expanded')
@@ -138,6 +175,10 @@ modal.upload.return = () =>
 	return modal.upload.blobs
 }
 
+/**
+ * Start uploading the files selected in the upload modal.
+ * @returns {void}
+ */
 modal.upload.start = async function()
 {
 	const auto_unzip = $('modal-unpack-check').checked
@@ -242,6 +283,9 @@ modal.upload.start = async function()
 	modal.upload.return()
 }
 
+/**
+ * Show some options if they're applicable to the file(s) being uploaded.
+ */
 modal.upload.activate = () =>
 {
 	$('modal-button').disabled = false
@@ -258,6 +302,10 @@ modal.upload.activate = () =>
 	$.show('modal-hide-file')
 }
 
+/**
+ * Briefly show a checkmark animation on screen.
+ * This can be used to indicate to the user that an action was successful.
+ */
 modal.checkmark = () =>
 {
 	setTimeout(() => {
@@ -266,6 +314,12 @@ modal.checkmark = () =>
 	$('action-checkmark').classList.add('checkmark')
 }
 
+/**
+ * A small helper function for opening a very common type of dialog box, a "something went wrong" message.
+ * @param {string} text The error message.
+ * @param {string} title The title for this error message.
+ * @returns {string} A promise that resolves when the modal is closed.
+ */
 modal.error = async (text, title = 'ERROR') =>
 {
 	return await _.modal({
