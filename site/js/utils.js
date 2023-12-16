@@ -187,7 +187,7 @@ window.chart = {
 	 * @param {string[]} labels The labels for each bar.
 	 * @param {number[]} data The height values of each bar.
 	 */
-	bar: async (field, labels, data) =>
+	bar: async (field, labels, data, horizontal = false) =>
 	{
 		await import('https://cdn.jsdelivr.net/npm/chart.js')
 		Chart.defaults.color = _.css.get_var('--secondary-text')
@@ -203,6 +203,7 @@ window.chart = {
 				}]
 			},
 			options: {
+				indexAxis: horizontal ? 'y' : 'x',
 				plugins: {
 					legend: {
 						display: false
@@ -217,7 +218,15 @@ window.chart = {
 						border: {
 							color: disabled_text,
 						},
+						ticks: {
+							autoSkip: !horizontal,
+						}
 					},
+					x: {
+						ticks: {
+							autoSkip: horizontal,
+						}
+					}
 				}
 			}
 		})

@@ -4,24 +4,14 @@
 		Home
 	</h1>
 
-	<div class="card alt">
-		<div class="card-inner">
-			This area is still under construction; I'm not really sure what to put here honestly!<br>
-			If you have any ideas, make a bug report or tell me directly, I'd love to hear them!
-			<br><br>
-			For now, here's a chart of how many books each user has tagged.<br>
-			Click the dice button to replace the chart with a random xkcd comic.
-		</div>
-	</div>
-
-	<div class="card">
-		<div class="card-inner">
-			<div class="right">
-				<button class="icon clickable" onclick="new_xkcd()">
-					<i class="fa-solid fa-dice fa-lg"></i>
-				</button>
+	<div class="widget-container">
+		<div class="widget">
+			<div>
+				<h3 style="text-align:center;">
+					Number of Tagged Books
+				</h3>
+				<canvas id="user-book-chart"></canvas>
 			</div>
-			<div id="xkcd"></div>
 		</div>
 	</div>
 </div>

@@ -76,3 +76,36 @@ div .page {
 		top: 0%;
 	}
 }
+
+.widget {
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3;
+	border-radius: var(--border-radius);
+	margin: 10px 0;
+	width: 100%;
+	color: var(--secondary-text);
+	background-color: var(--secondary);
+	transition: background 0.5s ease-in-out;
+}
+
+.widget > div {
+	padding: 2px 16px 16px 16px;
+}
+
+@media (pointer: fine) {
+	.widget-container {
+		display: flex;
+		width: 20vw;
+		align-items: stretch;
+	}
+
+	.widget {
+		flex: 1 1 auto;
+	}
+}
+
+@media (pointer: coarse) {
+	.widget {
+		width: 80vw;
+	}
+}
