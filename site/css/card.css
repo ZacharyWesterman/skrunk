@@ -49,6 +49,10 @@ div .page {
 	max-width: 900px;
 }
 
+div .page > h1 {
+	text-align: center;
+}
+
 .book-icon {
 	position: relative;
 }
@@ -81,7 +85,7 @@ div .page {
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	transition: 0.3;
 	border-radius: var(--border-radius);
-	margin: 10px 0;
+	margin: 10px;
 	width: 100%;
 	color: var(--secondary-text);
 	background-color: var(--secondary);
@@ -92,14 +96,23 @@ div .page {
 	padding: 2px 16px 16px 16px;
 }
 
+.widget > div > h3 {
+	text-align: center;
+}
+
 @media (pointer: fine) {
-	.widget-container {
+	.widget-container{
+		position: absolute;
+		left: 3rem;
+		right: 0;
+		margin: auto;
 		display: flex;
-		width: 20vw;
 		align-items: stretch;
+		justify-content: center;
 	}
 
 	.widget {
+		max-width: 30rem;
 		flex: 1 1 auto;
 	}
 }
