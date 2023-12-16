@@ -28,7 +28,6 @@ export async function init()
 	Editor.textarea.spellcheck = false
 
 	$.bind(Editor.textarea, () => {
-		BlobStart = 0
 		reset_and_search()
 	}, 500, true)
 
@@ -43,6 +42,12 @@ export async function init()
 	window.unload.push(() => {
 		_.modal.upload.return = old_modal_retn
 	})
+}
+
+export function wipe_tag_editor()
+{
+	Editor.update({value : ''})
+	reset_and_search()
 }
 
 async function get_blobs(start, count)

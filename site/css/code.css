@@ -4,6 +4,8 @@
 	border-radius: var(--border-radius);
 	padding: 3px;
 	color: black;
+	display: inline-block;
+	width: calc(100% - 3rem);
 }
 
 .code {
