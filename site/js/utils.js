@@ -193,7 +193,15 @@ window.chart = {
 		Chart.defaults.color = _.css.get_var('--secondary-text')
 		const disabled_text = _.css.get_var('--disabled-text')
 
-		new Chart($(field), {
+		if ($(field).children.length)
+		{
+			$(field).children[0].remove()
+		}
+
+		let canvas = document.createElement('canvas')
+		$(field).appendChild(canvas)
+
+		new Chart(canvas, {
 			type: 'bar',
 			data: {
 				labels: labels,
@@ -230,6 +238,27 @@ window.chart = {
 				}
 			}
 		})
+
+		//Return a helper object that lets you easily update the chart
+		let handle = {
+			labels: labels,
+			data: data,
+			horizontal: horizontal,
+		}
+
+		handle.update = params => {
+			const _labels = params.labels || labels
+			const _data = params.data || data
+			const _horiz = (params.horizontal !== undefined) ? params.horizontal : horizontal
+
+			chart.bar(field, _labels, _data, _horiz)
+
+			handle.labels = _labels
+			handle.data = _data
+			handle.horizontal = _horiz
+		}
+
+		return handle
 	},
 }
 
