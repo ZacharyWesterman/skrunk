@@ -1,4 +1,4 @@
-from . import auth, api, misc, site, blob
+from . import auth, api, misc, site, blob, notifications
 
 def init(application) -> None:
 	auth.application = application
@@ -21,6 +21,9 @@ def init(application) -> None:
 	application.route('/download/<path:path>', methods=['GET'])(blob.download)
 	application.route('/preview/<path:path>', methods=['GET'])(blob.preview)
 	application.route('/upload', methods=['POST'])(blob.upload)
+
+	application.route('/subscription', methods=['GET', 'POST'])(notifications.subscription)
+	application.route('/push', methods=['POST'])(notifications.push)
 
 	@application.after_request
 	def after_request(response):

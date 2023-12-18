@@ -360,3 +360,97 @@ window.qr = {
  * @returns {boolean} True if the logged in user has admin permissions.
  */
 window.has_perm = id => SelfUserData.perms.includes(id)
+
+function urlB64ToUint8Array(base64String) {
+	const padding = '='.repeat((4 - base64String.length % 4) % 4);
+	const base64 = (base64String + padding)
+		.replace(/\-/g, '+')
+		.replace(/_/g, '/');
+
+	const rawData = window.atob(base64);
+	const outputArray = new Uint8Array(rawData.length);
+
+	for (let i = 0; i < rawData.length; ++i) {
+		outputArray[i] = rawData.charCodeAt(i);
+	}
+	return outputArray;
+}
+
+/**
+ * Helper functions for handling push notifications.
+ */
+window.push = {
+	supported: ('serviceWorker' in navigator) && ('PushManager' in window),
+	permission: null,
+	subscribed: false,
+	registration: null,
+	subscription: null,
+
+	enable: async () => {
+		if (!push.supported) return false
+
+		//Request permission to send push notifications.
+		push.permission = await Notification.requestPermission()
+
+		if (push.permission !== 'granted')
+		{
+			console.log('Push notification permission was not granted. Result: ', push.permission)
+			return false
+		}
+
+		return true
+	},
+
+	register: async () => {
+		if (push.permission !== 'granted') return false
+
+		try
+		{
+			push.registration = await navigator.serviceWorker.register('/js/util/service-worker.js')
+		}
+		catch (e)
+		{
+			console.warn('Failed to create service worker:', e)
+			return false
+		}
+
+		console.log('Registration Complete:', push.registration)
+		return true
+	},
+
+	subscribe: async () => {
+		if (!push.registration) return false
+
+		push.unsubscribe()
+
+		const public_key = urlB64ToUint8Array(await api.get('subscription'))
+
+		const config = {
+			userVisibleOnly: true,
+			applicationServerKey: public_key,
+		}
+
+		console.log('Subscribing...')
+
+		push.subscription = await push.registration.pushManager.subscribe(config)
+		const res = await api.post_json('subscription', push.subscription)
+
+		console.log(res)
+		return true
+	},
+
+	unsubscribe: async () => {
+		if (!push.registration) return
+
+		let subscription = await push.registration.pushManager.getSubscription()
+		if (subscription)
+		{
+			subscription.unsubscribe()
+			console.log('Unsubscribed.')
+		}
+	},
+
+	send: async () => {
+		await api.post_json('push')
+	}
+}
