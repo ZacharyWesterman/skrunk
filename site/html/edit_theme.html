@@ -108,6 +108,7 @@
 	{
 		for (const i of _.css.vars())
 		{
+			if (!$(i)) continue
 			const val = _.css.get_var(i)
 			$.set(i, ((['number','range'].includes($(i).type)) ? val.substring(0, val.length - 2) : val).trim())
 		}
@@ -120,6 +121,7 @@
 		let sizes = []
 		for (const i of _.css.vars())
 		{
+			if (!$(i)) continue
 			let out = ($(i).type === 'color') ? colors : sizes
 			out.push({name: i, value: _.css.get_var(i)})
 		}
