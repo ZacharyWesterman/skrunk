@@ -421,15 +421,15 @@ window.push = {
 			return false
 		}
 
-		console.log('Registration Complete:', push.registration)
-
 		if (push.registration)
 		{
+			await push.registration.update()
 			let sub = await push.registration.pushManager.getSubscription()
 			if (sub)
 			{
 				push.subscription = sub
 				push.subscribed = true
+				push.__resolve()
 			}
 		}
 
@@ -448,8 +448,6 @@ window.push = {
 			userVisibleOnly: true,
 			applicationServerKey: public_key,
 		}
-
-		console.log('Subscribing...')
 
 		push.subscription = await push.registration.pushManager.subscribe(config)
 
@@ -475,9 +473,9 @@ window.push = {
 			return false
 		}
 
-		console.log('Subscribed')
-
 		push.subscribed = true
+		push.__resolve()
+
 		return true
 	},
 
@@ -495,11 +493,10 @@ window.push = {
 			})
 			subscription.unsubscribe()
 			push.subscription = null
-			console.log('Unsubscribed.')
 		}
 	},
 
-	send: async () => {
+	send: async (title, message) => {
 
 		if (!push.subscription)
 		{
@@ -507,8 +504,8 @@ window.push = {
 			return
 		}
 
-		const res = await api(`mutation ($username: String!, $message: String!, $category: String) {
-			sendNotification(username: $username, message: $message, category: $category) {
+		const res = await api(`mutation ($username: String!, $title: String!, $body: String!, $category: String) {
+			sendNotification(username: $username, title: $title, body: $body, category: $category) {
 				__typename
 				...on MissingConfig { message }
 				...on UserDoesNotExistError { message }
@@ -518,7 +515,8 @@ window.push = {
 			}
 		}`, {
 			username: api.username,
-			message: 'Yo, this is a test push notification!',
+			title: 'Yo, this is a test push notification!',
+			body: 'This is some body text that is meant to be more descriptive than just the title.',
 			category: null,
 		})
 
@@ -527,5 +525,15 @@ window.push = {
 			_.modal.error(res.message)
 			return
 		}
-	}
+	},
+}
+
+push.ready = new Promise(resolve => {
+	push.__resolve = resolve
+})
+
+//Automatically enable push notifications if the user has already given permission.
+if (push.permission_given)
+{
+	push.enable().then(push.register)
 }

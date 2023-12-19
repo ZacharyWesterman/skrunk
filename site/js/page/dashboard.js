@@ -54,16 +54,12 @@ window.load_dashboard = async () =>
 
 	set_title()
 
-	// let chart_data = await api(`{countAllUserBooks { owner { username display_name } count }}`)
-	// chart_data = chart_data.sort((a,b) => b.count - a.count )
+	let chart_data = await api(`{countAllUserBooks { owner { username display_name } count }}`)
+	chart_data = chart_data.sort((a,b) => b.count - a.count )
 
-	// await chart.bar('user-book-chart', chart_data.map(i => i.owner.display_name), chart_data.map(i => i.count), true)
+	await chart.bar('user-book-chart', chart_data.map(i => i.owner.display_name), chart_data.map(i => i.count), true)
 
-	setTimeout(() => {
-		$.show('content')
-		$('enable-push').checked = push.subscribed
-		if (push.subscribed) $('send-push').disabled = false
-	}, 200)
+	setTimeout(() => $.show('content'), 200)
 }
 
 window.new_xkcd = async () =>
@@ -151,25 +147,3 @@ async function init()
 }
 
 init()
-
-window.enable_push_notifs = async () => {
-	$('enable-push').disabled = true
-	let enabled = $('enable-push').checked
-
-	if (enabled)
-	{
-		enabled = await push.enable().then(push.register).then(push.subscribe)
-	}
-	else
-	{
-		await push.unsubscribe()
-	}
-
-	$('enable-push').disabled = false
-	$('send-push').disabled = !enabled
-}
-
-if (push.permission_given)
-{
-	push.enable().then(push.register)
-}

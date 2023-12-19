@@ -44,10 +44,21 @@
 		</table>
 		{{?}}
 
+		{{? it.user.username === api.username }}
+		<div class="clickable" *click="enable_push_notifs" >
+			<input type="checkbox" id="enable-push" {{? push.subscribed }}checked{{?}} >
+			Enable Notifications?
+			<span class="tooltip" *click="show_notifications_info" >
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-center">What does this mean?</span>
+			</span>
+		</div>
+		{{?}}
+
 		<br>
 		<i class="left">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
-		<button class="right" *click="revoke_sessions('{{=it.user.username}}')">Revoke?</button>
-		<span class="tooltip" *click="show_sessions_info">
+		<button class="right" *click="revoke_sessions('{{=it.user.username}}')" >Revoke?</button>
+		<span class="tooltip" *click="show_sessions_info" >
 			<i class="fa-solid fa-circle-question"></i>
 			<span class="tooltiptext t-center">What does this mean?</span>
 		</span>

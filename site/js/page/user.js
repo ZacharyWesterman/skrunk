@@ -4,6 +4,13 @@ await query.require('users')
 let Perms
 let UserData = {}
 
+export function init()
+{
+	push.ready.then(() => {
+		$('enable-push').checked = push.subscribed
+	})
+}
+
 export async function revoke_sessions(username)
 {
 	const self_msg = 'Are you sure you want to revoke your sessions? This will log you out of all devices, including this one.'
@@ -218,6 +225,32 @@ export async function show_group_tooltip()
 		type: 'info',
 		title: 'What are user groups?',
 		text: await api.snippit('user_groups'),
+		buttons: ['OK'],
+	}).catch(() => {})
+}
+
+export async function enable_push_notifs()
+{
+	$('enable-push').disabled = true
+	if (!push.subscribed)
+	{
+		await push.enable().then(push.register).then(push.subscribe)
+	}
+	else
+	{
+		await push.unsubscribe()
+	}
+
+	$('enable-push').disabled = false
+	$('enable-push').checked = push.subscribed
+}
+
+export async function show_notifications_info()
+{
+	_.modal({
+		type: 'info',
+		title: 'Why enable notifications?',
+		text: await api.snippit('notifications'),
 		buttons: ['OK'],
 	}).catch(() => {})
 }

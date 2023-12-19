@@ -18,15 +18,15 @@ def resolve_delete_subscriptions(_, info, username: str) -> int:
 	return delete_subscriptions(username)
 
 @perms.require(['admin'])
-def resolve_send_notification(_, info, username: str, message: str, category: str) -> dict:
-	if message == '':
-		return { '__typename': 'BadNotification', 'message': 'Notification message cannot be blank'}
+def resolve_send_notification(_, info, username: str, title: str, body: str, category: str) -> dict:
+	if title == '':
+		return { '__typename': 'BadNotification', 'message': 'Notification title cannot be blank'}
 
 	try:
 		if category == '' or category is None:
-			send(message, username)
+			send(title, body, username)
 		else:
-			send(message, username, category = category)
+			send(title, body, username, category = category)
 
 		return { '__typename': 'Notification', 'message': 'Notification sent' }
 	except exceptions.ClientError as e:

@@ -3,6 +3,7 @@ from application import exceptions
 from pywebpush import webpush, WebPushException
 from urllib.parse import urlsplit
 from datetime import datetime
+import json
 
 VAPID_PRIVATE_KEY = open('data/private_key.txt', 'r+').readline().strip('\n')
 VAPID_PUBLIC_KEY = open('data/public_key.txt', 'r+').read().strip('\n')
@@ -50,7 +51,7 @@ def delete_subscription(auth: str) -> int:
 	return db.subscriptions.delete_many({'token.keys.auth': auth}).deleted_count
 
 #May raise exceptions.WebPushException, exceptions.UserDoesNotExistError, or exceptions.MissingConfig
-def send(message: str, username: str, *, category: str = 'general') -> None:
+def send(title: str, body: str, username: str, *, category: str = 'general') -> None:
 	global VAPID_PRIVATE_KEY
 
 	user_data = users.get_user_data(username)
@@ -59,6 +60,8 @@ def send(message: str, username: str, *, category: str = 'general') -> None:
 
 	if admin_email is None or admin_email == '':
 		raise exceptions.MissingConfig('Admin Email')
+
+	message = json.dumps({'title': title, 'body': body})
 
 	sub_tokens = get_subscriptions(username)
 	for subscription_token in sub_tokens:
