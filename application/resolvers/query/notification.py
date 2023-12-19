@@ -12,5 +12,5 @@ def resolve_get_subscriptions(_, info, username: str) -> list:
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-def resolve_get_subscription(_, info, p256dh: str) -> dict|None:
-	return get_subscription(p256dh)
+def resolve_get_subscription(_, info, auth: str) -> dict|None:
+	return get_subscription(auth)

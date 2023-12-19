@@ -380,7 +380,14 @@ function urlB64ToUint8Array(base64String) {
  * Helper functions for handling push notifications.
  */
 window.push = {
-	supported: ('serviceWorker' in navigator) && ('PushManager' in window),
+	get supported()
+	{
+		return ('serviceWorker' in navigator) && ('PushManager' in window)
+	},
+	get permission_given()
+	{
+		return push.supported && (Notification.permission === 'granted')
+	},
 	permission: null,
 	subscribed: false,
 	registration: null,
@@ -415,6 +422,17 @@ window.push = {
 		}
 
 		console.log('Registration Complete:', push.registration)
+
+		if (push.registration)
+		{
+			let sub = await push.registration.pushManager.getSubscription()
+			if (sub)
+			{
+				push.subscription = sub
+				push.subscribed = true
+			}
+		}
+
 		return true
 	},
 
@@ -423,7 +441,8 @@ window.push = {
 
 		push.unsubscribe()
 
-		const public_key = urlB64ToUint8Array(await api.get('subscription'))
+		const VAPID = await api('{ getVAPIDPublicKey }')
+		const public_key = urlB64ToUint8Array(VAPID)
 
 		const config = {
 			userVisibleOnly: true,
@@ -433,9 +452,32 @@ window.push = {
 		console.log('Subscribing...')
 
 		push.subscription = await push.registration.pushManager.subscribe(config)
-		const res = await api.post_json('subscription', push.subscription)
 
-		console.log(res)
+		const res = await api(`mutation ($username: String!, $subscription: SubscriptionToken!) {
+			createSubscription(username: $username, subscription: $subscription) {
+				__typename
+				...on MissingConfig { message }
+				...on UserDoesNotExistError { message }
+				...on WebPushException { message }
+				...on InvalidSubscriptionToken { message }
+				...on BadNotification { message }
+			}
+		}`, {
+			username: api.username,
+			subscription: push.subscription,
+		})
+
+		if (res.__typename !== 'Notification')
+		{
+			_.modal.error(res.message)
+			await push.subscription.unsubscribe()
+			push.subscription = null
+			return false
+		}
+
+		console.log('Subscribed')
+
+		push.subscribed = true
 		return true
 	},
 
@@ -445,12 +487,45 @@ window.push = {
 		let subscription = await push.registration.pushManager.getSubscription()
 		if (subscription)
 		{
+			const auth = JSON.parse(JSON.stringify(subscription)).keys.auth
+			const res = await api(`mutation ($auth: String!) {
+				deleteSubscription(auth: $auth)
+			}`, {
+				auth: auth,
+			})
 			subscription.unsubscribe()
+			push.subscription = null
 			console.log('Unsubscribed.')
 		}
 	},
 
 	send: async () => {
-		await api.post_json('push')
+
+		if (!push.subscription)
+		{
+			_.modal.error('User is not registered to allow notifications!')
+			return
+		}
+
+		const res = await api(`mutation ($username: String!, $message: String!, $category: String) {
+			sendNotification(username: $username, message: $message, category: $category) {
+				__typename
+				...on MissingConfig { message }
+				...on UserDoesNotExistError { message }
+				...on WebPushException { message }
+				...on InvalidSubscriptionToken { message }
+				...on BadNotification { message }
+			}
+		}`, {
+			username: api.username,
+			message: 'Yo, this is a test push notification!',
+			category: null,
+		})
+
+		if (res.__typename !== 'Notification')
+		{
+			_.modal.error(res.message)
+			return
+		}
 	}
 }

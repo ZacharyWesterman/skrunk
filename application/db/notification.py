@@ -17,8 +17,8 @@ def get_subscriptions(username: str) -> list:
 	user_data = users.get_user_data(username)
 	return [i['token'] for i in db.subscriptions.find({'creator': user_data['_id']})]
 
-def get_subscription(p256dh: str) -> dict|None:
-	subscription = db.subscriptions.find_one({'token.keys.p256dh': p256dh})
+def get_subscription(auth: str) -> dict|None:
+	subscription = db.subscriptions.find_one({'token.keys.auth': auth})
 	return subscription['token'] if subscription is not None else None
 
 def create_subscription(username: str, subscription_token: dict) -> None:
@@ -46,8 +46,8 @@ def delete_subscriptions(username: str) -> int:
 	user_data = users.get_user_data(username)
 	return db.subscriptions.delete_many({'creator': user_data['_id']}).deleted_count
 
-def delete_subscription(p256dh: str) -> int:
-	return db.subscriptions.delete_many({'token.keys.p256dh': p256dh}).deleted_count
+def delete_subscription(auth: str) -> int:
+	return db.subscriptions.delete_many({'token.keys.auth': auth}).deleted_count
 
 #May raise exceptions.WebPushException, exceptions.UserDoesNotExistError, or exceptions.MissingConfig
 def send(message: str, username: str, *, category: str = 'general') -> None:

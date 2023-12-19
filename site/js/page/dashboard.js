@@ -59,7 +59,11 @@ window.load_dashboard = async () =>
 
 	// await chart.bar('user-book-chart', chart_data.map(i => i.owner.display_name), chart_data.map(i => i.count), true)
 
-	setTimeout(() => $.show('content'), 200)
+	setTimeout(() => {
+		$.show('content')
+		$('enable-push').checked = push.subscribed
+		if (push.subscribed) $('send-push').disabled = false
+	}, 200)
 }
 
 window.new_xkcd = async () =>
@@ -154,7 +158,7 @@ window.enable_push_notifs = async () => {
 
 	if (enabled)
 	{
-		enabled = await push.enable().then(() => push.register()).then(push.subscribe)
+		enabled = await push.enable().then(push.register).then(push.subscribe)
 	}
 	else
 	{
@@ -163,4 +167,9 @@ window.enable_push_notifs = async () => {
 
 	$('enable-push').disabled = false
 	$('send-push').disabled = !enabled
+}
+
+if (push.permission_given)
+{
+	push.enable().then(push.register)
 }

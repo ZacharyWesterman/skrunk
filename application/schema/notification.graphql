@@ -35,7 +35,7 @@ type SubscriptionList {
 
 input SubscriptionToken {
 	endpoint: String!
-	expirationTime: String!
+	expirationTime: String
 	keys: SubscriptionTokenKeys!
 }
 
@@ -51,13 +51,13 @@ union SubscriptionListResponse = SubscriptionList | UserDoesNotExistError
 
 extend type Query {
 	getVAPIDPublicKey: String!
-	getSubscription(p256dh: String!): Subscription
+	getSubscription(auth: String!): Subscription
 	getSubscriptions(username: String!): SubscriptionListResponse!
 }
 
 extend type Mutation {
 	createSubscription(username: String!, subscription: SubscriptionToken!): NotificationResponse!
-	deleteSubscription(p256dh: String!): Int!
+	deleteSubscription(auth: String!): Int!
 	deleteSubscriptions(username: String!): Int!
 	sendNotification(username: String!, message: String!, category: String): NotificationResponse!
 }

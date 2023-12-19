@@ -10,8 +10,8 @@ def resolve_create_subscription(_, info, username: str, subscription: dict) -> d
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
-def resolve_delete_subscription(_, info, p256dh: str) -> int:
-	return delete_subscription(p256dh)
+def resolve_delete_subscription(_, info, auth: str) -> int:
+	return delete_subscription(auth)
 
 @perms.require(['admin'], perform_on_self = True)
 def resolve_delete_subscriptions(_, info, username: str) -> int:
