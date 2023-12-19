@@ -1,0 +1,63 @@
+type Notification {
+	message: String!
+}
+
+type MissingConfig {
+	message: String!
+}
+
+type WebPushException {
+	message: String!
+}
+
+type InvalidSubscriptionToken {
+	message: String!
+}
+
+type BadNotification {
+	message: String!
+}
+
+type Subscription {
+	endpoint: String!
+	expirationTime: String!
+	keys: SubscriptionKeys!
+}
+
+type SubscriptionKeys {
+	p256dh: String!
+	auth: String!
+}
+
+type SubscriptionList {
+	list: [Subscription!]!
+}
+
+input SubscriptionToken {
+	endpoint: String!
+	expirationTime: String!
+	keys: SubscriptionTokenKeys!
+}
+
+input SubscriptionTokenKeys {
+	p256dh: String!
+	auth: String!
+}
+
+union NotificationResponse = Notification | MissingConfig | UserDoesNotExistError | WebPushException | InvalidSubscriptionToken | BadNotification
+union SubscriptionListResponse = SubscriptionList | UserDoesNotExistError
+
+#Resolvers below this line
+
+extend type Query {
+	getVAPIDPublicKey: String!
+	getSubscription(p256dh: String!): Subscription
+	getSubscriptions(username: String!): SubscriptionListResponse!
+}
+
+extend type Mutation {
+	createSubscription(username: String!, subscription: SubscriptionToken!): NotificationResponse!
+	deleteSubscription(p256dh: String!): Int!
+	deleteSubscriptions(username: String!): Int!
+	sendNotification(username: String!, message: String!, category: String): NotificationResponse!
+}

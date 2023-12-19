@@ -1,5 +1,9 @@
 [
 	{
+		"id": "admin_email",
+		"name": "Administrator Email"
+	},
+	{
 		"id": "subsonic:url",
 		"name": "Subsonic Server URL",
 		"module": "subsonic"

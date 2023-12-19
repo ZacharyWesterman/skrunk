@@ -59,9 +59,13 @@ filter()
 } > site/config/sitemap.json
 
 #Generate VAPIDs
-openssl ecparam -name prime256v1 -genkey -noout -out data/vapid_private.pem
-openssl ec -in data/vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d '=' |tr '/+' '_-' > data/private_key.txt
-openssl ec -in data/vapid_private.pem -pubout -outform DER|tail -c 65|base64|tr -d '=' |tr '/+' '_-' > data/public_key.txt
+if [ ! -e data/public_key.txt ]
+then
+	openssl ecparam -name prime256v1 -genkey -noout -out data/vapid_private.pem
+	openssl ec -in data/vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d '=' |tr '/+' '_-' > data/private_key.txt
+	openssl ec -in data/vapid_private.pem -pubout -outform DER|tail -c 65|base64|tr -d '=' |tr '/+' '_-' > data/public_key.txt
+	rm -f data/vapid_private.pem
+fi
 
 #Make sure all dependencies are up to date
 poetry update

@@ -2,3 +2,5 @@
 __pycache__
 sitemap.json
 auth.json
+data/private_key.txt
+data/public_key.txt

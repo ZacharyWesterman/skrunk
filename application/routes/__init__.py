@@ -22,9 +22,6 @@ def init(application) -> None:
 	application.route('/preview/<path:path>', methods=['GET'])(blob.preview)
 	application.route('/upload', methods=['POST'])(blob.upload)
 
-	application.route('/subscription', methods=['GET', 'POST'])(notifications.subscription)
-	application.route('/push', methods=['POST'])(notifications.push)
-
 	@application.after_request
 	def after_request(response):
 		response.headers.add('Accept-Ranges', 'bytes')
