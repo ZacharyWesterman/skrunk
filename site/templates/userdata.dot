@@ -45,9 +45,11 @@
 		{{?}}
 
 		{{? it.self_view }}
-		<div class="clickable" *click="enable_push_notifs" >
-			<input type="checkbox" id="enable-push" {{? push.subscribed }}checked{{?}} >
-			Enable Notifications?
+		<div>
+			<span class="clickable" *click="enable_push_notifs" >
+				<input type="checkbox" id="enable-push" {{? push.subscribed }}checked{{?}} >
+				Enable Notifications?
+			</span>
 			<span class="tooltip" *click="show_notifications_info" >
 				<i class="fa-solid fa-circle-question"></i>
 				<span class="tooltiptext t-center">What does this mean?</span>
