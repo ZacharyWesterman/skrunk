@@ -1,4 +1,4 @@
-from . import auth, api, misc, site, blob, notifications
+from . import auth, api, misc, site, blob
 
 def init(application) -> None:
 	auth.application = application
