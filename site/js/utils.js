@@ -402,6 +402,7 @@ window.push = {
 		if (push.permission !== 'granted')
 		{
 			console.log('Push notification permission was not granted. Result: ', push.permission)
+			$.show('no-notifications')
 			return false
 		}
 
@@ -418,6 +419,7 @@ window.push = {
 		catch (e)
 		{
 			console.warn('Failed to create service worker:', e)
+			$.show('no-notifications')
 			return false
 		}
 
@@ -430,6 +432,10 @@ window.push = {
 				push.subscription = sub
 				push.subscribed = true
 				push.__resolve()
+			}
+			else
+			{
+				$.show('no-notifications')
 			}
 		}
 
@@ -470,11 +476,13 @@ window.push = {
 			_.modal.error(res.message)
 			await push.subscription.unsubscribe()
 			push.subscription = null
+			$.show('no-notifications')
 			return false
 		}
 
 		push.subscribed = true
 		push.__resolve()
+		$.hide('no-notifications', true)
 
 		return true
 	},
@@ -493,10 +501,13 @@ window.push = {
 			})
 			subscription.unsubscribe()
 			push.subscription = null
+			push.subscribed = false
 		}
+
+		$.show('no-notifications')
 	},
 
-	send: async (title, message) => {
+	send: async (title, body) => {
 
 		if (!push.subscription)
 		{
@@ -515,8 +526,8 @@ window.push = {
 			}
 		}`, {
 			username: api.username,
-			title: 'Yo, this is a test push notification!',
-			body: 'This is some body text that is meant to be more descriptive than just the title.',
+			title: title,
+			body: body,
 			category: null,
 		})
 
@@ -536,4 +547,8 @@ push.ready = new Promise(resolve => {
 if (push.permission_given)
 {
 	push.enable().then(push.register)
+}
+else
+{
+	$.show('no-notifications')
 }

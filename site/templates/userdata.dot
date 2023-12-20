@@ -44,7 +44,7 @@
 		</table>
 		{{?}}
 
-		{{? it.user.username === api.username }}
+		{{? it.self_view }}
 		<div class="clickable" *click="enable_push_notifs" >
 			<input type="checkbox" id="enable-push" {{? push.subscribed }}checked{{?}} >
 			Enable Notifications?

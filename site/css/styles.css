@@ -20,6 +20,13 @@
 	right: 1rem;
 }
 
+.notification {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	color: var(--secondary);
+}
+
 #runtime-errors {
 	color: var(--error-text);
 	position: absolute;

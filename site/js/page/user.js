@@ -4,13 +4,6 @@ await query.require('users')
 let Perms
 let UserData = {}
 
-export function init()
-{
-	push.ready.then(() => {
-		$('enable-push').checked = push.subscribed
-	})
-}
-
 export async function revoke_sessions(username)
 {
 	const self_msg = 'Are you sure you want to revoke your sessions? This will log you out of all devices, including this one.'
@@ -87,6 +80,13 @@ export async function load_user_data(username, self_view = false)
 		items: p2,
 	})
 	$('user-group').value = UserData.groups ? (UserData.groups[0] || '') : ''
+
+	if (self_view)
+	{
+		push.ready.then(() => {
+			$('enable-push').checked = push.subscribed
+		})
+	}
 
 	sync_perm_descs()
 }
@@ -241,8 +241,8 @@ export async function enable_push_notifs()
 		await push.unsubscribe()
 	}
 
-	$('enable-push').disabled = false
 	$('enable-push').checked = push.subscribed
+	$('enable-push').disabled = false
 }
 
 export async function show_notifications_info()
