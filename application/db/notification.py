@@ -5,8 +5,12 @@ from urllib.parse import urlsplit
 from datetime import datetime
 import json
 
-VAPID_PRIVATE_KEY = open('data/private_key.txt', 'r+').readline().strip('\n')
-VAPID_PUBLIC_KEY = open('data/public_key.txt', 'r+').read().strip('\n')
+try:
+	VAPID_PRIVATE_KEY = open('data/private_key.txt', 'r+').readline().strip('\n')
+	VAPID_PUBLIC_KEY = open('data/public_key.txt', 'r+').read().strip('\n')
+except FileNotFoundError:
+	print('WARNING: No VAPID keys found!', flush=True)
+	pass
 
 db = None
 
