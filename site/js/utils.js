@@ -507,7 +507,7 @@ window.push = {
 		$.show('no-notifications')
 	},
 
-	send: async (title, body) => {
+	send: async (title, body, username) => {
 
 		if (!push.subscription)
 		{
@@ -525,7 +525,7 @@ window.push = {
 				...on BadNotification { message }
 			}
 		}`, {
-			username: api.username,
+			username: username || api.username,
 			title: title,
 			body: body,
 			category: null,
