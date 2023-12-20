@@ -6,6 +6,7 @@ from .blob import *
 from .bugs import *
 from .book import *
 from .settings import resolve_set_module_enabled, resolve_set_config_value
+from .notification import *
 
 mutation = MutationType()
 
@@ -49,3 +50,8 @@ mutation.set_field('appendEBook', resolve_append_ebook)
 
 mutation.set_field('setModuleEnabled', resolve_set_module_enabled)
 mutation.set_field('setConfig', resolve_set_config_value)
+
+mutation.set_field('createSubscription', resolve_create_subscription)
+mutation.set_field('deleteSubscription', resolve_delete_subscription)
+mutation.set_field('deleteSubscriptions', resolve_delete_subscriptions)
+mutation.set_field('sendNotification', resolve_send_notification)

@@ -8,6 +8,7 @@ from .book import *
 from .settings import resolve_get_enabled_modules, resolve_get_groups, resolve_get_all_configs, resolve_get_config
 from .integrations import resolve_search_subsonic
 from .integrations import resolve_get_system_info
+from .notification import *
 
 query = QueryType()
 
@@ -44,3 +45,7 @@ query.set_field('getConfig', resolve_get_config)
 
 query.set_field('searchSubsonic', resolve_search_subsonic)
 query.set_field('getSystemInfo', resolve_get_system_info)
+
+query.set_field('getVAPIDPublicKey', resolve_get_vapid_public_key)
+query.set_field('getSubscription', resolve_get_subscription)
+query.set_field('getSubscriptions', resolve_get_subscriptions)

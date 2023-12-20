@@ -81,6 +81,13 @@ export async function load_user_data(username, self_view = false)
 	})
 	$('user-group').value = UserData.groups ? (UserData.groups[0] || '') : ''
 
+	if (self_view)
+	{
+		push.ready.then(() => {
+			$('enable-push').checked = push.subscribed
+		})
+	}
+
 	sync_perm_descs()
 }
 
@@ -218,6 +225,32 @@ export async function show_group_tooltip()
 		type: 'info',
 		title: 'What are user groups?',
 		text: await api.snippit('user_groups'),
+		buttons: ['OK'],
+	}).catch(() => {})
+}
+
+export async function enable_push_notifs()
+{
+	$('enable-push').disabled = true
+	if (!push.subscribed)
+	{
+		await push.enable().then(push.register).then(push.subscribe)
+	}
+	else
+	{
+		await push.unsubscribe()
+	}
+
+	$('enable-push').checked = push.subscribed
+	$('enable-push').disabled = false
+}
+
+export async function show_notifications_info()
+{
+	_.modal({
+		type: 'info',
+		title: 'Why enable notifications?',
+		text: await api.snippit('notifications'),
 		buttons: ['OK'],
 	}).catch(() => {})
 }

@@ -55,7 +55,6 @@ window.load_dashboard = async () =>
 	set_title()
 
 	let chart_data = await api(`{countAllUserBooks { owner { username display_name } count }}`)
-	// chart_data = chart_data.sort((a,b) => a.owner.username.localeCompare(b.owner.username) )
 	chart_data = chart_data.sort((a,b) => b.count - a.count )
 
 	await chart.bar('user-book-chart', chart_data.map(i => i.owner.display_name), chart_data.map(i => i.count), true)

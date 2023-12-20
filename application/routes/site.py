@@ -7,8 +7,11 @@ import os
 application = None
 
 # Allow only specific files in site/ to be accessed without auth, as other files may have "sensitive" data.
-with open('data/no_auth_files.txt') as fp:
-	__NO_AUTH_FILES = [ i.strip() for i in fp.readlines() if i.strip() != '' ]
+try:
+	with open('data/no_auth_files.txt') as fp:
+		__NO_AUTH_FILES = [ i.strip() for i in fp.readlines() if i.strip() != '' ]
+except FileNotFoundError:
+	__NO_AUTH_FILES = []
 
 def main_page() -> Response:
 	return files.read_file_data('site/html/index.html')

@@ -360,3 +360,195 @@ window.qr = {
  * @returns {boolean} True if the logged in user has admin permissions.
  */
 window.has_perm = id => SelfUserData.perms.includes(id)
+
+function urlB64ToUint8Array(base64String) {
+	const padding = '='.repeat((4 - base64String.length % 4) % 4);
+	const base64 = (base64String + padding)
+		.replace(/\-/g, '+')
+		.replace(/_/g, '/');
+
+	const rawData = window.atob(base64);
+	const outputArray = new Uint8Array(rawData.length);
+
+	for (let i = 0; i < rawData.length; ++i) {
+		outputArray[i] = rawData.charCodeAt(i);
+	}
+	return outputArray;
+}
+
+/**
+ * Helper functions for handling push notifications.
+ */
+window.push = {
+	get supported()
+	{
+		return ('serviceWorker' in navigator) && ('PushManager' in window)
+	},
+	get permission_given()
+	{
+		return push.supported && (Notification.permission === 'granted')
+	},
+	permission: null,
+	subscribed: false,
+	registration: null,
+	subscription: null,
+
+	enable: async () => {
+		if (!push.supported) return false
+
+		//Request permission to send push notifications.
+		push.permission = await Notification.requestPermission()
+
+		if (push.permission !== 'granted')
+		{
+			console.log('Push notification permission was not granted. Result: ', push.permission)
+			$.show('no-notifications')
+			return false
+		}
+
+		return true
+	},
+
+	register: async () => {
+		if (push.permission !== 'granted') return false
+
+		try
+		{
+			push.registration = await navigator.serviceWorker.register('/js/util/service-worker.js')
+		}
+		catch (e)
+		{
+			console.warn('Failed to create service worker:', e)
+			$.show('no-notifications')
+			return false
+		}
+
+		if (push.registration)
+		{
+			await push.registration.update()
+			let sub = await push.registration.pushManager.getSubscription()
+			if (sub)
+			{
+				push.subscription = sub
+				push.subscribed = true
+				push.__resolve()
+			}
+			else
+			{
+				$.show('no-notifications')
+			}
+		}
+
+		return true
+	},
+
+	subscribe: async () => {
+		if (!push.registration) return false
+
+		push.unsubscribe()
+
+		const VAPID = await api('{ getVAPIDPublicKey }')
+		const public_key = urlB64ToUint8Array(VAPID)
+
+		const config = {
+			userVisibleOnly: true,
+			applicationServerKey: public_key,
+		}
+
+		push.subscription = await push.registration.pushManager.subscribe(config)
+
+		const res = await api(`mutation ($username: String!, $subscription: SubscriptionToken!) {
+			createSubscription(username: $username, subscription: $subscription) {
+				__typename
+				...on MissingConfig { message }
+				...on UserDoesNotExistError { message }
+				...on WebPushException { message }
+				...on InvalidSubscriptionToken { message }
+				...on BadNotification { message }
+			}
+		}`, {
+			username: api.username,
+			subscription: push.subscription,
+		})
+
+		if (res.__typename !== 'Notification')
+		{
+			_.modal.error(res.message)
+			await push.subscription.unsubscribe()
+			push.subscription = null
+			$.show('no-notifications')
+			return false
+		}
+
+		push.subscribed = true
+		push.__resolve()
+		$.hide('no-notifications', true)
+
+		return true
+	},
+
+	unsubscribe: async () => {
+		if (!push.registration) return
+
+		let subscription = await push.registration.pushManager.getSubscription()
+		if (subscription)
+		{
+			const auth = JSON.parse(JSON.stringify(subscription)).keys.auth
+			const res = await api(`mutation ($auth: String!) {
+				deleteSubscription(auth: $auth)
+			}`, {
+				auth: auth,
+			})
+			subscription.unsubscribe()
+			push.subscription = null
+			push.subscribed = false
+		}
+
+		$.show('no-notifications')
+	},
+
+	send: async (title, body) => {
+
+		if (!push.subscription)
+		{
+			_.modal.error('User is not registered to allow notifications!')
+			return
+		}
+
+		const res = await api(`mutation ($username: String!, $title: String!, $body: String!, $category: String) {
+			sendNotification(username: $username, title: $title, body: $body, category: $category) {
+				__typename
+				...on MissingConfig { message }
+				...on UserDoesNotExistError { message }
+				...on WebPushException { message }
+				...on InvalidSubscriptionToken { message }
+				...on BadNotification { message }
+			}
+		}`, {
+			username: api.username,
+			title: title,
+			body: body,
+			category: null,
+		})
+
+		if (res.__typename !== 'Notification')
+		{
+			_.modal.error(res.message)
+			return
+		}
+	},
+}
+
+push.ready = new Promise(resolve => {
+	push.__resolve = resolve
+})
+
+//Automatically enable push notifications if the user has already given permission.
+if (push.permission_given)
+{
+	push.enable().then(push.register)
+}
+else
+{
+	$.show('no-notifications')
+}

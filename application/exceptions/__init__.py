@@ -48,3 +48,15 @@ class BookTagExistsError(ClientError):
 class BookCannotBeShared(ClientError):
 	def __init__(self, msg: str):
 		super().__init__(msg)
+
+class MissingConfig(ClientError):
+	def __init__(self, config_name: str):
+		super().__init__(f'Missing required config item "{config_name}". Please contact an admin.')
+
+class WebPushException(ClientError):
+	def __init__(self, msg: str):
+		super().__init__(f'Error sending notification: {msg}')
+
+class InvalidSubscriptionToken(ClientError):
+	def __init__(self):
+		super().__init__('Invalid notification subscription token')
