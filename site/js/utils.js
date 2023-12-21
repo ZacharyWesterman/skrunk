@@ -181,17 +181,10 @@ window.format = {
  * Helper functions for displaying chart data.
  */
 window.chart = {
-	/**
-	 * Draw a bar chart in the given element.
-	 * @param {string} field The ID, name, or object of the DOM element to inject the chart into.
-	 * @param {string[]} labels The labels for each bar.
-	 * @param {number[]} data The height values of each bar.
-	 */
-	bar: async (field, labels, data, horizontal = false) =>
+	create: async (field, chart_config) =>
 	{
 		await import('https://cdn.jsdelivr.net/npm/chart.js')
 		Chart.defaults.color = _.css.get_var('--secondary-text')
-		const disabled_text = _.css.get_var('--disabled-text')
 
 		if ($(field).children.length)
 		{
@@ -201,7 +194,20 @@ window.chart = {
 		let canvas = document.createElement('canvas')
 		$(field).appendChild(canvas)
 
-		new Chart(canvas, {
+		new Chart(canvas, chart_config)
+	},
+
+	/**
+	 * Draw a bar chart in the given element.
+	 * @param {string} field The ID, name, or object of the DOM element to inject the chart into.
+	 * @param {string[]} labels The labels for each bar.
+	 * @param {number[]} data The height values of each bar.
+	 */
+	bar: async (field, labels, data, horizontal = false) =>
+	{
+		const disabled_text = _.css.get_var('--disabled-text')
+
+		chart.create(field, {
 			type: 'bar',
 			data: {
 				labels: labels,
@@ -259,6 +265,45 @@ window.chart = {
 		}
 
 		return handle
+	},
+
+	/**
+	 * Draw a pie chart in the given element.
+	 * @param {string} field The ID, name, or object of the DOM element to inject the chart into.
+	 * @param {string[]} labels The labels for each bar.
+	 * @param {number[]} data The height values of each bar.
+	 */
+	pie: async (field, labels, data, percents = true) =>
+	{
+		const total = data.reduce((a, b) => a + b)
+
+		chart.create(field, {
+			type: 'pie',
+			data: {
+				labels: labels,
+				datasets: [{
+					data: data,
+					tooltip: {
+						callbacks: {
+							label: context => {
+								return percents ? `${context.raw} (${Math.floor(context.raw * 100 / total)}%)` : context.raw
+							},
+						},
+					},
+				}],
+			},
+			options: {
+				plugins: {
+					legend: {
+						position: 'bottom',
+					},
+					title:{
+						display: percents,
+						text: 'Total: ' + total,
+					},
+				},
+			},
+		})
 	},
 }
 
