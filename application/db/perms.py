@@ -25,7 +25,7 @@ def caller_info() -> str:
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return all(k in user_data['perms'] for k in perm_list)
 
-def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = True, data_func: callable = None) -> bool:
+def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = False, data_func: callable = None) -> bool:
 	"""Check if the calling user has certain permissions.
 
 	### Parameters:
