@@ -34,9 +34,10 @@ def resolve_disable_weather_user(_, info, username: str) -> dict:
 	except exceptions.UserDoesNotExistError as e:
 		return { '__typename' : 'UserDoesNotExistError', 'message' : str(e) }
 
-@perms.require(['edit'])
-@perms.require(['admin'], perform_on_self = True)
 def resolve_update_weather_user(_, info, userdata: dict) -> dict:
+	if not perms.satisfies(['edit']) and not perms.satisfies(['admin'], userdata, perform_on_self = True):
+		return perms.bad_perms()
+
 	try:
 		update_user(userdata)
 		return { '__typename' : 'UserData', **userdata }
