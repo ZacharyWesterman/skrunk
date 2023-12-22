@@ -24,3 +24,11 @@ def revoke_sessions(username: str) -> None:
 
 def count_valid_sessions(username: str) -> int:
 	return db.count_documents({'username': username})
+
+def get_first_session_token(username: str) -> str | None:
+	data = db.find_one({'username': username})
+
+	if data is None:
+		return None
+
+	return data['token']

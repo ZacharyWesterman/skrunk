@@ -1,8 +1,10 @@
 from application.db import settings, users
+from application.db.sessions import get_first_session_token
 from application import exceptions
 from pywebpush import webpush, WebPushException
 from urllib.parse import urlsplit
 from datetime import datetime
+from bson.objectid import ObjectId
 import json
 
 try:
@@ -54,6 +56,11 @@ def delete_subscriptions(username: str) -> int:
 def delete_subscription(auth: str) -> int:
 	return db.subscriptions.delete_many({'token.keys.auth': auth}).deleted_count
 
+def mark_as_read(id: str) -> None:
+	db.log.update_one({'_id': ObjectId(id)}, {'$set': {
+		'read': True
+	}})
+
 #May raise exceptions.WebPushException, exceptions.UserDoesNotExistError, or exceptions.MissingConfig
 def send(title: str, body: str, username: str, *, category: str = 'general') -> None:
 	global VAPID_PRIVATE_KEY
@@ -65,7 +72,22 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 	if admin_email is None or admin_email == '':
 		raise exceptions.MissingConfig('Admin Email')
 
-	message = json.dumps({'title': title, 'body': body})
+	message = {
+		'title': title,
+		'body': body,
+	}
+
+	log_id = db.log.insert_one({
+		'recipient': user_data['_id'],
+		'created': datetime.utcnow(),
+		'message': json.dumps(message),
+		'category': category,
+		'device_count': 0,
+		'read': False,
+	}).inserted_id
+
+	message['login_token'] = get_first_session_token(username)
+	message['notif_id'] = str(log_id)
 
 	sub_tokens = get_subscriptions(username)
 	for subscription_token in sub_tokens:
@@ -75,7 +97,7 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 		try:
 			webpush(
 				subscription_info = subscription_token,
-				data = message,
+				data = json.dumps(message),
 				vapid_private_key = VAPID_PRIVATE_KEY,
 				vapid_claims = {
 					'sub': f'mailto:{admin_email}',
@@ -85,10 +107,6 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 		except WebPushException as e:
 			raise exceptions.WebPushException(str(e))
 
-	db.log.insert_one({
-		'recipient': user_data['_id'],
-		'created': datetime.utcnow(),
-		'message': message,
-		'category': category,
+	db.log.update_one({'_id': log_id}, {'$set': {
 		'device_count': len(sub_tokens),
-	})
+	}})

@@ -1,6 +1,6 @@
 from application.db import perms
 from application import exceptions
-from application.db.notification import create_subscription, delete_subscription, delete_subscriptions, send
+from application.db.notification import create_subscription, delete_subscription, delete_subscriptions, send, mark_as_read
 
 @perms.require(['admin'], perform_on_self = True)
 def resolve_create_subscription(_, info, username: str, subscription: dict) -> dict:
@@ -31,3 +31,8 @@ def resolve_send_notification(_, info, username: str, title: str, body: str, cat
 		return { '__typename': 'Notification', 'message': 'Notification sent' }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['admin'], perform_on_self=True)
+def resolve_mark_notification_as_read(_, info, id: str) -> bool:
+	mark_as_read(id)
+	return True
