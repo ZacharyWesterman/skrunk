@@ -235,6 +235,7 @@ export async function enable_push_notifs()
 	if (!push.subscribed)
 	{
 		await push.enable().then(push.register).then(push.subscribe)
+		push.show_notifs()
 	}
 	else
 	{

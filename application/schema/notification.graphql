@@ -1,5 +1,11 @@
 type Notification {
+	recipient: String!
+	created: DateTime!
 	message: String!
+	category: String!
+	device_count: Int!
+	read: Boolean!
+	id: String!
 }
 
 type MissingConfig {
@@ -53,6 +59,8 @@ extend type Query {
 	getVAPIDPublicKey: String!
 	getSubscription(auth: String!): Subscription
 	getSubscriptions(username: String!): SubscriptionListResponse!
+	getNotifications(username: String!, read: Boolean!, start: Int!, count: Int!): [Notification!]!
+	countNotifications(username: String!, read: Boolean!): Int!
 }
 
 extend type Mutation {

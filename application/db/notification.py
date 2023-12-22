@@ -61,6 +61,20 @@ def mark_as_read(id: str) -> None:
 		'read': True
 	}})
 
+def get_notifications(username: str, read: bool, start: int, count: int) -> list:
+	user_data = users.get_user_data(username)
+	selection = db.log.find({'recipient': user_data['_id'], 'read': read}, sort = [('created', -1)])
+	result = []
+	for i in selection.limit(count).skip(start):
+		i['id'] = str(i['_id'])
+		result += [i]
+
+	return result
+
+def count_notifications(username: str, read: bool) -> int:
+	user_data = users.get_user_data(username)
+	return db.log.count_documents({'recipient': user_data['_id'], 'read': read})
+
 #May raise exceptions.WebPushException, exceptions.UserDoesNotExistError, or exceptions.MissingConfig
 def send(title: str, body: str, username: str, *, category: str = 'general') -> None:
 	global VAPID_PRIVATE_KEY

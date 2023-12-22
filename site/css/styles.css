@@ -22,9 +22,31 @@
 
 .notification {
 	position: absolute;
+	float: right;
 	top: 1rem;
 	right: 1rem;
 	color: var(--secondary);
+}
+
+.notif-icon {
+	position: absolute;
+	float: right;
+	top: 0;
+	right: 0;
+}
+
+.notif-bubble {
+	position: absolute;
+	top: -.5rem;
+	right: -.5rem;
+	font-weight: bolder;
+	color: var(--secondary);
+	background-color: var(--error-text);
+	border-radius: 100px;
+	height: 1rem;
+	min-width: 1rem;
+	text-align: center;
+	line-height: 1rem;
 }
 
 #runtime-errors {

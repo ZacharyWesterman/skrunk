@@ -1,0 +1,54 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-bell fa-xl"></i>
+		Unread Notifications
+	</h1>
+
+	<div id="notifications"></div>
+</div>
+
+<script>
+	export function init()
+	{
+		refresh_notifs()
+	}
+
+	export async function refresh_notifs()
+	{
+		const notifs = (await api(`query ($username: String!, $read: Boolean!, $start: Int!, $count: Int!) {
+			getNotifications (username: $username, read: $read, start: $start, count: $count) {
+				recipient
+				created
+				message
+				category
+				id
+			}
+		}`, {
+			username: api.username,
+			read: false,
+			start: 0,
+			count: 20,
+		})).map(i => {
+			const msg = JSON.parse(i.message)
+			i.title = msg.title
+			i.body = msg.body
+			return i
+		})
+
+		_('notifications', notifs)
+
+		console.log(notifs)
+	}
+
+	export async function mark_as_read(id)
+	{
+		await api(`mutation ($id: String!) {
+			markNotifAsRead (id: $id)
+		}`, {
+			id: id,
+		})
+
+		refresh_notifs()
+		push.show_notifs()
+	}
+</script>

@@ -97,6 +97,9 @@ window.reset_modules = modules => {
 
 async function init()
 {
+	//Check for any unread notifications
+	push.show_notifs()
+
 	const promise = api('{getEnabledModules}')
 	const promise2 = api.get_json('config/navbar.json')
 

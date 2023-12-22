@@ -61,11 +61,6 @@ self.addEventListener('notificationclose', event => {
 		markNotifAsRead (id: $id)
 	}`, {
 		id: notif.tag,
-	}).catch(() => {
-		return self.registration.showNotification('text of notif', {
-			icon: '/favicon-dark.png',
-			body: String(notif.data),
-		})
 	})
 
 	event.waitUntil(promise_chain)

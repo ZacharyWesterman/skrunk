@@ -1,0 +1,11 @@
+{{~ it : notif }}
+	<div class="card clickable" *click="mark_as_read('{{= notif.id }}')">
+		<div class="card-inner">
+			<h3>{{= notif.title }}</h3>
+			</p>{{= notif.body }}</p>
+			<span class="disabled">
+				Sent {{= date.elapsed(notif.created) }}
+			</span>
+		</div>
+	</div>
+{{~}}

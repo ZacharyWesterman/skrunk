@@ -448,6 +448,7 @@ window.push = {
 		{
 			console.log('Push notification permission was not granted. Result: ', push.permission)
 			$.show('no-notifications')
+			push.__resolve()
 			return false
 		}
 
@@ -465,6 +466,7 @@ window.push = {
 		{
 			console.warn('Failed to create service worker:', e)
 			$.show('no-notifications')
+			push.__resolve()
 			return false
 		}
 
@@ -481,6 +483,7 @@ window.push = {
 			else
 			{
 				$.show('no-notifications')
+				push.__resolve()
 			}
 		}
 
@@ -522,6 +525,7 @@ window.push = {
 			await push.subscription.unsubscribe()
 			push.subscription = null
 			$.show('no-notifications')
+			push.__resolve()
 			return false
 		}
 
@@ -581,6 +585,33 @@ window.push = {
 			_.modal.error(res.message)
 			return
 		}
+	},
+
+	show_notifs: async () => {
+		api(`query ($username: String!, $read: Boolean!) {
+			countNotifications (username: $username, read: $read)
+		}`, {
+			username: api.username,
+			read: false,
+		}).then(async notif_ct => {
+			await push.ready
+
+			if (notif_ct)
+			{
+				if (push.subscribed) $.show('yes-notifications')
+				$('notif-count').innerText = notif_ct
+				$.show('notif-count')
+				$('notif-icon').onclick = () => {
+					dashnav('notifications')
+				}
+			}
+			else
+			{
+				if (push.subscribed) $.hide('yes-notifications', true)
+				$('notif-icon').onclick = () => {}
+				$.hide('notif-count', true)
+			}
+		})
 	},
 }
 

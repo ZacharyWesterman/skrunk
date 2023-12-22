@@ -38,7 +38,11 @@
 
 	<div id="loader" class="hidden"><i class="gg-spinner"></i></div>
 
-	<div id="no-notifications" class="notification hidden"><i class="fa-solid fa-bell-slash"></i></div>
+	<div class="notification clickable" id="notif-icon">
+		<div id="no-notifications" class="notif-icon hidden"><i class="fa-solid fa-bell-slash"></i></div>
+		<div id="yes-notifications" class="notif-icon hidden"><i class="fa-solid fa-bell"></i></div>
+		<div id="notif-count" class="notif-bubble hidden"></div>
+	</div>
 </body>
 
 <script defer>
