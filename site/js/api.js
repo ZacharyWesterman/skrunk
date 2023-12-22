@@ -16,38 +16,40 @@ window.api = function(query_string, variables = null)
 		//show spinner to indicate resources are loading
 		$.show($('loader'))
 
-		const url = '/api'
-		let xhr = new XMLHttpRequest()
-		xhr.open('POST', url, true)
-
-		xhr.setRequestHeader('Content-Type', 'application/json')
-		xhr.setRequestHeader('Authorization', api.login_token)
-		xhr.send(JSON.stringify(query_data))
-
-		xhr.onload = () => {
-			if (xhr.status >= 200 && xhr.status < 300)
+		fetch('/api', {
+			method: 'POST',
+			mode: 'cors',
+			cache: 'no-cache',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': api.login_token,
+			},
+			body: JSON.stringify(query_data),
+		}).then(res => {
+			if (res.status >= 200 && res.status < 300 && res.ok)
 			{
-				const res = JSON.parse(xhr.responseText)
-				for (const elem in res.data)
-				{
-					resolve(res.data[elem])
-					break
-				}
+				res.json().then(response => {
+					for (const elem in response.data)
+					{
+						resolve(response.data[elem])
+						break
+					}
+				})
 			}
 			else
 			{
-				api.handle_query_failure(xhr)
-				reject(xhr.responseText)
+				api.handle_query_failure(res)
+				reject(res.responseText)
 			}
 
-			$.hide($('loader'))
-		}
+			$.hide('loader')
 
-		xhr.onerror = () => {
-			api.handle_query_failure(xhr)
-			$.hide($('loader'))
-			reject(xhr.responseText)
-		}
+		}).catch(res => {
+			api.handle_query_failure(res)
+			reject(res.responseText)
+			$.hide('loader')
+		})
 	})
 }
 
@@ -162,33 +164,25 @@ api.get = function(url, use_cache = true) {
 			}
 		}
 
-		let xhr = new XMLHttpRequest()
-		xhr.open('GET', url)
-		xhr.onload = () => {
-			if (xhr.status >= 200 && xhr.status < 300)
+		fetch(url).then(res => {
+			if (res.status >= 200 && res.status < 300 && res.ok)
 			{
 				//Only cache certain file types.
 				for (const filetype of ['.html', '.js', '.css', '.dot', '.json'])
 				{
 					if (url.endsWith(filetype))
 					{
-						cache.write(url, xhr.response)
-						break
+						res.text().then(text => {
+							cache.write(url, text)
+							resolve(text)
+						})
+						return
 					}
 				}
-				resolve(xhr.response)
-			}
-			else
-			{
-				reject({status: xhr.status, statusText: xhr.statusText})
-			}
-		}
 
-		xhr.onerror = () => {
-			reject({status: xhr.status, statusText: xhr.statusText})
-		}
-
-		xhr.send()
+				res.text().then(resolve)
+			}
+		})
 	})
 }
 
@@ -255,40 +249,45 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
  * @returns {any} The JSON response from the server.
  */
-api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false) {
-	return new Promise((resolve, reject) => {
-		let xhr = new XMLHttpRequest
-		let data = new FormData
+api.upload = async function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false) {
+	let data = new FormData()
+	api.upload.canceled = false
 
-		file.unzip = auto_unzip
-		data.append('file', file)
-		data.append('unzip', auto_unzip)
-		data.append('hidden', hidden)
-		data.append('tags', JSON.stringify(tag_list))
-		xhr.upload.addEventListener('progress', progress_handler, false)
-		xhr.open('POST', '/upload', true)
-		xhr.send(data)
+	data.append('unzip', auto_unzip)
+	data.append('hidden', hidden)
+	data.append('tags', JSON.stringify(tag_list))
+	data.append('file', file)
 
-		api.upload.xhr.push(xhr)
+	const controller = new AbortController()
+	const signal = controller.signal
+	api.upload.xhr.push(controller)
 
-		xhr.onload = () => {
+	try
+	{
+		const res = await fetch('/upload', {
+			method: 'POST',
+			signal: signal,
+			headers: {
+				'Authorization': api.login_token,
+			},
+			body: data,
+		})
+
+		if (res.status >= 200 && res.status < 300 && res.ok)
+		{
 			api.upload.xhr = []
-			if (xhr.status >= 200 && xhr.status < 300)
-			{
-				resolve(JSON.parse(xhr.responseText))
-			}
-			else
-			{
-				reject({text: xhr.responseText, status: xhr.status, statusText: xhr.statusText})
-			}
+			return await res.json()
 		}
-
-		xhr.onerror = () => {
-			api.upload.xhr = []
-			console.error(xhr)
-			reject({text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText})
+		else
+		{
+			throw {text: await res.text(), status: res.status, statusText: res.statusText}
 		}
-	})
+	}
+	catch (e)
+	{
+		api.upload.cancel()
+		return null //Upload was canceled.
+	}
 }
 
 /**
@@ -303,6 +302,7 @@ api.upload.xhr = []
  */
 api.upload.cancel = () => {
 	const ret = api.upload.xhr.length > 0
+	api.upload.canceled = true
 
 	for (let xhr of api.upload.xhr)
 	{
@@ -320,27 +320,28 @@ api.upload.cancel = () => {
  * @param {any} json_data Data to send.
  * @returns {string} The response text from the POST request.
  */
-api.post_json = function(url, json_data) {
-	return new Promise((resolve, reject) => {
-		let xhr = new XMLHttpRequest()
-		xhr.open('POST', url, true)
-		xhr.setRequestHeader('Content-Type', 'application/json')
-		xhr.send(JSON.stringify(json_data))
-		xhr.onload = () => {
-			if (xhr.status >= 200 && xhr.status < 300)
-			{
-				resolve(xhr.responseText)
-			}
-			else
-			{
-				resolve(xhr.responseText)
-			}
-		}
-
-		xhr.onerror = () => {
-			reject({status: xhr.status, statusText: xhr.statusText})
-		}
+api.post_json = async function(url, json_data)
+{
+	const res = await fetch(url, {
+		method: 'POST',
+		mode: 'cors',
+		cache: 'no-cache',
+		credentials: 'same-origin',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': api.login_token,
+		},
+		body: JSON.stringify(json_data),
 	})
+
+	if (res.status >= 200 && res.status < 300 && res.ok)
+	{
+		return await res.text()
+	}
+	else
+	{
+		throw {status: res.status, statusText: res.statusText}
+	}
 }
 
 /**
