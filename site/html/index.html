@@ -93,6 +93,8 @@
 	//Automatically adjust background animation speed.
 	let orig_rate
 	let adjust_anim = () => {
+		if (window._ === undefined) return
+
 		if (orig_rate === undefined)
 		{
 			orig_rate = parseFloat(_.css.get_var('--bg-animation-speed'))

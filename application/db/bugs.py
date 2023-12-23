@@ -1,6 +1,6 @@
 from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
-from . import users
+from . import users, notification
 
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -46,6 +46,24 @@ def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
 	})
 
 	report['convo'] += [convo_data]
+
+	#Let all involved users know that the bug report has a new comment!
+	for i in list(set([ i['creator'] for i in report['convo'] ])):
+		#Don't send a notification if the user commented on their own bug report
+		if i == user_data['_id']:
+			continue
+
+		this_user = users.get_user_by_id(i)
+		whose = 'your' if i == report['creator'] else (this_user['display_name'] + "'s")
+
+		notification.send(
+			title = f'{user_data["display_name"]} commented on {whose} bug report',
+			body = text[0:100],
+			username = this_user['username'],
+			category = 'bugs'
+		)
+
+
 	return process_bug_report(report)
 
 def process_bug_report(report: dict) -> dict:
@@ -119,4 +137,17 @@ def set_bug_status(id: str, status: bool) -> dict:
 
 	db.update_one({'_id': ObjectId(id)}, {'$set':{'resolved': status}})
 	bug_report['resolved'] = status
+
+	username = decode_user_token(get_request_token()).get('username')
+	user_data = users.get_user_data(username)
+
+	send_user = users.get_user_by_id(bug_report['creator'])
+
+	notification.send(
+		title = f'A bug has been {"resolved" if status else "reopened"}',
+		body = f'{user_data["display_name"]} has {"resolved" if status else "reopened"} the issue you reported:\n{bug_report["body"][0:100]}',
+		username = send_user['username'],
+		category = 'bugs'
+	)
+
 	return bug_report
