@@ -6,6 +6,10 @@ import application.db.settings as settings
 
 db = None
 
+def get_admins() -> list:
+	global db
+	return [i for i in db.find({'perms': 'admin'})]
+
 def count_users() -> int:
 	global db
 	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})

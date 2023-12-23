@@ -119,6 +119,16 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 				}
 			)
 		except WebPushException as e:
+			#TEMP: send notification to admins if WebPushException occurs!
+			for user in users.get_admins():
+				db.log.insert_one({
+					'recipient': user['_id'],
+					'created': datetime.utcnow(),
+					'message': f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{json.dumps(message)}',
+					'device_count': 0,
+					'read': False,
+				})
+
 			raise exceptions.WebPushException(str(e))
 
 	db.log.update_one({'_id': log_id}, {'$set': {
