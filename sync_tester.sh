@@ -53,7 +53,7 @@ do
 	scp "$i" tester:/home/tester/server/"$i"
 done
 
-sync_files
+sync_files &
 
 ssh -t tester "
 	sudo systemctl restart server
