@@ -503,7 +503,15 @@ window.push = {
 			applicationServerKey: public_key,
 		}
 
-		push.subscription = await push.registration.pushManager.subscribe(config)
+		try
+		{
+			push.subscription = await push.registration.pushManager.subscribe(config)
+		}
+		catch (e)
+		{
+			_.modal.error(`Unable to enable web notifications on this browser.<hr><div class="error">${e}</div>`)
+			return false
+		}
 
 		const res = await api(`mutation ($username: String!, $subscription: SubscriptionToken!) {
 			createSubscription(username: $username, subscription: $subscription) {
@@ -557,13 +565,6 @@ window.push = {
 	},
 
 	send: async (title, body, username) => {
-
-		if (!push.subscription)
-		{
-			_.modal.error('User is not registered to allow notifications!')
-			return
-		}
-
 		const res = await api(`mutation ($username: String!, $title: String!, $body: String!, $category: String) {
 			sendNotification(username: $username, title: $title, body: $body, category: $category) {
 				__typename
@@ -588,7 +589,7 @@ window.push = {
 	},
 
 	show_notifs: async () => {
-		api(`query ($username: String!, $read: Boolean!) {
+		return api(`query ($username: String!, $read: Boolean!) {
 			countNotifications (username: $username, read: $read)
 		}`, {
 			username: api.username,
@@ -626,5 +627,6 @@ if (push.permission_given)
 }
 else
 {
+	push.__resolve()
 	$.show('no-notifications')
 }

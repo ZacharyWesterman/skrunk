@@ -97,8 +97,13 @@ window.reset_modules = modules => {
 
 async function init()
 {
-	//Check for any unread notifications
-	push.show_notifs()
+	//Periodically check for any unread notifications
+	async function check_notifs()
+	{
+		push.show_notifs()
+		setTimeout(check_notifs, 30000) //Check once every 30 seconds
+	}
+	check_notifs()
 
 	const promise = api('{getEnabledModules}')
 	const promise2 = api.get_json('config/navbar.json')
