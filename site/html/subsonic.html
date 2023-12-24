@@ -11,6 +11,8 @@
 				<input id="subsonic-query" *bind="subsonic_search" placeholder="Artist, Album, etc.">
 				<button class="reset clickable" *click="$.wipe('subsonic-query'); subsonic_search()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
 
+				<span id="query-spinner" class="hidden right"><i class="gg-spinner"></i></span>
+
 				<br><br>
 				To see more detailed information, or to browse/stream audio,<br>
 				<a href="#" target="_blank" *load="set_subsonic_link">login to the music server</a> or use a Subsonic-compatible mobile app.
@@ -24,6 +26,8 @@
 <script>
 export async function subsonic_search()
 {
+	$.show('query-spinner')
+
 	const res = await api(`
 	query ($query: String!, $start: Int!, $count: Int!) {
 		searchSubsonic (query: $query, start: $start, count: $count) {
@@ -51,6 +55,8 @@ export async function subsonic_search()
 		start: 0,
 		count: 20,
 	})
+
+	$.hide('query-spinner', true)
 
 	if (res.__typename !== 'SubsonicSearch')
 	{
