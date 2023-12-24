@@ -127,6 +127,7 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 					'message': f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{json.dumps(message)}',
 					'device_count': 0,
 					'read': False,
+					'category': 'webpushexception',
 				})
 
 			raise exceptions.WebPushException(str(e))
