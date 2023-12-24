@@ -124,7 +124,7 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 				db.log.insert_one({
 					'recipient': user['_id'],
 					'created': datetime.utcnow(),
-					'message': f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{json.dumps(message)}',
+					'message': json.dumps({'title': 'WebPushException when sending notification', 'body':f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}'}),
 					'device_count': 0,
 					'read': False,
 					'category': 'webpushexception',
