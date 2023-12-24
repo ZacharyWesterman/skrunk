@@ -45,7 +45,7 @@ def auth_user() -> Response:
 		login_token = authenticate(data['username'], data['password'])
 		return jsonify({'token': login_token})
 	except exceptions.ClientError as e:
-		return jsonify({'error': str(e)}), 403
+		return jsonify({'error': str(e)})
 
 def verify_token() -> Response:
 	if not application.is_initialized:
