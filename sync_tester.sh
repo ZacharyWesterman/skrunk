@@ -17,20 +17,35 @@ function inotif()
 
 function simulate_inotify()
 {
-	declare -A mods
-	for i in $(git status --porcelain | cut -b 3-)
-	do
-		mods["$i"]=$(date +%s -r "$i")
-	done
+	echo "WARNING: Inotify utils not found! Simulating behavior."
+	echo "         This will consume more resources than Inotify!"
 
+	echo "Building initial list of files..."
+	declare -A files
+	while read i
+	do
+		files["$i"]=$(date +%s -r "$i")
+	done < <(git status --porcelain | cut -b 3-)
+
+	echo "Watching files..."
 	while true
 	do
-		for i in $(git status --porcelain | cut -b 3-)
+		#Make sure new modified files are watched
+		while read i
 		do
-			mod=$(date +%s -r "$i")
-			if [ "$mod" != "${mods["$i"]}" ]
+			if [ "${files["$i"]}" == '' ]
 			then
-				mods["$i"]="$mod"
+				files["$i"]=NEW
+			fi
+		done < <(git status --porcelain | cut -b 3-)
+
+		#Check file modify time, and copy up if it's not the same as last mod time
+		for i in "${!files[@]}"
+		do
+			modtime=$(date +%s -r "$i")
+			if [ "$modtime" != "${files["$i"]}" ]
+			then
+				files["$i"]="$modtime"
 				scp "$i" tester:/home/tester/server/"$i"
 			fi
 		done
