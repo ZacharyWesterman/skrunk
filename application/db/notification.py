@@ -130,7 +130,7 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 					'category': 'webpushexception',
 				})
 
-			raise exceptions.WebPushException(str(e))
+			# raise exceptions.WebPushException(str(e))
 
 	db.log.update_one({'_id': log_id}, {'$set': {
 		'device_count': len(sub_tokens),
