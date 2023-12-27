@@ -55,6 +55,7 @@ div .page > h1 {
 
 .book-icon {
 	position: relative;
+	width: 128px; /* Don't allow book thumbnails to expand. Should all be the same size, but just in case */
 }
 
 .book-icon img {
@@ -62,9 +63,9 @@ div .page > h1 {
 	border-radius: var(--border-radius);
 }
 
-.book-icon .audiobook-icon {
+.audiobook-icon {
 	position: absolute;
-	top: 75%;
+	top: 0;
 	left: 0;
 	padding: 3px;
 
@@ -73,12 +74,6 @@ div .page > h1 {
 
 	background-color: var(--secondary-text);
 	color: var(--secondary);
-}
-
-@media (pointer: coarse) {
-	.book-icon .audiobook-icon {
-		top: 0%;
-	}
 }
 
 .widget {

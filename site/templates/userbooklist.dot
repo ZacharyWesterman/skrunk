@@ -22,12 +22,12 @@
 			<tr>
 				{{?book.thumbnail}}
 					<td>
-						<span class="book-icon">
+						<div class="book-icon">
 							<img src="{{=book.thumbnail}}" alt="<BOOK COVER>" loading="lazy">
 							{{? book.audiobook }}
-								<span class="audiobook-icon"><i class="fa-solid fa-headphones fa-xl"></i></span>
+								<div class="audiobook-icon"><i class="fa-solid fa-headphones fa-xl"></i></div>
 							{{?}}
-						</span>
+						</div>
 					</td>
 				{{?}}
 				{{?book.categories.length}}
