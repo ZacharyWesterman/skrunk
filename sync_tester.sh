@@ -31,22 +31,27 @@ function simulate_inotify()
 	while true
 	do
 		#Make sure new modified files are watched
-		while read i
+		while read file
 		do
-			if [ "${files["$i"]}" == '' ]
+			if [ "${files["$file"]}" == '' ]
 			then
-				files["$i"]=NEW
+				files["$file"]=NEW
 			fi
 		done < <(git status --porcelain | cut -b 3-)
 
 		#Check file modify time, and copy up if it's not the same as last mod time
-		for i in "${!files[@]}"
+		for file in "${!files[@]}"
 		do
-			modtime=$(date +%s -r "$i")
-			if [ "$modtime" != "${files["$i"]}" ]
+			modtime=$(date +%s -r "$file")
+			if [ "$modtime" != "${files["$file"]}" ]
 			then
-				files["$i"]="$modtime"
-				scp "$i" tester:/home/tester/server/"$i"
+				files["$file"]="$modtime"
+				scp "$file" tester:/home/tester/server/"$file"
+
+				if [ "${file##*.}" == 'graphql' ]
+				then
+					ssh -t tester "sudo systemctl restart server"
+				fi
 			fi
 		done
 	done
