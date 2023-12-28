@@ -119,18 +119,29 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 				}
 			)
 		except WebPushException as e:
-			#TEMP: send notification to admins if WebPushException occurs!
-			for user in users.get_admins():
-				db.log.insert_one({
-					'recipient': user['_id'],
-					'created': datetime.utcnow(),
-					'message': json.dumps({'title': 'WebPushException when sending notification', 'body':f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}'}),
-					'device_count': 0,
-					'read': False,
-					'category': 'webpushexception',
-				})
+			send_admin_alert = True
+			if e.response and e.response.json():
+				response = e.response.json()
 
-			# raise exceptions.WebPushException(str(e))
+				#If user subscription is expired, just delete the subscription and continue
+				#There's nothing else we can do in that case.
+				if response.code == 410:
+					print(f'A notification subscription for "{username}" has expired.')
+					delete_subscription(subscription_token.get('keys', {}).get('auth'))
+					send_admin_alert = False
+
+
+			#Send notification to admins if an unhandled WebPushException occurs!
+			if send_admin_alert:
+				for user in users.get_admins():
+					db.log.insert_one({
+						'recipient': user['_id'],
+						'created': datetime.utcnow(),
+						'message': json.dumps({'title': 'WebPushException when sending notification', 'body':f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}'}),
+						'device_count': 0,
+						'read': False,
+						'category': 'webpushexception',
+					})
 
 	db.log.update_one({'_id': log_id}, {'$set': {
 		'device_count': len(sub_tokens),
