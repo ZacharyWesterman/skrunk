@@ -191,6 +191,8 @@
 			description: $.val('server-new-apikey'),
 		})
 
+		$('server-new-apikey').value = ''
+
 		_('server_apikeys', api('{ getAPIKeys { key description } }'))
 	}
 
