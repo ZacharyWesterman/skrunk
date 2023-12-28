@@ -1,6 +1,7 @@
 type APIKey {
 	key: String!
 	description: String!
+	created: DateTime!
 }
 
 #Resolvers below this line

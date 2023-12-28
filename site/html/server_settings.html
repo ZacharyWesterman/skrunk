@@ -39,7 +39,7 @@
 			<hr>
 			<div id="server-apikeys" class="expand-container">
 				<div>
-					<input class="wide" id="server-new-apikey">
+					<input class="wide" id="server-new-apikey" *enter="create_api_key">
 					<button class="icon" *click="create_api_key"><i class="fa-solid fa-plus fa-lg"></i></button>
 					<div id="server_apikeys"></div>
 				</div>
@@ -60,7 +60,7 @@
 	export async function init()
 	{
 		_('server_info', api('{ getSystemInfo { storage { name total free used } } }'))
-		_('server_apikeys', api('{ getAPIKeys { key description } }'))
+		_('server_apikeys', api('{ getAPIKeys { key description created } }'))
 
 		let cfg = api.get_json('/config/configs.json')
 		let s_cfg = api('{getConfigs { name value } }')
@@ -213,7 +213,7 @@
 			key: key,
 		})
 
-		_('server_apikeys', api('{ getAPIKeys { key description } }'))
+		_('server_apikeys', api('{ getAPIKeys { key description created } }'))
 	}
 
 	export async function clip(text)
