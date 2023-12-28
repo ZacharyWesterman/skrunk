@@ -1,4 +1,4 @@
-from . import users, perms, weather, sessions, blob, bugs, book, settings, notification
+from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys
 from pymongo import MongoClient
 
 def init_db(data_db_url: str = 'localhost', weather_db_url: str = 'localhost', blob_path: str = None) -> None:
@@ -20,6 +20,7 @@ def init_db(data_db_url: str = 'localhost', weather_db_url: str = 'localhost', b
 	book.init()
 
 	notification.db = data_client.notifications
+	apikeys.db = data_client.data.api_keys
 
 	weather.db = weather_client
 

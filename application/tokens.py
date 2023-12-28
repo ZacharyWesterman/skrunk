@@ -4,6 +4,7 @@ from flask import request
 import random
 
 from .db.sessions import start_session, valid_session
+from .db.apikeys import valid_api_key
 
 __private_key = serialization.load_ssh_private_key(open(os.environ['HOME']+'/.ssh/id_rsa', 'r').read().encode(), password=b'')
 __public_key = serialization.load_ssh_public_key(open(os.environ['HOME']+'/.ssh/id_rsa.pub', 'r').read().encode())
@@ -32,7 +33,7 @@ def decode_user_token(token: str) -> dict:
 	)
 
 def token_is_valid(token: str) -> bool:
-	return valid_session(token)
+	return valid_session(token) or valid_api_key(token)
 
 def get_request_token() -> str:
 	if 'Authorization' in request.headers:

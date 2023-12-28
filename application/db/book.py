@@ -1,5 +1,5 @@
 from application.tokens import decode_user_token, get_request_token
-from application.db.settings import get_config
+from application.db.settings import get_config, get_enabled_modules
 import application.exceptions as exceptions
 from application.objects import BookSearchFilter, Sorting
 from . import users
@@ -20,7 +20,7 @@ def init() -> None:
 	global SUBSONIC
 
 	url = get_config('subsonic:url')
-	if url is not None:
+	if url is not None and 'subsonic' in get_enabled_modules():
 		username = get_config('subsonic:username')
 		password = get_config('subsonic:password')
 		SUBSONIC = subsonic.Session(url, username, password)

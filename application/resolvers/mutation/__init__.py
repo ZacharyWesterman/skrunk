@@ -7,6 +7,7 @@ from .bugs import *
 from .book import *
 from .settings import resolve_set_module_enabled, resolve_set_config_value
 from .notification import *
+from .apikeys import resolve_create_api_key, resolve_delete_api_key
 
 mutation = MutationType()
 
@@ -56,3 +57,6 @@ mutation.set_field('deleteSubscription', resolve_delete_subscription)
 mutation.set_field('deleteSubscriptions', resolve_delete_subscriptions)
 mutation.set_field('sendNotification', resolve_send_notification)
 mutation.set_field('markNotifAsRead', resolve_mark_notification_as_read)
+
+mutation.set_field('createAPIKey', resolve_create_api_key)
+mutation.set_field('deleteAPIKey', resolve_delete_api_key)

@@ -9,6 +9,7 @@ from .settings import resolve_get_enabled_modules, resolve_get_groups, resolve_g
 from .integrations import resolve_search_subsonic
 from .integrations import resolve_get_system_info
 from .notification import *
+from .apikeys import resolve_get_api_keys
 
 query = QueryType()
 
@@ -51,3 +52,5 @@ query.set_field('getSubscription', resolve_get_subscription)
 query.set_field('getSubscriptions', resolve_get_subscriptions)
 query.set_field('getNotifications', resolve_get_notifications)
 query.set_field('countNotifications', resolve_count_notifications)
+
+query.set_field('getAPIKeys', resolve_get_api_keys)

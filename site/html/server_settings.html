@@ -30,6 +30,23 @@
 		</div>
 	</div>
 
+	<div class="card">
+		<div class="card-inner">
+			<h2 style="text-align: center;" class="clickable" *toggles="server-apikeys">
+				API Keys
+				<i class="right fa-solid fa-angles-down"></i>
+			</h2>
+			<hr>
+			<div id="server-apikeys" class="expand-container">
+				<div>
+					<input class="wide" id="server-new-apikey">
+					<button class="icon" *click="create_api_key"><i class="fa-solid fa-plus fa-lg"></i></button>
+					<div id="server_apikeys"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="card alt">
 		<div class="card-inner">
 			<h2 style="text-align: center;">Server Info</h2>
@@ -43,6 +60,7 @@
 	export async function init()
 	{
 		_('server_info', api('{ getSystemInfo { storage { name total free used } } }'))
+		_('server_apikeys', api('{ getAPIKeys { key description } }'))
 
 		let cfg = api.get_json('/config/configs.json')
 		let s_cfg = api('{getConfigs { name value } }')
@@ -157,5 +175,52 @@
 				buttons: ['OK'],
 			}).catch(() => {})
 		}
+	}
+
+	export async function create_api_key()
+	{
+		if ($.val('server-new-apikey') === '')
+		{
+			$.flash('server-new-apikey')
+			return
+		}
+
+		await api(`mutation ($description: String!) {
+			createAPIKey (description: $description)
+		}`, {
+			description: $.val('server-new-apikey'),
+		})
+
+		_('server_apikeys', api('{ getAPIKeys { key description } }'))
+	}
+
+	export async function delete_api_key(key)
+	{
+		const res = await _.modal({
+			type: 'question',
+			title: 'Delete API Key?',
+			text: 'Are you sure you want to permanently revoke this API key? Any services that use this key will no longer have access, and a new API key will need to be generated for them.',
+			buttons: ['Yes', 'No'],
+		}).catch(() => 'no')
+
+		if (res !== 'yes') return
+
+		await api(`mutation ($key: String!) {
+			deleteAPIKey (key: $key)
+		}`, {
+			key: key,
+		})
+
+		_('server_apikeys', api('{ getAPIKeys { key description } }'))
+	}
+
+	export async function clip(text)
+	{
+		await navigator.clipboard.writeText(text)
+		_.modal({
+			text: 'Copied API key to clipboard!',
+			no_cancel: true,
+		}).catch(() => {})
+		setTimeout(_.modal.cancel, 800)
 	}
 </script>

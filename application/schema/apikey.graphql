@@ -1,0 +1,15 @@
+type APIKey {
+	key: String!
+	description: String!
+}
+
+#Resolvers below this line
+
+extend type Query {
+	getAPIKeys: [APIKey!]!
+}
+
+extend type Mutation {
+	createAPIKey(description: String!): String!
+	deleteAPIKey(key: String!): Boolean!
+}

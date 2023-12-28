@@ -92,6 +92,10 @@ input[type="checkbox"] {
 	transform: translateY(0.27rem);
 }
 
+input.wide {
+	width: calc(100% - 4rem);
+}
+
 .invalid {
 	background-color: var(--error-text);
 }
