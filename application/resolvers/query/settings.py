@@ -9,7 +9,7 @@ def resolve_get_groups(_, info) -> list:
 
 @perms.require(['admin'])
 def resolve_get_all_configs(_, info) -> list:
-    return get_all_configs()
+    return { '__typename': 'ConfigList', 'configs': get_all_configs() }
 
 def resolve_get_config(_, info, name: str) -> str|None:
     return get_config(name)

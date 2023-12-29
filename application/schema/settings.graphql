@@ -3,12 +3,18 @@ type Config {
 	value: String
 }
 
+type ConfigList {
+	configs: [Config!]!
+}
+
+union ConfigsResponse = ConfigList | InsufficientPerms
+
 #Resolvers below this line
 
 extend type Query {
 	getEnabledModules: [String!]!
 	getUserGroups: [String!]!
-	getConfigs: [Config!]!
+	getConfigs: ConfigsResponse
 	getConfig(name: String!): String
 }
 

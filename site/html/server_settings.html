@@ -69,7 +69,11 @@
 		_('server_apikeys', api('{ getAPIKeys { key description created perms } }'))
 
 		let cfg = api.get_json('/config/configs.json')
-		let s_cfg = api('{getConfigs { name value } }')
+		let s_cfg = api(`{getConfigs {
+			__typename
+			...on ConfigList { configs { name value } }
+			...on InsufficientPerms { message }
+		}}`)
 
 		let modl = api.get_json('/config/modules.json')
 		let promise = _('server_modules', modl)
@@ -119,7 +123,7 @@
 		const set_configs = await s_cfg
 		let configs = (await cfg).map(c => {
 			c.enabled = c.module ? $(`module-${c.module}`).checked : true
-			c.value = set_configs.find(x => x.name === c.id)?.value || ''
+			c.value = set_configs.configs.find(x => x.name === c.id)?.value || ''
 			return c
 		})
 
@@ -147,10 +151,14 @@
 
 		//Build configs list
 		let cfg = api.get_json('/config/configs.json')
-		const set_configs = await api('{getConfigs { name value } }')
+		const set_configs = await api(`{getConfigs {
+			__typename
+			...on ConfigList { configs { name value } }
+			...on InsufficientPerms { message }
+		}}`)
 		let configs = (await cfg).map(c => {
 			c.enabled = c.module ? $(`module-${c.module}`).checked : true
-			c.value = set_configs.find(x => x.name === c.id)?.value || ''
+			c.value = set_configs.configs.find(x => x.name === c.id)?.value || ''
 			return c
 		})
 		await _('server_configs', configs)
