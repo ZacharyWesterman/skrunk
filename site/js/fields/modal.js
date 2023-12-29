@@ -157,7 +157,7 @@ modal.upload.return = () =>
 	$('modal-upload-expand').classList.remove('expanded')
 	setTimeout(() => {$('modal-upload-window').close()}, 200)
 
-	if (api.upload.canceled)
+	if (api.upload.cancel())
 	{
 		modal({
 			type: 'error',
@@ -168,14 +168,8 @@ modal.upload.return = () =>
 
 		modal.upload.awaiting.reject(modal.upload.blobs)
 	}
-	else if (!api.upload.cancel())
+	else
 	{
-		modal({
-			title: 'Success',
-			text: 'Upload complete',
-			buttons: ['OK'],
-		}).catch(() => {})
-
 		modal.upload.awaiting.resolve(modal.upload.blobs)
 	}
 	return modal.upload.blobs
@@ -276,6 +270,12 @@ modal.upload.start = async function()
 		{
 			await p
 		}
+
+		await modal({
+			title: 'Success',
+			text: 'Upload complete',
+			buttons: ['OK']
+		}).catch(() => {})
 	}
 	catch (xfer)
 	{

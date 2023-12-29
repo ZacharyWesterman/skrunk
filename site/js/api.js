@@ -249,45 +249,42 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
  * @returns {any} The JSON response from the server.
  */
-api.upload = async function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false) {
-	let data = new FormData()
-	api.upload.canceled = false
+api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false) {
+	return new Promise((resolve, reject) => {
+		let xhr = new XMLHttpRequest
+		let data = new FormData
 
-	data.append('unzip', auto_unzip)
-	data.append('hidden', hidden)
-	data.append('tags', JSON.stringify(tag_list))
-	data.append('file', file)
+		api.upload.canceled = false
 
-	const controller = new AbortController()
-	const signal = controller.signal
-	api.upload.xhr.push(controller)
+		file.unzip = auto_unzip
+		data.append('file', file)
+		data.append('unzip', auto_unzip)
+		data.append('hidden', hidden)
+		data.append('tags', JSON.stringify(tag_list))
+		xhr.upload.addEventListener('progress', progress_handler, false)
+		xhr.open('POST', '/upload', true)
+		xhr.send(data)
 
-	try
-	{
-		const res = await fetch('/upload', {
-			method: 'POST',
-			signal: signal,
-			headers: {
-				'Authorization': api.login_token,
-			},
-			body: data,
-		})
+		api.upload.xhr.push(xhr)
 
-		if (res.status >= 200 && res.status < 300 && res.ok)
-		{
+		xhr.onload = () => {
 			api.upload.xhr = []
-			return await res.json()
+			if (xhr.status >= 200 && xhr.status < 300)
+			{
+				resolve(JSON.parse(xhr.responseText))
+			}
+			else
+			{
+				reject({text: xhr.responseText, status: xhr.status, statusText: xhr.statusText})
+			}
 		}
-		else
-		{
-			throw {text: await res.text(), status: res.status, statusText: res.statusText}
+
+		xhr.onerror = () => {
+			api.upload.xhr = []
+			console.error(xhr)
+			reject({text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText})
 		}
-	}
-	catch (e)
-	{
-		api.upload.cancel()
-		return null //Upload was canceled.
-	}
+	})
 }
 
 /**
