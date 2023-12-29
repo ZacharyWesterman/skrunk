@@ -7,7 +7,7 @@ db = None
 def valid_api_key(key: str) -> bool:
 	return True if db.find_one({'key': key}) else False
 
-def new_api_key(description: str) -> str:
+def new_api_key(description: str, permissions: list[str]) -> str:
 	#Generate random 30-digit API key. This probably will not clash with an existing key.
 	api_key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(30))
 
@@ -18,6 +18,7 @@ def new_api_key(description: str) -> str:
 		'description': description,
 		'creator': user_data['_id'],
 		'created': datetime.utcnow(),
+		'perms': permissions,
 	})
 
 	return api_key

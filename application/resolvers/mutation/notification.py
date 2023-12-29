@@ -17,7 +17,7 @@ def resolve_delete_subscription(_, info, auth: str) -> int:
 def resolve_delete_subscriptions(_, info, username: str) -> int:
 	return delete_subscriptions(username)
 
-@perms.require(['admin'])
+@perms.require(['admin', 'notify'])
 def resolve_send_notification(_, info, username: str, title: str, body: str, category: str) -> dict:
 	if title == '':
 		return { '__typename': 'BadNotification', 'message': 'Notification title cannot be blank'}

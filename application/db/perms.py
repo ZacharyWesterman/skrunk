@@ -4,6 +4,7 @@ from application import tokens
 from inspect import getfullargspec
 
 db = None
+apikeydb = None
 
 def bad_perms() -> dict:
 	return {
@@ -12,7 +13,13 @@ def bad_perms() -> dict:
 	}
 
 def caller_info() -> str:
-	username = tokens.decode_user_token(tokens.get_request_token()).get('username')
+	tok = tokens.get_request_token()
+	try:
+		username = tokens.decode_user_token(tok).get('username')
+	except:
+		apikey = apikeydb.find_one({'key': tok})
+		return apikey
+
 	if username is None:
 		return None
 
@@ -23,7 +30,7 @@ def caller_info() -> str:
 	return userdata
 
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
-	return all(k in user_data['perms'] for k in perm_list)
+	return any(k in user_data['perms'] for k in perm_list)
 
 def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = False, data_func: callable = None) -> bool:
 	"""Check if the calling user has certain permissions.
@@ -44,7 +51,7 @@ def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = False, da
 
 	# Unless otherwise specified,
 	# Ignore credentials if user is editing their own data.
-	if perform_on_self:
+	if perform_on_self and 'username' in user_data:
 		if data_func is not None:
 			spec = getfullargspec(data_func)
 			args = dict((i, data[i]) for i in spec[0] + spec[4] if i in data)

@@ -2,6 +2,7 @@ type APIKey {
 	key: String!
 	description: String!
 	created: DateTime!
+	perms: [String!]!
 }
 
 #Resolvers below this line
@@ -11,6 +12,6 @@ extend type Query {
 }
 
 extend type Mutation {
-	createAPIKey(description: String!): String!
+	createAPIKey(description: String!, permissions: [String!]!): String!
 	deleteAPIKey(key: String!): Boolean!
 }

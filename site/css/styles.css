@@ -93,7 +93,7 @@ input[type="checkbox"] {
 }
 
 input.wide {
-	width: calc(100% - 4rem);
+	width: calc(100% - 8.5rem);
 }
 
 .invalid {

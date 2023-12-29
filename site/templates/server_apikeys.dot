@@ -5,6 +5,7 @@
 		<button class="icon" *click="delete_api_key('{{= apikey.key }}')"><i class="fa-solid fa-trash fa-lg"></i></button>
 	</span>
 	<b style="padding-left:1rem;">{{= apikey.description }}</b>
+	{{? apikey.edit }}<span class="disabled">(can edit)</span>{{?}}
 	<span class="disabled right">{{= date.short(apikey.created) }}</span>
 </div>
 {{~}}

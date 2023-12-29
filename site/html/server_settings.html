@@ -40,6 +40,12 @@
 			<div id="server-apikeys" class="expand-container">
 				<div>
 					<input class="wide" id="server-new-apikey" *enter="create_api_key">
+					<select id="server-new-permission">
+						<option value="" selected>Read Only</option>
+						<option value="notify">Notify</option>
+						<option value="edit">Write Self</option>
+						<option value="admin">Full Write</option>
+					</select>
 					<button class="icon" *click="create_api_key"><i class="fa-solid fa-plus fa-lg"></i></button>
 					<div id="server_apikeys"></div>
 				</div>
@@ -60,7 +66,7 @@
 	export async function init()
 	{
 		_('server_info', api('{ getSystemInfo { storage { name total free used } } }'))
-		_('server_apikeys', api('{ getAPIKeys { key description created } }'))
+		_('server_apikeys', api('{ getAPIKeys { key description created perms } }'))
 
 		let cfg = api.get_json('/config/configs.json')
 		let s_cfg = api('{getConfigs { name value } }')
@@ -185,15 +191,19 @@
 			return
 		}
 
-		await api(`mutation ($description: String!) {
-			createAPIKey (description: $description)
+		const perms = $.val('server-new-permission')
+
+		await api(`mutation ($description: String!, $permissions: [String!]!) {
+			createAPIKey (description: $description, permissions: $permissions)
 		}`, {
 			description: $.val('server-new-apikey'),
+			permissions: perms ? [perms] : [],
 		})
 
 		$('server-new-apikey').value = ''
+		$('server-new-permission').value = ''
 
-		_('server_apikeys', api('{ getAPIKeys { key description } }'))
+		_('server_apikeys', api('{ getAPIKeys { key description created perms } }'))
 	}
 
 	export async function delete_api_key(key)
@@ -213,7 +223,7 @@
 			key: key,
 		})
 
-		_('server_apikeys', api('{ getAPIKeys { key description created } }'))
+		_('server_apikeys', api('{ getAPIKeys { key description created perms } }'))
 	}
 
 	export async function clip(text)
