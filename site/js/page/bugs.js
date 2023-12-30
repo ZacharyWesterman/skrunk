@@ -1,6 +1,15 @@
 await mutate.require('bugs')
 await query.require('bugs')
 
+let EDITORS = {}
+
+export function editor(id)
+{
+	return EDITORS[id]
+}
+editor.new = id => EDITORS[id] = new SimpleMDE({element: $(id)})
+editor.del = id => delete EDITORS[id]
+
 export function init()
 {
 	const old_modal_retn = _.modal.upload.return
@@ -19,7 +28,10 @@ export function init()
 
 	window.unload.push(() => {
 		_.modal.upload.return = old_modal_retn
+		EDITORS = {}
 	})
+
+	editor.new('new-bug-text')
 }
 
 export async function submit_bug_report()
@@ -28,7 +40,7 @@ export async function submit_bug_report()
 
 	$.toggle_expand('card-new-bug')
 
-	const res = await mutate.bugs.report($('new-bug-text').value)
+	const res = await mutate.bugs.report(editor('new-bug-text').value())
 
 	if (res.__typename !== 'BugReport')
 	{
@@ -39,7 +51,7 @@ export async function submit_bug_report()
 
 	_.modal.checkmark()
 
-	$('new-bug-text').value = ''
+	editor('new-bug-text').value('')
 
 	refresh_bug_list()
 }
@@ -60,23 +72,9 @@ export function refresh_bug_list()
 	})
 }
 
-export function open_editor()
-{
-	$.editor.open($.val('new-bug-text')).then(result => {
-		$('new-bug-text').value = result.text
-	}).catch(() => {})
-}
-
-export function open_editor_comment(bug_id)
-{
-	$.editor.open($.val(`text-${bug_id}`)).then(result => {
-		$(`text-${bug_id}`).value = result.text
-	}).catch(() => {})
-}
-
 export async function comment_on_bug_report(bug_id)
 {
-	const text = $.val(`text-${bug_id}`)
+	const text = editor(`text-${bug_id}`).value()
 	if (text === '') return
 
 	$.toggle_expand(`newcomment-${bug_id}`)
@@ -96,7 +94,7 @@ export async function comment_on_bug_report(bug_id)
 		return
 	}
 
-	$(`text-${bug_id}`).value = ''
+	editor(`text-${bug_id}`).value('')
 	_.modal.checkmark()
 
 	if (!$(`comments-inner-${bug_id}`))
@@ -121,7 +119,7 @@ export async function comment_on_bug_report(bug_id)
 
 async function can_submit()
 {
-	if ($.val('new-bug-text') === '')
+	if (editor('new-bug-text').value() === '')
 	{
 		_.modal({
 			type: 'error',

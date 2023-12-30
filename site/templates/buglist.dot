@@ -52,10 +52,8 @@
 					</h4>
 					<div class="expand-container" id="newcomment-{{=bug.id}}">
 						<div>
-							<button *click="open_editor_comment('{{= bug.id }}')">Open Advanced Editor</button><br>
-							<textarea id="text-{{=bug.id}}" placeholder="Comments are parsed as Markdown. Use the advanced editor to see how this works." style="width: 90%; height: 5rem;"></textarea>
-							<br>
-							<button *click="comment_on_bug_report('{{= bug.id }}')">Submit Comment</button>
+							<textarea id="text-{{=bug.id}}" placeholder="Enter a comment..." *load="editor.new('text-{{=bug.id}}')" ></textarea>
+							<button *click="comment_on_bug_report('{{= bug.id }}')" >Submit Comment</button>
 						</div>
 					</div>
 				{{?}}

@@ -22,10 +22,8 @@
 						<li>How often the action triggers it.</li>
 						<li>Where you encountered the bug.</li>
 					</ul>
-					<button *click="open_editor">Open Advanced Editor</button><br><br>
-					<textarea id="new-bug-text" placeholder="Description text is parsed as Markdown. Use the advanced editor to see how this works." style="width: 90%;"></textarea>
-					<br>
-					<button id="new-bug-submit" *click="submit_bug_report">Submit</button>
+					<textarea id="new-bug-text" placeholder="Enter a description of the bug. Suggestions for new features are also welcome!" style="width: 90%;"></textarea>
+					<button class="big border" id="new-bug-submit" *click="submit_bug_report">Submit</button>
 				</div>
 			</div>
 		</div>
