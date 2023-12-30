@@ -120,15 +120,13 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 			)
 		except WebPushException as e:
 			send_admin_alert = True
-			if e.response and e.response.json():
-				response = e.response.json()
 
-				#If user subscription is expired, just delete the subscription and continue
-				#There's nothing else we can do in that case.
-				if response.code == 410:
-					print(f'A notification subscription for "{username}" has expired.')
-					delete_subscription(subscription_token.get('keys', {}).get('auth'))
-					send_admin_alert = False
+			#If user subscription is expired, just delete the subscription and continue
+			#There's nothing else we can do in that case.
+			if e.response.status_code == 410:
+				print(f'A notification subscription for user "{username}" has expired.', flush=True)
+				delete_subscription(subscription_token.get('keys', {}).get('auth'))
+				send_admin_alert = False
 
 
 			#Send notification to admins if an unhandled WebPushException occurs!
