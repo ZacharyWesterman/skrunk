@@ -84,6 +84,10 @@ a {
 	display: none;
 }
 
+.editor-preview-side {
+	color: black;
+}
+
 progress {
 	display: block;
 }
