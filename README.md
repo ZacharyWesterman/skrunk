@@ -11,7 +11,7 @@ Current features include:
 - Fine-grained user control:
   - User Isolation: Sometimes you don't want certain groups of users to interact (e.g. in-laws, different friend groups, etc). If that's the case, admins can assign a "group" to users. Any users not in the same group will not be able to see or interact with each other's data.
   - User Permissions: Control what type of actions users are allowed to do, and what they're allowed to see.
-- Bot friendly: admins can generate API tokens to allow bots or other services to securely make requests. Check out the [Python API repo](https://github.com/ZacharyWesterman/skrunk_api) for a fast way to get started.
+- Bot friendly: admins can generate API tokens to allow bots or other services to securely make requests. These tokens can have the same permissions restrictions applied to them as users! Check out the [Python API repo](https://github.com/ZacharyWesterman/skrunk_api) for a fast way to get started.
 
 Every one of the above features is fully optional, and can be enabled or disabled from the admin options.
 
