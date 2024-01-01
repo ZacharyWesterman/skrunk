@@ -32,7 +32,26 @@ _.css = {
 }
 
 //Field control and validation
-let $ = field => ((typeof field === 'object') ? field : document.getElementById(field)) || document.getElementsByName(field)[0]
+let $ = field => {
+	//Handle rich text editors
+	if ($._EDITORS[field])
+	{
+		return {
+			self: $._EDITORS[field],
+			id: field,
+			set value(text)
+			{
+				$._EDITORS[field].value(text)
+			},
+			get value()
+			{
+				return $._EDITORS[field].value()
+			},
+		}
+	}
+
+	return ((typeof field === 'object') ? field : document.getElementById(field)) || document.getElementsByName(field)[0]
+}
 $.val = id => $(id)?.value
 $.set = (id, value) => {
 	$(id).value = value
@@ -172,6 +191,18 @@ $.wipe = (field, value = '') =>
 }
 
 $.all = name => document.getElementsByName(name)
+
+$._EDITORS = {}
+$.editor = id =>
+{
+	return $._EDITORS[id]
+}
+$.editor.new = field =>
+{
+	const id = (typeof field === 'string') ? field : (field.id || '---')
+	$._EDITORS[id] = new SimpleMDE({element: $(field)})
+}
+$.editor.del = id => delete $._EDITORS[id]
 
 //Update globals $ (fields) and _ (screen)
 window.$ = $

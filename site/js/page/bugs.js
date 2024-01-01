@@ -1,15 +1,6 @@
 await mutate.require('bugs')
 await query.require('bugs')
 
-let EDITORS = {}
-
-export function editor(id)
-{
-	return EDITORS[id]
-}
-editor.new = id => EDITORS[id] = new SimpleMDE({element: $(id)})
-editor.del = id => delete EDITORS[id]
-
 export function init()
 {
 	const old_modal_retn = _.modal.upload.return
@@ -28,10 +19,8 @@ export function init()
 
 	window.unload.push(() => {
 		_.modal.upload.return = old_modal_retn
-		EDITORS = {}
+		$.editor.delete('new-bug-text')
 	})
-
-	editor.new('new-bug-text')
 }
 
 export async function submit_bug_report()
@@ -40,7 +29,7 @@ export async function submit_bug_report()
 
 	$.toggle_expand('card-new-bug')
 
-	const res = await mutate.bugs.report(editor('new-bug-text').value())
+	const res = await mutate.bugs.report($.val('new-bug-text'))
 
 	if (res.__typename !== 'BugReport')
 	{
@@ -51,7 +40,7 @@ export async function submit_bug_report()
 
 	_.modal.checkmark()
 
-	editor('new-bug-text').value('')
+	$('new-bug-text').value = ''
 
 	refresh_bug_list()
 }
@@ -94,7 +83,7 @@ export async function comment_on_bug_report(bug_id)
 		return
 	}
 
-	editor(`text-${bug_id}`).value('')
+	$(`text-${bug_id}`).value = ''
 	_.modal.checkmark()
 
 	if (!$(`comments-inner-${bug_id}`))

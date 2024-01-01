@@ -52,7 +52,7 @@
 					</h4>
 					<div class="expand-container" id="newcomment-{{=bug.id}}">
 						<div>
-							<textarea id="text-{{=bug.id}}" placeholder="Enter a comment..." *load="editor.new('text-{{=bug.id}}')" ></textarea>
+							<input type="richtext" id="text-{{=bug.id}}" placeholder="Enter a comment...">
 							<button *click="comment_on_bug_report('{{= bug.id }}')" >Submit Comment</button>
 						</div>
 					</div>

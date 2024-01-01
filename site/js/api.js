@@ -463,8 +463,9 @@ api.logout = function()
  * @param {string} name The base name of the snippet to fetch.
  * @returns {string} The text contents of the snippet.
  */
-api.snippit = async name =>
+api.snippit = async (name, url_only = false) =>
 {
+	if (url_only) return `/html/snippit/${name}.html`
 	return await api.get(`/html/snippit/${name}.html`)
 }
 

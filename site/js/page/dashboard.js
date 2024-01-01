@@ -50,7 +50,7 @@ window.load_dashboard = async () =>
 	environment.set_page('/', 'home')
 
 	$.hide('content')
-	await api.snippit('dashboard_header').then(res => $('content').innerHTML = res)
+	inject('content', await api.snippit('dashboard_header', true))
 
 	set_title()
 

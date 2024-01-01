@@ -44,6 +44,7 @@ window.set_title = function()
 window.unload = []
 window.inject = async function(field, url)
 {
+	field = $(field)
 	$.on.detach.resize() //Stop watching for any resize events the previous page might be watching for.
 
 	while (window.unload.length > 0)
@@ -294,6 +295,11 @@ window.set_field_logic = async function(DOM, url, module)
 					}
 				}
 			}
+		})
+
+		//Update any rich text editors
+		DOM.querySelectorAll('input[type="richtext"]').forEach(field => {
+			$.editor.new(field)
 		})
 
 		//At the very end, run all *load (onload) selectors
