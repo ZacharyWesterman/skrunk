@@ -6,7 +6,7 @@ from . import users
 from application.integrations import google_books, subsonic
 from datetime import datetime
 from bson.objectid import ObjectId
-import re
+import re, markdown
 
 db = None
 SUBSONIC = None
@@ -199,7 +199,7 @@ def create_book(data: dict) -> dict:
 		'authors': data['authors'],
 		'publisher': data['publisher'],
 		'publishedDate': data['publishedDate'],
-		'description': data['description'],
+		'description': markdown.markdown(data['description'], output_format = 'html'),
 		'pageCount': data['pageCount'],
 		'categories': [],
 		'maturityRating': 'NOT_MATURE',
