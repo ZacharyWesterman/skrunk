@@ -18,7 +18,7 @@ export async function init()
 		id: 'blob-filter-creator',
 		users: query.users.list(),
 	})
-	$('blob-filter-creator').onchange = reset_and_search;
+	$('blob-filter-creator').onchange = reset_and_search
 
 	Editor = new Yace("#tag-query", {
 		value: "",
@@ -26,6 +26,15 @@ export async function init()
 		highlighter: tag_highlight,
 	})
 	Editor.textarea.spellcheck = false
+
+	//Load query from urlparams (if it's there)
+	let q = {}
+	try { q = JSON.parse(environment.get_param('query')) } catch {}
+	for (const i in q)
+	{
+		if (i === 'tag') Editor.update({value: q[i]})
+		else $('blob-filter-'+i).value = q[i]
+	}
 
 	$.bind(Editor.textarea, () => {
 		reset_and_search()
@@ -41,6 +50,7 @@ export async function init()
 
 	window.unload.push(() => {
 		_.modal.upload.return = old_modal_retn
+		environment.set_param('query', null)
 	})
 }
 
@@ -63,6 +73,20 @@ async function get_blobs(start, count)
 	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
 	const date_from = date.from_field('blob-filter-from')
 	const date_to = date.from_field('blob-filter-to')
+
+	let q = {}
+	let has = false
+	for (const i of ['title', 'creator', 'from', 'to'])
+	{
+		const v = $.val('blob-filter-'+i)
+		if (v) { q[i] = v; has = true }
+	}
+	if (Editor.value)
+	{
+		q.tag = Editor.value; has = true
+	}
+	environment.set_param('query', has && JSON.stringify(q))
+
 	return await query.blobs.get(
 		creator,
 		start,

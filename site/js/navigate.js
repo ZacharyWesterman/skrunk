@@ -10,7 +10,7 @@ window.navigate = async function(url)
 
 window.dashnav = async function(url)
 {
-	environment.set_page(url)
+	environment.set_param('page', url)
 	clear_error_message()
 	await inject(document.all.content, `/html/${url}.html`)
 

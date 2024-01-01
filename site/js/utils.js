@@ -66,7 +66,7 @@ window.environment = {
 	/**
 	 * The current page per last navigation.
 	 */
-	page: null,
+	get page() { return environment.get_param('page') },
 
 	/**
 	 * Change the name of the page we're on, for example, when navigating to various modules.
@@ -74,8 +74,30 @@ window.environment = {
 	 * @param {string} name The name to display in the tab, next to favicon. Defaults to location if not specified.
 	 */
 	set_page: (location, name = null) => {
-		environment.page = name || location
-		window.history.replaceState({}, '', (name ? '' : '?page=') + location)
+		environment.set_param('page', (location === '/') ? '' : location)
+	},
+
+	get_param: name => {
+		const value = (new URLSearchParams(location.search)).get(name)
+		return value && decodeURIComponent(value)
+	},
+
+	set_param: (name, value) => {
+		let params = {}
+		const url = new URLSearchParams(location.search)
+		url.forEach((value, key) => {params[key] = value})
+
+		params[name] = value
+		let text = ''
+		for (const i in params)
+		{
+			if (params[i])
+			{
+				text += (text ? '&' : '?') + i + '=' + encodeURIComponent(params[i])
+			}
+		}
+
+		window.history.replaceState({}, '', text)
 	},
 }
 

@@ -47,7 +47,7 @@ window.load_model_viewer = () =>
 
 window.load_dashboard = async () =>
 {
-	environment.set_page('/', 'home')
+	// environment.set_page('/')
 
 	$.hide('content')
 	inject('content', await api.snippit('dashboard_header', true))
@@ -145,7 +145,7 @@ async function init()
 		promise.then(reset_modules)
 	})
 
-	const page = (new URLSearchParams(location.search)).get('page')
+	const page = environment.get_param('page')
 	await (page ? dashnav(page) : load_dashboard())
 
 	await promise
