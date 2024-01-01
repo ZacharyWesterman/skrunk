@@ -50,6 +50,13 @@ export function wipe_tag_editor()
 	reset_and_search()
 }
 
+export function set_tag_editor_value(text)
+{
+	const t = text.match(/^\w+$/) ? text : ('"'+text+'"')
+	Editor.update({value: (Editor.textarea.value === t) ? '' : t})
+	reset_and_search()
+}
+
 async function get_blobs(start, count)
 {
 	const title = $.val('blob-filter-title');
