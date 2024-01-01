@@ -33,7 +33,12 @@ export async function init()
 	for (const i in q)
 	{
 		if (i === 'tag') Editor.update({value: q[i]})
-		else $('blob-filter-'+i).value = q[i]
+		else
+		{
+			$('blob-filter-'+i).value = q[i]
+			$.toggle_expand('extra-search-fields', true)
+			$('toggle-chevron').classList.add('inverted')
+		}
 	}
 
 	$.bind(Editor.textarea, () => {
