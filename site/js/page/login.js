@@ -7,7 +7,7 @@ export function login()
 		{
 			api.write_cookies()
 			delete window.login
-			window.location.href = '/'
+			window.location.href = window.location.href
 		}
 		else
 		{
