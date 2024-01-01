@@ -75,7 +75,7 @@ window.date = {
 		]
 	},
 
-	from_field: function(field)
+	from_field: function(field, offset_days = 0)
 	{
 		const val = $.val(field)
 		if (!val) return null
@@ -84,10 +84,10 @@ window.date = {
 		const m = parts[1]
 		const d = parts[2]
 
-		let dt = new Date()
+		let dt = new Date('1970-01-01T00:00:00')
 		dt.setYear(y)
 		dt.setMonth(m-1)
-		dt.setDate(d)
+		dt.setDate(parseInt(d) + offset_days)
 
 		return dt
 	},

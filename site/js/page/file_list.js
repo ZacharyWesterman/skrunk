@@ -77,7 +77,7 @@ async function get_blobs(start, count)
 	const title = $.val('blob-filter-title');
 	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
 	const date_from = date.from_field('blob-filter-from')
-	const date_to = date.from_field('blob-filter-to')
+	const date_to = date.from_field('blob-filter-to', 1)
 
 	let q = {}
 	let has = false
@@ -133,7 +133,7 @@ async function reload_page_list()
 	const title = $.val('blob-filter-title') || null
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
-	const date_to = date.from_field('blob-filter-to') || null
+	const date_to = date.from_field('blob-filter-to', 1) || null
 	const res = await query.blobs.count(creator, Editor.value, date_from, date_to, title)
 	if (res.__typename !== 'BlobCount')
 	{
