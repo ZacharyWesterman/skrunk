@@ -59,7 +59,7 @@ function simulate_inotify()
 
 function sync_files()
 {
-	if which inotifywait 2>/dev/null
+	if which inotifywait &>/dev/null
 	then
 		inotif
 	else
