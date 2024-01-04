@@ -47,7 +47,7 @@ window.load_model_viewer = () =>
 
 window.load_dashboard = async () =>
 {
-	// environment.set_page('/')
+	environment.set_param('page') //wipe page param
 
 	$.hide('content')
 	inject('content', await api.snippit('dashboard_header', true))

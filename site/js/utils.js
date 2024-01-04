@@ -69,19 +69,20 @@ window.environment = {
 	get page() { return environment.get_param('page') },
 
 	/**
-	 * Change the name of the page we're on, for example, when navigating to various modules.
-	 * @param {string} location The internal name of the page.
-	 * @param {string} name The name to display in the tab, next to favicon. Defaults to location if not specified.
+	 * Get the value of a URL param.
+	 * @param {string} name The key of the param.
+	 * @returns {string} The param value.
 	 */
-	set_page: (location, name = null) => {
-		environment.set_param('page', (location === '/') ? '' : location)
-	},
-
 	get_param: name => {
 		const value = (new URLSearchParams(location.search)).get(name)
 		return value && decodeURIComponent(value)
 	},
 
+	/**
+	 * Change the value of a URL param.
+	 * @param {string} name The key of the param.
+	 * @param {string} value The new value.
+	 */
 	set_param: (name, value) => {
 		let params = {}
 		const url = new URLSearchParams(location.search)
@@ -97,7 +98,7 @@ window.environment = {
 			}
 		}
 
-		window.history.replaceState({}, '', text)
+		window.history.replaceState({}, '', text || '/')
 	},
 }
 
