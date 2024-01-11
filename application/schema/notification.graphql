@@ -69,4 +69,5 @@ extend type Mutation {
 	deleteSubscriptions(username: String!): Int!
 	sendNotification(username: String!, title: String!, body: String!, category: String): NotificationResponse!
 	markNotifAsRead(id: String!): Boolean!
+	markAllNotifsAsRead(username: String!): Boolean!
 }

@@ -57,6 +57,7 @@ mutation.set_field('deleteSubscription', resolve_delete_subscription)
 mutation.set_field('deleteSubscriptions', resolve_delete_subscriptions)
 mutation.set_field('sendNotification', resolve_send_notification)
 mutation.set_field('markNotifAsRead', resolve_mark_notification_as_read)
+mutation.set_field('markAllNotifsAsRead', resolve_mark_all_notifications_as_read)
 
 mutation.set_field('createAPIKey', resolve_create_api_key)
 mutation.set_field('deleteAPIKey', resolve_delete_api_key)

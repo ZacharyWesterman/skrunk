@@ -68,6 +68,10 @@ def mark_as_read(id: str) -> None:
 		'read': True
 	}})
 
+def mark_all_as_read(username: str) -> None:
+	user_data = users.get_user_data(username)
+	db.log.update_many({'recipient': user_data['_id'], 'read': False}, {'$set': {'read': True}})
+
 def get_notifications(username: str, read: bool, start: int, count: int) -> list:
 	user_data = users.get_user_data(username)
 	selection = db.log.find({'recipient': user_data['_id'], 'read': read}, sort = [('created', -1)])
