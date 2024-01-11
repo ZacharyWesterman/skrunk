@@ -19,7 +19,7 @@ export function init()
 
 	window.unload.push(() => {
 		_.modal.upload.return = old_modal_retn
-		$.editor.delete('new-bug-text')
+		$.editor.del('new-bug-text')
 	})
 }
 
