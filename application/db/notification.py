@@ -16,6 +16,13 @@ except FileNotFoundError:
 
 db = None
 
+def get_user_from_notif(id: str) -> dict:
+	notif = db.log.find_one({'_id': ObjectId(id)})
+	if notif is None:
+		return {}
+
+	return users.get_user_by_id(notif.get('recipient'))
+
 def get_public_key() -> str:
 	global VAPID_PUBLIC_KEY
 	return VAPID_PUBLIC_KEY
