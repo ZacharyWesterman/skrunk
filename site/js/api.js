@@ -249,7 +249,7 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
  * @returns {any} The JSON response from the server.
  */
-api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false) {
+api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false) {
 	return new Promise((resolve, reject) => {
 		let xhr = new XMLHttpRequest
 		let data = new FormData
@@ -260,6 +260,7 @@ api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [],
 		data.append('file', file)
 		data.append('unzip', auto_unzip)
 		data.append('hidden', hidden)
+		data.append('ephemeral', ephemeral)
 		data.append('tags', JSON.stringify(tag_list))
 		xhr.upload.addEventListener('progress', progress_handler, false)
 		xhr.open('POST', '/upload', true)

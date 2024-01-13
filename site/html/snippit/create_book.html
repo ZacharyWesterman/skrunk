@@ -31,11 +31,9 @@
 	</tr>
 	<tr>
 		<td>Thumbnail</td>
-		<td><input id="book-thumbnail" placeholder="<No Image>" *bind="$('book-thumb-display').src = $('book-thumbnail').value"/></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td><img style="max-width: 128px;" id="book-thumb-display" src=""></img></td>
+		<td>
+			<input type="photo" id="book-thumbnail">
+		</td>
 	</tr>
 	<tr>
 		<td colspan="2"><input type="richtext" id="book-description" placeholder="<No Description>"></td>

@@ -1,5 +1,5 @@
 import application.exceptions as exceptions
-from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage
+from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage, set_blob_ephemeral
 import application.db.perms as perms
 from application.db.users import userids_in_groups
 from application.objects import BlobSearchFilter
@@ -58,5 +58,13 @@ def resolve_generate_blob_from_qr(_, info, text: str|None) -> dict:
 def resolve_set_blob_hidden(_, info, id: str, hidden: bool) -> dict:
 	try:
 		return { '__typename': 'Blob', **set_blob_hidden(id, hidden) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['edit'])
+@perms.require(['admin'], perform_on_self = True)
+def resolve_set_blob_ephemeral(_, info, id: str, ephemeral: bool) -> dict:
+	try:
+		return { '__typename': 'Blob', **set_blob_ephemeral(id, ephemeral) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }

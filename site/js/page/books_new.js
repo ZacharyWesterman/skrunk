@@ -64,7 +64,11 @@ export async function create_book()
 		buttons: ['OK', 'Cancel'],
 	}, () => {}, //on load
 	choice => { //validate
-		if (choice === 'cancel') return true
+		if (choice === 'cancel')
+		{
+			$('book-thumbnail').wipe()
+			return true
+		}
 
 		const req_fields = ['book-title', 'book-author', 'book-isbn', 'book-publisher', 'book-published', 'book-pages']
 		let valid = true
@@ -73,6 +77,7 @@ export async function create_book()
 			if ($.val(i) === '')
 			{
 				$.flash(i)
+				if (valid) $(i).focus()
 				valid = false
 			}
 		}
@@ -81,12 +86,14 @@ export async function create_book()
 		if (!isbn.match(/^\d{10}(\d{3})?$/))
 		{
 			$.flash('book-isbn')
+			if (valid) $('book-isbn').focus()
 			valid = false
 		}
 
 		if (!$.val('book-pages').match(/^\d+$/))
 		{
 			$.flash('book-pages')
+			if (valid) $('book-pages').focus()
 			valid = false
 		}
 
@@ -101,16 +108,28 @@ export async function create_book()
 			isbn: isbn,
 			publisher: $.val('book-publisher').trim(),
 			publishedDate: $.val('book-published').trim(),
-			thumbnail: $.val('book-thumbnail').trim() || null,
+			thumbnail: $('book-thumbnail').blob_id || null,
 		}
 
 		return true
-	}).catch(() => 'cancel')
+	}).catch(() => {
+		$('book-thumbnail').wipe()
+		return 'cancel'
+	})
 
 	if (res !== 'ok') return
 
 	//Now that book data is entered, wait for rfid to be scanned.
-	const rfid = await scanning_modal()
+	const p1 = scanning_modal()
+
+	let blob_data = {}
+	if (book_data.thumbnail)
+	{
+		blob_data = await query.blobs.single(book_data.thumbnail)
+		book_data.thumbnail = `preview/${blob_data.thumbnail}`
+	}
+
+	const rfid = await p1
 	if (rfid === 'cancel') return
 	book_data.rfid = rfid
 
@@ -126,6 +145,18 @@ export async function create_book()
 		}).catch(() => {})
 		return
 	}
+
+	//If book was successfully added, mark blob as NOT ephemeral
+	api(`mutation ($id: String!, $ephemeral: Boolean!) {
+		setBlobEphemeral (id: $id, ephemeral: $ephemeral) {
+			__typename
+			...on BlobDoesNotExistError { message }
+			...on InsufficientPerms { message }
+		}
+	}`, {
+		id: blob_data.id,
+		ephemeral: false,
+	})
 
 	_.modal.checkmark()
 }

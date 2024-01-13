@@ -70,36 +70,52 @@ $.toggle_expand = (id, expand) =>
 
 $.sync_invert_to_expand = (field1, field2) =>
 {
-	for (const i of $(field1).getElementsByClassName('fa-angles-down'))
+	const f = $(field1)
+	if (!f) return
+	for (const i of f.getElementsByClassName('fa-angles-down'))
 	{
 		i.classList.toggle('inverted', $(field2).classList.contains('expanded'))
 	}
 }
 
 $.show = (id, fade = true) => {
-	let field = $(id)
-	if (!field) return
-	field.style.display = ''
-	setTimeout(() => {
-		field.classList.add('fade')
-		field.classList.remove('hidden')
-		field.classList.add('visible')
-	}, 50)
+	return new Promise(resolve => {
+		let field = $(id)
+		if (!field) return
+		field.style.display = ''
+		setTimeout(() => {
+			field.classList.add('fade')
+			field.classList.remove('hidden')
+			field.classList.add('visible')
+			resolve()
+		}, 50)
+	})
 }
 $.hide = (id, fade = false, remove = true) => {
-	let field = $(id)
-	if (!field) return
-	let classes = field.classList
-	classes.toggle('fade', fade)
-	classes.remove('visible')
-	classes.add('hidden')
-	if (remove)
-	{
-		if (fade)
-			setTimeout(() => field.style.display = 'none', 300)
-		else
-			$(id).style.display = 'none'
-	}
+	return new Promise(resolve => {
+		let field = $(id)
+		if (!field) return
+		let classes = field.classList
+		classes.toggle('fade', fade)
+		classes.remove('visible')
+		classes.add('hidden')
+		if (remove)
+		{
+			if (fade)
+			{
+				setTimeout(() => {
+					field.style.display = 'none'
+					resolve()
+				}, 300)
+			}
+			else
+			{
+				$(id).style.display = 'none'
+				resolve()
+			}
+		}
+		else resolve()
+	})
 }
 $.toggle = (id, state, fade = true) => {
 	if (state === undefined) state = $(id).classList.contains('hidden')

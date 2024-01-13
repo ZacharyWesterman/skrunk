@@ -33,6 +33,7 @@ export default {
 						preview
 						thumbnail
 						hidden
+						ephemeral
 					}
 				}
 				...on BadTagQuery {
@@ -131,6 +132,10 @@ export default {
 				creator
 				created
 				tags
+				preview
+				thumbnail
+				hidden
+				ephemeral
 			}
 		}`, {
 			id: blob_id,

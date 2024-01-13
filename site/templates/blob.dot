@@ -48,6 +48,15 @@
 			Uploaded by {{=it.creator}}
 			<br>
 			{{=it.created}}
+			{{? it.ephemeral }}
+			<div class="error">
+				EPHEMERAL
+				<span class="tooltip" *click="show_ephemeral_info" >
+					<i class="fa-solid fa-circle-question"></i>
+					<span class="tooltiptext t-center">What does this mean?</span>
+				</span>
+			</div>
+			{{?}}
 		</div>
 	</div>
 </div>

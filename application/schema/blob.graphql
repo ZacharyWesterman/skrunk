@@ -10,6 +10,7 @@ type Blob {
 	preview: String
 	thumbnail: String
 	hidden: Boolean!
+	ephemeral: Boolean!
 }
 
 type BlobDoesNotExistError {
@@ -63,4 +64,5 @@ extend type Mutation {
 	createZipArchive(filter: BlobSearchFilter!): BlobZipResponse!
 	getBlobFromQR(text: String): BlobCreateResponse!
 	setBlobHidden(id: String!, hidden: Boolean!): BlobUpdateResponse!
+	setBlobEphemeral(id: String!, ephemeral: Boolean!): BlobUpdateResponse!
 }

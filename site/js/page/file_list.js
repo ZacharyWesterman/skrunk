@@ -264,6 +264,16 @@ export async function show_tags_how_to()
 	dashnav('help/tag_query')
 }
 
+export async function show_ephemeral_info()
+{
+	await _.modal({
+		type: 'info',
+		title: 'What is an <span class="error">ephemeral</span> file?',
+		text: await api.snippit('ephemeral_files'),
+		buttons: ['OK'],
+	}).catch(() => 'ok')
+}
+
 export async function set_blob_tags(id)
 {
 	const blob_data = await get_blob(id)

@@ -199,7 +199,7 @@ def create_book(data: dict) -> dict:
 		'authors': data['authors'],
 		'publisher': data['publisher'],
 		'publishedDate': data['publishedDate'],
-		'description': markdown.markdown(data['description'], output_format = 'html'),
+		'description': None if data['description'] is None else markdown.markdown(data['description'], output_format = 'html'),
 		'pageCount': data['pageCount'],
 		'categories': [],
 		'maturityRating': 'NOT_MATURE',

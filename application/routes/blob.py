@@ -89,7 +89,8 @@ def upload() -> Response:
 
 	auto_unzip = request.form['unzip'] == 'true'
 	hidden = request.form['hidden'] == 'true'
+	ephemeral = request.form['ephemeral'] == 'true'
 	tag_list = json.loads(request.form['tags'])
-	uploaded_blobs = blob.save_blob_data(request.files['file'], auto_unzip, tag_list, hidden)
+	uploaded_blobs = blob.save_blob_data(request.files['file'], auto_unzip, tag_list, hidden, ephemeral)
 
 	return jsonify(uploaded_blobs)

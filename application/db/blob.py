@@ -60,10 +60,10 @@ def file_info(filename: str) -> str:
 
 	return size, md5sum
 
-def save_blob_data(file: object, auto_unzip: bool, tags: list = [], hidden: bool = False) -> list:
+def save_blob_data(file: object, auto_unzip: bool, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> list:
 	global blob_path
 	filename = file.filename
-	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and ext == '.zip'))
+	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and ext == '.zip'), ephemeral)
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	print(f'Beginning stream of file "{filename}"...')
@@ -82,7 +82,7 @@ def save_blob_data(file: object, auto_unzip: bool, tags: list = [], hidden: bool
 				if item.is_dir(): continue
 
 				#directly create new blobs from each item in the zip file
-				id2, ext2 = create_blob(name, tags, hidden)
+				id2, ext2 = create_blob(name, tags, hidden, ephemeral)
 				inner_blob_path = BlobStorage(id2, ext2).path(create = True)
 				with fp.open(name, 'r') as input:
 					with open(inner_blob_path, 'wb') as output:
@@ -364,6 +364,13 @@ def set_blob_tags(blob_id: str, tags: list) -> dict:
 
 	db.update_one({'_id': ObjectId(blob_id)}, {'$set': {'tags': tags}})
 	blob_data['tags'] = tags
+	return blob_data
+
+def set_blob_ephemeral(blob_id: str, ephemeral: bool) -> dict:
+	blob_data = get_blob_data(blob_id)
+
+	db.update_one({'_id': ObjectId(blob_id)}, {'$set': {'ephemeral': ephemeral}})
+	blob_data['ephemeral'] = ephemeral
 	return blob_data
 
 def create_preview(blob_path: str, preview_id: str) -> None:

@@ -302,6 +302,64 @@ window.set_field_logic = async function(DOM, url, module)
 			$.editor.new(field)
 		})
 
+		//Update any photo upload buttons
+		DOM.querySelectorAll('input[type="photo"]').forEach(field => {
+			const new_field = document.createElement('span')
+			const upload_btn = document.createElement('button')
+			const delete_btn = document.createElement('button')
+			const cam_icon = document.createElement('i')
+			const del_icon = document.createElement('i')
+			const br = document.createElement('br')
+			const img = document.createElement('img')
+
+			del_icon.classList.add('fa-solid', 'fa-trash', 'fa-lg')
+			cam_icon.classList.add('fa-solid', 'fa-camera', 'fa-lg')
+			upload_btn.style.marginRight = '4rem'
+			upload_btn.classList.add('icon', 'clickable')
+			delete_btn.classList.add('icon', 'clickable')
+			img.style.maxWidth = '128px'
+			img.style.display = 'none'
+			img.id = field.id
+			$.hide(img)
+
+			upload_btn.appendChild(cam_icon)
+			delete_btn.appendChild(del_icon)
+			new_field.append(upload_btn, delete_btn, br, img)
+
+			img.wipe = () => {
+				if (img.blob_id)
+				{
+					//Try to delete the blob. Doesn't really matter if it's successful, the blob is ephemeral so will get deleted at some point anyway.
+					mutate.blobs.delete(img.blob_id).catch(() => {})
+					delete img.blob_id
+				}
+			}
+
+			upload_btn.onclick = async () => {
+				const file = await api.file_prompt('image/*', false, 'camera').catch(() => null)
+
+				if (file === null) return
+
+				$.show(img)
+				img.alt = 'Uploading...'
+
+				const image = (await api.upload(file, ({loaded, total}) => {
+					img.alt = `Uploading... [${(loaded / total * 100).toFixed(0)}%]`
+				}, false, ['book', 'thumbnail'], false, true))[0]
+
+				img.src = `blob/${image.id}${image.ext}`
+				img.alt = 'FAILED TO LOAD THUMBNAIL'
+				img.blob_id = image.id
+			}
+
+			delete_btn.onclick = async () => {
+				img.wipe()
+				$.hide(img, true).then(() => img.src = '')
+			}
+
+			field.replaceWith(new_field)
+		})
+
 		//At the very end, run all *load (onload) selectors
 		DOM.querySelectorAll(`[\\*load]`).forEach(field => {
 			const key = field.getAttribute('*load')
