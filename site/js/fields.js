@@ -94,7 +94,11 @@ $.show = (id, fade = true) => {
 $.hide = (id, fade = false, remove = true) => {
 	return new Promise(resolve => {
 		let field = $(id)
-		if (!field) return
+		if (!field)
+		{
+			resolve()
+			return
+		}
 		let classes = field.classList
 		classes.toggle('fade', fade)
 		classes.remove('visible')

@@ -1,0 +1,7 @@
+[
+	{
+		"id": "tagged_books",
+		"title": "Number of Tagged Books",
+		"module": "books"
+	}
+]

@@ -331,3 +331,12 @@ blockquote {
 th {
 	text-align: left;
 }
+
+.gg-spinner.big {
+	transform: translateY(5rem) scale(5,5);
+}
+@media (pointer: coarse) {
+	.gg-spinner.big {
+		left: 50%;
+	}
+}

@@ -152,6 +152,8 @@ api.verify_token = async function()
  * @returns {string} The response text from the server.
  */
 api.get = function(url, use_cache = true) {
+	url = url.replace(/^\//, '')
+
 	return new Promise((resolve, reject) => {
 		//Don't re-fetch urls that are cached
 		if (use_cache)

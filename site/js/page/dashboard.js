@@ -50,14 +50,10 @@ window.load_dashboard = async () =>
 	environment.set_param('page') //wipe page param
 
 	$.hide('content')
-	inject('content', await api.snippit('dashboard_header', true))
+	await inject('content', await api.snippit('dashboard_header', true))
 
 	set_title()
-
-	let chart_data = await api(`{countAllUserBooks { owner { username display_name } count }}`)
-	chart_data = chart_data.sort((a,b) => b.count - a.count )
-
-	await chart.bar('user-book-chart', chart_data.map(i => i.owner.display_name), chart_data.map(i => i.count), true)
+	load_widgets()
 
 	setTimeout(() => $.show('content'), 200)
 }
@@ -93,6 +89,46 @@ window.set_navbar = function(name)
 window.reset_modules = modules => {
 	EnabledModules = modules
 	set_navbar('default')
+}
+
+async function load_widgets()
+{
+	const field = $('widget-container')
+
+	const promise = api('{getEnabledModules}')
+	const widget_config = await api.get_json('config/widgets.json')
+	const modules = await promise
+
+	field.innerHTML = ''
+	for (const config of widget_config)
+	{
+		//Only show widgets if their respective module is enabled.
+		if (config.module && !modules.includes(config.module)) continue
+
+		//Build prelim widget
+		const widget = document.createElement('div')
+		const title = document.createElement('h3')
+		const w_inner = document.createElement('div')
+		const w_body = document.createElement('div')
+
+		if (config.title) title.innerText = config.title
+		else title.innerHTML = `<span class="error">NO TITLE : ${config.id}</span>`
+
+		w_body.innerHTML = '<i class="gg-spinner"></i>'
+		widget.classList.add('widget', 'hidden')
+
+		w_inner.append(title, w_body)
+		widget.append(w_inner)
+		field.append(widget)
+		$.show(widget)
+
+		//Load the widget data (don't block)
+		import(`/js/widgets/${config.id}.js`).then(module => {
+			return module.default(config, w_body)
+		}).catch(e => {
+			w_body.innerHTML = `<div class="error">ERROR (${config.id}):<br>${e}</div>`
+		})
+	}
 }
 
 async function init()
