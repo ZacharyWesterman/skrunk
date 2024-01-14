@@ -136,24 +136,32 @@ async function confirm_edit_ebooks(book_data)
 	const modal = await _.modal({
 		icon: 'file-pdf',
 		title: 'Add an E-Book',
-		text: `Input a URL to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>'+book_data.subtitle+'</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" placeholder="E-Book URL" style="width:90%;">`,
+		text: `Select a file to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>'+book_data.subtitle+'</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file">`,
 		buttons: ['Submit', 'Cancel'],
-	}, () => {}, choice => { //on validate
+	}, () => {}, async choice => { //on validate
 		if (choice === 'submit')
 		{
-			if (!$.val('ebook-input'))
+			const files = $('ebook-input').files
+
+			if (!files.length)
 			{
 				$.flash('ebook-input')
 				return false
 			}
 
-			ebook_link = $.val('ebook-input')
+			//Upload the file, then get the ebook link
+			const file = (await api.upload(files[0], null, false, ['ebook']))[0]
+			ebook_link = `blob/${file.id}${file.ext}`
 		}
 
 		return true
-	}).catch(() => 'cancel')
+	}).catch(() => 'close')
 
-	if (modal !== 'submit') return
+	if (modal !== 'submit')
+	{
+		if (modal === 'cancel') edit_book(book_data.rfid)
+		return
+	}
 
 	const res = await mutate.books.append_ebook(book_data.id, ebook_link)
 	if (res.__typename !== 'Book')
