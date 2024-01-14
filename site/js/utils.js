@@ -211,13 +211,14 @@ window.chart = {
 
 		if ($(field).children.length)
 		{
+			if ($(field).children[0].c) $(field).children[0].c.destroy()
 			$(field).children[0].remove()
 		}
 
 		let canvas = document.createElement('canvas')
 		$(field).appendChild(canvas)
 
-		new Chart(canvas, chart_config)
+		canvas.c = new Chart(canvas, chart_config)
 	},
 
 	/**
