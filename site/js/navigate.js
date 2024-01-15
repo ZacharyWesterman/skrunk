@@ -336,6 +336,10 @@ window.set_field_logic = async function(DOM, url, module)
 					mutate.blobs.delete(img.blob_id).catch(() => {})
 					delete img.blob_id
 				}
+
+				$.hide(img, true).then(() => img.src = '')
+				$.hide(progressbar, true)
+				progressbar.removeAttribute('value')
 			}
 
 			upload_btn.onclick = async () => {
@@ -362,9 +366,6 @@ window.set_field_logic = async function(DOM, url, module)
 
 			delete_btn.onclick = async () => {
 				img.wipe()
-				$.hide(img, true).then(() => img.src = '')
-				$.hide(progressbar, true)
-				progressbar.removeAttribute('value')
 			}
 
 			field.replaceWith(new_field)

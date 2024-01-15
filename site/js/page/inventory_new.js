@@ -1,5 +1,13 @@
 export async function init()
 {
+	const types = {
+		id: 'type',
+		default: '<Object Type>',
+		class: 'fit',
+		options: ['Hammer', 'Shovel'],
+		append: true,
+	}
+
 	const categories = {
 		id: 'category',
 		default: '<Category>',
@@ -17,6 +25,7 @@ export async function init()
 	}
 
 	const promises = [
+		_('type', types),
 		_('category', categories),
 		_('location', locations),
 	]
@@ -42,4 +51,34 @@ export async function append_modal(field)
 		$(field).add(new Option(value, value, false, true))
 		return true
 	}).catch(() => 'cancel')
+}
+
+export function wipe_fields()
+{
+	$('type').value = ''
+	$('category').value = ''
+	$('location').value = ''
+	$('description').value = ''
+	$('photo').wipe()
+}
+
+export async function submit()
+{
+	let valid = true
+	for (const i of ['category', 'type', 'location'])
+	{
+		if ($.val(i) === '')
+		{
+			$.flash(i)
+			if (valid) $(i).focus()
+			valid = false
+		}
+	}
+	if (!valid) return
+
+	//On valid object, we want to wipe some fields, but not all.
+	_.modal.checkmark()
+	$('type').value = ''
+	$('description').value = ''
+	$('photo').wipe()
 }
