@@ -317,7 +317,7 @@ window.set_field_logic = async function(DOM, url, module)
 			upload_btn.style.marginRight = '4rem'
 			upload_btn.classList.add('icon', 'clickable')
 			delete_btn.classList.add('icon', 'clickable')
-			img.style.maxWidth = '128px'
+			img.classList.add('thumbnail')
 			img.style.display = 'none'
 			img.id = field.id
 			img.tags = field.getAttribute('tags')?.toLowerCase()?.split(' ')
@@ -348,7 +348,9 @@ window.set_field_logic = async function(DOM, url, module)
 					img.alt = `Uploading... [${(loaded / total * 100).toFixed(0)}%]`
 				}, false, img.tags, false, true))[0]
 
-				img.src = `blob/${image.id}${image.ext}`
+				const res = await query.blobs.single(image.id)
+
+				img.src = `preview/${res.thumbnail}`
 				img.alt = 'FAILED TO LOAD THUMBNAIL'
 				img.blob_id = image.id
 			}
