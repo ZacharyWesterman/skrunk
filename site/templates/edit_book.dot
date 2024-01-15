@@ -3,7 +3,7 @@
 <table>
 	<tr>
 		<td>Owned by</td>
-		<td><div class="inline" name="user_dropdown"></div></td>
+		<td><div class="inline" name="dropdown"></div></td>
 		<td><button id="button-owner" class="reset clickable hidden" onclick="$.wipe('book-owner', '{{= safe_html(it.owner.username) }}'); $.hide(this,true,false)"><i class="fa-solid fa-rotate-left fa-xl"></i></button></td>
 	</tr>
 	<tr>

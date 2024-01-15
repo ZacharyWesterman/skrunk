@@ -18,7 +18,7 @@ export default {
 		}
 		else
 			res = query.users.__user_list
-		return filter ? res.filter(filter) : res
+		return (filter ? res.filter(filter) : res).map(i => { return {value: i.username, display: i.display_name} })
 	},
 
 	sessions: async username =>

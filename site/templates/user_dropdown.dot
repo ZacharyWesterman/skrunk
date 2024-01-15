@@ -1,6 +1,0 @@
-<select id="{{=it.id}}" {{? it.class }}class="{{= it.class }}"{{?}}>
-	<option value="" selected>{{= (it.default !== undefined) ? it.default : 'Anyone' }}</option>
-	{{~ it.users : i}}
-		<option value="{{=i.username}}">{{=i.display_name}}</option>
-	{{~}}
-</select>
