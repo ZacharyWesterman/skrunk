@@ -90,9 +90,9 @@ export async function create_user()
 
 function refresh_users()
 {
-	_('user_dropdown', {
+	_('dropdown', {
 		id: 'userlist',
-		users: query.users.list(null, false, false), //Don't cache user list, and don't restrict to our group.
+		options: query.users.list(null, false, false), //Don't cache user list, and don't restrict to our group.
 		default: 'Select User',
 		class: 'big',
 	}).then(() => {

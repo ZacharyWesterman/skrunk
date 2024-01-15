@@ -197,9 +197,9 @@ export async function edit_book(rfid)
 	}, async () => {
 		await _('edit_book', promise_data)
 
-		_('user_dropdown', {
+		_('dropdown', {
 			id: 'book-owner',
-			users: query.users.list(),
+			options: query.users.list(),
 			default: 'Select User',
 		}).then(() => {
 			$.wipe('book-owner', book_data.owner.username)
@@ -447,9 +447,9 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 			buttons: is_shared ?['Share', 'Return', 'Cancel'] : ['Share', 'Cancel'],
 		},
 		() => { //on load
-			_('user_dropdown', {
+			_('dropdown', {
 				id: 'person',
-				users: query.users.list(u => u.username !== api.username),
+				options: query.users.list(u => u.username !== api.username),
 				default: 'Select User',
 			})
 		}, choice => { //validate
