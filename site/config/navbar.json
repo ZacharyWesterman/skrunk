@@ -24,6 +24,13 @@
 			"module": "books"
 		},
 		{
+			"text": "Inventory",
+			"icon": "dolly",
+			"action": "dashnav('inventory')",
+			"goto": "inventory",
+			"module": "inventory"
+		},
+		{
 			"text": "Audio Catalog",
 			"icon": "music",
 			"action": "dashnav('subsonic')",
@@ -115,6 +122,51 @@
 			"text": "Catalog Books",
 			"icon": "bookmark",
 			"action": "dashnav('books_new')"
+		},
+		{
+			"text": "Generate QR Code",
+			"icon": "qrcode",
+			"action": "qr.generate()",
+			"module": "qr"
+		},
+		{
+			"text": "Upload Files",
+			"icon": "file-arrow-up",
+			"action": "_.modal.upload()",
+			"module": "files",
+			"class": "bottom"
+		},
+		{
+			"text": "Bug Tracker",
+			"icon": "bug",
+			"action": "dashnav('bugs')",
+			"module": "bugs",
+			"class": "bottom"
+		},
+		{
+			"text": "Toggle Fullscreen",
+			"icon": "expand",
+			"action": "fullscreen()",
+			"class": "bottom",
+			"show_if": "!environment.ios"
+		}
+	],
+
+	"inventory": [
+		{
+			"text": "Back",
+			"icon": "arrow-up",
+			"goto": "default"
+		},
+		{
+			"text": "Inventory",
+			"icon": "dolly",
+			"action": "dashnav('inventory')"
+		},
+		{
+			"text": "Add Items",
+			"icon": "plus",
+			"action": "dashnav('inventory_new')"
 		},
 		{
 			"text": "Generate QR Code",
