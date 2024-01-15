@@ -98,10 +98,12 @@ input {
 	border-radius: var(--border-radius);
 	margin-bottom: 5px;
 	transition: all 0.25s ease-in-out;
+	min-width: 190px;
 }
 
 input[type="checkbox"] {
 	transform: translateY(0.27rem);
+	min-width: unset;
 }
 
 input.wide {
@@ -157,6 +159,12 @@ input.wide {
 	}
 }
 
+input, select {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 select {
 	height: 1.5rem;
 	border: none;
@@ -164,6 +172,10 @@ select {
 	margin-bottom: 5px;
 	background-color: white;
 	transition: all 0.25s ease-in-out;
+}
+
+select.fit {
+	min-width: 190px;
 }
 
 iframe {
