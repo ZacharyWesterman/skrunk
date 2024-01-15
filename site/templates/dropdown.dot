@@ -1,0 +1,12 @@
+<select id="{{= it.id }}" {{? it.class }}class="{{= it.class }}"{{?}}>
+	{{? it.default !== false }}
+	<option value="" {{? (!it.selected) }}selected{{?}}>{{= html_encode(it.default) || '' }}</option>
+	{{?}}
+	{{~ it.options : i }}
+		<option value="{{= i.value || i}}" {{? it.selected && (it.selected === i.value || it.selected === i) }}selected{{?}} >{{= i.display || i.value || i}}</option>
+	{{~}}
+</select>
+
+{{? it.append }}
+<i id="{{= it.id}}-btn-append" class="clickable fa-solid fa-plus fa-lg" style="margin-left: 2rem;" *click="append_modal('{{= it.id }}')" ></i>
+{{?}}

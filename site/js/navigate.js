@@ -320,6 +320,7 @@ window.set_field_logic = async function(DOM, url, module)
 			img.style.maxWidth = '128px'
 			img.style.display = 'none'
 			img.id = field.id
+			img.tags = field.getAttribute('tags')?.toLowerCase()?.split(' ')
 			$.hide(img)
 
 			upload_btn.appendChild(cam_icon)
@@ -345,7 +346,7 @@ window.set_field_logic = async function(DOM, url, module)
 
 				const image = (await api.upload(file, ({loaded, total}) => {
 					img.alt = `Uploading... [${(loaded / total * 100).toFixed(0)}%]`
-				}, false, ['book', 'thumbnail'], false, true))[0]
+				}, false, img.tags, false, true))[0]
 
 				img.src = `blob/${image.id}${image.ext}`
 				img.alt = 'FAILED TO LOAD THUMBNAIL'
