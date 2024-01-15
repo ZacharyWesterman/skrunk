@@ -155,7 +155,7 @@ async function confirm_edit_ebooks(book_data)
 
 			//Upload the file, then get the ebook link
 			const file = (await api.upload(files[0], prog => {
-				progress.value = prog.loaded / prog.total * 100
+				progress.value = prog.loaded / prog.total
 			}, false, ['ebook']))[0]
 			ebook_link = `blob/${file.id}${file.ext}`
 			progress.removeAttribute('value')
