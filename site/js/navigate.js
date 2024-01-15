@@ -311,6 +311,7 @@ window.set_field_logic = async function(DOM, url, module)
 			const del_icon = document.createElement('i')
 			const br = document.createElement('br')
 			const img = document.createElement('img')
+			const progressbar = document.createElement('progress')
 
 			del_icon.classList.add('fa-solid', 'fa-trash', 'fa-lg')
 			cam_icon.classList.add('fa-solid', 'fa-camera', 'fa-lg')
@@ -322,10 +323,11 @@ window.set_field_logic = async function(DOM, url, module)
 			img.id = field.id
 			img.tags = field.getAttribute('tags')?.toLowerCase()?.split(' ')
 			$.hide(img)
+			$.hide(progressbar)
 
 			upload_btn.appendChild(cam_icon)
 			delete_btn.appendChild(del_icon)
-			new_field.append(upload_btn, delete_btn, br, img)
+			new_field.append(upload_btn, delete_btn, br, img, progressbar)
 
 			img.wipe = () => {
 				if (img.blob_id)
@@ -341,23 +343,28 @@ window.set_field_logic = async function(DOM, url, module)
 
 				if (file === null) return
 
-				$.show(img)
-				img.alt = 'Uploading...'
+				$.show(progressbar)
 
 				const image = (await api.upload(file, ({loaded, total}) => {
-					img.alt = `Uploading... [${(loaded / total * 100).toFixed(0)}%]`
+					progressbar.value = loaded / total
 				}, false, img.tags, false, true))[0]
+				progressbar.removeAttribute('value')
 
 				const res = await query.blobs.single(image.id)
 
 				img.src = `preview/${res.thumbnail}`
 				img.alt = 'FAILED TO LOAD THUMBNAIL'
 				img.blob_id = image.id
+
+				await $.hide(progressbar, true)
+				$.show(img)
 			}
 
 			delete_btn.onclick = async () => {
 				img.wipe()
 				$.hide(img, true).then(() => img.src = '')
+				$.hide(progressbar, true)
+				progressbar.removeAttribute('value')
 			}
 
 			field.replaceWith(new_field)
