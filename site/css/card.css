@@ -60,7 +60,15 @@ div .page > h1 {
 
 .book-icon img {
 	display: block;
+}
+
+img {
 	border-radius: var(--border-radius);
+}
+
+img.thumbnail {
+	max-width: 128px;
+	max-height: 128px;
 }
 
 .audiobook-icon {
