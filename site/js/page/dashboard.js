@@ -95,15 +95,13 @@ async function load_widgets()
 {
 	const field = $('widget-container')
 
-	const promise = api('{getEnabledModules}')
 	const widget_config = await api.get_json('config/widgets.json')
-	const modules = await promise
 
 	field.innerHTML = ''
 	for (const config of widget_config)
 	{
 		//Only show widgets if their respective module is enabled.
-		if (config.module && !modules.includes(config.module)) continue
+		if (config.module && !EnabledModules.includes(config.module)) continue
 
 		//Build prelim widget
 		const widget = document.createElement('div')
