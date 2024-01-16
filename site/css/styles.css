@@ -114,6 +114,10 @@ input.wide {
 	background-color: var(--error-text);
 }
 
+.invalid-fg {
+	color: var(--error-text);
+}
+
 .invisible {
 	background: none;
 	width: 0;
