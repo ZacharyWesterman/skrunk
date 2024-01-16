@@ -74,6 +74,14 @@ export async function submit()
 			valid = false
 		}
 	}
+
+	if (!$('photo').blob_id)
+	{
+		$.flash('photo')
+		if (valid) $('photo').focus()
+		valid = false
+	}
+
 	if (!valid) return
 
 	//On valid object, we want to wipe some fields, but not all.
