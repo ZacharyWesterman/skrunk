@@ -131,12 +131,12 @@ async function confirm_unlink_book(title, rfid)
 
 async function confirm_edit_ebooks(book_data)
 {
-	let ebook_link
+	let ebook_promises = []
 
 	const modal = await _.modal({
 		icon: 'file-pdf',
-		title: 'Add an E-Book',
-		text: `Select a file to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>'+book_data.subtitle+'</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file">`,
+		title: 'Add E-Books',
+		text: `Select 1 or more files to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>'+book_data.subtitle+'</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file" multiple>`,
 		buttons: ['Submit', 'Cancel'],
 	}, () => {}, async choice => { //on validate
 		if (choice === 'submit')
@@ -149,16 +149,26 @@ async function confirm_edit_ebooks(book_data)
 				return false
 			}
 
-			const progress = document.createElement('progress')
-			$('ebook-input').parentElement.append(progress)
-			progress.value = 0
+			//Upload the file(s)
+			let promises = []
+			for (let i = 0; i < files.length; ++i)
+			{
+				const progress = document.createElement('progress')
+				$('ebook-input').parentElement.append(progress)
+				progress.value = 0
 
-			//Upload the file, then get the ebook link
-			const file = (await api.upload(files[0], prog => {
-				progress.value = prog.loaded / prog.total * 100
-			}, false, ['ebook']))[0]
-			ebook_link = `blob/${file.id}${file.ext}`
-			progress.removeAttribute('value')
+				promises.push(api.upload(files[i], prog => {
+					progress.value = prog.loaded / prog.total * 100
+				}, false, ['ebook']));
+			}
+
+			//Once files are done uploading, get the ebook links
+			for (const promise of promises)
+			{
+				const file = (await promise)[0]
+				const ebook_link = `blob/${file.id}${file.ext}`
+				ebook_promises.push(mutate.books.append_ebook(book_data.id, ebook_link))
+			}
 		}
 
 		return true
@@ -170,11 +180,14 @@ async function confirm_edit_ebooks(book_data)
 		return
 	}
 
-	const res = await mutate.books.append_ebook(book_data.id, ebook_link)
-	if (res.__typename !== 'Book')
+	for (const promise of ebook_promises)
 	{
-		_.modal.error(res.message)
-		return
+		const res = await promise
+		if (res.__typename !== 'Book')
+		{
+			_.modal.error(res.message)
+			return
+		}
 	}
 
 	_.modal.checkmark()
