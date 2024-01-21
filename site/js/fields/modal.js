@@ -103,7 +103,7 @@ modal.upload = async function()
 	async function tagHTML(tag)
 	{
 		const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
-		return `<div class="tag clickable hidden ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
+		return `<div class="tag clickable ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
 	}
 
 	function tagClicks(tagList)
