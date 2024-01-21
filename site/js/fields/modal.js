@@ -100,9 +100,10 @@ modal.upload = async function()
 	tagList.innerHTML = ''
 	modal.upload.tag_list = []
 
-	function tagHTML(tag)
+	async function tagHTML(tag)
 	{
-		return `<div class="tag clickable">${tag}\&nbsp;<b>\&times;</b></div>`
+		const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
+		return `<div class="tag clickable hidden ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
 	}
 
 	function tagClicks(tagList)
@@ -123,7 +124,7 @@ modal.upload = async function()
 	tagClicks(tagList)
 
 	//when submitting a tag
-	const tagSubmit = field => {
+	const tagSubmit = async field => {
 		const tag = field.value.trim()
 		if (tag.length === 0) return
 
@@ -131,7 +132,7 @@ modal.upload = async function()
 		{
 			if (modal.upload.tag_list.length === 0) tagList.innerHTML = ''
 			modal.upload.tag_list.push(tag)
-			tagList.innerHTML += tagHTML(tag)
+			tagList.innerHTML += await tagHTML(tag)
 		}
 
 		field.value = ''

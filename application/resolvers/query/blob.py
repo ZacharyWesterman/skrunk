@@ -49,3 +49,7 @@ def resolve_process_qr_from_blob(_, info, id: str) -> str|None:
 	except Exception as e:
 		print(e, flush=True)
 		return None
+
+def resolve_count_tag_uses(_, info, tag: str) -> int:
+	group = userids_in_groups(perms.caller_info().get('groups', []))
+	return count_tag_uses(tag, group)

@@ -26,6 +26,7 @@ query.set_field('countBlobs', resolve_count_blobs)
 query.set_field('getBlob', resolve_get_blob)
 query.set_field('totalBlobSize', resolve_total_blob_size)
 query.set_field('getQRFromBlob', resolve_process_qr_from_blob)
+query.set_field('countTagUses', resolve_count_tag_uses)
 
 query.set_field('getBugReports', resolve_get_bug_reports)
 query.set_field('countBugReports', resolve_count_bug_reports)

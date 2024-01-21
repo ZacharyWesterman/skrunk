@@ -387,3 +387,6 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 	blob_data['hidden'] = hidden
 
 	return blob_data
+
+def count_tag_uses(tag: str, users: list[str]) -> int:
+	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in users]} ]})
