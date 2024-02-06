@@ -166,7 +166,7 @@ async function confirm_edit_ebooks(book_data)
 			for (const promise of promises)
 			{
 				const file = (await promise)[0]
-				const ebook_link = `blob/${file.id}${file.ext}`
+				const ebook_link = `download/${file.id}${file.ext}`
 				ebook_promises.push(mutate.books.append_ebook(book_data.id, ebook_link))
 			}
 		}
