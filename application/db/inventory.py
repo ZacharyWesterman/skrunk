@@ -12,9 +12,9 @@ def create_inventory_item(category: str, type: str, location: str, blob_id: str,
 	item = {
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
-		'category': category,
-		'type': type,
-		'location': location,
+		'category': category.strip(),
+		'type': type.strip(),
+		'location': location.strip(),
 		'blob_id': blob_id,
 		'description': description,
 		'description_html': markdown.markdown(description, output_format = 'html'),
@@ -23,3 +23,13 @@ def create_inventory_item(category: str, type: str, location: str, blob_id: str,
 	db.items.insert_one(item)
 
 	return item
+
+def get_item_categories() -> list[str]:
+	return [ i for i in db.items.distinct('category') ]
+
+def get_item_types(category: str) -> list[str]:
+	return [ i for i in db.items.distinct('type', {'category': category}) ]
+
+def get_item_locations(owner: str) -> list[str]:
+	user_data = users.get_user_data(owner)
+	return [ i for i in db.items.distinct('location', {'creator': user_data['_id']}) ]

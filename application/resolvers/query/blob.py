@@ -2,16 +2,8 @@ from application.db.blob import *
 from application.tags import exceptions
 from application.objects import BlobSearchFilter, Sorting
 import application.db.perms as perms
-from application.db.users import userids_in_groups
+from application.db.users import group_filter, userids_in_groups
 from application.integrations import qrcode
-
-def group_filter(filter: dict, user_data: dict) -> dict:
-	if filter.get('creator') is None:
-		groups = user_data.get('groups', [])
-		if len(groups):
-			filter['creator'] = userids_in_groups(groups)
-
-	return filter
 
 def resolve_get_blobs(_, info, filter: BlobSearchFilter, start: int, count: int, sorting: Sorting) -> dict:
 	try:

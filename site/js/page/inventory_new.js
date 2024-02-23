@@ -1,18 +1,18 @@
 export async function init()
 {
-	const types = {
-		id: 'type',
-		default: '<Object Type>',
-		class: 'fit',
-		options: ['Hammer', 'Shovel'],
-		append: true,
-	}
-
 	const categories = {
 		id: 'category',
 		default: '<Category>',
 		class: 'fit',
-		options: ['cat1', 'cat2'],
+		options: api(`{ getItemCategories }`),
+		append: true,
+	}
+
+	let types = {
+		id: 'type',
+		default: '<Object Type>',
+		class: 'fit',
+		options: [],
 		append: true,
 	}
 
@@ -20,14 +20,27 @@ export async function init()
 		id: 'location',
 		default: '<Location>',
 		class: 'fit',
-		options: ['location1', 'location2'],
+		options: api(`query ($owner: String!) {
+			getItemLocations (owner: $owner)
+		}`,{
+			owner: api.username,
+		}),
 		append: true,
 	}
 
 	const promises = [
-		_('type', types),
-		_('category', categories),
-		_('location', locations),
+		_('_category', categories).then(() => {
+			$.bind('category', () => {
+				types.options = api(`query ($category: String!) {
+					getItemTypes (category: $category)
+				}`, {
+					category: $.val('category'),
+				})
+				_('_type', types)
+			})
+		}),
+		_('_type', types),
+		_('_location', locations),
 	]
 	for (const i of promises) await i
 }
@@ -116,5 +129,5 @@ export async function submit()
 	_.modal.checkmark()
 	$('type').value = ''
 	$('description').value = ''
-	$('photo').wipe()
+	$('photo').wipe(false)
 }

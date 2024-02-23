@@ -21,9 +21,9 @@ extend type Query {
 	getInventory(owner: String, category: String, type: String, location: String, start: Int!, count: Int!): [Item!]!
 	countInventory(owner: String, category: String, type: String, location: String): Int!
 
-	getObjectCategories: [String!]!
-	getObjectTypes(category: String): [String!]!
-	getObjectLocations(owner: String): [String!]!
+	getItemCategories: [String!]!
+	getItemTypes(category: String): [String!]!
+	getItemLocations(owner: String): [String!]!
 }
 
 extend type Mutation {
