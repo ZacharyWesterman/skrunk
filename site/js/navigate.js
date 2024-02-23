@@ -329,8 +329,8 @@ window.set_field_logic = async function(DOM, url, module)
 			delete_btn.appendChild(del_icon)
 			new_field.append(upload_btn, delete_btn, br, img, progressbar)
 
-			img.wipe = () => {
-				if (img.blob_id)
+			img.wipe = (delete_blob = true) => {
+				if (delete_blob && img.blob_id)
 				{
 					//Try to delete the blob. Doesn't really matter if it's successful, the blob is ephemeral so will get deleted at some point anyway.
 					mutate.blobs.delete(img.blob_id).catch(() => {})

@@ -84,6 +84,34 @@ export async function submit()
 
 	if (!valid) return
 
+	const res = await api(`mutation ($category: String!, $type: String!, $location: String!, $blob_id: String!, $description: String!) {
+		createInventoryItem (category: $category, type: $type, location: $location, blob_id: $blob_id, description: $description) {
+			__typename
+			...on InsufficientPerms { message }
+			...on InvalidFields { message fields }
+		}
+	}`, {
+		category: $.val('category'),
+		type: $.val('type'),
+		location: $.val('location'),
+		blob_id: $('photo').blob_id,
+		description: $.val('description'),
+	})
+
+	if (res.__typename !== 'Item')
+	{
+		if (res.__typename === 'InvalidFields')
+		{
+			const message = res.message + '<ul>' + res.fields.map(i => `<li>${i}</li>`).join('') + '</ul>'
+			$.modal.error(message)
+		}
+		else
+		{
+			$.modal.error(res.message)
+		}
+		return
+	}
+
 	//On valid object, we want to wipe some fields, but not all.
 	_.modal.checkmark()
 	$('type').value = ''
