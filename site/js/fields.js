@@ -10,9 +10,11 @@ _.modal = Modal
 
 function get_css_styles()
 {
-	for (let sheet of document.styleSheets)
+	for (const sheet of document.styleSheets)
 	{
-		for (let rule of sheet.cssRules)
+		if ('cssRules' in sheet) continue;
+
+		for (const rule of sheet.cssRules)
 		{
 			if (rule.href === '/css/theme.css')
 			{
