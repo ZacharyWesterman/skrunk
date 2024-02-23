@@ -81,5 +81,19 @@ export default {
 			id: blob_id,
 			hidden: hidden,
 		})
-	}
+	},
+
+	set_ephemeral: async (blob_id, ephemeral) =>
+	{
+		return await api(`mutation ($id: String!, $ephemeral: Boolean!) {
+			setBlobEphemeral (id: $id, ephemeral: $ephemeral) {
+				__typename
+				...on BlobDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			id: blob_id,
+			ephemeral: ephemeral,
+		})
+	},
 }
