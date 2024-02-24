@@ -85,6 +85,10 @@ def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting
 
 		i['id'] = i['_id']
 		i['blob'] = blob.get_blob_data(i['blob'])
+		if i['blob'] is None:
+			i['blob'] = {
+				'thumbnail': 'DELETED',
+			}
 		items += [i]
 
 	return items
