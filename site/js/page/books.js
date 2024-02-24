@@ -394,7 +394,7 @@ export async function search_books()
 		genre: genre,
 		shared: shared,
 	}
-	const res = await query.books.get(filter, BookStart, BookListLen, {field: $.val('sort-by') || 'title', descending: false})
+	const res = await query.books.get(filter, BookStart, BookListLen, {fields: [$.val('sort-by') || 'title'], descending: false})
 
 	await _('book', {
 		books: res,
@@ -434,7 +434,7 @@ async function reload_book_count()
 		BookStart = this_page * BookListLen
 	}
 
-	const fn = () => _('page_list', {
+	const fn = () => _('page-list', {
 		pages: pages,
 		count: page_ct,
 		current: this_page,

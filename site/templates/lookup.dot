@@ -1,0 +1,22 @@
+<div class="card alt" id="lookup-header">
+	<div class="card-inner">
+		<div {{? it.has_hidden_fields }}class="clickable" *toggles="extra-search-fields"{{?}}>
+			<h3>
+				{{= it.header }}
+				{{? it.has_hidden_fields }}<i class="right fa-solid fa-angles-down"></i>{{?}}
+			</h3>
+		</div>
+
+		{{= it.fields }}
+
+		<div name="page-list"></div>
+	</div>
+</div>
+
+<div id="lookup-results" template="{{= it.template }}"></div>
+
+<div class="card alt" id="lookup-footer">
+	<div class="card-inner">
+		<div name="page-list"></div>
+	</div>
+</div>

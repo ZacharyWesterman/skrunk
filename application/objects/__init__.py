@@ -16,5 +16,11 @@ class BlobSearchFilter(TypedDict):
 	tag_expr: str|None
 
 class Sorting(TypedDict):
-	field: str
+	fields: list[str]
 	descending: bool
+
+class InventorySearchFilter(TypedDict):
+	creator: str|None
+	category: str|None
+	type: str|None
+	location: str|None

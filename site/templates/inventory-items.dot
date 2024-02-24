@@ -1,0 +1,33 @@
+{{~ it : item }}
+<div {{? item.description_html }}class="card clickable" *toggles="desc-{{= item.id }}"{{??}}class="card"{{?}}>
+	<div class="card-inner">
+		Owned by {{= item.creator.display_name }}{{? item.creator.display_name.toLowerCase() !== item.creator.username }}({{= item.creator.username}}){{?}}
+		{{? item.description_html }}
+		<button class="icon clickable tooltip" id="btn-{{= item.id }}">
+			<i class="fa-solid fa-angles-down fa-lg"></i>
+			<span class="tooltiptext t-left">Show/hide description</span>
+		</button>
+		{{?}}
+		<table>
+			<tr>
+				<td>
+					<img src="preview/{{= item.blob.thumbnail }}" alt="<ITEM IMAGE>" loading="lazy">
+				</td>
+				<td>
+					{{= item.category }}<br>
+					{{= item.type }}<br>
+					{{= item.location }}
+				<td>
+			</tr>
+		</table>
+
+		{{? item.description_html }}
+		<div class="expand-container clickable" id="desc-{{= item.id}}" *toggles="desc-{{= item.id}}" *expand_invert="btn-{{= item.id }}" >
+			<div>
+				{{= item.description_html}}
+			</div>
+		</div>
+		{{?}}
+	</div>
+</div>
+{{~}}

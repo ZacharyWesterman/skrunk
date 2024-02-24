@@ -1,9 +1,12 @@
 
 type Item {
+	id: String!
+	created: DateTime!
+	creator: UserMinData!
 	category: String!
 	type: String!
 	location: String!
-	blob_id: String!
+	blob: Blob!
 	description: String!
 	description_html: String!
 }
@@ -13,16 +16,23 @@ type InvalidFields {
 	fields: [String!]!
 }
 
+input InventorySearchFilter {
+	owner: String
+	category: String
+	type: String
+	location: String
+}
+
 union ItemCreateResponse = Item | InsufficientPerms | InvalidFields
 
 #Resolvers below this line:
 
 extend type Query {
-	getInventory(owner: String, category: String, type: String, location: String, start: Int!, count: Int!): [Item!]!
-	countInventory(owner: String, category: String, type: String, location: String): Int!
+	getInventory(filter: InventorySearchFilter!, start: Int!, count: Int!, sorting: Sorting!): [Item!]!
+	countInventory(filter: InventorySearchFilter!): Int!
 
 	getItemCategories: [String!]!
-	getItemTypes(category: String): [String!]!
+	getItemTypes(category: String!): [String!]!
 	getItemLocations(owner: String): [String!]!
 }
 
