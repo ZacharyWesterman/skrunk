@@ -18,4 +18,5 @@ def resolve_get_inventory(_, info, filter: InventorySearchFilter, start: int, co
 
 def resolve_count_inventory(_, info, filter: InventorySearchFilter) -> int:
 	user_data = perms.caller_info()
+	print(filter, flush=True)
 	return count_inventory(group_filter(filter, user_data), user_data['_id'])

@@ -41,7 +41,7 @@ def get_item_locations(owner: str) -> list[str]:
 def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> dict:
 	query = [{}]
 
-	creator = filter.get('creator')
+	creator = filter.get('owner')
 	if type(creator) is str:
 		user_data= users.get_user_data(creator)
 		query += [{'creator': user_data['_id']}]
@@ -98,5 +98,7 @@ def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> list:
 		query = build_inventory_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
 		return 0
+
+	print(query, flush=True)
 
 	return db.items.count_documents(query)

@@ -5,19 +5,83 @@ export async function init()
 {
 	await _('lookup', {
 		header: 'Search for items:',
-		fields: '',
+		fields: `
+		<div name="owner" template="dropdown"></div>
+		<div name="_category" template="dropdown"></div>
+		<div name="_type" template="dropdown"></div>
+		<div name="_location" template="dropdown"></div>
+		`,
 		template: 'inventory-items',
 	})
+
+	const categories = {
+		id: 'category',
+		default: '<Category>',
+		class: 'fit',
+		options: api(`{ getItemCategories }`),
+	}
+
+	let types = {
+		id: 'type',
+		default: '<Object Type>',
+		class: 'fit',
+		options: [],
+	}
+
+	const locations = {
+		id: 'location',
+		default: '<Location>',
+		class: 'fit',
+		options: api(`query ($owner: String!) {
+			getItemLocations (owner: $owner)
+		}`,{
+			owner: api.username,
+		}),
+	}
+
+	const users = {
+		id: 'owner',
+		default: '<Owner>',
+		class: 'fit',
+		options: query.users.list(),
+	}
+
+	const bind = field => {return () => $.bind(field, () => navigate_to_page(0)) }
+
+	const promises = [
+		_('owner', users).then(bind('owner')),
+		_('_category', categories).then(() => {
+			$.bind('category', () => {
+				types.options = api(`query ($category: String!) {
+					getItemTypes (category: $category)
+				}`, {
+					category: $.val('category'),
+				})
+				_('_type', types).then(bind('type'))
+				navigate_to_page(0)
+			})
+		}),
+		_('_type', types),
+		_('_location', locations).then(bind('location')),
+	]
+	for (const i of promises) await i
 
 	navigate_to_page(1)
 }
 
 export async function navigate_to_page(page_num)
 {
+	const filter = {
+		category: $.val('category') || null,
+		type: $.val('type') || null,
+		location: $.val('location') || null,
+		owner: $.val('owner') || null,
+	}
+
 	const count_promise = api(`query ($filter: InventorySearchFilter!) {
 		countInventory(filter: $filter)
 	}`, {
-		filter: {},
+		filter: filter,
 	}).then(res => {
 		const count = res
 
@@ -60,7 +124,7 @@ export async function navigate_to_page(page_num)
 			description_html
 		}
 	}`, {
-		filter: {}, //No filter currently
+		filter: filter,
 		start: LookupStart,
 		count: LookupListLen,
 		sorting: {
