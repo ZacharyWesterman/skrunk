@@ -28,7 +28,7 @@ export async function init()
 		options: [],
 	}
 
-	const locations = {
+	let locations = {
 		id: 'location',
 		default: '<Location>',
 		class: 'fit',
@@ -49,7 +49,18 @@ export async function init()
 	const bind = field => {return () => $.bind(field, () => navigate_to_page(0)) }
 
 	const promises = [
-		_('owner', users).then(bind('owner')),
+		_('owner', users).then(() => {
+			const chg = () => {
+				locations.options = api(`query ($owner: String!) {
+					getItemLocations (owner: $owner)
+				}`,{
+					owner: $.val('owner') || api.username,
+				})
+				_('_location', locations).then(bind('location'))
+				navigate_to_page(0)
+			}
+			$.bind('owner', chg)
+		}),
 		_('_category', categories).then(() => {
 			$.bind('category', () => {
 				types.options = api(`query ($category: String!) {
