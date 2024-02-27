@@ -191,7 +191,7 @@ modal.upload.start = async function()
 	async function do_upload(file, dom_progress)
 	{
 		const blobs = await api.upload(file, progress => {
-			const percent = progress.loaded / progress.total * 100
+			const percent = progress.loaded / progress.total
 			dom_progress.value = percent
 		}, auto_unzip, tag_list, hidden)
 		$.hide(dom_progress, true)

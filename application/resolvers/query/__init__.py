@@ -10,6 +10,7 @@ from .integrations import resolve_search_subsonic
 from .integrations import resolve_get_system_info
 from .notification import *
 from .apikeys import resolve_get_api_keys
+from .inventory import *
 
 query = QueryType()
 
@@ -55,3 +56,9 @@ query.set_field('getNotifications', resolve_get_notifications)
 query.set_field('countNotifications', resolve_count_notifications)
 
 query.set_field('getAPIKeys', resolve_get_api_keys)
+
+query.set_field('getItemCategories', resolve_get_item_categories)
+query.set_field('getItemTypes', resolve_get_item_types)
+query.set_field('getItemLocations', resolve_get_item_locations)
+query.set_field('getInventory', resolve_get_inventory)
+query.set_field('countInventory', resolve_count_inventory)

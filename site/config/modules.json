@@ -5,6 +5,11 @@
 		"description": "Library and book cataloging system."
 	},
 	{
+		"id": "inventory",
+		"name": "Inventory",
+		"description": "General-purpose inventory management system."
+	},
+	{
 		"id": "bugs",
 		"name": "Bug Tracker",
 		"description": "Enable in-site bug reports and list planned features."

@@ -440,7 +440,8 @@ api.handle_query_failure = async function(res)
 {
 	if (await api.verify_token())
 	{
-		res.errors = JSON.parse(res.response).errors
+		res.errors = (await res.json()).errors
+		console.error('API ERROR:', res.errors)
 		show_api_errors(res)
 	}
 	else

@@ -352,7 +352,7 @@ window.qr = {
 		}, async () => { //On modal load
 
 			const upload_res = await api.upload(file, progress => {
-				const percent = progress.loaded / progress.total * 100
+				const percent = progress.loaded / progress.total
 				$('upload-progressbar-qr').value = percent
 			})
 

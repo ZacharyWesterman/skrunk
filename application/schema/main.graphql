@@ -10,6 +10,6 @@ type Mutation {
 }
 
 input Sorting {
-	field: String!
+	fields: [String!]!
 	descending: Boolean!
 }

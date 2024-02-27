@@ -14,9 +14,10 @@ await query.require('users')
 //run this everytime page is imported
 export async function init()
 {
-	await _('user_dropdown', {
+	await _('dropdown', {
 		id: 'blob-filter-creator',
-		users: query.users.list(),
+		options: query.users.list(),
+		default: 'Anyone',
 	})
 	$('blob-filter-creator').onchange = reset_and_search
 
@@ -101,7 +102,7 @@ async function get_blobs(start, count)
 		date_to,
 		title,
 		{
-			field: $.val('sort-by') || 'created',
+			fields: [$.val('sort-by') || 'created'],
 			descending: true,
 		}
 	)
@@ -156,7 +157,7 @@ async function reload_page_list()
 		BlobStart = this_page * BlobListLen
 	}
 
-	await _('page_list', {
+	await _('page-list', {
 		pages: pages,
 		count: page_ct,
 		current: this_page,

@@ -139,8 +139,17 @@ $.valid = (id, state = true) => {
 }
 
 $.flash = id => {
-	$.invalid(id)
-	setTimeout(() => $.valid(id), 350)
+	if ($(id).wipe)
+	{
+		const icon = $(id).parentElement.children[0].children[0]
+		icon.classList.toggle('invalid-fg', true)
+		setTimeout(() => icon.classList.toggle('invalid-fg', false), 350)
+	}
+	else
+	{
+		$.invalid(id)
+		setTimeout(() => $.valid(id), 350)
+	}
 }
 
 $.blink = id => {

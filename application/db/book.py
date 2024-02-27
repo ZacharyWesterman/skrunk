@@ -289,11 +289,12 @@ def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting
 	global db
 	books = []
 
-	sort = [(sorting['field'], -1 if sorting['descending'] else 1)]
-	if sorting['field'] != 'title':
-		sort += [('title', 1)]
-	if sorting['field'] != 'authors':
-		sort += [('authors', 1)]
+	if 'title' not in sorting['fields']:
+		sorting['fields'] += ['title']
+	if 'authors' not in sorting['fields']:
+		sorting['fields'] += ['authors']
+
+	sort = [(i, -1 if sorting['descending'] else 1) for i in sorting['fields']]
 
 	try:
 		aggregate, query = build_book_query(filter, sort)

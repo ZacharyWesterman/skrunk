@@ -1,18 +1,10 @@
 import application.exceptions as exceptions
 from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage, set_blob_ephemeral
 import application.db.perms as perms
-from application.db.users import userids_in_groups
+from application.db.users import group_filter
 from application.objects import BlobSearchFilter
 from application.tags.exceptions import ParseError
 from application.integrations import qrcode
-
-def group_filter(filter: dict, user_data: dict) -> dict:
-	if filter.get('creator') is None:
-		groups = user_data.get('groups', [])
-		if len(groups):
-			filter['creator'] = userids_in_groups(groups)
-
-	return filter
 
 @perms.require(['edit'])
 @perms.require(['admin'], perform_on_self = True, data_func = get_blob_data)

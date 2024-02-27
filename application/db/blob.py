@@ -229,9 +229,10 @@ def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting
 
 	blobs = []
 
-	sort = [(sorting['field'], -1 if sorting['descending'] else 1)]
-	if sorting['field'] != 'created':
-		sort += [('created', -1)]
+	if 'created' not in sorting['fields']:
+		sorting['fields'] += ['created']
+
+	sort = [(i, -1 if sorting['descending'] else 1) for i in sorting['fields']]
 
 	selection = db.find(query, sort = sort)
 	for i in selection.limit(count).skip(start):

@@ -168,4 +168,12 @@ def authenticate(username: str, password: str) -> str:
 
 	return login_token
 
+def group_filter(filter: dict, user_data: dict) -> dict:
+	if filter.get('creator') is None:
+		groups = user_data.get('groups', [])
+		if len(groups):
+			filter['creator'] = userids_in_groups(groups)
+
+	return filter
+
 from application.tokens import create_user_token

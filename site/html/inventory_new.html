@@ -1,0 +1,32 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-plus fa-xl"></i>
+		Add Items
+	</h1>
+
+	<div class="card">
+		<div class="card-inner">
+			<div class="clickable" *toggles="div-description">
+				<h3>
+					Details about the item
+					<i class="right fa-solid fa-angles-down"></i>
+				</h3>
+			</div>
+			<div name="_category" template="dropdown"></div>
+			<div name="_type" template="dropdown"></div>
+			<div name="_location" template="dropdown"></div>
+			<input type="photo" id="photo" tags="inventory">
+
+			<div class="expand-container" id="div-description">
+				<div>
+					<input type="richtext" id="description" placeholder="(Optional) Description">
+				</div>
+			</div>
+
+			<button class="big border" *click="submit">Submit</button>
+			<button class="big border" *click="wipe_fields">Wipe Fields</button>
+		</div>
+	</div>
+</div>
+
+<script src="js/page/inventory_new.js"></script>
