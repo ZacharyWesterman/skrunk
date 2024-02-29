@@ -65,7 +65,8 @@ export async function init()
 
 	_('owner', {
 		id: 'owner',
-		users: query.users.list(),
+		options: query.users.list(),
+		default: 'Select User',
 	})
 }
 
