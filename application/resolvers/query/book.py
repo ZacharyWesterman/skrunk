@@ -39,5 +39,5 @@ def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
 
 def resolve_count_all_user_books(_, info) -> list:
 	user_data = perms.caller_info()
-	groups = user_data.get('groups', [])
-	return count_all_user_books(groups if len(groups) else None)
+	users = userids_in_groups(user_data.get('groups', []))
+	return count_all_user_books(users if len(users) else None)
