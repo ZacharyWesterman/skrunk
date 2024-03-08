@@ -20,4 +20,4 @@ jobs:
           python-version: 3.10
           cache: 'poetry'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-        run: poetry run python build_queries.py
+      - run: poetry run python build_queries.py
