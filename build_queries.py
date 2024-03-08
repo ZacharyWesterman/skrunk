@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
+
 import ariadne
-from graphql import graphql_sync, get_introspection_query
-from pathlib import Path
 from graphql import GraphQLField, GraphQLNonNull, GraphQLList, GraphQLScalarType, GraphQLObjectType, GraphQLUnionType
+import subprocess
 
 def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 	_tp = data_type
@@ -55,6 +56,11 @@ def print_field(field_type: str, field_name: str, field: GraphQLField) -> str:
 			text += f'{indent}}}\n'
 
 		text += f'{indent[0:-1]}}}'
+		if field.args:
+			text += '\n}'
+		else:
+			text += '}'
+
 	elif isinstance(return_type, GraphQLObjectType):
 		text += '{\n'
 
@@ -70,7 +76,7 @@ def print_field(field_type: str, field_name: str, field: GraphQLField) -> str:
 		else:
 			text += '}'
 
-	return text
+	return text + '\n'
 
 
 def main():
@@ -80,17 +86,26 @@ def main():
 	queries = schema.query_type.fields
 	mutations = schema.mutation_type.fields
 
+	subprocess.run(['git', 'clone', 'git@github.com:ZacharyWesterman/skrunk_api.git'])
+
 	for i in queries:
 		if i[0] == '_': continue
 		field: GraphQLField = queries[i]
 		text = print_field('query', i, field)
-		print(text)
+		with open(f'skrunk_api/queries/{i}.txt', 'w') as fp:
+			fp.write(text)
 
 	for i in mutations:
 		if i[0] == '_': continue
 		field: GraphQLField = mutations[i]
 		text = print_field('mutation', i, field)
-		print(text)
+		with open(f'skrunk_api/queries/{i}.txt', 'w') as fp:
+			fp.write(text)
+
+	subprocess.run(['git', 'add', '--all'], cwd = 'skrunk_api')
+	subprocess.run(['git', 'commit', '-m', 'Automatic API query update'], cwd = 'skrunk_api')
+	subprocess.run(['git', 'push'], cwd = 'skrunk_api')
+	subprocess.run(['rm', '-rf', 'skrunk_api'])
 
 if __name__ == '__main__':
 	main()
