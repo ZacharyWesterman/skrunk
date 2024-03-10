@@ -6,6 +6,7 @@ from application.integrations import models, images
 from application.objects import BlobSearchFilter, Sorting
 
 from bson.objectid import ObjectId
+from bson.errors import InvalidId
 from datetime import datetime
 from zipfile import ZipFile, Path
 import pathlib
@@ -42,11 +43,11 @@ class BlobThumbnail(BlobStorage):
 
 
 def init() -> None:
-	#Delete all ephemeral files on startup
+	#On startup, delete all ephemeral files which aren't referred to by any data.
 	#Restart should be scheduled regularly for this to apply
 	deleted_ct = 0
 
-	for i in db.find({'ephemeral': True}):
+	for i in db.find({'ephemeral': True, 'references': 0}):
 		delete_blob(i['_id'])
 		deleted_ct += 1
 
@@ -183,6 +184,7 @@ def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: boo
 		'thumbnail': None,
 		'hidden': hidden,
 		'ephemeral': ephemeral,
+		'references': 0,
 	}).inserted_id), ext
 
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
@@ -213,6 +215,9 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 	if filter.get('name') is not None:
 		query += [{'name': {'$regex': filter.get('name'), '$options': 'i'}}]
+
+	if filter.get('ephemeral') is not None:
+		query += [{'ephemeral': filter.get('ephemeral')}]
 
 	creator = filter.get('creator')
 	if type(creator) is list and len(creator):
@@ -316,7 +321,11 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 def get_blob_data(id: str) -> dict:
 	global db
-	blob_data = db.find_one({'_id': ObjectId(id)})
+	try:
+		blob_data = db.find_one({'_id': ObjectId(id)})
+	except InvalidId:
+		raise exceptions.BlobDoesNotExistError(id)
+
 	if blob_data:
 		blob_data['id'] = blob_data['_id']
 		try:
@@ -391,3 +400,10 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 
 def count_tag_uses(tag: str, users: list[str]) -> int:
 	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in users]} ]})
+
+def add_reference(id: str) -> None:
+	db.update_one({'_id': ObjectId(id)}, {'$inc': {'references': 1}})
+
+def remove_reference(id: str) -> None:
+	db.update_one({'_id': ObjectId(id)}, {'$inc': {'references': -1}})
+	db.update_one({'_id': ObjectId(id)}, {'$min': {'references': 0}})

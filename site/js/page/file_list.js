@@ -79,10 +79,11 @@ async function get_blobs(start, count)
 	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
 	const date_from = date.from_field('blob-filter-from')
 	const date_to = date.from_field('blob-filter-to', 1)
+	const ephemeral = $('blob-filter-ephemeral').checked
 
 	let q = {}
 	let has = false
-	for (const i of ['title', 'creator', 'from', 'to'])
+	for (const i of ['title', 'creator', 'from', 'to', 'ephemeral'])
 	{
 		const v = $.val('blob-filter-'+i)
 		if (v) { q[i] = v; has = true }
@@ -101,6 +102,7 @@ async function get_blobs(start, count)
 		date_from,
 		date_to,
 		title,
+		ephemeral,
 		{
 			fields: [$.val('sort-by') || 'created'],
 			descending: true,
@@ -135,7 +137,8 @@ async function reload_page_list()
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to', 1) || null
-	const res = await query.blobs.count(creator, Editor.value, date_from, date_to, title)
+	const ephemeral = $('blob-filter-ephemeral').checked
+	const res = await query.blobs.count(creator, Editor.value, date_from, date_to, title, ephemeral)
 	if (res.__typename !== 'BlobCount')
 	{
 		$('tag-error').innerText = res.message

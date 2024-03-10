@@ -11,6 +11,7 @@ type Blob {
 	thumbnail: String
 	hidden: Boolean!
 	ephemeral: Boolean!
+	references: Int!
 }
 
 type BlobDoesNotExistError {
@@ -40,6 +41,7 @@ input BlobSearchFilter {
 	end_date: DateTime
 	name: String
 	tag_expr: String
+	ephemeral: Boolean
 }
 
 union BlobCountResponse = BlobCount | BadTagQuery

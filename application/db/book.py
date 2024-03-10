@@ -2,7 +2,7 @@ from application.tokens import decode_user_token, get_request_token
 from application.db.settings import get_config, get_enabled_modules
 import application.exceptions as exceptions
 from application.objects import BookSearchFilter, Sorting
-from . import users
+from . import users, blob
 from application.integrations import google_books, subsonic
 from datetime import datetime
 from bson.objectid import ObjectId
@@ -84,6 +84,13 @@ def process_book_tag(book_data: dict) -> dict:
 			'username': book_data['owner'],
 			'display_name': book_data['owner'],
 		}
+
+	try:
+		blobdata = blob.get_blob_data(book_data['thumbnail'])
+		if blobdata:
+			book_data['thumbnail'] = f'preview/{blobdata["thumbnail"]}'
+	except exceptions.BlobDoesNotExistError:
+		pass
 
 	book_data['shareHistory'] = process_share_hist(book_data['shareHistory'])
 	book_data['id'] = book_data['_id']
@@ -218,6 +225,9 @@ def create_book(data: dict) -> dict:
 
 	db.insert_one(book_data)
 
+	if book_data['thumbnail']:
+		blob.add_reference(book_data['thumbnail'])
+
 	return book_data
 
 
@@ -227,6 +237,11 @@ def unlink_book_tag(rfid: str) -> dict:
 		raise exceptions.BookTagDoesNotExistError(rfid)
 
 	db.delete_one({'rfid': rfid})
+
+	#Remove reference to this thumbnail if it uses a locally hosted blob.
+	if book_data['thumbnail']:
+		blob.remove_reference(book_data['thumbnail'])
+
 	return book_data
 
 def norm_query(query: dict, ownerq: dict|None) -> dict:

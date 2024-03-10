@@ -25,6 +25,7 @@ def create_inventory_item(category: str, type: str, location: str, blob_id: str,
 	}
 
 	db.items.insert_one(item)
+	blob.add_reference(blob_id)
 
 	return item
 
@@ -98,7 +99,5 @@ def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> list:
 		query = build_inventory_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
 		return 0
-
-	print(query, flush=True)
 
 	return db.items.count_documents(query)

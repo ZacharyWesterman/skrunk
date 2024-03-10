@@ -342,10 +342,9 @@ window.set_field_logic = async function(DOM, url, module)
 				progressbar.removeAttribute('value')
 			}
 
-			img.confirm = () => {
+			img.clear = () => {
 				if (img.blob_id)
 				{
-					mutate.blobs.set_ephemeral(img.blob_id, false)
 					delete img.blob_id
 				}
 

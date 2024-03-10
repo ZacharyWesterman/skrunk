@@ -126,7 +126,7 @@ export async function create_book()
 	if (book_data.thumbnail)
 	{
 		blob_data = await query.blobs.single(book_data.thumbnail)
-		book_data.thumbnail = `preview/${blob_data.thumbnail}`
+		book_data.thumbnail = blob_data.id
 	}
 
 	const rfid = await p1
@@ -145,18 +145,6 @@ export async function create_book()
 		}).catch(() => {})
 		return
 	}
-
-	//If book was successfully added, mark blob as NOT ephemeral
-	api(`mutation ($id: String!, $ephemeral: Boolean!) {
-		setBlobEphemeral (id: $id, ephemeral: $ephemeral) {
-			__typename
-			...on BlobDoesNotExistError { message }
-			...on InsufficientPerms { message }
-		}
-	}`, {
-		id: blob_data.id,
-		ephemeral: false,
-	})
 
 	_.modal.checkmark()
 }

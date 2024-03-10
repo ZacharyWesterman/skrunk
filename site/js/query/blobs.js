@@ -14,7 +14,7 @@ export default {
 	* date_from: Date or null
 	* date_to: Date or null
 	*/
-	get: async (username, start, count, tag_query, date_from, date_to, name, sorting) =>
+	get: async (username, start, count, tag_query, date_from, date_to, name, ephemeral, sorting) =>
 	{
 		let res = await api(`
 		query ($filter: BlobSearchFilter!, $start: Int!, $count: Int!, $sorting: Sorting!){
@@ -47,6 +47,7 @@ export default {
 				begin_date: date.db_output(date_from),
 				end_date: date.db_output(date_to),
 				name: name,
+				ephemeral: ephemeral,
 			},
 			start: start,
 			count: count,
@@ -67,7 +68,7 @@ export default {
 	* date_from: Date or null
 	* date_to: Date or null
 	*/
-	count: async (username, tag_query, date_from, date_to, name) =>
+	count: async (username, tag_query, date_from, date_to, name, ephemeral) =>
 	{
 		return await api(`query ($filter: BlobSearchFilter!){
 			countBlobs(filter: $filter) {
@@ -86,6 +87,7 @@ export default {
 				begin_date: date.db_output(date_from),
 				end_date: date.db_output(date_to),
 				name: name,
+				ephemeral: ephemeral,
 			},
 		})
 	},
@@ -115,6 +117,7 @@ export default {
 				begin_date: date.db_output(date_from),
 				end_date: date.db_output(date_to),
 				name: name,
+				ephemeral: ephemeral,
 			},
 		})
 	},
