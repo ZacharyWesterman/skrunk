@@ -129,5 +129,5 @@ export async function submit()
 	_.modal.checkmark()
 	$('type').value = ''
 	$('description').value = ''
-	$('photo').confirm()
+	$('photo').clear()
 }
