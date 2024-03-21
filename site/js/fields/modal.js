@@ -334,4 +334,56 @@ modal.error = async (text, title = 'ERROR') =>
 	}).catch(() => 'ok')
 }
 
+/**
+ * A helper function for opening a modal to await scanning an RFID tag or QR code.
+ * @returns {String|null} The scanned or detected QR/RFID code, or null if no code detected.
+ */
+modal.scanner = async () =>
+{
+	modal.scanner._awaiting = true
+	const res = await _.modal({
+		icon: 'brands fa-nfc-symbol',
+		title: 'Ready to scan',
+		text: api.snippit('rfid_waiting'),
+		buttons: EnabledModules.includes('qr') ? [['Use QR','<i class="fa-solid fa-qrcode"></i> Use QR'], 'Cancel'] : ['Cancel'],
+	}, () => {
+		const field = $('rfid_manual_input')
+		$.bind(field, () => {
+			_.modal.return(field.value)
+		})
+
+		function keep_focus()
+		{
+			if (modal.scanner._awaiting)
+			{
+				if (!document.hasFocus() || field !== document.activeElement)
+				{
+					field.readOnly = true
+					field.focus()
+					setTimeout(() => {field.readOnly = false}, 50)
+				}
+				setTimeout(keep_focus, 200)
+			}
+		}
+
+		keep_focus()
+	}).catch(() => 'cancel')
+
+	if (res === 'cancel') return null
+
+	if (res === 'use qr')
+	{
+		const qrcode = await qr.load_and_process()
+		modal.scanner._awaiting = false
+
+		if (qrcode === null) return null
+
+		return $.enforce.hex(qrcode)
+	}
+
+	modal.scanner._awaiting = false
+	return res
+}
+modal.scanner._awaiting = false
+
 export default modal

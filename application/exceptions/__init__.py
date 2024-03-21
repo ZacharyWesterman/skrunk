@@ -60,3 +60,7 @@ class WebPushException(ClientError):
 class InvalidSubscriptionToken(ClientError):
 	def __init__(self):
 		super().__init__('Invalid notification subscription token')
+
+class ItemExistsError(ClientError):
+	def __init__(self, id: str):
+		super().__init__(f'An item already exists with RFID {id}')

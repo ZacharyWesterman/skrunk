@@ -375,7 +375,8 @@ window.qr = {
 
 			if (res.error !== null)
 			{
-				_.modal.error(res.error)
+				_.modal.cancel()
+				setTimeout(() => { _.modal.error(res.error) }, 300)
 				return
 			}
 

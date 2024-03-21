@@ -120,7 +120,7 @@ export async function create_book()
 	if (res !== 'ok') return
 
 	//Now that book data is entered, wait for rfid to be scanned.
-	const p1 = scanning_modal()
+	const p1 = modal.scanner()
 
 	let blob_data = {}
 	if (book_data.thumbnail)
@@ -130,7 +130,7 @@ export async function create_book()
 	}
 
 	const rfid = await p1
-	if (rfid === 'cancel') return
+	if (rfid === null) return
 	book_data.rfid = rfid
 
 	const result = await mutate.books.create(book_data)
@@ -197,58 +197,13 @@ export async function search_books()
 	await _('booklist', res.books)
 }
 
-async function scanning_modal()
-{
-	AWAITING_SCAN = true
-	const res = await _.modal({
-		icon: 'bookmark',
-		title: 'Ready to scan',
-		text: api.snippit('rfid_waiting'),
-		buttons: EnabledModules.includes('qr') ? ['Use QR', 'Cancel'] : ['Cancel'],
-	}, () => {
-		const field = $('rfid_manual_input')
-		$.bind(field, () => {
-			_.modal.return(field.value)
-		})
-
-		function keep_focus()
-		{
-			if (AWAITING_SCAN)
-			{
-				if (!document.hasFocus() || field !== document.activeElement)
-				{
-					field.readOnly = true
-					field.focus()
-					setTimeout(() => {field.readOnly = false}, 50)
-				}
-				setTimeout(keep_focus, 200)
-			}
-		}
-
-		keep_focus()
-	}).catch(() => 'cancel')
-
-	if (res === 'use qr')
-	{
-		const qrcode = await qr.load_and_process()
-		AWAITING_SCAN = false
-
-		if (qrcode === null) return 'cancel'
-
-		return $.enforce.hex(qrcode)
-	}
-
-	AWAITING_SCAN = false
-	return res
-}
-
 export async function select_book(book_id, book_title)
 {
 	let tagid = $.val('new-tagid')
 	if (tagid === '')
 	{
-		const res = await scanning_modal()
-		if (res === 'cancel') return
+		const res = await modal.scanner()
+		if (res === null) return
 		tagid = res
 	}
 

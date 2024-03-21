@@ -97,8 +97,11 @@ export async function submit()
 
 	if (!valid) return
 
-	const res = await api(`mutation ($category: String!, $type: String!, $location: String!, $blob_id: String!, $description: String!) {
-		createInventoryItem (category: $category, type: $type, location: $location, blob_id: $blob_id, description: $description) {
+	const rfid = await modal.scanner()
+	if (rfid === null) return
+
+	const res = await api(`mutation ($category: String!, $type: String!, $location: String!, $blob_id: String!, $description: String!, $rfid: String!) {
+		createInventoryItem (category: $category, type: $type, location: $location, blob_id: $blob_id, description: $description, rfid: $rfid) {
 			__typename
 			...on InsufficientPerms { message }
 			...on InvalidFields { message fields }
@@ -109,6 +112,7 @@ export async function submit()
 		location: $.val('location'),
 		blob_id: $('photo').blob_id,
 		description: $.val('description'),
+		rfid: rfid,
 	})
 
 	if (res.__typename !== 'Item')

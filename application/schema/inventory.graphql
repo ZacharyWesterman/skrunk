@@ -16,6 +16,10 @@ type InvalidFields {
 	fields: [String!]!
 }
 
+type ItemExistsError {
+	message: String!
+}
+
 input InventorySearchFilter {
 	owner: String
 	category: String
@@ -23,7 +27,7 @@ input InventorySearchFilter {
 	location: String
 }
 
-union ItemCreateResponse = Item | InsufficientPerms | InvalidFields
+union ItemCreateResponse = Item | InsufficientPerms | InvalidFields | ItemExistsError
 
 #Resolvers below this line:
 
@@ -37,5 +41,5 @@ extend type Query {
 }
 
 extend type Mutation {
-	createInventoryItem(category: String!, type: String!, location: String!, blob_id: String!, description: String!) : ItemCreateResponse!
+	createInventoryItem(category: String!, type: String!, location: String!, blob_id: String!, description: String!, rfid: String!) : ItemCreateResponse!
 }
