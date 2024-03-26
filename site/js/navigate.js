@@ -304,6 +304,15 @@ window.set_field_logic = async function(DOM, url, module)
 
 		//Update any photo upload buttons
 		DOM.querySelectorAll('input[type="photo"]').forEach(field => {
+			if (!EnabledModules.includes('files'))
+			{
+				const new_field = document.createElement('span')
+				new_field.classList.add('disabled')
+				new_field.innerText = 'File uploads are disabled.'
+				field.replaceWith(new_field)
+				return
+			}
+
 			const new_field = document.createElement('span')
 			const upload_btn = document.createElement('button')
 			const delete_btn = document.createElement('button')

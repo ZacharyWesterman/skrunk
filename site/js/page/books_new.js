@@ -66,7 +66,7 @@ export async function create_book()
 	choice => { //validate
 		if (choice === 'cancel')
 		{
-			$('book-thumbnail').wipe()
+			$('book-thumbnail')?.wipe()
 			return true
 		}
 

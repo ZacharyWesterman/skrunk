@@ -7,7 +7,8 @@
 	{
 		"id": "inventory",
 		"name": "Inventory",
-		"description": "General-purpose inventory management system."
+		"description": "General-purpose inventory management system.",
+		"requires": ["files"]
 	},
 	{
 		"id": "bugs",
