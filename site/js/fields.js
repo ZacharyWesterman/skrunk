@@ -34,11 +34,13 @@ _.css = {
 }
 
 //Field control and validation
-let $ = field => {
+let $ = (field, include_all = false) => {
+	let fields = []
+
 	//Handle rich text editors
 	if ($._EDITORS[field])
 	{
-		return {
+		fields.push({
 			self: $._EDITORS[field],
 			id: field,
 			set value(text)
@@ -49,10 +51,27 @@ let $ = field => {
 			{
 				return $._EDITORS[field].value()
 			},
-		}
+		})
+
+		if (!include_all) return fields[0]
 	}
 
-	return ((typeof field === 'object') ? field : document.getElementById(field)) || document.getElementsByName(field)[0]
+	if (typeof field === 'object')
+	{
+		fields.push(field)
+	}
+
+	let elem = document.getElementById(field)
+	if (elem)
+	{
+		fields.push(elem)
+	}
+
+	document.getElementsByName(field).forEach(elem => {
+		fields.push(elem)
+	})
+
+	return include_all ? fields : fields[0]
 }
 $.val = id => $(id)?.value
 $.set = (id, value) => {
@@ -61,12 +80,15 @@ $.set = (id, value) => {
 }
 $.toggle_expand = (id, expand) =>
 {
-	const field = $(id)
-	field.classList.toggle('expanded', expand)
-	const attr = field.getAttribute('*expand_invert')
-	if (attr)
+	const fields = $(id, true)
+	for (let field of fields)
 	{
-		$.sync_invert_to_expand(attr, field)
+		field.classList.toggle('expanded', expand)
+		const attr = field.getAttribute('*expand_invert')
+		if (attr)
+		{
+			$.sync_invert_to_expand(attr, field)
+		}
 	}
 }
 

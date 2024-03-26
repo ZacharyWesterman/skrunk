@@ -3,6 +3,7 @@ type Item {
 	id: String!
 	created: DateTime!
 	creator: UserMinData!
+	owner: UserMinData!
 	category: String!
 	type: String!
 	location: String!
@@ -27,7 +28,7 @@ input InventorySearchFilter {
 	location: String
 }
 
-union ItemCreateResponse = Item | InsufficientPerms | InvalidFields | ItemExistsError
+union ItemCreateResponse = Item | InsufficientPerms | InvalidFields | ItemExistsError | UserDoesNotExistError
 
 #Resolvers below this line:
 
@@ -41,5 +42,5 @@ extend type Query {
 }
 
 extend type Mutation {
-	createInventoryItem(category: String!, type: String!, location: String!, blob_id: String!, description: String!, rfid: String!) : ItemCreateResponse!
+	createInventoryItem(owner: String!, category: String!, type: String!, location: String!, blob_id: String!, description: String!, rfid: String!) : ItemCreateResponse!
 }

@@ -9,7 +9,9 @@ from . import blob
 
 db = None
 
-def create_inventory_item(category: str, type: str, location: str, blob_id: str, description: str, rfid: str) -> dict:
+def create_inventory_item(owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str) -> dict:
+	owner_data = users.get_user_data(owner)
+
 	if db.items.find_one({'rfid': rfid}):
 		raise exceptions.ItemExistsError(rfid)
 
@@ -19,6 +21,7 @@ def create_inventory_item(category: str, type: str, location: str, blob_id: str,
 	item = {
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
+		'owner': owner_data['_id'],
 		'category': category.strip(),
 		'type': type.strip(),
 		'location': location.strip(),
@@ -46,13 +49,13 @@ def get_item_locations(owner: str) -> list[str]:
 def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> dict:
 	query = [{}]
 
-	creator = filter.get('owner')
-	if type(creator) is str:
-		user_data= users.get_user_data(creator)
-		query += [{'creator': user_data['_id']}]
+	owner = filter.get('owner')
+	if type(owner) is str:
+		user_data= users.get_user_data(owner)
+		query += [{'owner': user_data['_id']}]
 
-	if type(creator) is list and len(creator):
-		query += [{'$or': [{'creator': i} for i in creator]}]
+	if type(owner) is list and len(owner):
+		query += [{'$or': [{'owner': i} for i in owner]}]
 
 	if filter.get('category') is not None:
 		query += [{'category': filter.get('category')}]
@@ -86,6 +89,14 @@ def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting
 			i['creator'] = {
 				'username': i['creator'],
 				'display_name': i['creator'],
+			}
+
+		try:
+			i['owner'] = users.get_user_by_id(i['owner'])
+		except exceptions.UserDoesNotExistError:
+			i['owner'] = {
+				'username': i['owner'],
+				'display_name': i['owner'],
 			}
 
 		i['id'] = i['_id']

@@ -1,5 +1,13 @@
 export async function init()
 {
+	_('owner', {
+		id: 'owner',
+		options: query.users.list(),
+		default: false,
+	}).then(() => {
+		$('owner').value = api.username
+	})
+
 	const categories = {
 		id: 'category',
 		default: '<Category>',
@@ -47,6 +55,12 @@ export async function init()
 
 export async function append_modal(field)
 {
+	if (field === 'type' && $.val('category') === '')
+	{
+		_.modal.error('You must select a category first!')
+		return
+	}
+
 	const res = await _.modal({
 		title: `Add ${field}`,
 		text: `<input id="option-add" placeholder="${field}">`,
@@ -68,6 +82,7 @@ export async function append_modal(field)
 
 export function wipe_fields()
 {
+	$('owner').value = api.username
 	$('type').value = ''
 	$('category').value = ''
 	$('location').value = ''
@@ -100,13 +115,14 @@ export async function submit()
 	const rfid = await modal.scanner()
 	if (rfid === null) return
 
-	const res = await api(`mutation ($category: String!, $type: String!, $location: String!, $blob_id: String!, $description: String!, $rfid: String!) {
-		createInventoryItem (category: $category, type: $type, location: $location, blob_id: $blob_id, description: $description, rfid: $rfid) {
+	const res = await api(`mutation ($owner: String!, $category: String!, $type: String!, $location: String!, $blob_id: String!, $description: String!, $rfid: String!) {
+		createInventoryItem (owner: $owner, category: $category, type: $type, location: $location, blob_id: $blob_id, description: $description, rfid: $rfid) {
 			__typename
 			...on InsufficientPerms { message }
 			...on InvalidFields { message fields }
 		}
 	}`, {
+		owner: $.val('owner'),
 		category: $.val('category'),
 		type: $.val('type'),
 		location: $.val('location'),
