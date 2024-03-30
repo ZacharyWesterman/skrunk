@@ -1,5 +1,5 @@
 .card {
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
 	transition: 0.3;
 	border-radius: var(--border-radius);
 	margin: 10px 0;
@@ -84,7 +84,7 @@ img.thumbnail {
 }
 
 .widget {
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
 	transition: 0.3;
 	border-radius: var(--border-radius);
 	margin: 10px;

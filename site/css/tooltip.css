@@ -66,6 +66,7 @@
 	.tooltip:hover .tooltiptext {
 		visibility: visible;
 		opacity: 1;
+		box-shadow: 4px 6px 4px 0 rgba(0,0,0,.5);
 	}
 }
 
@@ -74,10 +75,12 @@
 	.tooltip:active:hover .tooltiptext {
 		visibility: visible;
 		opacity: 1;
+		box-shadow: 4px 6px 4px 0 rgba(0,0,0,.5);
 	}
 
 	.tooltip:hover .t-persist {
 		visibility: visible;
 		opacity: 1;
+		box-shadow: 4px 6px 4px 0 rgba(0,0,0,.5);
 	}
 }

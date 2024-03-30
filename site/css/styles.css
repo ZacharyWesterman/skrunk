@@ -221,6 +221,14 @@ textarea:disabled {
 	z-index: 1;
 }
 
+.navbar > button {
+	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
+}
+
+.navbar > .bottom > button {
+	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
+}
+
 /* If iOS, shift navbar icons to the left a bit */
 @supports (-webkit-overflow-scrolling: touch) {
 	.navbar > button > i {
