@@ -12,7 +12,7 @@ function get_css_styles()
 {
 	for (const sheet of document.styleSheets)
 	{
-		if ('cssRules' in sheet) continue;
+		if (!('cssRules' in sheet)) continue;
 
 		for (const rule of sheet.cssRules)
 		{
