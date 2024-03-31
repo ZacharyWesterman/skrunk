@@ -1,16 +1,16 @@
-{{? it.length }}
+{{? it.issues?.length }}
 	<h2>Open Issues</h2>
 
 	<div class="card">
 		<div class="card-inner">
 			<h3 class="clickable" *toggles="issue-list">
-				{{= it.length}} Planned Features/Bugfixes
+				{{= it.issues.length}} Planned Features/Bugfixes
 				<i class="right fa-solid fa-angles-down"></i>
 			</h3>
 
 			<div class="expand-container expanded" id="issue-list">
 				<div>
-				{{~ it : issue }}
+				{{~ it.issues : issue }}
 					<hr>
 					{{= issue.title }}
 					<span class="issue-id">#{{= issue.number}}</span>
@@ -25,6 +25,22 @@
 				</div>
 			</div>
 			<hr>
+		</div>
+	</div>
+{{?}}
+
+{{? it.__typename !== 'IssueList' }}
+	<div class="card clickable" *toggles="issue-list" >
+		<div class="card-inner">
+			<h4>
+				<span class="error">Error Loading issues</span>
+				<i class="right fa-solid fa-angles-down fa-lg"></i>
+			</h4>
+			<div class="expand-container" id="issue-list">
+				<div>
+					<p>{{= it.message }}</p>
+				</div>
+			</div>
 		</div>
 	</div>
 {{?}}

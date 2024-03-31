@@ -36,8 +36,17 @@ type IssueLabel {
 	description: String!
 }
 
+type IssueList {
+	issues: [RepositoryIssue!]!
+}
+
+type RepoFetchFailed {
+	message: String!
+}
+
 union BugReportCreateAction = BugReport | BugReportCreationFailedError | InsufficientPerms
 union BugReportEditAction = BugReport | BugReportDoesNotExistError | InsufficientPerms
+union GetIssuesResponse = IssueList | RepoFetchFailed
 
 #Resolvers below this line:
 
@@ -45,8 +54,8 @@ extend type Query {
 	getBugReports(username: String, start: Int!, count: Int!, resolved: Boolean!) : [BugReport!]!
 	countBugReports(username: String, resolved: Boolean!) : Int!
 	getBugReport(id: String!): BugReport
-	getOpenIssues: [RepositoryIssue!]!
-	getPendingIssues: [RepositoryIssue!]!
+	getOpenIssues: GetIssuesResponse!
+	getPendingIssues: GetIssuesResponse!
 }
 
 extend type Mutation {

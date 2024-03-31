@@ -26,9 +26,15 @@ def resolve_get_bug_report(_, info, id: str) -> dict:
 	return get_bug_report(id)
 
 def resolve_get_issues(_, info) -> list:
-	repo = github.CurrentRepository()
-	return repo.issues()
+	try:
+		repo = github.CurrentRepository()
+		return repo.issues()
+	except github.RepoFetchFailed as e:
+		return { '__typename': 'RepoFetchFailed', 'message': str(e) }
 
-def resolve_get_pending_issues(_, info) -> list:
-	repo = github.CurrentRepository()
-	return repo.issues_pending_resolution()
+def resolve_get_pending_issues(_, info) -> dict:
+	try:
+		repo = github.CurrentRepository()
+		return { '__typename': 'IssueList', 'issues': repo.issues_pending_resolution() }
+	except github.RepoFetchFailed as e:
+		return { '__typename': 'RepoFetchFailed', 'message': str(e) }

@@ -178,24 +178,37 @@ export function load_open_issues()
 {
 	_('issues', api(`{
 		getOpenIssues {
-			title
-			number
-			labels {
-				name
-				color
-				description
+			__typename
+			...on IssueList {
+				issues {
+					title
+					number
+					labels {
+						name
+						color
+						description
+					}
+				}
+			}
+			...on RepoFetchFailed {
+				message
 			}
 		}
 	}`))
 
 	_('pending-issues', api(`{
 		getPendingIssues {
-			title
-			number
-			labels {
-				name
-				color
-				description
+			__typename
+			...on IssueList {
+				issues {
+					title
+					number
+					labels {
+						name
+						color
+						description
+					}
+				}
 			}
 		}
 	}`))

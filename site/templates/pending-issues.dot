@@ -1,16 +1,16 @@
-{{? it.length }}
+{{? it.issues?.length }}
 	<h2>Pending Issues</h2>
 
 	<div class="card">
 		<div class="card-inner">
 			<h3 class="clickable" *toggles="pending-issue-list">
-				{{= it.length}} Issue{{? it.length !== 1 }}s{{?}} Will be Resolved in the Next Update
+				{{= it.issues.length}} Issue{{? it.issues.length !== 1 }}s{{?}} Will be Resolved in the Next Update
 				<i class="right fa-solid fa-angles-down"></i>
 			</h3>
 
 			<div class="expand-container expanded" id="pending-issue-list">
 				<div>
-				{{~ it : issue }}
+				{{~ it.issues : issue }}
 					<hr>
 					{{= issue.title }}
 					<span class="issue-id">#{{= issue.number}}</span>

@@ -22,7 +22,7 @@ def gh_request(url: str) -> dict:
 		return json.loads(res.text)
 	else:
 		print(res.text, flush=True)
-		raise RepoFetchFailed(url)
+		raise RepoFetchFailed(url, res.json().get('message'))
 
 class Repository:
 	def __init__(self, owner, repo):

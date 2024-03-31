@@ -6,5 +6,5 @@ class UnsupportedFileFormat(Exception):
 		super().__init__(f'Unsupported file format for {filename}')
 
 class RepoFetchFailed(Exception):
-	def __init__(self, url):
-		super().__init__(f'Unable to connect to repository at {url}')
+	def __init__(self, url, text):
+		super().__init__(f'Unable to fetch data due to error: {text}. Request URL: {url}')
