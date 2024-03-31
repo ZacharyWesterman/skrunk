@@ -72,6 +72,10 @@ a {
 	color: var(--secondary-text);
 }
 
+hr {
+	color: var(--disabled-text);
+}
+
 .editor { outline: none; overflow-y: auto; padding-left: 48px; counter-reset: line; }
 .editor div { display: block; position: relative; white-space: pre-wrap; }
 .editor div::before { content: counter(line); counter-increment: line; position: absolute; right: calc(100% + 16px); opacity: 0.5; }

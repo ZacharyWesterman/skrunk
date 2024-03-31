@@ -200,6 +200,43 @@ window.format = {
 	},
 }
 
+class Color
+{
+	constructor(r, g, b)
+	{
+		this.r = r
+		this.g = g
+		this.b = b
+
+		this.toString = () =>
+		{
+			return '#' + this.r.toString(16).padStart(2, '0') + this.g.toString(16).padStart(2, '0') + this.b.toString(16).padStart(2, '0')
+		}
+
+		this.lerp = (other, ratio) =>
+		{
+			const lerp = (a, b, ratio) => Math.floor(b + ratio * (a - b))
+
+			return new Color(
+				lerp(this.r, other.r, ratio),
+				lerp(this.g, other.g, ratio),
+				lerp(this.b, other.b, ratio),
+			)
+		}
+	}
+}
+Color.fromHex = (hex) =>
+{
+	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+
+	const r = parseInt(result[1], 16)
+	const g = parseInt(result[2], 16)
+	const b = parseInt(result[3], 16)
+
+	return new Color(r, g, b)
+}
+window.Color = Color
+
 /**
  * Helper functions for displaying chart data.
  */
@@ -231,13 +268,18 @@ window.chart = {
 	{
 		const disabled_text = _.css.get_var('--disabled-text')
 
+		const c1 = Color.fromHex(_.css.get_var('--primary'))
+		const c2 = Color.fromHex(_.css.get_var('--primary-alt'))
+		const bar_color = c1.lerp(c2, 0.5).toString()
+
 		chart.create(field, {
 			type: 'bar',
 			data: {
 				labels: labels,
 				datasets: [{
 					data: data,
-					borderWidth: 1
+					borderWidth: 0,
+					backgroundColor: bar_color,
 				}]
 			},
 			options: {
