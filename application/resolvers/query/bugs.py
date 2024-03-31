@@ -28,7 +28,7 @@ def resolve_get_bug_report(_, info, id: str) -> dict:
 def resolve_get_issues(_, info) -> list:
 	try:
 		repo = github.CurrentRepository()
-		return repo.issues()
+		return { '__typename': 'IssueList', 'issues': repo.issues() }
 	except github.RepoFetchFailed as e:
 		return { '__typename': 'RepoFetchFailed', 'message': str(e) }
 
