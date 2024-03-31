@@ -12,14 +12,19 @@ function get_css_styles()
 {
 	for (const sheet of document.styleSheets)
 	{
-		if (!('cssRules' in sheet)) continue;
-
-		for (const rule of sheet.cssRules)
+		try
 		{
-			if (rule.href === '/css/theme.css')
+			for (const rule of sheet.cssRules)
 			{
-				return rule.styleSheet.rules[0].style
+				if (rule.href === '/css/theme.css')
+				{
+					return rule.styleSheet.rules[0].style
+				}
 			}
+		}
+		catch (e)
+		{
+			//console.warn(e)
 		}
 	}
 
