@@ -397,6 +397,12 @@ def borrow_book(book_id: str, user_data: dict) -> dict:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
 	if len(book_data['shareHistory']):
+		#If book is currently shared with a user OTHER THAN the one requesting to borrow, Throw an exception.
+		#In that case, someone needs to declare that it is no longer being borrowed before it can be borrowed again.
+		last_share = book_data['shareHistory'][-1]
+		if last_share['stop'] is None and last_share['user_id'] != user_data['_id']:
+			raise exceptions.BookCannotBeShared(f'This book is already being borrowed by {last_share["name"]}.')
+
 		last_share = len(book_data['shareHistory']) - 1
 		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
 	else:

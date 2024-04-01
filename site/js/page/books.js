@@ -566,15 +566,28 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 			return
 		}
 	}
+	else if (is_shared)
+	{
+		//If user doesn't own this book, and it's already borrowed,
+		//Give the option to REQUEST to borrow it.
+		request_book(is_shared, bookinfo, id, owner)
+		return
+	}
 	else
 	{
 		//If user doesn't own this book, they're borrowing it.
 		let res = await _.modal({
 			icon: 'book-open',
 			title: 'Borrow Book',
-			text: `Are you borrowing this book?<hr>${bookinfo}`,
-			buttons: ['Yes', 'No'],
+			text: `Are you currently borrowing this book?<br>If you want to <i>request</i> to borrow it, click "Request".<hr>${bookinfo}`,
+			buttons: ['Yes', 'No', 'Request'],
 		}).catch(() => 'no')
+
+		if (res === 'request')
+		{
+			request_book(is_shared, bookinfo, id, owner)
+			return
+		}
 
 		if (res !== 'yes') return
 
@@ -589,6 +602,33 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 	}
 
 	manual_input()
+}
+
+async function request_book(is_shared, bookinfo, id, owner)
+{
+	let res = await _.modal({
+		icon: 'book-open',
+		title: 'Request to Borrow Book?',
+		text: (is_shared ? `This book is already being borrowed by ${is_shared}.` : `This book is not currently being borrowed.`) + `<br>Would you like to request to borrow it?<hr>${bookinfo}`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (res !== 'yes') return
+
+	//Mark the book as borrowed by this user.
+	res = await mutate.books.request_borrow(id)
+
+	if (res.__typename !== 'Notification')
+	{
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal({
+		title: 'Notification Sent!',
+		text: `A notification has been sent to ${owner} indicating that you'd like to borrow this book.`,
+		buttons: ['OK'],
+	}).catch(() => {})
 }
 
 export async function search_by_qrcode()

@@ -97,6 +97,22 @@ export default {
 		})
 	},
 
+	request_borrow: async id =>
+	{
+		return await api(`mutation ($id: String!) {
+			requestToBorrowBook (id: $id) {
+				__typename
+				...on MissingConfig { message }
+				...on UserDoesNotExistError { message }
+				...on WebPushException { message }
+				...on InvalidSubscriptionToken { message }
+				...on BadNotification { message }
+			}
+		}`, {
+			id: id,
+		})
+	},
+
 	edit: async (id, changes) =>
 	{
 		return await api(`mutation ($id: String!, $changes: BookEditData!) {

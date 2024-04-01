@@ -2,6 +2,8 @@ from application.db.book import *
 import application.exceptions as exceptions
 import application.db.perms as perms
 from application.integrations.exceptions import ApiFailedError
+import application.db.notification as notification
+from application.db.users import get_user_by_id
 
 @perms.require(['edit'])
 def resolve_link_book_tag(_, info, rfid: str, bookId: str) -> dict:
@@ -39,6 +41,28 @@ def resolve_borrow_book(_, info, id: str) -> dict:
 	try:
 		user_data = perms.caller_info()
 		return { '__typename': 'Book', **borrow_book(id, user_data) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['edit'])
+def resolve_request_borrow_book(_, info, id: str) -> dict:
+	try:
+		user_data = perms.caller_info()
+		book_data = get_book(id)
+		owner_data = get_user_by_id(book_data['owner'])
+
+		user = user_data['display_name']
+		title = book_data['title']
+		authors = ','.join(book_data['authors'])
+
+		notification.send(
+			title = f'{user} wants to borrow a book!',
+			body = f'{user} would like to borrow "{title}" by {authors}. Remember to talk to them and let them know what you think!',
+			username = owner_data['username'],
+			category = 'books',
+		)
+
+		return { '__typename': 'Notification', 'message': 'Notification sent' }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 

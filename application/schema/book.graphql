@@ -129,6 +129,7 @@ extend type Mutation {
 	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
 	borrowBook(id: String!): BookTagShareResponse!
+	requestToBorrowBook(id: String!): NotificationResponse!
 	shareBook(id: String!, username: String!): BookTagShareResponse!
 	shareBookNonUser(id: String!, name: String!): BookTagShareResponse!
 	returnBook(id: String!): BookTagShareResponse!

@@ -17,9 +17,9 @@ tmp="/tmp/$(uuidgen)"
 for db in weather data notifications inventory
 do
 	echo "BACKING UP ${db^^}..."
-	while ! ssh "$SERVER" "mongodump --db $db --out $tmp"; do sleep 1; done
-	while ! rsync -a "$SERVER:$tmp/$db" "."; do sleep 1; done
-	while ! ssh "$SERVER" "rm -rf $tmp"; do sleep 1; done
+	ssh "$SERVER" "mongodump --db $db --out $tmp"
+	rsync -a "$SERVER:$tmp/$db" "." 2>/dev/null || echo 'No data to transfer.'
+	ssh "$SERVER" "rm -rf $tmp"
 	echo
 done
 
