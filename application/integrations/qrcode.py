@@ -1,5 +1,6 @@
 from pyzxing import BarCodeReader
-import qrcode
+import qrcode, uuid
+from PIL import Image
 
 def process(file_path: str) -> str:
 	reader = BarCodeReader()
@@ -16,6 +17,16 @@ def process(file_path: str) -> str:
 				'error': 'No QR / barcode detected.',
 			}
 
-def generate(file_path: str, text: str) -> None:
-	image = qrcode.make(text)
-	image.save(file_path)
+def generate(file_path: str, text: str|None, amount: int) -> None:
+	canvas = Image.new('RGB', (2590, 3700), color = (255, 255, 255))
+
+	print(f'Generating {amount} QR codes...', flush = True)
+	for i in range(amount):
+		qr_text = str(uuid.uuid4()).replace('-', '') if text is None else text
+		image = qrcode.make(qr_text)
+
+		canvas.paste(image, ((i % 7) * 370, (i // 7) * 370))
+
+	canvas.save(file_path)
+	print(f'Successfully generated {amount} QR codes.', flush = True)
+

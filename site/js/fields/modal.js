@@ -18,7 +18,7 @@
  * @param {function(string) => string} transform Change the output text when the modal returns.
  * @returns A promise that will resolve when a selection is made, or will throw if the X button is pressed.
  */
-window.modal = async function(config, onload = () => {}, validate = choice => true, transform = choice => choice)
+async function modal(config, onload = () => {}, validate = choice => true, transform = choice => choice)
 {
 	await _('modal', config)
 	onload()

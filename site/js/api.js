@@ -465,6 +465,7 @@ api.logout = function()
 /**
  * Helper function for easily fetching the text of an HTML snippet.
  * @param {string} name The base name of the snippet to fetch.
+ * @param {boolean} url_only If true, just return the generated URL without fetching the file contents.
  * @returns {string} The text contents of the snippet.
  */
 api.snippit = async (name, url_only = false) =>

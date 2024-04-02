@@ -436,14 +436,37 @@ window.qr = {
 	 */
 	generate: async (text = null) =>
 	{
+		let amount = 1
+		if (text === null)
+		{
+			amount = await _.modal({
+				title: 'Generate QR Code',
+				text: api.snippit('qr_input'),
+				buttons: ['OK', 'Cancel'],
+			}, () => {
+				//On load
+				$.bind('amount', () => {
+					$.valid('amount', $('amount').validity.valid)
+				})
+			}, choice => {
+				//Validate
+				return choice !== 'ok' || $('amount').validity.valid
+			}, choice => {
+				//Transform on submit
+				return (choice === 'ok') ? parseInt($.val('amount')) : choice
+			}).catch(() => 'cancel')
+
+			if (amount === 'cancel') return
+		}
+
 		const blob_data = await api(`
-		mutation ($text: String) {
-			getBlobFromQR (text: $text) {
+		mutation ($text: String, $amount: Int!) {
+			getBlobFromQR (text: $text, amount: $amount) {
 				__typename
 				...on Blob { id ext }
 				...on InsufficientPerms { message }
 			}
-		}`, {text: text})
+		}`, {text: text, amount: amount})
 
 		if (blob_data.__typename !== 'Blob')
 		{

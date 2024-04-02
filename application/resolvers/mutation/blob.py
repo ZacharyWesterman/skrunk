@@ -37,10 +37,11 @@ def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
 @perms.require(['edit'])
-def resolve_generate_blob_from_qr(_, info, text: str|None) -> dict:
+def resolve_generate_blob_from_qr(_, info, text: str|None, amount: int) -> dict:
 	try:
+		amount = min(70, max(1, amount))
 		id, ext = create_blob('QR.png', tags = ['qr', '__temp_file'], ephemeral = True)
-		qrcode.generate(BlobStorage(id, ext).path(create = True), text if text is not None else id)
+		qrcode.generate(BlobStorage(id, ext).path(create = True), text, amount)
 		return { '__typename': 'Blob', **get_blob_data(id) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
