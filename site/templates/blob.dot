@@ -24,7 +24,7 @@
 				<source type="{{=it.mimetype}}" src="blob/{{=it.id}}{{=it.ext}}">
 			</video>
 		{{??it.mimetype.split('/')[0] === 'image'}}
-			<img width="100%" height="auto" src="{{? it.preview }}preview/{{=it.preview}}{{??}}blob/{{=it.id}}{{=it.ext}}{{?}}" alt="<IMAGE PREVIEW>" loading="lazy"/>
+			<img class="clickable" width="100%" height="auto" src="{{? it.preview }}preview/{{=it.preview}}{{??}}blob/{{=it.id}}{{=it.ext}}{{?}}" alt="<IMAGE PREVIEW>" loading="lazy" onclick="_.modal.image('blob/{{= it.id }}{{= it.ext }}')"/>
 		{{??it.mimetype.split('/')[0] === 'audio'}}
 			<audio src="blob/{{=it.id}}{{=it.ext}}" controls></audio>
 		{{??it.mimetype.split('/')[0] === 'model'}}
