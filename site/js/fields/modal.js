@@ -386,4 +386,20 @@ modal.scanner = async () =>
 }
 modal.scanner._awaiting = false
 
+
+modal.image = async (url) =>
+{
+	await _('image-view-modal', url)
+
+	$('image-window-modal').close()
+	$('image-window-modal').showModal()
+	$('image-window-expand').classList.add('expanded')
+
+	$('image-window-modal').onclick = () =>
+	{
+		$('image-window-expand').classList.remove('expanded')
+		setTimeout(() => {$('image-window-modal').close()}, 200)
+	}
+}
+
 export default modal

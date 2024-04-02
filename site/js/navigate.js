@@ -349,6 +349,8 @@ window.set_field_logic = async function(DOM, url, module)
 				$.hide(img, true).then(() => img.src = '')
 				$.hide(progressbar, true)
 				progressbar.removeAttribute('value')
+				img.onclick = () => {}
+				img.classList.remove('clickable')
 			}
 
 			img.clear = () => {
@@ -360,6 +362,8 @@ window.set_field_logic = async function(DOM, url, module)
 				$.hide(img, true).then(() => img.src = '')
 				$.hide(progressbar, true)
 				progressbar.removeAttribute('value')
+				img.onclick = () => {}
+				img.classList.remove('clickable')
 			}
 
 			upload_btn.onclick = async () => {
@@ -379,6 +383,11 @@ window.set_field_logic = async function(DOM, url, module)
 				img.src = `preview/${res.thumbnail}`
 				img.alt = 'FAILED TO LOAD THUMBNAIL'
 				img.blob_id = image.id
+				img.classList.add('clickable')
+				img.onclick = () =>
+				{
+					_.modal.image(`blob/${res.id}${res.ext}`)
+				}
 
 				await $.hide(progressbar, true)
 				$.show(img)

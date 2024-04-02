@@ -6,6 +6,15 @@
 	position: absolute;
 }
 
+[name="image-view-modal"] {
+	position: absolute;
+	z-index: 9999;
+}
+
+#image-window-expand {
+	padding: 1rem 0 .5rem;
+}
+
 dialog {
 	background-color: rgba(0,0,0,0.4);
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);

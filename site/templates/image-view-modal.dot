@@ -1,0 +1,7 @@
+<dialog id="image-window-modal">
+	<div id="image-window-expand" class="modal">
+		<div>
+			<img src="{{= it }}" alt="Failed to load image:{{= safe_html(it) }}" style="max-width: 100%;">
+		</div>
+	</div>
+</div>
