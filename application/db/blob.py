@@ -335,7 +335,7 @@ def get_blob_data(id: str) -> dict:
 			blob_data['creator'] = str(blob_data['creator'])
 	return blob_data
 
-def delete_blob(blob_id: str) -> bool:
+def delete_blob(blob_id: str) -> dict:
 	global db
 	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:

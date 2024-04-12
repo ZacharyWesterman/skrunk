@@ -57,6 +57,9 @@ def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = False, da
 			args = dict((i, data[i]) for i in spec[0] + spec[4] if i in data)
 			data = data_func(**args)
 
+		if type(data) is not dict:
+			return bad_perms()
+
 		fields = [i for i in ['owner', 'creator', 'username'] if i in data]
 		other_user = str(data.get(fields[0])) if len(fields) else None
 
