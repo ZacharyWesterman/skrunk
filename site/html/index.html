@@ -80,19 +80,16 @@
 		}
 	}
 
-	let is_dark_mode = false
-	function auto_favicon()
+	//Automatically adjust tab icon based on whether browser uses light or dark mode.
+	function auto_favicon(media_query)
 	{
 		const element = document.getElementById('favicon')
-		const dark_mode = matchMedia('(prefers-color-scheme: dark)').matches && !(window?.environment?.mobile)
-		if (dark_mode !== is_dark_mode)
-		{
-			is_dark_mode = dark_mode
-			element.href = is_dark_mode ? 'favicon-dark.png' : 'favicon-light.png'
-		}
+		const dark_mode = media_query.matches && !(window?.environment?.mobile)
+		element.href = dark_mode ? 'favicon-dark.png' : 'favicon-light.png'
 	}
-
-	setInterval(auto_favicon, 1000)
+	const media_query = matchMedia('(prefers-color-scheme: dark)')
+	auto_favicon(media_query)
+	media_query.addListener(auto_favicon)
 
 	//Automatically adjust background animation speed.
 	let orig_rate
