@@ -248,10 +248,14 @@ export async function enable_push_notifs()
 
 export async function show_notifications_info()
 {
-	_.modal({
+	const res = await _.modal({
 		type: 'info',
 		title: 'Why enable notifications?',
 		text: await api.snippit('notifications'),
-		buttons: ['OK'],
-	}).catch(() => {})
+		buttons: ['OK', 'More Info'],
+	}).catch(() => 'ok')
+
+	if (res === 'ok') return
+
+	dashnav('help/notifications')
 }
