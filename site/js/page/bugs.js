@@ -63,7 +63,7 @@ export function refresh_bug_list()
 
 export async function comment_on_bug_report(bug_id)
 {
-	const text = editor(`text-${bug_id}`).value()
+	const text = $.val(`text-${bug_id}`)
 	if (text === '') return
 
 	$.toggle_expand(`newcomment-${bug_id}`)
@@ -108,7 +108,7 @@ export async function comment_on_bug_report(bug_id)
 
 async function can_submit()
 {
-	if (editor('new-bug-text').value() === '')
+	if ($.val('new-bug-text') === '')
 	{
 		_.modal({
 			type: 'error',

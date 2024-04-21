@@ -120,7 +120,7 @@ export async function create_book()
 	if (res !== 'ok') return
 
 	//Now that book data is entered, wait for rfid to be scanned.
-	const p1 = modal.scanner()
+	const p1 = _.modal.scanner()
 
 	let blob_data = {}
 	if (book_data.thumbnail)
@@ -202,7 +202,7 @@ export async function select_book(book_id, book_title)
 	let tagid = $.val('new-tagid')
 	if (tagid === '')
 	{
-		const res = await modal.scanner()
+		const res = await _.modal.scanner().catch(() => null)
 		if (res === null) return
 		tagid = res
 	}
