@@ -14,7 +14,9 @@ import mimetypes
 import hashlib
 import uuid
 
-db = None
+from pymongo.collection import Collection
+db: Collection = None
+
 blob_path = None
 
 class BlobStorage:

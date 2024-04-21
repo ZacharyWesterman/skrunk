@@ -2,7 +2,8 @@ import random, string
 from datetime import datetime
 from . import perms
 
-db = None
+from pymongo.collection import Collection
+db: Collection = None
 
 def valid_api_key(key: str) -> bool:
 	return True if db.find_one({'key': key}) else False

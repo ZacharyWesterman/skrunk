@@ -3,8 +3,9 @@ __all__ = ['require']
 from application import tokens
 from inspect import getfullargspec
 
-db = None
-apikeydb = None
+from pymongo.collection import Collection
+db: Collection = None
+apikeydb: Collection = None
 
 def bad_perms() -> dict:
 	return {

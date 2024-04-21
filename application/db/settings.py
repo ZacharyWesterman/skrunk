@@ -1,4 +1,5 @@
-db = None
+from pymongo.collection import Collection
+db: Collection = None
 
 def get_enabled_modules() -> list:
 	modules = db.find_one({'name': 'modules'})

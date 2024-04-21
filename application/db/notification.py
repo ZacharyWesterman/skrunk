@@ -14,7 +14,8 @@ except FileNotFoundError:
 	print('WARNING: No VAPID keys found!', flush=True)
 	pass
 
-db = None
+from pymongo.database import Database
+db: Database = None
 
 def get_user_from_notif(id: str) -> dict:
 	notif = db.log.find_one({'_id': ObjectId(id)})

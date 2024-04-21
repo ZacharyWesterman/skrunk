@@ -1,6 +1,7 @@
 import application.exceptions as exceptions
 
-db = None
+from pymongo import MongoClient
+db: MongoClient = None
 
 def get_users() -> list:
 	global db

@@ -8,7 +8,9 @@ from datetime import datetime
 from bson.objectid import ObjectId
 import re, markdown
 
-db = None
+from pymongo.collection import Collection
+db: Collection = None
+
 SUBSONIC = None
 
 _P = {

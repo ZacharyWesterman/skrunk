@@ -7,7 +7,8 @@ from bson.objectid import ObjectId
 import application.exceptions as exceptions
 from . import blob
 
-db = None
+from pymongo.database import Database
+db: Database = None
 
 def create_inventory_item(owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str) -> dict:
 	owner_data = users.get_user_data(owner)

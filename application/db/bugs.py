@@ -6,7 +6,8 @@ from bson.objectid import ObjectId
 from datetime import datetime
 import markdown, html
 
-db = None
+from pymongo.collection import Collection
+db: Collection = None
 
 def report_bug(text: str, plaintext: bool = True) -> dict:
 	global db

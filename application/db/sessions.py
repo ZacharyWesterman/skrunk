@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from application.db.users import get_user_data
 
-db = None
+from pymongo.collection import Collection
+db: Collection = None
 
 def start_session(token: str, username: str) -> None:
 	userdata = get_user_data(username)

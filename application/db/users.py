@@ -4,7 +4,8 @@ import bcrypt
 from bson.objectid import ObjectId
 import application.db.settings as settings
 
-db = None
+from pymongo.collection import Collection
+db: Collection = None
 
 def get_admins() -> list:
 	global db
