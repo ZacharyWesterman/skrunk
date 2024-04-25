@@ -284,6 +284,12 @@ export async function show_ephemeral_info()
 export async function set_blob_tags(id)
 {
 	const blob_data = await get_blob(id)
+	//Query tags all async, then wait for them all to return.
+	let promises = []
+	for (const tag of blob_data.tags)
+	{
+		promises.push(tagHTML(tag))
+	}
 
 	const res = await _.modal({
 		title: 'Update Tags',
@@ -299,14 +305,7 @@ export async function set_blob_tags(id)
 		//Once modal has loaded, inject list of tags.
 		let tagList = $('modal-tag-list')
 		let innerHTML = ''
-		let promises = []
-
-		//Query tags all async, then wait for them all to return.
-		for (const tag of blob_data.tags)
-		{
-			promises.push(tagHTML(tag).then(html => innerHTML += html))
-		}
-		for (const p of promises) { await p }
+		for (const p of promises) { innerHTML += await p }
 
 		tagList.innerHTML = innerHTML
 
