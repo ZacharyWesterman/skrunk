@@ -296,6 +296,7 @@ export async function set_blob_tags(id)
 	{
 		promises.push(tagHTML(tag))
 	}
+	for (const p of promises) { await p }
 
 	const res = await _.modal({
 		title: 'Update Tags',
