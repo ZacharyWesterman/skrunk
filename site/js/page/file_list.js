@@ -290,17 +290,25 @@ export async function set_blob_tags(id)
 		text: await api.snippit('blob_tag_modal'),
 		buttons: ['OK', 'Cancel'],
 	}, async () => {
-		//Once modal has loaded, inject list of tags.
-		let innerHTML = ''
-		for (const tag of blob_data.tags) { innerHTML += await tagHTML(tag) }
-		let tagList = $('modal-tag-list')
-		tagList.innerHTML = innerHTML
-
 		async function tagHTML(tag)
 		{
 			const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
 			return `<div class="tag clickable ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
 		}
+
+		//Once modal has loaded, inject list of tags.
+		let tagList = $('modal-tag-list')
+		let innerHTML = ''
+		let promises = []
+
+		//Query tags all async, then wait for them all to return.
+		for (const tag of blob_data.tags)
+		{
+			promises.push(tagHTML(tag).then(html => innerHTML += html))
+		}
+		for (const p of promises) { await p }
+
+		tagList.innerHTML = innerHTML
 
 		function tagClicks(tagList)
 		{
