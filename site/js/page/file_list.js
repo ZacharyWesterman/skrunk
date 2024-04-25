@@ -283,6 +283,12 @@ export async function show_ephemeral_info()
 
 export async function set_blob_tags(id)
 {
+	async function tagHTML(tag)
+	{
+		const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
+		return `<div class="tag clickable ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
+	}
+
 	const blob_data = await get_blob(id)
 	//Query tags all async, then wait for them all to return.
 	let promises = []
@@ -296,12 +302,6 @@ export async function set_blob_tags(id)
 		text: await api.snippit('blob_tag_modal'),
 		buttons: ['OK', 'Cancel'],
 	}, async () => {
-		async function tagHTML(tag)
-		{
-			const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
-			return `<div class="tag clickable ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
-		}
-
 		//Once modal has loaded, inject list of tags.
 		let tagList = $('modal-tag-list')
 		let innerHTML = ''
