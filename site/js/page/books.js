@@ -160,15 +160,14 @@ async function confirm_edit_ebooks(book_data)
 
 				promises.push(api.upload(files[i], prog => {
 					progress.value = prog.loaded / prog.total * 100
-				}, false, ['ebook']));
+				}, false, ['ebook'], false, true));
 			}
 
 			//Once files are done uploading, get the ebook links
 			for (const promise of promises)
 			{
 				const file = (await promise)[0]
-				const ebook_link = `download/${file.id}${file.ext}`
-				ebook_promises.push(mutate.books.append_ebook(book_data.id, ebook_link))
+				ebook_promises.push(mutate.books.append_ebook(book_data.id, file.id))
 			}
 		}
 
