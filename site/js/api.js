@@ -149,43 +149,39 @@ api.verify_token = async function()
  * Get data from the server.
  * @param {string} url The path to set GET request.
  * @param {boolean} use_cache Use cached static data if it exists.
- * @returns {string} The response text from the server.
+ * @returns {Promise.<string>} The response text from the server.
  */
-api.get = function(url, use_cache = true) {
+api.get = async function(url, use_cache = true) {
 	url = url.replace(/^\//, '')
 
-	return new Promise((resolve, reject) => {
-		//Don't re-fetch urls that are cached
-		if (use_cache)
+	//Don't re-fetch urls that are cached
+	if (use_cache)
+	{
+		const cache_data = cache.read(url)
+		if (cache_data !== null)
 		{
-			const cache_data = cache.read(url)
-			if (cache_data !== null)
+			return cache_data
+		}
+	}
+
+	const res = await fetch(url)
+	if (res.status >= 200 && res.status < 300 && res.ok)
+	{
+		//Only cache certain file types.
+		for (const filetype of ['.html', '.js', '.css', '.dot', '.json'])
+		{
+			if (url.endsWith(filetype))
 			{
-				resolve(cache_data)
-				return
+				const text = await res.text()
+				cache.write(url, text)
+				return text
 			}
 		}
 
-		fetch(url).then(res => {
-			if (res.status >= 200 && res.status < 300 && res.ok)
-			{
-				//Only cache certain file types.
-				for (const filetype of ['.html', '.js', '.css', '.dot', '.json'])
-				{
-					if (url.endsWith(filetype))
-					{
-						res.text().then(text => {
-							cache.write(url, text)
-							resolve(text)
-						})
-						return
-					}
-				}
+		return await res.text()
+	}
 
-				res.text().then(resolve)
-			}
-		})
-	})
+	throw `Failed to load resource ${url}`
 }
 
 /**
