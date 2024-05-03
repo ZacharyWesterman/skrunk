@@ -111,7 +111,11 @@
 						this_field.disabled = disabled
 					}
 
-					$(`module-${m.id}`).disabled = !parent_field.checked
+					//Disable any modules that are missing required parent modules.
+					if (!modules.includes(i))
+					{
+						$(`module-${m.id}`).disabled = true
+					}
 				}
 			}
 		}
