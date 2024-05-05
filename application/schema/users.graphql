@@ -5,6 +5,7 @@ type UserData {
 	perms: [String!]!
 	last_login: DateTime
 	groups: [String!]
+	disabled_modules: [String!]!
 }
 
 type UserMinData {
@@ -81,4 +82,5 @@ extend type Mutation {
 	updateUserPassword(username: String!, password: String!): UserUpdateResponse!
 	updateUserDisplayName(username: String!, display_name: String!): UserUpdateResponse!
 	updateUserGroups(username: String!, groups: [String!]!): UserUpdateResponse!
+	updateUserModule(username: String!, module: String!, disabled: Boolean!): UserUpdateResponse!
 }

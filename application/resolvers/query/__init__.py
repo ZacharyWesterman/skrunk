@@ -5,7 +5,7 @@ from .sessions import resolve_count_user_sessions
 from .blob import *
 from .bugs import *
 from .book import *
-from .settings import resolve_get_enabled_modules, resolve_get_groups, resolve_get_all_configs, resolve_get_config
+from .settings import *
 from .integrations import resolve_search_subsonic
 from .integrations import resolve_get_system_info
 from .notification import *
@@ -42,6 +42,7 @@ query.set_field('getBookByTag', resolve_get_book_by_tag)
 query.set_field('countAllUserBooks', resolve_count_all_user_books)
 
 query.set_field('getEnabledModules', resolve_get_enabled_modules)
+query.set_field('getServerEnabledModules', resolve_get_server_enabled_modules)
 query.set_field('getUserGroups', resolve_get_groups)
 query.set_field('getConfigs', resolve_get_all_configs)
 query.set_field('getConfig', resolve_get_config)

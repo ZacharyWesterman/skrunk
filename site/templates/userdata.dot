@@ -45,15 +45,62 @@
 		{{?}}
 
 		{{? it.self_view }}
-		<div>
-			<span class="clickable" *click="enable_push_notifs" >
-				<input type="checkbox" id="enable-push" {{? push.subscribed }}checked{{?}} >
-				Enable Notifications?
-			</span>
-			<span class="tooltip" *click="show_notifications_info" >
-				<i class="fa-solid fa-circle-question"></i>
-				<span class="tooltiptext t-center">What does this mean?</span>
-			</span>
+
+		<h3 class="clickable" *toggles="user-modules" >
+			Enabled Features
+			<i class="right fa-solid fa-angles-down"></i>
+		</h3>
+		<div class="expand-container" id="user-modules">
+			<div>
+				<table>
+					<tr>
+						<td colspan="4" style="max-width:inherit;">
+							If you don't want certain features,<br>
+							you can disable them here.<br>
+							Don't worry, you can always enable<br>
+							them later if you change your mind.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="tooltip" *click="show_notifications_info" >
+								<i class="fa-solid fa-circle-question"></i>
+								<span class="tooltiptext t-right">What is this?</span>
+							</span>
+						</td>
+						<td>
+							<span class="tooltip">
+								<span>Notifications</span>
+								<span class="tooltiptext t-right t-persist">Receive push notifications on this device.</span>
+							</span>
+						</td>
+						<td>
+							<input type="checkbox" id="enable-push" *click="enable_push_notifs" {{? push.subscribed }} checked {{?}}>
+						</td>
+						<td>
+							<i id="icon-notif" class="fa-solid fa-circle-check hidden"></i>
+						</td>
+					</tr>
+
+					{{~ it.all_modules : mod }}
+					<tr>
+						<td></td>
+						<td>
+							<span class="tooltip">
+								<span id="module-name-{{= mod }}">{{= mod }}</span>
+								<span class="tooltiptext t-right t-persist" id="module-tooltip-{{= mod }}">Placeholder Text. You should never see this!</span>
+							</span>
+						</td>
+						<td>
+							<input id="module-{{= mod }}" type="checkbox" *click="update_user_module" {{? !it.user.disabled_modules.includes(mod)}} checked {{?}}>
+						</td>
+						<td>
+							<i id="icon-module-{{= mod }}" class="fa-solid fa-circle-check hidden"></i>
+						</td>
+					<tr>
+					{{~}}
+				</table>
+			</div>
 		</div>
 		{{?}}
 

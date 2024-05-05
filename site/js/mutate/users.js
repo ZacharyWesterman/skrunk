@@ -112,5 +112,21 @@ export default {
 			'username': username,
 			'display_name': disp_name,
 		})
-	}
+	},
+
+	module: async (username, module_name, disabled) =>
+	{
+		return await api(`mutation ($username: String!, $module: String!, $disabled: Boolean!) {
+			updateUserModule (username: $username, module: $module, disabled: $disabled) {
+				__typename
+				...on UserData { disabled_modules }
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			username: username,
+			module: module_name,
+			disabled: disabled,
+		})
+	},
 }

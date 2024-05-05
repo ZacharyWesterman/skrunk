@@ -77,7 +77,7 @@
 
 		let modl = api.get_json('/config/modules.json')
 		let promise = _('server_modules', modl)
-		const modules = await api('{getEnabledModules}')
+		const modules = await api('{getServerEnabledModules}')
 		await promise
 
 		//Lock modules if they have a required module which is not enabled.
@@ -169,7 +169,7 @@
 		})
 		await _('server_configs', configs)
 
-		reset_modules(res)
+		reset_modules(await api('{getEnabledModules}'))
 	}
 
 	export async function set_config(config_id)

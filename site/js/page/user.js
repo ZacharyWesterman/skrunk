@@ -57,22 +57,23 @@ export async function set_perms()
 
 export async function load_user_data(username, self_view = false)
 {
-	let p
-	if (!Perms)
+	let perms = Perms
+	if (!perms)
 	{
-		p = api.get_json('/config/permissions.json')
+		perms = api.get_json('/config/permissions.json')
+		perms.then(p => Perms = p)
 	}
 
 	let p2 = api('{ getUserGroups }')
 
-	UserData = await query.users.get(username)
-	if (p) Perms = await p
+	UserData = query.users.get(username)
 
 	await _('userdata', {
-		perms: Perms,
+		perms: perms,
 		user: UserData,
 		sessions: query.users.sessions(username),
 		self_view: self_view,
+		all_modules: api('{getServerEnabledModules}'),
 	})
 
 	await _('usrgrp', {
@@ -88,7 +89,42 @@ export async function load_user_data(username, self_view = false)
 		})
 	}
 
-	sync_perm_descs()
+	perms.then ? perms.then(sync_perm_descs) : sync_perm_descs()
+
+	api.get_json('/config/modules.json').then(modules => {
+		for (let mod of modules)
+		{
+			const field = $(`module-name-${mod.id}`)
+			if (field)
+			{
+				field.innerText = mod.name
+				$(`module-tooltip-${mod.id}`).innerText = mod.description
+			}
+		}
+	})
+}
+
+export async function update_user_module(field)
+{
+	const module_name = field.id.substring(7)
+	const disabled = !field.checked
+
+	field.disabled = true
+	const res = await mutate.users.module(api.username, module_name, disabled)
+
+	if (res.__typename !== 'UserData')
+	{
+		_.modal.error(res.message)
+		field.checked = !field.checked
+	}
+	else
+	{
+		field.checked = !res.disabled_modules.includes(module_name)
+	}
+
+	field.disabled = false
+	$.blink(`icon-module-${module_name}`)
+	api('{getEnabledModules}').then(reset_modules)
 }
 
 export async function update_groups(username)
@@ -244,6 +280,7 @@ export async function enable_push_notifs()
 
 	$('enable-push').checked = push.subscribed
 	$('enable-push').disabled = false
+	$.blink('icon-notif')
 }
 
 export async function show_notifications_info()

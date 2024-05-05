@@ -13,6 +13,7 @@ union ConfigsResponse = ConfigList | InsufficientPerms
 
 extend type Query {
 	getEnabledModules: [String!]!
+	getServerEnabledModules: [String!]!
 	getUserGroups: [String!]!
 	getConfigs: ConfigsResponse
 	getConfig(name: String!): String

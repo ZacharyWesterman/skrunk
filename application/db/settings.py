@@ -1,9 +1,15 @@
 from pymongo.collection import Collection
 db: Collection = None
 
-def get_enabled_modules() -> list:
+def get_enabled_modules(user_data: dict|None = None) -> list:
 	modules = db.find_one({'name': 'modules'})
-	return [] if modules is None else modules.get('enabled', [])
+	if modules is None:
+		return []
+
+	if user_data is None:
+		return modules.get('enabled', [])
+
+	return [i for i in modules.get('enabled', []) if i not in user_data.get('disabled_modules', [])]
 
 def set_module_enabled(module_id: str, enabled: bool) -> None:
 	modules = db.find_one({'name': 'modules'})

@@ -158,6 +158,30 @@ def update_user_groups(username: str, groups: list) -> dict:
 	userdata['groups'] = groups
 	return userdata
 
+def update_user_module(username: str, module: str, disabled: bool) -> dict:
+	if len(username) == 0:
+		raise exceptions.BadUserNameError
+
+	userdata = db.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	modules: list[str] = userdata.get('disabled_modules', [])
+
+	if disabled:
+		modules += [module]
+	else:
+		modules.remove(module)
+
+	userdata['modules'] = list(set(modules))
+
+	db.update_one({'_id': userdata['_id']}, {'$set': {
+		'disabled_modules': userdata['modules'],
+	}})
+
+	return userdata
+
 def authenticate(username: str, password: str) -> str:
 	userdata = get_user_data(username)
 

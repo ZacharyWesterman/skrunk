@@ -64,3 +64,10 @@ def resolve_set_user_groups(_, info, username: str, groups: list) -> dict:
 		return { '__typename': 'UserData', **update_user_groups(username, groups) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+@perms.require(['admin'], perform_on_self = True)
+def resolve_set_user_module(_, info, username: str, module: str, disabled: bool) -> dict:
+	try:
+		return { '__typename': 'UserData', **update_user_module(username, module, disabled) }
+	except exceptions.ClientError as e:
+		return { '__typename': e.__class__.__name__, 'message': str(e) }

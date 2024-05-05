@@ -21,6 +21,7 @@ mutation.set_field('revokeSessions', resolve_revoke_user_sessions)
 mutation.set_field('updateUserPassword', resolve_update_user_password)
 mutation.set_field('updateUserDisplayName', resolve_update_user_display_name)
 mutation.set_field('updateUserGroups', resolve_set_user_groups)
+mutation.set_field('updateUserModule', resolve_set_user_module)
 
 mutation.set_field('createWeatherUser', resolve_create_weather_user)
 mutation.set_field('deleteWeatherUser', resolve_delete_weather_user)

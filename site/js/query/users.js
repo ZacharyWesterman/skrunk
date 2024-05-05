@@ -51,6 +51,7 @@ export default {
 					last_login
 					display_name
 					groups
+					disabled_modules
 				}
 				...on UserDoesNotExistError {
 					message
