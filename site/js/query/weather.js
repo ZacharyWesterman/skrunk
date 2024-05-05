@@ -16,7 +16,6 @@ export default {
 					default
 					value
 				}
-				phone
 				last_sent
 				exclude
 			}

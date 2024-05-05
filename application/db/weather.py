@@ -39,7 +39,6 @@ def create_user(user_data: dict) -> None:
 			'lon': user_data['lon'],
 			'max': user_max,
 			'min': user_min,
-			'phone': user_data['phone'],
 			'last_sent': None,
 			'exclude': False,
 		}
@@ -81,7 +80,6 @@ def update_user(user_data: dict) -> None:
 			'lon': user_data['lon'],
 			'max': user_max,
 			'min': user_min,
-			'phone': user_data['phone'],
 		}
 		db.weather.users.update_one(
 			{'_id': user_data['username']},

@@ -4,7 +4,6 @@ type WeatherUser {
 	lon: Float!
 	max: WeatherTemp_!
 	min: WeatherTemp_!
-	phone: PhoneNumber!
 	last_sent: DateTime
 	exclude: Boolean!
 }
@@ -15,7 +14,6 @@ input WeatherUserInput {
 	lon: Float!
 	max: WeatherTemp!
 	min: WeatherTemp!
-	phone: PhoneNumber!
 }
 
 type WeatherExecution {

@@ -78,7 +78,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	update_user: async function(username, phone, lat, lon, max, min) {
+	update_user: async function(username, lat, lon, max, min) {
 		const query = `mutation ($userdata: WeatherUserInput!){
 			updateWeatherUser(userdata: $userdata){
 				__typename
@@ -95,7 +95,6 @@ export default {
 				username: username,
 				lat: lat,
 				lon: lon,
-				phone: phone,
 				max: max,
 				min: min,
 			}

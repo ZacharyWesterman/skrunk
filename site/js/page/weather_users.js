@@ -97,7 +97,6 @@ export async function disable_user(username, self)
 
 export async function update_user(username, self)
 {
-	const phone = $.val('phone-'+username)
 	const lat = parseFloat($.val('lat-'+username))
 	const lon = parseFloat($.val('lon-'+username))
 	const max = {
@@ -111,7 +110,7 @@ export async function update_user(username, self)
 		value: parseFloat($.val('min-'+username)) || 0.0,
 	}
 
-	const res = await mutate.weather.update_user(username, phone, lat, lon, max, min)
+	const res = await mutate.weather.update_user(username, lat, lon, max, min)
 
 	if (res.__typename !== 'UserData')
 	{
