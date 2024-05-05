@@ -35,20 +35,27 @@ def set_module_enabled(module_id: str, enabled: bool) -> None:
 
 	db.update_one({'name': 'modules'}, {'$set': {'enabled': modules}})
 
-def add_groups(new_groups: list) -> None:
+def add_groups(new_groups: list[str]) -> None:
 	groups = db.find_one({'name': 'groups'})
 	if groups is None:
 		db.insert_one({
 			'name': 'groups',
 			'type': 'list',
-			'groups': list(set(new_groups)),
+			'groups': { i: {
+				'disabled_modules': [],
+			} for i in new_groups },
 		})
 	else:
-		db.update_one({'name': 'groups'}, {'$set': {'groups': list(set(groups['groups'] + new_groups))}})
+		for i in new_groups:
+			groups['groups'][i] = {
+				'disabled_modules': [],
+			}
+
+		db.update_one({'name': 'groups'}, {'$set': {'groups': groups['groups']}})
 
 def get_groups() -> list:
 	groups = db.find_one({'name': 'groups'})
-	return [] if groups is None else groups['groups']
+	return [] if groups is None else [ i for i in groups['groups'] ]
 
 def set_config(name: str, value: str|None) -> None:
 	real_name = f'config:{name}'

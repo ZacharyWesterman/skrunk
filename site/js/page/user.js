@@ -76,11 +76,16 @@ export async function load_user_data(username, self_view = false)
 		all_modules: api('{getServerEnabledModules}'),
 	})
 
-	await _('usrgrp', {
-		id: 'user-group',
-		items: p2,
-	})
-	$('user-group').value = UserData.groups ? (UserData.groups[0] || '') : ''
+	if (has_perm('admin'))
+	{
+		await _('usrgrp', {
+			id: 'user-group',
+			items: p2,
+		})
+		UserData.then(user_data => {
+			$('user-group').value = user_data.groups ? (user_data.groups[0] || '') : ''
+		})
+	}
 
 	if (self_view)
 	{
