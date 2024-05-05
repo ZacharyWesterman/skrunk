@@ -9,7 +9,16 @@ def get_enabled_modules(user_data: dict|None = None) -> list:
 	if user_data is None:
 		return modules.get('enabled', [])
 
-	return [i for i in modules.get('enabled', []) if i not in user_data.get('disabled_modules', [])]
+	groups = db.find_one({'name': 'groups'})
+	groups: dict[str, dict[str, list[str]]] = {} if groups is None else groups.get('groups', {})
+
+	user_disabled_modules: list[str] = user_data.get('disabled_modules', [])
+	group_disabled_modules: list[str] = []
+
+	for group in user_data.get('groups', []):
+		group_disabled_modules += groups.get(group, {}).get('disabled_modules', [])
+
+	return [i for i in modules.get('enabled', []) if i not in user_disabled_modules and i not in group_disabled_modules]
 
 def set_module_enabled(module_id: str, enabled: bool) -> None:
 	modules = db.find_one({'name': 'modules'})
