@@ -138,7 +138,7 @@
 
 	export async function set_module_enabled(module_id, enabled)
 	{
-		const res = await api(`
+		await api(`
 		mutation ($module_id: String!, $enabled: Boolean!) {
 			setModuleEnabled(module_id: $module_id, enabled: $enabled)
 		}`, {
@@ -146,14 +146,10 @@
 			enabled: enabled,
 		})
 
-		const is_enabled = res.includes(module_id)
-		if (is_enabled === enabled)
-		{
-			const id = `icon-module-${module_id}`
-			$.blink(id)
-		}
+		const id = `icon-module-${module_id}`
+		$.blink(id)
 
-		$(`module-${module_id}`).checked = is_enabled
+		$(`module-${module_id}`).checked = enabled
 
 		//Build configs list
 		let cfg = api.get_json('/config/configs.json')

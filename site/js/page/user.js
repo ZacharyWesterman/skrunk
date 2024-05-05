@@ -73,7 +73,7 @@ export async function load_user_data(username, self_view = false)
 		user: UserData,
 		sessions: query.users.sessions(username),
 		self_view: self_view,
-		all_modules: api('{getServerEnabledModules}'),
+		all_modules: api('{ getModules }'),
 	})
 
 	if (has_perm('admin'))
