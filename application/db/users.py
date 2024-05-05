@@ -90,6 +90,7 @@ def create_user(username: str, password: str, *, groups: list = [], admin: bool 
 		'display_name': username.title(),
 		'ephemeral': ephemeral,
 		'groups': groups,
+		'disabled_modules': [],
 	}
 
 	db.insert_one(userdata)
