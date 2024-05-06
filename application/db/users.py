@@ -174,7 +174,7 @@ def update_user_module(username: str, module: str, disabled: bool) -> dict:
 
 	if disabled:
 		modules += [module]
-	else:
+	elif module in modules:
 		modules.remove(module)
 
 	userdata['modules'] = list(set(modules))

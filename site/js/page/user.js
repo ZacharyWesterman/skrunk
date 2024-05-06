@@ -129,7 +129,25 @@ export async function update_user_module(field)
 
 	field.disabled = false
 	$.blink(`icon-module-${module_name}`)
-	api('{getEnabledModules}').then(reset_modules)
+
+	const p1 = api('{ getEnabledModules }')
+	const p2 = api('{ getModules }')
+
+	p2.then(async all_modules => {
+		const enabled_modules = await p1
+
+		for (let module of all_modules)
+		{
+			const enabled = enabled_modules.includes(module)
+			if ($(`module-${module}`).checked !== enabled)
+			{
+				$.blink(`icon-module-${module}`)
+			}
+			$(`module-${module}`).checked = enabled
+		}
+
+		reset_modules(enabled_modules)
+	})
 }
 
 export async function update_groups(username)

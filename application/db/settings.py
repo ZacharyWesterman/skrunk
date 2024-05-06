@@ -76,7 +76,7 @@ def set_module_enabled(module_id: str, enabled: bool) -> None:
 
 	if enabled:
 		modules += [module_id]
-	else:
+	elif module_id in modules:
 		modules.remove(module_id)
 
 	db.update_one({'name': 'modules'}, {'$set': {'enabled': modules}})
