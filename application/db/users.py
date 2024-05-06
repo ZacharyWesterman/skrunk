@@ -3,6 +3,7 @@ from datetime import datetime
 import bcrypt
 from bson.objectid import ObjectId
 import application.db.settings as settings
+import json
 
 from pymongo.collection import Collection
 db: Collection = None
@@ -30,6 +31,7 @@ def get_user_by_id(id: ObjectId) -> dict:
 	global db
 	userdata = db.find_one({'_id': id})
 	if userdata:
+		userdata['disabled_modules'] = settings.calculate_disabled_modules(userdata.get('disabled_modules', []))
 		return userdata
 
 	raise exceptions.UserDoesNotExistError(f'ID:{id}')
@@ -39,6 +41,7 @@ def get_user_data(username: str) -> dict:
 	userdata = db.find_one({'username': username})
 
 	if userdata:
+		userdata['disabled_modules'] = settings.calculate_disabled_modules(userdata.get('disabled_modules', []))
 		return userdata
 	else:
 		raise exceptions.UserDoesNotExistError(username)

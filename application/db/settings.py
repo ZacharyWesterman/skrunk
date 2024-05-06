@@ -1,39 +1,61 @@
+import json
 from pymongo.collection import Collection
 db: Collection = None
+
+def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
+	modules = db.find_one({'name': 'modules'})
+	if modules is None:
+		return []
+
+	modules: list[str] = modules.get('enabled', [])
+
+	with open('site/config/modules.json', 'r') as fp:
+		module_config = { i['id']: i for i in json.load(fp) }
+
+	for module in modules:
+		for parent_module in module_config.get(module, {}).get('requires', []):
+			if parent_module in disabled_modules:
+				disabled_modules += [module]
+				break
+
+	return list(set(disabled_modules))
 
 def get_enabled_modules(user_data: dict|None = None) -> list:
 	modules = db.find_one({'name': 'modules'})
 	if modules is None:
 		return []
 
+	modules: list[str] = modules.get('enabled', [])
+
 	if user_data is None:
-		return modules.get('enabled', [])
+		return modules
 
 	groups = db.find_one({'name': 'groups'})
 	groups: dict[str, dict[str, list[str]]] = {} if groups is None else groups.get('groups', {})
 
-	user_disabled_modules: list[str] = user_data.get('disabled_modules', [])
-	group_disabled_modules: list[str] = []
+	disabled_modules: list[str] = user_data.get('disabled_modules', [])
 
 	for group in user_data.get('groups', []):
-		group_disabled_modules += groups.get(group, {}).get('disabled_modules', [])
+		disabled_modules += groups.get(group, {}).get('disabled_modules', [])
 
-	return [i for i in modules.get('enabled', []) if i not in user_disabled_modules and i not in group_disabled_modules]
+	return [i for i in modules if i not in calculate_disabled_modules(disabled_modules)]
 
 def get_modules(user_data: dict) -> list:
 	modules = db.find_one({'name': 'modules'})
 	if modules is None:
 		return []
 
+	modules: list[str] = modules.get('enabled', [])
+
 	groups = db.find_one({'name': 'groups'})
 	groups: dict[str, dict[str, list[str]]] = {} if groups is None else groups.get('groups', {})
 
-	group_disabled_modules: list[str] = []
+	disabled_modules: list[str] = []
 
 	for group in user_data.get('groups', []):
-		group_disabled_modules += groups.get(group, {}).get('disabled_modules', [])
+		disabled_modules += groups.get(group, {}).get('disabled_modules', [])
 
-	return [i for i in modules.get('enabled', []) if i not in group_disabled_modules]
+	return [i for i in modules if i not in calculate_disabled_modules(disabled_modules)]
 
 def set_module_enabled(module_id: str, enabled: bool) -> None:
 	modules = db.find_one({'name': 'modules'})
