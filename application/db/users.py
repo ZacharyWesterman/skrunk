@@ -3,7 +3,6 @@ from datetime import datetime
 import bcrypt
 from bson.objectid import ObjectId
 import application.db.settings as settings
-import json
 
 from pymongo.collection import Collection
 db: Collection = None
