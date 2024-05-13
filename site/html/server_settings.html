@@ -12,7 +12,10 @@
 			</h2>
 			<hr>
 			<div id="server-modules" class="expand-container">
-				<div id="server_modules"></div>
+				<div>
+					Modules enabled in <span name="group" template="dropdown"></span> group
+					<div id="server_modules"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -63,8 +66,18 @@
 </div>
 
 <script>
+	let ServerModules = []
+
 	export async function init()
 	{
+		_('group', {
+			id: 'group',
+			options: api('{ getUserGroups }'),
+			default: 'EVERY',
+		}).then(() => {
+			$.bind('group', update_module_checkboxes)
+		})
+
 		_('server_info', api('{ getSystemInfo { storage { name total free used } } }'))
 		_('server_apikeys', api('{ getAPIKeys { key description created perms } }'))
 
@@ -77,7 +90,9 @@
 
 		let modl = api.get_json('/config/modules.json')
 		let promise = _('server_modules', modl)
-		const modules = await api('{getServerEnabledModules}')
+		const modules = await api('{getServerEnabledModules(group: null)}')
+		ServerModules = modules
+
 		await promise
 
 		//Lock modules if they have a required module which is not enabled.
@@ -138,18 +153,34 @@
 
 	export async function set_module_enabled(module_id, enabled)
 	{
+		const group = $.val('group')
+
 		await api(`
-		mutation ($module_id: String!, $enabled: Boolean!) {
-			setModuleEnabled(module_id: $module_id, enabled: $enabled)
+		mutation ($module_id: String!, $enabled: Boolean!, $group: String) {
+			setModuleEnabled(module_id: $module_id, enabled: $enabled, group: $group)
 		}`, {
 			module_id: module_id,
 			enabled: enabled,
+			group: group || null,
 		})
 
 		const id = `icon-module-${module_id}`
 		$.blink(id)
 
 		$(`module-${module_id}`).checked = enabled
+
+		if (!group)
+		{
+			const exists = ServerModules.indexOf(module_id) > -1
+			if (enabled && !exists)
+			{
+				ServerModules.push(module_id)
+			}
+			else if (!enabled && exists)
+			{
+				ServerModules.splice(ServerModules.indexOf(module_id), 1)
+			}
+		}
 
 		//Build configs list
 		let cfg = api.get_json('/config/configs.json')
@@ -244,5 +275,25 @@
 			no_cancel: true,
 		}).catch(() => {})
 		setTimeout(_.modal.cancel, 800)
+	}
+
+	export async function update_module_checkboxes()
+	{
+		const is_a_group = !!$.val('group')
+
+		const modules = await api(`
+		query ($group: String) {
+			getServerEnabledModules (group: $group)
+		}`, {
+			group: $.val('group') || null,
+		})
+		const all_modules = (await api.get_json('/config/modules.json')).map(i => i.id)
+
+		if (!is_a_group) ServerModules = modules
+
+		all_modules.forEach(i => {
+			$(`module-${i}`).checked = modules.includes(i)
+			$(`module-${i}`).disabled = is_a_group && !ServerModules.includes(i)
+		})
 	}
 </script>

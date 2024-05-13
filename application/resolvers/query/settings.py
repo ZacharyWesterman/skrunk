@@ -7,8 +7,8 @@ def resolve_get_enabled_modules(_, info) -> list:
 def resolve_get_modules(_, info) -> list:
     return get_modules(perms.caller_info())
 
-def resolve_get_server_enabled_modules(_, info) -> list:
-    return get_enabled_modules()
+def resolve_get_server_enabled_modules(_, info, group: str|None) -> list:
+    return get_enabled_modules(group = group)
 
 def resolve_get_groups(_, info) -> list:
     return get_groups()

@@ -20,22 +20,24 @@ def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 
 	return list(set(disabled_modules))
 
-def get_enabled_modules(user_data: dict|None = None) -> list:
+def get_enabled_modules(user_data: dict|None = None, *, group: str|None = None) -> list:
 	modules = db.find_one({'name': 'modules'})
 	if modules is None:
 		return []
 
 	modules: list[str] = modules.get('enabled', [])
 
-	if user_data is None:
-		return modules
-
 	groups = db.find_one({'name': 'groups'})
 	groups: dict[str, dict[str, list[str]]] = {} if groups is None else groups.get('groups', {})
 
-	disabled_modules: list[str] = user_data.get('disabled_modules', [])
+	disabled_modules: list[str] = []
 
-	for group in user_data.get('groups', []):
+	if user_data is not None:
+		disabled_modules += user_data.get('disabled_modules', [])
+		for user_group in user_data.get('groups', []):
+			disabled_modules += groups.get(user_group, {}).get('disabled_modules', [])
+
+	if group is not None:
 		disabled_modules += groups.get(group, {}).get('disabled_modules', [])
 
 	return [i for i in modules if i not in calculate_disabled_modules(disabled_modules)]
@@ -57,7 +59,25 @@ def get_modules(user_data: dict) -> list:
 
 	return [i for i in modules if i not in calculate_disabled_modules(disabled_modules)]
 
-def set_module_enabled(module_id: str, enabled: bool) -> None:
+def set_module_enabled(module_id: str, enabled: bool, group: str|None) -> None:
+	if group is not None:
+		groups = db.find_one({'name': 'groups'})
+		if groups is None: return
+
+		grp = groups.get('groups', {}).get(group, {})
+		if grp is None: return
+
+		disabled_modules: list[str] = grp.get('disabled_modules', [])
+		if enabled and module_id in disabled_modules:
+			disabled_modules.remove(module_id)
+		elif not enabled and module_id not in disabled_modules:
+			disabled_modules += [module_id]
+
+		db.update_one({'name': 'groups'}, {'$set': {
+			f'groups.{group}.disabled_modules': disabled_modules,
+		}})
+		return
+
 	modules = db.find_one({'name': 'modules'})
 
 	if enabled and modules is None:

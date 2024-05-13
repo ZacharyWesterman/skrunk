@@ -14,13 +14,13 @@ union ConfigsResponse = ConfigList | InsufficientPerms
 extend type Query {
 	getEnabledModules: [String!]!
 	getModules: [String!]!
-	getServerEnabledModules: [String!]!
+	getServerEnabledModules(group: String): [String!]!
 	getUserGroups: [String!]!
 	getConfigs: ConfigsResponse
 	getConfig(name: String!): String
 }
 
 extend type Mutation {
-	setModuleEnabled(module_id: String!, enabled: Boolean!): [String!]!
+	setModuleEnabled(module_id: String!, enabled: Boolean!, group: String): [String!]!
 	setConfig(name: String!, value: String): Boolean!
 }
