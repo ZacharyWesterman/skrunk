@@ -1,7 +1,17 @@
 {{~ it : item }}
 <div {{? item.description_html }}class="card clickable" *toggles="desc-{{= item.id }}"{{??}}class="card"{{?}}>
 	<div class="card-inner">
-		Owned by {{= item.creator.display_name }}{{? item.creator.display_name.toLowerCase() !== item.creator.username }}({{= item.creator.username}}){{?}}
+		<p>
+			Owned by {{= item.creator.display_name }}{{? item.creator.display_name.toLowerCase() !== item.creator.username }}({{= item.creator.username}}){{?}}
+			{{? item.rfid.length === 0 }}
+			<span class="tooltip right">
+				<i class="fa-solid fa-tag error"></i>
+				<span class="tooltiptext t-left">
+					This item has not been&nbsp;tagged.
+				</span>
+			</span>
+			{{?}}
+		</p>
 		{{? item.description_html }}
 		<button class="icon clickable tooltip" id="btn-{{= item.id }}">
 			<i class="fa-solid fa-angles-down fa-lg"></i>

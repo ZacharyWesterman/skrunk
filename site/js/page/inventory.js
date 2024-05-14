@@ -133,6 +133,7 @@ export async function navigate_to_page(page_num)
 				display_name
 			}
 			description_html
+			rfid
 		}
 	}`, {
 		filter: filter,

@@ -10,7 +10,7 @@ from . import blob
 from pymongo.database import Database
 db: Database = None
 
-def create_inventory_item(owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str) -> dict:
+def create_inventory_item(owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str|None) -> dict:
 	owner_data = users.get_user_data(owner)
 
 	if db.items.find_one({'rfid': rfid}):
@@ -29,7 +29,7 @@ def create_inventory_item(owner: str, category: str, type: str, location: str, b
 		'blob': ObjectId(blob_id),
 		'description': description,
 		'description_html': markdown.markdown(description, output_format = 'html'),
-		'rfid': rfid,
+		'rfid': [] if rfid is None else [rfid],
 	}
 
 	db.items.insert_one(item)

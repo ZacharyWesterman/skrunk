@@ -112,10 +112,9 @@ export async function submit()
 
 	if (!valid) return
 
-	const rfid = await modal.scanner()
-	if (rfid === null) return
+	const rfid = await _.modal.scanner()
 
-	const res = await api(`mutation ($owner: String!, $category: String!, $type: String!, $location: String!, $blob_id: String!, $description: String!, $rfid: String!) {
+	const res = await api(`mutation ($owner: String!, $category: String!, $type: String!, $location: String!, $blob_id: String!, $description: String!, $rfid: String) {
 		createInventoryItem (owner: $owner, category: $category, type: $type, location: $location, blob_id: $blob_id, description: $description, rfid: $rfid) {
 			__typename
 			...on InsufficientPerms { message }
@@ -128,7 +127,7 @@ export async function submit()
 		location: $.val('location'),
 		blob_id: $('photo').blob_id,
 		description: $.val('description'),
-		rfid: rfid,
+		rfid: rfid, //If scanning modal was cancelled, go ahead and create the item.
 	})
 
 	if (res.__typename !== 'Item')
@@ -136,11 +135,11 @@ export async function submit()
 		if (res.__typename === 'InvalidFields')
 		{
 			const message = res.message + '<ul>' + res.fields.map(i => `<li>${i}</li>`).join('') + '</ul>'
-			$.modal.error(message)
+			_.modal.error(message)
 		}
 		else
 		{
-			$.modal.error(res.message)
+			_.modal.error(res.message)
 		}
 		return
 	}
