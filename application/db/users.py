@@ -17,7 +17,11 @@ def count_users() -> int:
 
 def get_user_list(groups: list = []) -> list:
 	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
-	return [ {'username': data['username'], 'display_name': data['display_name']} for data in db.find(query, sort=[('username', 1)]) ]
+	return [ {
+		'username': data['username'],
+		'display_name': data['display_name'],
+		'last_login': data.get('last_login'),
+	} for data in db.find(query, sort=[('username', 1)]) ]
 
 def userids_in_groups(groups: list) -> list:
 	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}

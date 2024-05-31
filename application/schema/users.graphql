@@ -11,6 +11,7 @@ type UserData {
 type UserMinData {
 	username: String!
 	display_name: String!
+	last_login: DateTime
 }
 
 type UserExistsError {
