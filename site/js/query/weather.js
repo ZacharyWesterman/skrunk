@@ -1,6 +1,5 @@
 export default {
-	users: async () =>
-	{
+	users: async () => {
 		return await api(`{
 			getWeatherUsers {
 				username
@@ -22,8 +21,7 @@ export default {
 		}`)
 	},
 
-	last_execution: async () =>
-	{
+	last_execution: async () => {
 		return await api(`{
 			getLastWeatherExec {
 				timestamp

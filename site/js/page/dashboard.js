@@ -2,24 +2,19 @@ window.EnabledModules = [] //These are loaded on page load
 let ModuleConfig = {}
 let HaveModelViewer = false
 
-window.fullscreen = function()
-{
-	if (!document.fullscreenElement)
-	{
+window.fullscreen = function () {
+	if (!document.fullscreenElement) {
 		const elem = document.documentElement
 		if (elem.requestFullscreen) elem.requestFullscreen()
 		else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen()
 	}
-	else
-	{
+	else {
 		document.exitFullscreen()
 	}
 }
 
-window.load_model_viewer = () =>
-{
-	if (!HaveModelViewer)
-	{
+window.load_model_viewer = () => {
+	if (!HaveModelViewer) {
 		HaveModelViewer = true
 		let abort = new AbortController()
 		let im = import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js') //Only import this when it's needed
@@ -33,8 +28,7 @@ window.load_model_viewer = () =>
 		let slow_load = setTimeout(fn, 1000)
 
 		im.then(() => {
-			if (slow_connection)
-			{
+			if (slow_connection) {
 				clear_error_message()
 				show_raw_error_message('Model viewer loaded!')
 			}
@@ -45,8 +39,7 @@ window.load_model_viewer = () =>
 	return ''
 }
 
-window.load_dashboard = async () =>
-{
+window.load_dashboard = async () => {
 	environment.set_param('page') //wipe page param
 
 	$.hide('content')
@@ -58,8 +51,7 @@ window.load_dashboard = async () =>
 	setTimeout(() => $.show('content'), 200)
 }
 
-window.new_xkcd = async () =>
-{
+window.new_xkcd = async () => {
 	const res = await api.get_json('xkcd')
 	$('xkcd').innerHTML = `
 	<h3 style="text-align:center;">${res.title}</h3>
@@ -69,11 +61,9 @@ window.new_xkcd = async () =>
 	`
 }
 
-window.set_navbar = function(name)
-{
+window.set_navbar = function (name) {
 	let result = []
-	for (let config of ModuleConfig[name])
-	{
+	for (let config of ModuleConfig[name]) {
 		if (config.module && !EnabledModules.includes(config.module)) continue
 		if (config.perms && SelfUserData.perms.filter(x => config.perms.includes(x)).length !== config.perms.length) continue
 
@@ -91,15 +81,13 @@ window.reset_modules = modules => {
 	set_navbar('default')
 }
 
-async function load_widgets()
-{
+async function load_widgets() {
 	const field = $('widget-container')
 
 	const widget_config = await api.get_json('config/widgets.json')
 
 	field.innerHTML = ''
-	for (const config of widget_config)
-	{
+	for (const config of widget_config) {
 		//Only show widgets if their respective module is enabled.
 		if (config.module && !EnabledModules.includes(config.module)) continue
 
@@ -132,11 +120,9 @@ async function load_widgets()
 	}
 }
 
-async function init()
-{
+async function init() {
 	//Periodically check for any unread notifications
-	async function check_notifs()
-	{
+	async function check_notifs() {
 		push.show_notifs()
 		setTimeout(check_notifs, 30000) //Check once every 30 seconds
 	}
@@ -149,15 +135,14 @@ async function init()
 
 	//Load user theme (regardless of cookies)
 	query.users.get(api.username).then(async data => {
-		if (data.__typename !== 'UserData')
-		{
+		if (data.__typename !== 'UserData') {
 			//If user data does not exist, we don't want them to have access. Kick them out.
 			_.modal({
 				type: 'error',
 				title: 'ERROR',
 				text: data.message,
 				buttons: ['OK']
-			}).then(() => api.logout()).catch(() => {})
+			}).then(() => api.logout()).catch(() => { })
 			return
 		}
 
@@ -167,14 +152,12 @@ async function init()
 		_.css.wipe()
 
 		//Load user colors
-		for (const i of data.theme.colors || [])
-		{
+		for (const i of data.theme.colors || []) {
 			_.css.set_var(i.name, i.value)
 		}
 
 		//Load user sizes
-		for (const i of data.theme.sizes || [])
-		{
+		for (const i of data.theme.sizes || []) {
 			_.css.set_var(i.name, i.value)
 		}
 

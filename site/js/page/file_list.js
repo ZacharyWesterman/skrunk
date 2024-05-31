@@ -12,8 +12,7 @@ await query.require('blobs')
 await query.require('users')
 
 //run this everytime page is imported
-export async function init()
-{
+export async function init() {
 	await _('dropdown', {
 		id: 'blob-filter-creator',
 		options: query.users.list(),
@@ -30,13 +29,11 @@ export async function init()
 
 	//Load query from urlparams (if it's there)
 	let q = {}
-	try { q = JSON.parse(environment.get_param('query')) } catch {}
-	for (const i in q)
-	{
-		if (i === 'tag') Editor.update({value: q[i]})
-		else
-		{
-			const f = $('blob-filter-'+i)
+	try { q = JSON.parse(environment.get_param('query')) } catch { }
+	for (const i in q) {
+		if (i === 'tag') Editor.update({ value: q[i] })
+		else {
+			const f = $('blob-filter-' + i)
 			if (f.checked !== undefined) f.checked = q[i]
 			else f.value = q[i]
 			$.toggle_expand('extra-search-fields', true)
@@ -62,21 +59,18 @@ export async function init()
 	})
 }
 
-export function wipe_tag_editor()
-{
-	Editor.update({value : ''})
+export function wipe_tag_editor() {
+	Editor.update({ value: '' })
 	reset_and_search()
 }
 
-export function set_tag_editor_value(text)
-{
-	const t = text.match(/^\w+$/) ? text : ('"'+text+'"')
-	Editor.update({value: (Editor.textarea.value === t) ? '' : t})
+export function set_tag_editor_value(text) {
+	const t = text.match(/^\w+$/) ? text : ('"' + text + '"')
+	Editor.update({ value: (Editor.textarea.value === t) ? '' : t })
 	reset_and_search()
 }
 
-async function get_blobs(start, count)
-{
+async function get_blobs(start, count) {
 	const title = $.val('blob-filter-title');
 	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
 	const date_from = date.from_field('blob-filter-from')
@@ -85,14 +79,12 @@ async function get_blobs(start, count)
 
 	let q = {}
 	let has = false
-	for (const i of ['title', 'creator', 'from', 'to', 'ephemeral'])
-	{
-		const f = $('blob-filter-'+i)
+	for (const i of ['title', 'creator', 'from', 'to', 'ephemeral']) {
+		const f = $('blob-filter-' + i)
 		const v = f.checked !== undefined ? f.checked : f.value
 		if (v) { q[i] = v; has = true }
 	}
-	if (Editor.value)
-	{
+	if (Editor.value) {
 		q.tag = Editor.value; has = true
 	}
 	environment.set_param('query', has && JSON.stringify(q))
@@ -113,37 +105,32 @@ async function get_blobs(start, count)
 	)
 }
 
-async function get_blob(blob_id)
-{
+async function get_blob(blob_id) {
 	return await query.blobs.single(blob_id)
 }
 
-export async function navigate_to_page(page_num)
-{
+export async function navigate_to_page(page_num) {
 	BlobStart = page_num * BlobListLen
 	await reload_blobs()
 }
 
-export async function copy_to_clipboard(id)
-{
+export async function copy_to_clipboard(id) {
 	await navigator.clipboard.writeText(`${window.location.href.split('?')[0]}blob/${id}`)
 	_.modal({
 		text: 'Copied URL to clipboard!',
 		no_cancel: true,
-	}).catch(() => {})
+	}).catch(() => { })
 	setTimeout(_.modal.cancel, 1200)
 }
 
-async function reload_page_list()
-{
+async function reload_page_list() {
 	const title = $.val('blob-filter-title') || null
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to', 1) || null
 	const ephemeral = $('blob-filter-ephemeral').checked
 	const res = await query.blobs.count(creator, Editor.value, date_from, date_to, title, ephemeral)
-	if (res.__typename !== 'BlobCount')
-	{
+	if (res.__typename !== 'BlobCount') {
 		$('tag-error').innerText = res.message
 		return
 	}
@@ -153,12 +140,10 @@ async function reload_page_list()
 	const page_ct = Math.ceil(count / BlobListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
 	let this_page = Math.floor(BlobStart / BlobListLen)
-	if (page_ct === 0)
-	{
+	if (page_ct === 0) {
 		this_page = BlobStart = 0
 	}
-	else if (this_page >= page_ct)
-	{
+	else if (this_page >= page_ct) {
 		this_page = page_ct - 1
 		BlobStart = this_page * BlobListLen
 	}
@@ -172,19 +157,16 @@ async function reload_page_list()
 	}, true)
 }
 
-export async function reset_and_search()
-{
+export async function reset_and_search() {
 	BlobStart = 0
 	await reload_blobs()
 }
 
-export async function reload_blobs()
-{
+export async function reload_blobs() {
 	reload_page_list()
 
 	const res = await get_blobs(BlobStart, BlobListLen)
-	if (res.__typename !== 'BlobList')
-	{
+	if (res.__typename !== 'BlobList') {
 		$('tag-error').innerText = res.message
 		return
 	}
@@ -192,20 +174,17 @@ export async function reload_blobs()
 	const blobs = res.blobs
 
 	let innerHTML = ''
-	for (const i in blobs)
-	{
+	for (const i in blobs) {
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML = innerHTML
 
-	for (const i in blobs)
-	{
+	for (const i in blobs) {
 		await _(`blob-card-${blobs[i].id}`, blobs[i])
 	}
 }
 
-export async function confirm_delete_blob(id, name)
-{
+export async function confirm_delete_blob(id, name) {
 	const choice = await _.modal({
 		type: 'question',
 		title: 'Permanently delete file?',
@@ -216,8 +195,7 @@ export async function confirm_delete_blob(id, name)
 	if (choice !== 'yes') return
 
 	const res = await mutate.blobs.delete(id)
-	if (res.__typename !== 'Blob')
-	{
+	if (res.__typename !== 'Blob') {
 		_.modal.error(res.message)
 		return
 	}
@@ -227,8 +205,7 @@ export async function confirm_delete_blob(id, name)
 	setTimeout(() => remove_blob(id), 300)
 }
 
-async function remove_blob(id)
-{
+async function remove_blob(id) {
 	let card = $(`blob-card-${id}`)
 	card.parentElement.removeChild(card)
 
@@ -236,29 +213,25 @@ async function remove_blob(id)
 	let innerHTML = ''
 
 	let blobs = await get_blobs(BlobStart + ct, BlobListLen - ct)
-	if (blobs.__typename !== 'BlobList')
-	{
+	if (blobs.__typename !== 'BlobList') {
 		$('tag-error').innerText = blobs.message
 		return
 	}
 	$('tag-error').innerText = ''
 	blobs = blobs.blobs
 
-	for (const i in blobs)
-	{
+	for (const i in blobs) {
 		innerHTML += `<div id="blob-card-${blobs[i].id}" template="blob"></div>\n`
 	}
 	$('blob-list').innerHTML += innerHTML
 	set_field_logic($('blob-list'))
 
-	for (const i in blobs)
-	{
+	for (const i in blobs) {
 		await _(`blob-card-${blobs[i].id}`, blobs[i])
 	}
 }
 
-export async function show_tags_how_to()
-{
+export async function show_tags_how_to() {
 	const res = await _.modal({
 		type: 'info',
 		title: 'What is a tag query?',
@@ -271,8 +244,7 @@ export async function show_tags_how_to()
 	dashnav('help/tag_query')
 }
 
-export async function show_ephemeral_info()
-{
+export async function show_ephemeral_info() {
 	await _.modal({
 		type: 'info',
 		title: 'What is an <span class="error">ephemeral</span> file?',
@@ -281,10 +253,8 @@ export async function show_ephemeral_info()
 	}).catch(() => 'ok')
 }
 
-export async function set_blob_tags(id)
-{
-	async function tagHTML(tag)
-	{
+export async function set_blob_tags(id) {
+	async function tagHTML(tag) {
 		const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
 		return `<div class="tag clickable ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
 	}
@@ -292,8 +262,7 @@ export async function set_blob_tags(id)
 	const blob_data = await get_blob(id)
 	//Query tags all async, then wait for them all to return.
 	let promises = []
-	for (const tag of blob_data.tags)
-	{
+	for (const tag of blob_data.tags) {
 		promises.push(tagHTML(tag))
 	}
 	for (const p of promises) { await p }
@@ -310,11 +279,9 @@ export async function set_blob_tags(id)
 
 		tagList.innerHTML = innerHTML
 
-		function tagClicks(tagList)
-		{
+		function tagClicks(tagList) {
 			const kids = tagList.children
-			for (let i = 0; i < kids.length; ++i)
-			{
+			for (let i = 0; i < kids.length; ++i) {
 				const child = kids[i]
 				const ix = i
 				child.onclick = () => {
@@ -331,8 +298,7 @@ export async function set_blob_tags(id)
 			const tag = field.value.trim()
 			if (tag.length === 0) return
 
-			if (!blob_data.tags.includes(tag))
-			{
+			if (!blob_data.tags.includes(tag)) {
 				blob_data.tags.push(tag)
 				tagList.innerHTML += await tagHTML(tag)
 			}
@@ -348,8 +314,7 @@ export async function set_blob_tags(id)
 	if (res !== 'ok') return
 
 	const blob = await mutate.blobs.tags(id, blob_data.tags)
-	if (blob.__typename !== 'Blob')
-	{
+	if (blob.__typename !== 'Blob') {
 		_.modal.error(blob.message)
 		return
 	}
@@ -357,8 +322,7 @@ export async function set_blob_tags(id)
 	await reload_blobs()
 }
 
-export async function download_all()
-{
+export async function download_all() {
 	const title = $.val('blob-filter-title') || null
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
@@ -366,8 +330,7 @@ export async function download_all()
 
 	const size = await query.blobs.size(creator, Editor.value, date_from, date_to, title)
 
-	if (size.__typename !== 'BlobCount')
-	{
+	if (size.__typename !== 'BlobCount') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
@@ -390,11 +353,10 @@ export async function download_all()
 		title: 'Creating ZIP Archive, Please be Patient...',
 		text: '<div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 47%; top: 50%;"></i></div>',
 		no_cancel: true,
-	}).catch(() => {})
+	}).catch(() => { })
 	const zip = await mutate.blobs.create_zip(creator, Editor.value, date_from, date_to, title)
 
-	if (zip.__typename !== 'Blob')
-	{
+	if (zip.__typename !== 'Blob') {
 		_.modal.error(zip.message)
 		return
 	}
@@ -411,8 +373,7 @@ export async function download_all()
 	}, 100)
 }
 
-export async function toggle_blob_hidden(blob_id)
-{
+export async function toggle_blob_hidden(blob_id) {
 	const field = $(`hide-button-${blob_id}`)
 	const icon = field.children[0]
 	const tooltip = field.children[1]
@@ -420,14 +381,13 @@ export async function toggle_blob_hidden(blob_id)
 	const hidden = icon.classList.contains('fa-eye-slash')
 
 	const res = await mutate.blobs.set_hidden(blob_id, !hidden)
-	if (res.__typename !== 'Blob')
-	{
+	if (res.__typename !== 'Blob') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK'],
-		}).catch(() => {})
+		}).catch(() => { })
 		return
 	}
 

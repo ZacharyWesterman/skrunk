@@ -1,11 +1,9 @@
 export default {
 	__user_list: null,
 
-	list: async (filter, use_cache = true, restrict = true) =>
-	{
+	list: async (filter, use_cache = true, restrict = true) => {
 		let res
-		if (query.users.__user_list === null || !use_cache)
-		{
+		if (query.users.__user_list === null || !use_cache) {
 			res = await api(`query ($restrict: Boolean!) {
 				listUsers (restrict: $restrict) {
 					username
@@ -18,11 +16,10 @@ export default {
 		}
 		else
 			res = query.users.__user_list
-		return (filter ? res.filter(filter) : res).map(i => { return {value: i.username, display: i.display_name} })
+		return (filter ? res.filter(filter) : res).map(i => { return { value: i.username, display: i.display_name } })
 	},
 
-	sessions: async username =>
-	{
+	sessions: async username => {
 		return await api(`query ($username: String!) {
 			countSessions (username: $username)
 		}`, {
@@ -30,8 +27,7 @@ export default {
 		})
 	},
 
-	get: async username =>
-	{
+	get: async username => {
 		return await api(`query ($username: String!){
 			getUser(username:$username) {
 				__typename

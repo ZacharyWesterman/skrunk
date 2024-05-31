@@ -8,7 +8,9 @@
 		"id": "inventory",
 		"name": "Inventory",
 		"description": "General-purpose inventory management system.",
-		"requires": ["files"]
+		"requires": [
+			"files"
+		]
 	},
 	{
 		"id": "bugs",
@@ -34,7 +36,9 @@
 		"id": "qr",
 		"name": "QR Codes",
 		"description": "Allow users to scan QR codes on certain screens.",
-		"requires": ["files"]
+		"requires": [
+			"files"
+		]
 	},
 	{
 		"id": "subsonic",

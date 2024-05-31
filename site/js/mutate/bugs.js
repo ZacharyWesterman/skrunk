@@ -1,6 +1,5 @@
 export default {
-	report: async (text, plaintext = false) =>
-	{
+	report: async (text, plaintext = false) => {
 		return await api(`
 		mutation ($text: String!, $plaintext: Boolean!) {
 			reportBug (text: $text, plaintext: $plaintext) {
@@ -15,8 +14,7 @@ export default {
 		})
 	},
 
-	delete: async (id) =>
-	{
+	delete: async (id) => {
 		return await api(`
 		mutation ($id: String!) {
 			deleteBug (id: $id) {
@@ -33,8 +31,7 @@ export default {
 		})
 	},
 
-	resolve: async (id, status) =>
-	{
+	resolve: async (id, status) => {
 		return await api(`
 		mutation ($id: String!, $status: Boolean!) {
 			setBugStatus(id: $id, status: $status) {
@@ -52,8 +49,7 @@ export default {
 		})
 	},
 
-	comment: async (id, text, plaintext = false) =>
-	{
+	comment: async (id, text, plaintext = false) => {
 		return await api(`
 		mutation ($id: String!, $text: String!, $plaintext: Boolean!) {
 			commentOnBug (id: $id, text: $text, plaintext: $plaintext) {

@@ -8,7 +8,7 @@ button {
 	height: 1.5rem;
 }
 
-button.icon > a {
+button.icon>a {
 	background-color: var(--secondary);
 	color: var(--secondary-text);
 }

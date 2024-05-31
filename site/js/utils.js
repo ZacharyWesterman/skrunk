@@ -51,7 +51,7 @@ window.environment = {
 	/**
 	 * Whether the client is a mobile device.
 	 */
-	mobile: ((a) => /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))||/KF/.test(a))(navigator.userAgent||navigator.vendor||window.opera),
+	mobile: ((a) => /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4)) || /KF/.test(a))(navigator.userAgent || navigator.vendor || window.opera),
 
 	/**
 	 * Whether the client is an Apple device, but not iOS.
@@ -86,14 +86,12 @@ window.environment = {
 	set_param: (name, value) => {
 		let params = {}
 		const url = new URLSearchParams(location.search)
-		url.forEach((value, key) => {params[key] = value})
+		url.forEach((value, key) => { params[key] = value })
 
 		params[name] = value
 		let text = ''
-		for (const i in params)
-		{
-			if (params[i])
-			{
+		for (const i in params) {
+			if (params[i]) {
 				text += (text ? '&' : '?') + i + '=' + encodeURIComponent(params[i])
 			}
 		}
@@ -136,7 +134,7 @@ window.lookups = {
 	 */
 	max_displayed_pages: () => {
 		const rem_px = parseFloat(getComputedStyle(document.documentElement).fontSize)
-		const max_width = Math.min(window.innerWidth/rem_px - 4, 900/rem_px) - 5
+		const max_width = Math.min(window.innerWidth / rem_px - 4, 900 / rem_px) - 5
 		const max_pages = Math.floor(max_width / 2)
 
 		return max_pages
@@ -151,8 +149,7 @@ window.lookups = {
 	prev_pages: (index, total) => {
 		let ct = Math.floor(lookups.max_displayed_pages() / 2)
 
-		if (index + ct >= total)
-		{
+		if (index + ct >= total) {
 			ct += ct - (total - index) + 1
 		}
 
@@ -168,8 +165,7 @@ window.lookups = {
 	next_pages: (index, total) => {
 		let ct = Math.ceil(lookups.max_displayed_pages() / 2)
 
-		if (index - ct < 0)
-		{
+		if (index - ct < 0) {
 			ct -= (index - ct) + 1
 		}
 
@@ -186,12 +182,10 @@ window.format = {
 	 * @param {int} size The size in bytes.
 	 * @returns {string} A human-readable size, rounded to the hundredths place.
 	 */
-	file_size: size =>
-	{
+	file_size: size => {
 		const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'EB']
 		let this_size = 0
-		while (size > 1000)
-		{
+		while (size > 1000) {
 			size /= 1000
 			this_size += 1
 		}
@@ -200,21 +194,17 @@ window.format = {
 	},
 }
 
-class Color
-{
-	constructor(r, g, b)
-	{
+class Color {
+	constructor(r, g, b) {
 		this.r = r
 		this.g = g
 		this.b = b
 
-		this.toString = () =>
-		{
+		this.toString = () => {
 			return '#' + this.r.toString(16).padStart(2, '0') + this.g.toString(16).padStart(2, '0') + this.b.toString(16).padStart(2, '0')
 		}
 
-		this.lerp = (other, ratio) =>
-		{
+		this.lerp = (other, ratio) => {
 			const lerp = (a, b, ratio) => Math.floor(b + ratio * (a - b))
 
 			return new Color(
@@ -225,8 +215,7 @@ class Color
 		}
 	}
 }
-Color.fromHex = (hex) =>
-{
+Color.fromHex = (hex) => {
 	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 
 	const r = parseInt(result[1], 16)
@@ -241,13 +230,11 @@ window.Color = Color
  * Helper functions for displaying chart data.
  */
 window.chart = {
-	create: async (field, chart_config) =>
-	{
+	create: async (field, chart_config) => {
 		await import('https://cdn.jsdelivr.net/npm/chart.js')
 		Chart.defaults.color = _.css.get_var('--secondary-text')
 
-		if ($(field).children.length)
-		{
+		if ($(field).children.length) {
 			if ($(field).children[0].c) $(field).children[0].c.destroy()
 			$(field).children[0].remove()
 		}
@@ -264,8 +251,7 @@ window.chart = {
 	 * @param {string[]} labels The labels for each bar.
 	 * @param {number[]} data The height values of each bar.
 	 */
-	bar: async (field, labels, data, horizontal = false) =>
-	{
+	bar: async (field, labels, data, horizontal = false) => {
 		const disabled_text = _.css.get_var('--disabled-text')
 
 		const c1 = Color.fromHex(_.css.get_var('--primary'))
@@ -339,8 +325,7 @@ window.chart = {
 	 * @param {string[]} labels The labels for each bar.
 	 * @param {number[]} data The height values of each bar.
 	 */
-	pie: async (field, labels, data, percents = true) =>
-	{
+	pie: async (field, labels, data, percents = true) => {
 		const total = data.reduce((a, b) => a + b)
 
 		chart.create(field, {
@@ -363,7 +348,7 @@ window.chart = {
 					legend: {
 						position: 'bottom',
 					},
-					title:{
+					title: {
 						display: percents,
 						text: 'Total: ' + total,
 					},
@@ -382,8 +367,7 @@ window.qr = {
 	 * If no QR code was found, this function throws an exception.
 	 * @returns {string} The text that the QR code contained.
 	 */
-	load_and_process: async () =>
-	{
+	load_and_process: async () => {
 		const file = await api.file_prompt('image/*', false, 'camera')
 		let qrcode = null
 
@@ -410,13 +394,11 @@ window.qr = {
 				id: upload_res[0].id
 			})
 
-			for (const blob of upload_res)
-			{
+			for (const blob of upload_res) {
 				mutate.blobs.delete(blob.id)
 			}
 
-			if (res.error !== null)
-			{
+			if (res.error !== null) {
 				_.modal.cancel()
 				setTimeout(() => { _.modal.error(res.error) }, 300)
 				return
@@ -425,7 +407,7 @@ window.qr = {
 			qrcode = res.data
 
 			_.modal.return()
-		}).catch(() => {})
+		}).catch(() => { })
 
 		return qrcode
 	},
@@ -434,11 +416,9 @@ window.qr = {
 	 * Generate a QR code, and prompt the user to download the resultant image.
 	 * @param {string} text The text the QR code should contain. If not given, defaults to the file's UUID.
 	 */
-	generate: async (text = null) =>
-	{
+	generate: async (text = null) => {
 		let amount = 1
-		if (text === null)
-		{
+		if (text === null) {
 			amount = await _.modal({
 				title: 'Generate QR Code',
 				text: api.snippit('qr_input'),
@@ -466,10 +446,9 @@ window.qr = {
 				...on Blob { id ext }
 				...on InsufficientPerms { message }
 			}
-		}`, {text: text, amount: amount})
+		}`, { text: text, amount: amount })
 
-		if (blob_data.__typename !== 'Blob')
-		{
+		if (blob_data.__typename !== 'Blob') {
 			_.modal.error(blob_data.message)
 			return
 		}
@@ -515,12 +494,10 @@ function urlB64ToUint8Array(base64String) {
  * Helper functions for handling push notifications.
  */
 window.push = {
-	get supported()
-	{
+	get supported() {
 		return ('serviceWorker' in navigator) && ('PushManager' in window)
 	},
-	get permission_given()
-	{
+	get permission_given() {
 		return push.supported && (Notification.permission === 'granted')
 	},
 	permission: null,
@@ -534,8 +511,7 @@ window.push = {
 		//Request permission to send push notifications.
 		push.permission = await Notification.requestPermission()
 
-		if (push.permission !== 'granted')
-		{
+		if (push.permission !== 'granted') {
 			console.log('Push notification permission was not granted. Result: ', push.permission)
 			$.show('no-notifications')
 			push.__resolve()
@@ -548,30 +524,25 @@ window.push = {
 	register: async () => {
 		if (push.permission !== 'granted') return false
 
-		try
-		{
+		try {
 			push.registration = await navigator.serviceWorker.register('/js/util/service-worker.js')
 		}
-		catch (e)
-		{
+		catch (e) {
 			console.warn('Failed to create service worker:', e)
 			$.show('no-notifications')
 			push.__resolve()
 			return false
 		}
 
-		if (push.registration)
-		{
+		if (push.registration) {
 			await push.registration.update()
 			let sub = await push.registration.pushManager.getSubscription()
-			if (sub)
-			{
+			if (sub) {
 				push.subscription = sub
 				push.subscribed = true
 				push.__resolve()
 			}
-			else
-			{
+			else {
 				$.show('no-notifications')
 				push.__resolve()
 			}
@@ -593,12 +564,10 @@ window.push = {
 			applicationServerKey: public_key,
 		}
 
-		try
-		{
+		try {
 			push.subscription = await push.registration.pushManager.subscribe(config)
 		}
-		catch (e)
-		{
+		catch (e) {
 			_.modal.error(`Unable to enable web notifications on this browser.<hr><div class="error">${e}</div>`)
 			return false
 		}
@@ -617,8 +586,7 @@ window.push = {
 			subscription: push.subscription,
 		})
 
-		if (res.__typename !== 'Notification')
-		{
+		if (res.__typename !== 'Notification') {
 			_.modal.error(res.message)
 			await push.subscription.unsubscribe()
 			push.subscription = null
@@ -638,8 +606,7 @@ window.push = {
 		if (!push.registration) return
 
 		let subscription = await push.registration.pushManager.getSubscription()
-		if (subscription)
-		{
+		if (subscription) {
 			const auth = JSON.parse(JSON.stringify(subscription)).keys.auth
 			const res = await api(`mutation ($auth: String!) {
 				deleteSubscription(auth: $auth)
@@ -671,8 +638,7 @@ window.push = {
 			category: null,
 		})
 
-		if (res.__typename !== 'Notification')
-		{
+		if (res.__typename !== 'Notification') {
 			_.modal.error(res.message)
 			return
 		}
@@ -687,8 +653,7 @@ window.push = {
 		}).then(async notif_ct => {
 			await push.ready
 
-			if (notif_ct)
-			{
+			if (notif_ct) {
 				if (push.subscribed) $.show('yes-notifications')
 				$('notif-count').innerText = notif_ct
 				$.show('notif-count')
@@ -696,10 +661,9 @@ window.push = {
 					dashnav('notifications')
 				}
 			}
-			else
-			{
+			else {
 				if (push.subscribed) $.hide('yes-notifications', true)
-				$('notif-icon').onclick = () => {}
+				$('notif-icon').onclick = () => { }
 				$.hide('notif-count', true)
 			}
 		})
@@ -711,12 +675,10 @@ push.ready = new Promise(resolve => {
 })
 
 //Automatically enable push notifications if the user has already given permission.
-if (push.permission_given)
-{
+if (push.permission_given) {
 	push.enable().then(push.register)
 }
-else
-{
+else {
 	push.__resolve()
 	$.show('no-notifications')
 }

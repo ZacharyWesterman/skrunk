@@ -1,6 +1,5 @@
 export default {
-	delete: async username =>
-	{
+	delete: async username => {
 		const query = `
 		mutation ($username: String!){
 			deleteUser(username: $username) {
@@ -14,13 +13,12 @@ export default {
 			}
 		}`
 		const vars = {
-			'username' : username,
+			'username': username,
 		}
 		return await api(query, vars)
 	},
 
-	create: async (username, pass_hash, groups) =>
-	{
+	create: async (username, pass_hash, groups) => {
 		const query = `
 		mutation ($username: String!, $password: String!, $groups: [String!]!){
 			createUser(username: $username, password: $password, groups: $groups) {
@@ -44,8 +42,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	revoke: async username =>
-	{
+	revoke: async username => {
 		return await api(`
 		mutation ($username: String!) {
 			revokeSessions (username: $username)
@@ -54,8 +51,7 @@ export default {
 		})
 	},
 
-	permissions: async (username, permission_list) =>
-	{
+	permissions: async (username, permission_list) => {
 		const query = `
 		mutation ($username: String!, $perms: [String!]!){
 			updateUserPerms(username: $username, perms: $perms) {
@@ -69,14 +65,13 @@ export default {
 			}
 		}`
 		const vars = {
-			'username' : username,
+			'username': username,
 			'perms': permission_list,
 		}
 		return await api(query, vars)
 	},
 
-	password: async (username, pass_hash) =>
-	{
+	password: async (username, pass_hash) => {
 		return await api(`mutation ($username: String!, $password: String!) {
 			updateUserPassword(username: $username, password: $password) {
 				__typename
@@ -93,8 +88,7 @@ export default {
 		})
 	},
 
-	display_name: async (username, disp_name) =>
-	{
+	display_name: async (username, disp_name) => {
 		return await api(`mutation ($username: String!, $display_name: String!) {
 			updateUserDisplayName (username: $username, display_name: $display_name) {
 				__typename
@@ -114,8 +108,7 @@ export default {
 		})
 	},
 
-	module: async (username, module_name, disabled) =>
-	{
+	module: async (username, module_name, disabled) => {
 		return await api(`mutation ($username: String!, $module: String!, $disabled: Boolean!) {
 			updateUserModule (username: $username, module: $module, disabled: $disabled) {
 				__typename

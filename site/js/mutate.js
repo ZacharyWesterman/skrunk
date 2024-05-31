@@ -7,17 +7,14 @@ const Imports = {
 }
 
 let Mutate = {
-	require: async module =>
-	{
-		if (Mutate[module] === undefined)
-		{
+	require: async module => {
+		if (Mutate[module] === undefined) {
 			await Imports[module]
 		}
 	}
 }
 
-for (const i in Imports)
-{
+for (const i in Imports) {
 	Imports[i].then(module => Mutate[i] = module.default)
 }
 window.mutate = Mutate

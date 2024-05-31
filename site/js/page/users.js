@@ -1,16 +1,14 @@
-import {load_user_data} from '/js/page/user.js'
+import { load_user_data } from '/js/page/user.js'
 await mutate.require('users')
 await query.require('users')
 
-export function init()
-{
+export function init() {
 	refresh_user_groups()
 	refresh_users()
 	$.on.enter($('password'), create_user)
 }
 
-export async function confirm_delete_user(username)
-{
+export async function confirm_delete_user(username) {
 	let choice = await _.modal({
 		type: 'question',
 		title: 'Delete User?',
@@ -23,7 +21,7 @@ export async function confirm_delete_user(username)
 	choice = await _.modal({
 		type: 'question',
 		title: 'Really Delete User?',
-		text: 'Are you sure you want to delete user "'+username+'"?<br>This action is permanent and cannot be undone!',
+		text: 'Are you sure you want to delete user "' + username + '"?<br>This action is permanent and cannot be undone!',
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
@@ -33,16 +31,14 @@ export async function confirm_delete_user(username)
 	$.hide('userdata', true)
 }
 
-function refresh_user_groups()
-{
+function refresh_user_groups() {
 	_('user_group_list', {
 		id: 'user-group-list',
 		items: api('{ getUserGroups }'),
 	})
 }
 
-async function delete_user(username)
-{
+async function delete_user(username) {
 	const res = await mutate.users.delete(username)
 	if (res.__typename !== 'UserData') {
 		_.modal({
@@ -50,7 +46,7 @@ async function delete_user(username)
 			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK']
-		}).catch(()=>{})
+		}).catch(() => { })
 		return
 	}
 
@@ -58,8 +54,7 @@ async function delete_user(username)
 	refresh_users()
 }
 
-export async function create_user()
-{
+export async function create_user() {
 	const group = $.val('user-group-list')
 
 	const res = await mutate.users.create(
@@ -73,7 +68,7 @@ export async function create_user()
 			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK']
-		}).catch(()=>{})
+		}).catch(() => { })
 		return
 	}
 
@@ -88,8 +83,7 @@ export async function create_user()
 	refresh_user_groups()
 }
 
-function refresh_users()
-{
+function refresh_users() {
 	_('dropdown', {
 		id: 'userlist',
 		options: query.users.list(null, false, false), //Don't cache user list, and don't restrict to our group.

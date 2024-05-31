@@ -68,11 +68,12 @@
 			"icon": "gear",
 			"action": "dashnav('server_settings')",
 			"goto": "settings",
-			"perms": ["admin"],
+			"perms": [
+				"admin"
+			],
 			"class": "alt"
 		}
 	],
-
 	"settings": [
 		{
 			"text": "Back",
@@ -106,7 +107,6 @@
 			"class": "alt"
 		}
 	],
-
 	"books": [
 		{
 			"text": "Back",
@@ -151,7 +151,6 @@
 			"show_if": "!environment.ios"
 		}
 	],
-
 	"inventory": [
 		{
 			"text": "Back",
@@ -196,7 +195,6 @@
 			"show_if": "!environment.ios"
 		}
 	],
-
 	"user": [
 		{
 			"text": "Back",

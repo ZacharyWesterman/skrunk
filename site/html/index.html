@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Index</title>
 	<meta charset="UTF-8" />
@@ -21,6 +22,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
+
 <body onload="auto_login()">
 	<!-- for background css -->
 	<div class="bg"></div>
@@ -29,8 +31,8 @@
 
 	<!-- Checkmark display for special actions that don't need any extra information -->
 	<svg id="action-checkmark" class="floating" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-		<circle cx="26" cy="26" r="25" fill="none"/>
-		<path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+		<circle cx="26" cy="26" r="25" fill="none" />
+		<path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
 	</svg>
 
 	<!--placeholder for when modals are loaded in -->
@@ -50,30 +52,24 @@
 </body>
 
 <script defer>
-	function auto_login()
-	{
+	function auto_login() {
 		//If required JS hasn't loaded yet, wait until it does.
-		if (top.api === undefined || top._ === undefined || top.navigate === undefined)
-		{
+		if (top.api === undefined || top._ === undefined || top.navigate === undefined) {
 			setTimeout(auto_login, 50)
 			return
 		}
 
 		api.read_cookies()
 		//If not already logged in, go to login page
-		if (api.login_token === null)
-		{
+		if (api.login_token === null) {
 			navigate('html/login.html')
 		}
-		else
-		{
+		else {
 			api.verify_token().then(verified => {
-				if (verified)
-				{
+				if (verified) {
 					navigate('html/dashboard.html')
 				}
-				else
-				{
+				else {
 					api.logout()
 				}
 			})
@@ -81,8 +77,7 @@
 	}
 
 	//Automatically adjust tab icon based on whether browser uses light or dark mode.
-	function auto_favicon(media_query)
-	{
+	function auto_favicon(media_query) {
 		const element = document.getElementById('favicon')
 		const dark_mode = media_query.matches && !(window?.environment?.mobile)
 		element.href = dark_mode ? 'favicon-dark.png' : 'favicon-light.png'
@@ -96,8 +91,7 @@
 	let adjust_anim = () => {
 		if (window._ === undefined) return
 
-		if (orig_rate === undefined)
-		{
+		if (orig_rate === undefined) {
 			orig_rate = parseFloat(_.css.get_var('--bg-animation-speed'))
 		}
 

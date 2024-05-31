@@ -1,5 +1,4 @@
-function prettify(blob)
-{
+function prettify(blob) {
 	blob.created = date.output(blob.created) //convert dates to local time
 	blob.size = format.file_size(blob.size) //convert size to human-readable format
 	return blob
@@ -14,8 +13,7 @@ export default {
 	* date_from: Date or null
 	* date_to: Date or null
 	*/
-	get: async (username, start, count, tag_query, date_from, date_to, name, ephemeral, sorting) =>
-	{
+	get: async (username, start, count, tag_query, date_from, date_to, name, ephemeral, sorting) => {
 		let res = await api(`
 		query ($filter: BlobSearchFilter!, $start: Int!, $count: Int!, $sorting: Sorting!){
 			getBlobs(filter: $filter, start: $start, count: $count, sorting: $sorting) {
@@ -54,8 +52,7 @@ export default {
 			sorting: sorting,
 		})
 
-		if (res.blobs)
-		{
+		if (res.blobs) {
 			res.blobs = res.blobs.map(prettify)
 		}
 
@@ -68,8 +65,7 @@ export default {
 	* date_from: Date or null
 	* date_to: Date or null
 	*/
-	count: async (username, tag_query, date_from, date_to, name, ephemeral) =>
-	{
+	count: async (username, tag_query, date_from, date_to, name, ephemeral) => {
 		return await api(`query ($filter: BlobSearchFilter!){
 			countBlobs(filter: $filter) {
 				__typename
@@ -98,8 +94,7 @@ export default {
 	* date_from: Date or null
 	* date_to: Date or null
 	*/
-	size: async (username, tag_query, date_from, date_to, name) =>
-	{
+	size: async (username, tag_query, date_from, date_to, name) => {
 		return await api(`query ($filter: BlobSearchFilter!){
 			totalBlobSize(filter: $filter) {
 				__typename
@@ -122,8 +117,7 @@ export default {
 		})
 	},
 
-	single: async blob_id =>
-	{
+	single: async blob_id => {
 		const blob = await api(`
 		query ($id: String!){
 			getBlob (id: $id) {

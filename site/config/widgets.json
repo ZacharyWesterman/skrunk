@@ -7,6 +7,8 @@
 	{
 		"id": "last_login",
 		"title": "Login History",
-		"perms": ["admin"]
+		"perms": [
+			"admin"
+		]
 	}
 ]

@@ -1,9 +1,8 @@
 'use strict'
 
-function api(login_token, query_string, variables = null)
-{
+function api(login_token, query_string, variables = null) {
 	const query_data = {
-		'query' : query_string,
+		'query': query_string,
 		'variables': variables,
 	}
 
@@ -19,18 +18,15 @@ function api(login_token, query_string, variables = null)
 			},
 			body: JSON.stringify(query_data),
 		}).then(res => {
-			if (res.status >= 200 && res.status < 300 && res.ok)
-			{
+			if (res.status >= 200 && res.status < 300 && res.ok) {
 				res.json().then(response => {
-					for (const elem in response.data)
-					{
+					for (const elem in response.data) {
 						resolve(response.data[elem])
 						break
 					}
 				})
 			}
-			else
-			{
+			else {
 				reject(res)
 			}
 
@@ -57,7 +53,7 @@ self.addEventListener('notificationclose', event => {
 	notif.close()
 
 	const promise_chain = api(notif.data, //login token
-	`mutation ($id: String!) {
+		`mutation ($id: String!) {
 		markNotifAsRead (id: $id)
 	}`, {
 		id: notif.tag,

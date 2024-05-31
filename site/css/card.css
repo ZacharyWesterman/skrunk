@@ -1,5 +1,5 @@
 .card {
-	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
+	box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, .5);
 	transition: 0.3;
 	border-radius: var(--border-radius);
 	margin: 10px 0;
@@ -19,7 +19,7 @@
 }
 
 .card.highlight:hover {
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 	filter: brightness(140%);
 }
 
@@ -29,7 +29,7 @@
 	transition: grid-template-rows 300ms;
 }
 
-.expand-container > div {
+.expand-container>div {
 	overflow: hidden;
 }
 
@@ -49,13 +49,14 @@ div .page {
 	max-width: 900px;
 }
 
-div .page > h1 {
+div .page>h1 {
 	text-align: center;
 }
 
 .book-icon {
 	position: relative;
-	width: 128px; /* Don't allow book thumbnails to expand. Should all be the same size, but just in case */
+	width: 128px;
+	/* Don't allow book thumbnails to expand. Should all be the same size, but just in case */
 }
 
 .book-icon img {
@@ -84,7 +85,7 @@ img.thumbnail {
 }
 
 .widget {
-	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
+	box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, .5);
 	transition: 0.3;
 	border-radius: var(--border-radius);
 	margin: 10px;
@@ -94,16 +95,16 @@ img.thumbnail {
 	transition: background 0.5s ease-in-out;
 }
 
-.widget > div {
+.widget>div {
 	padding: 2px 16px 16px 16px;
 }
 
-.widget > div > h3 {
+.widget>div>h3 {
 	text-align: center;
 }
 
 @media (pointer: fine) {
-	.widget-container{
+	.widget-container {
 		position: absolute;
 		left: 3rem;
 		right: 0;

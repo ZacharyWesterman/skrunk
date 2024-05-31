@@ -2,14 +2,12 @@
  * A simple helper function for site navigation.
  * @param {string} url The url to fetch and insert into the document.
  */
-window.navigate = async function(url)
-{
+window.navigate = async function (url) {
 	clear_error_message()
 	await inject(document.all.body, url)
 }
 
-window.dashnav = async function(url)
-{
+window.dashnav = async function (url) {
 	environment.set_param('page', url)
 	clear_error_message()
 	await inject(document.all.content, `/html/${url}.html`)
@@ -17,19 +15,15 @@ window.dashnav = async function(url)
 	set_title()
 }
 
-window.set_title = function()
-{
+window.set_title = function () {
 	//Set page title if page has a title header
 	const header = document.querySelector('div[class="page"]>h1')
-	if (header)
-	{
-		for (const child of header.childNodes)
-		{
+	if (header) {
+		for (const child of header.childNodes) {
 			if (child.nodeType === 3) //Text node
 			{
 				const text = child.textContent.trim()
-				if (text !== '')
-				{
+				if (text !== '') {
 					document.title = text
 					break
 				}
@@ -42,13 +36,11 @@ window.set_title = function()
 * Load content from URL into the given field.
 */
 window.unload = []
-window.inject = async function(field, url)
-{
+window.inject = async function (field, url) {
 	field = $(field)
 	$.on.detach.resize() //Stop watching for any resize events the previous page might be watching for.
 
-	while (window.unload.length > 0)
-	{
+	while (window.unload.length > 0) {
 		const unload_method = window.unload.pop()
 		if (unload_method?.constructor?.name === 'AsyncFunction')
 			await unload_method()
@@ -81,11 +73,9 @@ window.inject = async function(field, url)
 
 	let async_evals = []
 
-	for (const script of field.getElementsByTagName('script'))
-	{
+	for (const script of field.getElementsByTagName('script')) {
 		let evaluate = undefined
-		if (script.src.length)
-		{
+		if (script.src.length) {
 			evaluate = async () => {
 				return await do_script_eval(field, null, script.src, true)
 			}
@@ -102,14 +92,12 @@ window.inject = async function(field, url)
 
 	//wait for async evals to finish
 	let module = {}
-	for (const item of async_evals)
-	{
+	for (const item of async_evals) {
 		const new_mod = await (typeof item === 'function' ? item() : item)
 		if (!new_mod) continue
 
 		//Always run init method on src load.
-		if (typeof new_mod.init === 'function')
-		{
+		if (typeof new_mod.init === 'function') {
 			new_mod.init()
 		}
 
@@ -126,16 +114,13 @@ window.inject = async function(field, url)
 }
 
 //Eval script and (if it errors) give more accurate error info.
-async function do_script_eval(DOM, text, url, imported)
-{
+async function do_script_eval(DOM, text, url, imported) {
 	try {
-		if (imported)
-		{
+		if (imported) {
 			return await import(url) || {}
 		}
-		else
-		{
-			const objectURL = URL.createObjectURL(new Blob([text], {type: 'text/javascript'}))
+		else {
+			const objectURL = URL.createObjectURL(new Blob([text], { type: 'text/javascript' }))
 			return await import(objectURL) || {}
 		}
 	} catch (error) {
@@ -143,8 +128,7 @@ async function do_script_eval(DOM, text, url, imported)
 	}
 }
 
-function set_trigger(field, attr, trigger)
-{
+function set_trigger(field, attr, trigger) {
 	if (!$.on[attr])
 		throw new Error(`Error: *${attr} trigger not implemented for *${trigger} action.`)
 
@@ -154,50 +138,42 @@ function set_trigger(field, attr, trigger)
 	$.on[attr](field, $[trigger])
 }
 
-function parent_module(DOM)
-{
+function parent_module(DOM) {
 	let element = DOM.parentElement
-	while (element)
-	{
+	while (element) {
 		if (element.module) return element.module
 		element = element.parentElement
 	}
 	return {}
 }
 
-function scoped_eval(context, expr)
-{
+function scoped_eval(context, expr) {
 	const evaluator = Function.apply(null, [...Object.keys(context), 'expr', 'return eval("expr = undefined;" + expr)'])
 	return function () {
 		evaluator.apply(null, [...Object.values(context), expr])
 	}
 }
 
-window.set_field_logic = async function(DOM, url, module)
-{
+window.set_field_logic = async function (DOM, url, module) {
 
 	DOM.module = {
 		...parent_module(DOM),
 		...module,
 	}
 
-	try
-	{
+	try {
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
 		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles', 'expand']
-		for (const attr of attrs)
-		{
+		for (const attr of attrs) {
 			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
 				const key = field.getAttribute(`*${attr}`)
 
-				if (key[0] === '*')
-				{
+				if (key[0] === '*') {
 					set_trigger(field, attr, key.substring(1))
 					return
 				}
 
-				if (attr === 'toggles')
-				{
+				if (attr === 'toggles') {
 					field.addEventListener('click', () => {
 						$.toggle_expand(key)
 						//Automatically flip any "expand" arrows to reflect whether content is expanded
@@ -212,11 +188,10 @@ window.set_field_logic = async function(DOM, url, module)
 				if (attr === 'expand_invert') return
 
 				const split_point = key.indexOf('(')
-				if (split_point > -1)
-				{
+				if (split_point > -1) {
 					//If we're running the function with params
 					const funcname = key.substring(0, split_point)
-					if (!['$','_'].includes(funcname[0]) && typeof DOM.module[funcname] !== 'function' && typeof window[funcname] !== 'function')
+					if (!['$', '_'].includes(funcname[0]) && typeof DOM.module[funcname] !== 'function' && typeof window[funcname] !== 'function')
 						throw new Error(`Unknown action for *${attr} attribute: "${funcname}" export not found.`)
 
 					const scope = scoped_eval(DOM.module, key)
@@ -227,10 +202,9 @@ window.set_field_logic = async function(DOM, url, module)
 					else
 						field[`on${attr}`] = () => { scope() }
 				}
-				else
-				{
+				else {
 					//If we're not running the function with params,
-					if (!['$','_'].includes(key[0]) && typeof DOM.module[key] !== 'function')
+					if (!['$', '_'].includes(key[0]) && typeof DOM.module[key] !== 'function')
 						throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)
 
 					//can just put in the name and this will pass in the field as 1st param
@@ -253,8 +227,7 @@ window.set_field_logic = async function(DOM, url, module)
 			if (enforce === undefined && validate === undefined)
 				throw new Error(`Unknown format type "${format}"`)
 
-			if (enforce !== undefined)
-			{
+			if (enforce !== undefined) {
 				//Enforce formatting
 				const keyup = field.onkeyup
 				field.onkeyup = () => {
@@ -265,31 +238,27 @@ window.set_field_logic = async function(DOM, url, module)
 				}
 			}
 
-			if (validate !== undefined)
-			{
+			if (validate !== undefined) {
 				//Validate on blur
 				const blur = field.onblur
 				const change = field.onchange
-				field.onchange = () => {}
+				field.onchange = () => { }
 				field.onblur = () => {
 					field.value = field.value
-					if (field.value === '')
-					{
+					if (field.value === '') {
 						if (field.required)
 							field.value = field.prevValue || field.defaultValue || ''
 						return
 					}
 
 					const valid = validate(field.value)
-					if (valid)
-					{
+					if (valid) {
 						field.classList.remove('invalid')
 						if ((typeof change === 'function') && (field.value !== field.prevValue)) change()
 						field.prevValue = field.value
 						if (typeof blur === 'function') blur()
 					}
-					else
-					{
+					else {
 						field.classList.add('invalid')
 						field.value = field.prevValue || field.defaultValue || ''
 					}
@@ -304,8 +273,7 @@ window.set_field_logic = async function(DOM, url, module)
 
 		//Update any photo upload buttons
 		DOM.querySelectorAll('input[type="photo"]').forEach(field => {
-			if (!EnabledModules.includes('files'))
-			{
+			if (!EnabledModules.includes('files')) {
 				const new_field = document.createElement('span')
 				new_field.classList.add('disabled')
 				new_field.innerText = 'File uploads are disabled.'
@@ -339,30 +307,28 @@ window.set_field_logic = async function(DOM, url, module)
 			new_field.append(upload_btn, delete_btn, br, img, progressbar)
 
 			img.wipe = () => {
-				if (img.blob_id)
-				{
+				if (img.blob_id) {
 					//Try to delete the blob. Doesn't really matter if it's successful, the blob is ephemeral so will get deleted at some point anyway.
-					mutate.blobs.delete(img.blob_id).catch(() => {})
+					mutate.blobs.delete(img.blob_id).catch(() => { })
 					delete img.blob_id
 				}
 
 				$.hide(img, true).then(() => img.src = '')
 				$.hide(progressbar, true)
 				progressbar.removeAttribute('value')
-				img.onclick = () => {}
+				img.onclick = () => { }
 				img.classList.remove('clickable')
 			}
 
 			img.clear = () => {
-				if (img.blob_id)
-				{
+				if (img.blob_id) {
 					delete img.blob_id
 				}
 
 				$.hide(img, true).then(() => img.src = '')
 				$.hide(progressbar, true)
 				progressbar.removeAttribute('value')
-				img.onclick = () => {}
+				img.onclick = () => { }
 				img.classList.remove('clickable')
 			}
 
@@ -373,7 +339,7 @@ window.set_field_logic = async function(DOM, url, module)
 
 				$.show(progressbar)
 
-				const image = (await api.upload(file, ({loaded, total}) => {
+				const image = (await api.upload(file, ({ loaded, total }) => {
 					progressbar.value = loaded / total
 				}, false, img.tags, false, true))[0]
 				progressbar.removeAttribute('value')
@@ -384,8 +350,7 @@ window.set_field_logic = async function(DOM, url, module)
 				img.alt = 'FAILED TO LOAD THUMBNAIL'
 				img.blob_id = image.id
 				img.classList.add('clickable')
-				img.onclick = () =>
-				{
+				img.onclick = () => {
 					_.modal.image(`blob/${res.id}${res.ext}`)
 				}
 
@@ -404,23 +369,19 @@ window.set_field_logic = async function(DOM, url, module)
 		DOM.querySelectorAll(`[\\*load]`).forEach(field => {
 			const key = field.getAttribute('*load')
 			const split_point = Math.min(key.indexOf('(') || Math.infinity, key.indexOf('.') || Math.infinity)
-			if (split_point > -1 && split_point !== Math.infinity)
-			{
+			if (split_point > -1 && split_point !== Math.infinity) {
 				//If we're running the function with params
 				const funcname = key.substring(0, split_point)
-				if (window[funcname] !== undefined || DOM.module[funcname] !== undefined)
-				{
+				if (window[funcname] !== undefined || DOM.module[funcname] !== undefined) {
 					//evaluate immediately
 					scoped_eval(DOM.module, key)()
 
 				}
-				else
-				{
+				else {
 					throw new Error(`Unknown action for *load attribute: "${funcname}" export not found.`)
 				}
 			}
-			else
-			{
+			else {
 				//If we're not running the function with params,
 				if (typeof DOM.module[key] !== 'function')
 					throw new Error(`Unknown action for *load attribute: "${key}" export not found.`)
@@ -434,15 +395,13 @@ window.set_field_logic = async function(DOM, url, module)
 	}
 }
 
-function report_error(error, url, replaceUrl)
-{
+function report_error(error, url, replaceUrl) {
 	let stack = error.stack.trim().split('\n')
-	stack = stack[stack.length-1].split(':')
+	stack = stack[stack.length - 1].split(':')
 	stack[2] = (replaceUrl ? '@' : stack[2]) + url
 	stack[3] = error.lineNumber
 	stack[4] = error.columnNumber
-	if (replaceUrl)
-	{
+	if (replaceUrl) {
 		stack.shift()
 		stack.shift()
 	}

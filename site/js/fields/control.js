@@ -6,8 +6,7 @@ export default {
 	next: field => {
 		let sibling = field.nextElementSibling
 		while (sibling) {
-			if (['INPUT', 'BUTTON'].includes(sibling.tagName))
-			{
+			if (['INPUT', 'BUTTON'].includes(sibling.tagName)) {
 				sibling.focus()
 				break
 			}
@@ -23,8 +22,7 @@ export default {
 	prev: field => {
 		let sibling = field.previousElementSibling
 		while (sibling) {
-			if (['INPUT', 'BUTTON'].includes(sibling.tagName))
-			{
+			if (['INPUT', 'BUTTON'].includes(sibling.tagName)) {
 				sibling.focus()
 				break
 			}

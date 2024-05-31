@@ -1,6 +1,5 @@
 export default {
-	by_rfid: async rfid =>
-	{
+	by_rfid: async rfid => {
 		return await api(`
 		query ($rfid: String!) {
 			getBookByTag (rfid: $rfid) {
@@ -43,8 +42,7 @@ export default {
 		})
 	},
 
-	get: async (filter, start, count, sorting) =>
-	{
+	get: async (filter, start, count, sorting) => {
 		return await api(`
 		query ($filter: BookSearchFilter!, $start: Int!, $count: Int!, $sorting: Sorting!) {
 			getBooks(filter: $filter, start: $start, count: $count, sorting: $sorting) {
@@ -84,8 +82,7 @@ export default {
 		})
 	},
 
-	count: async filter =>
-	{
+	count: async filter => {
 		return await api(`
 		query ($filter: BookSearchFilter!) {
 			countBooks(filter: $filter)

@@ -53,11 +53,12 @@
 	color: var(--error-text);
 	position: absolute;
 	top: 0;
-	z-index: 8999; /* above everything except modals */
+	z-index: 8999;
+	/* above everything except modals */
 }
 
 .runtime-error {
-	background-color: rgba(0,0,0, 0.4);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 h4 {
@@ -76,15 +77,32 @@ hr {
 	color: var(--disabled-text);
 }
 
-.editor { outline: none; overflow-y: auto; padding-left: 48px; counter-reset: line; }
-.editor div { display: block; position: relative; white-space: pre-wrap; }
-.editor div::before { content: counter(line); counter-increment: line; position: absolute; right: calc(100% + 16px); opacity: 0.5; }
+.editor {
+	outline: none;
+	overflow-y: auto;
+	padding-left: 48px;
+	counter-reset: line;
+}
+
+.editor div {
+	display: block;
+	position: relative;
+	white-space: pre-wrap;
+}
+
+.editor div::before {
+	content: counter(line);
+	counter-increment: line;
+	position: absolute;
+	right: calc(100% + 16px);
+	opacity: 0.5;
+}
 
 .editor-toolbar {
 	background-color: white;
 }
 
-.editor-statusbar > .cursor {
+.editor-statusbar>.cursor {
 	display: none;
 }
 
@@ -153,24 +171,29 @@ input.wide {
 	0% {
 		transform: translateX(0);
 	}
+
 	30% {
 		transform: translateX(0);
 	}
+
 	80% {
 		transform: translateX(-150%);
 	}
+
 	90% {
 		transform: translateX(-150%);
 	}
+
 	100% {
 		transform: translateX(0);
 	}
 }
 
-input, select {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+input,
+select {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 select {
@@ -225,23 +248,25 @@ textarea:disabled {
 	z-index: 1;
 }
 
-.navbar > button {
-	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
+.navbar>button {
+	box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, .5);
 }
 
-.navbar > .bottom > button {
-	box-shadow: 2px 4px 4px 0 rgba(0,0,0,.5);
+.navbar>.bottom>button {
+	box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, .5);
 }
 
 /* If iOS, shift navbar icons to the left a bit */
 @supports (-webkit-overflow-scrolling: touch) {
-	.navbar > button > i {
+	.navbar>button>i {
 		margin-left: -0.55rem;
 	}
-	.bottom > button > i {
+
+	.bottom>button>i {
 		margin-left: -0.55rem;
 	}
-	.actions > button > i {
+
+	.actions>button>i {
 		margin-left: -0.55rem;
 	}
 }
@@ -324,19 +349,19 @@ textarea:disabled {
 	white-space: nowrap;
 }
 
-@media all and (min-width: 500px ) and (max-width: 599px) {
+@media all and (min-width: 500px) and (max-width: 599px) {
 	.truncate {
 		max-width: 475px;
 	}
 }
 
-@media all and (min-width: 400px ) and (max-width: 499px) {
+@media all and (min-width: 400px) and (max-width: 499px) {
 	.truncate {
 		max-width: 375px;
 	}
 }
 
-@media all and (min-width: 300px ) and (max-width: 399px) {
+@media all and (min-width: 300px) and (max-width: 399px) {
 	.truncate {
 		max-width: 275px;
 	}
@@ -361,8 +386,9 @@ th {
 }
 
 .gg-spinner.big {
-	transform: translateY(5rem) scale(5,5);
+	transform: translateY(5rem) scale(5, 5);
 }
+
 @media (pointer: coarse) {
 	.gg-spinner.big {
 		left: 50%;

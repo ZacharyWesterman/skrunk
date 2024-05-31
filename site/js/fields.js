@@ -8,22 +8,16 @@ import Control from './fields/control.js'
 let _ = Template
 _.modal = Modal
 
-function get_css_styles()
-{
-	for (const sheet of document.styleSheets)
-	{
-		try
-		{
-			for (const rule of sheet.cssRules)
-			{
-				if (rule.href === '/css/theme.css')
-				{
+function get_css_styles() {
+	for (const sheet of document.styleSheets) {
+		try {
+			for (const rule of sheet.cssRules) {
+				if (rule.href === '/css/theme.css') {
 					return rule.styleSheet.rules[0].style
 				}
 			}
 		}
-		catch (e)
-		{
+		catch (e) {
 			//console.warn(e)
 		}
 	}
@@ -35,7 +29,7 @@ _.css = {
 	vars: () => get_css_styles(),
 	set_var: (name, value) => document.querySelector(':root').style.setProperty(name, value.trim()),
 	get_var: name => getComputedStyle(document.querySelector(':root')).getPropertyValue(name).trim(),
-	wipe: () => {for (const i of _.css.vars()) _.css.set_var(i, '')},
+	wipe: () => { for (const i of _.css.vars()) _.css.set_var(i, '') },
 }
 
 //Field control and validation
@@ -43,17 +37,14 @@ let $ = (field, include_all = false) => {
 	let fields = []
 
 	//Handle rich text editors
-	if ($._EDITORS[field])
-	{
+	if ($._EDITORS[field]) {
 		fields.push({
 			self: $._EDITORS[field],
 			id: field,
-			set value(text)
-			{
+			set value(text) {
 				$._EDITORS[field].value(text)
 			},
-			get value()
-			{
+			get value() {
 				return $._EDITORS[field].value()
 			},
 		})
@@ -61,14 +52,12 @@ let $ = (field, include_all = false) => {
 		if (!include_all) return fields[0]
 	}
 
-	if (typeof field === 'object')
-	{
+	if (typeof field === 'object') {
 		fields.push(field)
 	}
 
 	let elem = document.getElementById(field)
-	if (elem)
-	{
+	if (elem) {
 		fields.push(elem)
 	}
 
@@ -83,26 +72,21 @@ $.set = (id, value) => {
 	$(id).value = value
 	$(id).prevValue = value
 }
-$.toggle_expand = (id, expand) =>
-{
+$.toggle_expand = (id, expand) => {
 	const fields = $(id, true)
-	for (let field of fields)
-	{
+	for (let field of fields) {
 		field.classList.toggle('expanded', expand)
 		const attr = field.getAttribute('*expand_invert')
-		if (attr)
-		{
+		if (attr) {
 			$.sync_invert_to_expand(attr, field)
 		}
 	}
 }
 
-$.sync_invert_to_expand = (field1, field2) =>
-{
+$.sync_invert_to_expand = (field1, field2) => {
 	const f = $(field1)
 	if (!f) return
-	for (const i of f.getElementsByClassName('fa-angles-down'))
-	{
+	for (const i of f.getElementsByClassName('fa-angles-down')) {
 		i.classList.toggle('inverted', $(field2).classList.contains('expanded'))
 	}
 }
@@ -123,8 +107,7 @@ $.show = (id, fade = true) => {
 $.hide = (id, fade = false, remove = true) => {
 	return new Promise(resolve => {
 		let field = $(id)
-		if (!field)
-		{
+		if (!field) {
 			resolve()
 			return
 		}
@@ -132,17 +115,14 @@ $.hide = (id, fade = false, remove = true) => {
 		classes.toggle('fade', fade)
 		classes.remove('visible')
 		classes.add('hidden')
-		if (remove)
-		{
-			if (fade)
-			{
+		if (remove) {
+			if (fade) {
 				setTimeout(() => {
 					field.style.display = 'none'
 					resolve()
 				}, 300)
 			}
-			else
-			{
+			else {
 				$(id).style.display = 'none'
 				resolve()
 			}
@@ -166,14 +146,12 @@ $.valid = (id, state = true) => {
 }
 
 $.flash = id => {
-	if ($(id).wipe)
-	{
+	if ($(id).wipe) {
 		const icon = $(id).parentElement.children[0].children[0]
 		icon.classList.toggle('invalid-fg', true)
 		setTimeout(() => icon.classList.toggle('invalid-fg', false), 350)
 	}
-	else
-	{
+	else {
 		$.invalid(id)
 		setTimeout(() => $.valid(id), 350)
 	}
@@ -192,16 +170,14 @@ $.on = Events
 $.next = Control.next
 $.prev = Control.prev
 
-$.bind = function(field, method, frequency = 500, run_on_start = false)
-{
+$.bind = function (field, method, frequency = 500, run_on_start = false) {
 	$(field).__prev = $(field).value
 	if (run_on_start) method()
 
 	let last_run = Date.now()
 	let run_scheduled = false
 
-	function change_func(force)
-	{
+	function change_func(force) {
 		let f = $(field)
 
 		last_run = Date.now()
@@ -209,27 +185,23 @@ $.bind = function(field, method, frequency = 500, run_on_start = false)
 		if (run_scheduled && !force) return
 
 		run_scheduled = true
-		function sync_method()
-		{
+		function sync_method() {
 
 			//only sync when field hasn't changed for at least {frequency} ms.
 			const synced_recently = Date.now() - last_run < frequency
-			if ((f.__prev === f.value) || (synced_recently && !force))
-			{
+			if ((f.__prev === f.value) || (synced_recently && !force)) {
 				setTimeout(sync_method, frequency)
 				return
 			}
 
 			f.__prev = f.value
 
-			if (typeof method.then === 'function')
-			{
+			if (typeof method.then === 'function') {
 				last_run = Date.now()
 				run_scheduled = false
 				method()
 			}
-			else
-			{
+			else {
 				last_run = Date.now()
 				run_scheduled = false
 				method()
@@ -243,22 +215,19 @@ $.bind = function(field, method, frequency = 500, run_on_start = false)
 	$(field).addEventListener('change', () => change_func(true))
 }
 
-$.wipe = (field, value = '') =>
-{
+$.wipe = (field, value = '') => {
 	$(field).__prev = $(field).value = value
 }
 
 $.all = name => document.getElementsByName(name)
 
 $._EDITORS = {}
-$.editor = id =>
-{
+$.editor = id => {
 	return $._EDITORS[id]
 }
-$.editor.new = field =>
-{
+$.editor.new = field => {
 	const id = (typeof field === 'string') ? field : (field.id || '---')
-	$._EDITORS[id] = new SimpleMDE({element: $(field)})
+	$._EDITORS[id] = new SimpleMDE({ element: $(field) })
 }
 $.editor.del = id => delete $._EDITORS[id]
 

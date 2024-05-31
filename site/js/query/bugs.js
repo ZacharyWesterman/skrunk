@@ -5,8 +5,7 @@ export default {
 	* count: int
 	* resolved: boolean
 	*/
-	list: async (username, start, count, resolved) =>
-	{
+	list: async (username, start, count, resolved) => {
 		return await api(`query ($username: String, $start: Int!, $count: Int!, $resolved: Boolean!){
 			getBugReports (username: $username, start: $start, count: $count, resolved: $resolved){
 				id

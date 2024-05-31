@@ -9,20 +9,18 @@ await query.require('users')
 //Start the NFC reader ONCE per session, and don't stop it.
 //Trying to stop/restart it multiple times in a session
 //just causes the browser to crash. :/
-if (window.NFC === undefined)
-{
+if (window.NFC === undefined) {
 	try {
 		window.NFC = new NDEFReader
-	} catch(e) {
+	} catch (e) {
 		window.NFC = {
-			scan: () => {}
+			scan: () => { }
 		}
 	}
 }
 
 NFC.scan()
-export async function init()
-{
+export async function init() {
 	if (EnabledModules.includes('qr')) _('qrcode-search')
 
 	InitialLoad = true
@@ -32,20 +30,18 @@ export async function init()
 		NFC.onreading = undefined
 	})
 
-	NFC.onreading = async event =>
-	{
+	NFC.onreading = async event => {
 		$('tagid').value = event.serialNumber
 
 		const res = await query.books.by_rfid(event.serialNumber)
 
-		if (res.__typename !== 'Book')
-		{
+		if (res.__typename !== 'Book') {
 			_.modal({
 				type: 'error',
 				title: 'Book Not Found',
 				text: 'No book has been linked with this tag.',
 				buttons: ['OK'],
-			}).catch(() => {})
+			}).catch(() => { })
 			return
 		}
 
@@ -70,8 +66,7 @@ export async function init()
 	})
 }
 
-export function three_state_checkbox()
-{
+export function three_state_checkbox() {
 	const f = $('shared')
 	if (f.state === undefined) f.state = 0 //will transition to indeterminate
 
@@ -81,20 +76,16 @@ export function three_state_checkbox()
 	f.indeterminate = f.state === 1
 }
 
-export function manual_input()
-{
-	if ($.val('tagid') !== '')
-	{
-		NFC.onreading({serialNumber: $.val('tagid')})
+export function manual_input() {
+	if ($.val('tagid') !== '') {
+		NFC.onreading({ serialNumber: $.val('tagid') })
 	}
-	else
-	{
+	else {
 		search_books()
 	}
 }
 
-async function confirm_unlink_book(title, rfid)
-{
+async function confirm_unlink_book(title, rfid) {
 	let choice = await _.modal({
 		type: 'question',
 		title: 'Delete this book?',
@@ -115,14 +106,13 @@ async function confirm_unlink_book(title, rfid)
 
 	const res = await mutate.books.delete(rfid)
 
-	if (res.__typename !== 'BookTag')
-	{
+	if (res.__typename !== 'BookTag') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK'],
-		}).catch(() => {})
+		}).catch(() => { })
 		return true
 	}
 
@@ -130,30 +120,26 @@ async function confirm_unlink_book(title, rfid)
 	return true
 }
 
-async function confirm_edit_ebooks(book_data)
-{
+async function confirm_edit_ebooks(book_data) {
 	let ebook_promises = []
 
 	const modal = await _.modal({
 		icon: 'file-pdf',
 		title: 'Add E-Books',
-		text: `Select 1 or more files to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>'+book_data.subtitle+'</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file" multiple>`,
+		text: `Select 1 or more files to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>' + book_data.subtitle + '</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file" multiple>`,
 		buttons: ['Submit', 'Cancel'],
-	}, () => {}, async choice => { //on validate
-		if (choice === 'submit')
-		{
+	}, () => { }, async choice => { //on validate
+		if (choice === 'submit') {
 			const files = $('ebook-input').files
 
-			if (!files.length)
-			{
+			if (!files.length) {
 				$.flash('ebook-input')
 				return false
 			}
 
 			//Upload the file(s)
 			let promises = []
-			for (let i = 0; i < files.length; ++i)
-			{
+			for (let i = 0; i < files.length; ++i) {
 				const progress = document.createElement('progress')
 				$('ebook-input').parentElement.append(progress)
 				progress.value = 0
@@ -164,8 +150,7 @@ async function confirm_edit_ebooks(book_data)
 			}
 
 			//Once files are done uploading, get the ebook links
-			for (const promise of promises)
-			{
+			for (const promise of promises) {
 				const file = (await promise)[0]
 				ebook_promises.push(mutate.books.append_ebook(book_data.id, file.id))
 			}
@@ -174,17 +159,14 @@ async function confirm_edit_ebooks(book_data)
 		return true
 	}).catch(() => 'close')
 
-	if (modal !== 'submit')
-	{
+	if (modal !== 'submit') {
 		if (modal === 'cancel') edit_book(book_data.rfid)
 		return
 	}
 
-	for (const promise of ebook_promises)
-	{
+	for (const promise of ebook_promises) {
 		const res = await promise
-		if (res.__typename !== 'Book')
-		{
+		if (res.__typename !== 'Book') {
 			_.modal.error(res.message)
 			return
 		}
@@ -194,8 +176,7 @@ async function confirm_edit_ebooks(book_data)
 	search_books()
 }
 
-export async function edit_book(rfid)
-{
+export async function edit_book(rfid) {
 	let promise_data = query.books.by_rfid(rfid)
 	let book_data
 	promise_data.then(d => book_data = d)
@@ -232,10 +213,8 @@ export async function edit_book(rfid)
 
 		const fields = ['book-owner', 'book-title', 'book-author']
 		let valid = true
-		for (const i of fields)
-		{
-			if (!$.val(i))
-			{
+		for (const i of fields) {
+			if (!$.val(i)) {
 				$.flash(i)
 				valid = false
 			}
@@ -252,13 +231,11 @@ export async function edit_book(rfid)
 		return valid
 	}).catch(() => 'cancel')
 
-	if (choice === 'delete')
-	{
-		if ( !(await confirm_unlink_book(book_data.title, book_data.rfid)) ) edit_book(rfid)
+	if (choice === 'delete') {
+		if (!(await confirm_unlink_book(book_data.title, book_data.rfid))) edit_book(rfid)
 		return
 	}
-	if (choice === 'ebook')
-	{
+	if (choice === 'ebook') {
 		await confirm_edit_ebooks(book_data)
 		return
 	}
@@ -267,47 +244,40 @@ export async function edit_book(rfid)
 
 	//Check if book data has changed
 	let data_changed = false
-	for (const i in new_data)
-	{
-		if (Array.isArray(new_data[i]))
-		{
+	for (const i in new_data) {
+		if (Array.isArray(new_data[i])) {
 			if (!new_data[i].every((value, index) => value === book_data[i][index])) data_changed = true
 		}
-		else
-		{
+		else {
 			if (new_data[i] !== book_data[i]) data_changed = true
 		}
 	}
 
-	if (!data_changed && new_owner === book_data.owner.username)
-	{
+	if (!data_changed && new_owner === book_data.owner.username) {
 		_.modal({
 			text: 'No changes made.',
 			no_cancel: true,
-		}).catch(() => {})
+		}).catch(() => { })
 		setTimeout(_.modal.cancel, 700)
 		return
 	}
 
 	//Update book data with changes
-	if (data_changed)
-	{
+	if (data_changed) {
 		const res = await mutate.books.edit(book_data.id, new_data)
 
-		if (res.__typename !== 'Book')
-		{
+		if (res.__typename !== 'Book') {
 			_.modal({
 				type: 'error',
 				title: 'ERROR',
 				text: res.message,
 				buttons: ['OK'],
-			}).catch(() => {})
+			}).catch(() => { })
 			return
 		}
 	}
 
-	if (new_owner !== book_data.owner.username)
-	{
+	if (new_owner !== book_data.owner.username) {
 		//Verify that user wants to transfer ownership
 		const confirm = await _.modal({
 			type: 'question',
@@ -316,22 +286,20 @@ export async function edit_book(rfid)
 			buttons: ['Yes', 'No'],
 		}).catch(() => 'no')
 
-		if (confirm !== 'yes')
-		{
+		if (confirm !== 'yes') {
 			edit_book(rfid)
 			return
 		}
 
 		const res = await mutate.books.set_owner(book_data.id, new_owner)
 
-		if (res.__typename !== 'Book')
-		{
+		if (res.__typename !== 'Book') {
 			_.modal({
 				type: 'error',
 				title: 'ERROR',
 				text: res.message,
 				buttons: ['OK'],
-			}).catch(() => {})
+			}).catch(() => { })
 			return
 		}
 	}
@@ -340,23 +308,18 @@ export async function edit_book(rfid)
 	search_books()
 }
 
-export async function navigate_to_page(page_num)
-{
+export async function navigate_to_page(page_num) {
 	BookStart = page_num * BookListLen
 	await search_books()
 }
 
-function valid_fields()
-{
+function valid_fields() {
 	$.hide('error-message')
-	for (const i of ['author', 'title', 'genre'])
-	{
-		try
-		{
+	for (const i of ['author', 'title', 'genre']) {
+		try {
 			new RegExp($.val(i))
 		}
-		catch(e)
-		{
+		catch (e) {
 			$('error-message').innerText = `Invalid RegEx in "${i}" field: ${e.message}.`
 			$.show('error-message', true)
 			return false
@@ -366,14 +329,12 @@ function valid_fields()
 	return true
 }
 
-export async function reset_and_search()
-{
+export async function reset_and_search() {
 	BookStart = 0
 	await search_books()
 }
 
-export async function search_books()
-{
+export async function search_books() {
 	$.show('book-header')
 	$.show('book-footer')
 
@@ -394,7 +355,7 @@ export async function search_books()
 		genre: genre,
 		shared: shared,
 	}
-	const res = await query.books.get(filter, BookStart, BookListLen, {fields: [$.val('sort-by') || 'title'], descending: false})
+	const res = await query.books.get(filter, BookStart, BookListLen, { fields: [$.val('sort-by') || 'title'], descending: false })
 
 	await _('book', {
 		books: res,
@@ -402,8 +363,7 @@ export async function search_books()
 	})
 }
 
-async function reload_book_count()
-{
+async function reload_book_count() {
 	$.on.detach.resize()
 
 	const owner = $.val('owner') || null
@@ -424,12 +384,10 @@ async function reload_book_count()
 	const page_ct = Math.ceil(count / BookListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
 	let this_page = Math.floor(BookStart / BookListLen)
-	if (page_ct === 0)
-	{
+	if (page_ct === 0) {
 		this_page = BookStart = 0
 	}
-	else if (this_page >= page_ct)
-	{
+	else if (this_page >= page_ct) {
 		this_page = page_ct - 1
 		BookStart = this_page * BookListLen
 	}
@@ -446,101 +404,92 @@ async function reload_book_count()
 	$.on.resize(fn) //automatically adjust page nav on window resize
 }
 
-export async function share_book(is_shared, title, subtitle, author, id, owner)
-{
+export async function share_book(is_shared, title, subtitle, author, id, owner) {
 	const bookinfo = `<b>${title}</b><br><i>${subtitle}</i><div class="disabled">By ${author}</div>`
 
-	if (owner === api.username)
-	{
+	if (owner === api.username) {
 		//If user owns the book they're sharing, give options for who to share with.
 		let res = await _.modal({
 			icon: 'book-open',
 			title: 'Share Book',
 			text: `${bookinfo}<hr>` + await api.snippit('book_borrow'),
-			buttons: is_shared ?['Share', 'Return', 'Cancel'] : ['Share', 'Cancel'],
+			buttons: is_shared ? ['Share', 'Return', 'Cancel'] : ['Share', 'Cancel'],
 		},
-		() => { //on load
-			_('dropdown', {
-				id: 'person',
-				options: query.users.list(u => u.username !== api.username),
-				default: 'Select User',
-			})
-		}, choice => { //validate
-			if (choice !== 'share') return true
+			() => { //on load
+				_('dropdown', {
+					id: 'person',
+					options: query.users.list(u => u.username !== api.username),
+					default: 'Select User',
+				})
+			}, choice => { //validate
+				if (choice !== 'share') return true
 
-			const who = $('use_other_person').checked ? 'other_person' : 'person'
-			if ($.val(who) === '')
-			{
-				$.flash(who)
-				return false
-			}
+				const who = $('use_other_person').checked ? 'other_person' : 'person'
+				if ($.val(who) === '') {
+					$.flash(who)
+					return false
+				}
 
-			return true
-		}, choice => { //transform result to something different than buttons
-			if (choice === 'return')
-			{
-				//Pop a "return book" modal.
-				setTimeout(async () => {
-					let res = await _.modal({
-						icon: 'book-open',
-						title: 'Return Book',
-						text: `Has this book been returned?<hr>${bookinfo}`,
-						buttons: ['Yes', 'No'],
-					}).catch(() => 'no')
+				return true
+			}, choice => { //transform result to something different than buttons
+				if (choice === 'return') {
+					//Pop a "return book" modal.
+					setTimeout(async () => {
+						let res = await _.modal({
+							icon: 'book-open',
+							title: 'Return Book',
+							text: `Has this book been returned?<hr>${bookinfo}`,
+							buttons: ['Yes', 'No'],
+						}).catch(() => 'no')
 
-					if (res !== 'yes') return
+						if (res !== 'yes') return
 
-					//Mark the book as no longer borrowed by any user.
-					res = await mutate.books.return(id)
+						//Mark the book as no longer borrowed by any user.
+						res = await mutate.books.return(id)
 
-					if (res.__typename !== 'Book')
-					{
-						_.modal({
-							type: 'error',
-							title: 'Return Failed',
-							text: res.message,
-							buttons: ['OK']
-						}).catch(() => {})
-						return
-					}
+						if (res.__typename !== 'Book') {
+							_.modal({
+								type: 'error',
+								title: 'Return Failed',
+								text: res.message,
+								buttons: ['OK']
+							}).catch(() => { })
+							return
+						}
 
-					manual_input()
-				}, 50)
-			}
+						manual_input()
+					}, 50)
+				}
 
-			if (choice !== 'share') return null
+				if (choice !== 'share') return null
 
-			const non_user = $('use_other_person').checked
-			return {
-				is_user: !non_user,
-				name: $.val(non_user ? 'other_person' : 'person'),
-			}
-		}).catch(() => null)
+				const non_user = $('use_other_person').checked
+				return {
+					is_user: !non_user,
+					name: $.val(non_user ? 'other_person' : 'person'),
+				}
+			}).catch(() => null)
 
 		if (res === null) return //Don't refresh page if share was cancelled.
 
-		if (res.is_user)
-		{
+		if (res.is_user) {
 			res = await mutate.books.share(id, res.name)
 		}
-		else
-		{
+		else {
 			res = await mutate.books.share_nonuser(id, res.name)
 		}
 
-		if (res.__typename !== 'Book')
-		{
+		if (res.__typename !== 'Book') {
 			_.modal({
 				type: 'error',
 				title: 'Cannot Share Book',
 				text: res.message,
 				buttons: ['OK'],
-			}).catch(() => {})
+			}).catch(() => { })
 			return
 		}
 	}
-	else if (is_shared === api.username)
-	{
+	else if (is_shared === api.username) {
 		//User is returning this book.
 		let res = await _.modal({
 			icon: 'book-open',
@@ -554,26 +503,23 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 		//Mark the book as no longer borrowed by this user.
 		res = await mutate.books.return(id)
 
-		if (res.__typename !== 'Book')
-		{
+		if (res.__typename !== 'Book') {
 			_.modal({
 				type: 'error',
 				title: 'Return Failed',
 				text: res.message,
 				buttons: ['OK']
-			}).catch(() => {})
+			}).catch(() => { })
 			return
 		}
 	}
-	else if (is_shared)
-	{
+	else if (is_shared) {
 		//If user doesn't own this book, and it's already borrowed,
 		//Give the option to REQUEST to borrow it.
 		request_book(is_shared, bookinfo, id, owner)
 		return
 	}
-	else
-	{
+	else {
 		//If user doesn't own this book, they're borrowing it.
 		let res = await _.modal({
 			icon: 'book-open',
@@ -582,8 +528,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 			buttons: ['Yes', 'No', 'Request'],
 		}).catch(() => 'no')
 
-		if (res === 'request')
-		{
+		if (res === 'request') {
 			request_book(is_shared, bookinfo, id, owner)
 			return
 		}
@@ -593,8 +538,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 		//Mark the book as borrowed by this user.
 		res = await mutate.books.borrow(id)
 
-		if (res.__typename !== 'Book')
-		{
+		if (res.__typename !== 'Book') {
 			_.modal.error(res.message)
 			return
 		}
@@ -603,8 +547,7 @@ export async function share_book(is_shared, title, subtitle, author, id, owner)
 	manual_input()
 }
 
-async function request_book(is_shared, bookinfo, id, owner)
-{
+async function request_book(is_shared, bookinfo, id, owner) {
 	let res = await _.modal({
 		icon: 'book-open',
 		title: 'Request to Borrow Book?',
@@ -617,8 +560,7 @@ async function request_book(is_shared, bookinfo, id, owner)
 	//Mark the book as borrowed by this user.
 	res = await mutate.books.request_borrow(id)
 
-	if (res.__typename !== 'Notification')
-	{
+	if (res.__typename !== 'Notification') {
 		_.modal.error(res.message)
 		return
 	}
@@ -627,37 +569,32 @@ async function request_book(is_shared, bookinfo, id, owner)
 		title: 'Notification Sent!',
 		text: `A notification has been sent to ${owner} indicating that you'd like to borrow this book.`,
 		buttons: ['OK'],
-	}).catch(() => {})
+	}).catch(() => { })
 }
 
-export async function search_by_qrcode()
-{
+export async function search_by_qrcode() {
 	const qrcode = await qr.load_and_process()
-	if (qrcode !== null)
-	{
+	if (qrcode !== null) {
 		$('tagid').value = $.enforce.hex(qrcode)
 		manual_input()
 	}
 }
 
-export async function prompt_ebooks(book_rfid)
-{
+export async function prompt_ebooks(book_rfid) {
 	const book_data = await query.books.by_rfid(book_rfid)
-	if (book_data.__typename !== 'Book')
-	{
+	if (book_data.__typename !== 'Book') {
 		_.modal({
 			type: 'error',
 			title: 'Error',
 			text: res.message,
 			buttons: ['OK'],
-		}).catch(() => {})
+		}).catch(() => { })
 		return
 	}
 
 	let buttons = book_data.ebooks.map(b => b.fileType.toUpperCase())
 	let btn_map = {}
-	for (const b of book_data.ebooks)
-	{
+	for (const b of book_data.ebooks) {
 		btn_map[b.fileType.toLowerCase()] = b.url
 	}
 

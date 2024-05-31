@@ -5,10 +5,9 @@
  * @param {object} variables Any variables that need to be passed in for queries or mutations.
  * @returns {object} The API response per the schema.
  */
-window.api = function(query_string, variables = null)
-{
+window.api = function (query_string, variables = null) {
 	const query_data = {
-		'query' : query_string,
+		'query': query_string,
 		'variables': variables,
 	}
 
@@ -27,18 +26,15 @@ window.api = function(query_string, variables = null)
 			},
 			body: JSON.stringify(query_data),
 		}).then(res => {
-			if (res.status >= 200 && res.status < 300 && res.ok)
-			{
+			if (res.status >= 200 && res.status < 300 && res.ok) {
 				res.json().then(response => {
-					for (const elem in response.data)
-					{
+					for (const elem in response.data) {
 						resolve(response.data[elem])
 						break
 					}
 				})
 			}
-			else
-			{
+			else {
 				api.handle_query_failure(res)
 				reject(res.responseText)
 			}
@@ -69,8 +65,7 @@ api.username = null
  * @param {string} password The plaintext password (this gets hashed).
  * @returns {boolean} Whether the login was successful.
  */
-api.authenticate = async function(username, password)
-{
+api.authenticate = async function (username, password) {
 	const hashed_pass = await api.hash(password)
 	const auth_json = {
 		'username': username,
@@ -89,11 +84,10 @@ api.authenticate = async function(username, password)
  * Refresh the session token, generating a new one.
  * @returns {boolean} Whether the token refreshed successfully.
  */
-api.refresh_token = async function()
-{
+api.refresh_token = async function () {
 	if (api.login_token === null) return false
 
-	const response = JSON.parse(await api.post_json('/auth', {token: api.login_token}))
+	const response = JSON.parse(await api.post_json('/auth', { token: api.login_token }))
 	if (response.error) return false
 
 	api.login_token = 'Bearer ' + response.token
@@ -109,10 +103,8 @@ api.__auto_refresh = false
  * Specify whether session token automatically refreshes while the page is open.
  * @param {boolean} enabled Whether to enable/disable auto-refresh.
  */
-api.auto_refresh_token = function(enabled)
-{
-	function do_auto_refresh()
-	{
+api.auto_refresh_token = function (enabled) {
+	function do_auto_refresh() {
 		if (api.login_token === null) return
 		if (!api.__auto_refresh) return
 
@@ -125,8 +117,7 @@ api.auto_refresh_token = function(enabled)
 		}, 3600000) //Try to refresh token every hour
 	}
 
-	if (!api.__auto_refresh)
-	{
+	if (!api.__auto_refresh) {
 		api.__auto_refresh = enabled
 		do_auto_refresh() //don't run function multiple times
 	}
@@ -137,10 +128,9 @@ api.auto_refresh_token = function(enabled)
  * Check if the current session token is valid.
  * @returns {boolean} Whether the current session token is valid.
  */
-api.verify_token = async function()
-{
+api.verify_token = async function () {
 	if (api.login_token === null) return false
-	const response = JSON.parse(await api.post_json('/auth/verify', {token: api.login_token}))
+	const response = JSON.parse(await api.post_json('/auth/verify', { token: api.login_token }))
 
 	return response.valid
 }
@@ -151,27 +141,22 @@ api.verify_token = async function()
  * @param {boolean} use_cache Use cached static data if it exists.
  * @returns {Promise.<string>} The response text from the server.
  */
-api.get = async function(url, use_cache = true) {
+api.get = async function (url, use_cache = true) {
 	url = url.replace(/^\//, '')
 
 	//Don't re-fetch urls that are cached
-	if (use_cache)
-	{
+	if (use_cache) {
 		const cache_data = cache.read(url)
-		if (cache_data !== null)
-		{
+		if (cache_data !== null) {
 			return cache_data
 		}
 	}
 
 	const res = await fetch(url)
-	if (res.status >= 200 && res.status < 300 && res.ok)
-	{
+	if (res.status >= 200 && res.status < 300 && res.ok) {
 		//Only cache certain file types.
-		for (const filetype of ['.html', '.js', '.css', '.dot', '.json'])
-		{
-			if (url.endsWith(filetype))
-			{
+		for (const filetype of ['.html', '.js', '.css', '.dot', '.json']) {
+			if (url.endsWith(filetype)) {
 				const text = await res.text()
 				cache.write(url, text)
 				return text
@@ -189,8 +174,7 @@ api.get = async function(url, use_cache = true) {
  * @param {string} url
  * @returns {any} The response from the server.
  */
-api.get_json = async url =>
-{
+api.get_json = async url => {
 	const result = await api.get(url)
 	return JSON.parse(result)
 }
@@ -204,8 +188,7 @@ api.get_json = async url =>
  * @param {string} capture If specified, can be values like "camera".
  * @returns {File} The uploaded file, if one was uploaded. An array of files if the multiple flag is true.
  */
-api.file_prompt = function (contentType = '*', multiple = false, capture = null)
-{
+api.file_prompt = function (contentType = '*', multiple = false, capture = null) {
 	return new Promise((resolve, reject) => {
 		let input = document.createElement('input')
 		input.type = 'file'
@@ -221,8 +204,7 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
 			resolve(multiple ? files : files[0])
 		}
 
-		const callback = () =>
-		{
+		const callback = () => {
 			setTimeout(() => {
 				if (!resolved) reject()
 				document.removeEventListener('focus', callback, true)
@@ -247,7 +229,7 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
  * @returns {any} The JSON response from the server.
  */
-api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false) {
+api.upload = function (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false) {
 	return new Promise((resolve, reject) => {
 		let xhr = new XMLHttpRequest
 		let data = new FormData
@@ -268,20 +250,18 @@ api.upload = function(file, progress_handler, auto_unzip = false, tag_list = [],
 
 		xhr.onload = () => {
 			api.upload.xhr = []
-			if (xhr.status >= 200 && xhr.status < 300)
-			{
+			if (xhr.status >= 200 && xhr.status < 300) {
 				resolve(JSON.parse(xhr.responseText))
 			}
-			else
-			{
-				reject({text: xhr.responseText, status: xhr.status, statusText: xhr.statusText})
+			else {
+				reject({ text: xhr.responseText, status: xhr.status, statusText: xhr.statusText })
 			}
 		}
 
 		xhr.onerror = () => {
 			api.upload.xhr = []
 			console.error(xhr)
-			reject({text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText})
+			reject({ text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText })
 		}
 	})
 }
@@ -300,8 +280,7 @@ api.upload.cancel = () => {
 	const ret = api.upload.xhr.length > 0
 	api.upload.canceled = true
 
-	for (let xhr of api.upload.xhr)
-	{
+	for (let xhr of api.upload.xhr) {
 		xhr.abort()
 	}
 	api.upload.xhr = []
@@ -316,8 +295,7 @@ api.upload.cancel = () => {
  * @param {any} json_data Data to send.
  * @returns {string} The response text from the POST request.
  */
-api.post_json = async function(url, json_data)
-{
+api.post_json = async function (url, json_data) {
 	const res = await fetch(url, {
 		method: 'POST',
 		mode: 'cors',
@@ -330,42 +308,36 @@ api.post_json = async function(url, json_data)
 		body: JSON.stringify(json_data),
 	})
 
-	if (res.status >= 200 && res.status < 300 && res.ok)
-	{
+	if (res.status >= 200 && res.status < 300 && res.ok) {
 		return await res.text()
 	}
-	else
-	{
-		throw {status: res.status, statusText: res.statusText}
+	else {
+		throw { status: res.status, statusText: res.statusText }
 	}
 }
 
 /**
  * Write relevant application variables to site cookies.
  */
-api.write_cookies = function()
-{
+api.write_cookies = function () {
 	let cookie = {
 		'Authorization': api.login_token || null,
 		'Username': api.username,
 	}
 
-	for (const i of _.css.vars())
-	{
+	for (const i of _.css.vars()) {
 		cookie[i] = _.css.get_var(i)
 	}
 
-	for (const i in cookie)
-	{
+	for (const i in cookie) {
 		if (cookie[i] === null || cookie[i] === '')
 			document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-		else
-		{
+		else {
 			//All cookies expire after a week
 			let expires = new Date()
 			expires.setDate(expires.getDate() + 7)
 
-			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax; Expires='+expires
+			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax; Expires=' + expires
 		}
 	}
 }
@@ -373,15 +345,13 @@ api.write_cookies = function()
 /**
  * Delete all cookies for this site.
  */
-api.wipe_cookies = function()
-{
+api.wipe_cookies = function () {
 	let cookie = {
 		'Authorization': null,
 		'Username': null,
 	}
 	for (const i of _.css.vars()) cookie[i] = null
-	for (const i in cookie)
-	{
+	for (const i in cookie) {
 		document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 	}
 }
@@ -389,8 +359,7 @@ api.wipe_cookies = function()
 /**
  * Read site cookies and set related application variables.
  */
-api.read_cookies = function()
-{
+api.read_cookies = function () {
 	if (!document.cookie) return
 
 	document.cookie.split(';').forEach(cookie => {
@@ -398,8 +367,7 @@ api.read_cookies = function()
 		const name = parts[0].trim()
 		const value = parts[1].trim()
 
-		switch(name)
-		{
+		switch (name) {
 			case 'Authorization':
 				api.login_token = (value === '') ? null : value
 				break
@@ -419,12 +387,11 @@ api.read_cookies = function()
  * @param {string} password The plaintext password to hash.
  * @returns {string} A SHA-512 hash of the given text.
  */
-api.hash = async function(password)
-{
+api.hash = async function (password) {
 	const data = new TextEncoder().encode(password)
 	const buffer = await crypto.subtle.digest('SHA-512', data)
 	const array = Array.from(new Uint8Array(buffer))
-	const hex = array.map(b => b.toString(16).padStart(2,'0')).join('')
+	const hex = array.map(b => b.toString(16).padStart(2, '0')).join('')
 	return btoa(hex)
 }
 
@@ -432,16 +399,13 @@ api.hash = async function(password)
  * When a query fails, check why, and log the failure.
  * @param {object} res Result from api call.
  */
-api.handle_query_failure = async function(res)
-{
-	if (await api.verify_token())
-	{
+api.handle_query_failure = async function (res) {
+	if (await api.verify_token()) {
 		res.errors = (await res.json()).errors
 		console.error('API ERROR:', res.errors)
 		show_api_errors(res)
 	}
-	else
-	{
+	else {
 		console.log('Token expired, logging out.')
 		api.logout()
 	}
@@ -450,8 +414,7 @@ api.handle_query_failure = async function(res)
 /**
  * Log out of the application and go back to the login page.
  */
-api.logout = function()
-{
+api.logout = function () {
 	api.__auto_refresh = false
 	api.login_token = null
 	api.write_cookies()
@@ -464,8 +427,7 @@ api.logout = function()
  * @param {boolean} url_only If true, just return the generated URL without fetching the file contents.
  * @returns {string} The text contents of the snippet.
  */
-api.snippit = async (name, url_only = false) =>
-{
+api.snippit = async (name, url_only = false) => {
 	if (url_only) return `/html/snippit/${name}.html`
 	return await api.get(`/html/snippit/${name}.html`)
 }
@@ -473,8 +435,7 @@ api.snippit = async (name, url_only = false) =>
 /**
  * Fetch all site data in the background.
  */
-api.preload = async () =>
-{
+api.preload = async () => {
 	if (!cache.enabled) return
 
 	const resources = await api.get_json('/config/sitemap.json')
@@ -500,8 +461,7 @@ let cache = {
 	 * @param {string} name An ID identifying the cached data.
 	 * @param {string} data The data to cache.
 	 */
-	write: function(name, data)
-	{
+	write: function (name, data) {
 		if (cache.enabled)
 			cache.__data[name] = data
 	},
@@ -511,8 +471,7 @@ let cache = {
 	 * @param {string} name An ID identifying the cached data.
 	 * @returns {(string|null)} The cached data for the given name, if it exists. Null otherwise.
 	 */
-	read: function(name)
-	{
+	read: function (name) {
 		return cache.enabled ? (cache.__data[name] || null) : null
 	},
 
@@ -520,16 +479,14 @@ let cache = {
 	 * Remove data from the browser cache.
 	 * @param {string} name An ID identifying the cached data.
 	 */
-	remove: function(name)
-	{
+	remove: function (name) {
 		delete cache.__data[name]
 	},
 
 	/**
 	 * Delete all cached data.
 	 */
-	clear: function()
-	{
+	clear: function () {
 		cache.data = {}
 	},
 }

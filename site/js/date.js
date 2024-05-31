@@ -66,8 +66,7 @@ window.date = {
 		]
 	},
 
-	from_field: function(field, offset_days = 0)
-	{
+	from_field: function (field, offset_days = 0) {
 		const val = $.val(field)
 		if (!val) return null
 		const parts = val.split('-')
@@ -77,14 +76,13 @@ window.date = {
 
 		let dt = new Date('1970-01-01T00:00:00')
 		dt.setYear(y)
-		dt.setMonth(m-1)
+		dt.setMonth(m - 1)
 		dt.setDate(parseInt(d) + offset_days)
 
 		return dt
 	},
 
-	output: function(date_obj)
-	{
+	output: function (date_obj) {
 		const dt = (typeof date_obj === 'string') ? new Date(date_obj) : date_obj
 		const y = dt.getFullYear()
 		const m = date.months.abbrev[dt.getMonth()]
@@ -97,8 +95,7 @@ window.date = {
 		return `${w}, ${d} ${m} ${y} at ${h}:${n}:${s}`
 	},
 
-	db_output: function(date_obj)
-	{
+	db_output: function (date_obj) {
 		if (!date_obj) return null
 		const dt = (typeof date_obj === 'string') ? new Date(date_obj) : date_obj
 		const y = dt.getFullYear()
@@ -111,11 +108,10 @@ window.date = {
 		return `${y}-${m}-${d} ${h}:${n}:${s}`
 	},
 
-	short: function(date_obj)
-	{
+	short: function (date_obj) {
 		const dt = (typeof date_obj === 'string') ? new Date(date_obj) : date_obj
 		const y = dt.getFullYear()
-		const m = dt.getMonth()+1
+		const m = dt.getMonth() + 1
 		const d = dt.getDate()
 		const h = String(dt.getHours()).padStart(2, '0')
 		const n = String(dt.getMinutes()).padStart(2, '0')
@@ -130,8 +126,7 @@ window.date = {
 	 * @param {string|Date} date_obj The date to compare to the current system date.
 	 * @returns {string} The elapsed time between the date and now.
 	 */
-	elapsed: function(date_obj)
-	{
+	elapsed: function (date_obj) {
 		let from = (typeof date_obj === 'string') ? new Date(date_obj) : date_obj
 		let to = new Date()
 
@@ -151,10 +146,8 @@ window.date = {
 			[5 * 1000, 'second'], //Ignore any timespan shorter than 5 seconds
 		]
 
-		for (const ratio of ratios)
-		{
-			if (diff > ratio[0])
-			{
+		for (const ratio of ratios) {
+			if (diff > ratio[0]) {
 				const amt = Math.floor(diff / ratio[0])
 				output.push(amt + ' ' + ratio[1] + (amt === 1 ? '' : 's'))
 				break

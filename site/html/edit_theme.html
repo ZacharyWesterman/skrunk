@@ -74,17 +74,14 @@
 </div>
 
 <script>
-	export function update_colors(field)
-	{
-		_.css.set_var(field.id, field.value + ((['number','range'].includes(field.type)) ? 'px' : '') )
+	export function update_colors(field) {
+		_.css.set_var(field.id, field.value + ((['number', 'range'].includes(field.type)) ? 'px' : ''))
 		api.write_cookies()
 		savecolors()
 	}
 
-	export function reset_colors()
-	{
-		for (const i of _.css.vars())
-		{
+	export function reset_colors() {
+		for (const i of _.css.vars()) {
 			_.css.set_var(i, '')
 		}
 		setcolors()
@@ -104,26 +101,22 @@
 		})
 	}
 
-	function setcolors()
-	{
-		for (const i of _.css.vars())
-		{
+	function setcolors() {
+		for (const i of _.css.vars()) {
 			if (!$(i)) continue
 			const val = _.css.get_var(i)
-			$.set(i, ((['number','range'].includes($(i).type)) ? val.substring(0, val.length - 2) : val).trim())
+			$.set(i, ((['number', 'range'].includes($(i).type)) ? val.substring(0, val.length - 2) : val).trim())
 		}
 	}
 	setcolors()
 
-	function savecolors(wipe = false)
-	{
+	function savecolors(wipe = false) {
 		let colors = []
 		let sizes = []
-		for (const i of _.css.vars())
-		{
+		for (const i of _.css.vars()) {
 			if (!$(i)) continue
 			let out = ($(i).type === 'color') ? colors : sizes
-			out.push({name: i, value: _.css.get_var(i)})
+			out.push({ name: i, value: _.css.get_var(i) })
 		}
 
 		api(`mutation ($username: String!, $theme: UserTheme!){

@@ -8,13 +8,11 @@
 </div>
 
 <script>
-	export function init()
-	{
+	export function init() {
 		refresh_notifs()
 	}
 
-	export async function refresh_notifs()
-	{
+	export async function refresh_notifs() {
 		push.show_notifs()
 		const notifs = (await api(`query ($username: String!, $read: Boolean!, $start: Int!, $count: Int!) {
 			getNotifications (username: $username, read: $read, start: $start, count: $count) {
@@ -39,8 +37,7 @@
 		_('notifications', notifs)
 	}
 
-	export async function mark_as_read(id)
-	{
+	export async function mark_as_read(id) {
 		await api(`mutation ($id: String!) {
 			markNotifAsRead (id: $id)
 		}`, {
@@ -51,8 +48,7 @@
 		push.show_notifs()
 	}
 
-	export async function mark_all_notifs_as_read()
-	{
+	export async function mark_all_notifs_as_read() {
 		const ct = await api(`query ($username: String!, $read: Boolean!) {
 			countNotifications (username: $username, read: $read)
 		}`, {

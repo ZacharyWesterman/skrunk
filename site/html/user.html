@@ -12,10 +12,8 @@
 <script src="/js/page/user.js"></script>
 <script src="/js/page/weather_users.js"></script>
 <script *load="refresh_users">
-	export async function refresh_users()
-	{
-		if (EnabledModules.includes('weather'))
-		{
+	export async function refresh_users() {
+		if (EnabledModules.includes('weather')) {
 			const users = (await query.weather.users()).filter(user => user.username === api.username)
 			_('weather_users', users)
 		}

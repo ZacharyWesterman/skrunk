@@ -4,8 +4,7 @@ await query.require('users')
 let Perms
 let UserData = {}
 
-export async function revoke_sessions(username)
-{
+export async function revoke_sessions(username) {
 	const self_msg = 'Are you sure you want to revoke your sessions? This will log you out of all devices, including this one.'
 	const other_msg = 'Are you sure you want to revoke all sessions for user "' + username + '"? This will log them out of all devices.'
 
@@ -23,13 +22,11 @@ export async function revoke_sessions(username)
 	_.modal.checkmark()
 }
 
-export async function set_perms()
-{
+export async function set_perms() {
 	let new_perms = []
 	let perms_changed = []
-	for (const perm of Perms)
-	{
-		const checked = $('perm-'+perm.name).checked
+	for (const perm of Perms) {
+		const checked = $('perm-' + perm.name).checked
 		if (checked !== UserData.perms.includes(perm.name)) perms_changed.push(perm.name)
 		if (checked) new_perms.push(perm.name)
 	}
@@ -42,12 +39,11 @@ export async function set_perms()
 			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK']
-		}).catch(()=>{})
+		}).catch(() => { })
 		return
 	}
 
-	for (const perm of perms_changed)
-	{
+	for (const perm of perms_changed) {
 		const id = `icon-perm-${perm}`
 		$.blink(id)
 	}
@@ -55,11 +51,9 @@ export async function set_perms()
 	sync_perm_descs()
 }
 
-export async function load_user_data(username, self_view = false)
-{
+export async function load_user_data(username, self_view = false) {
 	let perms = Perms
-	if (!perms)
-	{
+	if (!perms) {
 		perms = api.get_json('/config/permissions.json')
 		perms.then(p => Perms = p)
 	}
@@ -76,8 +70,7 @@ export async function load_user_data(username, self_view = false)
 		all_modules: api('{ getModules }'),
 	})
 
-	if (has_perm('admin'))
-	{
+	if (has_perm('admin')) {
 		await _('usrgrp', {
 			id: 'user-group',
 			items: p2,
@@ -87,8 +80,7 @@ export async function load_user_data(username, self_view = false)
 		})
 	}
 
-	if (self_view)
-	{
+	if (self_view) {
 		push.ready.then(() => {
 			$('enable-push').checked = push.subscribed
 		})
@@ -97,11 +89,9 @@ export async function load_user_data(username, self_view = false)
 	perms.then ? perms.then(sync_perm_descs) : sync_perm_descs()
 
 	api.get_json('/config/modules.json').then(modules => {
-		for (let mod of modules)
-		{
+		for (let mod of modules) {
 			const field = $(`module-name-${mod.id}`)
-			if (field)
-			{
+			if (field) {
 				field.innerText = mod.name
 				$(`module-tooltip-${mod.id}`).innerText = mod.description
 			}
@@ -109,21 +99,18 @@ export async function load_user_data(username, self_view = false)
 	})
 }
 
-export async function update_user_module(field)
-{
+export async function update_user_module(field) {
 	const module_name = field.id.substring(7)
 	const disabled = !field.checked
 
 	field.disabled = true
 	const res = await mutate.users.module(api.username, module_name, disabled)
 
-	if (res.__typename !== 'UserData')
-	{
+	if (res.__typename !== 'UserData') {
 		_.modal.error(res.message)
 		field.checked = !field.checked
 	}
-	else
-	{
+	else {
 		field.checked = !res.disabled_modules.includes(module_name)
 	}
 
@@ -136,11 +123,9 @@ export async function update_user_module(field)
 	p2.then(async all_modules => {
 		const enabled_modules = await p1
 
-		for (let module of all_modules)
-		{
+		for (let module of all_modules) {
 			const enabled = enabled_modules.includes(module)
-			if ($(`module-${module}`).checked !== enabled)
-			{
+			if ($(`module-${module}`).checked !== enabled) {
 				$.blink(`icon-module-${module}`)
 			}
 			$(`module-${module}`).checked = enabled
@@ -150,8 +135,7 @@ export async function update_user_module(field)
 	})
 }
 
-export async function update_groups(username)
-{
+export async function update_groups(username) {
 	const groups = $.val('user-group')
 
 	const res = await api(`mutation ($username: String!, $groups: [String!]!) {
@@ -165,8 +149,7 @@ export async function update_groups(username)
 		groups: groups ? [groups] : [],
 	})
 
-	if (res.__typename !== 'UserData')
-	{
+	if (res.__typename !== 'UserData') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
@@ -185,19 +168,15 @@ export async function update_groups(username)
 	})
 }
 
-function sync_perm_descs()
-{
-	for (const perm of Perms)
-	{
-		const desc = $('perm-'+perm.name).checked ? "true" : "false"
-		$('perm-tooltip-'+perm.name).innerText = perm[desc]
+function sync_perm_descs() {
+	for (const perm of Perms) {
+		const desc = $('perm-' + perm.name).checked ? "true" : "false"
+		$('perm-tooltip-' + perm.name).innerText = perm[desc]
 	}
 }
 
-export async function update_password(password, username)
-{
-	if ((password.length < 8) || (password === username) || (password.includes(username) && (password.length < username.length * 2)))
-	{
+export async function update_password(password, username) {
+	if ((password.length < 8) || (password === username) || (password.includes(username) && (password.length < username.length * 2))) {
 		const criteria = [
 			'Must be at least 8 characters long',
 			'May not contain the username, unless it\'s at least 2&times; the length',
@@ -208,26 +187,24 @@ export async function update_password(password, username)
 			title: 'Invalid Password',
 			text: 'Password must fit <i>all</i> of the following criteria:<ul><li>' + criteria.join('</li><li>') + '</li></ul>',
 			buttons: ['OK'],
-		}).catch(() => {})
+		}).catch(() => { })
 		return
 	}
 
-	if (password !== $.val('user-new-password2'))
-	{
+	if (password !== $.val('user-new-password2')) {
 		_.modal({
 			type: 'error',
 			title: 'Passwords don\'t match',
 			text: 'Make sure you typed the password in correctly!',
 			buttons: ['OK'],
-		}).catch(() => {})
+		}).catch(() => { })
 		return
 	}
 
 	const hashed_pass = await api.hash(password)
 	const res = await mutate.users.password(username, hashed_pass)
 
-	if (res.__typename !== 'UserData')
-	{
+	if (res.__typename !== 'UserData') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
@@ -244,13 +221,11 @@ export async function update_password(password, username)
 	})
 }
 
-export async function update_user_display_name(username)
-{
+export async function update_user_display_name(username) {
 	const display_name = $.val('user-display-name')
 	const res = await mutate.users.display_name(username, display_name)
 
-	if (res.__typename !== 'UserData')
-	{
+	if (res.__typename !== 'UserData') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
@@ -268,36 +243,31 @@ export async function update_user_display_name(username)
 	}, 500)
 }
 
-export async function show_sessions_info()
-{
+export async function show_sessions_info() {
 	await _.modal({
 		type: 'info',
 		title: 'What is a session?',
 		text: await api.snippit('login_sessions'),
 		buttons: ['OK'],
-	}).catch(() => {})
+	}).catch(() => { })
 }
 
-export async function show_group_tooltip()
-{
+export async function show_group_tooltip() {
 	await _.modal({
 		type: 'info',
 		title: 'What are user groups?',
 		text: await api.snippit('user_groups'),
 		buttons: ['OK'],
-	}).catch(() => {})
+	}).catch(() => { })
 }
 
-export async function enable_push_notifs()
-{
+export async function enable_push_notifs() {
 	$('enable-push').disabled = true
-	if (!push.subscribed)
-	{
+	if (!push.subscribed) {
 		await push.enable().then(push.register).then(push.subscribe)
 		push.show_notifs()
 	}
-	else
-	{
+	else {
 		await push.unsubscribe()
 	}
 
@@ -306,8 +276,7 @@ export async function enable_push_notifs()
 	$.blink('icon-notif')
 }
 
-export async function show_notifications_info()
-{
+export async function show_notifications_info() {
 	const res = await _.modal({
 		type: 'info',
 		title: 'Why enable notifications?',

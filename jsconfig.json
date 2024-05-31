@@ -1,3 +1,5 @@
 {
-	"compilerOptions": { "strictFunctionTypes": true }
+	"compilerOptions": {
+		"strictFunctionTypes": true
+	}
 }

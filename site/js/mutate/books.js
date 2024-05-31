@@ -1,6 +1,5 @@
 export default {
-	delete: async rfid =>
-	{
+	delete: async rfid => {
 		return await api(`
 		mutation ($rfid: String!) {
 			unlinkBookTag (rfid: $rfid) {
@@ -17,8 +16,7 @@ export default {
 		})
 	},
 
-	set_owner: async (id, username) =>
-	{
+	set_owner: async (id, username) => {
 		return await api(`
 		mutation ($id: String!, $username: String!) {
 			setBookOwner (id: $id, username: $username) {
@@ -39,8 +37,7 @@ export default {
 		})
 	},
 
-	share: async (id, username) =>
-	{
+	share: async (id, username) => {
 		return await api(`mutation ($id: String!, $username: String!) {
 			shareBook (id: $id, username: $username) {
 				__typename
@@ -54,8 +51,7 @@ export default {
 		})
 	},
 
-	share_nonuser: async (id, name) =>
-	{
+	share_nonuser: async (id, name) => {
 		return await api(`mutation ($id: String!, $name: String!) {
 			shareBookNonUser (id: $id, name: $name) {
 				__typename
@@ -69,8 +65,7 @@ export default {
 		})
 	},
 
-	return: async id =>
-	{
+	return: async id => {
 		return await api(`mutation ($id: String!) {
 			returnBook (id: $id) {
 				__typename
@@ -83,8 +78,7 @@ export default {
 		})
 	},
 
-	borrow: async id =>
-	{
+	borrow: async id => {
 		return await api(`mutation ($id: String!) {
 			borrowBook (id: $id) {
 				__typename
@@ -97,8 +91,7 @@ export default {
 		})
 	},
 
-	request_borrow: async id =>
-	{
+	request_borrow: async id => {
 		return await api(`mutation ($id: String!) {
 			requestToBorrowBook (id: $id) {
 				__typename
@@ -113,8 +106,7 @@ export default {
 		})
 	},
 
-	edit: async (id, changes) =>
-	{
+	edit: async (id, changes) => {
 		return await api(`mutation ($id: String!, $changes: BookEditData!) {
 			editBook (id: $id, changes: $changes) {
 				__typename
@@ -128,8 +120,7 @@ export default {
 		})
 	},
 
-	create: async book_data =>
-	{
+	create: async book_data => {
 		return await api(`mutation ($data: BookCreateData!) {
 			createBook (data: $data) {
 				__typename
@@ -141,8 +132,7 @@ export default {
 		})
 	},
 
-	append_ebook: async (id, ebook_url) =>
-	{
+	append_ebook: async (id, ebook_url) => {
 		return await api(`mutation ($id: String!, $url: String!) {
 			appendEBook(id: $id, url: $url) {
 				__typename

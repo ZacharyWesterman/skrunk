@@ -16,14 +16,20 @@
 			<div class="expand-container" id="card-create">
 				<div>
 					<table>
-						<tr><td><input id="username" placeholder="Username" format="id"></td></tr>
-						<tr><td><input id="password" type="password" autocomplete="new-password" placeholder="Password"></td></tr>
+						<tr>
+							<td><input id="username" placeholder="Username" format="id"></td>
+						</tr>
+						<tr>
+							<td><input id="password" type="password" autocomplete="new-password" placeholder="Password">
+							</td>
+						</tr>
 
 						<tr>
 							<td>
 								<div name="user_group_list"></div>
 							</td>
-							<td><button style="float: left;" class="reset" *click="create_user"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button></td>
+							<td><button style="float: left;" class="reset" *click="create_user"><i
+										class="fa-solid fa-right-to-bracket fa-lg"></i></button></td>
 							<td>
 								<span class="tooltip" *click="show_group_tooltip">
 									<i class="fa-solid fa-circle-question"></i>

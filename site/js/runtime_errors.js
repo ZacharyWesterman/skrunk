@@ -1,7 +1,6 @@
 let errorID = 0
 
-window.show_error_message = function(error)
-{
+window.show_error_message = function (error) {
 	let errorDOM = document.getElementById('runtime-errors')
 	const thisError = 'runtime-error-' + errorID
 	errorID += 1
@@ -11,18 +10,15 @@ window.show_error_message = function(error)
 	$.show(thisError, true)
 }
 
-window.show_api_errors = function(error)
-{
+window.show_api_errors = function (error) {
 	let errorDOM = document.getElementById('runtime-errors')
 	const thisError = 'runtime-error-' + errorID
 	errorID += 1
 
 	let html = `<div class="runtime-error fade hidden" id="${thisError}">API Error: ${error.status} ${error.statusText}`
-	for (const err of error.errors)
-	{
+	for (const err of error.errors) {
 		const msg = err?.extensions?.exception?.stacktrace || [err.message]
-		for (const i of msg)
-		{
+		for (const i of msg) {
 			html += `<br>&rarr;&nbsp;&nbsp;${i}`
 		}
 	}
@@ -32,8 +28,7 @@ window.show_api_errors = function(error)
 	$.show(thisError, true)
 }
 
-window.show_raw_error_message = function(text)
-{
+window.show_raw_error_message = function (text) {
 	let errorDOM = document.getElementById('runtime-errors')
 	const thisError = 'runtime-error-' + errorID
 	errorID += 1
@@ -42,16 +37,13 @@ window.show_raw_error_message = function(text)
 	$.show(thisError, true)
 }
 
-window.clear_error_message = function(thisError)
-{
-	if (thisError === undefined)
-	{
+window.clear_error_message = function (thisError) {
+	if (thisError === undefined) {
 		let errorDOM = document.getElementById('runtime-errors')
 		errorDOM.innerHTML = ''
 		errorID = 0
 	}
-	else
-	{
+	else {
 		let errorDOM = document.getElementById(thisError)
 		$.hide(thisError, true)
 	}

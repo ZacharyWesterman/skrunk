@@ -1,6 +1,5 @@
 export default {
-	delete: async blob_id =>
-	{
+	delete: async blob_id => {
 		return await api(`
 		mutation ($id: String!) {
 			deleteBlob(id: $id) {
@@ -12,11 +11,10 @@ export default {
 					message
 				}
 			}
-		}`, {id: blob_id})
+		}`, { id: blob_id })
 	},
 
-	tags: async (blob_id, tag_list) =>
-	{
+	tags: async (blob_id, tag_list) => {
 		return await api(`
 		mutation ($id: String!, $tags: [String!]!) {
 			setBlobTags (id: $id, tags: $tags) {
@@ -34,8 +32,7 @@ export default {
 		})
 	},
 
-	create_zip: async (username, tag_query, date_from, date_to, name) =>
-	{
+	create_zip: async (username, tag_query, date_from, date_to, name) => {
 		return await api(`
 		mutation ($filter: BlobSearchFilter!) {
 			createZipArchive (filter: $filter) {
@@ -61,8 +58,7 @@ export default {
 		})
 	},
 
-	set_hidden: async (blob_id, hidden) =>
-	{
+	set_hidden: async (blob_id, hidden) => {
 		return await api(`
 		mutation ($id: String!, $hidden: Boolean!) {
 			setBlobHidden (id: $id, hidden: $hidden) {
@@ -83,8 +79,7 @@ export default {
 		})
 	},
 
-	set_ephemeral: async (blob_id, ephemeral) =>
-	{
+	set_ephemeral: async (blob_id, ephemeral) => {
 		return await api(`mutation ($id: String!, $ephemeral: Boolean!) {
 			setBlobEphemeral (id: $id, ephemeral: $ephemeral) {
 				__typename

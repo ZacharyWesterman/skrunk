@@ -7,16 +7,13 @@ const Imports = {
 }
 
 let Query = {
-	require: async module =>
-	{
-		if (Query[module] === undefined)
-		{
+	require: async module => {
+		if (Query[module] === undefined) {
 			await Imports[module]
 		}
 	}
 }
-for (const i in Imports)
-{
+for (const i in Imports) {
 	Imports[i].then(module => Query[i] = module.default)
 }
 window.query = Query

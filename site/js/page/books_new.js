@@ -1,13 +1,12 @@
 //Start the NFC reader ONCE per session, and don't stop it.
 //Trying to stop/restart it multiple times in a session
 //just causes the browser to crash. :/
-if (window.NFC === undefined)
-{
+if (window.NFC === undefined) {
 	try {
 		window.NFC = new NDEFReader
-	} catch(e) {
+	} catch (e) {
 		window.NFC = {
-			scan: () => {}
+			scan: () => { }
 		}
 	}
 }
@@ -15,16 +14,14 @@ if (window.NFC === undefined)
 NFC.scan()
 let AWAITING_SCAN = false
 
-export function init()
-{
+export function init() {
 	AWAITING_SCAN = false
 
 	window.unload.push(() => {
 		NFC.onreading = undefined
 	})
 
-	NFC.onreading = event =>
-	{
+	NFC.onreading = event => {
 		//Check if a book with the tag ID already exists
 		api(`
 		query ($rfid: String!) {
@@ -34,17 +31,15 @@ export function init()
 		}`, {
 			rfid: event.serialNumber,
 		}).then(res => {
-			if (res.__typename === 'Book')
-			{
+			if (res.__typename === 'Book') {
 				_.modal({
 					type: 'error',
 					title: 'Book Already Linked',
 					text: 'A book with this tag has already been cataloged. Please try a different tag or un-link the one from this book.',
 					buttons: ['OK'],
-				}).catch(() => {})
+				}).catch(() => { })
 			}
-			else
-			{
+			else {
 				$('new-tagid').value = event.serialNumber
 				if (AWAITING_SCAN) _.modal.return(event.serialNumber)
 				_.modal.checkmark()
@@ -53,8 +48,7 @@ export function init()
 	}
 }
 
-export async function create_book()
-{
+export async function create_book() {
 	let book_data
 
 	const res = await _.modal({
@@ -62,60 +56,55 @@ export async function create_book()
 		title: 'Manually Enter Book',
 		text: api.snippit('create_book'),
 		buttons: ['OK', 'Cancel'],
-	}, () => {}, //on load
-	choice => { //validate
-		if (choice === 'cancel')
-		{
-			$('book-thumbnail')?.wipe()
-			return true
-		}
+	}, () => { }, //on load
+		choice => { //validate
+			if (choice === 'cancel') {
+				$('book-thumbnail')?.wipe()
+				return true
+			}
 
-		const req_fields = ['book-title', 'book-author', 'book-isbn', 'book-publisher', 'book-published', 'book-pages']
-		let valid = true
-		for (const i of req_fields)
-		{
-			if ($.val(i) === '')
-			{
-				$.flash(i)
-				if (valid) $(i).focus()
+			const req_fields = ['book-title', 'book-author', 'book-isbn', 'book-publisher', 'book-published', 'book-pages']
+			let valid = true
+			for (const i of req_fields) {
+				if ($.val(i) === '') {
+					$.flash(i)
+					if (valid) $(i).focus()
+					valid = false
+				}
+			}
+
+			const isbn = $.val('book-isbn').replaceAll('-', '')
+			if (!isbn.match(/^\d{10}(\d{3})?$/)) {
+				$.flash('book-isbn')
+				if (valid) $('book-isbn').focus()
 				valid = false
 			}
-		}
 
-		const isbn = $.val('book-isbn').replaceAll('-', '')
-		if (!isbn.match(/^\d{10}(\d{3})?$/))
-		{
-			$.flash('book-isbn')
-			if (valid) $('book-isbn').focus()
-			valid = false
-		}
+			if (!$.val('book-pages').match(/^\d+$/)) {
+				$.flash('book-pages')
+				if (valid) $('book-pages').focus()
+				valid = false
+			}
 
-		if (!$.val('book-pages').match(/^\d+$/))
-		{
-			$.flash('book-pages')
-			if (valid) $('book-pages').focus()
-			valid = false
-		}
+			if (!valid) return false
 
-		if (!valid) return false
+			book_data = {
+				title: $.val('book-title').trim(),
+				subtitle: $.val('book-subtitle').trim() || null,
+				authors: $.val('book-author').split(',').map(x => x.trim()),
+				description: $.val('book-description').trim() || null,
+				pageCount: parseInt($.val('book-pages').trim()),
+				isbn: isbn,
+				publisher: $.val('book-publisher').trim(),
+				publishedDate: $.val('book-published').trim(),
+				thumbnail: $('book-thumbnail').blob_id || null,
+			}
 
-		book_data = {
-			title: $.val('book-title').trim(),
-			subtitle: $.val('book-subtitle').trim() || null,
-			authors: $.val('book-author').split(',').map(x => x.trim()),
-			description: $.val('book-description').trim() || null,
-			pageCount: parseInt($.val('book-pages').trim()),
-			isbn: isbn,
-			publisher: $.val('book-publisher').trim(),
-			publishedDate: $.val('book-published').trim(),
-			thumbnail: $('book-thumbnail').blob_id || null,
-		}
-
-		return true
-	}).catch(() => {
-		$('book-thumbnail').wipe()
-		return 'cancel'
-	})
+			return true
+		}).catch(() => {
+			$('book-thumbnail').wipe()
+			return 'cancel'
+		})
 
 	if (res !== 'ok') return
 
@@ -123,8 +112,7 @@ export async function create_book()
 	const p1 = _.modal.scanner()
 
 	let blob_data = {}
-	if (book_data.thumbnail)
-	{
+	if (book_data.thumbnail) {
 		blob_data = await query.blobs.single(book_data.thumbnail)
 		book_data.thumbnail = blob_data.id
 	}
@@ -135,27 +123,24 @@ export async function create_book()
 
 	const result = await mutate.books.create(book_data)
 
-	if (result.__typename !== 'BookTag')
-	{
+	if (result.__typename !== 'BookTag') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
 			text: result.message,
 			buttons: ['OK'],
-		}).catch(() => {})
+		}).catch(() => { })
 		return
 	}
 
 	_.modal.checkmark()
 }
 
-export async function search_books()
-{
+export async function search_books() {
 	const title = $.val('new-title')
 	const author = $.val('new-author')
 
-	if (!author && !title)
-	{
+	if (!author && !title) {
 		await _('booklist', [])
 		return
 	}
@@ -183,25 +168,22 @@ export async function search_books()
 		author: author,
 	})
 
-	if (res.__typename !== 'BookList')
-	{
+	if (res.__typename !== 'BookList') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
 			text: res.message,
 			buttons: ['OK'],
-		}).catch(() => {})
+		}).catch(() => { })
 		return
 	}
 
 	await _('booklist', res.books)
 }
 
-export async function select_book(book_id, book_title)
-{
+export async function select_book(book_id, book_title) {
 	let tagid = $.val('new-tagid')
-	if (tagid === '')
-	{
+	if (tagid === '') {
 		const res = await _.modal.scanner().catch(() => null)
 		if (res === null) return
 		tagid = res
@@ -232,14 +214,13 @@ export async function select_book(book_id, book_title)
 		bookId: book_id,
 	})
 
-	if (res.__typename !== 'BookTag')
-	{
+	if (res.__typename !== 'BookTag') {
 		_.modal({
 			type: 'error',
 			title: 'Failed to link book',
 			text: res.message,
 			buttons: ['OK']
-		}).catch(() => {})
+		}).catch(() => { })
 		return
 	}
 
@@ -252,12 +233,11 @@ export async function select_book(book_id, book_title)
 	await search_books()
 }
 
-export function help()
-{
+export function help() {
 	_.modal({
 		type: 'info',
 		title: 'Where does this data come from?',
 		text: api.snippit('new_book_help'),
 		buttons: ['OK'],
-	}).catch(() => {})
+	}).catch(() => { })
 }

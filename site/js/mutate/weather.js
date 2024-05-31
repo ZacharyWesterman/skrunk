@@ -1,5 +1,5 @@
 export default {
-	create_user: async function(username, lat, lon, phone, max, min) {
+	create_user: async function (username, lat, lon, phone, max, min) {
 		const query = `mutation ($userdata: WeatherUserInput!){
 			createWeatherUser(userdata: $userdata){
 				__typename
@@ -24,7 +24,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	delete_user: async function(username) {
+	delete_user: async function (username) {
 		const query = `mutation ($username: String!){
 			deleteWeatherUser(username: $username){
 				__typename
@@ -42,7 +42,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	enable_user: async function(username) {
+	enable_user: async function (username) {
 		const query = `mutation ($username: String!){
 			enableWeatherUser(username: $username){
 				__typename
@@ -60,7 +60,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	disable_user: async function(username) {
+	disable_user: async function (username) {
 		const query = `mutation ($username: String!){
 			disableWeatherUser(username: $username){
 				__typename
@@ -78,7 +78,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	update_user: async function(username, lat, lon, max, min) {
+	update_user: async function (username, lat, lon, max, min) {
 		const query = `mutation ($userdata: WeatherUserInput!){
 			updateWeatherUser(userdata: $userdata){
 				__typename

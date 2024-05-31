@@ -24,8 +24,7 @@ export default {
 		enter: field => unregister(field, 13),
 		escape: field => unregister(field, 27),
 		resize: () => {
-			for (const i of __resize_listeners)
-			{
+			for (const i of __resize_listeners) {
 				window.removeEventListener('resize', i)
 			}
 			__resize_listeners = []
@@ -33,16 +32,12 @@ export default {
 	},
 }
 
-function register(field, action, keyCode)
-{
-	if (!field.listenedKeys)
-	{
+function register(field, action, keyCode) {
+	if (!field.listenedKeys) {
 		field.listenedKeys = {}
 		field.eventListener = event => {
-			for (const i in field.listenedKeys)
-			{
-				if (event.keyCode == i)
-				{
+			for (const i in field.listenedKeys) {
+				if (event.keyCode == i) {
 					field.listenedKeys[i](field)
 					event.stopPropagation()
 					event.preventDefault()
@@ -55,13 +50,10 @@ function register(field, action, keyCode)
 	field.listenedKeys[keyCode] = action
 }
 
-function unregister(field, keyCode)
-{
-	if (field.listenedKeys && field.listenedKeys[keyCode])
-	{
+function unregister(field, keyCode) {
+	if (field.listenedKeys && field.listenedKeys[keyCode]) {
 		delete field.listenedKeys[keyCode]
-		if (Object.keys(field.listenedKeys).length === 0)
-		{
+		if (Object.keys(field.listenedKeys).length === 0) {
 			field.removeEventListener('keydown', field.eventListener)
 			delete field.listenedKeys
 			delete field.eventListener

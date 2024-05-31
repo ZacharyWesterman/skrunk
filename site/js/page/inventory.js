@@ -1,8 +1,7 @@
 let LookupStart = 0
 let LookupListLen = 15
 
-export async function init()
-{
+export async function init() {
 	await _('lookup', {
 		header: 'Search for items:',
 		fields: `
@@ -34,7 +33,7 @@ export async function init()
 		class: 'fit',
 		options: api(`query ($owner: String!) {
 			getItemLocations (owner: $owner)
-		}`,{
+		}`, {
 			owner: api.username,
 		}),
 	}
@@ -46,14 +45,14 @@ export async function init()
 		options: query.users.list(),
 	}
 
-	const bind = field => {return () => $.bind(field, () => navigate_to_page(0)) }
+	const bind = field => { return () => $.bind(field, () => navigate_to_page(0)) }
 
 	const promises = [
 		_('owner', users).then(() => {
 			const chg = () => {
 				locations.options = api(`query ($owner: String!) {
 					getItemLocations (owner: $owner)
-				}`,{
+				}`, {
 					owner: $.val('owner') || api.username,
 				})
 				_('_location', locations).then(bind('location'))
@@ -80,8 +79,7 @@ export async function init()
 	navigate_to_page(1)
 }
 
-export async function navigate_to_page(page_num)
-{
+export async function navigate_to_page(page_num) {
 	const filter = {
 		category: $.val('category') || null,
 		type: $.val('type') || null,
@@ -99,12 +97,10 @@ export async function navigate_to_page(page_num)
 		const page_ct = Math.ceil(count / LookupListLen)
 		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
 		let this_page = Math.floor(LookupStart / LookupListLen)
-		if (page_ct === 0)
-		{
+		if (page_ct === 0) {
 			this_page = LookupStart = 0
 		}
-		else if (this_page >= page_ct)
-		{
+		else if (this_page >= page_ct) {
 			this_page = page_ct - 1
 			LookupStart = this_page * LookupListLen
 		}

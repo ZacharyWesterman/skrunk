@@ -68,8 +68,7 @@
 <script>
 	let ServerModules = []
 
-	export async function init()
-	{
+	export async function init() {
 		_('group', {
 			id: 'group',
 			options: api('{ getUserGroups }'),
@@ -96,47 +95,38 @@
 		await promise
 
 		//Lock modules if they have a required module which is not enabled.
-		for (const m of await modl)
-		{
-			if (m.requires?.length)
-			{
-				for (const i of m.requires)
-				{
+		for (const m of await modl) {
+			if (m.requires?.length) {
+				for (const i of m.requires) {
 					const parent_field = $(`module-${i}`)
-					const prev_onclick = parent_field.onclick || (() => {})
-					parent_field.onclick = () =>
-					{
+					const prev_onclick = parent_field.onclick || (() => { })
+					parent_field.onclick = () => {
 						prev_onclick()
 
 						let disabled = false
-						for (const x of m.requires)
-						{
-							if (!$(`module-${x}`).checked)
-							{
+						for (const x of m.requires) {
+							if (!$(`module-${x}`).checked) {
 								disabled = true
 								break
 							}
 						}
 
 						const this_field = $(`module-${m.id}`)
-						if (disabled && this_field.checked)
-						{
+						if (disabled && this_field.checked) {
 							set_module_enabled(m.id, !disabled)
 						}
 						this_field.disabled = disabled
 					}
 
 					//Disable any modules that are missing required parent modules.
-					if (!modules.includes(i))
-					{
+					if (!modules.includes(i)) {
 						$(`module-${m.id}`).disabled = true
 					}
 				}
 			}
 		}
 
-		for (const m of modules)
-		{
+		for (const m of modules) {
 			$(`module-${m}`).checked = true
 		}
 
@@ -151,8 +141,7 @@
 		await _('server_configs', configs)
 	}
 
-	export async function set_module_enabled(module_id, enabled)
-	{
+	export async function set_module_enabled(module_id, enabled) {
 		const group = $.val('group')
 
 		await api(`
@@ -169,15 +158,12 @@
 
 		$(`module-${module_id}`).checked = enabled
 
-		if (!group)
-		{
+		if (!group) {
 			const exists = ServerModules.indexOf(module_id) > -1
-			if (enabled && !exists)
-			{
+			if (enabled && !exists) {
 				ServerModules.push(module_id)
 			}
-			else if (!enabled && exists)
-			{
+			else if (!enabled && exists) {
 				ServerModules.splice(ServerModules.indexOf(module_id), 1)
 			}
 		}
@@ -199,8 +185,7 @@
 		reset_modules(await api('{getEnabledModules}'))
 	}
 
-	export async function set_config(config_id)
-	{
+	export async function set_config(config_id) {
 		const value = $.val(`config-${config_id}`) || null
 		const res = api(`mutation ($name: String!, $value: String) {
 			setConfig (name: $name, value: $value)
@@ -209,25 +194,21 @@
 			value: value,
 		})
 
-		if (res)
-		{
+		if (res) {
 			$.blink(`icon-config-${config_id}`)
 		}
-		else
-		{
+		else {
 			_.modal({
 				type: 'error',
 				title: 'ERROR',
-				text: 'Failed to set config value for "'+config_id+'".',
+				text: 'Failed to set config value for "' + config_id + '".',
 				buttons: ['OK'],
-			}).catch(() => {})
+			}).catch(() => { })
 		}
 	}
 
-	export async function create_api_key()
-	{
-		if ($.val('server-new-apikey') === '')
-		{
+	export async function create_api_key() {
+		if ($.val('server-new-apikey') === '') {
 			$.flash('server-new-apikey')
 			return
 		}
@@ -247,8 +228,7 @@
 		_('server_apikeys', api('{ getAPIKeys { key description created perms } }'))
 	}
 
-	export async function delete_api_key(key)
-	{
+	export async function delete_api_key(key) {
 		const res = await _.modal({
 			type: 'question',
 			title: 'Delete API Key?',
@@ -267,18 +247,16 @@
 		_('server_apikeys', api('{ getAPIKeys { key description created perms } }'))
 	}
 
-	export async function clip(text)
-	{
+	export async function clip(text) {
 		await navigator.clipboard.writeText(text)
 		_.modal({
 			text: 'Copied API key to clipboard!',
 			no_cancel: true,
-		}).catch(() => {})
+		}).catch(() => { })
 		setTimeout(_.modal.cancel, 800)
 	}
 
-	export async function update_module_checkboxes()
-	{
+	export async function update_module_checkboxes() {
 		const is_a_group = !!$.val('group')
 
 		const modules = await api(`
