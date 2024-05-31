@@ -3,5 +3,10 @@
 		"id": "tagged_books",
 		"title": "Number of Tagged Books",
 		"module": "books"
+	},
+	{
+		"id": "last_login",
+		"title": "Login History",
+		"perms": ["admin"]
 	}
 ]

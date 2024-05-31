@@ -103,6 +103,9 @@ async function load_widgets()
 		//Only show widgets if their respective module is enabled.
 		if (config.module && !EnabledModules.includes(config.module)) continue
 
+		//Only show widgets if user has the respective permissions.
+		if (config.perms && config.perms.filter(i => has_perm(i)).length === 0) continue
+
 		//Build prelim widget
 		const widget = document.createElement('div')
 		const title = document.createElement('h3')
