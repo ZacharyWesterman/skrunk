@@ -52,6 +52,7 @@ export default {
 					display_name
 					groups
 					disabled_modules
+					email
 				}
 				...on UserDoesNotExistError {
 					message

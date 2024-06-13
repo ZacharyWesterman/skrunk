@@ -97,6 +97,7 @@ def create_user(username: str, password: str, *, groups: list = [], admin: bool 
 		'ephemeral': ephemeral,
 		'groups': groups,
 		'disabled_modules': [],
+		'email': '',
 	}
 
 	db.insert_one(userdata)
@@ -148,6 +149,22 @@ def update_user_display_name(username: str, display_name: str) -> dict:
 	db.update_one({'username': username}, {'$set': {'display_name': display_name}})
 
 	userdata['display_name'] = display_name
+	return userdata
+
+def update_user_email(username: str, email: str) -> dict:
+	global db
+
+	if len(username) == 0:
+		raise exceptions.BadUserNameError
+
+	userdata = db.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	db.update_one({'username': username}, {'$set': {'email': email}})
+
+	userdata['email'] = email
 	return userdata
 
 def update_user_groups(username: str, groups: list) -> dict:

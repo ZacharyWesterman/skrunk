@@ -394,3 +394,28 @@ th {
 		left: 50%;
 	}
 }
+
+.section {
+	padding: .5rem 3px;
+	border: 1px solid var(--disabled-text);
+	border-radius: var(--border-radius);
+	margin: .5rem 3px;
+	position: relative;
+}
+
+.section > label {
+	position: absolute;
+	top: -.6rem;
+	left: 1rem;
+	background-color: var(--secondary);
+	font-size: 80%;
+	padding: 0 3px;
+}
+
+.section.alt > label {
+	background-color: var(--tertiary);
+}
+
+.section > div {
+	border: none;
+}

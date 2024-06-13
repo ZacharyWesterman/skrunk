@@ -108,6 +108,26 @@ export default {
 		})
 	},
 
+	email: async (username, disp_name) => {
+		return await api(`mutation ($username: String!, $email: String!) {
+			updateUserEmail (username: $username, email: $email) {
+				__typename
+				...on UserData {
+					email
+				}
+				...on UserDoesNotExistError {
+					message
+				}
+				...on InsufficientPerms {
+					message
+				}
+			}
+		}`, {
+			'username': username,
+			'email': disp_name,
+		})
+	},
+
 	module: async (username, module_name, disabled) => {
 		return await api(`mutation ($username: String!, $module: String!, $disabled: Boolean!) {
 			updateUserModule (username: $username, module: $module, disabled: $disabled) {

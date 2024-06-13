@@ -243,6 +243,37 @@ export async function update_user_display_name(username) {
 	}, 500)
 }
 
+export async function update_user_email(username) {
+	const email = $.val('user-email')
+
+	if (email !== '') {
+		const valid = $.validate.email(email)
+		$.valid('user-email', valid)
+		if (!valid) return
+	} else {
+		$.valid('user-email')
+	}
+
+	const res = await mutate.users.email(username, email)
+
+	if (res.__typename !== 'UserData') {
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		})
+		return
+	}
+
+	$('user-email').value = res.email
+	const id = `icon-user-email`
+	$.show(id)
+	setTimeout(() => {
+		$.hide(id, true)
+	}, 500)
+}
+
 export async function show_sessions_info() {
 	await _.modal({
 		type: 'info',

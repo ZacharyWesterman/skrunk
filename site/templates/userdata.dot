@@ -13,35 +13,41 @@
 			<input id="user-display-name" placeholder="{{= it.user.username.substring(0,1).toUpperCase() + it.user.username.substring(1)}}" value="{{= it.user.display_name }}" *bind="update_user_display_name('{{= it.user.username }}')">
 			&nbsp;<i id="icon-user-display-name" class="fa-solid fa-circle-check hidden"></i>
 
-			{{? has_perm('admin') }}
-				<br>
+			<br>
+			Email:<br>
+			<input id="user-email" placeholder="None specified" value="{{= it.user.email || '' }}" *bind="update_user_email('{{= it.user.username }}')">
+			&nbsp;<i id="icon-user-email" class="fa-solid fa-circle-check hidden"></i>
+		</div>
+		{{? has_perm('admin') }}
+		<div class="section">
+			<label>Admin Options</label>
+			<div>
 				<span id="usrgrp" template="user_group_list"></span>
 				<button class="icon" *click="update_groups('{{= it.user.username }}')"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
 				<span class="tooltip" *click="show_group_tooltip">
 					<i class="fa-solid fa-circle-question"></i>
 					<span class="tooltiptext t-left">What is this?</span>
 				</span>
-			{{?}}
+				<table>
+					{{~it.perms: perm}}
+						<tr>
+							<td>
+								<span class="tooltip">
+									{{=perm.name}}
+									<span class="tooltiptext t-right t-persist" id="perm-tooltip-{{=perm.name}}">Placeholder Text. You should never see this!</span>
+								</span>
+							</td>
+							<td>
+								<input id="perm-{{=perm.name}}" type="checkbox" {{?it.user.perms.includes(perm.name)}}checked{{?}} *click="set_perms()" {{?((perm.name==='admin') && (api.username === it.user.username)) || it.self_view}}disabled{{?}}>
+							</td>
+							<td>
+								<i id="icon-perm-{{=perm.name}}" class="fa-solid fa-circle-check hidden"></i>
+							</td>
+						</tr>
+					{{~}}
+				</table>
+			</div>
 		</div>
-		{{? has_perm('admin') }}
-		<table>
-			{{~it.perms: perm}}
-				<tr>
-					<td>
-						<span class="tooltip">
-							{{=perm.name}}
-							<span class="tooltiptext t-right t-persist" id="perm-tooltip-{{=perm.name}}">Placeholder Text. You should never see this!</span>
-						</span>
-					</td>
-					<td>
-						<input id="perm-{{=perm.name}}" type="checkbox" {{?it.user.perms.includes(perm.name)}}checked{{?}} *click="set_perms()" {{?((perm.name==='admin') && (api.username === it.user.username)) || it.self_view}}disabled{{?}}>
-					</td>
-					<td>
-						<i id="icon-perm-{{=perm.name}}" class="fa-solid fa-circle-check hidden"></i>
-					</td>
-				</tr>
-			{{~}}
-		</table>
 		{{?}}
 
 		{{? it.self_view }}
