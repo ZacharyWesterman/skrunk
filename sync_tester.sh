@@ -67,18 +67,24 @@ function sync_files()
 	fi
 }
 
+ssh -t tester "sudo systemctl stop server" &
+
 ssh -oConnectTimeout=10 -n tester "cd /home/tester/server && git checkout . && git clean -fd && git fetch origin && git checkout $(git branch | grep '*' | cut -b 2-) && git pull" || exit 1
 for i in $(git status --porcelain | cut -b 3-)
 do
-	scp "$i" tester:/home/tester/server/"$i"
+	scp "$i" tester:/home/tester/server/"$i" &
 done
+wait
 
 sync_files &
 
+ssh -t tester "sudo systemctl start server"
+
+echo "Starting server..."
+
 ssh -t tester "
-	sudo systemctl restart server
 	trap 'sudo systemctl stop server; exit' INT
-	journalctl -f -u server
+	journalctl -n 0 -f -u server
 "
 
 kill -TERM -$$
