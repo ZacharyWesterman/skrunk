@@ -13,10 +13,12 @@
 			<input id="user-display-name" placeholder="{{= it.user.username.substring(0,1).toUpperCase() + it.user.username.substring(1)}}" value="{{= it.user.display_name }}" *bind="update_user_display_name('{{= it.user.username }}')">
 			&nbsp;<i id="icon-user-display-name" class="fa-solid fa-circle-check hidden"></i>
 
+			{{? false}} <!-- Email is not used currently. When we intend to use it, remove this conditional. -->
 			<br>
 			Email:<br>
 			<input id="user-email" placeholder="None specified" value="{{= it.user.email || '' }}" *bind="update_user_email('{{= it.user.username }}')">
 			&nbsp;<i id="icon-user-email" class="fa-solid fa-circle-check hidden"></i>
+			{{?}}
 		</div>
 		{{? has_perm('admin') }}
 		<div class="section">
