@@ -1,5 +1,7 @@
 import json
 from pymongo.collection import Collection
+import application.exceptions as exceptions
+
 db: Collection = None
 
 def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
@@ -151,3 +153,23 @@ def get_all_configs() -> list:
 			}]
 
 	return result
+
+def get_all_themes() -> list:
+	return [i for i in db.find({'type': 'theme'})]
+
+def create_theme(theme: dict) -> dict:
+	existing_theme = db.find_one({'type': 'theme', 'name': theme.get('name')})
+	if existing_theme:
+		db.update_one({'type': 'theme', 'name': theme.get('name')}, {'$set': theme})
+	else:
+		db.insert_one({'type': 'theme', **theme})
+
+	return theme
+
+def delete_theme(name: str) -> dict:
+	theme = db.find_one({'type': 'theme', 'name': name })
+	if theme:
+		db.delete_one({'type': 'theme', 'name': name })
+		return theme
+
+	raise exceptions.MissingConfig(name)

@@ -1,0 +1,31 @@
+<div style="display: grid; text-align: center;">
+	<div>
+	{{~ it.map((i,k) => [k,i]) : theme }}
+	{{? theme[0] % (environment.mobile ? 2 : 4) === 0 }}</div><div style="display: flex;">{{?}}
+	<div>
+		{{= theme[1].name }}
+		<div class="theme clickable" style="border-radius: {{= theme[1].border }};" *click="set_theme('{{= safe_html(JSON.stringify(theme[1])) }}')" >
+			{{~ theme[1].colors.map((i,k) => [k, i]) : color }}
+			<div class="theme-color tc{{= color[0] + 1 }}" style="background-color: {{= color[1] }}; border-color: {{= theme[1].text[Math.max(0, color[0] - 1)] }}"></div>
+			{{~}}
+
+			<div class="theme-text">
+				{{~ theme[1].special.map((i,k) => [k, i]) : text }}
+				<div class="tt{{= text[0] + 1}}" style="background-color: {{= text[1] }};"></div>
+				{{~}}
+			</div>
+		</div>
+	</div>
+	{{~}}
+
+	{{? has_perm('admin') }}
+		{{? it.length % (environment.mobile ? 2 : 4) === 0 }}</div><div style="display: flex;">{{?}}
+		<div style="position: relative; margin-left: 15px; height: 120px; width: 100px;" *click="create_theme" >
+			<div class="clickable" style="width: 80px; height: 80px; border-radius: 50px; border: 4px solid var(--tertiary-text); position: absolute; bottom: 0%;">
+				<i class="fa-solid fa-swatchbook fa-3x" style="position: absolute; bottom: 20%; left: 20%; "></i>
+			</div>
+		</div>
+	{{?}}
+
+	</div>
+</div>

@@ -5,75 +5,83 @@
 
 <div class="card alt">
 	<div class="card-inner">
-		To reset the theme to default values,<br>
-		click the button below.<br>
+		<br>
+		<div name="themelist">Loading themes...</div>
 		<button class="big wide border" *click="reset_colors">Reset Theme</button><br>
-		<p class="error">Here's some example error text.</p>
-		<p class="disabled">Here's some example disabled text.</p>
+	</div>
+</div>
 
-		<div style="width:90%; margin: 0 auto;">
-			<div style="text-align: center;">Border Radius</div>
-			<input style="width:100%" type="range" min="0" max="25" id="--border-radius" *change="update_colors">
-			<!-- <input id="--border-radius" type="number" step="1" *change="update_colors" *enter="update_colors" format="integer" required> -->
+<div class="card">
+	<div class="card-inner">
+		<div class="clickable" *toggles="custom-theme">
+			<h3>
+				Create Your Own Theme
+				<i class="right fa-solid fa-angles-down"></i>
+			</h3>
+		</div>
+
+		<div class="expand-container" id="custom-theme">
+			<div>
+				<div style="width:90%; margin: 0 auto;">
+					<div style="text-align: center;"><h4>Border Radius</h4></div>
+					<input style="width:100%" type="range" min="0" max="25" id="--border-radius" *change="update_colors">
+				</div>
+
+				<h4>Content Colors</h4>
+				<table>
+					<tr>
+						<td>Primary Background</td>
+						<td><input id="--primary" type="color" *change="update_colors"></td>
+					</tr>
+					<tr>
+						<td>Secondary Background</td>
+						<td><input id="--primary-alt" type="color" *change="update_colors"></td>
+					</tr>
+					<tr>
+						<td>Default Content</td>
+						<td><input id="--secondary" type="color" *change="update_colors"></td>
+					</tr>
+					<tr>
+						<td>Alternate Content</td>
+						<td><input id="--tertiary" type="color" *change="update_colors"></td>
+					</tr>
+				</table>
+
+				<h4>Text Colors</h4>
+				<table>
+					<tr>
+						<td>Text on Background</td>
+						<td><input id="--primary-text" type="color" *change="update_colors"></td>
+					</tr>
+					<tr>
+						<td>Text on Default Content</td>
+						<td><input id="--secondary-text" type="color" *change="update_colors"></td>
+					</tr>
+					<tr>
+						<td>Text on Alternate Content</td>
+						<td><input id="--tertiary-text" type="color" *change="update_colors"></td>
+					</tr>
+					<tr>
+						<td>Emphasized Text</td>
+						<td><input id="--error-text" type="color" *change="update_colors"></td>
+					</tr>
+					<tr>
+						<td>Suppressed Text</td>
+						<td><input id="--disabled-text" type="color" *change="update_colors"></td>
+					</tr>
+				</table>
+				<p class="error">Here's some example emphasized text.</p>
+				<p class="disabled">Here's some example suppressed text.</p>
+			</div>
 		</div>
 	</div>
 </div>
 
-<div class="card">
-	<div class="card-inner">
-		<h4>Text Colors</h4>
-		<table>
-			<tr>
-				<td>Text on Background</td>
-				<td><input id="--primary-text" type="color" *change="update_colors"></td>
-			</tr>
-			<tr>
-				<td>Text on Default Content</td>
-				<td><input id="--secondary-text" type="color" *change="update_colors"></td>
-			</tr>
-			<tr>
-				<td>Text on Alternate Content</td>
-				<td><input id="--tertiary-text" type="color" *change="update_colors"></td>
-			</tr>
-			<tr>
-				<td>Error Text</td>
-				<td><input id="--error-text" type="color" *change="update_colors"></td>
-			</tr>
-			<tr>
-				<td>Disabled Text</td>
-				<td><input id="--disabled-text" type="color" *change="update_colors"></td>
-			</tr>
-		</table>
-		<p class="error">Here's some example error text.</p>
-		<p class="disabled">Here's some example disabled text.</p>
-	</div>
-</div>
-
-<div class="card">
-	<div class="card-inner">
-		<h4>Content Colors</h4>
-		<table>
-			<tr>
-				<td>Primary Background</td>
-				<td><input id="--primary" type="color" *change="update_colors"></td>
-			</tr>
-			<tr>
-				<td>Secondary Background</td>
-				<td><input id="--primary-alt" type="color" *change="update_colors"></td>
-			</tr>
-			<tr>
-				<td>Default Content</td>
-				<td><input id="--secondary" type="color" *change="update_colors"></td>
-			</tr>
-			<tr>
-				<td>Alternate Content</td>
-				<td><input id="--tertiary" type="color" *change="update_colors"></td>
-			</tr>
-		</table>
-	</div>
-</div>
-
 <script>
+	export function init() {
+		load_themes()
+	}
+
 	export function update_colors(field) {
 		_.css.set_var(field.id, field.value + ((['number', 'range'].includes(field.type)) ? 'px' : ''))
 		api.write_cookies()
@@ -133,5 +141,103 @@
 				sizes: sizes,
 			}
 		})
+	}
+
+	export async function set_theme(theme_json) {
+		// console.log(theme_json)
+		const theme = JSON.parse(theme_json)
+		console.log(theme.colors)
+
+		const colors = ['--primary', '--primary-alt', '--secondary', '--tertiary']
+		colors.forEach((cssvar, index) => {
+			_.css.set_var(cssvar, theme.colors[index])
+		})
+
+		const text = ['--primary-text', '--secondary-text', '--tertiary-text']
+		text.forEach((cssvar, index) => {
+			_.css.set_var(cssvar, theme.text[index])
+		})
+
+		const special = ['--error-text', '--disabled-text']
+		special.forEach((cssvar, index) => {
+			_.css.set_var(cssvar, theme.special[index])
+		})
+
+		_.css.set_var('--border-radius', theme.border)
+
+		setcolors()
+		savecolors()
+
+		_.modal.checkmark()
+	}
+
+	export async function load_themes() {
+		const themes = await api(`{ getThemes {
+			name
+			colors
+			text
+			special
+			border
+		}}`)
+
+		await _('themelist', themes)
+	}
+
+	export async function create_theme() {
+		const res = await _.modal({
+			title: 'Save Current Theme',
+			text: '<input placeholder="Theme Name" id="theme-name"/>',
+			buttons: ['OK', 'Cancel'],
+		}, () => {}, choice => {
+			//Validate fields
+			if (choice !== 'cancel' && $.val('theme-name') === '') {
+				$.flash('theme-name')
+				return false
+			}
+			return true
+		}, choice => {
+			//Transform fields after validation
+			if (choice === 'cancel') return null
+			return $.val('theme-name')
+		})
+
+		if (res === null) return
+
+		//Save the current theme
+		const result = await api(`mutation ($theme: _Theme!) {
+			createTheme (theme: $theme) {
+				__typename
+				...on MissingConfig { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			theme: {
+				name: res,
+				border: $.val('--border-radius') + 'px',
+				colors: [
+					$.val('--primary'),
+					$.val('--primary-alt'),
+					$.val('--secondary'),
+					$.val('--tertiary'),
+				],
+				text: [
+					$.val('--primary-text'),
+					$.val('--secondary-text'),
+					$.val('--tertiary-text'),
+				],
+				special: [
+					$.val('--error-text'),
+					$.val('--disabled-text'),
+				],
+			}
+		})
+
+		if (result.__typename !== 'Theme') {
+			console.log(result)
+			return
+		}
+
+		_.modal.checkmark()
+		await load_themes()
 	}
 </script>

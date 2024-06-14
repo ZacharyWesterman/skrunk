@@ -47,6 +47,7 @@ query.set_field('getServerEnabledModules', resolve_get_server_enabled_modules)
 query.set_field('getUserGroups', resolve_get_groups)
 query.set_field('getConfigs', resolve_get_all_configs)
 query.set_field('getConfig', resolve_get_config)
+query.set_field('getThemes', resolve_get_themes)
 
 query.set_field('searchSubsonic', resolve_search_subsonic)
 query.set_field('getSystemInfo', resolve_get_system_info)

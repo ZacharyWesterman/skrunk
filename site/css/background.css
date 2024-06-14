@@ -25,7 +25,6 @@ body {
 }
 
 .bg2 {
-	transition: color 0.5s ease-in-out;
 	animation-direction:alternate-reverse;
 	animation-duration: calc(4s / var(--bg-animation-speed));
 }

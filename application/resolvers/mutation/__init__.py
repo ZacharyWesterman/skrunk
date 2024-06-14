@@ -5,7 +5,7 @@ from .sessions import resolve_revoke_user_sessions
 from .blob import *
 from .bugs import *
 from .book import *
-from .settings import resolve_set_module_enabled, resolve_set_config_value
+from .settings import resolve_set_module_enabled, resolve_set_config_value, resolve_create_theme, resolve_delete_theme
 from .notification import *
 from .apikeys import resolve_create_api_key, resolve_delete_api_key
 from .inventory import resolve_create_inventory_item
@@ -57,6 +57,8 @@ mutation.set_field('appendEBook', resolve_append_ebook)
 
 mutation.set_field('setModuleEnabled', resolve_set_module_enabled)
 mutation.set_field('setConfig', resolve_set_config_value)
+mutation.set_field('createTheme', resolve_create_theme)
+mutation.set_field('deleteTheme', resolve_delete_theme)
 
 mutation.set_field('createSubscription', resolve_create_subscription)
 mutation.set_field('deleteSubscription', resolve_delete_subscription)
