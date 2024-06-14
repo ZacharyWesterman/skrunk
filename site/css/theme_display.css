@@ -1,5 +1,4 @@
 .theme {
-	background-color: violet;
 	height: 100px;
 	width: 100px;
 	position: relative;
@@ -45,7 +44,6 @@
 }
 
 .theme-text {
-	background-color: violet;
 	width: 30px;
 	height: 30px;
 	position: absolute;
