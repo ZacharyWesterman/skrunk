@@ -42,7 +42,6 @@ export function init() {
 			else {
 				$('new-tagid').value = event.serialNumber
 				if (AWAITING_SCAN) _.modal.return(event.serialNumber)
-				_.modal.checkmark()
 			}
 		})
 	}
@@ -182,12 +181,11 @@ export async function search_books() {
 }
 
 export async function select_book(book_id, book_title) {
-	let tagid = $.val('new-tagid')
-	if (tagid === '') {
-		const res = await _.modal.scanner().catch(() => null)
-		if (res === null) return
-		tagid = res
-	}
+	AWAITING_SCAN = true
+	const tagid = await _.modal.scanner().catch(() => null)
+	AWAITING_SCAN = false
+
+	if (tagid === null) return
 
 	$('new-tagid').value = '' //Always wipe the RFID field
 

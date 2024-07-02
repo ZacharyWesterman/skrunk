@@ -335,18 +335,16 @@ modal.scanner = async () => {
 		keep_focus()
 	}).catch(() => 'cancel')
 
+	modal.scanner._awaiting = false
+
 	if (res === 'cancel') return null
 
 	if (res === 'use qr') {
 		const qrcode = await qr.load_and_process()
-		modal.scanner._awaiting = false
-
 		if (qrcode === null) return null
-
 		return $.enforce.hex(qrcode)
 	}
 
-	modal.scanner._awaiting = false
 	return res
 }
 modal.scanner._awaiting = false
