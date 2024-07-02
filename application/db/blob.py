@@ -407,5 +407,9 @@ def add_reference(id: str) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$inc': {'references': 1}})
 
 def remove_reference(id: str) -> None:
+	#If an invalid objectID, then there couldn't possibly be any references to it.
+	if not ObjectId.is_valid(id):
+		return
+
 	db.update_one({'_id': ObjectId(id)}, {'$inc': {'references': -1}})
 	db.update_one({'_id': ObjectId(id)}, {'$min': {'references': 0}})
