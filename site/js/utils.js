@@ -371,16 +371,169 @@ window.qr = {
 		const file = await api.file_prompt('image/*', false, 'camera')
 		let qrcode = null
 
+		let startX, startY, endX, endY, isDragging = false
+		let blob_upload = null
+
+		const img_choice = await _.modal({
+			title: '<span id="qr-title">Image Preview</span>',
+			text: '<span id="text">Touch and drag to crop image.<span><br><canvas id="canvas"></canvas>',
+			buttons: ['OK', 'Cancel'],
+		}, () => {
+			//On load, fill the canvas with the image data.
+			const canvas = $('canvas')
+			const ctx = canvas.getContext('2d')
+
+			const image = new Image()
+			image.onload = () => {
+				canvas.width = Math.min(window.innerWidth, image.width)
+				canvas.height = Math.min(window.innerHeight, image.height)
+
+				const scale_factor = Math.min(canvas.width/image.width, canvas.height/image.height)
+				const new_width = image.width * scale_factor
+				const new_height = image.height * scale_factor
+
+				canvas.width = new_width
+				canvas.height = new_height
+
+				ctx.drawImage(image, 0, 0, new_width, new_height)
+			}
+
+			canvas.addEventListener('mousedown', e => {
+				startX = e.offsetX
+				startY = e.offsetY
+				isDragging = true
+			})
+
+			canvas.addEventListener('mousemove', (e) => {
+				if (isDragging) {
+					endX = e.offsetX
+					endY = e.offsetY
+					drawOverlayAndRectangle(startX, startY, endX, endY)
+				}
+			})
+
+			canvas.addEventListener('mouseup', e => {
+				isDragging = false
+			})
+
+			// Handle touch events for cropping
+			canvas.addEventListener('touchstart', (e) => {
+				const touch = e.touches[0]
+				const rect = canvas.getBoundingClientRect()
+				startX = touch.clientX - rect.left
+				startY = touch.clientY - rect.top
+				isDragging = true
+			});
+
+			canvas.addEventListener('touchmove', e => {
+				if (isDragging) {
+					e.stopPropagation()
+					e.preventDefault()
+
+					const touch = e.touches[0];
+					const rect = canvas.getBoundingClientRect();
+
+					endX = touch.clientX - rect.left;
+					endY = touch.clientY - rect.top;
+					drawOverlayAndRectangle(startX, startY, endX, endY)
+				}
+
+			})
+
+			canvas.addEventListener('touchend', () => {
+				isDragging = false
+			})
+
+			// Draw overlay and cropping rectangle
+			const drawOverlayAndRectangle = (startX, startY, endX, endY) => {
+				ctx.clearRect(0, 0, canvas.width, canvas.height)
+				image.onload()
+
+				if (startX !== undefined && startY !== undefined && endX !== undefined && endY !== undefined) {
+					ctx.fillStyle = 'rgba(128, 128, 128, 0.5)'  // semi-transparent gray
+
+					if (startX > endX) endX = [startX, startX = endX][0]
+					if (startY > endY) endY = [startY, startY = endY][0]
+
+					// Draw the overlay
+					ctx.fillRect(0, 0, canvas.width, startY)
+					ctx.fillRect(0, startY, startX, endY - startY)
+					ctx.fillRect(endX, startY, canvas.width - endX, endY - startY)
+					ctx.fillRect(0, endY, canvas.width, canvas.height - endY)
+
+					// Draw the cropping rectangle
+					ctx.strokeStyle = 'red'
+					ctx.lineWidth = 2
+					ctx.strokeRect(startX, startY, endX - startX, endY - startY)
+				}
+			}
+
+			const reader = new FileReader()
+			reader.onload = event => {
+				image.src = event.target.result
+			}
+			reader.readAsDataURL(file)
+		}, choice => {
+			if (choice !== 'ok') return true
+
+			//Resize canvas to full image, then crop
+			const canvas = $('canvas')
+			const ctx = canvas.getContext('2d')
+
+			const image = new Image()
+			const reader = new FileReader()
+			reader.onload = event => {
+				image.src = event.target.result
+			}
+			reader.readAsDataURL(file)
+
+			ctx.drawImage(image, 0, 0, image.width, image.height)
+
+
+			if (startX !== undefined && startY !== undefined && endX !== undefined && endY !== undefined) {
+				if (startX > endX) endX = [startX, startX = endX][0]
+				if (startY > endY) endY = [startY, startY = endY][0]
+
+				let scaleX = 1
+				let scaleY = 1
+				if (image.width > canvas.width) {
+					scaleX = image.width / canvas.width
+					scaleY = image.height / canvas.height
+				}
+
+				const cropWidth = (endX - startX) * scaleX
+				const cropHeight = (endY - startY) * scaleY
+				const croppedImage = ctx.getImageData(startX * scaleX, startY * scaleY, cropWidth, cropHeight)
+
+				canvas.width = cropWidth
+				canvas.height = cropHeight
+				ctx.putImageData(croppedImage, 0, 0)
+			}
+
+			canvas.toBlob(blob => {
+				blob_upload = new File([blob], 'QR.png')
+			}, 'image/png')
+
+			return true
+		})
+
+		if (img_choice !== 'ok') return null
+
+		if (blob_upload === null) {
+			_.modal.error('No file selected!')
+			return null
+		}
+
 		await _.modal({
 			title: '<span id="qr-title">Uploading QR Code...</span>',
 			text: '<div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 45%; top: 50%;"></i></div><progress id="upload-progressbar-qr" value="0" max="100"></progress>',
 			no_cancel: true,
 		}, async () => { //On modal load
 
-			const upload_res = await api.upload(file, progress => {
+			const upload_res = await api.upload(blob_upload, progress => {
 				const percent = progress.loaded / progress.total
 				$('upload-progressbar-qr').value = percent
-			})
+			}, false, [], false, true)
 
 			$.hide('upload-progressbar-qr', true)
 			$('qr-title').innerText = 'Processing QR Code...'
