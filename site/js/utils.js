@@ -364,8 +364,8 @@ window.chart = {
 window.qr = {
 	/**
 	 * Upload an image to the server and process it as a QR code, then delete the image.
-	 * If no QR code was found, this function throws an exception.
-	 * @returns {string} The text that the QR code contained.
+	 * If no QR code was found, this function returns null.
+	 * @returns {string|null} The text that the QR code contained.
 	 */
 	load_and_process: async () => {
 		const file = await api.file_prompt('image/*', false, 'camera')
