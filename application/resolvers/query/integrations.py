@@ -27,7 +27,7 @@ def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list
 				i['tracks'] = [{
 					'id': a['id'],
 					'title': a['title'],
-					'duration': a['duration'],
+					'duration': a.get('duration', -1),
 				} for a in tracks[i['id']]]
 
 		return {
