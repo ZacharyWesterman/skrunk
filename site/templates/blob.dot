@@ -32,6 +32,15 @@
 			<model-viewer alt="3D model {{=safe_html(it.name)}}{{=it.ext}}" src="preview/{{=it.preview}}" poster="3d_model.svg" auto-rotate camera-controls shadow-intensity="1"></model-viewer>
 		{{??it.mimetype.split('/')[0] === 'text'}}
 			<textarea id="ta-{{=it.id}}" *load="api.get('blob/{{=it.id}}{{=it.ext}}').then(res => $('ta-{{=it.id}}').value = res)" disabled></textarea>
+		{{??it.mimetype.split('/')[1] === 'pdf'}}
+			{{? environment.mobile }}<a href="https://docs.google.com/viewerng/viewer?url={{= window.location.protocol + '//' + window.location.host + '/blob/' + it.id + it.ext}}" target="_blank">{{?}}
+			<div style="text-align:center;" class="clickable" {{? !environment.mobile }}*click="view_pdf('blob/{{=it.id}}{{=it.ext}}')" {{?}}>
+				<br>
+				<i class="fa-solid fa-file-pdf fa-3x"></i><br>
+				<u>Click to view PDF</u>
+			</div>
+
+			{{? environment.mobile }}</a>{{?}}
 		{{??}}
 			<i class="disabled">{{=it.mimetype}}</i>
 		{{?}}
