@@ -42,7 +42,7 @@
 
 			{{? environment.mobile }}</a>{{?}}
 		{{??}}
-			<i class="disabled">{{=it.mimetype}}</i>
+			<i class="disabled">{{= it.mimetype.length > 45 ? it.mimetype.substring(0, 40) + '...' : it.mimetype }}</i>
 		{{?}}
 
 		<br>
