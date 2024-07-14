@@ -62,7 +62,7 @@
 }
 
 #pdf-viewer {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	z-index: 8997;
 	display: none;
@@ -71,7 +71,7 @@
 }
 
 .close-pdf-viewer {
-	position: absolute;
+	position: fixed;
 	bottom: .5rem;
 	left: .5rem;
 	z-index: 8998;
