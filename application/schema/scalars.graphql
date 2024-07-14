@@ -3,3 +3,4 @@ scalar DateTime
 scalar Date
 scalar Color
 scalar Size
+scalar Long

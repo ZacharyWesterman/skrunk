@@ -5,7 +5,7 @@ type Blob {
 	name: String!
 	ext: String!
 	mimetype: String!
-	size: Int!
+	size: Long!
 	tags: [String!]!
 	preview: String
 	thumbnail: String
