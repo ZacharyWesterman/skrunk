@@ -178,8 +178,9 @@ modal.upload.start = async function () {
 		const blobs = await api.upload(file, progress => {
 			const percent = (progress.loaded / progress.total) * 100
 			dom_progress.value = percent
+			dom_progress.nextSibling.innerText = parseInt(percent) + '%'
 		}, auto_unzip, tag_list, hidden)
-		$.hide(dom_progress, true)
+		$.hide(dom_progress.parentElement, true)
 
 		if (blobs) {
 			modal.upload.blobs.push(...blobs)
@@ -231,7 +232,7 @@ modal.upload.start = async function () {
 	//Add a progress bar for each file to be uploaded.
 	let innerHTML = ''
 	for (let i = 0; i < files.length; ++i) {
-		innerHTML += `<progress id="upload-progressbar-${i}" value="0" max="100"></progress>`
+		innerHTML += `<div><progress id="upload-progressbar-${i}" value="0" max="100"></progress><span></span></div>`
 	}
 	$('upload-progress').innerHTML = innerHTML
 	$.show('upload-progress')

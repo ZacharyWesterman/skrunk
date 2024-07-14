@@ -110,10 +110,6 @@ hr {
 	color: black;
 }
 
-progress {
-	display: block;
-}
-
 input {
 	height: 1.5rem;
 	border: none;
@@ -418,12 +414,4 @@ th {
 
 .section > div {
 	border: none;
-}
-
-progress {
-	text-align: center;
-}
-
-progress:after {
-	content: attr(value)'%';
 }
