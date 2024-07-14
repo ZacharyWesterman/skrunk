@@ -125,3 +125,7 @@ img.thumbnail {
 		width: 80vw;
 	}
 }
+
+.widget-container > span {
+	padding-left: 16px;
+}

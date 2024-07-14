@@ -87,7 +87,14 @@ async function load_widgets() {
 	const widget_config = await api.get_json('config/widgets.json')
 
 	field.innerHTML = ''
+
+	const column_ct = environment.mobile ? 1 : 2
+	for (let i = 0; i < column_ct; ++i) field.innerHTML += `<span id="widget-column-${i}"></span>`
+
+	let i = -1
 	for (const config of widget_config) {
+		i = (i + 1) % column_ct
+
 		//Only show widgets if their respective module is enabled.
 		if (config.module && !EnabledModules.includes(config.module)) continue
 
@@ -108,7 +115,7 @@ async function load_widgets() {
 
 		w_inner.append(title, w_body)
 		widget.append(w_inner)
-		field.append(widget)
+		$(`widget-column-${i}`).append(widget)
 		$.show(widget)
 
 		//Load the widget data (don't block)
