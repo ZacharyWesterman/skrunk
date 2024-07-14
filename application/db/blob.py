@@ -4,6 +4,7 @@ import application.tags as tags
 from . import users
 from application.integrations import models, images
 from application.objects import BlobSearchFilter, Sorting
+from werkzeug.datastructures import FileStorage
 
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
@@ -63,10 +64,10 @@ def file_info(filename: str) -> str:
 
 	return size, md5sum
 
-def save_blob_data(file: object, auto_unzip: bool, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> list:
+def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> list:
 	global blob_path
 	filename = file.filename
-	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and ext == '.zip'), ephemeral)
+	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and filename.lower().endswith('.zip')), ephemeral)
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	print(f'Beginning stream of file "{filename}"...')
