@@ -333,9 +333,9 @@ api.write_cookies = function () {
 		if (cookie[i] === null || cookie[i] === '')
 			document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 		else {
-			//All cookies expire after a week
+			//All cookies expire after 6 months, regardless of when the server invalidates tokens.
 			let expires = new Date()
-			expires.setDate(expires.getDate() + 7)
+			expires.setMonth(expires.getMonth() + 6)
 
 			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax; Expires=' + expires
 		}
