@@ -6,9 +6,9 @@ import application.db.notification as notification
 from application.db.users import get_user_by_id
 
 @perms.require(['edit'])
-def resolve_link_book_tag(_, info, rfid: str, bookId: str) -> dict:
+def resolve_link_book_tag(_, info, owner: str, rfid: str, bookId: str) -> dict:
 	try:
-		return { '__typename': 'BookTag', **link_book_tag(rfid, bookId) }
+		return { '__typename': 'BookTag', **link_book_tag(owner, rfid, bookId) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 	except ApiFailedError as e:
@@ -91,9 +91,9 @@ def resolve_edit_book(_, info, id: str, changes: dict) -> dict:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 
 @perms.require(['edit'])
-def resolve_create_book(_, info, data: dict) -> dict:
+def resolve_create_book(_, info, owner: str, data: dict) -> dict:
 	try:
-		return { '__typename': 'BookTag', **create_book(data) }
+		return { '__typename': 'BookTag', **create_book(owner, data) }
 	except exceptions.ClientError as e:
 		return { '__typename': e.__class__.__name__, 'message': str(e) }
 

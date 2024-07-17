@@ -152,7 +152,7 @@ def refresh_book_data(rfid: str) -> None:
 	db.update_one({'rfid': rfid}, {'$set': updated})
 
 
-def link_book_tag(rfid: str, book_id: str) -> dict:
+def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
 	if db.find_one({'rfid': rfid}):
 		raise exceptions.BookTagExistsError(rfid)
 
@@ -161,12 +161,13 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
+	owner_data = users.get_user_data(owner)
 
 	book_data = {
 		'rfid': rfid,
 		'bookId': book_id,
 		'creator': user_data['_id'],
-		'owner': user_data['_id'],
+		'owner': owner_data['_id'],
 		'shared': False,
 		'shareHistory': [],
 		'lastSync': datetime.utcnow(),
@@ -188,15 +189,16 @@ def link_book_tag(rfid: str, book_id: str) -> dict:
 
 	return book_data
 
-def create_book(data: dict) -> dict:
+def create_book(owner: str, data: dict) -> dict:
 	username = decode_user_token(get_request_token()).get('username')
 	user_data = users.get_user_data(username)
+	owner_data = users.get_user_data(owner)
 
 	book_data = {
 		'rfid': data['rfid'],
 		'bookId': None,
 		'creator': user_data['_id'],
-		'owner': user_data['_id'],
+		'owner': owner_data['_id'],
 		'shared': False,
 		'shareHistory': [],
 		'lastSync': datetime.utcnow(),

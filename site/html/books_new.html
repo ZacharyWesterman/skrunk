@@ -15,6 +15,9 @@
 
 			<input id="new-tagid" format="hex" hidden>
 			<button class="icon clickable right alt" style="margin-top:.1rem" *click="create_book"><i class="fa-solid fa-square-plus fa-xl"></i></button>
+
+			Owner is <span name="new-owner" template="dropdown"></span>
+
 			<table>
 				<tr>
 					<td><input id="new-title" *bind="search_books" placeholder="Search for Title, Author, etc."></td>

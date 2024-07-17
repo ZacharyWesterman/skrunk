@@ -108,7 +108,7 @@ input BookCreateData {
 }
 
 union BookQueryResponse = BookList | ApiFailedError
-union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError | InsufficientPerms
+union BookTagCreateResponse = BookTag | BookTagExistsError | ApiFailedError | InsufficientPerms | UserDoesNotExistError
 union BookResponse = Book | BookTagDoesNotExistError
 union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientPerms
 union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerms
@@ -126,7 +126,7 @@ extend type Query {
 }
 
 extend type Mutation {
-	linkBookTag(rfid: String!, bookId: String!): BookTagCreateResponse!
+	linkBookTag(owner: String!, rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
 	borrowBook(id: String!): BookTagShareResponse!
 	requestToBorrowBook(id: String!): NotificationResponse!
@@ -135,7 +135,7 @@ extend type Mutation {
 	returnBook(id: String!): BookTagShareResponse!
 	setBookOwner(id: String!, username: String!): BookEditResponse!
 	editBook(id: String!, changes: BookEditData!): BookEditResponse!
-	createBook(data: BookCreateData!): BookTagCreateResponse!
+	createBook(owner: String!, data: BookCreateData!): BookTagCreateResponse!
 
 	appendEBook(id: String!, url: String!): BookEditResponse!
 }
