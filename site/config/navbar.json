@@ -11,7 +11,7 @@
 			"action": "load_dashboard()"
 		},
 		{
-			"text": "Edit User Info",
+			"text": "User Settings",
 			"icon": "user-pen",
 			"action": "dashnav('user')",
 			"goto": "user"
@@ -202,7 +202,7 @@
 			"goto": "default"
 		},
 		{
-			"text": "Edit User Info",
+			"text": "User Settings",
 			"icon": "user-pen",
 			"action": "dashnav('user')"
 		},
