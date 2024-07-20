@@ -43,6 +43,12 @@
 			"module": "files"
 		},
 		{
+			"text": "Data Feeds",
+			"icon": "rss",
+			"action": "dashnav('feed')",
+			"module": "feed"
+		},
+		{
 			"text": "Upload Files",
 			"icon": "file-arrow-up",
 			"action": "_.modal.upload()",

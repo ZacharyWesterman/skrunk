@@ -1,0 +1,33 @@
+type FeedData {
+	feed: String! #Feed ID
+	text: String!
+	fetched: DateTime!
+}
+
+type Feed {
+	id: String!
+	name: String!
+	creator: String!
+	created: DateTime!
+	kind: String!
+	url: String!
+	notify: Boolean!
+}
+
+type FeedDoesNotExistError {
+	message: String!
+}
+
+union FeedQueryResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError
+union FeedMutateResponse = Feed | UserDoesNotExistError | InsufficientPerms
+
+#Resolvers below this line:
+
+extend type Query {
+	getFeed(id: String!): FeedQueryResponse!
+	getUserFeeds(username: String!): [Feed!]!
+}
+
+extend type Mutation {
+	createFeed(name: String!, url: String!, kind: String!, pattern: String, notify: Boolean!): FeedMutateResponse!
+}
