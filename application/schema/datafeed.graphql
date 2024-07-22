@@ -34,4 +34,5 @@ extend type Query {
 
 extend type Mutation {
 	createFeed(name: String!, url: String!, kind: String!, notify: Boolean!): FeedMutateResponse!
+	deleteFeed(id: String!): FeedMutateResponse!
 }

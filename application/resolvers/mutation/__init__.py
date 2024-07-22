@@ -74,3 +74,4 @@ mutation.set_field('deleteAPIKey', resolve_delete_api_key)
 mutation.set_field('createInventoryItem', resolve_create_inventory_item)
 
 mutation.set_field('createFeed', resolve_create_feed)
+mutation.set_field('deleteFeed', resolve_delete_feed)

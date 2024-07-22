@@ -11,6 +11,12 @@
 	margin-left: 2.5rem;
 }
 
+.t-float-left {
+	right: 0%;
+	bottom: 0% !important;
+	margin-right: 2.5rem;
+}
+
 /* Tooltip text */
 .tooltip .tooltiptext {
 	visibility: hidden;

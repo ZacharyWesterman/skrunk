@@ -11,12 +11,15 @@
 					<i id="chevron" class="left fa-solid fa-angles-down"></i>
 					My Feeds
 				</span>
-				<span name="feed-choice" template="dropdown">Loading...</span>
+				<span name="feed-choice-div" template="dropdown"></span>
+				<span style="font-size: 80%;" class="tooltip" *click="help">
+					<i class="fa-solid fa-circle-question"></i>
+					<span class="tooltiptext t-center">What are data feeds?</span>
+				</span>
 			</h3>
 
-
 			<div id="data-feed-expand" class="expand-container">
-				<div id="data-feed-list">Loading your data feeds...</div>
+				<div name="data_feed_list">Loading your data feeds...</div>
 			</div>
 		</div>
 	</div>

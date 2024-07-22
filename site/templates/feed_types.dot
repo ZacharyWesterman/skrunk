@@ -1,0 +1,9 @@
+The server needs some way to know how to fetch the next document in a feed, as well as how to handle the document once it's fetched. A feed will follow the respective rules for the given feed type.
+
+{{~ it: item }}
+<p>
+	<b>[{{= item.display }}]</b>
+	<br>
+	{{= item.description }}
+</p>
+{{~}}

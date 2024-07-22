@@ -1,6 +1,7 @@
 from . import users, perms
 from datetime import datetime
-from application.exceptions import InvalidFeedKindError
+from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError
+from bson.objectid import ObjectId
 
 from pymongo.database import Database
 db: Database = None
@@ -30,3 +31,17 @@ def create_feed(name: str, url: str, kind: str, notify: bool) -> dict:
 	}).inserted_id
 
 	return prepare_feed(db.feeds.find_one({'_id':id}))
+
+def delete_feed(id: str) -> dict:
+	if not ObjectId.is_valid(id):
+		raise FeedDoesNotExistError(id)
+
+	feed = db.feeds.find_one({'_id': ObjectId(id)})
+	if feed is None:
+		raise FeedDoesNotExistError(id)
+
+	#Delete the feed and any associated documents.
+	db.feeds.delete_one({'_id': ObjectId(id)})
+	db.documents.delete_many({'feed': ObjectId(id)})
+
+	return prepare_feed(feed)

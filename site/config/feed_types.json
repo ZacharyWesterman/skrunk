@@ -2,6 +2,6 @@
 	{
 		"value": "markdown_recursive",
 		"display": "Markdown, Recursive-Next",
-		"description": "Search inside the most recent post for a link of the form '[next](...)'"
+		"description": "Documents are assumed to be Markdown text. To find the next document, search inside the most recently fetched document for a link of the form \"[next](...)\"."
 	}
 ]
