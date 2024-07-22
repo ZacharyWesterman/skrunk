@@ -68,3 +68,5 @@ query.set_field('getInventory', resolve_get_inventory)
 query.set_field('countInventory', resolve_count_inventory)
 
 query.set_field('getUserFeeds', resolve_get_user_feeds)
+query.set_field('getFeedDocuments', resolve_get_feed_documents)
+query.set_field('countFeedDocuments', resolve_count_feed_documents)

@@ -1,7 +1,11 @@
 type FeedDocument {
 	feed: String! #Feed ID
-	text: String!
+	author: String
+	posted: DateTime
+	body: String!
+	body_html: String!
 	fetched: DateTime!
+	updated: DateTime!
 }
 
 type Feed {
@@ -30,6 +34,8 @@ union FeedMutateResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError 
 extend type Query {
 	getFeed(id: String!): FeedQueryResponse!
 	getUserFeeds(username: String!): [Feed!]!
+	getFeedDocuments(feed: String!, start: Int!, count: Int!): [FeedDocument!]!
+	countFeedDocuments(feed: String!): Int!
 }
 
 extend type Mutation {

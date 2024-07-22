@@ -1,4 +1,22 @@
 export async function init() {
+	await _('lookup', {
+		header: `
+			<span class="clickable" *toggles="data-feed-expand">
+				<i id="chevron" class="left fa-solid fa-angles-down"></i>
+				My Feeds
+			</span>
+			<span name="feed-choice-div" template="dropdown"></span>
+			<span style="font-size: 80%;" class="tooltip" *click="help">
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-center">What are data feeds?</span>
+			</span>`,
+		fields: `
+			<div id="data-feed-expand" class="expand-container">
+				<div name="data_feed_list">Loading your data feeds...</div>
+			</div>`,
+		template: 'feed_documents',
+	})
+
 	await _('feed-choice-div', {
 		id: 'feed-choice',
 		options: [],
@@ -48,6 +66,8 @@ async function get_my_feeds() {
 		options: dropdown,
 		default: "No Feed Selected",
 		append: true,
+	}).then(() => {
+		$.bind('feed-choice', () => navigate_to_page(0))
 	})
 }
 
@@ -153,4 +173,40 @@ export function help_types() {
 		text: '<div name="feed_types">Loading...</div>',
 		buttons: ['OK'],
 	}, () => _('feed_types', p1))
+}
+
+export async function navigate_to_page(page_num) {
+	const lookup_list_len = 15
+	const lookup_start = page_num * lookup_list_len
+
+	const count_promise = api(`query ($feed: String!) { countFeedDocuments(feed: $feed) }`, {
+		feed: $.val('feed-choice')
+	}).then(count => {
+		const page_ct = Math.ceil(count / lookup_list_len)
+		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
+		return {
+			pages: pages,
+			count: page_ct,
+			current: Math.floor(lookup_start / lookup_list_len),
+			total: count,
+		}
+	})
+
+	const items_promise = api(`query ($feed: String!, $start: Int!, $count: Int!) {
+		getFeedDocuments(feed: $feed, start: $start, count: $count) {
+			author
+			posted
+			body
+			body_html
+			fetched
+			updated
+		}
+	}`, {
+		feed: $.val('feed-choice'),
+		start: lookup_start,
+		count: lookup_list_len,
+	})
+
+	_('page-list', count_promise)
+	_('lookup-results', items_promise)
 }

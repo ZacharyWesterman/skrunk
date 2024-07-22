@@ -45,3 +45,17 @@ def delete_feed(id: str) -> dict:
 	db.documents.delete_many({'feed': ObjectId(id)})
 
 	return prepare_feed(feed)
+
+def get_documents(feed: str, start: int, count: int) -> list[dict]:
+	if not ObjectId.is_valid(feed):
+		return []
+
+	return [
+		i for i in db.documents.find({'feed': ObjectId(feed)}).skip(start).limit(count)
+	]
+
+def count_documents(feed: str) -> int:
+	if not ObjectId.is_valid(feed):
+		return 0
+
+	return db.documents.count_documents({'feed': ObjectId(feed)})
