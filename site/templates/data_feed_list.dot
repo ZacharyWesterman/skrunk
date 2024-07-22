@@ -1,4 +1,6 @@
 {{? it.length }}
+<hr>
+<p>Edit existing feeds:</p>
 <table>
 	<tr>
 		<th style="border-right: 1px solid var(--secondary-text)">Name</th>

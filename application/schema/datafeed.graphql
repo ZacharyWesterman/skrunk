@@ -34,7 +34,7 @@ union FeedMutateResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError 
 extend type Query {
 	getFeed(id: String!): FeedQueryResponse!
 	getUserFeeds(username: String!): [Feed!]!
-	getFeedDocuments(feed: String!, start: Int!, count: Int!): [FeedDocument!]!
+	getFeedDocuments(feed: String!, start: Int!, count: Int!, sorting: Sorting!): [FeedDocument!]!
 	countFeedDocuments(feed: String!): Int!
 }
 

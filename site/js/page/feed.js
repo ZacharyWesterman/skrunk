@@ -11,6 +11,15 @@ export async function init() {
 				<span class="tooltiptext t-center">What are data feeds?</span>
 			</span>`,
 		fields: `
+			Sort By
+			<select id="sort-by" *bind="navigate_to_page(0)">
+				<option value="posted" selected>Date Posted</option>
+				<option value="updated">Date Updated</option>
+			</select>
+			<select id="sort-order" *bind="navigate_to_page(0)">
+				<option value="descending" selected>Newest First</option>
+				<option value="ascending">Oldest First</option>
+			</select>
 			<div id="data-feed-expand" class="expand-container">
 				<div name="data_feed_list">Loading your data feeds...</div>
 			</div>`,
@@ -162,7 +171,12 @@ export async function delete_feed(id) {
 }
 
 export function help() {
-
+	_.modal({
+		title: 'Data Feeds',
+		type: 'info',
+		text: api.snippit('feeds'),
+		buttons: ['OK'],
+	})
 }
 
 export function help_types() {
@@ -192,8 +206,8 @@ export async function navigate_to_page(page_num) {
 		}
 	})
 
-	const items_promise = api(`query ($feed: String!, $start: Int!, $count: Int!) {
-		getFeedDocuments(feed: $feed, start: $start, count: $count) {
+	const items_promise = api(`query ($feed: String!, $start: Int!, $count: Int!, $sorting: Sorting!) {
+		getFeedDocuments(feed: $feed, start: $start, count: $count, sorting: $sorting) {
 			author
 			posted
 			body
@@ -205,6 +219,10 @@ export async function navigate_to_page(page_num) {
 		feed: $.val('feed-choice'),
 		start: lookup_start,
 		count: lookup_list_len,
+		sorting: {
+			fields: [$.val('sort-by')],
+			descending: $.val('sort-order') === 'descending',
+		}
 	})
 
 	_('page-list', count_promise)

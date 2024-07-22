@@ -2,6 +2,7 @@ from . import users, perms
 from datetime import datetime
 from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError
 from bson.objectid import ObjectId
+from ..objects import Sorting
 
 from pymongo.database import Database
 db: Database = None
@@ -46,12 +47,14 @@ def delete_feed(id: str) -> dict:
 
 	return prepare_feed(feed)
 
-def get_documents(feed: str, start: int, count: int) -> list[dict]:
+def get_documents(feed: str, start: int, count: int, sorting: Sorting) -> list[dict]:
 	if not ObjectId.is_valid(feed):
 		return []
 
 	return [
-		i for i in db.documents.find({'feed': ObjectId(feed)}).skip(start).limit(count)
+		i for i in db.documents.find({'feed': ObjectId(feed)}).sort([
+			(s, -1 if sorting['descending'] else 1) for s in sorting['fields']
+		]).skip(start).limit(count)
 	]
 
 def count_documents(feed: str) -> int:
