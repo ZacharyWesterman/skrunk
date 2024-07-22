@@ -1,6 +1,6 @@
 from application.db.settings import set_module_enabled, get_enabled_modules, set_config, create_theme, delete_theme
 import application.db.perms as perms
-import application.exceptions as exceptions
+from ..decorators import *
 
 @perms.require(['admin'])
 def resolve_set_module_enabled(_, info, module_id: str, enabled: bool, group: str|None) -> list:
@@ -13,16 +13,11 @@ def resolve_set_config_value(_, info, name: str, value: str|None) -> bool:
 	return True
 
 @perms.require(['admin'])
+@handle_client_exceptions
 def resolve_create_theme(_, info, theme: dict) -> dict:
-	print(theme, flush=True)
-	try:
-		return { '__typename': 'Theme', **create_theme(theme) }
-	except exceptions.ClientError as e:
-		return { '__typename': e.__class__.__name__, 'message': str(e) }
+	return { '__typename': 'Theme', **create_theme(theme) }
 
 @perms.require(['admin'])
+@handle_client_exceptions
 def resolve_delete_theme(_, info, name: str) -> dict:
-	try:
-		return { '__typename': 'Theme', **delete_theme(name)}
-	except exceptions.ClientError as e:
-		return { '__typename': e.__class__.__name__, 'message': str(e) }
+	return { '__typename': 'Theme', **delete_theme(name)}

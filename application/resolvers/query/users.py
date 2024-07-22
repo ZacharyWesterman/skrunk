@@ -1,12 +1,10 @@
-import application.exceptions as exceptions
 from application.db.users import get_user_data, get_user_list
 import application.db.perms as perms
+from ..decorators import *
 
+@handle_client_exceptions
 def resolve_get_user(_, info, username: str) -> dict:
-	try:
-		return { '__typename': 'UserData', **get_user_data(username) }
-	except exceptions.ClientError as e:
-		return { '__typename': 'UserDoesNotExistError', 'message': str(e) }
+	return { '__typename': 'UserData', **get_user_data(username) }
 
 def resolve_list_users(_, info, restrict: bool) -> list:
 	user_data = perms.caller_info()

@@ -1,9 +1,9 @@
-
-import application.exceptions as exceptions
 import application.db.perms as perms
 from application.db.inventory import create_inventory_item
+from ..decorators import *
 
 @perms.require(['edit'])
+@handle_client_exceptions
 def resolve_create_inventory_item(_, info, owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str|None) -> dict:
 	if category.strip() == '' or type.strip() == '' or location.strip() == '' or blob_id.strip() == '':
 		fields = []
@@ -18,7 +18,4 @@ def resolve_create_inventory_item(_, info, owner: str, category: str, type: str,
 			'fields': fields,
 		}
 
-	try:
-		return { '__typename': 'Item', **create_inventory_item(owner, category, type, location, blob_id, description, rfid) }
-	except exceptions.ClientError as e:
-		return { '__typename': e.__class__.__name__, 'message': str(e) }
+	return { '__typename': 'Item', **create_inventory_item(owner, category, type, location, blob_id, description, rfid) }
