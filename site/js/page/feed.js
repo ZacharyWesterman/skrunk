@@ -25,7 +25,7 @@ export async function init() {
 export async function append_modal() {
 	//Create new feed
 
-	const res = await _.modal({
+	const choice = await _.modal({
 		title: 'New Data Feed',
 		icon: 'rss',
 		text: api.snippit('new_feed'),
@@ -62,9 +62,22 @@ export async function append_modal() {
 		}
 	})
 
-	if (res === null) return
+	if (choice === null) return
 
 	//User wants to create a data feed. Not much validation we can do as to the URL and whatnot, so just assume it's correct.
 	//If it's incorrect, the user can delete or edit the feed later.
-	console.log(res)
+	const res = await api(`mutation ($name: String!, $url: String!, $kind: String!, $notify: Boolean!) {
+		createFeed (name: $name, url: $url, kind: $kind, notify: $notify) {
+			__typename
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+			...on InvalidFeedKindError { message }
+		}
+	}`, choice)
+
+	if (res.__typename !== 'Feed') {
+		_.modal.error(res.message)
+	} else {
+		_.modal.checkmark()
+	}
 }

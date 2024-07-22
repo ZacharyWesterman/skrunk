@@ -1,6 +1,7 @@
 [
 	{
-		"value": "reddit_recursive",
-		"display": "Reddit (Recursive-Next)"
+		"value": "markdown_recursive",
+		"display": "Markdown, Recursive-Next",
+		"description": "Search inside the most recent post for a link of the form '[next](...)'"
 	}
 ]

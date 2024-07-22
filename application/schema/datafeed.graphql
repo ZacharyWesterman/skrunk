@@ -1,4 +1,4 @@
-type FeedData {
+type FeedDocument {
 	feed: String! #Feed ID
 	text: String!
 	fetched: DateTime!
@@ -18,8 +18,12 @@ type FeedDoesNotExistError {
 	message: String!
 }
 
+type InvalidFeedKindError {
+	message: String!
+}
+
 union FeedQueryResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError
-union FeedMutateResponse = Feed | UserDoesNotExistError | InsufficientPerms
+union FeedMutateResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError | InsufficientPerms | InvalidFeedKindError
 
 #Resolvers below this line:
 
@@ -29,5 +33,5 @@ extend type Query {
 }
 
 extend type Mutation {
-	createFeed(name: String!, url: String!, kind: String!, pattern: String, notify: Boolean!): FeedMutateResponse!
+	createFeed(name: String!, url: String!, kind: String!, notify: Boolean!): FeedMutateResponse!
 }
