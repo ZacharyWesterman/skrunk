@@ -1,5 +1,10 @@
 export default async (config, field) => {
 	let chart_data = await api(`{countAllUserBooks { owner { username display_name } count }}`)
+	if (chart_data.length === 0) {
+		$.hide(field.parentElement)
+		return
+	}
+
 	chart_data = chart_data.sort((a, b) => b.count - a.count)
 
 	const labels = chart_data.map(i => i.owner.display_name)
