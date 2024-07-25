@@ -44,5 +44,10 @@
 		"id": "subsonic",
 		"name": "Music Server",
 		"description": "Enable integration with a Subsonic music server."
+	},
+	{
+		"id": "feed",
+		"name": "Data Feeds",
+		"description": "Enable specifying arbitrary data feeds that automatically update."
 	}
 ]

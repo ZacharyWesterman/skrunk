@@ -64,3 +64,11 @@ class InvalidSubscriptionToken(ClientError):
 class ItemExistsError(ClientError):
 	def __init__(self, id: str):
 		super().__init__(f'An item already exists with RFID {id}')
+
+class FeedDoesNotExistError(ClientError):
+	def __init__(self, id: str):
+		super().__init__(f'No feed found with ID "{id}"')
+
+class InvalidFeedKindError(ClientError):
+	def __init__(self, kind: str):
+		super().__init__(f'Feeds of kind "{kind}" are not supported')

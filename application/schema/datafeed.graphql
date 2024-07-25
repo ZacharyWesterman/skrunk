@@ -1,0 +1,44 @@
+type FeedDocument {
+	feed: String! #Feed ID
+	author: String
+	posted: DateTime
+	body: String!
+	body_html: String!
+	fetched: DateTime!
+	updated: DateTime!
+}
+
+type Feed {
+	id: String!
+	name: String!
+	creator: String!
+	created: DateTime!
+	kind: String!
+	url: String!
+	notify: Boolean!
+}
+
+type FeedDoesNotExistError {
+	message: String!
+}
+
+type InvalidFeedKindError {
+	message: String!
+}
+
+union FeedQueryResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError
+union FeedMutateResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError | InsufficientPerms | InvalidFeedKindError
+
+#Resolvers below this line:
+
+extend type Query {
+	getFeed(id: String!): FeedQueryResponse!
+	getUserFeeds(username: String!): [Feed!]!
+	getFeedDocuments(feed: String!, start: Int!, count: Int!, sorting: Sorting!): [FeedDocument!]!
+	countFeedDocuments(feed: String!): Int!
+}
+
+extend type Mutation {
+	createFeed(name: String!, url: String!, kind: String!, notify: Boolean!): FeedMutateResponse!
+	deleteFeed(id: String!): FeedMutateResponse!
+}

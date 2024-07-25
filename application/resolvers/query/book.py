@@ -1,10 +1,10 @@
 from application.integrations.exceptions import ApiFailedError
 from application.integrations import google_books
 from application.db.book import get_book_tag, get_books, count_books, count_all_user_books
-from application.exceptions import ClientError
 from application.objects import BookSearchFilter, Sorting
 import application.db.perms as perms
 from application.db.users import userids_in_groups
+from ..decorators import *
 
 def resolve_search_google_books(_, info, title: str, author: str) -> dict:
 	try:
@@ -12,12 +12,10 @@ def resolve_search_google_books(_, info, title: str, author: str) -> dict:
 	except ApiFailedError as e:
 		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
+@handle_client_exceptions
 def resolve_get_book_by_tag(_, info, rfid: str) -> dict:
-	try:
-		tag_data = get_book_tag(rfid, parse = True)
-		return { '__typename': 'Book', **tag_data }
-	except ClientError as e:
-		return { '__typename': e.__class__.__name__, 'message': str(e) }
+	tag_data = get_book_tag(rfid, parse = True)
+	return { '__typename': 'Book', **tag_data }
 
 def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	if filter.get('owner') is None:
