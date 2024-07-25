@@ -1,6 +1,6 @@
 from . import users, perms
 from datetime import datetime
-from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError
+from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError, UserDoesNotExistError
 from bson.objectid import ObjectId
 from ..objects import Sorting
 
@@ -9,6 +9,13 @@ db: Database = None
 
 def prepare_feed(feed: dict) -> dict:
 	feed['id'] = feed['_id']
+
+	try:
+		user_data = users.get_user_by_id(feed['creator'])
+		feed['creator'] = user_data['username']
+	except UserDoesNotExistError:
+		pass
+
 	return feed
 
 def get_user_feeds(username: str) -> list[dict]:
