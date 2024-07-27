@@ -6,17 +6,20 @@ import application.db.perms as perms
 from application.db.users import userids_in_groups
 from ..decorators import *
 
+@perms.module('books')
 def resolve_search_google_books(_, info, title: str, author: str) -> dict:
 	try:
 		return { '__typename': 'BookList', 'books': google_books.query(title=title, author=author) }
 	except ApiFailedError as e:
 		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
+@perms.module('books')
 @handle_client_exceptions
 def resolve_get_book_by_tag(_, info, rfid: str) -> dict:
 	tag_data = get_book_tag(rfid, parse = True)
 	return { '__typename': 'Book', **tag_data }
 
+@perms.module('books')
 def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	if filter.get('owner') is None:
 		user_data = perms.caller_info()
@@ -26,6 +29,7 @@ def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int,
 
 	return get_books(filter, start, count, sorting)
 
+@perms.module('books')
 def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
 	if filter.get('owner') is None:
 		user_data = perms.caller_info()
@@ -35,6 +39,7 @@ def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
 
 	return count_books(filter)
 
+@perms.module('books')
 def resolve_count_all_user_books(_, info) -> list:
 	user_data = perms.caller_info()
 	users = userids_in_groups(user_data.get('groups', []))

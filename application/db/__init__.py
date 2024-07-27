@@ -8,7 +8,6 @@ def init_db(data_db_url: str = 'localhost', weather_db_url: str = 'localhost', b
 	users.db = data_client.data.users
 	apikeys.db = data_client.data.api_keys
 
-	perms.db = users.db
 	perms.apikeydb = apikeys.db
 
 	settings.db = data_client.data.settings

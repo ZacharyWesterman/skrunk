@@ -4,6 +4,7 @@ from application.db import perms
 
 SUBSONIC = None
 
+@perms.module('subsonic')
 def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list:
 	global SUBSONIC
 
@@ -37,6 +38,7 @@ def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list
 	except subsonic.SessionError as e:
 		return { '__typename': 'SubsonicError', 'message': str(e) }
 
+@perms.module('subsonic')
 @perms.require(['admin'])
 def resolve_get_system_info(_, info) -> dict:
 	return { '__typename': 'SystemInfo', 'storage': system.disk_usage() }

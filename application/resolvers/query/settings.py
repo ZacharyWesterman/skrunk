@@ -20,5 +20,6 @@ def resolve_get_all_configs(_, info) -> list:
 def resolve_get_config(_, info, name: str) -> str|None:
     return get_config(name)
 
+@perms.module('theme')
 def resolve_get_themes(_, info) -> list:
     return get_all_themes()

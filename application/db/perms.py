@@ -1,10 +1,10 @@
 __all__ = ['require']
 
-from application import tokens
+from application import tokens, exceptions
 from inspect import getfullargspec
+from application.db import users
 
 from pymongo.collection import Collection
-db: Collection = None
 apikeydb: Collection = None
 
 def bad_perms() -> dict:
@@ -24,11 +24,10 @@ def caller_info() -> str:
 	if username is None:
 		return None
 
-	userdata = db.find_one({'username': username})
-	if not userdata:
+	try:
+		return users.get_user_data(username)
+	except exceptions.ClientError:
 		return None
-
-	return userdata
 
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return any(k in user_data['perms'] for k in perm_list)
@@ -91,6 +90,33 @@ def require(perms: list[str], *, perform_on_self: bool = False, data_func: calla
 				return method(_, info, *args, **kwargs)
 			else:
 				return bad_perms()
+
+		return wrap
+
+	return inner
+
+def module(*modules: list[str]) -> callable:
+	"""Require the calling user to have all the specified modules enabled.
+
+	This is a decorator for application resolvers, to avoid redundant module-checking logic all over the place.
+	If the does not have one or more of the specified modules enabled when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
+
+	### Parameters:
+	@modules: Any number of module names (strings).
+
+	### Returns:
+	- The resolver function, with decorator applied.
+	"""
+
+	def inner(method: callable) -> callable:
+		def wrap(_, info, *args, **kwargs):
+			user_data = caller_info()
+
+			# If module(s) are disabled for the user, return error.
+			if user_data is None or set(user_data.get('disabled_modules', [])).intersection(modules):
+				return bad_perms()
+			else:
+				return method(_, info, *args, **kwargs)
 
 		return wrap
 

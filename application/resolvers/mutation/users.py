@@ -14,12 +14,14 @@ def resolve_delete_user(_, info, username: str) -> dict:
 	userdata = delete_user(username)
 	return { '__typename' : 'UserData', **userdata }
 
+@perms.module('theme')
 @perms.require(['admin'], perform_on_self = True)
 @handle_client_exceptions
 def resolve_update_user_theme(_, info, username: str, theme: dict) -> dict:
 	userdata = update_user_theme(username, theme)
 	return { '__typename': 'UserData', **userdata }
 
+@perms.module('theme')
 @perms.require(['admin'], perform_on_self = True)
 @handle_client_exceptions
 def resolve_delete_user_theme(_, info, username: str) -> dict:
