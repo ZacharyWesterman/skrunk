@@ -34,7 +34,7 @@ export async function init() {
 		if (i === 'tag') Editor.update({ value: q[i] })
 		else {
 			const f = $('blob-filter-' + i)
-			if (f.checked !== undefined) f.checked = q[i]
+			if (f.type === 'checkbox') f.checked = q[i]
 			else f.value = q[i]
 			$.toggle_expand('extra-search-fields', true)
 			$('toggle-chevron').classList.add('inverted')
@@ -81,7 +81,7 @@ async function get_blobs(start, count) {
 	let has = false
 	for (const i of ['title', 'creator', 'from', 'to', 'ephemeral']) {
 		const f = $('blob-filter-' + i)
-		const v = f.checked !== undefined ? f.checked : f.value
+		const v = f.type === 'checkbox' ? f.checked : f.value
 		if (v) { q[i] = v; has = true }
 	}
 	if (Editor.value) {
