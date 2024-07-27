@@ -7,8 +7,8 @@ from application.integrations import qrcode
 from ..decorators import *
 
 @perms.module('files')
-@perms.require(['edit'])
-@perms.require(['admin'], perform_on_self = True, data_func = get_blob_data)
+@perms.require('edit')
+@perms.require('admin', perform_on_self = True, data_func = get_blob_data)
 @handle_client_exceptions
 def resolve_delete_blob(_, info, id: str) -> dict:
 	blob_data = get_blob_data(id)
@@ -18,13 +18,13 @@ def resolve_delete_blob(_, info, id: str) -> dict:
 	return { '__typename': 'Blob', **blob_data }
 
 @perms.module('files')
-@perms.require(['edit'])
+@perms.require('edit')
 @handle_client_exceptions
 def resolve_set_blob_tags(_, info, id: str, tags: list) -> dict:
 	return { '__typename': 'Blob', **set_blob_tags(id, tags) }
 
 @perms.module('files')
-@perms.require(['edit'])
+@perms.require('edit')
 @handle_client_exceptions
 def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
 	try:
@@ -35,7 +35,7 @@ def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }
 
 @perms.module('files')
-@perms.require(['edit'])
+@perms.require('edit')
 @handle_client_exceptions
 def resolve_generate_blob_from_qr(_, info, text: str|None, amount: int) -> dict:
 	amount = min(70, max(1, amount))
@@ -44,15 +44,15 @@ def resolve_generate_blob_from_qr(_, info, text: str|None, amount: int) -> dict:
 	return { '__typename': 'Blob', **get_blob_data(id) }
 
 @perms.module('files')
-@perms.require(['edit'])
-@perms.require(['admin'], perform_on_self = True)
+@perms.require('edit')
+@perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_set_blob_hidden(_, info, id: str, hidden: bool) -> dict:
 	return { '__typename': 'Blob', **set_blob_hidden(id, hidden) }
 
 @perms.module('files')
-@perms.require(['edit'])
-@perms.require(['admin'], perform_on_self = True)
+@perms.require('edit')
+@perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_set_blob_ephemeral(_, info, id: str, ephemeral: bool) -> dict:
 	return { '__typename': 'Blob', **set_blob_ephemeral(id, ephemeral) }

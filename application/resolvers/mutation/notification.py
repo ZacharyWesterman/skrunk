@@ -2,7 +2,7 @@ from application.db import perms
 from application.db.notification import create_subscription, delete_subscription, delete_subscriptions, send, mark_as_read, get_user_from_notif, mark_all_as_read
 from ..decorators import *
 
-@perms.require(['admin'], perform_on_self = True)
+@perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_create_subscription(_, info, username: str, subscription: dict) -> dict:
 	create_subscription(username, subscription)
@@ -11,11 +11,11 @@ def resolve_create_subscription(_, info, username: str, subscription: dict) -> d
 def resolve_delete_subscription(_, info, auth: str) -> int:
 	return delete_subscription(auth)
 
-@perms.require(['admin'], perform_on_self = True)
+@perms.require('admin', perform_on_self = True)
 def resolve_delete_subscriptions(_, info, username: str) -> int:
 	return delete_subscriptions(username)
 
-@perms.require(['admin', 'notify'])
+@perms.require('admin', 'notify')
 @handle_client_exceptions
 def resolve_send_notification(_, info, username: str, title: str, body: str, category: str) -> dict:
 	if title == '':
@@ -28,12 +28,12 @@ def resolve_send_notification(_, info, username: str, title: str, body: str, cat
 
 	return { '__typename': 'Notification', 'message': 'Notification sent' }
 
-@perms.require(['admin'], perform_on_self=True, data_func=get_user_from_notif)
+@perms.require('admin', perform_on_self=True, data_func=get_user_from_notif)
 def resolve_mark_notification_as_read(_, info, id: str) -> bool:
 	mark_as_read(id)
 	return True
 
-@perms.require(['admin'], perform_on_self=True)
+@perms.require('admin', perform_on_self=True)
 def resolve_mark_all_notifications_as_read(_, info, username: str) -> bool:
 	mark_all_as_read(username)
 	return True

@@ -69,7 +69,7 @@ def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = False, da
 	# If user does not have ALL required perms, fail.
 	return user_has_perms(user_data, perms)
 
-def require(perms: list[str], *, perform_on_self: bool = False, data_func: callable = None) -> callable:
+def require(*perms: list[str], perform_on_self: bool = False, data_func: callable = None) -> callable:
 	"""Require the calling user to have certain permissions.
 
 	This is a decorator for application resolvers, to avoid redundant permission-checking logic all over the place.
@@ -102,7 +102,7 @@ def module(*modules: list[str]) -> callable:
 	If the does not have one or more of the specified modules enabled when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
 
 	### Parameters:
-	@modules: Any number of module names (strings).
+	@modules: The modules that must ALL be enabled for the user.
 
 	### Returns:
 	- The resolver function, with decorator applied.

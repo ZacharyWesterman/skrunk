@@ -3,7 +3,7 @@ from application.db.inventory import create_inventory_item
 from ..decorators import *
 
 @perms.module('inventory')
-@perms.require(['edit'])
+@perms.require('edit')
 @handle_client_exceptions
 def resolve_create_inventory_item(_, info, owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str|None) -> dict:
 	if category.strip() == '' or type.strip() == '' or location.strip() == '' or blob_id.strip() == '':

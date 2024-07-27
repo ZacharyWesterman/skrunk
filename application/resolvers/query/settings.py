@@ -13,7 +13,7 @@ def resolve_get_server_enabled_modules(_, info, group: str|None) -> list:
 def resolve_get_groups(_, info) -> list:
     return get_groups()
 
-@perms.require(['admin'])
+@perms.require('admin')
 def resolve_get_all_configs(_, info) -> list:
     return { '__typename': 'ConfigList', 'configs': get_all_configs() }
 
