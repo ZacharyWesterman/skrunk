@@ -23,6 +23,37 @@ input _Theme {
 	border: String!
 }
 
+type SchemaParam {
+	name: String!
+	type: String!
+	optional: Boolean!
+}
+
+type SchemaReturnType {
+	type: String!
+	optional: Boolean!
+	array: Boolean!
+}
+
+type SchemaType {
+	type: String!
+	union: Boolean!
+	subtypes: [String!]!
+}
+
+type SchemaQuery {
+	name: String!
+	params: [SchemaParam!]!
+	query: String!
+	returns: SchemaReturnType!
+}
+
+type Schema {
+	mutations: [SchemaQuery!]!
+	queries: [SchemaQuery!]!
+	types: [SchemaType!]!
+}
+
 union ConfigsResponse = ConfigList | InsufficientPerms
 union ThemeEditResponse = Theme | MissingConfig | InsufficientPerms
 
@@ -36,6 +67,7 @@ extend type Query {
 	getConfigs: ConfigsResponse
 	getConfig(name: String!): String
 	getThemes: [Theme!]!
+	getSchema: Schema!
 }
 
 extend type Mutation {

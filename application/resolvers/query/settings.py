@@ -1,5 +1,6 @@
 from application.db.settings import get_enabled_modules, get_groups, get_all_configs, get_config, get_modules, get_all_themes
 from application.db import perms
+from application.integrations import graphql
 
 def resolve_get_enabled_modules(_, info) -> list:
     return get_enabled_modules(perms.caller_info())
@@ -23,3 +24,6 @@ def resolve_get_config(_, info, name: str) -> str|None:
 @perms.module('theme')
 def resolve_get_themes(_, info) -> list:
     return get_all_themes()
+
+def resolve_get_schema(_, info) -> dict:
+    return graphql.schema()
