@@ -4,7 +4,7 @@ type FeedDocument {
 	posted: DateTime
 	body: String!
 	body_html: String!
-	fetched: DateTime!
+	created: DateTime!
 	updated: DateTime!
 }
 
@@ -22,12 +22,18 @@ type FeedDoesNotExistError {
 	message: String!
 }
 
+type FeedDocumentDoesNotExistError {
+	message: String!
+}
+
 type InvalidFeedKindError {
 	message: String!
 }
 
 union FeedQueryResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError
 union FeedMutateResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError | InsufficientPerms | InvalidFeedKindError
+union FeedDocumentCreateResponse = FeedDocument | FeedDoesNotExistError | InsufficientPerms
+union FeedDocumentUpdateResponse = FeedDocument | FeedDocumentDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:
 
@@ -44,4 +50,6 @@ extend type Mutation {
 	createFeed(name: String!, url: String!, kind: String!, notify: Boolean!): FeedMutateResponse!
 	deleteFeed(id: String!): FeedMutateResponse!
 	updateFeedNotify(id: String!, notify: Boolean!): FeedMutateResponse!
+	createFeedDocument(feed: String!, author: String, posted: DateTime, body: String!): FeedDocumentCreateResponse!
+	updateFeedDocument(id: String!, body: String!): FeedDocumentUpdateResponse!
 }

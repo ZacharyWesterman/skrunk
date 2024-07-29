@@ -1,8 +1,9 @@
 from . import users, perms
 from datetime import datetime
-from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError, UserDoesNotExistError
+from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError, UserDoesNotExistError, FeedDocumentDoesNotExistError
 from bson.objectid import ObjectId
 from ..objects import Sorting
+import markdown
 
 from pymongo.database import Database
 db: Database = None
@@ -17,6 +18,10 @@ def prepare_feed(feed: dict) -> dict:
 		pass
 
 	return feed
+
+def prepare_document(document: dict) -> dict:
+	document['id'] = document['_id']
+	return document
 
 def get_feed(id: str) -> dict:
 	if not ObjectId.is_valid(id):
@@ -93,3 +98,49 @@ def get_feeds(start: int, count: int) -> list[dict]:
 
 def count_feeds() -> int:
 	return db.feeds.count_documents({})
+
+def get_body_html(feed_kind: str, body: str) -> str:
+	if feed_kind == 'markdown_recursive':
+		body_html = markdown.markdown(body)
+	else:
+		raise InvalidFeedKindError(feed_kind) #Should never happen, but we want the caller to know about it if it does happen!
+
+	return body_html
+
+def create_document(feed: str, author: str|None, posted: datetime|None, body: str) -> dict:
+	feed_data = get_feed(feed)
+
+	id = db.documents.insert_one({
+		'feed': ObjectId(feed),
+		'author': author,
+		'posted': posted,
+		'body': body,
+		'body_html': get_body_html(feed_data['kind']),
+		'created': datetime.utcnow(),
+		'updated': None,
+	}).inserted_id
+
+	return prepare_document(db.documents.find_one({'_id': id}))
+
+def update_document(id: str, body: str) -> dict:
+	if not ObjectId.is_valid(id):
+		raise FeedDocumentDoesNotExistError(id)
+
+	document = db.documents.find_one({'_id': ObjectId(id)})
+
+	if document is None:
+		raise FeedDocumentDoesNotExistError(id)
+
+	feed = get_feed(document['feed'])
+	body_html = get_body_html(feed['kind'])
+
+	db.documents.update_one({'_id': ObjectId(id)}, {'$set': {
+		'body': body,
+		'body_html': body_html,
+		'updated': datetime.utcnow(),
+	}})
+
+	document['body'] = body
+	document['body_html'] = body_html
+
+	return prepare_document(document)

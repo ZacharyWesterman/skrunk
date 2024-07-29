@@ -212,7 +212,7 @@ export async function navigate_to_page(page_num) {
 			posted
 			body
 			body_html
-			fetched
+			created
 			updated
 		}
 	}`, {
