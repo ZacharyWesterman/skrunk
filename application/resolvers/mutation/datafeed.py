@@ -1,4 +1,4 @@
-from application.db.datafeed import create_feed, delete_feed, get_feed, set_feed_notify, create_document, update_document
+from application.db.datafeed import create_feed, delete_feed, get_feed, set_feed_notify, create_document, update_document, set_document_read
 from ..decorators import *
 from application.db import perms
 from datetime import datetime
@@ -31,3 +31,9 @@ def resolve_create_feed_document(_, info, feed: str, author: str|None, posted: d
 @handle_client_exceptions
 def resolve_update_feed_document(_, info, id: str, body: str) -> dict:
 	return { '__typename': 'FeedDocument', **update_document(id, body) }
+
+@perms.module('feed')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_mark_document_read(_, info, id: str, read: bool) -> dict:
+	return { '__typename': 'FeedDocument', **set_document_read(id, read) }

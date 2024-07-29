@@ -214,6 +214,10 @@ export async function navigate_to_page(page_num) {
 			body_html
 			created
 			updated
+			title
+			url
+			id
+			read
 		}
 	}`, {
 		feed: $.val('feed-choice'),
@@ -252,4 +256,26 @@ export async function update_notify(id) {
 	}
 
 	$.blink(icon)
+}
+
+export async function toggle_read(id) {
+	const field = $('content-' + id)
+	const unread = !field.classList.contains('expanded')
+	$.toggle_expand(field, unread)
+
+	const res = await api(`mutation ($id: String!, $read: Boolean!) {
+		markDocumentRead (id: $id, read: $read) {
+			__typename
+			...on FeedDocumentDoesNotExistError { message }
+			...on InsufficientPerms { message }
+		}
+	}`, {
+		id: id,
+		read: !unread,
+	})
+
+	if (res.__typename !== 'FeedDocument') {
+		_.modal.error(res.message)
+		return
+	}
 }

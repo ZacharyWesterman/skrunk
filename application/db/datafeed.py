@@ -79,6 +79,17 @@ def get_documents(feed: str, start: int, count: int, sorting: Sorting) -> list[d
 		]).skip(start).limit(count)
 	]
 
+def get_document(id: str) -> dict:
+	if not ObjectId.is_valid(id):
+		raise FeedDocumentDoesNotExistError(id)
+
+	document = db.documents.find_one({'_id': ObjectId(id)})
+
+	if document is None:
+		raise FeedDocumentDoesNotExistError(id)
+
+	return prepare_document(document)
+
 def count_documents(feed: str) -> int:
 	if not ObjectId.is_valid(feed):
 		return 0
@@ -120,18 +131,13 @@ def create_document(feed: str, author: str|None, posted: datetime|None, body: st
 		'created': datetime.utcnow(),
 		'updated': None,
 		'url': url,
+		'read': False,
 	}).inserted_id
 
 	return prepare_document(db.documents.find_one({'_id': id}))
 
 def update_document(id: str, body: str) -> dict:
-	if not ObjectId.is_valid(id):
-		raise FeedDocumentDoesNotExistError(id)
-
-	document = db.documents.find_one({'_id': ObjectId(id)})
-
-	if document is None:
-		raise FeedDocumentDoesNotExistError(id)
+	document = get_document(id)
 
 	feed = get_feed(document['feed'])
 	body_html = get_body_html(feed['kind'], body)
@@ -147,4 +153,12 @@ def update_document(id: str, body: str) -> dict:
 	document['body_html'] = body_html
 	document['updated'] = updated
 
-	return prepare_document(document)
+	return document
+
+def set_document_read(id: str, read: bool) -> dict:
+	document = get_document(id)
+
+	db.documents.update_one({'_id': ObjectId(id)}, {'$set': {'read': read}})
+	document['read'] = read
+
+	return document

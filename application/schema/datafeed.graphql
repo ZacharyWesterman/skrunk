@@ -9,6 +9,7 @@ type FeedDocument {
 	created: DateTime!
 	updated: DateTime
 	url: String!
+	read: Boolean!
 }
 
 type Feed {
@@ -55,4 +56,5 @@ extend type Mutation {
 	updateFeedNotify(id: String!, notify: Boolean!): FeedMutateResponse!
 	createFeedDocument(feed: String!, author: String, posted: DateTime, body: String!, title: String, url: String!): FeedDocumentCreateResponse!
 	updateFeedDocument(id: String!, body: String!): FeedDocumentUpdateResponse!
+	markDocumentRead(id: String!, read: Boolean!): FeedDocumentUpdateResponse!
 }

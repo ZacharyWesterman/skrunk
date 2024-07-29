@@ -1,7 +1,22 @@
 {{~ it: doc }}
 <div class="card">
-	<div class="card-inner">
-		<p>{{= doc.body_html || doc.body }}</p>
+	<div class="card-inner" *click="toggle_read('{{= doc.id }}')" id="{{= doc.id }}">
+		{{? doc.title }}<h2>{{= doc.title }}</h2>{{?}}
+		{{? doc.author || doc.posted }}
+		<div class="disabled">
+			Posted
+			{{? doc.author}} by {{= doc.author}}{{?}}
+			{{? doc.posted}} on {{= date.output(doc.posted)}} ({{= date.elapsed(doc.posted) }}){{?}}
+		</div>
+		{{?}}
+
+		<i class="right fa-solid fa-angles-down fa-lg {{? !doc.read }}inverted{{?}}"></i>
+
+		<div class="expand-container {{? !doc.read }}expanded{{?}}" id="content-{{= doc.id }}" *expand_invert="{{= doc.id }}" >
+			<div>
+				<p>{{= doc.body_html || doc.body }}</p>
+			</div>
+		</div>
 	</div>
 </div>
 {{~}}
