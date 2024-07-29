@@ -1,6 +1,6 @@
 {{~ it: doc }}
 <div class="card">
-	<div class="card-inner" *click="toggle_read('{{= doc.id }}')" id="{{= doc.id }}">
+	<div class="card-inner clickable" *click="toggle_read('{{= doc.id }}')" id="{{= doc.id }}">
 		{{? doc.title }}<h2>{{= doc.title }}</h2>{{?}}
 		{{? doc.author || doc.posted }}
 		<div class="disabled">
