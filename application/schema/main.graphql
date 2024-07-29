@@ -13,3 +13,8 @@ input Sorting {
 	fields: [String!]!
 	descending: Boolean!
 }
+
+type Sorting_ {
+	fields: [String!]!
+	descending: Boolean!
+}

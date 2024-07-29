@@ -51,6 +51,9 @@ def create_feed(name: str, url: str, kind: str, notify: bool) -> dict:
 		'notify': notify,
 		'creator': user_data['_id'],
 		'created': datetime.utcnow(),
+		'inactive': False,
+		'current_page': None,
+		'current_sort': None,
 	}).inserted_id
 
 	return prepare_feed(db.feeds.find_one({'_id':id}))
@@ -162,3 +165,19 @@ def set_document_read(id: str, read: bool) -> dict:
 	document['read'] = read
 
 	return document
+
+def set_feed_inactive(id: str, inactive: bool) -> dict:
+	feed = get_feed(id)
+	db.feeds.update_one({'_id': ObjectId(id)}, {'$set': {'inactive': inactive}})
+	feed['inactive'] = inactive
+	return feed
+
+def set_feed_navigation(id: str, page: int|None, sorting: Sorting|None) -> dict:
+	feed = get_feed(id)
+	db.feeds.update_one({'_id': ObjectId(id)}, {'$set': {
+		'currentPage': page,
+		'currentSort': sorting,
+	}})
+	feed['currentPage'] = page
+	feed['currentSort'] = sorting
+	return feed

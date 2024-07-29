@@ -1,7 +1,8 @@
-from application.db.datafeed import create_feed, delete_feed, get_feed, set_feed_notify, create_document, update_document, set_document_read
+from application.db.datafeed import create_feed, delete_feed, get_feed, set_feed_notify, create_document, update_document, set_document_read, set_feed_inactive, set_feed_navigation
 from ..decorators import *
 from application.db import perms
 from datetime import datetime
+from application.objects import Sorting
 
 @perms.module('feed')
 @handle_client_exceptions
@@ -37,3 +38,15 @@ def resolve_update_feed_document(_, info, id: str, body: str) -> dict:
 @handle_client_exceptions
 def resolve_mark_document_read(_, info, id: str, read: bool) -> dict:
 	return { '__typename': 'FeedDocument', **set_document_read(id, read) }
+
+@perms.module('feed')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_set_feed_inactive(_, info, id: str, inactive: bool) -> dict:
+	return { '__typename': 'Feed', **set_feed_inactive(id, inactive) }
+
+@perms.module('feed')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_set_feed_navigation(_, info, id: str, page: int|None, sorting: Sorting|None) -> dict:
+	return { '__typename': 'Feed', **set_feed_navigation(id, page, sorting) }

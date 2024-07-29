@@ -20,6 +20,9 @@ type Feed {
 	kind: String!
 	url: String!
 	notify: Boolean!
+	inactive: Boolean!
+	currentPage: Int
+	currentSort: Sorting_
 }
 
 type FeedDoesNotExistError {
@@ -34,7 +37,7 @@ type InvalidFeedKindError {
 	message: String!
 }
 
-union FeedQueryResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError
+union FeedQueryResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError | InsufficientPerms
 union FeedMutateResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError | InsufficientPerms | InvalidFeedKindError
 union FeedDocumentCreateResponse = FeedDocument | FeedDoesNotExistError | InsufficientPerms
 union FeedDocumentUpdateResponse = FeedDocument | FeedDocumentDoesNotExistError | InsufficientPerms
@@ -57,4 +60,6 @@ extend type Mutation {
 	createFeedDocument(feed: String!, author: String, posted: DateTime, body: String!, title: String, url: String!): FeedDocumentCreateResponse!
 	updateFeedDocument(id: String!, body: String!): FeedDocumentUpdateResponse!
 	markDocumentRead(id: String!, read: Boolean!): FeedDocumentUpdateResponse!
+	setFeedInactive(id: String!, inactive: Boolean!): FeedMutateResponse!
+	setFeedNavigation(id: String!, page: Int, sorting: Sorting): FeedMutateResponse!
 }

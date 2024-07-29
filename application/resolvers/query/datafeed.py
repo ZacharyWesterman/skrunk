@@ -21,8 +21,8 @@ def resolve_count_feed_documents(_, info, feed: str) -> int:
 
 @perms.module('feed')
 @handle_client_exceptions
-def resolve_get_feed(_, info, id: str) -> int:
-	return get_feed(id)
+def resolve_get_feed(_, info, id: str) -> dict:
+	return { '__typename': 'Feed', **get_feed(id) }
 
 @perms.module('feed')
 def resolve_get_feeds(_, info, start: int, count: int) -> list[dict]:

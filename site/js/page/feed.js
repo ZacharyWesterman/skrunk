@@ -76,7 +76,40 @@ async function get_my_feeds() {
 		default: "No Feed Selected",
 		append: true,
 	}).then(() => {
-		$.bind('feed-choice', () => navigate_to_page(0))
+		$.bind('feed-choice', async () => {
+			const id = $.val('feed-choice')
+
+			if (id === '') {
+				navigate_to_page(0, false)
+				return
+			}
+
+			//Get page and sorting info for the chosen feed
+			const res = await api(`query ($id: String!) {
+				getFeed (id: $id) {
+					__typename
+					...on Feed { currentPage currentSort { fields descending } }
+					...on FeedDoesNotExistError { message }
+					...on UserDoesNotExistError { message }
+					...on InsufficientPerms { message }
+				}
+			}`, {
+				id: id,
+			})
+
+			if (res.__typename !== 'Feed') {
+				_.modal.error(res.message)
+				return
+			}
+
+			if (res.currentSort) {
+				$('sort-by').value = res.currentSort.fields[0]
+				$('sort-order').value = res.currentSort.descending ? 'descending' : 'ascending'
+			}
+
+			const page = res.currentPage || 0
+			navigate_to_page(page, false)
+		})
 	})
 }
 
@@ -189,7 +222,7 @@ export function help_types() {
 	}, () => _('feed_types', p1))
 }
 
-export async function navigate_to_page(page_num) {
+export async function navigate_to_page(page_num, update_nav = true) {
 	const lookup_list_len = 15
 	const lookup_start = page_num * lookup_list_len
 
@@ -231,6 +264,10 @@ export async function navigate_to_page(page_num) {
 
 	_('page-list', count_promise)
 	_('lookup-results', items_promise)
+
+	if (update_nav) {
+		update_navigation(Math.floor(lookup_start / lookup_list_len))
+	}
 }
 
 export async function update_notify(id) {
@@ -277,5 +314,30 @@ export async function toggle_read(id) {
 	if (res.__typename !== 'FeedDocument') {
 		_.modal.error(res.message)
 		return
+	}
+}
+
+export async function update_navigation(page) {
+	const id = $.val('feed-choice')
+	if (id === '') return
+
+	const res = await api(`mutation ($id: String!, $page: Int, $sorting: Sorting) {
+		setFeedNavigation (id: $id, page: $page, sorting: $sorting) {
+			__typename
+			...on FeedDoesNotExistError { message }
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+		}
+	}`, {
+		id: id,
+		page: page,
+		sorting: {
+			fields: [$.val('sort-by')],
+			descending: $.val('sort-order') === 'descending',
+		},
+	})
+
+	if (res.__typename !== 'Feed') {
+		_.modal.error(res.message)
 	}
 }
