@@ -1,4 +1,5 @@
 type FeedDocument {
+	id: String!
 	feed: String! #Feed ID
 	author: String
 	posted: DateTime
