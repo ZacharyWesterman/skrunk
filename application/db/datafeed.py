@@ -107,17 +107,19 @@ def get_body_html(feed_kind: str, body: str) -> str:
 
 	return body_html
 
-def create_document(feed: str, author: str|None, posted: datetime|None, body: str) -> dict:
+def create_document(feed: str, author: str|None, posted: datetime|None, body: str, title: str|None, url: str) -> dict:
 	feed_data = get_feed(feed)
 
 	id = db.documents.insert_one({
 		'feed': ObjectId(feed),
 		'author': author,
 		'posted': posted,
+		'title': title,
 		'body': body,
 		'body_html': get_body_html(feed_data['kind']),
 		'created': datetime.utcnow(),
 		'updated': None,
+		'url': url,
 	}).inserted_id
 
 	return prepare_document(db.documents.find_one({'_id': id}))

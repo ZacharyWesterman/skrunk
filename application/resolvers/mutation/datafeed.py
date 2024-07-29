@@ -23,8 +23,8 @@ def resolve_update_feed_notify(_, info, id: str, notify: bool) -> dict:
 @perms.module('feed')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_feed_document(_, info, feed: str, author: str|None, posted: datetime|None, body: str) -> dict:
-	return { '__typename': 'FeedDocument', **create_document(feed, author, posted, body) }
+def resolve_create_feed_document(_, info, feed: str, author: str|None, posted: datetime|None, body: str, title: str|None, url: str) -> dict:
+	return { '__typename': 'FeedDocument', **create_document(feed, author, posted, body, title, url) }
 
 @perms.module('feed')
 @perms.require('edit')

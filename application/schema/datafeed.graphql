@@ -2,11 +2,13 @@ type FeedDocument {
 	id: String!
 	feed: String! #Feed ID
 	author: String
+	title: String
 	posted: DateTime
 	body: String!
 	body_html: String!
 	created: DateTime!
 	updated: DateTime!
+	url: String!
 }
 
 type Feed {
@@ -51,6 +53,6 @@ extend type Mutation {
 	createFeed(name: String!, url: String!, kind: String!, notify: Boolean!): FeedMutateResponse!
 	deleteFeed(id: String!): FeedMutateResponse!
 	updateFeedNotify(id: String!, notify: Boolean!): FeedMutateResponse!
-	createFeedDocument(feed: String!, author: String, posted: DateTime, body: String!): FeedDocumentCreateResponse!
+	createFeedDocument(feed: String!, author: String, posted: DateTime, body: String!, title: String, url: String!): FeedDocumentCreateResponse!
 	updateFeedDocument(id: String!, body: String!): FeedDocumentUpdateResponse!
 }
