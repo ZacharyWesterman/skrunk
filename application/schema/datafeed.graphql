@@ -7,7 +7,7 @@ type FeedDocument {
 	body: String!
 	body_html: String!
 	created: DateTime!
-	updated: DateTime!
+	updated: DateTime
 	url: String!
 }
 

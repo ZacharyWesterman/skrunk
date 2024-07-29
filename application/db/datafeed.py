@@ -74,7 +74,7 @@ def get_documents(feed: str, start: int, count: int, sorting: Sorting) -> list[d
 		return []
 
 	return [
-		i for i in db.documents.find({'feed': ObjectId(feed)}).sort([
+		prepare_document(i) for i in db.documents.find({'feed': ObjectId(feed)}).sort([
 			(s, -1 if sorting['descending'] else 1) for s in sorting['fields']
 		]).skip(start).limit(count)
 	]
@@ -116,7 +116,7 @@ def create_document(feed: str, author: str|None, posted: datetime|None, body: st
 		'posted': posted,
 		'title': title,
 		'body': body,
-		'body_html': get_body_html(feed_data['kind']),
+		'body_html': get_body_html(feed_data['kind'], body),
 		'created': datetime.utcnow(),
 		'updated': None,
 		'url': url,
@@ -134,15 +134,17 @@ def update_document(id: str, body: str) -> dict:
 		raise FeedDocumentDoesNotExistError(id)
 
 	feed = get_feed(document['feed'])
-	body_html = get_body_html(feed['kind'])
+	body_html = get_body_html(feed['kind'], body)
+	updated = datetime.utcnow()
 
 	db.documents.update_one({'_id': ObjectId(id)}, {'$set': {
 		'body': body,
 		'body_html': body_html,
-		'updated': datetime.utcnow(),
+		'updated': updated,
 	}})
 
 	document['body'] = body
 	document['body_html'] = body_html
+	document['updated'] = updated
 
 	return prepare_document(document)

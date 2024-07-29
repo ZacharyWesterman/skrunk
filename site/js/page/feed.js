@@ -13,7 +13,7 @@ export async function init() {
 		fields: `
 			Sort By
 			<select id="sort-by" *bind="navigate_to_page(0)">
-				<option value="posted" selected>Date Posted</option>
+				<option value="created" selected>Date Posted</option>
 				<option value="updated">Date Updated</option>
 			</select>
 			<select id="sort-order" *bind="navigate_to_page(0)">
