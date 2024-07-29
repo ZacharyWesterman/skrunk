@@ -50,8 +50,8 @@ input SubscriptionTokenKeys {
 	auth: String!
 }
 
-union NotificationResponse = Notification | MissingConfig | UserDoesNotExistError | WebPushException | InvalidSubscriptionToken | BadNotification
-union SubscriptionListResponse = SubscriptionList | UserDoesNotExistError
+union NotificationResponse = Notification | MissingConfig | UserDoesNotExistError | WebPushException | InvalidSubscriptionToken | BadNotification | InsufficientPerms
+union SubscriptionListResponse = SubscriptionList | UserDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line
 

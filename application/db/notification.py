@@ -88,7 +88,7 @@ def count_notifications(username: str, read: bool) -> int:
 	return db.log.count_documents({'recipient': user_data['_id'], 'read': read})
 
 #May raise exceptions.WebPushException, exceptions.UserDoesNotExistError, or exceptions.MissingConfig
-def send(title: str, body: str, username: str, *, category: str = 'general') -> None:
+def send(title: str, body: str, username: str, *, category: str = 'general') -> dict:
 	global VAPID_PRIVATE_KEY
 
 	user_data = users.get_user_data(username)
@@ -156,3 +156,8 @@ def send(title: str, body: str, username: str, *, category: str = 'general') -> 
 	db.log.update_one({'_id': log_id}, {'$set': {
 		'device_count': len(sub_tokens),
 	}})
+
+	notif_data = db.log.find_one({'_id': log_id})
+	notif_data['id'] = notif_data['_id']
+
+	return notif_data

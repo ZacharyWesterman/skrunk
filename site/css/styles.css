@@ -76,7 +76,7 @@
 	left: .5rem;
 	z-index: 8998;
 	color: white;
-	background-color: rgba(0,0,0,.75);
+	background-color: rgba(0, 0, 0, .75);
 	border-radius: 1rem;
 	width: 2rem;
 	height: 2rem;
@@ -149,7 +149,7 @@ input[type="checkbox"] {
 }
 
 input.wide {
-	width: calc(100% - 8.5rem);
+	width: calc(100% - 9.5rem);
 }
 
 .invalid {
@@ -423,7 +423,7 @@ th {
 	position: relative;
 }
 
-.section > label {
+.section>label {
 	position: absolute;
 	top: -.6rem;
 	left: 1rem;
@@ -432,10 +432,10 @@ th {
 	padding: 0 3px;
 }
 
-.section.alt > label {
+.section.alt>label {
 	background-color: var(--tertiary);
 }
 
-.section > div {
+.section>div {
 	border: none;
 }

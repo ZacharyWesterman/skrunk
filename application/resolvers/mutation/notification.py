@@ -22,11 +22,11 @@ def resolve_send_notification(_, info, username: str, title: str, body: str, cat
 		return { '__typename': 'BadNotification', 'message': 'Notification title cannot be blank'}
 
 	if category == '' or category is None:
-		send(title, body, username)
+		notif = send(title, body, username)
 	else:
-		send(title, body, username, category = category)
+		notif = send(title, body, username, category = category)
 
-	return { '__typename': 'Notification', 'message': 'Notification sent' }
+	return { '__typename': 'Notification', **notif }
 
 @perms.require('admin', perform_on_self=True, data_func=get_user_from_notif)
 def resolve_mark_notification_as_read(_, info, id: str) -> bool:

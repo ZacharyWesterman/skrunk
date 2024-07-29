@@ -42,12 +42,14 @@
 			<hr>
 			<div id="server-apikeys" class="expand-container">
 				<div>
-					<input class="wide" id="server-new-apikey" *enter="create_api_key">
+					<input class="wide" id="server-new-apikey" *enter="create_api_key"
+						placeholder="Enter a descriptive API accessor name.">
 					<select id="server-new-permission">
 						<option value="" selected>Read Only</option>
 						<option value="notify">Notify</option>
-						<option value="edit">Write Self</option>
-						<option value="admin">Full Write</option>
+						<option value="edit">Write</option>
+						<option value="edit notify">Write+Notify</option>
+						<option value="admin">Admin</option>
 					</select>
 					<button class="icon" *click="create_api_key"><i class="fa-solid fa-plus fa-lg"></i></button>
 					<div id="server_apikeys"></div>
@@ -219,7 +221,7 @@
 			createAPIKey (description: $description, permissions: $permissions)
 		}`, {
 			description: $.val('server-new-apikey'),
-			permissions: perms ? [perms] : [],
+			permissions: perms ? perms.split(' ') : [],
 		})
 
 		$('server-new-apikey').value = ''
