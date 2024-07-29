@@ -18,6 +18,16 @@ def prepare_feed(feed: dict) -> dict:
 
 	return feed
 
+def get_feed(id: str) -> dict:
+	if not ObjectId.is_valid(id):
+		raise FeedDoesNotExistError(id)
+
+	feed_data = db.feeds.find_one({'_id': ObjectId(id)})
+	if feed_data is None:
+		raise FeedDoesNotExistError(id)
+
+	return prepare_feed(feed_data)
+
 def get_user_feeds(username: str) -> list[dict]:
 	user_data = users.get_user_data(username)
 
@@ -69,3 +79,9 @@ def count_documents(feed: str) -> int:
 		return 0
 
 	return db.documents.count_documents({'feed': ObjectId(feed)})
+
+def set_feed_notify(id: str, notify: bool) -> dict:
+	feed_data = get_feed(id)
+	db.feeds.update_one({'_id': feed_data['_id']}, {'$set': {'notify': notify}})
+	feed_data['notify'] = notify
+	return feed_data

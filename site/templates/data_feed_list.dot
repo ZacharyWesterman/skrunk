@@ -3,6 +3,7 @@
 <p>Edit existing feeds:</p>
 <table>
 	<tr>
+		<th style="border-right: 1px solid var(--secondary-text)">Notify</th>
 		<th style="border-right: 1px solid var(--secondary-text)">Name</th>
 		<th>Type</th>
 		<th>
@@ -15,6 +16,10 @@
 
 	{{~ it: feed }}
 	<tr>
+		<td style="border-right: 1px solid var(--secondary-text)">
+			<input id="update-{{= feed.id }}" type="checkbox" {{? feed.notify }}checked{{?}} *click="update_notify('{{= feed.id }}')" />
+			&nbsp;<i id="update-icon-{{= feed.id }}" class="fa-solid fa-circle-check hidden"></i>
+		</td>
 		<td style="border-right: 1px solid var(--secondary-text)">{{= feed.name }}</td>
 		<td>{{= feed.kind.display || feed.kind.value }}</td>
 		<td>

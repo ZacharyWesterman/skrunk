@@ -45,7 +45,7 @@ async function get_my_feeds() {
 	const p1 = api.get_json('config/feed_types.json')
 
 	const res = await api(`query ($username: String!) {
-		getUserFeeds(username: $username) { id name kind }
+		getUserFeeds(username: $username) { id name kind notify }
 	}`, {
 		username: api.username,
 	}).then(async res => {
@@ -227,4 +227,29 @@ export async function navigate_to_page(page_num) {
 
 	_('page-list', count_promise)
 	_('lookup-results', items_promise)
+}
+
+export async function update_notify(id) {
+	const field = $('update-' + id)
+	const icon = $('update-icon-' + id)
+
+	const res = await api(`mutation ($id: String!, $notify: Boolean!) {
+		updateFeedNotify (id: $id, notify: $notify) {
+			__typename
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+			...on FeedDoesNotExistError { message }
+		}
+	}`, {
+		id: id,
+		notify: field.checked,
+	})
+
+	if (res.__typename !== 'Feed') {
+		_.modal.error(res.message)
+		field.checked = !field.checked
+		return
+	}
+
+	$.blink(icon)
 }
