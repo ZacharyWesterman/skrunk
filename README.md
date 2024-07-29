@@ -13,7 +13,7 @@ Current features include:
   - User Permissions: Control what type of actions users are allowed to do, and what they're allowed to see.
 - Bot friendly: admins can generate API tokens to allow bots or other services to securely make requests. These tokens can have the same permissions restrictions applied to them as users! Check out the [Python API repo](https://github.com/ZacharyWesterman/skrunk_api) for a fast way to get started.
 
-Every one of the above features is fully optional, and can be enabled or disabled from the admin options.
+Every one of the above features is fully optional, and can be disabled from the admin options, on a per-group basis, and individually by each user.
 
 ---
 ### Setup
