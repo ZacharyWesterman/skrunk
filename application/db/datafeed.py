@@ -85,3 +85,11 @@ def set_feed_notify(id: str, notify: bool) -> dict:
 	db.feeds.update_one({'_id': feed_data['_id']}, {'$set': {'notify': notify}})
 	feed_data['notify'] = notify
 	return feed_data
+
+def get_feeds(start: int, count: int) -> list[dict]:
+	return [
+		prepare_feed(i) for i in db.feeds.find({}).skip(start).limit(count)
+	]
+
+def count_feeds() -> int:
+	return db.feeds.count_documents({})
