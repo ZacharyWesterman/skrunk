@@ -12,11 +12,11 @@ export async function init() {
 			</span>`,
 		fields: `
 			Sort By
-			<select id="sort-by" *bind="navigate_to_page(0)">
+			<select id="sort-by" *change="navigate_to_page(0)">
 				<option value="created" selected>Date Posted</option>
 				<option value="updated">Date Updated</option>
 			</select>
-			<select id="sort-order" *bind="navigate_to_page(0)">
+			<select id="sort-order" *change="navigate_to_page(0)">
 				<option value="descending" selected>Newest First</option>
 				<option value="ascending">Oldest First</option>
 			</select>
@@ -223,6 +223,8 @@ export function help_types() {
 }
 
 export async function navigate_to_page(page_num, update_nav = true) {
+	console.log(page_num)
+
 	const lookup_list_len = 15
 	const lookup_start = page_num * lookup_list_len
 
