@@ -223,8 +223,6 @@ export function help_types() {
 }
 
 export async function navigate_to_page(page_num, update_nav = true) {
-	console.log(page_num)
-
 	const lookup_list_len = 15
 	const lookup_start = page_num * lookup_list_len
 
