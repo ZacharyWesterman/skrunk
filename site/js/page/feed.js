@@ -292,7 +292,32 @@ export async function update_notify(id) {
 		return
 	}
 
-	$.blink(icon)
+	// $.blink(icon)
+}
+
+export async function update_inactive(id) {
+	const field = $('inactive-' + id)
+	const icon = $('inactive-icon-' + id)
+
+	const res = await api(`mutation ($id: String!, $inactive: Boolean!) {
+		setFeedInactive (id: $id, inactive: $inactive) {
+			__typename
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+			...on FeedDoesNotExistError { message }
+		}
+	}`, {
+		id: id,
+		inactive: field.checked,
+	})
+
+	if (res.__typename !== 'Feed') {
+		_.modal.error(res.message)
+		field.checked = !field.checked
+		return
+	}
+
+	// $.blink(icon)
 }
 
 export async function toggle_read(id) {
