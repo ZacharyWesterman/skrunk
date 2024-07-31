@@ -30,7 +30,8 @@
 	{
 		"id": "weather",
 		"name": "Weather Monitor",
-		"description": "Enable interface with the weather-monitoring API."
+		"description": "Enable interface with the weather-monitoring API.",
+		"runner": "weather-alerts"
 	},
 	{
 		"id": "qr",
@@ -48,6 +49,7 @@
 	{
 		"id": "feed",
 		"name": "Data Feeds",
-		"description": "Enable specifying arbitrary data feeds that automatically update."
+		"description": "Enable specifying arbitrary data feeds that automatically update.",
+		"runner": "skrunk-feeds"
 	}
 ]

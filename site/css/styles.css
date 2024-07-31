@@ -439,3 +439,7 @@ th {
 .section>div {
 	border: none;
 }
+
+.nobr {
+	white-space: nowrap;
+}

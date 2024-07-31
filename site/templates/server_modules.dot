@@ -20,6 +20,12 @@
 		<td>
 		{{?}}
 			{{= module.description }}
+			{{? module.runner }}
+				<span class="right tooltip">
+					<i class="fa-solid fa-circle-nodes"></i>
+					<span class="tooltiptext t-left">Requires the <span class="error nobr">{{= module.runner }}</span> service to be running for full functionality.</span>
+				</span>
+			{{?}}
 			{{? module.requires?.length }}<br><sup><sub><i>Depends on the following module{{? module.requires.length !== 1 }}s{{?}}: {{= module.requires.map(x => it.find(v => v.id === x).name).join(', ') }}.</i></sub></sup>{{?}}
 		</td>
 	</tr>
