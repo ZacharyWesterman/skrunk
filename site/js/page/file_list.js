@@ -327,8 +327,9 @@ export async function download_all() {
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to') || null
+	const ephemeral = $('blob-filter-ephemeral').checked
 
-	const size = await query.blobs.size(creator, Editor.value, date_from, date_to, title)
+	const size = await query.blobs.size(creator, Editor.value, date_from, date_to, title, ephemeral)
 
 	if (size.__typename !== 'BlobCount') {
 		_.modal({

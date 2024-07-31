@@ -69,12 +69,9 @@ export default {
 		return await api(`query ($filter: BlobSearchFilter!){
 			countBlobs(filter: $filter) {
 				__typename
-				...on BlobCount {
-					count
-				}
-				...on BadTagQuery {
-					message
-				}
+				...on BlobCount { count }
+				...on BadTagQuery { message }
+				...on InsufficientPerms { message }
 			}
 		}`, {
 			filter: {
@@ -89,21 +86,21 @@ export default {
 	},
 
 	/**
-	* username: string or null
-	* tag_query: string or null
-	* date_from: Date or null
-	* date_to: Date or null
-	*/
-	size: async (username, tag_query, date_from, date_to, name) => {
+	 * Get the total size of all files matching the given criteria.
+	 * @param {string?} username The user who uploaded, or null for all users in the same group.
+	 * @param {string?} tag_query A tag query expression, if any.
+	 * @param {Date?} date_from The start date, or null to include any upload date <= the end date.
+	 * @param {Date?} date_to The end date, or null to include any upload date >= the start date.
+	 * @param {boolean?} ephemeral Whether ephemeral files are included.
+	 * @returns The sum total size of all files that match the criteria, in bytes. 
+	 */
+	size: async (username, tag_query, date_from, date_to, name, ephemeral) => {
 		return await api(`query ($filter: BlobSearchFilter!){
 			totalBlobSize(filter: $filter) {
 				__typename
-				...on BlobCount {
-					count
-				}
-				...on BadTagQuery {
-					message
-				}
+				...on BlobCount { count }
+				...on BadTagQuery { message }
+				...on InsufficientPerms { message }
 			}
 		}`, {
 			filter: {

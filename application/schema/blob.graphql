@@ -27,7 +27,7 @@ type BlobList {
 }
 
 type BlobCount {
-	count: Int!
+	count: Long!
 }
 
 type QRParseResponse {
@@ -44,8 +44,8 @@ input BlobSearchFilter {
 	ephemeral: Boolean
 }
 
-union BlobCountResponse = BlobCount | BadTagQuery
-union BlobQueryResponse = BlobList | BadTagQuery
+union BlobCountResponse = BlobCount | BadTagQuery | InsufficientPerms
+union BlobQueryResponse = BlobList | BadTagQuery | InsufficientPerms
 union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
 union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError | InsufficientPerms
 union BlobCreateResponse = Blob | InsufficientPerms
