@@ -24,7 +24,6 @@ export async function init() {
 	if (EnabledModules.includes('qr')) _('qrcode-search')
 
 	InitialLoad = true
-	three_state_checkbox()
 
 	window.unload.push(() => {
 		NFC.onreading = undefined
@@ -64,16 +63,6 @@ export async function init() {
 		options: query.users.list(),
 		default: 'Select User',
 	})
-}
-
-export function three_state_checkbox() {
-	const f = $('shared')
-	if (f.state === undefined) f.state = 0 //will transition to indeterminate
-
-	f.state = [1, 2, 0][f.state]
-
-	f.checked = f.state === 2
-	f.indeterminate = f.state === 1
 }
 
 export function manual_input() {

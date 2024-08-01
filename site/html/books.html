@@ -13,7 +13,7 @@
 				</h3>
 			</div>
 			Owned by <div class="inline" name="owner" template="dropdown" *change="reset_and_search"></div> Borrowed
-			<input type="checkbox" id="shared" *click="three_state_checkbox(); reset_and_search()" /><br>
+			<input type="checkbox" id="shared" *click="reset_and_search" ternary indeterminate><br>
 
 			<input id="title" placeholder="Keywords/ISBN" *bind="reset_and_search"><button class="reset clickable"
 				*click="$.wipe('title'); reset_and_search()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>

@@ -75,7 +75,7 @@ async function get_blobs(start, count) {
 	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
 	const date_from = date.from_field('blob-filter-from')
 	const date_to = date.from_field('blob-filter-to', 1)
-	const ephemeral = $('blob-filter-ephemeral').checked
+	const ephemeral = $('blob-filter-ephemeral').indeterminate ? null : $('blob-filter-ephemeral').checked
 
 	let q = {}
 	let has = false
@@ -327,7 +327,7 @@ export async function download_all() {
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to') || null
-	const ephemeral = $('blob-filter-ephemeral').checked
+	const ephemeral = $('blob-filter-ephemeral').indeterminate ? null : $('blob-filter-ephemeral').checked
 
 	const size = await query.blobs.size(creator, Editor.value, date_from, date_to, title, ephemeral)
 

@@ -92,13 +92,14 @@ window.inject = async function (field, url) {
 
 	//wait for async evals to finish
 	let module = {}
+	let initializers = []
 	for (const item of async_evals) {
 		const new_mod = await (typeof item === 'function' ? item() : item)
 		if (!new_mod) continue
 
 		//Always run init method on src load.
 		if (typeof new_mod.init === 'function') {
-			new_mod.init()
+			initializers.push(new_mod.init)
 		}
 
 		module = {
@@ -109,6 +110,9 @@ window.inject = async function (field, url) {
 
 	//set custom tag-based field logic
 	set_field_logic(field, url, module)
+
+	//Always run init method on src load.
+	for (const init of initializers) { init() }
 
 	$.hide($('loader'))
 }
@@ -217,6 +221,23 @@ window.set_field_logic = async function (DOM, url, module) {
 				}
 			})
 		}
+
+		//Bind any ternary checkboxes
+		DOM.querySelectorAll('input[type="checkbox"][ternary]').forEach(field => {
+			(method => {
+				field.onclick = () => {
+					field.state = [1, 2, 0][field.state]
+					field.checked = field.state === 2
+					field.indeterminate = field.state === 1
+
+					if (method) method(field)
+				}
+			})(field.onclick)
+
+			//Initialize field state
+			field.indeterminate = field.getAttribute('indeterminate') !== null
+			field.state = field.checked ? 2 : (field.indeterminate ? 1 : 0)
+		})
 
 		//Enforce field value formatting
 		DOM.querySelectorAll(`[format]`).forEach(field => {
