@@ -252,11 +252,8 @@ window.chart = {
 	 * @param {number[]} data The height values of each bar.
 	 */
 	bar: async (field, labels, data, horizontal = false) => {
-		const disabled_text = _.css.get_var('--disabled-text')
-
-		const c1 = Color.fromHex(_.css.get_var('--primary'))
-		const c2 = Color.fromHex(_.css.get_var('--primary-alt'))
-		const bar_color = c1.lerp(c2, 0.5).toString()
+		const grid_color = _.css.get_var('--secondary')
+		const bar_color = Color.fromHex(_.css.get_var('--error-text'))
 
 		chart.create(field, {
 			type: 'bar',
@@ -279,10 +276,10 @@ window.chart = {
 					y: {
 						beginAtZero: true,
 						grid: {
-							color: disabled_text,
+							color: grid_color,
 						},
 						border: {
-							color: disabled_text,
+							color: grid_color,
 						},
 						ticks: {
 							autoSkip: !horizontal,
@@ -388,7 +385,7 @@ window.qr = {
 				canvas.width = Math.min(window.innerWidth, image.width)
 				canvas.height = Math.min(window.innerHeight, image.height)
 
-				const scale_factor = Math.min(canvas.width/image.width, canvas.height/image.height)
+				const scale_factor = Math.min(canvas.width / image.width, canvas.height / image.height)
 				const new_width = image.width * scale_factor
 				const new_height = image.height * scale_factor
 
