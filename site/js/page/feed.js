@@ -5,6 +5,7 @@ export async function init() {
 				<i id="chevron" class="left fa-solid fa-angles-down"></i>
 				My Feeds
 			</span>
+			${environment.mobile ? '<br>' : ''}
 			<span name="feed-choice-div" template="dropdown"></span>
 			<span style="font-size: 80%;" class="tooltip" *click="help">
 				<i class="fa-solid fa-circle-question"></i>
