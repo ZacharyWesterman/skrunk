@@ -54,6 +54,11 @@
 					<option value="name">Name</option>
 					<option value="size">Size</option>
 				</select>
+				,
+				<select id="sort-order" *bind="reset_and_search">
+					<option value="descending">descending</option>
+					<option value="ascending">ascending</option>
+				</select>
 			</div>
 
 			<button class="icon alt" *click="download_all"><i class="fa-solid fa-file-arrow-down fa-lg"></i></button>

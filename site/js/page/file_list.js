@@ -100,7 +100,7 @@ async function get_blobs(start, count) {
 		ephemeral,
 		{
 			fields: [$.val('sort-by') || 'created'],
-			descending: true,
+			descending: $.val('sort-order') === 'descending',
 		}
 	)
 }
