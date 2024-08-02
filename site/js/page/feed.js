@@ -45,7 +45,7 @@ async function get_my_feeds() {
 	const p1 = api.get_json('config/feed_types.json')
 
 	const res = await api(`query ($username: String!) {
-		getUserFeeds(username: $username) { id name kind notify }
+		getUserFeeds(username: $username) { id name kind notify inactive }
 	}`, {
 		username: api.username,
 	}).then(async res => {
