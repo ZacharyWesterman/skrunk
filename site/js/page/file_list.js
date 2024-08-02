@@ -75,7 +75,7 @@ async function get_blobs(start, count) {
 	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
 	const date_from = date.from_field('blob-filter-from')
 	const date_to = date.from_field('blob-filter-to', 1)
-	const ephemeral = $('blob-filter-ephemeral').indeterminate ? null : $('blob-filter-ephemeral').checked
+	const ephemeral = $.checked('blob-filter-ephemeral')
 
 	let q = {}
 	let has = false
@@ -128,7 +128,7 @@ async function reload_page_list() {
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to', 1) || null
-	const ephemeral = $('blob-filter-ephemeral').checked
+	const ephemeral = $.checked('blob-filter-ephemeral')
 	const res = await query.blobs.count(creator, Editor.value, date_from, date_to, title, ephemeral)
 	if (res.__typename !== 'BlobCount') {
 		$('tag-error').innerText = res.message
@@ -327,7 +327,7 @@ export async function download_all() {
 	const creator = $.val('blob-filter-creator') || null
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to') || null
-	const ephemeral = $('blob-filter-ephemeral').indeterminate ? null : $('blob-filter-ephemeral').checked
+	const ephemeral = $.checked('blob-filter-ephemeral')
 
 	const size = await query.blobs.size(creator, Editor.value, date_from, date_to, title, ephemeral)
 

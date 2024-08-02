@@ -335,7 +335,7 @@ export async function search_books() {
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
-	const shared = $('shared').indeterminate ? null : $('shared').checked //Only filter by shared if field is not indeterminate.
+	const shared = $.checked('shared') //Only filter by shared if field is not indeterminate.
 
 	const filter = {
 		owner: owner,
@@ -359,7 +359,7 @@ async function reload_book_count() {
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
-	const shared = $('shared').indeterminate ? null : $('shared').checked //Only filter by shared if field is not indeterminate.
+	const shared = $.checked('shared') //Only filter by shared if field is not indeterminate.
 
 	const filter = {
 		owner: owner,

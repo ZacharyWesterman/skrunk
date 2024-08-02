@@ -16,9 +16,10 @@
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
-					<input id="blob-filter-title" placeholder="Title">&nbsp;<span class="button clickable"
-						*click="$.wipe('blob-filter-title'); reset_and_search()"><i
-							class="fa-solid fa-circle-xmark fa-lg"></i></span><br>
+					<input id="blob-filter-title" placeholder="Title">&nbsp;
+					<span class="button clickable" *click="$.wipe('blob-filter-title'); reset_and_search()">
+						<i class="fa-solid fa-circle-xmark fa-lg"></i>
+					</span><br>
 
 					<!-- Search Filters -->
 					Uploaded by
@@ -39,8 +40,9 @@
 			</span>
 
 			<br><span class="code-input" id="tag-query"></span>
-			<button class="reset clickable right" *click="wipe_tag_editor"><i
-					class="fa-solid fa-circle-xmark fa-xl"></i></button>
+			<button class="reset clickable right" *click="wipe_tag_editor">
+				<i class="fa-solid fa-circle-xmark fa-xl"></i>
+			</button>
 
 			<div class="error" id="tag-error"></div>
 

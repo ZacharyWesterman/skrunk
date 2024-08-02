@@ -67,11 +67,15 @@ let $ = (field, include_all = false) => {
 
 	return include_all ? fields : fields[0]
 }
+
 $.val = id => $(id)?.value
 $.set = (id, value) => {
 	$(id).value = value
 	$(id).prevValue = value
 }
+
+$.checked = id => $(id).indeterminate ? null : $(id).checked
+
 $.toggle_expand = (id, expand) => {
 	const fields = $(id, true)
 	for (let field of fields) {
