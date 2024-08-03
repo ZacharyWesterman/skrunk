@@ -115,9 +115,10 @@ def add_groups(new_groups: list[str]) -> None:
 		})
 	else:
 		for i in new_groups:
-			groups['groups'][i] = {
-				'disabled_modules': [],
-			}
+			if i not in groups['groups'][i]:
+				groups['groups'][i] = {
+					'disabled_modules': [],
+				}
 
 		db.update_one({'name': 'groups'}, {'$set': {'groups': groups['groups']}})
 
