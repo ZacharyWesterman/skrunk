@@ -43,11 +43,13 @@ export async function init() {
 
 	if (!environment.mobile) {
 		$('expand-button').innerHTML = `<button id="ex-btn" class="icon clickable right alt">
-			<i class="fa-solid fa-arrows-left-right-to-line fa-lg"></i>
+			<i class="fa-solid fa-arrows-up-down-left-right fa-lg"></i>
 		</button>`
 
 		$('ex-btn').onclick = () => {
 			$('feed-page').classList.toggle('wide')
+			$('ex-btn').children[0].classList.toggle('fa-arrows-up-down-left-right')
+			$('ex-btn').children[0].classList.toggle('fa-arrows-to-dot')
 		}
 	}
 }

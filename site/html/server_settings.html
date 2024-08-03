@@ -115,7 +115,7 @@
 
 						const this_field = $(`module-${m.id}`)
 						if (disabled && this_field.checked) {
-							set_module_enabled(m.id, !disabled)
+							set_module_enabled(m.id, !disabled, m.config)
 						}
 						this_field.disabled = disabled
 					}
@@ -143,7 +143,7 @@
 		await _('server_configs', configs)
 	}
 
-	export async function set_module_enabled(module_id, enabled) {
+	export async function set_module_enabled(module_id, enabled, requires_config) {
 		const group = $.val('group')
 
 		await api(`
@@ -185,6 +185,10 @@
 		await _('server_configs', configs)
 
 		reset_modules(await api('{getEnabledModules}'))
+
+		if (requires_config && enabled) {
+			$.toggle_expand('server-configs', true)
+		}
 	}
 
 	export async function set_config(config_id) {

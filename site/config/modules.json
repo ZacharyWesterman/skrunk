@@ -44,7 +44,8 @@
 	{
 		"id": "subsonic",
 		"name": "Music Server",
-		"description": "Enable integration with a Subsonic music server."
+		"description": "Enable integration with a Subsonic music server.",
+		"config": true
 	},
 	{
 		"id": "feed",
