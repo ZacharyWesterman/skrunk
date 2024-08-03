@@ -76,7 +76,7 @@ export async function load_user_data(username, self_view = false) {
 			items: p2,
 		})
 		UserData.then(user_data => {
-			$('user-group').value = user_data.groups ? (user_data.groups[0] || '') : ''
+			$('user-group').value = user_data.groups ? (user_data.groups || '') : ''
 		})
 	}
 
@@ -136,7 +136,7 @@ export async function update_user_module(field) {
 }
 
 export async function update_groups(username) {
-	const groups = $.val('user-group')
+	const groups = $.val('user-group').split(',').map(i => i.trim()).filter(i => i.length > 0)
 
 	const res = await api(`mutation ($username: String!, $groups: [String!]!) {
 		updateUserGroups (username: $username, groups: $groups) {
@@ -146,7 +146,7 @@ export async function update_groups(username) {
 		}
 	}`, {
 		username: username,
-		groups: groups ? [groups] : [],
+		groups: groups,
 	})
 
 	if (res.__typename !== 'UserData') {
@@ -164,7 +164,7 @@ export async function update_groups(username) {
 		id: 'user-group',
 		items: api('{ getUserGroups }'),
 	}).then(() => {
-		$('user-group').value = groups
+		$('user-group').value = groups.join(', ')
 	})
 }
 

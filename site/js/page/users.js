@@ -55,12 +55,12 @@ async function delete_user(username) {
 }
 
 export async function create_user() {
-	const group = $.val('user-group-list')
+	const groups = $.val('user-group-list').split(',').map(i => i.trim()).filter(i => i.length > 0)
 
 	const res = await mutate.users.create(
 		$.val('username'),
 		await api.hash($.val('password')),
-		group ? [group] : []
+		groups
 	)
 	if (res.__typename !== 'UserData') {
 		_.modal({
