@@ -40,6 +40,16 @@ export async function init() {
 	window.unload.push(() => {
 		delete window.help_types
 	})
+
+	if (!environment.mobile) {
+		$('expand-button').innerHTML = `<button id="ex-btn" class="icon clickable right alt">
+			<i class="fa-solid fa-arrows-left-right-to-line fa-lg"></i>
+		</button>`
+
+		$('ex-btn').onclick = () => {
+			$('feed-page').classList.toggle('wide')
+		}
+	}
 }
 
 async function get_my_feeds() {

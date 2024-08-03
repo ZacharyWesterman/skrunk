@@ -49,6 +49,10 @@ div .page {
 	max-width: 900px;
 }
 
+div .page.wide {
+	max-width: 100%;
+}
+
 div .page>h1 {
 	text-align: center;
 }
@@ -126,6 +130,6 @@ img.thumbnail {
 	}
 }
 
-.widget-container > span {
+.widget-container>span {
 	padding-left: 16px;
 }
