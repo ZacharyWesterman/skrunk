@@ -29,6 +29,10 @@
 					<input id="blob-filter-to" type="date" *change="reset_and_search"><br>
 					Include ephemeral files
 					<input id="blob-filter-ephemeral" type="checkbox" *change="reset_and_search" ternary>
+					<span class="tooltip" *click="show_ephemeral_info">
+						<i class="fa-solid fa-circle-question"></i>
+						<span class="tooltiptext t-center">What does this mean?</span>
+					</span>
 				</div>
 			</div>
 

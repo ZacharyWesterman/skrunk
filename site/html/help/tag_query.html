@@ -9,12 +9,13 @@
 		<div class="card-inner">
 			<h2>Tags</h2>
 			Anything in quotes is considered a <span class="code str">tag</span>.
-			Non-quoted words are also tags, but those must not have any spaces or odd characters in them.
+			Non-quoted words are also tags, but those must not have any operators or odd characters in them.
 			For example:
 			<ul>
 				<li>
-					<span class="code str">"tag1 tag2"</span> is a single tag,
-					but <span class="code str">tag1 tag2</span> are <b>two separate tags</b>.
+					<span class="code str">"tag1 or tag2"</span> is a single tag,
+					but <span class="code"><span class="str">tag1</span> <span class="oper">or</span> <span
+							class="str">tag2</span></span> is an expression involving <b>two separate tags</b>.
 				</li>
 				<li>
 					<span class="code str">"exclamation!"</span> is a valid tag, but <span class="code"><span
