@@ -101,7 +101,7 @@ def create_user(username: str, password: str, *, groups: list = [], admin: bool 
 	}
 
 	db.insert_one(userdata)
-	settings.add_groups(groups)
+	settings.update_groups([], groups)
 
 	return userdata
 
@@ -177,7 +177,7 @@ def update_user_groups(username: str, groups: list) -> dict:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.update_one({'username': username}, {'$set': {'groups': groups}})
-	settings.add_groups(groups)
+	settings.update_groups(userdata.get('groups', []), groups)
 
 	userdata['groups'] = groups
 	return userdata

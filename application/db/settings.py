@@ -103,7 +103,7 @@ def set_module_enabled(module_id: str, enabled: bool, group: str|None) -> None:
 
 	db.update_one({'name': 'modules'}, {'$set': {'enabled': modules}})
 
-def add_groups(new_groups: list[str]) -> None:
+def update_groups(old_groups: list[str], new_groups: list[str]) -> None:
 	groups = db.find_one({'name': 'groups'})
 	if groups is None:
 		db.insert_one({
@@ -111,16 +111,30 @@ def add_groups(new_groups: list[str]) -> None:
 			'type': 'list',
 			'groups': { i: {
 				'disabled_modules': [],
+				'user_count': 1,
 			} for i in new_groups },
 		})
-	else:
-		for i in new_groups:
-			if i not in groups['groups'][i]:
-				groups['groups'][i] = {
-					'disabled_modules': [],
-				}
+		return
 
-		db.update_one({'name': 'groups'}, {'$set': {'groups': groups['groups']}})
+	#Decrement old groups
+	for i in [i for i in set(old_groups).difference(set(new_groups)) if i in groups['groups'] ]:
+		groups['groups'][i]['user_count'] -= 1
+		#Delete group if no users are in it anymore
+		if groups['groups'][i]['user_count'] < 1:
+			del groups['groups'][i]
+
+	#Increment new groups
+	for i in set(new_groups).difference(set(old_groups)):
+		if i in groups['groups']:
+			groups['groups'][i]['user_count'] += 1
+		else:
+			groups['groups'][i] = {
+				'disabled_modules': [],
+				'user_count': 1,
+			}
+
+	#Update database
+	db.update_one({'name': 'groups'}, {'$set': {'groups': groups['groups']}})
 
 def get_groups() -> list:
 	groups = db.find_one({'name': 'groups'})
