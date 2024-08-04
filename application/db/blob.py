@@ -36,6 +36,11 @@ class BlobStorage:
 	def basename(self) -> str:
 		return f'{self.id}{self.ext}'
 
+	@property
+	def exists(self) -> bool:
+		full_path = f'{blob_path}/{self.id[0:2]}/{self.id[2:4]}'
+		return pathlib.Path(f'{full_path}/{self.basename()}').exists()
+
 class BlobPreview(BlobStorage):
 	def __init__(self, id: str, ext: str = ''):
 		super().__init__(f'{id}_p' if ext != '' else str(id), ext)
@@ -303,14 +308,17 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 			print(f'Adding {blob["_id"]} to ZIP archive...', flush=True)
 			sub_blob = BlobStorage(blob['_id'], blob['ext'])
 
-			file_name = sub_blob.basename()
+			file_name = blob['name'] + blob['ext']
 			if file_name in file_names:
 				file_names[file_name] += 1
 				file_name = f'{blob["name"]} ({file_names[file_name]}){blob["ext"]}'
 			else:
 				file_names[file_name] = 0
 
-			fp.write(sub_blob.path(), file_name)
+			if sub_blob.exists:
+				fp.write(sub_blob.path(), file_name)
+			else:
+				print(f'ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
 
 	print('Finished ZIP archive.', flush=True)
 
