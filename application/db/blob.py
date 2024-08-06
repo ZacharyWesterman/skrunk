@@ -298,14 +298,20 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 	else:
 		query = {'complete': True}
 
-	id, ext = create_blob(f'ARCHIVE-{uuid.uuid4()}.zip', [], ephemeral = True)
+	id, ext = create_blob(f'ARCHIVE-{str(uuid.uuid4())[-8::]}.zip', [], ephemeral = True)
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	file_names = {}
 
+	print('Creating ZIP archive of blob files.', flush=True)
+
 	with ZipFile(this_blob_path, 'w') as fp:
+		total = db.count_documents(query)
+		item = 0
+
 		for blob in db.find(query):
-			print(f'Adding {blob["_id"]} to ZIP archive...', flush=True)
+			item += 1
+
 			sub_blob = BlobStorage(blob['_id'], blob['ext'])
 
 			file_name = blob['name'] + blob['ext']
@@ -316,9 +322,10 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 				file_names[file_name] = 0
 
 			if sub_blob.exists:
+				print(f'[{100*item/total:.1f}%] Adding "{file_name}"...', flush=True)
 				fp.write(sub_blob.path(), file_name)
 			else:
-				print(f'ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
+				print(f'[{100*item/total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
 
 	print('Finished ZIP archive.', flush=True)
 

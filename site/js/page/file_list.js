@@ -369,9 +369,6 @@ export async function download_all() {
 	link.href = `/download/${zip.id}${zip.ext}`
 	link.target = '_blank'
 	link.click()
-	setTimeout(() => {
-		mutate.blobs.delete(zip.id)
-	}, 100)
 }
 
 export async function toggle_blob_hidden(blob_id) {
