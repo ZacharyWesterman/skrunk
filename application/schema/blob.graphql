@@ -52,7 +52,7 @@ input BlobSearchFilter {
 union BlobCountResponse = BlobCount | BadTagQuery | InsufficientPerms
 union BlobQueryResponse = BlobList | BadTagQuery | InsufficientPerms
 union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
-union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError | InsufficientPerms
+union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError | InsufficientPerms | BlobDoesNotExistError
 union BlobCreateResponse = Blob | InsufficientPerms
 union ZipProgressResponse = ZipProgress | BlobDoesNotExistError
 

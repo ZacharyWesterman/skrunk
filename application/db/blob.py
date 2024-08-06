@@ -20,6 +20,8 @@ db: Collection = None
 
 blob_path = None
 
+_zip_progress = {}
+
 class BlobStorage:
 	def __init__(self, id: str, ext: str = ''):
 		self.id = str(id)
@@ -295,6 +297,8 @@ def get_uid() -> str:
 	return str(uuid.uuid4())
 
 def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id: str) -> dict:
+	global _zip_progress
+
 	query = build_blob_query(filter, user_id)
 	if query:
 		query['$and'] += [{'complete': True}]
@@ -306,11 +310,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	#Update DB to allow polling progress.
-	db.update_one({'_id': ObjectId(id)}, {'$set': {'progress': {
-		'uid': blob_zip_id,
-		'value': 0,
-		'item': '',
-	}}})
+	_zip_progress[blob_zip_id] = [0, '']
 
 	file_names = {}
 
@@ -333,11 +333,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 				file_names[file_name] = 0
 
 			#Update db to allow polling progress.
-			db.update_one({'_id': ObjectId(id)}, {'$set': {'progress': {
-				'uid': blob_zip_id,
-				'value': item / total,
-				'item': file_name,
-			}}})
+			_zip_progress[blob_zip_id] = [item / total, file_name]
 
 			if sub_blob.exists:
 				print(f'[{100*item/total:.1f}%] Adding "{file_name}"...', flush=True)
@@ -351,17 +347,21 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	mark_as_completed(id, size, md5sum)
 
 	blob = db.find_one({'_id': ObjectId(id)})
+	if blob is None:
+		raise exceptions.BlobDoesNotExistError(id)
+
 	blob['id'] = blob['_id']
 	return blob
 
 def get_zip_progress(blob_zip_id: str) -> dict:
-	blob_data = db.find_one({'progress.uid': blob_zip_id})
-	if blob_data is None:
+	if blob_zip_id not in _zip_progress:
 		raise exceptions.BlobDoesNotExistError(blob_zip_id)
 
+	progress = _zip_progress[blob_zip_id]
+
 	return {
-		'progress': blob_data.get('progress', {}).get('value', 0),
-		'item': blob_data.get('progress', {}).get('item', ''),
+		'progress': progress[0],
+		'item': progress[1],
 	}
 
 def get_blob_data(id: str) -> dict:
