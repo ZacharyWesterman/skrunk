@@ -291,15 +291,26 @@ def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 
 	return 0
 
-def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
+def get_uid() -> str:
+	return str(uuid.uuid4())
+
+def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id: str) -> dict:
 	query = build_blob_query(filter, user_id)
 	if query:
 		query['$and'] += [{'complete': True}]
 	else:
 		query = {'complete': True}
 
-	id, ext = create_blob(f'ARCHIVE-{str(uuid.uuid4())[-8::]}.zip', [], ephemeral = True)
+	blob_zip_id = blob_zip_id.replace("/","").replace("\\","")
+	id, ext = create_blob(f'ARCHIVE-{blob_zip_id[-8::]}.zip', [], ephemeral = True)
 	this_blob_path = BlobStorage(id, ext).path(create = True)
+
+	#Update DB to allow polling progress.
+	db.update_one({'_id': ObjectId(id)}, {'$set': {'progress': {
+		'uid': blob_zip_id,
+		'value': 0,
+		'item': '',
+	}}})
 
 	file_names = {}
 
@@ -321,6 +332,13 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 			else:
 				file_names[file_name] = 0
 
+			#Update db to allow polling progress.
+			db.update_one({'_id': ObjectId(id)}, {'$set': {'progress': {
+				'uid': blob_zip_id,
+				'value': item / total,
+				'item': file_name,
+			}}})
+
 			if sub_blob.exists:
 				print(f'[{100*item/total:.1f}%] Adding "{file_name}"...', flush=True)
 				fp.write(sub_blob.path(), file_name)
@@ -336,6 +354,15 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 	blob['id'] = blob['_id']
 	return blob
 
+def get_zip_progress(blob_zip_id: str) -> dict:
+	blob_data = db.find_one({'progress.uid': blob_zip_id})
+	if blob_data is None:
+		raise exceptions.BlobDoesNotExistError(blob_zip_id)
+
+	return {
+		'progress': blob_data.get('progress', {}).get('value', 0),
+		'item': blob_data.get('progress', {}).get('item', ''),
+	}
 
 def get_blob_data(id: str) -> dict:
 	global db

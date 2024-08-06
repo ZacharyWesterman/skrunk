@@ -349,13 +349,53 @@ export async function download_all() {
 
 	if (res !== 'yes') return
 
+	//Get a unique ID for the pending ZIP action
+	const uid = await api(`{ generateUID }`)
+	let do_polling = true
+
 	//Show a spinner so users know to wait for the ZIP archive to be generated.
 	_.modal({
 		title: 'Creating ZIP Archive, Please be Patient...',
-		text: '<div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 47%; top: 50%;"></i></div>',
+		text: '<div id="progress" style="width:300px;max-width:100%"></div><div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 47%; top: 50%;"></i></div>',
 		no_cancel: true,
+	}, () => {
+		//On load.
+
+		//Begin polling for progress of the ZIP archive.
+		async function poll() {
+			if (!do_polling) return
+
+			const res = await api(`query ($uid: String!) {
+				pollZipProgress(uid: $uid) {
+					__typename
+					...on ZipProgress { progress item }
+					...on BlobDoesNotExistError { message }
+				}
+			}`, {
+				uid: uid,
+			})
+
+			if (res.__typename !== 'ZipProgress') {
+				_.modal.error(res.message)
+				return
+			}
+
+			const field = $('progress')
+			if (!field) return
+
+			field.innerHTML = `Progress: <span class="error">[${(res.progress * 100).toFixed(0)}%]</span><br>Item: <span class="disabled">${res.item}</span>`
+
+			if (!do_polling) return
+
+			//Schedule another poll later
+			setTimeout(poll, 100)
+		}
+
+		setTimeout(poll, 2000) //Start polling after user has been waiting for a while.
 	}).catch(() => { })
-	const zip = await mutate.blobs.create_zip(creator, Editor.value, date_from, date_to, title)
+
+	const zip = await mutate.blobs.create_zip(creator, Editor.value, date_from, date_to, title, ephemeral, uid)
+	do_polling = false
 
 	if (zip.__typename !== 'Blob') {
 		_.modal.error(zip.message)

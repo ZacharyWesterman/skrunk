@@ -26,10 +26,10 @@ def resolve_set_blob_tags(_, info, id: str, tags: list) -> dict:
 @perms.module('files')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_zip_archive(_, info, filter: BlobSearchFilter) -> dict:
+def resolve_create_zip_archive(_, info, filter: BlobSearchFilter, uid: str) -> dict:
 	try:
 		user_data = perms.caller_info()
-		blob = zip_matching_blobs(group_filter(filter, user_data), user_data['_id'])
+		blob = zip_matching_blobs(group_filter(filter, user_data), user_data['_id'], uid)
 		return { '__typename': 'Blob', **blob }
 	except ParseError as e:
 		return { '__typename': 'BadTagQuery', 'message': str(e) }

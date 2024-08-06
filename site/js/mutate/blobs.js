@@ -32,10 +32,10 @@ export default {
 		})
 	},
 
-	create_zip: async (username, tag_query, date_from, date_to, name) => {
+	create_zip: async (username, tag_query, date_from, date_to, name, ephemeral, uid) => {
 		return await api(`
-		mutation ($filter: BlobSearchFilter!) {
-			createZipArchive (filter: $filter) {
+		mutation ($filter: BlobSearchFilter!, $uid: String!) {
+			createZipArchive (filter: $filter, uid: $uid) {
 				__typename
 				...on Blob {
 					id
@@ -54,7 +54,9 @@ export default {
 				begin_date: date.db_output(date_from),
 				end_date: date.db_output(date_to),
 				name: name,
-			}
+				ephemeral: ephemeral,
+			},
+			uid: uid,
 		})
 	},
 

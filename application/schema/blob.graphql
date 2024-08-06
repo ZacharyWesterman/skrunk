@@ -35,6 +35,11 @@ type QRParseResponse {
 	error: String
 }
 
+type ZipProgress {
+	progress: Float!
+	item: String!
+}
+
 input BlobSearchFilter {
 	creator: String
 	begin_date: DateTime
@@ -49,6 +54,7 @@ union BlobQueryResponse = BlobList | BadTagQuery | InsufficientPerms
 union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
 union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError | InsufficientPerms
 union BlobCreateResponse = Blob | InsufficientPerms
+union ZipProgressResponse = ZipProgress | BlobDoesNotExistError
 
 #Resolvers below this line:
 
@@ -59,12 +65,14 @@ extend type Query {
 	totalBlobSize(filter: BlobSearchFilter!): BlobCountResponse!
 	getQRFromBlob(id: String!): QRParseResponse!
 	countTagUses(tag: String!): Int!
+	generateUID: String!
+	pollZipProgress(uid: String!): ZipProgressResponse!
 }
 
 extend type Mutation {
 	deleteBlob(id: String!): BlobUpdateResponse!
 	setBlobTags(id: String!, tags: [String!]!): BlobUpdateResponse!
-	createZipArchive(filter: BlobSearchFilter!): BlobZipResponse!
+	createZipArchive(filter: BlobSearchFilter!, uid: String!): BlobZipResponse!
 	getBlobFromQR(text: String, amount: Int!): BlobCreateResponse!
 	setBlobHidden(id: String!, hidden: Boolean!): BlobUpdateResponse!
 	setBlobEphemeral(id: String!, ephemeral: Boolean!): BlobUpdateResponse!
