@@ -14,6 +14,7 @@ import pathlib
 import mimetypes
 import hashlib
 import uuid
+import time
 
 from pymongo.collection import Collection
 db: Collection = None
@@ -310,7 +311,8 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
 	#Update DB to allow polling progress.
-	_zip_progress[blob_zip_id] = [0, '']
+	_zip_progress[blob_zip_id] = [0, '', False]
+	cancelled = False
 
 	file_names = {}
 
@@ -332,8 +334,13 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 			else:
 				file_names[file_name] = 0
 
+			#If this zip action was cancelled, quit.
+			if _zip_progress[blob_zip_id][2]:
+				cancelled = True
+				break
+
 			#Update db to allow polling progress.
-			_zip_progress[blob_zip_id] = [item / total, file_name]
+			_zip_progress[blob_zip_id] = [item / total, file_name, False]
 
 			if sub_blob.exists:
 				print(f'[{100*item/total:.1f}%] Adding "{file_name}"...', flush=True)
@@ -341,7 +348,9 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 			else:
 				print(f'[{100*item/total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
 
-	print('Finished ZIP archive.', flush=True)
+			time.sleep(1)
+
+	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
 
 	size, md5sum = file_info(this_blob_path)
 	mark_as_completed(id, size, md5sum)
@@ -350,8 +359,25 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	if blob is None:
 		raise exceptions.BlobDoesNotExistError(id)
 
+	if cancelled:
+		delete_blob(id)
+
 	blob['id'] = blob['_id']
 	return blob
+
+def cancel_zip(blob_zip_id: str) -> dict:
+	global _zip_progress
+
+	if blob_zip_id not in _zip_progress:
+		raise exceptions.BlobDoesNotExistError(blob_zip_id)
+
+	_zip_progress[blob_zip_id][2] = True
+	progress = _zip_progress[blob_zip_id]
+
+	return {
+		'progress': progress[0],
+		'item': progress[1],
+	}
 
 def get_zip_progress(blob_zip_id: str) -> dict:
 	if blob_zip_id not in _zip_progress:

@@ -76,4 +76,5 @@ extend type Mutation {
 	getBlobFromQR(text: String, amount: Int!): BlobCreateResponse!
 	setBlobHidden(id: String!, hidden: Boolean!): BlobUpdateResponse!
 	setBlobEphemeral(id: String!, ephemeral: Boolean!): BlobUpdateResponse!
+	cancelZipArchive(uid: String!): ZipProgressResponse!
 }

@@ -1,4 +1,4 @@
-from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage, set_blob_ephemeral
+from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage, set_blob_ephemeral, cancel_zip
 import application.db.perms as perms
 from application.db.users import group_filter
 from application.objects import BlobSearchFilter
@@ -56,3 +56,8 @@ def resolve_set_blob_hidden(_, info, id: str, hidden: bool) -> dict:
 @handle_client_exceptions
 def resolve_set_blob_ephemeral(_, info, id: str, ephemeral: bool) -> dict:
 	return { '__typename': 'Blob', **set_blob_ephemeral(id, ephemeral) }
+
+@perms.module('files')
+@perms.require('edit')
+def resolve_cancel_zip_archive(_, info, uid: str) -> dict:
+	return { '__typename': 'ZipProgress', **cancel_zip(uid) }

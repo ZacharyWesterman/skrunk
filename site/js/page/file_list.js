@@ -352,12 +352,12 @@ export async function download_all() {
 	//Get a unique ID for the pending ZIP action
 	const uid = await api(`{ generateUID }`)
 	let do_polling = true
+	let cancelled = false
 
 	//Show a spinner so users know to wait for the ZIP archive to be generated.
 	_.modal({
-		title: 'Creating ZIP Archive, Please be Patient...',
+		title: 'Creating ZIP Archive, Please be Patient...'.replaceAll(' ', '&nbsp;'),
 		text: '<div id="progress" style="width:300px;max-width:100%"></div><div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 47%; top: 50%;"></i></div>',
-		no_cancel: true,
 	}, () => {
 		//On load.
 
@@ -392,10 +392,25 @@ export async function download_all() {
 		}
 
 		setTimeout(poll, 2000) //Start polling after user has been waiting for a while.
-	}).catch(() => { })
+	}).catch(() => {
+		//Cancel the zip action
+		cancelled = true
+		do_polling = false
+		api(`mutation ($uid: String!) { cancelZipArchive (uid: $uid) { __typename } }`, {
+			uid: uid,
+		})
+	})
 
 	const zip = await mutate.blobs.create_zip(creator, Editor.value, date_from, date_to, title, ephemeral, uid)
 	do_polling = false
+
+	if (cancelled) {
+		_.modal({
+			title: 'ZIP Cancelled.'.replaceAll(' ', '&nbsp;'),
+			buttons: ['OK'],
+		}).catch(() => { })
+		return
+	}
 
 	if (zip.__typename !== 'Blob') {
 		_.modal.error(zip.message)

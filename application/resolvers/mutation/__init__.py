@@ -37,6 +37,7 @@ mutation.set_field('createZipArchive', resolve_create_zip_archive)
 mutation.set_field('getBlobFromQR', resolve_generate_blob_from_qr)
 mutation.set_field('setBlobHidden', resolve_set_blob_hidden)
 mutation.set_field('setBlobEphemeral', resolve_set_blob_ephemeral)
+mutation.set_field('cancelZipArchive', resolve_cancel_zip_archive)
 
 mutation.set_field('reportBug', resolve_report_bug)
 mutation.set_field('deleteBug', resolve_delete_bug)
