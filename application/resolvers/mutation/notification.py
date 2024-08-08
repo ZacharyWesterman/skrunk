@@ -28,6 +28,19 @@ def resolve_send_notification(_, info, username: str, title: str, body: str, cat
 
 	return { '__typename': 'Notification', **notif }
 
+@perms.require('admin', 'notify')
+@handle_client_exceptions
+def resolve_send_notification_as_read(_, info, username: str, title: str, body: str, category: str) -> dict:
+	if title == '':
+		return { '__typename': 'BadNotification', 'message': 'Notification title cannot be blank'}
+
+	if category == '' or category is None:
+		notif = send(title, body, username, read = True)
+	else:
+		notif = send(title, body, username, category = category, read = True)
+
+	return { '__typename': 'Notification', **notif }
+
 @perms.require('admin', perform_on_self=True, data_func=get_user_from_notif)
 def resolve_mark_notification_as_read(_, info, id: str) -> bool:
 	mark_as_read(id)
