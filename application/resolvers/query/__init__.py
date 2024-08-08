@@ -1,6 +1,6 @@
 from ariadne import QueryType
 from .users import resolve_get_user, resolve_list_users
-from .weather import resolve_get_weather_users, resolve_get_last_execution, resolve_get_alert_history
+from .weather import *
 from .sessions import resolve_count_user_sessions
 from .blob import *
 from .bugs import *
@@ -22,6 +22,8 @@ query.set_field('countSessions', resolve_count_user_sessions)
 query.set_field('getWeatherUsers', resolve_get_weather_users)
 query.set_field('getLastWeatherExec', resolve_get_last_execution)
 query.set_field('weatherAlertHistory', resolve_get_alert_history)
+query.set_field('getWeatherAlerts', resolve_get_weather_alerts)
+query.set_field('countWeatherAlerts', resolve_count_weather_alerts)
 
 query.set_field('getBlobs', resolve_get_blobs)
 query.set_field('countBlobs', resolve_count_blobs)

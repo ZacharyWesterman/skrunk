@@ -46,6 +46,8 @@ extend type Query {
 	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
 	weatherAlertHistory(start: Int!, count: Int!): [WeatherAlert!]!
+	getWeatherAlerts(username: String!, start: Int!, count: Int!): [WeatherAlert!]!
+	countWeatherAlerts(username: String!): Int!
 }
 
 extend type Mutation {

@@ -1,4 +1,5 @@
 import application.exceptions as exceptions
+from application.objects import Sorting
 
 from pymongo import MongoClient
 db: MongoClient = None
@@ -94,8 +95,8 @@ def get_last_exec() -> dict|None:
 	last_exec = db.weather.log.find_one({}, sort=[('timestamp', -1)])
 	return last_exec
 
-def get_alert_history(start: int, count: int) -> list:
-	selection = db.weather.alert_history.find({}, sort=[('_id', -1)])
+def get_alert_history(username: str|None, start: int, count: int) -> list:
+	selection = db.weather.alert_history.find({} if username is None else {'to': username}, sort=[('_id', -1)])
 
 	result = []
 	for i in selection.limit(count).skip(start):
@@ -106,3 +107,6 @@ def get_alert_history(start: int, count: int) -> list:
 		}]
 
 	return result
+
+def count_alert_history(username: str|None) -> list:
+	return db.weather.alert_history.count_documents({} if username is None else {'to': username})

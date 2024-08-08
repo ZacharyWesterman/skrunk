@@ -10,5 +10,10 @@
 		"perms": [
 			"admin"
 		]
+	},
+	{
+		"id": "weather_alerts",
+		"title": "Most Recent Weather Alert",
+		"module": "weather"
 	}
 ]
