@@ -376,7 +376,7 @@ export async function download_all() {
 			})
 
 			if (res.__typename !== 'ZipProgress') {
-				_.modal.error(res.message)
+				console.warn('ZIP Progress: ' + res.message)
 				return
 			}
 
