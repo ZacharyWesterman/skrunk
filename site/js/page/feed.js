@@ -1,16 +1,18 @@
 export async function init() {
 	await _('lookup', {
 		header: `
-			<span class="clickable" *toggles="data-feed-expand">
-				<i id="chevron" class="left fa-solid fa-angles-down"></i>
-				My Feeds
-			</span>
-			${environment.mobile ? '<br>' : ''}
-			<span name="feed-choice-div" template="dropdown"></span>
-			<span style="font-size: 80%;" class="tooltip" *click="help">
-				<i class="fa-solid fa-circle-question"></i>
-				<span class="tooltiptext t-center">What are data feeds?</span>
-			</span>`,
+			<div style="white-space: nowrap;${environment.mobile ? '' : 'min-width:500px;'}">
+				<span class="clickable" *toggles="data-feed-expand">
+					<i id="chevron" class="left fa-solid fa-angles-down"></i>
+					My Feeds
+				</span>
+				${environment.mobile ? '<br>' : ''}
+				<span name="feed-choice-div" template="dropdown"></span>
+				<span style="font-size: 80%;" class="tooltip" *click="help">
+					<i class="fa-solid fa-circle-question"></i>
+					<span class="tooltiptext t-center">What are data feeds?</span>
+				</span>
+			</div>`,
 		fields: `
 			Sort By
 			<select id="sort-by" *change="navigate_to_page(0)">
