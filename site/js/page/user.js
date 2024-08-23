@@ -23,6 +23,8 @@ export async function revoke_sessions(username) {
 }
 
 export async function set_perms() {
+	console.log(UserData)
+
 	let new_perms = []
 	let perms_changed = []
 	for (const perm of Perms) {
@@ -97,6 +99,8 @@ export async function load_user_data(username, self_view = false) {
 			}
 		}
 	})
+
+	UserData = await UserData
 }
 
 export async function update_user_module(field) {
