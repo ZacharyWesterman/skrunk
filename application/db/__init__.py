@@ -2,32 +2,31 @@ from . import users, perms, weather, sessions, blob, bugs, book, settings, notif
 from pymongo import MongoClient
 
 def init_db(data_db_url: str = 'localhost', weather_db_url: str = 'localhost', blob_path: str = None) -> None:
-	data_client = MongoClient(data_db_url)
-	weather_client = MongoClient(weather_db_url)
+	client = MongoClient(data_db_url)
 
-	users.db = data_client.data.users
-	apikeys.db = data_client.data.api_keys
+	users.db = client.skrunk.users
+	apikeys.db = client.skrunk.api_keys
 
 	perms.apikeydb = apikeys.db
 
-	settings.db = data_client.data.settings
+	settings.db = client.skrunk.settings
 
-	sessions.db = data_client.data.user_sessions
+	sessions.db = client.skrunk.user_sessions
 
-	blob.db = data_client.data.blob
+	blob.db = client.skrunk.blob
 	blob.blob_path = blob_path
 	blob.init()
 
-	bugs.db = data_client.data.bug_reports
-	book.db = data_client.data.books
+	bugs.db = client.skrunk.bug_reports
+	book.db = client.skrunk.books
 	book.init()
 
-	notification.db = data_client.notifications
-	inventory.db = data_client.inventory
+	notification.db = client.skrunk
+	inventory.db = client.skrunk
 
-	weather.db = weather_client
+	weather.db = client.skrunk
 
-	datafeed.db = data_client.datafeeds
+	datafeed.db = client.skrunk
 
 def setup_db() -> None:
 	try:

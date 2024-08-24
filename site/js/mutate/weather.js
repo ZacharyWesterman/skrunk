@@ -1,5 +1,5 @@
 export default {
-	create_user: async function (username, lat, lon, phone, max, min) {
+	create_user: async function (username, lat, lon, max, min) {
 		const query = `mutation ($userdata: WeatherUserInput!){
 			createWeatherUser(userdata: $userdata){
 				__typename
@@ -18,7 +18,6 @@ export default {
 				lon: lon,
 				max: max,
 				min: min,
-				phone: phone,
 			}
 		}
 		return await api(query, vars)

@@ -1,12 +1,12 @@
 import application.exceptions as exceptions
 from application.objects import Sorting
 
-from pymongo import MongoClient
-db: MongoClient = None
+from pymongo.database import Database
+db: Database = None
 
 def get_users() -> list:
 	global db
-	users = [ user for user in db.weather.users.find({}) ]
+	users = [ user for user in db.weather_users.find({}) ]
 	for i in users:
 		i['username'] = i['_id']
 
@@ -26,7 +26,7 @@ def get_users() -> list:
 def create_user(user_data: dict) -> None:
 	global db
 
-	userdata = db.weather.users.find_one({'_id': user_data['username']})
+	userdata = db.weather_users.find_one({'_id': user_data['username']})
 
 	if userdata:
 		raise exceptions.UserExistsError(user_data["username"])
@@ -43,25 +43,25 @@ def create_user(user_data: dict) -> None:
 			'last_sent': None,
 			'exclude': False,
 		}
-		db.weather.users.insert_one(userdata)
+		db.weather_users.insert_one(userdata)
 
 def delete_user(username: str) -> None:
 	global db
 
-	userdata = db.weather.users.find_one({'_id': username})
+	userdata = db.weather_users.find_one({'_id': username})
 
 	if userdata:
-		db.weather.users.delete_one({'_id': username})
+		db.weather_users.delete_one({'_id': username})
 	else:
 		raise exceptions.UserDoesNotExistError(username)
 
 def set_user_excluded(username: str, exclude: bool) -> dict:
 	global db
 
-	userdata = db.weather.users.find_one({'_id': username})
+	userdata = db.weather_users.find_one({'_id': username})
 
 	if userdata:
-		db.weather.users.update_one({'_id': username}, {'$set': {'exclude': exclude}})
+		db.weather_users.update_one({'_id': username}, {'$set': {'exclude': exclude}})
 		userdata['exclude'] = exclude
 		return userdata
 	else:
@@ -70,7 +70,7 @@ def set_user_excluded(username: str, exclude: bool) -> dict:
 def update_user(user_data: dict) -> None:
 	global db
 
-	userdata = db.weather.users.find_one({'_id': user_data['username']})
+	userdata = db.weather_users.find_one({'_id': user_data['username']})
 
 	if userdata:
 		user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max']['value'])
@@ -82,7 +82,7 @@ def update_user(user_data: dict) -> None:
 			'max': user_max,
 			'min': user_min,
 		}
-		db.weather.users.update_one(
+		db.weather_users.update_one(
 			{'_id': user_data['username']},
 			{'$set': userdata}
 		)
@@ -92,11 +92,11 @@ def update_user(user_data: dict) -> None:
 def get_last_exec() -> dict|None:
 	global db
 
-	last_exec = db.weather.log.find_one({}, sort=[('timestamp', -1)])
+	last_exec = db.log.find_one({}, sort=[('timestamp', -1)])
 	return last_exec
 
 def get_alert_history(username: str|None, start: int, count: int) -> list:
-	selection = db.weather.alert_history.find({} if username is None else {'to': username}, sort=[('_id', -1)])
+	selection = db.alert_history.find({} if username is None else {'to': username}, sort=[('_id', -1)])
 
 	result = []
 	for i in selection.limit(count).skip(start):
@@ -109,4 +109,4 @@ def get_alert_history(username: str|None, start: int, count: int) -> list:
 	return result
 
 def count_alert_history(username: str|None) -> list:
-	return db.weather.alert_history.count_documents({} if username is None else {'to': username})
+	return db.alert_history.count_documents({} if username is None else {'to': username})

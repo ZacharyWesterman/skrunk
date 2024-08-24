@@ -19,7 +19,6 @@ export async function refresh_users() {
 
 export async function create_user() {
 	const id = $.val('create-id')
-	const phone = $.val('create-phone')
 	const lat = parseFloat($.val('create-lat'))
 	const lon = parseFloat($.val('create-lon'))
 	const max = {
@@ -33,9 +32,9 @@ export async function create_user() {
 		value: parseFloat($.val('create-min')) || 0.0,
 	}
 
-	const fields = [$('create-id'), $('create-phone'), $('create-lat'), $('create-lon'), $('create-max'), $('create-min')]
+	const fields = [$('create-id'), $('create-lat'), $('create-lon'), $('create-max'), $('create-min')]
 
-	const response = await mutate.weather.create_user(id, lat, lon, phone, max, min)
+	const response = await mutate.weather.create_user(id, lat, lon, max, min)
 
 	if (response.__typename !== 'UserData') {
 		_.modal({
@@ -111,7 +110,7 @@ export async function update_user(username, self) {
 }
 
 export function can_create() {
-	const fields = [$('create-id'), $('create-phone'), $('create-lat'), $('create-lon')]
+	const fields = [$('create-id'), $('create-lat'), $('create-lon')]
 	for (const i of fields) {
 		if (i.value === '') {
 			$('create-button').disabled = true
