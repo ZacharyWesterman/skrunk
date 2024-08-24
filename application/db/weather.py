@@ -92,7 +92,7 @@ def update_user(user_data: dict) -> None:
 def get_last_exec() -> dict|None:
 	global db
 
-	last_exec = db.log.find_one({}, sort=[('timestamp', -1)])
+	last_exec = db.weather_log.find_one({}, sort=[('timestamp', -1)])
 	return last_exec
 
 def get_alert_history(username: str|None, start: int, count: int) -> list:

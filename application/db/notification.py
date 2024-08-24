@@ -18,7 +18,7 @@ from pymongo.database import Database
 db: Database = None
 
 def get_user_from_notif(id: str) -> dict:
-	notif = db.log.find_one({'_id': ObjectId(id)})
+	notif = db.notif_log.find_one({'_id': ObjectId(id)})
 	if notif is None:
 		return {}
 
@@ -65,17 +65,17 @@ def delete_subscription(auth: str) -> int:
 	return db.subscriptions.delete_many({'token.keys.auth': auth}).deleted_count
 
 def mark_as_read(id: str) -> None:
-	db.log.update_one({'_id': ObjectId(id)}, {'$set': {
+	db.notif_log.update_one({'_id': ObjectId(id)}, {'$set': {
 		'read': True
 	}})
 
 def mark_all_as_read(username: str) -> None:
 	user_data = users.get_user_data(username)
-	db.log.update_many({'recipient': user_data['_id'], 'read': False}, {'$set': {'read': True}})
+	db.notif_log.update_many({'recipient': user_data['_id'], 'read': False}, {'$set': {'read': True}})
 
 def get_notifications(username: str, read: bool, start: int, count: int) -> list:
 	user_data = users.get_user_data(username)
-	selection = db.log.find({'recipient': user_data['_id'], 'read': read}, sort = [('created', -1)])
+	selection = db.notif_log.find({'recipient': user_data['_id'], 'read': read}, sort = [('created', -1)])
 	result = []
 	for i in selection.limit(count).skip(start):
 		i['id'] = str(i['_id'])
@@ -85,7 +85,7 @@ def get_notifications(username: str, read: bool, start: int, count: int) -> list
 
 def count_notifications(username: str, read: bool) -> int:
 	user_data = users.get_user_data(username)
-	return db.log.count_documents({'recipient': user_data['_id'], 'read': read})
+	return db.notif_log.count_documents({'recipient': user_data['_id'], 'read': read})
 
 #May raise exceptions.WebPushException, exceptions.UserDoesNotExistError, or exceptions.MissingConfig
 def send(title: str, body: str, username: str, *, category: str = 'general', read: bool = False) -> dict:
@@ -103,7 +103,7 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 		'body': body,
 	}
 
-	log_id = db.log.insert_one({
+	log_id = db.notif_log.insert_one({
 		'recipient': user_data['_id'],
 		'created': datetime.utcnow(),
 		'message': json.dumps(message),
@@ -144,7 +144,7 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 			#Send notification to admins if an unhandled WebPushException occurs!
 			if send_admin_alert:
 				for user in users.get_admins():
-					db.log.insert_one({
+					db.notif_log.insert_one({
 						'recipient': user['_id'],
 						'created': datetime.utcnow(),
 						'message': json.dumps({'title': 'WebPushException when sending notification', 'body':f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}'}),
@@ -153,11 +153,11 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 						'category': 'webpushexception',
 					})
 
-	db.log.update_one({'_id': log_id}, {'$set': {
+	db.notif_log.update_one({'_id': log_id}, {'$set': {
 		'device_count': len(sub_tokens),
 	}})
 
-	notif_data = db.log.find_one({'_id': log_id})
+	notif_data = db.notif_log.find_one({'_id': log_id})
 	notif_data['id'] = notif_data['_id']
 
 	return notif_data
