@@ -1,7 +1,7 @@
 from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys, inventory, datafeed
 from pymongo import MongoClient
 
-def init_db(data_db_url: str = 'localhost', weather_db_url: str = 'localhost', blob_path: str = None) -> None:
+def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
 	client = MongoClient(data_db_url)
 
 	users.db = client.skrunk.users

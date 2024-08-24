@@ -8,8 +8,8 @@ from .scalars import scalars
 from .db import init_db, setup_db
 from . import routes
 
-def init(*, no_auth = False, blob_path = None, data_db_url = '', weather_db_url = ''):
-	init_db(data_db_url, weather_db_url, blob_path)
+def init(*, no_auth = False, blob_path = None, data_db_url = ''):
+	init_db(data_db_url, blob_path)
 
 	application = Flask(__name__)
 	application.config['MAX_CONTENT_LENGTH'] = 5 * 1000 * 1000 * 1000 #5GB file size limit for uploads

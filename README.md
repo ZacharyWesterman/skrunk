@@ -32,9 +32,7 @@ poetry install
 If you plan to enable the file module, you'll want to make sure you have a place to store blob data that is uploaded to the site.
 It can be any directory, but going forward we'll assume it's `/var/blob_data`.
 
-Also, make sure you know the MongoDB URLs of the various databases involved. If not specified at run-time, these will all default to `localhost`.
-
-Currently there are two databases, one for weather users (see my [weather-alerts repo](https://github.com/ZacharyWesterman/weather-alerts) ), and one for all other data.
+Also, make sure you know the MongoDB URL of the database. If not specified at run-time, this will default to `localhost`.
 
 ---
 
