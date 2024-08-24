@@ -14,7 +14,7 @@ cd "$OUTPUT" || exit 1
 
 
 tmp="/tmp/$(uuidgen)"
-for db in weather data notifications inventory datafeeds
+for db in skrunk
 do
 	echo "BACKING UP ${db^^}..."
 	ssh "$SERVER" "mongodump --db $db --out $tmp"
