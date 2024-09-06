@@ -21,7 +21,7 @@
 		<table>
 			<tr>
 				<td>
-					<img src="preview/{{= item.blob.thumbnail }}" alt="<ITEM IMAGE>" loading="lazy">
+					<img src="preview/{{= item.blob.thumbnail }}" alt="<ITEM IMAGE>" loading="lazy" onclick="_.modal.image('blob/{{= item.blob.id }}{{= item.blob.ext }}')">
 				</td>
 				<td>
 					{{= item.category }}<br>
