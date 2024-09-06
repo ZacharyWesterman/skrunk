@@ -465,7 +465,7 @@ export function view_pdf(url) {
 	//On desktop, open view in-browser.
 	const elem = $('pdf-viewer')
 	elem.innerHTML = `<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}"></iframe>
-	<div class="close-pdf-viewer" onclick="$.hide('pdf-viewer', true)">
+	<div class="clickable close-pdf-viewer" onclick="$.hide('pdf-viewer', true)">
 		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
 	</div>`
 	$.show(elem)
