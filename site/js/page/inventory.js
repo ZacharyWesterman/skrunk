@@ -122,6 +122,8 @@ export async function navigate_to_page(page_num) {
 			location
 			blob {
 				thumbnail
+				id
+				ext
 			}
 			created
 			creator {
