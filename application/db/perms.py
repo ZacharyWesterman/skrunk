@@ -32,16 +32,16 @@ def caller_info() -> str:
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return any(k in user_data['perms'] for k in perm_list)
 
-def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = False, data_func: callable = None) -> bool:
+def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = False, data_func: function|None = None) -> bool:
 	"""Check if the calling user has certain permissions.
 
-	### Parameters:
-	@perms: The permissions that must ALL be satisfied.
-	@perform_on_self: If True, permissions will be ignored when the user is editing their own data.
-	@data_func: If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
+	Args:
+		perms (list[str]): The permissions that must ALL be satisfied.
+		perform_on_self (bool): If True, permissions will be ignored when the user is editing their own data.
+		data_func (function|None): If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
 
-	### Returns:
-	- True if the user has all required permissions, or if perform_on_self is True AND the data being operated on belongs to the user.
+	Returns:
+		bool: True if the user has all required permissions, or if perform_on_self is True AND the data being operated on belongs to the user.
 	"""
 
 	# Make sure the user making the request exists
@@ -69,22 +69,22 @@ def satisfies(perms: list, data: dict = {}, *, perform_on_self: bool = False, da
 	# If user does not have ALL required perms, fail.
 	return user_has_perms(user_data, perms)
 
-def require(*perms: list[str], perform_on_self: bool = False, data_func: callable = None) -> callable:
+def require(*perms: list[str], perform_on_self: bool = False, data_func: function|None = None) -> function:
 	"""Require the calling user to have certain permissions.
 
 	This is a decorator for application resolvers, to avoid redundant permission-checking logic all over the place.
 	If the permissions are not satisfied when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
 
-	### Parameters:
-	@perms: The permissions that must ALL be satisfied.
-	@perform_on_self: If True, permissions will be ignored when the user is editing their own data.
-	@data_func: If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
+	Args:
+		perms (list[str]): The permissions that must ALL be satisfied.
+		perform_on_self (bool): If True, permissions will be ignored when the user is editing their own data.
+		data_func (function|None): If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
 
-	### Returns:
-	- The resolver function, with decorator applied.
+	Returns:
+		function: The resolver function, with decorator applied.
 	"""
 
-	def inner(method: callable) -> callable:
+	def inner(method: function) -> function:
 		def wrap(_, info, *args, **kwargs):
 			if satisfies(perms, kwargs, perform_on_self = perform_on_self, data_func = data_func):
 				return method(_, info, *args, **kwargs)
@@ -95,20 +95,20 @@ def require(*perms: list[str], perform_on_self: bool = False, data_func: callabl
 
 	return inner
 
-def module(*modules: list[str]) -> callable:
+def module(*modules: list[str]) -> function:
 	"""Require the calling user to have all the specified modules enabled.
 
 	This is a decorator for application resolvers, to avoid redundant module-checking logic all over the place.
-	If the does not have one or more of the specified modules enabled when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
+	If the user does not have one or more of the specified modules enabled when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
 
-	### Parameters:
-	@modules: The modules that must ALL be enabled for the user.
+	Args:
+		modules (list[str]): The modules that must ALL be enabled for the user.
 
-	### Returns:
-	- The resolver function, with decorator applied.
+	Returns:
+		function: The resolver function, with decorator applied.
 	"""
 
-	def inner(method: callable) -> callable:
+	def inner(method: function) -> function:
 		def wrap(_, info, *args, **kwargs):
 			user_data = caller_info()
 
