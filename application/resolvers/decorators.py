@@ -1,6 +1,7 @@
 from application.exceptions import ClientError
+from typing import Callable
 
-def handle_client_exceptions(func):
+def handle_client_exceptions(func: Callable) -> Callable:
 	"""
     Decorator that handles client-specific exceptions and returns 
     error details to the client without crashing the application.
@@ -10,10 +11,10 @@ def handle_client_exceptions(func):
     containing the exception type and message.
 
     Args:
-        func (callable): The function to be wrapped by the decorator.
+        func (Callable): The function to be wrapped by the decorator.
 
     Returns:
-        callable: A wrapped function that handles `ClientError` exceptions.
+        Callable: A wrapped function that handles `ClientError` exceptions.
     """
 
 	def wrapper(*args, **kwargs):
