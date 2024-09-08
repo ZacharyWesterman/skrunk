@@ -3,7 +3,7 @@ import argparse
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(
-		prog = 'Flask Server',
+		prog = 'Skrunk Server',
 	)
 
 	parser.add_argument('--blob-path', action='store', default=None, type=str)
@@ -17,9 +17,8 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	app = application.init(no_auth=args.no_auth, blob_path=args.blob_path, data_db_url=args.data_db)
-
-	if not args.https:
-		app.run(args.ip, args.port, debug=not args.prod, threaded=True)
+	if args.prod:
+		from waitress import serve
+		serve(app, host=args.ip, port=args.port, threads=32)
 	else:
-		context = ('ssl/cert.pem', 'ssl/privkey.pem')
-		app.run(args.ip, args.port, debug=not args.prod, threaded=True, ssl_context=context)
+		app.run(args.ip, args.port, threaded=True)
