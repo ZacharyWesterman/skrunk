@@ -8,7 +8,7 @@ from .book import *
 from .settings import resolve_set_module_enabled, resolve_set_config_value, resolve_create_theme, resolve_delete_theme
 from .notification import *
 from .apikeys import resolve_create_api_key, resolve_delete_api_key
-from .inventory import resolve_create_inventory_item
+from .inventory import resolve_create_inventory_item, resolve_delete_inventory_item
 from .datafeed import *
 
 mutation = MutationType()
@@ -73,6 +73,7 @@ mutation.set_field('createAPIKey', resolve_create_api_key)
 mutation.set_field('deleteAPIKey', resolve_delete_api_key)
 
 mutation.set_field('createInventoryItem', resolve_create_inventory_item)
+mutation.set_field('deleteInventoryItem', resolve_delete_inventory_item)
 
 mutation.set_field('createFeed', resolve_create_feed)
 mutation.set_field('deleteFeed', resolve_delete_feed)

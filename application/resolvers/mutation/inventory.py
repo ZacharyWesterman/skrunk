@@ -1,5 +1,5 @@
 import application.db.perms as perms
-from application.db.inventory import create_inventory_item
+from application.db.inventory import create_inventory_item, get_inventory_item, delete_inventory_item
 from ..decorators import *
 
 @perms.module('inventory')
@@ -20,3 +20,10 @@ def resolve_create_inventory_item(_, info, owner: str, category: str, type: str,
 		}
 
 	return { '__typename': 'Item', **create_inventory_item(owner, category, type, location, blob_id, description, rfid) }
+
+@perms.module('inventory')
+@perms.require('edit')
+@perms.require('admin', perform_on_self = True, data_func = get_inventory_item)
+@handle_client_exceptions
+def resolve_delete_inventory_item(_, info, id: str) -> dict:
+	return { '__typename': 'Item', **delete_inventory_item(id) }

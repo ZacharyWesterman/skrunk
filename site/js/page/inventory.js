@@ -1,5 +1,6 @@
 let LookupStart = 0
 let LookupListLen = 15
+let CurrentPage = 0
 
 export async function init() {
 	await _('lookup', {
@@ -80,6 +81,8 @@ export async function init() {
 }
 
 export async function navigate_to_page(page_num) {
+	CurrentPage = page_num
+
 	const filter = {
 		category: $.val('category') || null,
 		type: $.val('type') || null,
@@ -145,4 +148,42 @@ export async function navigate_to_page(page_num) {
 
 	await _('page-list', count_promise)
 	await _('lookup-results', items_promise)
+}
+
+export async function update_tags(id) {
+	_.modal({
+		type: 'info',
+		title: 'Not Implemented!',
+		text: "This button currently does nothing. In the future you'll be able to update an item's RFID/QR tags.",
+		buttons: ['OK'],
+	}).catch(() => { })
+}
+
+export async function delete_item(id) {
+	const confirm = await _.modal({
+		type: 'question',
+		title: 'Delete this inventory item?',
+		text: 'This will permanently remove it from the list. To get it back, you will have to re-add it all over again.',
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (confirm !== 'yes') return
+
+	const res = await api(`mutation ($id: String!) {
+		deleteInventoryItem(id: $id) {
+			__typename
+			...on InsufficientPerms { message }
+			...on ItemDoesNotExistError { message }
+		}
+	}`, {
+		id: id,
+	})
+
+	if (res.__typename !== 'Item') {
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	navigate_to_page(CurrentPage) //Just refresh the current page.
 }

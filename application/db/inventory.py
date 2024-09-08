@@ -37,6 +37,20 @@ def create_inventory_item(owner: str, category: str, type: str, location: str, b
 
 	return item
 
+def get_inventory_item(id: str) -> dict:
+	item = db.items.find_one({'_id': ObjectId(id)})
+	if item is None:
+		raise exceptions.ItemDoesNotExistError(id)
+	
+	item['id'] = item['_id']
+	return item
+
+def delete_inventory_item(id: str) -> dict:
+	item = get_inventory_item(id)
+	db.items.delete_one({'_id': ObjectId(id)})
+
+	return item
+
 def get_item_categories() -> list[str]:
 	return [ i for i in db.items.distinct('category') ]
 

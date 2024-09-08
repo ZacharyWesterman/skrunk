@@ -22,6 +22,10 @@ type ItemExistsError {
 	message: String!
 }
 
+type ItemDoesNotExistError {
+	message: String!
+}
+
 input InventorySearchFilter {
 	owner: String
 	category: String
@@ -30,6 +34,7 @@ input InventorySearchFilter {
 }
 
 union ItemCreateResponse = Item | InsufficientPerms | InvalidFields | ItemExistsError | UserDoesNotExistError
+union ItemDeleteResponse = Item | InsufficientPerms | ItemDoesNotExistError
 
 #Resolvers below this line:
 
@@ -44,4 +49,5 @@ extend type Query {
 
 extend type Mutation {
 	createInventoryItem(owner: String!, category: String!, type: String!, location: String!, blob_id: String!, description: String!, rfid: String) : ItemCreateResponse!
+	deleteInventoryItem(id: String!): ItemDeleteResponse!
 }

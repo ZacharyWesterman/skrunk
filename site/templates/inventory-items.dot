@@ -4,10 +4,18 @@
 		<p>
 			Owned by {{= item.creator.display_name }}{{? item.creator.display_name.toLowerCase() !== item.creator.username }}({{= item.creator.username}}){{?}}
 			{{? item.rfid.length === 0 }}
-			<span class="tooltip right">
+			<span class="tooltip right clickable" *click="update_tags('{{= item.id }}')" >
 				<i class="fa-solid fa-tag error"></i>
 				<span class="tooltiptext t-left">
 					This item has not been&nbsp;tagged.
+				</span>
+			</span>
+			{{?}}
+			{{? item.creator.username === api.username || has_perm('admin') }}
+			<span class="tooltip right clickable" *click="delete_item('{{= item.id }}')" >
+				<i class="fa-solid fa-trash disabled"></i>
+				<span class="tooltiptext t-left">
+					Delete this item.
 				</span>
 			</span>
 			{{?}}

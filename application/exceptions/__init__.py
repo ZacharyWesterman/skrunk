@@ -65,6 +65,10 @@ class ItemExistsError(ClientError):
 	def __init__(self, id: str):
 		super().__init__(f'An item already exists with RFID {id}')
 
+class ItemDoesNotExistError(ClientError):
+	def __init__(self, id: str):
+		super().__init__(f'No item found with ID {id}')
+
 class FeedDoesNotExistError(ClientError):
 	def __init__(self, id: str):
 		super().__init__(f'No feed found with ID "{id}"')
