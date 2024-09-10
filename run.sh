@@ -56,7 +56,7 @@ warn()
 DEPS_ERROR=()
 DEPS_WARN=()
 MISSING_DEPS=0
-for i in 'openjdk 0 OpenJDK >= 8' 'python 1 Python >= 3.10' 'poetry 1 Poetry' 'mongod 1 MongoDB >= 5'
+for i in 'openjdk 0 OpenJDK >= 8' 'python3 1 Python >= 3.10' 'poetry 1 Poetry' 'mongod 1 MongoDB >= 5'
 do
 	read -r program required info <<< "$i"
 	if ! type "$program" &>/dev/null
