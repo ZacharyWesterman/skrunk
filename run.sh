@@ -40,6 +40,42 @@ filter()
 	done
 }
 
+error()
+{
+	echo -e "\e[31mERROR:\e[0m $@"
+}
+
+warn()
+{
+	echo -e "\e[33mWARNING:\e[0m $@"
+}
+
+#Check if dependencies are installed
+#If any required dependencies are not installed, exit.
+#Non-required deps will be warned about, but app will continue to run.
+DEPS_ERROR=()
+DEPS_WARN=()
+MISSING_DEPS=0
+for i in 'openjdk 0 OpenJDK >= 8' 'python 1 Python >= 3.10' 'poetry 1 Poetry' 'mongod 1 MongoDB >= 5'
+do
+	read -r program required info <<< "$i"
+	if ! type "$program" &>/dev/null
+	then
+		[ "$required" == 1 ] && DEPS_ERROR+=("$info") && MISSING_DEPS=1 || DEPS_WARN+=("$info")
+	fi
+done
+for i in "${DEPS_ERROR[@]}"; do error "$i is not installed. Please install it."; done
+for i in "${DEPS_WARN[@]}"; do warn "$i is not installed. The application will still run, but some features may not be available."; done
+[ $MISSING_DEPS == 1 ] && exit 1
+
+
+#Check if mongoDB is running
+if ! systemctl is-active mongod &>/dev/null
+then
+	error "mongod service is not running! Start up the service with \`systemctl start mongod\` and then try again."
+	exit 1
+fi
+
 #Build site map for pre-loading of site resources
 {
 	echo '{'
