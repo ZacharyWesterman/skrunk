@@ -16,25 +16,22 @@
 	{{~ it: feed }}
 	<tr>
 		<td style="border-right: 1px solid var(--secondary-text)">
-			<div style="white-space: nowrap;">
-				<input id="update-{{= feed.id }}" type="checkbox" {{? feed.notify }}checked{{?}} *click="update_notify('{{= feed.id }}')" />
-				&nbsp;
-				<span class="tooltip">
-					<i id="update-icon-{{= feed.id }}" class="fa-solid fa-bell"></i>
-					<span class="tooltiptext t-right">Notify about new documents</span>
-				</span>
-			</div>
+			<input id="update-{{= feed.id }}" type="checkbox" {{? feed.notify }}checked{{?}} *click="update_notify('{{= feed.id }}')" />
+			&nbsp;
+			<span class="tooltip">
+				<i id="update-icon-{{= feed.id }}" class="fa-solid fa-bell"></i>
+				<span class="tooltiptext t-right">Notify about new documents</span>
+			</span>
 
-			<div style="white-space: nowrap;">
-				<input id="inactive-{{= feed.id }}" type="checkbox" {{? feed.inactive }}checked{{?}} *click="update_inactive('{{= feed.id }}')" />
-				&nbsp;
-				<span class="tooltip">
-					<i id="inactive-icon-{{= feed.id }}" class="fa-solid fa-hand"></i>
-					<span class="tooltiptext t-right">Stop fetching feed</span>
-				</span>
-			</div>
+			<br>
+
+			<input id="inactive-{{= feed.id }}" type="checkbox" {{? feed.inactive }}checked{{?}} *click="update_inactive('{{= feed.id }}')" />
+			&nbsp;
+			<span class="tooltip">
+				<i id="inactive-icon-{{= feed.id }}" class="fa-solid fa-hand"></i>
+				<span class="tooltiptext t-right">Stop fetching feed</span>
+			</span>
 		</td>
-	{{? environment.mobile }}</tr><tr>{{?}}
 		<td>
 			{{= feed.name }}
 			<br>
