@@ -27,6 +27,13 @@
 
 <script>
 	export async function subsonic_search() {
+		if ($.val('subsonic-query') === '') {
+			_('subsonic-search', {
+				album: [],
+			})
+			return
+		}
+
 		$.show('query-spinner')
 
 		const res = await api(`
