@@ -1,13 +1,15 @@
 <div class="card alt" id="lookup-header">
 	<div class="card-inner">
 		<div {{? it.has_hidden_fields }}class="clickable" *toggles="extra-search-fields"{{?}}>
+			{{? it.header }}
 			<h3>
 				{{= it.header }}
 				{{? it.has_hidden_fields }}<i class="right fa-solid fa-angles-down"></i>{{?}}
 			</h3>
+			{{?}}
 		</div>
 
-		{{= it.fields }}
+		{{? it.fields }}{{= it.fields }}{{?}}
 
 		<div name="page-list"></div>
 	</div>

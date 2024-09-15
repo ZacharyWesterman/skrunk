@@ -1,76 +1,10 @@
 <div class="page">
 	<h1>
 		<i class="fa-solid fa-bell fa-xl"></i>
-		Unread Notifications
+		Notifications
 	</h1>
 
-	<div id="notifications"></div>
+	<div name="lookup"></div>
 </div>
 
-<script>
-	export function init() {
-		refresh_notifs()
-	}
-
-	export async function refresh_notifs() {
-		push.show_notifs()
-		const notifs = (await api(`query ($username: String!, $read: Boolean!, $start: Int!, $count: Int!) {
-			getNotifications (username: $username, read: $read, start: $start, count: $count) {
-				recipient
-				created
-				message
-				category
-				id
-			}
-		}`, {
-			username: api.username,
-			read: false,
-			start: 0,
-			count: 20,
-		})).map(i => {
-			const msg = JSON.parse(i.message)
-			i.title = msg.title
-			i.body = msg.body
-			return i
-		})
-
-		_('notifications', notifs)
-	}
-
-	export async function mark_as_read(id) {
-		await api(`mutation ($id: String!) {
-			markNotifAsRead (id: $id)
-		}`, {
-			id: id,
-		})
-
-		refresh_notifs()
-		push.show_notifs()
-	}
-
-	export async function mark_all_notifs_as_read() {
-		const ct = await api(`query ($username: String!, $read: Boolean!) {
-			countNotifications (username: $username, read: $read)
-		}`, {
-			username: api.username,
-			read: false,
-		})
-		const res = await _.modal({
-			type: 'question',
-			title: 'Mark All as Read?',
-			text: `This will update <b>${ct}</b> notifications and hide them from view.<br>Continue?`,
-			buttons: ['Yes', 'No'],
-		})
-
-		if (res !== 'yes') return
-
-		await api(`mutation ($username: String!) {
-			markAllNotifsAsRead (username: $username)
-		}`, {
-			username: api.username,
-		})
-
-		_.modal.checkmark()
-		refresh_notifs()
-	}
-</script>
+<script src="js/page/notifications.js"></script>

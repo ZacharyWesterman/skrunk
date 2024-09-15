@@ -1,10 +1,4 @@
-{{? it.length }}
-<div class="card alt clickable" *click="mark_all_notifs_as_read">
-	<div style="text-align:center;">
-		<h2>Mark All as Read</h2>
-	</div>
-</div>
-{{??}}
+{{? !it.length }}
 <p>Woohoo! You're all caught up!</p>
 {{?}}
 
