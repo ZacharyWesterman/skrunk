@@ -1,18 +1,21 @@
-import application.exceptions as exceptions
 from datetime import datetime
-import bcrypt
+from zipfile import ZipFile, Path
 from bson.objectid import ObjectId
-import application.db.settings as settings
+from bson import json_util
+import bcrypt
+
+import application.exceptions as exceptions
+from application.db import settings
 
 from pymongo.collection import Collection
+from pymongo.database import Database
 db: Collection = None
+top_level_db: Database = None
 
 def get_admins() -> list:
-	global db
 	return [i for i in db.find({'perms': 'admin'})]
 
 def count_users() -> int:
-	global db
 	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})
 
 def get_user_list(groups: list = []) -> list:
@@ -31,7 +34,6 @@ def userids_in_groups(groups: list) -> list:
 	return result
 
 def get_user_by_id(id: ObjectId) -> dict:
-	global db
 	userdata = db.find_one({'_id': id})
 	if userdata:
 		userdata['disabled_modules'] = settings.calculate_disabled_modules(userdata.get('disabled_modules', []))
@@ -40,7 +42,6 @@ def get_user_by_id(id: ObjectId) -> dict:
 	raise exceptions.UserDoesNotExistError(f'ID:{id}')
 
 def get_user_data(username: str) -> dict:
-	global db
 	userdata = db.find_one({'username': username})
 
 	if userdata:
@@ -50,7 +51,6 @@ def get_user_data(username: str) -> dict:
 		raise exceptions.UserDoesNotExistError(username)
 
 def update_user_theme(username: str, theme: dict) -> dict:
-	global db
 	userdata = db.find_one({'username': username})
 
 	if not userdata:
@@ -62,7 +62,6 @@ def update_user_theme(username: str, theme: dict) -> dict:
 	return userdata
 
 def update_user_perms(username: str, perms: list) -> dict:
-	global db
 	userdata = db.find_one({'username': username})
 
 	if not userdata:
@@ -74,8 +73,6 @@ def update_user_perms(username: str, perms: list) -> dict:
 	return userdata
 
 def create_user(username: str, password: str, *, groups: list = [], admin: bool = False, ephemeral: bool = False) -> dict:
-	global db
-
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -106,7 +103,6 @@ def create_user(username: str, password: str, *, groups: list = [], admin: bool 
 	return userdata
 
 def delete_user(username: str) -> None:
-	global db
 	userdata = db.find_one({'username': username})
 
 	if not userdata:
@@ -116,7 +112,6 @@ def delete_user(username: str) -> None:
 	return userdata
 
 def update_user_password(username: str, password: str) -> dict:
-	global db
 
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -133,7 +128,6 @@ def update_user_password(username: str, password: str) -> dict:
 	return userdata
 
 def update_user_display_name(username: str, display_name: str) -> dict:
-	global db
 
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -152,7 +146,6 @@ def update_user_display_name(username: str, display_name: str) -> dict:
 	return userdata
 
 def update_user_email(username: str, email: str) -> dict:
-	global db
 
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -225,4 +218,66 @@ def group_filter(filter: dict, user_data: dict) -> dict:
 
 	return filter
 
+def export_user_data(username: str) -> dict:
+	#Returns a blob after creating a ZIP file containing user data.
+
+	print(f'Creating ZIP export of {username}\'s data...', flush=True)
+
+	userdata = db.find_one({'username': username})
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+	
+	user_id = userdata['_id']
+
+	queries = [
+		{'_id': user_id},
+		{'_id': username},
+		{'owner': user_id},
+		{'creator': user_id},
+	]
+
+	exclude_collections = [
+		'api_keys', 'subscriptions',
+	]
+
+	#Create a ZIP file and blob entry
+	blob_storage = blob.BlobStorage(*blob.create_blob('data_export.zip', tags = ['export', '__temp_file'], hidden = False, ephemeral = True))
+	fp = ZipFile(blob_storage.path(create = True), 'w')
+
+	#Iterate over all collections, and append the file to the ZIP file.
+	for collection in [i for i in top_level_db.list_collection_names() if i not in exclude_collections]:
+		items = []
+
+		#Get a list of documents to export
+		this_coll = top_level_db[collection]
+		for i in queries:
+			if this_coll.count_documents(i) > 0:
+				def doc_mutate(data: dict) -> dict:
+					return data
+
+				if collection == 'feeds':
+					def doc_mutate(data: dict) -> dict:
+						data['documents'] = [i for i in top_level_db.documents.find({'feed': data['_id']})]
+						return data
+				elif collection == 'users':
+					def doc_mutate(data: dict) -> dict:
+						del data['password']
+						return data
+				
+				items = [doc_mutate(i) for i in this_coll.find(i)]
+
+		#Don't add to export if there are no documents
+		if len(items) == 0:
+			continue
+
+		fp.writestr(f'{collection}.json', json_util.dumps(items, indent=2))
+
+	size, md5sum = blob.file_info(blob_storage.path())
+	blob.mark_as_completed(blob_storage.id, size, md5sum)
+
+	print(f'Finished exporting {username}\'s data.', flush=True)
+
+	return blob.get_blob_data(blob_storage.id)
+
 from application.tokens import create_user_token
+from application.db import blob

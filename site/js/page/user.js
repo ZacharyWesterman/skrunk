@@ -323,3 +323,40 @@ export async function show_notifications_info() {
 
 	dashnav('help/notifications')
 }
+
+export async function export_data(username) {
+	//Double check with user
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Export all user data?',
+		text: 'This will create a ZIP file containing a database export of all user data for user "' + username + '", which will then download to your device.',
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	const res = await api(`mutation ($username: String!) {
+		exportUserData(username: $username) {
+			__typename
+			...on Blob { id name ext }
+			...on BadTagQuery { message }
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+			...on BlobDoesNotExistError { message }
+		}
+	}`, {
+		username: username,
+	})
+
+	if (res.__typename !== 'Blob') {
+		_.modal.error(res.message)
+		return
+	}
+
+	//Download user data
+	let link = document.createElement('a')
+	link.download = `${res.name}${res.ext}`
+	link.href = `/download/${res.id}${res.ext}`
+	link.target = '_blank'
+	link.click()
+}

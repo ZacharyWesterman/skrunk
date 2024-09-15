@@ -86,4 +86,6 @@ extend type Mutation {
 	updateUserGroups(username: String!, groups: [String!]!): UserUpdateResponse!
 	updateUserModule(username: String!, module: String!, disabled: Boolean!): UserUpdateResponse!
 	updateUserEmail(username: String!, email: String!): UserUpdateResponse!
+
+	exportUserData(username: String!): BlobZipResponse!
 }

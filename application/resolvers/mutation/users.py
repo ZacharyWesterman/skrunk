@@ -60,3 +60,8 @@ def resolve_set_user_module(_, info, username: str, module: str, disabled: bool)
 @handle_client_exceptions
 def resolve_update_user_email(_, info, username: str, email: str) -> dict:
 	return { '__typename': 'UserData', **update_user_email(username, email) }
+
+@perms.require('admin', perform_on_self = True)
+@handle_client_exceptions
+def resolve_export_user_data(_, info, username: str) -> dict:
+	return { '__typename': 'Blob', **export_user_data(username) }

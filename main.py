@@ -21,4 +21,4 @@ if __name__ == '__main__':
 		from waitress import serve
 		serve(app, host=args.ip, port=args.port, threads=32)
 	else:
-		app.run(args.ip, args.port, threaded=True)
+		app.run(args.ip, args.port, threaded=True, debug=True)

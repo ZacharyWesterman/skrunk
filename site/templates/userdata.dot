@@ -1,6 +1,12 @@
 <div class="card">
 	<div class="card-inner">
-		<h2>{{=it.user.username}}</h2>
+		<h2>
+			{{=it.user.username}}
+			<span class="tooltip right" *click="export_data('{{= it.user.username }}')">
+				<i class="fa-solid fa-cloud-arrow-down"></i>
+				<span class="tooltiptext t-float-left">Export all user data</span>
+			</span>
+		</h2>
 		<div>
 			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password"><br>
 			<input id="user-new-password2" type="password" placeholder="Confirm Password" autocomplete="new-password">

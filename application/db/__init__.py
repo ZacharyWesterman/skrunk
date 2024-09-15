@@ -5,6 +5,8 @@ def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
 	client = MongoClient(data_db_url)
 
 	users.db = client.skrunk.users
+	users.top_level_db = client.skrunk
+
 	apikeys.db = client.skrunk.api_keys
 
 	perms.apikeydb = apikeys.db
