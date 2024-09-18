@@ -23,8 +23,11 @@
 		<div class="expand-container" id="custom-theme">
 			<div>
 				<div style="width:90%; margin: 0 auto;">
-					<div style="text-align: center;"><h4>Border Radius</h4></div>
-					<input style="width:100%" type="range" min="0" max="25" id="--border-radius" *change="update_colors">
+					<div style="text-align: center;">
+						<h4>Border Radius</h4>
+					</div>
+					<input style="width:100%" type="range" min="0" max="25" id="--border-radius"
+						*change="update_colors">
 				</div>
 
 				<h4>Content Colors</h4>
@@ -146,10 +149,6 @@
 	}
 
 	export async function set_theme(theme_json) {
-		// console.log(theme_json)
-		const theme = JSON.parse(theme_json)
-		console.log(theme.colors)
-
 		const colors = ['--primary', '--primary-alt', '--secondary', '--tertiary']
 		colors.forEach((cssvar, index) => {
 			_.css.set_var(cssvar, theme.colors[index])
@@ -190,7 +189,7 @@
 			title: 'Save Current Theme',
 			text: '<input placeholder="Theme Name" id="theme-name"/>',
 			buttons: ['OK', 'Cancel'],
-		}, () => {}, choice => {
+		}, () => { }, choice => {
 			//Validate fields
 			if (choice !== 'cancel' && $.val('theme-name') === '') {
 				$.flash('theme-name')
@@ -235,7 +234,7 @@
 		})
 
 		if (result.__typename !== 'Theme') {
-			console.log(result)
+			_.modal.error(result.message)
 			return
 		}
 

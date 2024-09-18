@@ -71,7 +71,7 @@ export function set_tag_editor_value(text) {
 }
 
 async function get_blobs(start, count) {
-	const title = $.val('blob-filter-title');
+	const title = $.val('blob-filter-title')
 	const creator = $.val('blob-filter-creator') === '' ? null : $.val('blob-filter-creator')
 	const date_from = date.from_field('blob-filter-from')
 	const date_to = date.from_field('blob-filter-to', 1)
@@ -82,10 +82,14 @@ async function get_blobs(start, count) {
 	for (const i of ['title', 'creator', 'from', 'to', 'ephemeral']) {
 		const f = $('blob-filter-' + i)
 		const v = f.type === 'checkbox' ? f.checked : f.value
-		if (v) { q[i] = v; has = true }
+		if (v) {
+			q[i] = v
+			has = true
+		}
 	}
 	if (Editor.value) {
-		q.tag = Editor.value; has = true
+		q.tag = Editor.value
+		has = true
 	}
 	environment.set_param('query', has && JSON.stringify(q))
 

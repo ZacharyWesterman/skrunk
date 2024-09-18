@@ -420,18 +420,18 @@ window.qr = {
 				startX = touch.clientX - rect.left
 				startY = touch.clientY - rect.top
 				isDragging = true
-			});
+			})
 
 			canvas.addEventListener('touchmove', e => {
 				if (isDragging) {
 					e.stopPropagation()
 					e.preventDefault()
 
-					const touch = e.touches[0];
-					const rect = canvas.getBoundingClientRect();
+					const touch = e.touches[0]
+					const rect = canvas.getBoundingClientRect()
 
-					endX = touch.clientX - rect.left;
-					endY = touch.clientY - rect.top;
+					endX = touch.clientX - rect.left
+					endY = touch.clientY - rect.top
 					drawOverlayAndRectangle(startX, startY, endX, endY)
 				}
 
@@ -626,18 +626,16 @@ window.qr = {
 window.has_perm = id => SelfUserData.perms.includes(id)
 
 function urlB64ToUint8Array(base64String) {
-	const padding = '='.repeat((4 - base64String.length % 4) % 4);
-	const base64 = (base64String + padding)
-		.replace(/\-/g, '+')
-		.replace(/_/g, '/');
+	const padding = '='.repeat((4 - base64String.length % 4) % 4)
+	const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
 
-	const rawData = window.atob(base64);
-	const outputArray = new Uint8Array(rawData.length);
+	const rawData = window.atob(base64)
+	const outputArray = new Uint8Array(rawData.length)
 
 	for (let i = 0; i < rawData.length; ++i) {
-		outputArray[i] = rawData.charCodeAt(i);
+		outputArray[i] = rawData.charCodeAt(i)
 	}
-	return outputArray;
+	return outputArray
 }
 
 /**

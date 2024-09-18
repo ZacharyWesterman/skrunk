@@ -241,8 +241,8 @@ $.focus = (field, bounds = {left: 0, right: 0, top: 0, bottom: 0}, padding = 10)
 	function setFocus() {
 		if (!IS_FOCUSING) return
 
-		const rect = $(field).getBoundingClientRect();
-		const overlay = document.querySelector('.dark-overlay');
+		const rect = $(field).getBoundingClientRect()
+		const overlay = document.querySelector('.dark-overlay')
 
 		const left = rect.left - padding - (bounds.left || 0)
 		const right = rect.right + padding + (bounds.right || 0)
