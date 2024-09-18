@@ -1,22 +1,26 @@
 {
 	"default": [
 		{
+			"id": "logout",
 			"text": "Logout",
 			"icon": "right-from-bracket",
 			"action": "api.logout()"
 		},
 		{
+			"id": "home",
 			"text": "Home",
 			"icon": "home",
 			"action": "load_dashboard()"
 		},
 		{
+			"id": "user",
 			"text": "User Settings",
 			"icon": "user-pen",
 			"action": "dashnav('user')",
 			"goto": "user"
 		},
 		{
+			"id": "library",
 			"text": "Library",
 			"icon": "book",
 			"action": "dashnav('books')",
@@ -24,6 +28,7 @@
 			"module": "books"
 		},
 		{
+			"id": "inventory",
 			"text": "Inventory",
 			"icon": "dolly",
 			"action": "dashnav('inventory')",
@@ -31,24 +36,28 @@
 			"module": "inventory"
 		},
 		{
+			"id": "audio",
 			"text": "Audio Catalog",
 			"icon": "music",
 			"action": "dashnav('subsonic')",
 			"module": "subsonic"
 		},
 		{
+			"id": "files",
 			"text": "Files",
 			"icon": "hard-drive",
 			"action": "dashnav('file_list')",
 			"module": "files"
 		},
 		{
+			"id": "feeds",
 			"text": "Data Feeds",
 			"icon": "rss",
 			"action": "dashnav('feed')",
 			"module": "feed"
 		},
 		{
+			"id": "upload",
 			"text": "Upload Files",
 			"icon": "file-arrow-up",
 			"action": "_.modal.upload()",
@@ -56,6 +65,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "bugs",
 			"text": "Bug Tracker",
 			"icon": "bug",
 			"action": "dashnav('bugs')",
@@ -63,6 +73,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "fullscreen",
 			"text": "Toggle Fullscreen",
 			"icon": "expand",
 			"action": "fullscreen()",
@@ -70,6 +81,7 @@
 			"show_if": "!environment.ios"
 		},
 		{
+			"id": "settings",
 			"text": "Server Settings",
 			"icon": "gear",
 			"action": "dashnav('server_settings')",
@@ -82,23 +94,27 @@
 	],
 	"settings": [
 		{
+			"id": "back",
 			"text": "Back",
 			"icon": "arrow-up",
 			"goto": "default"
 		},
 		{
+			"id": "settings",
 			"text": "Server Settings",
 			"icon": "gear",
 			"action": "dashnav('server_settings')",
 			"class": "alt"
 		},
 		{
+			"id": "user-admin",
 			"text": "User Admin",
 			"icon": "users",
 			"action": "dashnav('users')",
 			"class": "alt"
 		},
 		{
+			"id": "weather-users",
 			"text": "Weather Users",
 			"icon": "cloud-bolt",
 			"action": "dashnav('weather_users')",
@@ -106,6 +122,7 @@
 			"class": "alt"
 		},
 		{
+			"id": "weather-log",
 			"text": "Weather Alert Log",
 			"icon": "wind",
 			"action": "dashnav('weather_log')",
@@ -115,27 +132,32 @@
 	],
 	"books": [
 		{
+			"id": "back",
 			"text": "Back",
 			"icon": "arrow-up",
 			"goto": "default"
 		},
 		{
+			"id": "library",
 			"text": "Library",
 			"icon": "book",
 			"action": "dashnav('books')"
 		},
 		{
+			"id": "catalog-books",
 			"text": "Catalog Books",
 			"icon": "bookmark",
 			"action": "dashnav('books_new')"
 		},
 		{
+			"id": "qr",
 			"text": "Generate QR Code",
 			"icon": "qrcode",
 			"action": "qr.generate()",
 			"module": "qr"
 		},
 		{
+			"id": "upload",
 			"text": "Upload Files",
 			"icon": "file-arrow-up",
 			"action": "_.modal.upload()",
@@ -143,6 +165,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "bugs",
 			"text": "Bug Tracker",
 			"icon": "bug",
 			"action": "dashnav('bugs')",
@@ -150,6 +173,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "fullscreen",
 			"text": "Toggle Fullscreen",
 			"icon": "expand",
 			"action": "fullscreen()",
@@ -159,27 +183,32 @@
 	],
 	"inventory": [
 		{
+			"id": "back",
 			"text": "Back",
 			"icon": "arrow-up",
 			"goto": "default"
 		},
 		{
+			"id": "inventory",
 			"text": "Inventory",
 			"icon": "dolly",
 			"action": "dashnav('inventory')"
 		},
 		{
+			"id": "add-items",
 			"text": "Add Items",
 			"icon": "plus",
 			"action": "dashnav('inventory_new')"
 		},
 		{
+			"id": "qr",
 			"text": "Generate QR Code",
 			"icon": "qrcode",
 			"action": "qr.generate()",
 			"module": "qr"
 		},
 		{
+			"id": "upload",
 			"text": "Upload Files",
 			"icon": "file-arrow-up",
 			"action": "_.modal.upload()",
@@ -187,6 +216,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "bugs",
 			"text": "Bug Tracker",
 			"icon": "bug",
 			"action": "dashnav('bugs')",
@@ -194,6 +224,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "fullscreen",
 			"text": "Toggle Fullscreen",
 			"icon": "expand",
 			"action": "fullscreen()",
@@ -203,22 +234,26 @@
 	],
 	"user": [
 		{
+			"id": "back",
 			"text": "Back",
 			"icon": "arrow-up",
 			"goto": "default"
 		},
 		{
+			"id": "user",
 			"text": "User Settings",
 			"icon": "user-pen",
 			"action": "dashnav('user')"
 		},
 		{
+			"id": "theme",
 			"text": "Customize Theme",
 			"icon": "palette",
 			"action": "dashnav('edit_theme')",
 			"module": "theme"
 		},
 		{
+			"id": "upload",
 			"text": "Upload Files",
 			"icon": "file-arrow-up",
 			"action": "_.modal.upload()",
@@ -226,6 +261,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "bugs",
 			"text": "Bug Tracker",
 			"icon": "bug",
 			"action": "dashnav('bugs')",
@@ -233,6 +269,7 @@
 			"class": "bottom"
 		},
 		{
+			"id": "fullscreen",
 			"text": "Toggle Fullscreen",
 			"icon": "expand",
 			"action": "fullscreen()",

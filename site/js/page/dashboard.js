@@ -67,10 +67,9 @@ window.set_navbar = function (name) {
 		if (config.module && !EnabledModules.includes(config.module)) continue
 		if (config.perms && SelfUserData.perms.filter(x => config.perms.includes(x)).length !== config.perms.length) continue
 
-		let btn_config = [config.icon, config.goto ? `set_navbar('${config.goto}'); ${config.action}` : config.action, config.text]
-		if (config.class) btn_config.push(config.class)
+		if (config.goto) config.action = `set_navbar('${config.goto}'); ${config.action}`
 
-		result.push(btn_config)
+		result.push(config)
 	}
 
 	_('navbar', result)

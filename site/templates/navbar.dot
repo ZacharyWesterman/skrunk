@@ -1,15 +1,15 @@
 <div class="navbar">
 	{{~it : i}}
-		{{?i.length <= 3 || i[3] !== 'bottom'}}<button class="icon{{?i.length > 3}} {{=i[3]}}{{?}} tooltip" onclick="{{=i[1]}}">
-			<i class="fa-solid fa-{{=i[0]}} fa-lg"></i>
-			<span class="tooltiptext t-float-right{{?i.length > 3}} {{=i[3]}}{{?}}">{{= i[2] }}</span>
+		{{? i.class !== 'bottom'}}<button class="icon{{? i.class }} {{= i.class }}{{?}} tooltip" onclick="{{= i.action }}" {{? i.id }}id="navbar-{{= i.id }}"{{?}}>
+			<i class="fa-solid fa-{{= i.icon }} fa-lg"></i>
+			<span class="tooltiptext t-float-right {{? i.class }}{{= i.class }}{{?}}">{{= i.text }}</span>
 		</button><br>{{?}}
 	{{~}}
 	<div class="bottom">
 	{{~it : i}}
-		{{?i.length > 3 && i[3] === 'bottom'}}<button class="icon tooltip" onclick="{{=i[1]}}">
-			<i class="fa-solid fa-{{=i[0]}} fa-lg"></i>
-			<span class="tooltiptext t-float-right">{{= i[2] }}</span>
+		{{? i.class === 'bottom'}}<button class="icon tooltip" onclick="{{= i.action }}" {{? i.id }}id="navbar-{{= i.id }}"{{?}} >
+			<i class="fa-solid fa-{{= i.icon }} fa-lg"></i>
+			<span class="tooltiptext t-float-right">{{= i.text }}</span>
 		</button><br>{{?}}
 	{{~}}
 	</div>

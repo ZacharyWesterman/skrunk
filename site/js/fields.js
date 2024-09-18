@@ -235,6 +235,23 @@ $.editor.new = field => {
 }
 $.editor.del = id => delete $._EDITORS[id]
 
+//Pull in a dark overlay, drawing the user's focus to a specific element.
+$.focus = (field, bounds = {left: 0, right: 0, top: 0, bottom: 0}, padding = 10) => {
+	const rect = $(field).getBoundingClientRect();
+	const overlay = document.querySelector('.dark-overlay');
+
+	const left = rect.left - padding - (bounds.left || 0)
+	const right = rect.right + padding + (bounds.right || 0)
+	const top = rect.top - padding - (bounds.top || 0)
+	const bottom = rect.bottom + padding + (bounds.bottom || 0)
+
+	const polygon = `0% 0%, 0% 100%, ${left}px 100%, ${left}px ${top}px, ${right}px ${top}px, ${right}px ${bottom}px, ${left}px ${bottom}px, ${left}px 100%, 100% 100%, 100% 0%`
+	_.css.set_var('--focus-overlay', polygon)
+}
+
+$.unfocus = () => _.css.set_var('--focus-overlay', '')
+
+
 //Update globals $ (fields) and _ (screen)
 window.$ = $
 window._ = _
