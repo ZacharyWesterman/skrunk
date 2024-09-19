@@ -3,7 +3,7 @@
 	<div class="card-inner clickable" *click="toggle_read('{{= doc.id }}')" id="{{= doc.id }}">
 		{{? doc.title }}<h2>{{= doc.title }}</h2>{{?}}
 		{{? doc.author || doc.posted }}
-		<div class="disabled">
+		<div class="suppress">
 			Posted
 			{{? doc.author}} by {{= doc.author}}{{?}}
 			{{? doc.posted}} on {{= date.output(doc.posted)}} ({{= date.elapsed(doc.posted) }}){{?}}

@@ -33,7 +33,7 @@
 	<div class="card clickable" *toggles="issue-list" >
 		<div class="card-inner">
 			<h4>
-				<span class="error">Error Loading issues</span>
+				<span class="emphasis">Error Loading issues</span>
 				<i class="right fa-solid fa-angles-down fa-lg"></i>
 			</h4>
 			<div class="expand-container" id="issue-list">

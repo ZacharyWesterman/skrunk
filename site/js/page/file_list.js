@@ -251,7 +251,7 @@ export async function show_tags_how_to() {
 export async function show_ephemeral_info() {
 	await _.modal({
 		type: 'info',
-		title: 'What is an <span class="error">ephemeral</span> file?',
+		title: 'What is an <span class="emphasis">ephemeral</span> file?',
 		text: await api.snippit('ephemeral_files'),
 		buttons: ['OK'],
 	}).catch(() => 'ok')
@@ -260,7 +260,7 @@ export async function show_ephemeral_info() {
 export async function set_blob_tags(id) {
 	async function tagHTML(tag) {
 		const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
-		return `<div class="tag clickable ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
+		return `<div class="tag clickable ${ct ? '' : 'emphasis'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
 	}
 
 	const blob_data = await get_blob(id)
@@ -387,7 +387,7 @@ export async function download_all() {
 			const field = $('progress')
 			if (!field) return
 
-			field.innerHTML = `Progress: <span class="error">[${(res.progress * 100).toFixed(0)}%]</span><br>Item: <span class="disabled">${res.item}</span>`
+			field.innerHTML = `Progress: <span class="emphasis">[${(res.progress * 100).toFixed(0)}%]</span><br>Item: <span class="suppress">${res.item}</span>`
 
 			if (!do_polling) return
 
@@ -460,9 +460,9 @@ export async function toggle_blob_hidden(blob_id) {
 
 	//Make icon pop a bit if hidden
 	if (res.hidden)
-		icon.classList.add('error')
+		icon.classList.add('emphasis')
 	else
-		icon.classList.remove('error')
+		icon.classList.remove('emphasis')
 }
 
 export function view_pdf(url) {

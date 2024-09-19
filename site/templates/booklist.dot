@@ -3,7 +3,7 @@
 	<div class="card-inner">
 		<b>{{=book.title}}</b><br>
 		{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
-		<div class="disabled">By {{=book.authors.join(', ')}}</div>
+		<div class="suppress">By {{=book.authors.join(', ')}}</div>
 		{{?book.thumbnail}}<img src="{{=book.thumbnail}}" alt="<BOOK COVER>" loading="lazy">{{?}}
 		{{?book.description}}<div>{{=book.description.replace('\n', '<br>')}}</div>{{?}}
 	</div>

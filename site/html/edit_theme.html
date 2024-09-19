@@ -66,15 +66,15 @@
 					</tr>
 					<tr>
 						<td>Emphasized Text</td>
-						<td><input id="--error-text" type="color" *change="update_colors"></td>
+						<td><input id="--emphasis-text" type="color" *change="update_colors"></td>
 					</tr>
 					<tr>
 						<td>Suppressed Text</td>
-						<td><input id="--disabled-text" type="color" *change="update_colors"></td>
+						<td><input id="--suppress-text" type="color" *change="update_colors"></td>
 					</tr>
 				</table>
-				<p class="error">Here's some example emphasized text.</p>
-				<p class="disabled">Here's some example suppressed text.</p>
+				<p class="emphasis">Here's some example emphasized text.</p>
+				<p class="suppress">Here's some example suppressed text.</p>
 			</div>
 		</div>
 	</div>
@@ -149,6 +149,8 @@
 	}
 
 	export async function set_theme(theme_json) {
+		const theme = JSON.parse(theme_json)
+
 		const colors = ['--primary', '--primary-alt', '--secondary', '--tertiary']
 		colors.forEach((cssvar, index) => {
 			_.css.set_var(cssvar, theme.colors[index])
@@ -159,7 +161,7 @@
 			_.css.set_var(cssvar, theme.text[index])
 		})
 
-		const special = ['--error-text', '--disabled-text']
+		const special = ['--emphasis-text', '--suppress-text']
 		special.forEach((cssvar, index) => {
 			_.css.set_var(cssvar, theme.special[index])
 		})
@@ -227,8 +229,8 @@
 					$.val('--tertiary-text'),
 				],
 				special: [
-					$.val('--error-text'),
-					$.val('--disabled-text'),
+					$.val('--emphasis-text'),
+					$.val('--suppress-text'),
 				],
 			}
 		})

@@ -61,7 +61,7 @@ var #loader {
 	right: -.5rem;
 	font-weight: bolder;
 	color: var(--secondary);
-	background-color: var(--error-text);
+	background-color: var(--emphasis-text);
 	border-radius: 100px;
 	height: 1rem;
 	min-width: 1rem;
@@ -70,7 +70,7 @@ var #loader {
 }
 
 #runtime-errors {
-	color: var(--error-text);
+	color: var(--emphasis-text);
 	position: absolute;
 	top: 0;
 	z-index: 8999;
@@ -118,7 +118,7 @@ a {
 }
 
 hr {
-	color: var(--disabled-text);
+	color: var(--suppress-text);
 }
 
 .editor {
@@ -173,11 +173,11 @@ input.wide {
 }
 
 .invalid {
-	background-color: var(--error-text);
+	background-color: var(--emphasis-text);
 }
 
 .invalid-fg {
-	color: var(--error-text);
+	color: var(--emphasis-text);
 }
 
 .invisible {
@@ -276,8 +276,8 @@ textarea:disabled {
 	width: 90%;
 }
 
-.disabled {
-	color: var(--disabled-text);
+.suppress {
+	color: var(--suppress-text);
 }
 
 .navbar {
@@ -364,7 +364,7 @@ textarea:disabled {
 
 .issue-id {
 	font-style: italic;
-	color: var(--disabled-text);
+	color: var(--suppress-text);
 	float: right;
 	padding-right: .5rem;
 }
@@ -373,8 +373,8 @@ textarea:disabled {
 	cursor: pointer;
 }
 
-.error {
-	color: var(--error-text);
+.emphasis {
+	color: var(--emphasis-text);
 }
 
 .inline {
@@ -414,7 +414,7 @@ textarea:disabled {
 }
 
 blockquote {
-	border-left: 3px solid var(--disabled-text);
+	border-left: 3px solid var(--suppress-text);
 	padding-left: 1rem;
 	margin-left: 0;
 	margin-right: 0;
@@ -437,7 +437,7 @@ th {
 
 .section {
 	padding: .5rem 3px;
-	border: 1px solid var(--disabled-text);
+	border: 1px solid var(--suppress-text);
 	border-radius: var(--border-radius);
 	margin: .5rem 3px;
 	position: relative;

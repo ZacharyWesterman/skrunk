@@ -274,7 +274,7 @@ $.focus.message = message => {
 
 	if (field.innerHTML) {
 		$.blink(field, true)
-		if (text) {
+		if (message) {
 			setTimeout(() => {
 				field.innerHTML = message
 			}, 300)

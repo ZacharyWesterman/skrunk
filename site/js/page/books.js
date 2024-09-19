@@ -115,7 +115,7 @@ async function confirm_edit_ebooks(book_data) {
 	const modal = await _.modal({
 		icon: 'file-pdf',
 		title: 'Add E-Books',
-		text: `Select 1 or more files to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>' + book_data.subtitle + '</i>' : ''}<br><span class="disabled">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file" multiple>`,
+		text: `Select 1 or more files to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>' + book_data.subtitle + '</i>' : ''}<br><span class="suppress">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file" multiple>`,
 		buttons: ['Submit', 'Cancel'],
 	}, () => { }, async choice => { //on validate
 		if (choice === 'submit') {
@@ -394,7 +394,7 @@ async function reload_book_count() {
 }
 
 export async function share_book(is_shared, title, subtitle, author, id, owner) {
-	const bookinfo = `<b>${title}</b><br><i>${subtitle}</i><div class="disabled">By ${author}</div>`
+	const bookinfo = `<b>${title}</b><br><i>${subtitle}</i><div class="suppress">By ${author}</div>`
 
 	if (owner === api.username) {
 		//If user owns the book they're sharing, give options for who to share with.

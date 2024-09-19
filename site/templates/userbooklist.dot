@@ -8,7 +8,7 @@
 			</button>
 			{{? book.owner.username === api.username || has_perm('admin')}}
 			<button class="icon clickable tooltip" *click="edit_book('{{= book.rfid }}')">
-				<i class="fa-solid fa-pen-to-square fa-lg {{? book.owner.username !== api.username}}disabled{{?}}"></i>
+				<i class="fa-solid fa-pen-to-square fa-lg {{? book.owner.username !== api.username}}suppress{{?}}"></i>
 				<span class="tooltiptext t-left">Edit this book</span>
 			</button>
 			{{?}}
@@ -16,7 +16,7 @@
 		<span *toggles="card-{{=book.id}}" class="clickable">
 			<b>{{=book.title}}</b><br>
 			{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
-			<div class="disabled">By {{=book.authors.join(', ')}}</div>
+			<div class="suppress">By {{=book.authors.join(', ')}}</div>
 		</span>
 		<table class="clickable" *toggles="card-{{=book.id}}" style="padding-left:0;">
 			<tr>
@@ -38,7 +38,7 @@
 								<p>
 								{{? book.categories.length > 10 }}
 									{{~ book.categories.slice(0,9) : genre }}{{= no_line_break(genre) }}<br>{{~}}
-									<span class="disabled">... And {{= book.categories.length - 9 }} more.</span>
+									<span class="suppress">... And {{= book.categories.length - 9 }} more.</span>
 								{{??}}
 									{{~ book.categories : genre }}{{= no_line_break(genre) }}<br>{{~}}
 								{{?}}
@@ -70,7 +70,7 @@
 			</div>
 		{{?}}
 		<br>
-		<div class="disabled">
+		<div class="suppress">
 			Owned by {{= book.owner.display_name }}{{? (book.owner.display_name.toLowerCase() !== book.owner.username.toLowerCase()) }} ({{= book.owner.username }}){{?}}
 			{{?book.description}}<div class="actions right">
 				<button class="icon clickable tooltip" *toggles="card-{{=book.id}}" id="btn-{{= book.id }}">
@@ -80,7 +80,7 @@
 			</div>{{?}}
 		</div>
 		{{? book.shared }}
-		<i class="error">
+		<i class="emphasis">
 			Borrowed by {{= book.shareHistory[book.shareHistory.length - 1].display_name }}{{? (book.shareHistory[book.shareHistory.length - 1].display_name.toLowerCase() !== book.shareHistory[book.shareHistory.length - 1].name.toLowerCase()) }} ({{= book.shareHistory[book.shareHistory.length - 1].name }}){{?}}{{? book.shareHistory[book.shareHistory.length - 1].user_id === null }}
 			<span class="tooltip">
 				<i class="fa-solid fa-user-slash fa-sm"></i>
@@ -88,7 +88,7 @@
 			</span>{{?}}
 		</i>{{?}}
 
-		<div class="disabled">
+		<div class="suppress">
 			ISBN: {{=book.industryIdentifiers[0]?.identifier}}
 		</div>
 	</div>

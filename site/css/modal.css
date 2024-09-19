@@ -64,7 +64,7 @@ dialog {
 	/* ORIGINALLY 166px */
 	stroke-width: 2;
 	stroke-miterlimit: 10;
-	stroke: var(--error-text);
+	stroke: var(--emphasis-text);
 	fill: none;
 	animation: stroke 0.2s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
@@ -80,7 +80,7 @@ dialog {
 	stroke: var(--secondary-text);
 	stroke-miterlimit: 10;
 	margin: 10% auto;
-	box-shadow: inset 0px 0px 0px var(--error-text);
+	box-shadow: inset 0px 0px 0px var(--emphasis-text);
 	animation: fill .2s ease-in-out .2s forwards, scale .3s ease-in-out .4s forwards, fade .2s linear .7s forwards;
 }
 
@@ -124,7 +124,7 @@ dialog {
 
 @keyframes fill {
 	100% {
-		box-shadow: inset 0px 0px 0px 80px var(--error-text);
+		box-shadow: inset 0px 0px 0px 80px var(--emphasis-text);
 	}
 }
 

@@ -13,10 +13,10 @@
 				<a href="/download/{{=it.id}}{{=it.ext}}" download="{{=it.name.replace('&quot;', '&amp;quot;')}}{{=it.ext}}"><i class="fa-solid fa-file-arrow-down fa-lg"></i></a>
 				<span class="tooltiptext t-right">Download</span>
 			</button>
-			<span class="disabled">{{=it.size}}</span>
+			<span class="suppress">{{=it.size}}</span>
 			{{?it.creator === api.username || has_perm('admin')}}
 				<button class="icon right tooltip" *click="confirm_delete_blob('{{=it.id}}', '{{=safe_html(it.name)}}{{=it.ext}}')">
-					<i class="fa-solid fa-trash fa-lg {{? it.creator !== api.username }}disabled{{?}}"></i>
+					<i class="fa-solid fa-trash fa-lg {{? it.creator !== api.username }}suppress{{?}}"></i>
 					<span class="tooltiptext t-left">Delete this file</span>
 				</button>
 			{{?}}
@@ -52,7 +52,7 @@
 
 			{{? environment.mobile }}</a>{{?}}
 		{{??}}
-			<i class="disabled">{{= it.mimetype.length > 45 ? it.mimetype.substring(0, 40) + '...' : it.mimetype }}</i>
+			<i class="suppress">{{= it.mimetype.length > 45 ? it.mimetype.substring(0, 40) + '...' : it.mimetype }}</i>
 		{{?}}
 
 		<br>
@@ -63,12 +63,12 @@
 		{{~}}
 		<br>
 
-		<div class="disabled">
+		<div class="suppress">
 			Uploaded by {{=it.creator}}
 			<br>
 			{{=it.created}}
 			{{? it.ephemeral }}
-			<div class="error">
+			<div class="emphasis">
 				EPHEMERAL
 				<span class="tooltip" *click="show_ephemeral_info" >
 					<i class="fa-solid fa-circle-question"></i>

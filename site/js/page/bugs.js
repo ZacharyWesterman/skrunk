@@ -89,7 +89,7 @@ export async function comment_on_bug_report(bug_id) {
 	for (const comment of res.convo) {
 		html_content += `
 		<blockquote>
-			<div class="disabled">
+			<div class="suppress">
 				${comment.creator} @ ${date.short(comment.created)}
 			</div>
 			${image_restrict(comment.body_html)}

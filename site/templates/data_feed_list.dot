@@ -39,7 +39,7 @@
 		</td>
 		<td>
 			<button class="icon clickable tooltip alt right" *click="delete_feed('{{= feed.id }}')">
-				<i class="fa-solid fa-trash fa-lg disabled"></i>
+				<i class="fa-solid fa-trash fa-lg suppress"></i>
 				<span class="tooltiptext t-float-left">Delete this feed</span>
 			</button>
 		</td>

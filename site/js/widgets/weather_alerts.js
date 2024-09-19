@@ -14,5 +14,5 @@ export default async (config, field) => {
 	}
 
 	const { sent, message } = { ...res[0] }
-	field.innerHTML = `<div class="disabled">${date.elapsed(sent)}</div><p>${message.trim().replaceAll('\n', '<br>')}</p>`
+	field.innerHTML = `<div class="suppress">${date.elapsed(sent)}</div><p>${message.trim().replaceAll('\n', '<br>')}</p>`
 }

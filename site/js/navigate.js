@@ -296,7 +296,7 @@ window.set_field_logic = async function (DOM, url, module) {
 		DOM.querySelectorAll('input[type="photo"]').forEach(field => {
 			if (!EnabledModules.includes('files')) {
 				const new_field = document.createElement('span')
-				new_field.classList.add('disabled')
+				new_field.classList.add('suppress')
 				new_field.innerText = 'File uploads are disabled.'
 				field.replaceWith(new_field)
 				return

@@ -9,12 +9,12 @@
 			<tr>
 				<td>Used:</td>
 				<td>{{= format.file_size(disk.used) }}</td>
-				<td><span {{? (disk.free / disk.total) < 0.2 }}class="error"{{?}}>({{= (disk.used / disk.total * 100).toFixed(2) }}%)</span></td>
+				<td><span {{? (disk.free / disk.total) < 0.2 }}class="emphasis"{{?}}>({{= (disk.used / disk.total * 100).toFixed(2) }}%)</span></td>
 			</tr>
 			<tr>
 				<td>Free:</td>
 				<td>{{= format.file_size(disk.free) }}</td>
-				<td><span {{? (disk.free / disk.total) < 0.2 }}class="error"{{?}}>({{= (disk.free / disk.total * 100).toFixed(2) }}%)</span></td>
+				<td><span {{? (disk.free / disk.total) < 0.2 }}class="emphasis"{{?}}>({{= (disk.free / disk.total * 100).toFixed(2) }}%)</span></td>
 			</tr>
 		</table>
 	</blockquote>

@@ -107,7 +107,7 @@ async function load_widgets() {
 		const w_body = document.createElement('div')
 
 		if (config.title) title.innerText = config.title
-		else title.innerHTML = `<span class="error">NO TITLE : ${config.id}</span>`
+		else title.innerHTML = `<span class="emphasis">NO TITLE : ${config.id}</span>`
 
 		w_body.innerHTML = '<i class="gg-spinner"></i>'
 		widget.classList.add('widget', 'hidden')
@@ -122,7 +122,7 @@ async function load_widgets() {
 		import(`/js/widgets/${config.id}.js`).then(module => {
 			return module.default(config, w_body)
 		}).catch(e => {
-			w_body.innerHTML = `<div class="error">ERROR (${config.id}):<br>${e}</div>`
+			w_body.innerHTML = `<div class="emphasis">ERROR (${config.id}):<br>${e}</div>`
 		})
 	}
 }

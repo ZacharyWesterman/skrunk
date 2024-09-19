@@ -5,7 +5,7 @@
 			Owned by {{= item.creator.display_name }}{{? item.creator.display_name.toLowerCase() !== item.creator.username }}({{= item.creator.username}}){{?}}
 			{{? item.rfid.length === 0 }}
 			<span class="tooltip right clickable" *click="update_tags('{{= item.id }}')" >
-				<i class="fa-solid fa-tag error"></i>
+				<i class="fa-solid fa-tag emphasis"></i>
 				<span class="tooltiptext t-left">
 					This item has not been&nbsp;tagged.
 				</span>
@@ -13,7 +13,7 @@
 			{{?}}
 			{{? item.creator.username === api.username || has_perm('admin') }}
 			<span class="tooltip right clickable" *click="delete_item('{{= item.id }}')" >
-				<i class="fa-solid fa-trash disabled"></i>
+				<i class="fa-solid fa-trash suppress"></i>
 				<span class="tooltiptext t-left">
 					Delete this item.
 				</span>

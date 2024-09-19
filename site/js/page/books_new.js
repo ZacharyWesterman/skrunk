@@ -70,55 +70,55 @@ export async function create_book() {
 			selected: api.username,
 		})
 	}, //on load
-	choice => { //validate
-		if (choice === 'cancel') {
-			$('book-thumbnail')?.wipe()
-			return true
-		}
+		choice => { //validate
+			if (choice === 'cancel') {
+				$('book-thumbnail')?.wipe()
+				return true
+			}
 
-		const req_fields = ['book-title', 'book-author', 'book-isbn', 'book-publisher', 'book-published', 'book-pages', 'book-owner']
-		let valid = true
-		for (const i of req_fields) {
-			if ($.val(i) === '') {
-				$.flash(i)
-				if (valid) $(i).focus()
+			const req_fields = ['book-title', 'book-author', 'book-isbn', 'book-publisher', 'book-published', 'book-pages', 'book-owner']
+			let valid = true
+			for (const i of req_fields) {
+				if ($.val(i) === '') {
+					$.flash(i)
+					if (valid) $(i).focus()
+					valid = false
+				}
+			}
+
+			const isbn = $.val('book-isbn').replaceAll('-', '')
+			if (!isbn.match(/^\d{10}(\d{3})?$/)) {
+				$.flash('book-isbn')
+				if (valid) $('book-isbn').focus()
 				valid = false
 			}
-		}
 
-		const isbn = $.val('book-isbn').replaceAll('-', '')
-		if (!isbn.match(/^\d{10}(\d{3})?$/)) {
-			$.flash('book-isbn')
-			if (valid) $('book-isbn').focus()
-			valid = false
-		}
+			if (!$.val('book-pages').match(/^\d+$/)) {
+				$.flash('book-pages')
+				if (valid) $('book-pages').focus()
+				valid = false
+			}
 
-		if (!$.val('book-pages').match(/^\d+$/)) {
-			$.flash('book-pages')
-			if (valid) $('book-pages').focus()
-			valid = false
-		}
+			if (!valid) return false
 
-		if (!valid) return false
+			book_data = {
+				title: $.val('book-title').trim(),
+				subtitle: $.val('book-subtitle').trim() || null,
+				authors: $.val('book-author').split(',').map(x => x.trim()),
+				description: $.val('book-description').trim() || null,
+				pageCount: parseInt($.val('book-pages').trim()),
+				isbn: isbn,
+				publisher: $.val('book-publisher').trim(),
+				publishedDate: $.val('book-published').trim(),
+				thumbnail: $('book-thumbnail').blob_id || null,
+				owner: $('book-owner') || api.username,
+			}
 
-		book_data = {
-			title: $.val('book-title').trim(),
-			subtitle: $.val('book-subtitle').trim() || null,
-			authors: $.val('book-author').split(',').map(x => x.trim()),
-			description: $.val('book-description').trim() || null,
-			pageCount: parseInt($.val('book-pages').trim()),
-			isbn: isbn,
-			publisher: $.val('book-publisher').trim(),
-			publishedDate: $.val('book-published').trim(),
-			thumbnail: $('book-thumbnail').blob_id || null,
-			owner: $('book-owner') || api.username,
-		}
-
-		return true
-	}).catch(() => {
-		$('book-thumbnail').wipe()
-		return 'cancel'
-	})
+			return true
+		}).catch(() => {
+			$('book-thumbnail').wipe()
+			return 'cancel'
+		})
 
 	if (res !== 'ok') return
 
@@ -206,7 +206,7 @@ export async function select_book(book_id, book_title) {
 
 	const choice = await _.modal({
 		title: book_title,
-		text: `Do you want to associate this book with Tag ID ${tagid}?${$.val('new-owner') !== api.username ? '<br><span class="error">NOTE:</span> This book will be owned by <b>'+$.val('new-owner')+'</b> and will not be editable by you!' : ''}`,
+		text: `Do you want to associate this book with Tag ID ${tagid}?${$.val('new-owner') !== api.username ? '<br><span class="emphasis">NOTE:</span> This book will be owned by <b>' + $.val('new-owner') + '</b> and will not be editable by you!' : ''}`,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 	if (choice !== 'yes') return

@@ -10,7 +10,7 @@ export default async (config, field) => {
 
 	function toggle() {
 		const text = users.map(user => {
-			const last_login = user.last_login ? (exact ? date_format(user.last_login) : date.elapsed(user.last_login)) : '<span class="disabled">Never</span>'
+			const last_login = user.last_login ? (exact ? date_format(user.last_login) : date.elapsed(user.last_login)) : '<span class="suppress">Never</span>'
 			return `<tr><td>${user.username}</td><td>${last_login}</tr>`
 		}).reduce((a, b) => a + b)
 

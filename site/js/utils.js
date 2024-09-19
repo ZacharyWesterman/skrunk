@@ -253,7 +253,7 @@ window.chart = {
 	 */
 	bar: async (field, labels, data, horizontal = false) => {
 		const grid_color = _.css.get_var('--secondary')
-		const bar_color = Color.fromHex(_.css.get_var('--error-text'))
+		const bar_color = Color.fromHex(_.css.get_var('--emphasis-text'))
 
 		chart.create(field, {
 			type: 'bar',
@@ -716,7 +716,7 @@ window.push = {
 			push.subscription = await push.registration.pushManager.subscribe(config)
 		}
 		catch (e) {
-			_.modal.error(`Unable to enable web notifications on this browser.<hr><div class="error">${e}</div>`)
+			_.modal.error(`Unable to enable web notifications on this browser.<hr><div class="emphasis">${e}</div>`)
 			return false
 		}
 

@@ -8,7 +8,7 @@
 				{{?it.type === 'info'}}
 					<i style="padding-right: 1rem;" class="fa-solid fa-circle-info fa-2xl"></i>
 				{{??it.type === 'error'}}
-					<i style="padding-right: 1rem;" class="fa-solid fa-triangle-exclamation fa-2xl error"></i>
+					<i style="padding-right: 1rem;" class="fa-solid fa-triangle-exclamation fa-2xl emphasis"></i>
 				{{??it.type === 'question'}}
 					<i style="padding-right: 1rem;" class="fa-solid fa-circle-question fa-2xl"></i>
 				{{??it.icon !== undefined}}

@@ -96,7 +96,7 @@ modal.upload = async function () {
 
 	async function tagHTML(tag) {
 		const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
-		return `<div class="tag clickable ${ct ? '' : 'error'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
+		return `<div class="tag clickable ${ct ? '' : 'emphasis'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
 	}
 
 	function tagClicks(tagList) {
@@ -110,7 +110,7 @@ modal.upload = async function () {
 				tagClicks(tagList)
 			}
 		}
-		if (kids.length === 0) tagList.innerHTML = '<i class="disabled">Automatic tags only</i>'
+		if (kids.length === 0) tagList.innerHTML = '<i class="suppress">Automatic tags only</i>'
 	}
 	tagClicks(tagList)
 
@@ -221,7 +221,7 @@ modal.upload.start = async function () {
 		const msg = large_files.length === 1 ? 'A file' : 'Some of the files'
 		const it_them = large_files.length === 1 ? 'it' : 'them'
 		const res = await _.modal({
-			title: `<span class="error">WARNING:</span> You're about to upload ${header}!`,
+			title: `<span class="emphasis">WARNING:</span> You're about to upload ${header}!`,
 			text: `<p>${msg} you've selected may take a very long time to upload:</p><i>${large_files.join('<br>')}</i><p>This is still under the hard limit of <b>5GB</b> per file, so you <i>can still upload ${it_them}</i>, but if you have a slow or spotty connection you may want to consider uploading a different way.<br><br><b>Do you want to go ahead and upload?</b></p>`,
 			buttons: ['Yes', 'No'],
 		}).catch(() => 'no')
