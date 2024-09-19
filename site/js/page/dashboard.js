@@ -111,6 +111,7 @@ async function load_widgets() {
 
 		w_body.innerHTML = '<i class="gg-spinner"></i>'
 		widget.classList.add('widget', 'hidden')
+		widget.id = `widget-${config.id}`
 
 		w_inner.append(title, w_body)
 		widget.append(w_inner)

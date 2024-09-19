@@ -161,10 +161,10 @@ $.flash = id => {
 	}
 }
 
-$.blink = id => {
-	$.show(id)
+$.blink = (id, invert = false) => {
+	$.toggle(id, !invert, true)
 	setTimeout(() => {
-		$.hide(id, true)
+		$.toggle(id, invert, true)
 	}, 500)
 }
 
@@ -237,17 +237,22 @@ $.editor.del = id => delete $._EDITORS[id]
 
 //Pull in a dark overlay, drawing the user's focus to a specific element.
 let IS_FOCUSING = false
-$.focus = (field, bounds = {left: 0, right: 0, top: 0, bottom: 0}, padding = 10) => {
+$.focus = (field, bounds = { left: 0, right: 0, top: 0, bottom: 0 }, padding = 10) => {
+	if (!$(field)) {
+		console.warn(`Unable to focus on "${field}": no element exists with the given ID or name.`)
+		return
+	}
+
 	function setFocus() {
 		if (!IS_FOCUSING) return
 
 		const rect = $(field).getBoundingClientRect()
 		const overlay = document.querySelector('.dark-overlay')
 
-		const left = rect.left - padding - (bounds.left || 0)
-		const right = rect.right + padding + (bounds.right || 0)
-		const top = rect.top - padding - (bounds.top || 0)
-		const bottom = rect.bottom + padding + (bounds.bottom || 0)
+		const left = Math.floor(rect.left - padding - (bounds.left || 0))
+		const right = Math.floor(rect.right + padding + (bounds.right || 0))
+		const top = Math.floor(rect.top - padding - (bounds.top || 0))
+		const bottom = Math.floor(rect.bottom + padding + (bounds.bottom || 0))
 
 		const polygon = `0% 0%, 0% 100%, ${left}px 100%, ${left}px ${top}px, ${right}px ${top}px, ${right}px ${bottom}px, ${left}px ${bottom}px, ${left}px 100%, 100% 100%, 100% 0%`
 		_.css.set_var('--focus-overlay', polygon)
@@ -264,9 +269,27 @@ $.focus = (field, bounds = {left: 0, right: 0, top: 0, bottom: 0}, padding = 10)
 	}, 20)
 }
 
+$.focus.message = message => {
+	const field = $('dark-overlay-text')
+
+	if (field.innerHTML) {
+		$.blink(field, true)
+		if (text) {
+			setTimeout(() => {
+				field.innerHTML = message
+			}, 300)
+		}
+	} else if (message) {
+		$.hide(field)
+		field.innerHTML = message
+		$.show(field)
+	}
+}
+
 $.unfocus = () => {
 	IS_FOCUSING = false
 	_.css.set_var('--focus-overlay', '')
+	$.hide('dark-overlay-text', true)
 }
 
 

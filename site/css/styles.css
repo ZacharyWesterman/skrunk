@@ -28,6 +28,12 @@
 	clip-path: polygon(var(--focus-overlay));
 }
 
+.dark-overlay>div {
+	padding-left: 1rem;
+	padding-top: 1rem;
+	color: white;
+}
+
 var #loader {
 	position: absolute;
 	bottom: 1rem;
