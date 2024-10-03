@@ -1,9 +1,6 @@
 /*Theme will always be the first imported script*/
 @import url('/css/theme.css');
 
-/*Font to use throughout the whole page*/
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
 /*Animated "loading" placeholder icon*/
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/spinner.css');
 
