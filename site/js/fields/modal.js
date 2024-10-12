@@ -232,7 +232,7 @@ modal.upload.start = async function () {
 	//Add a progress bar for each file to be uploaded.
 	let innerHTML = ''
 	for (let i = 0; i < files.length; ++i) {
-		innerHTML += `<div><progress id="upload-progressbar-${i}" value="0" max="100"></progress><span></span></div>`
+		innerHTML += `<div><progress id="upload-progressbar-${i}" value="0" max="99"></progress><span></span></div>`
 	}
 	$('upload-progress').innerHTML = innerHTML
 	$.show('upload-progress')
