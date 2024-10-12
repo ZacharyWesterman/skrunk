@@ -16,7 +16,7 @@ class SessionError(Exception):
 	def __init__(self, message: str):
 		super().__init__(f'Subsonic Error: {message}')
 
-_P = re.compile('[\[\(][^\)]*[\[\)\]]')
+_P = re.compile(r'[\[\(][^\)]*[\[\)\]]')
 
 SUBSONIC_ALBUMID_CACHESZ = 8196
 
@@ -39,9 +39,11 @@ class Session:
 				url += f'&{p}={urllib.parse.quote_plus(str(parameters[p]))}'
 
 		try:
-			res = requests.get(url)
+			res = requests.get(url, timeout = 31)
 		except requests.exceptions.ConnectionError as e:
 			raise SessionError(e)
+		except requests.exceptions.Timeout:
+			raise SessionError('Connection timed out.')
 
 		if res.status_code >= 300 or res.status_code < 200:
 			raise SessionError(f'Failed to connect to server (code {res.status_code})')
