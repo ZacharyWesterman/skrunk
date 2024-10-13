@@ -301,6 +301,31 @@ export async function enable_push_notifs() {
 	if (!push.subscribed) {
 		await push.enable().then(push.register).then(push.subscribe)
 		push.show_notifs()
+
+		//If user is trying to subscribe, but the browser did not allow it for some reason,
+		//Show an error message and give the user the option to troubleshoot.
+		if (!push.subscribed) {
+			$('enable-push').checked = push.subscribed
+			$('enable-push').disabled = false
+
+			const choice = await _.modal({
+				type: 'error',
+				title: 'Cannot Enable Notifications',
+				text: `Push notification permission was not granted to this website.<br><br>
+				Normally this means that either the user has manually denied notifications for this site,
+				or the feature is not enabled in the first place.<br><br>
+				For help enabling this feature on iOS, Android, or PC, click the <i>Help</i> button.
+				If you still can't enable notifications after following the instructions,
+				then your browser may not support push notifications.`,
+				buttons: ['OK', 'Help'],
+			})
+
+			if (choice === 'help') {
+				dashnav('help/enable_notifications')
+			}
+
+			return
+		}
 	}
 	else {
 		await push.unsubscribe()
