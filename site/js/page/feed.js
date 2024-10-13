@@ -1,17 +1,20 @@
 export async function init() {
+	const tooltip = `
+	<span style="font-size: 80%;" class="tooltip" *click="help">
+		<i class="fa-solid fa-circle-question"></i>
+		<span class="tooltiptext t-center">What are data feeds?</span>
+	</span>`
+
 	await _('lookup', {
 		header: `
 			<div style="white-space: nowrap;${environment.mobile ? '' : 'min-width:500px;'}">
 				<span class="clickable" *toggles="data-feed-expand">
 					<i id="chevron" class="left fa-solid fa-angles-down"></i>
-					My Feeds
+					&nbsp;My Feeds
 				</span>
-				${environment.mobile ? '<br>' : ''}
+				${environment.mobile ? tooltip + '<br><br>' : ''}
 				<span name="feed-choice-div" template="dropdown"></span>
-				<span style="font-size: 80%;" class="tooltip" *click="help">
-					<i class="fa-solid fa-circle-question"></i>
-					<span class="tooltiptext t-center">What are data feeds?</span>
-				</span>
+				${environment.mobile ? '' : tooltip}
 			</div>`,
 		fields: `
 			Sort By
@@ -85,22 +88,23 @@ async function get_my_feeds() {
 
 	_('data_feed_list', res)
 
-	_('feed-choice-div', {
+	await _('feed-choice-div', {
 		id: 'feed-choice',
 		options: dropdown,
 		default: "No Feed Selected",
 		append: true,
-	}).then(() => {
-		$.bind('feed-choice', async () => {
-			const id = $.val('feed-choice')
+	})
 
-			if (id === '') {
-				navigate_to_page(0, false)
-				return
-			}
+	$.bind('feed-choice', async () => {
+		const id = $.val('feed-choice')
 
-			//Get page and sorting info for the chosen feed
-			const res = await api(`query ($id: String!) {
+		if (id === '') {
+			navigate_to_page(0, false)
+			return
+		}
+
+		//Get page and sorting info for the chosen feed
+		const res = await api(`query ($id: String!) {
 				getFeed (id: $id) {
 					__typename
 					...on Feed { currentPage currentSort { fields descending } }
@@ -109,22 +113,21 @@ async function get_my_feeds() {
 					...on InsufficientPerms { message }
 				}
 			}`, {
-				id: id,
-			})
-
-			if (res.__typename !== 'Feed') {
-				_.modal.error(res.message)
-				return
-			}
-
-			if (res.currentSort) {
-				$('sort-by').value = res.currentSort.fields[0]
-				$('sort-order').value = res.currentSort.descending ? 'descending' : 'ascending'
-			}
-
-			const page = res.currentPage || 0
-			navigate_to_page(page, false)
+			id: id,
 		})
+
+		if (res.__typename !== 'Feed') {
+			_.modal.error(res.message)
+			return
+		}
+
+		if (res.currentSort) {
+			$('sort-by').value = res.currentSort.fields[0]
+			$('sort-order').value = res.currentSort.descending ? 'descending' : 'ascending'
+		}
+
+		const page = res.currentPage || 0
+		navigate_to_page(page, false)
 	})
 }
 
