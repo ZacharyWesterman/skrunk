@@ -178,7 +178,14 @@ async function init() {
 	await promise
 	await promise2
 
-	api.preload()
+	//After user has been on the site for a little while, pre-fetch all the site content.
+	//This will give the appearance of instantly loading different screens,
+	//even on slow connections.
+	setTimeout(async () => {
+		console.log('Loading site content in the background...')
+		await api.preload()
+		console.log('Finished loading site content.')
+	}, 10_000)
 }
 
 init()

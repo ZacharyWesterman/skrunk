@@ -439,13 +439,16 @@ api.preload = async () => {
 	if (!cache.enabled) return
 
 	const resources = await api.get_json('/config/sitemap.json')
+	let promises = []
 
-	for (const i of resources.js) import(i)
-	for (const i of resources.html) api.get(i)
-	for (const i of resources.dot) api.get(i)
-	for (const i of resources.json) api.get(i)
+	for (const i of resources.js) promises.push(import(i))
+	for (const i of resources.html) promises.push(api.get(i))
+	for (const i of resources.dot) promises.push(api.get(i))
+	for (const i of resources.json) promises.push(api.get(i))
 
 	query.require('users').then(query.users.list)
+
+	for (const i of promises) await i
 }
 
 /**
