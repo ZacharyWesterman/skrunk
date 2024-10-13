@@ -329,7 +329,8 @@ export async function export_data(username) {
 	const choice = await _.modal({
 		type: 'question',
 		title: 'Export all user data?',
-		text: 'This will create a ZIP file containing a database export of all user data for user "' + username + '", which will then download to your device.',
+		text: `This will create a ZIP file containing a database dump of all user data for <span class="emphasis">${username}</span>, which will then download to your device.
+		<br>This will <b>not</b> include any uploaded files; those must be downloaded separately.`,
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
