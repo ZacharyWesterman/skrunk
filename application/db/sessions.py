@@ -7,7 +7,8 @@ db: Collection = None
 def start_session(token: str, username: str) -> None:
 	userdata = get_user_data(username)
 
-	expiry = datetime(9001, 1, 1) if 'persistent' in userdata['perms'] else datetime.now() + timedelta(days = 7)
+	#Persistent logins last a very long time, but still get kicked eventually.
+	expiry = datetime.now() + timedelta(weeks = 20) if 'persistent' in userdata['perms'] else datetime.now() + timedelta(days = 7)
 
 	db.insert_one({
 		'username': username,
