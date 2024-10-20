@@ -119,18 +119,23 @@
 			{{?}}
 		</div>
 
-		<br>
-		<i class="left">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
-		<button class="right" *click="revoke_sessions('{{=it.user.username}}')" >Revoke?</button>
-		<span class="tooltip" *click="show_sessions_info" >
-			<i class="fa-solid fa-circle-question"></i>
-			<span class="tooltiptext t-center">What does this mean?</span>
-		</span>
-		<br>
-		<i>Last Login:</i> {{?it.user.last_login}}{{=date.output(it.user.last_login)}}<br><span class="suppress">{{=date.elapsed(it.user.last_login)}}</span>{{??}}Never{{?}}
+		<div style="padding: 1rem;">
+			<br>
+			<i class="left">Active Sessions: <span id="session-ct-{{=it.user.username}}">{{=it.sessions}}</span></i>
+			<button class="right" *click="revoke_sessions('{{=it.user.username}}')" >Revoke?</button>
+			<span class="tooltip" *click="show_sessions_info" >
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-center">What does this mean?</span>
+			</span>
+			<br>
+			<i>Last Login:</i> {{?it.user.last_login}}{{=date.output(it.user.last_login)}}<br><span class="suppress">{{=date.elapsed(it.user.last_login)}}</span>{{??}}Never{{?}}
 
-		{{? !it.self_view && it.user.username !== api.username }}
-			<button class="big wide border" *click="confirm_delete_user('{{=it.user.username}}')">Delete</button>
-		{{?}}
+			{{? !it.self_view }}
+				<button class="big wide border" *click="send_test_notification('{{=it.user.username}}')" >Send Notification</button>
+				{{? it.user.username !== api.username }}
+				<button class="big wide border emphasis" *click="confirm_delete_user('{{=it.user.username}}')" >Delete</button>
+				{{?}}
+			{{?}}
+		</div>
 	</div>
 </div>

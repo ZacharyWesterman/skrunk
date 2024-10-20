@@ -71,3 +71,8 @@ button.modal-button {
 	display: flex;
 	justify-content: space-between;
 }
+
+button.emphasis {
+	border-color: var(--emphasis-text);
+	color: var(--emphasis-text);
+}

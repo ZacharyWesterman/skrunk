@@ -99,3 +99,22 @@ function refresh_users() {
 		}
 	})
 }
+
+export async function send_test_notification(username) {
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Send Test Notification?',
+		text: "This will send the user a test notification, which will appear on their device as a push notification, if they have the feature enabled.<br>This can't be un-sent!",
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	console.log(choice)
+	if (choice !== 'yes') return
+
+	await push.send('Test Notification', 'This is just a test notification. No action is required.', username)
+	if (username === api.username) {
+		await push.show_notifs()
+	}
+
+	_.modal.checkmark()
+}
