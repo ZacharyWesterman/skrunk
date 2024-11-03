@@ -34,7 +34,7 @@ def auth_user() -> Response:
 		if not tokens.token_is_valid(token[1]):
 			return Response('{"error":"Expired Token"}', 400)
 
-		username = tokens.decode_user_token(token[1])['username']
+		username = data['username'] if 'username' in data else tokens.decode_user_token(token[1])['username']
 		login_token = tokens.create_user_token(username)
 		return jsonify({'token': f'Bearer {login_token}'})
 

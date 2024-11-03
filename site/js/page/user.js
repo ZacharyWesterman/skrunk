@@ -386,3 +386,83 @@ export async function export_data(username) {
 	link.target = '_blank'
 	link.click()
 }
+
+export async function change_username(username) {
+	async function username_check() {
+		const newvalue = $.val('username')
+		const message = $('username-message')
+
+		if (newvalue === username || newvalue === '') {
+			$.valid('username')
+			message.innerText = 'Username is unchanged.'
+			return false
+		}
+
+		const res = await query.users.get(newvalue)
+		if (res.__typename === 'UserData') {
+			$.invalid('username')
+			message.innerText = 'Username is not available.'
+			return false
+		}
+		else if (res.__typename !== 'UserDoesNotExistError') {
+			$.invalid('username')
+			message.innerText = 'ERROR: ' + res.message
+			return false
+		}
+
+		$.valid('username')
+		message.innerText = 'Username is available.'
+		return true
+	}
+
+	const newvalue = await _.modal({
+		icon: 'pen-to-square',
+		title: 'Change Username',
+		text: `<p>
+			If the new username is available, this will immediately update your <u>username</u> everywhere.
+			This will not affect your <u>Display Name</u>.<br>
+			<b>Changing your username will log you out of all devices.</b>
+		</p>
+		&nbsp;<input id="username" placeholder="Username" format="id" value="${username}" />
+		&nbsp;<div id="username-message">&nbsp;</div>`,
+		buttons: ['Submit', 'Cancel'],
+	}, () => {
+		//When user edits username, automatically check if it's available.
+		$.bind('username', username_check)
+	}, choice => {
+		if (choice === 'cancel') return true
+		return username_check()
+	},
+		choice => (choice === 'cancel') ? null : $.val('username')
+	).catch(() => null)
+
+	if (newvalue === null) return
+
+	//User has elected to change their username. Perform that action.
+	const res = await api(`mutation ($username: String!, $newvalue: String!) {
+		updateUsername (username: $username, newvalue: $newvalue) {
+			__typename
+			...on UserDoesNotExistError { message }
+			...on UserExistsError { message }
+			...on BadUserNameError { message }
+			...on InsufficientPerms { message }
+		}
+	}`, {
+		username: username,
+		newvalue: newvalue,
+	})
+
+	if (res.__typename !== 'UserData') {
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+
+	if (username === api.username) {
+		//Now that username is updated, request a new login token.
+		// await api.refresh_token(newvalue)
+		//Login token refresh doesn't really work when username changes... Just logout instead.
+		setTimeout(api.logout, 700)
+	}
+}

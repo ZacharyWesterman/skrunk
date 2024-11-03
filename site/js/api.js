@@ -82,13 +82,19 @@ api.authenticate = async function (username, password) {
 
 /**
  * Refresh the session token, generating a new one.
+ * @param {string} username The new username to use, if different from the old username.
  * @returns {boolean} Whether the token refreshed successfully.
  */
-api.refresh_token = async function () {
+api.refresh_token = async function (username) {
 	if (api.login_token === null) return false
 
-	const response = JSON.parse(await api.post_json('/auth', { token: api.login_token }))
+	const response = JSON.parse(await api.post_json('/auth', { token: api.login_token, username: username || api.username }))
 	if (response.error) return false
+
+	if (username && username !== api.username) {
+		api.username = username
+		api.write_cookies()
+	}
 
 	api.login_token = 'Bearer ' + response.token
 	return true

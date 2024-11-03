@@ -5,46 +5,44 @@ from ..decorators import *
 @perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_create_user(_, info, username: str, password: str, groups: list) -> dict:
-	userdata = create_user(username, password, groups = groups)
-	return { '__typename' : 'UserData', **userdata }
+	return { '__typename' : 'UserData', **create_user(username, password, groups = groups) }
 
 @perms.require('admin')
 @handle_client_exceptions
 def resolve_delete_user(_, info, username: str) -> dict:
-	userdata = delete_user(username)
-	return { '__typename' : 'UserData', **userdata }
+	return { '__typename' : 'UserData', **delete_user(username) }
 
 @perms.module('theme')
 @perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_update_user_theme(_, info, username: str, theme: dict) -> dict:
-	userdata = update_user_theme(username, theme)
-	return { '__typename': 'UserData', **userdata }
+	return { '__typename': 'UserData', **update_user_theme(username, theme) }
 
 @perms.module('theme')
 @perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_delete_user_theme(_, info, username: str) -> dict:
-	userdata = update_user_theme(username, {'colors': [], 'sizes': []})
-	return { '__typename': 'UserData', **userdata }
+	return { '__typename': 'UserData', **update_user_theme(username, {'colors': [], 'sizes': []}) }
 
 @perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_update_user_perms(_, info, username: str, perms: list) -> dict:
-	userdata = update_user_perms(username, perms)
-	return { '__typename': 'UserData', **userdata }
+	return { '__typename': 'UserData', **update_user_perms(username, perms) }
 
 @perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_update_user_password(_, info, username: str, password: str) -> dict:
-	userdata = update_user_password(username, password)
-	return { '__typename': 'UserData', **userdata }
+	return { '__typename': 'UserData', **update_user_password(username, password) }
+
+@perms.require('admin', perform_on_self = True)
+@handle_client_exceptions
+def resolve_update_username(_, info, username: str, newvalue: str) -> dict:
+	return { '__typename': 'UserData', **update_username(username, newvalue) }
 
 @perms.require('admin', perform_on_self = True)
 @handle_client_exceptions
 def resolve_update_user_display_name(_, info, username: str, display_name: str) -> dict:
-	userdata = update_user_display_name(username, display_name)
-	return { '__typename': 'UserData', **userdata }
+	return { '__typename': 'UserData', **update_user_display_name(username, display_name) }
 
 @perms.require('admin', perform_on_self = True)
 @handle_client_exceptions

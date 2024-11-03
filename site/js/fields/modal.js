@@ -13,10 +13,10 @@
  * Note that all fields in the above object are optional.
  *
  * @param {object} config The modal configuration.
- * @param {function() => void} onload Run this function when the modal opens.
- * @param {function(string) => boolean} validate Run this function when the user clicks any button (except the X button). Only closes the modal if this returns true.
- * @param {function(string) => string} transform Change the output text when the modal returns.
- * @returns A promise that will resolve when a selection is made, or will throw if the X button is pressed.
+ * @param {function(): void} onload Run this function when the modal opens.
+ * @param {function(string): boolean} validate Run this function when the user clicks any button (except the X button). Only closes the modal if this returns true.
+ * @param {function(string): any} transform Change the output text when the modal returns.
+ * @returns {Promise<any>} A promise that resolves when a selection is made, or rejects if the X button is pressed.
  */
 async function modal(config, onload = () => { }, validate = choice => true, transform = choice => choice) {
 	await _('modal', config)

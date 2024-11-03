@@ -112,7 +112,6 @@ def delete_user(username: str) -> None:
 	return userdata
 
 def update_user_password(username: str, password: str) -> dict:
-
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -124,6 +123,24 @@ def update_user_password(username: str, password: str) -> dict:
 	db.update_one({'username': username}, {'$set': {
 		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
 	}})
+
+	return userdata
+
+def update_username(username: str, new_username: str) -> dict:
+	if len(new_username) == 0:
+		raise exceptions.BadUserNameError
+
+	userdata = db.find_one({'username': username})
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+	
+	if db.find_one({'username': new_username}):
+		raise exceptions.UserExistsError(new_username)
+
+	db.update_one({'_id': userdata['_id']}, {'$set': {
+		'username': new_username,
+	}})
+	userdata['username'] = new_username
 
 	return userdata
 

@@ -2,9 +2,13 @@
 	<div class="card-inner">
 		<h2>
 			{{=it.user.username}}
-			<span class="tooltip right" *click="export_data('{{= it.user.username }}')">
+			<span class="tooltip right" style="font-size: 80%;" *click="export_data('{{= it.user.username }}')">
 				<i class="fa-solid fa-cloud-arrow-down"></i>
 				<span class="tooltiptext t-float-left">Export all user data</span>
+			</span>
+			<span class="tooltip right" style="font-size: 80%;" *click="change_username('{{= it.user.username }}')">
+				<i class="fa-solid fa-pen-to-square"></i>
+				<span class="tooltiptext t-float-left">Change username</span>
 			</span>
 		</h2>
 		<div>
