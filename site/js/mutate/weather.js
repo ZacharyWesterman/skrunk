@@ -3,12 +3,9 @@ export default {
 		const query = `mutation ($userdata: WeatherUserInput!){
 			createWeatherUser(userdata: $userdata){
 				__typename
-				...on BadUserNameError {
-					message
-				}
-				...on InsufficientPerms {
-					message
-				}
+				...on UserExistsError { message }
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
 			}
 		}`
 		const vars = {

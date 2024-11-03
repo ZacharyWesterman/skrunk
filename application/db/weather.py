@@ -1,99 +1,100 @@
 import application.exceptions as exceptions
-from application.objects import Sorting
 
+from bson.objectid import ObjectId
 from pymongo.database import Database
 db: Database = None
 
+def process_weather_user(userdata: dict) -> dict:
+	if ObjectId.is_valid(userdata['_id']):
+		db_user_data = db.users.find_one({'_id': userdata['_id']})
+		userdata['username'] = userdata['_id'] if db_user_data is None else db_user_data['username']
+	else:
+		userdata['username'] = userdata['_id']
+
+	userdata['max'] = {
+		'value': userdata.get('max') if type(userdata.get('max')) is float else 0.0,
+		'default': userdata.get('max') is None,
+		'disable': userdata.get('max') == False,
+	}
+	userdata['min'] = {
+		'value': userdata.get('min') if type(userdata.get('min')) is float else 0.0,
+		'default': userdata.get('min') is None,
+		'disable': userdata.get('min') == False,
+	}
+
+	return userdata
+
 def get_users() -> list:
-	global db
-	users = [ user for user in db.weather_users.find({}) ]
-	for i in users:
-		i['username'] = i['_id']
-
-		i['max'] = {
-			'value': i.get('max') if type(i.get('max')) is float else 0.0,
-			'default': i.get('max') is None,
-			'disable': i.get('max') == False,
-		}
-		i['min'] = {
-			'value': i.get('min') if type(i.get('min')) is float else 0.0,
-			'default': i.get('min') is None,
-			'disable': i.get('min') == False,
-		}
-
+	users = [ process_weather_user(user) for user in db.weather_users.find({}) ]
 	return sorted(users, key = lambda elem: str(int(elem['exclude']))+elem['username'])
 
-def create_user(user_data: dict) -> None:
-	global db
+def get_weather_user(username: str) -> dict:
+	db_user_data = db.users.find_one({'username': username})
+	if db_user_data is None:
+		raise exceptions.UserDoesNotExistError(username)
+	
+	userdata = db.weather_users.find_one({'_id': db_user_data['_id']})
+	if userdata is None:
+		raise exceptions.UserDoesNotExistError(username)
+	
+	return userdata
 
-	userdata = db.weather_users.find_one({'_id': user_data['username']})
+def create_user(user_data: dict) -> dict:
+	db_user_data = db.users.find_one({'username': user_data['username']})
+	if db_user_data is None:
+		raise exceptions.UserDoesNotExistError(user_data['username'])
 
+	userdata = db.weather_users.find_one({'_id': db_user_data['_id']})
 	if userdata:
-		raise exceptions.UserExistsError(user_data["username"])
-	else:
-		user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max'])
-		user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min'])
+		raise exceptions.UserExistsError(user_data['username'])
 
-		userdata = {
-			'_id': user_data['username'],
-			'lat': user_data['lat'],
-			'lon': user_data['lon'],
-			'max': user_max,
-			'min': user_min,
-			'last_sent': None,
-			'exclude': False,
-		}
-		db.weather_users.insert_one(userdata)
+	user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max'])
+	user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min'])
+
+	userdata = {
+		'_id': db_user_data['_id'],
+		'lat': user_data['lat'],
+		'lon': user_data['lon'],
+		'max': user_max,
+		'min': user_min,
+		'last_sent': None,
+		'exclude': False,
+	}
+	db.weather_users.insert_one(userdata)
+
+	return process_weather_user(userdata)
 
 def delete_user(username: str) -> None:
-	global db
-
-	userdata = db.weather_users.find_one({'_id': username})
-
-	if userdata:
-		db.weather_users.delete_one({'_id': username})
-	else:
-		raise exceptions.UserDoesNotExistError(username)
+	userdata = get_weather_user(username)
+	db.weather_users.delete_one({'_id': userdata['_id']})
+	return process_weather_user(userdata)
 
 def set_user_excluded(username: str, exclude: bool) -> dict:
-	global db
-
-	userdata = db.weather_users.find_one({'_id': username})
-
-	if userdata:
-		db.weather_users.update_one({'_id': username}, {'$set': {'exclude': exclude}})
-		userdata['exclude'] = exclude
-		return userdata
-	else:
-		raise exceptions.UserDoesNotExistError(username)
+	userdata = get_weather_user(username)
+	db.weather_users.update_one({'_id': userdata['_id']}, {'$set': {'exclude': exclude}})
+	userdata['exclude'] = exclude
+	return process_weather_user(userdata)
 
 def update_user(user_data: dict) -> None:
-	global db
+	get_weather_user(user_data['username'])
+	user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max']['value'])
+	user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min']['value'])
 
-	userdata = db.weather_users.find_one({'_id': user_data['username']})
+	userdata = {
+		'lat': user_data['lat'],
+		'lon': user_data['lon'],
+		'max': user_max,
+		'min': user_min,
+	}
+	db.weather_users.update_one(
+		{'_id': user_data['username']},
+		{'$set': userdata}
+	)
 
-	if userdata:
-		user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max']['value'])
-		user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min']['value'])
-
-		userdata = {
-			'lat': user_data['lat'],
-			'lon': user_data['lon'],
-			'max': user_max,
-			'min': user_min,
-		}
-		db.weather_users.update_one(
-			{'_id': user_data['username']},
-			{'$set': userdata}
-		)
-	else:
-		raise exceptions.UserDoesNotExistError(user_data["username"])
+	return process_weather_user(get_weather_user(user_data['username']))
 
 def get_last_exec() -> dict|None:
-	global db
-
-	last_exec = db.weather_log.find_one({}, sort=[('timestamp', -1)])
-	return last_exec
+	return db.weather_log.find_one({}, sort=[('timestamp', -1)])
 
 def get_alert_history(username: str|None, start: int, count: int) -> list:
 	selection = db.alert_history.find({} if username is None else {'to': username}, sort=[('_id', -1)])

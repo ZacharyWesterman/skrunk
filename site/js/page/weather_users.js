@@ -36,7 +36,7 @@ export async function create_user() {
 
 	const response = await mutate.weather.create_user(id, lat, lon, max, min)
 
-	if (response.__typename !== 'UserData') {
+	if (response.__typename !== 'WeatherUser') {
 		_.modal({
 			type: 'error',
 			title: 'ERROR',
@@ -46,6 +46,7 @@ export async function create_user() {
 		return
 	}
 
+	_.modal.checkmark()
 	refresh_users()
 
 	for (let i of fields) {
@@ -69,18 +70,21 @@ export async function delete_user(username, self) {
 
 	self.disabled = true
 	await mutate.weather.delete_user(username)
+	_.modal.checkmark()
 	await refresh_users()
 }
 
 export async function enable_user(username, self) {
 	self.disabled = true
 	await mutate.weather.enable_user(username)
+	_.modal.checkmark()
 	await refresh_users()
 }
 
 export async function disable_user(username, self) {
 	self.disabled = true
 	await mutate.weather.disable_user(username)
+	_.modal.checkmark()
 	await refresh_users()
 }
 
