@@ -27,4 +27,6 @@ def init(*, no_auth = False, blob_path = None, data_db_url = ''):
 
 	routes.init(application)
 
+	print('Application has finished initializing.')
+
 	return application
