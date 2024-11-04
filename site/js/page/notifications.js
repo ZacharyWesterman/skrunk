@@ -38,14 +38,14 @@ export async function navigate_to_page(page_num, update_nav = true) {
 
 	//Get notification list (unread only)
 	const items_promise = api(`query ($username: String!, $read: Boolean!, $start: Int!, $count: Int!) {
-        getNotifications (username: $username, read: $read, start: $start, count: $count) {
-            recipient
-            created
-            message
-            category
-            id
-        }
-    }`, {
+		getNotifications (username: $username, read: $read, start: $start, count: $count) {
+			recipient
+			created
+			message
+			category
+			id
+		}
+	}`, {
 		username: api.username,
 		read: false,
 		start: lookup_start,
@@ -63,8 +63,8 @@ export async function navigate_to_page(page_num, update_nav = true) {
 
 export async function mark_as_read(id) {
 	await api(`mutation ($id: String!) {
-        markNotifAsRead (id: $id)
-    }`, {
+		markNotifAsRead (id: $id)
+	}`, {
 		id: id,
 	})
 
@@ -74,8 +74,8 @@ export async function mark_as_read(id) {
 
 export async function mark_all_notifs_as_read() {
 	const ct = await api(`query ($username: String!, $read: Boolean!) {
-        countNotifications (username: $username, read: $read)
-    }`, {
+		countNotifications (username: $username, read: $read)
+	}`, {
 		username: api.username,
 		read: false,
 	})
@@ -89,8 +89,8 @@ export async function mark_all_notifs_as_read() {
 	if (res !== 'yes') return
 
 	await api(`mutation ($username: String!) {
-        markAllNotifsAsRead (username: $username)
-    }`, {
+		markAllNotifsAsRead (username: $username)
+	}`, {
 		username: api.username,
 	})
 
