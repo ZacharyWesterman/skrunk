@@ -1,5 +1,6 @@
 from application.exceptions import ClientError
 from typing import Callable
+from dataclasses import is_dataclass, asdict
 
 def handle_client_exceptions(func: Callable) -> Callable:
 	"""
@@ -19,8 +20,10 @@ def handle_client_exceptions(func: Callable) -> Callable:
 
 	def wrapper(*args, **kwargs):
 		try:
-			return func(*args, **kwargs)
+			result = func(*args, **kwargs)
 		except ClientError as e:
 			return { '__typename': e.__class__.__name__, 'message': str(e) }
+
+		return { '__typename': result.__class__.__name__, **asdict(result) } if is_dataclass(result) else result
 
 	return wrapper
