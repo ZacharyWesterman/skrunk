@@ -7,7 +7,7 @@ from application.db.users import userids_in_groups
 from ..decorators import *
 from . import query
 
-@query.field('getBooks')
+@query.field('searchBooks')
 @perms.module('books')
 def resolve_search_google_books(_, info, title: str, author: str) -> dict:
 	try:
@@ -15,14 +15,14 @@ def resolve_search_google_books(_, info, title: str, author: str) -> dict:
 	except ApiFailedError as e:
 		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
 
-@query.field('countBooks')
+@query.field('getBookByTag')
 @perms.module('books')
 @handle_client_exceptions
 def resolve_get_book_by_tag(_, info, rfid: str) -> dict:
 	tag_data = get_book_tag(rfid, parse = True)
 	return { '__typename': 'Book', **tag_data }
 
-@query.field('searchBooks')
+@query.field('getBooks')
 @perms.module('books')
 def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	if filter.get('owner') is None:
@@ -33,7 +33,7 @@ def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int,
 
 	return get_books(filter, start, count, sorting)
 
-@query.field('getBookByTag')
+@query.field('countBooks')
 @perms.module('books')
 def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
 	if filter.get('owner') is None:
