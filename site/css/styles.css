@@ -279,7 +279,7 @@ textarea:disabled {
 
 .navbar {
 	position: fixed;
-	padding-left: 1rem;
+	padding-left: .7rem;
 	top: 0;
 	left: 0;
 	z-index: 1;

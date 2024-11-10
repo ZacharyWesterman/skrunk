@@ -46,7 +46,7 @@ def stream(path: str) -> Response:
 		if groups[1]:
 			byte2 = int(groups[1])
 
-	full_path = blob.BlobStorage(path).path()
+	full_path = blob.BlobStorage(path, '').path()
 	try:
 		chunk, start, length, file_size = get_chunk(full_path, byte1, byte2)
 		mime = mimetypes.guess_type(path)
@@ -64,7 +64,7 @@ def download(path: str) -> Response:
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
-	full_path = blob.BlobStorage(files.sanitize_path(path)).path()
+	full_path = blob.BlobStorage(files.sanitize_path(path), '').path()
 	return files.read_file_data(full_path)
 
 def preview(path: str) -> Response:
@@ -74,7 +74,7 @@ def preview(path: str) -> Response:
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
-	full_path = blob.BlobPreview(files.sanitize_path(path)).path()
+	full_path = blob.BlobPreview(files.sanitize_path(path), '').path()
 	return files.read_file_data(full_path)
 
 def upload() -> Response:

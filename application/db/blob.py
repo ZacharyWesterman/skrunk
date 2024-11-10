@@ -386,7 +386,7 @@ def delete_blob(blob_id: str) -> dict:
 
 		if blob_data.get('preview') is not None:
 			try:
-				prevw = pathlib.Path(BlobPreview(blob_data['preview'], '').path())
+				prevw = pathlib.Path(BlobPreview(blob_data['preview'], '').path(), '')
 				prevw.unlink()
 			except FileNotFoundError:
 				pass
