@@ -386,27 +386,33 @@ textarea:disabled {
 	white-space: nowrap;
 }
 
+@media all and (min-width: 600px) and (max-width: 699px) {
+	.truncate {
+		max-width: 540px;
+	}
+}
+
 @media all and (min-width: 500px) and (max-width: 599px) {
 	.truncate {
-		max-width: 475px;
+		max-width: 440px;
 	}
 }
 
 @media all and (min-width: 400px) and (max-width: 499px) {
 	.truncate {
-		max-width: 375px;
+		max-width: 340px;
 	}
 }
 
 @media all and (min-width: 300px) and (max-width: 399px) {
 	.truncate {
-		max-width: 275px;
+		max-width: 240px;
 	}
 }
 
 @media all and (max-width: 299px) {
 	.truncate {
-		max-width: 175px;
+		max-width: 140px;
 	}
 }
 
