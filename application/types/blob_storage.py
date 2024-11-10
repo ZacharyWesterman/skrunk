@@ -1,15 +1,20 @@
-__all__ = ['BlobStorage', 'BlobPreview', 'BlobThumbnail']
+__all__ = ['BlobStorage', 'BlobPreview', 'BlobThumbnail', 'blob_path']
 
 from dataclasses import dataclass
 from pathlib import Path
 
-@dataclass
+blob_path: str|None = None
+
+@dataclass(init=False)
 class BlobStorage:
 	id: str
 	ext: str
 
+	def __init__(self, id: str, ext: str):
+		self.id = str(id)
+		self.ext = str(ext)
+
 	def path(self, *, create: bool = False) -> str:
-		global blob_path
 		full_path = f'{blob_path}/{self.id[0:2]}/{self.id[2:4]}'
 		if create:
 			Path(full_path).mkdir(parents=True, exist_ok=True)

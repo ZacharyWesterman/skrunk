@@ -5,7 +5,7 @@ from . import users
 from application.integrations import models, images
 from application.objects import BlobSearchFilter, Sorting
 from werkzeug.datastructures import FileStorage
-from application.types import BlobStorage, BlobPreview, BlobThumbnail
+from application.types import BlobStorage, BlobPreview, BlobThumbnail, blob_path
 
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
@@ -19,8 +19,6 @@ import time
 
 from pymongo.collection import Collection
 db: Collection = None
-
-blob_path = None
 
 _zip_progress = {}
 
@@ -44,7 +42,6 @@ def file_info(filename: str) -> str:
 	return size, md5sum
 
 def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> list:
-	global blob_path
 	filename = file.filename
 	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and filename.lower().endswith('.zip')), ephemeral)
 	this_blob_path = BlobStorage(id, ext).path(create = True)
