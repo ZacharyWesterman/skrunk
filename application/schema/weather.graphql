@@ -44,6 +44,7 @@ type LogResult {
 	result: Boolean!
 }
 
+union WeatherUserResponse = WeatherUser | UserDoesNotExistError | InsufficientPerms
 union WeatherUserCreateResponse = WeatherUser | UserExistsError | UserDoesNotExistError | InsufficientPerms
 union WeatherUserDeleteResponse = WeatherUser | UserDoesNotExistError | InsufficientPerms
 union WeatherUserUpdateResponse = WeatherUser | UserDoesNotExistError | InsufficientPerms
@@ -52,6 +53,7 @@ union LogResponse = LogResult | InsufficientPerms
 #Resolvers below this line:
 
 extend type Query {
+	getWeatherUser: WeatherUserResponse!
 	getWeatherUsers: [WeatherUser!]!
 	getLastWeatherExec: WeatherExecution
 	weatherAlertHistory(start: Int!, count: Int!): [WeatherAlert!]!
