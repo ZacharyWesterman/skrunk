@@ -89,7 +89,7 @@ def update_user(user_data: dict) -> None:
 		'min': user_min,
 	}
 	db.weather_users.update_one(
-		{'_id': user_data['username']},
+		{'_id': user_data['_id']},
 		{'$set': userdata}
 	)
 
@@ -119,4 +119,18 @@ def log_weather_alert(users: list[str], error: str|None) -> None:
 		'timestamp': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
 		'users': users,
 		'error': error,
+	})
+
+def log_user_weather_alert(username: str, message: str) -> None:
+	db_user_data = db.users.find_one({'username': username})
+	if db_user_data:
+		now = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+		db.weather_users.update_one(
+			{'_id': db_user_data['_id']},
+			{'$set': {'last_sent': now}}
+		)
+
+	db.alert_history.insert_one({
+		'to': username,
+		'message': message,
 	})

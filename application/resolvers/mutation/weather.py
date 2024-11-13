@@ -1,4 +1,4 @@
-from application.db.weather import create_user, delete_user, set_user_excluded, update_user, log_weather_alert
+from application.db.weather import create_user, delete_user, set_user_excluded, update_user, log_weather_alert, log_user_weather_alert
 import application.db.perms as perms
 from ..decorators import *
 from . import mutation
@@ -43,7 +43,14 @@ def resolve_update_weather_user(_, info, userdata: dict) -> dict:
 
 @mutation.field('logWeatherAlert')
 @perms.module('weather')
-@perms.require('admin', 'notify')
+@perms.require('admin', 'write')
 def resolve_log_weather_alert(_, info, users: list[str], error: str|None) -> dict:
 	log_weather_alert(users)
+	return True
+
+@mutation.field('logUserWeatherAlert')
+@perms.module('weather')
+@perms.require('admin', 'write')
+def resolve_log_user_weather_alert(_, info, username: str, message: str) -> dict:
+	log_user_weather_alert(username, message)
 	return True
