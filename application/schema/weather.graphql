@@ -40,9 +40,14 @@ type WeatherAlert {
 	sent: DateTime!
 }
 
+type LogResult {
+	result: Boolean!
+}
+
 union WeatherUserCreateResponse = WeatherUser | UserExistsError | UserDoesNotExistError | InsufficientPerms
 union WeatherUserDeleteResponse = WeatherUser | UserDoesNotExistError | InsufficientPerms
 union WeatherUserUpdateResponse = WeatherUser | UserDoesNotExistError | InsufficientPerms
+union LogResponse = LogResult | InsufficientPerms
 
 #Resolvers below this line:
 
@@ -60,4 +65,5 @@ extend type Mutation {
 	enableWeatherUser(username: String!): WeatherUserUpdateResponse!
 	disableWeatherUser(username: String!): WeatherUserUpdateResponse!
 	updateWeatherUser(userdata: WeatherUserInput!): WeatherUserUpdateResponse!
+	logWeatherAlert(users: [String!]!, error: String): LogResponse!
 }

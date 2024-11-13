@@ -2,6 +2,8 @@ import application.exceptions as exceptions
 
 from bson.objectid import ObjectId
 from pymongo.database import Database
+from datetime import datetime
+
 db: Database = None
 
 def process_weather_user(userdata: dict) -> dict:
@@ -111,3 +113,10 @@ def get_alert_history(username: str|None, start: int, count: int) -> list:
 
 def count_alert_history(username: str|None) -> list:
 	return db.alert_history.count_documents({} if username is None else {'to': username})
+
+def log_weather_alert(users: list[str], error: str|None) -> None:
+	db.weather_log.insert_one({
+		'timestamp': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
+		'users': users,
+		'error': error,
+	})
