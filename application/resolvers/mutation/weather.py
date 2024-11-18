@@ -45,7 +45,7 @@ def resolve_update_weather_user(_, info, userdata: dict) -> dict:
 @perms.module('weather')
 @perms.require('notify')
 def resolve_log_weather_alert(_, info, users: list[str], error: str|None) -> dict:
-	log_weather_alert(users)
+	log_weather_alert(users, error)
 	return True
 
 @mutation.field('logUserWeatherAlert')
