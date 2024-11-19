@@ -231,7 +231,7 @@ window.Color = Color
  */
 window.chart = {
 	create: async (field, chart_config) => {
-		await import('https://cdn.jsdelivr.net/npm/chart.js')
+		await import('/js/libs/chart.js')
 		Chart.defaults.color = _.css.get_var('--secondary-text')
 
 		if ($(field).children.length) {

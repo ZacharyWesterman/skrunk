@@ -17,7 +17,7 @@ window.load_model_viewer = () => {
 	if (!HaveModelViewer) {
 		HaveModelViewer = true
 		let abort = new AbortController()
-		let im = import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js') //Only import this when it's needed
+		let im = import('/js/libs/model-viewer.min.js') //Only import this when it's needed
 		let slow_connection = false
 		const fn = () => {
 			slow_connection = true
