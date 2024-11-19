@@ -1,8 +1,10 @@
 from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys, inventory, datafeed
 from pymongo import MongoClient
+from application.types import blob_storage
 
 def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
 	client = MongoClient(data_db_url)
+	blob_storage.blob_path = blob_path
 
 	users.db = client.skrunk.users
 	users.top_level_db = client.skrunk
@@ -16,7 +18,6 @@ def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
 	sessions.db = client.skrunk.user_sessions
 
 	blob.db = client.skrunk.blob
-	blob.blob_path = blob_path
 	blob.init()
 
 	bugs.db = client.skrunk.bug_reports

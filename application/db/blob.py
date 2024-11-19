@@ -5,7 +5,8 @@ from . import users
 from application.integrations import models, images
 from application.objects import BlobSearchFilter, Sorting
 from werkzeug.datastructures import FileStorage
-from application.types import BlobStorage, BlobPreview, BlobThumbnail, blob_path
+from application.types import BlobStorage, BlobPreview, BlobThumbnail
+from application import types
 
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
@@ -19,10 +20,14 @@ import time
 
 from pymongo.collection import Collection
 db: Collection = None
+blob_path: str|None = None
 
 _zip_progress = {}
 
 def init() -> None:
+	global blob_path
+	blob_path = types.blob_path
+
 	#On startup, delete all ephemeral files which aren't referred to by any data.
 	#Restart should be scheduled regularly for this to apply
 	deleted_ct = 0
