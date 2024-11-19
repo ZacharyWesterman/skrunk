@@ -4,7 +4,7 @@ let BlobListLen = 15
 let Editor
 
 //Load Yace only when needed
-import Yace from 'https://unpkg.com/yace?module' //For code editing textareas
+import Yace from '/js/libs/yace.js' //For code editing textareas
 window.Yace = Yace
 
 await mutate.require('blobs')

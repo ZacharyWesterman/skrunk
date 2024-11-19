@@ -3,6 +3,8 @@ html/login.html
 js/page/login.js
 js/api.js
 js/libs/doT.js
+js/libs/simplemde.min.js
 js/fields.js
 js/navigate.js
 js/runtime_errors.js
+css/libs/simplemde.min.css
