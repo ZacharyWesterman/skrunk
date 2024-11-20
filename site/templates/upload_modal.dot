@@ -1,6 +1,6 @@
 <dialog id="modal-upload-window">
 	<div id="modal-upload-expand" class="modal">
-		<div ondrop="_.modal.upload.drop_file(event)" ondragover="_.modal.upload.drag_file(event)">
+		<div ondrop="_.modal.upload.drop_file(event)" ondragover="_.modal.upload.drag_file(event)" ondragleave="_.modal.upload.undrag_file(event)">
 			<span class="close" onclick="_.modal.upload.return()">&times;</span>
 
 

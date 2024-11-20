@@ -281,10 +281,11 @@ modal.upload.activate = () => {
 
 modal.upload.drop_file = event => {
 	const area = document.getElementById('drag-drop-zone')
-	area.classList.add('emphasis')
+	area.classList.remove('emphasis')
+	area.style.backgroundColor = _.css.get_var('--suppress-text')
 	setTimeout(() => {
-		area.classList.remove('emphasis')
-	}, 250)
+		area.style.backgroundColor = ''
+	}, 150)
 
 	event.preventDefault()
 
@@ -310,6 +311,14 @@ modal.upload.drop_file = event => {
 }
 
 modal.upload.drag_file = event => {
+	const area = document.getElementById('drag-drop-zone')
+	area.classList.add('emphasis')
+	event.preventDefault()
+}
+
+modal.upload.undrag_file = event => {
+	const area = document.getElementById('drag-drop-zone')
+	area.classList.remove('emphasis')
 	event.preventDefault()
 }
 
