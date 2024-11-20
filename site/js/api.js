@@ -337,13 +337,13 @@ api.write_cookies = function () {
 
 	for (const i in cookie) {
 		if (cookie[i] === null || cookie[i] === '')
-			document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+			document.cookie = i + '=; SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 		else {
 			//All cookies expire after 6 months, regardless of when the server invalidates tokens.
 			let expires = new Date()
 			expires.setMonth(expires.getMonth() + 6)
 
-			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Lax; Expires=' + expires
+			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Strict; Expires=' + expires
 		}
 	}
 }
@@ -358,7 +358,7 @@ api.wipe_cookies = function () {
 	}
 	for (const i of _.css.vars()) cookie[i] = null
 	for (const i in cookie) {
-		document.cookie = i + '=; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+		document.cookie = i + '=; SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 	}
 }
 
