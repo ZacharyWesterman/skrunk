@@ -12,15 +12,19 @@
 				<input type="checkbox" id="modal-hidden-check">
 			</div>
 			<input id="modal-file" type="file" name="file" onchange="_.modal.upload.activate()" multiple>
-			<button class="icon" id="modal-button" onclick="_.modal.upload.start()" disabled>
+			<button class="icon tooltip" id="modal-button" onclick="_.modal.upload.start()" disabled>
 				<i class="fa-solid fa-file-arrow-up fa-lg"></i>
+				<span class="tooltiptext t-float-left">Upload file(s)</span>
 			</button><br>
 
 			<hr>
-			Uploaded files will be tagged with:
+			Uploaded file(s) will be tagged with:
 			<div id="modal-tag-list"></div>
 			<input id="modal-tag-input" placeholder="Input new tag" format="tag">
-			<button class="icon"><i class="fa-solid fa-tag fa-lg"></i></button>
+			<button class="icon tooltip">
+				<i class="fa-solid fa-tag fa-lg"></i>
+				<span class="tooltiptext t-left">Accept tag</span>
+			</button>
 
 			<div id="upload-progress" class="hidden"></div>
 		</div>

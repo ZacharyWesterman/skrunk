@@ -165,6 +165,10 @@ input[type="checkbox"] {
 	min-width: unset;
 }
 
+input[type="file"] {
+	border-radius: unset;
+}
+
 input.wide {
 	width: calc(100% - 9.5rem);
 }

@@ -73,10 +73,11 @@
 					<table>
 						<tr>
 							<td colspan="4" style="max-width:inherit;">
-								If you don't want certain features,<br>
+								If you don't want to use certain features,<br>
 								you can disable them here.<br>
-								Don't worry, you can always enable<br>
-								them later if you change your mind.
+								This does <u>not</u> delete data, and<br>
+								you can always re-enable these features<br>
+								if you change your mind.
 							</td>
 						</tr>
 						<tr>
