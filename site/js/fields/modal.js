@@ -279,6 +279,40 @@ modal.upload.activate = () => {
 	$.show('modal-hide-file')
 }
 
+modal.upload.drop_file = event => {
+	const area = document.getElementById('drag-drop-zone')
+	area.classList.add('emphasis')
+	setTimeout(() => {
+		area.classList.remove('emphasis')
+	}, 250)
+
+	event.preventDefault()
+
+	const data = new DataTransfer()
+	if (event.dataTransfer.items) {
+		// Use DataTransferItemList interface to access the file(s)
+		[...event.dataTransfer.items].forEach((item, i) => {
+			// If dropped items aren't files, reject them
+			if (item.kind === "file") {
+				data.items.add(item.getAsFile())
+			}
+		})
+	} else {
+		// Use DataTransfer interface to access the file(s)
+		[...event.dataTransfer.files].forEach((file, i) => {
+			data.items.add(file)
+		})
+	}
+
+	//Append files to file input
+	document.getElementById('modal-file').files = data.files
+	document.getElementById('modal-button').disabled = false
+}
+
+modal.upload.drag_file = event => {
+	event.preventDefault()
+}
+
 /**
  * Briefly show a checkmark animation on screen.
  * This can be used to indicate to the user that an action was successful.

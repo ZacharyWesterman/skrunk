@@ -1,8 +1,16 @@
 <dialog id="modal-upload-window">
 	<div id="modal-upload-expand" class="modal">
-		<div>
+		<div ondrop="_.modal.upload.drop_file(event)" ondragover="_.modal.upload.drag_file(event)">
 			<span class="close" onclick="_.modal.upload.return()">&times;</span>
+
+
+			{{? !environment.mobile }}
+			<br>
+			<div id="drag-drop-zone" class="drag-drop-zone">Drag files here,<br>or select files<br>to upload.</div>
+			{{??}}
 			<h4>Select files to upload</h4>
+			{{?}}
+
 			<div id="modal-auto-unpack" class="hidden" style="display:none;">
 				Automatically extract ZIP files?
 				<input type="checkbox" id="modal-unpack-check">

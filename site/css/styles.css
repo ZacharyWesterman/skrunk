@@ -470,3 +470,20 @@ th {
 .nobr {
 	white-space: nowrap;
 }
+
+.drag-drop-zone {
+	border: 10px dashed var(--suppress-text);
+	border-radius: 3rem;
+	width: 16rem;
+	height: 15rem;
+	font-size: 20pt;
+	color: var(--suppress-text);
+	align-content: center;
+	padding-left: 4rem;
+	transition: all 0.25s ease-in-out;
+}
+
+.drag-drop-zone.emphasis {
+	border-color: var(--emphasis-text);
+	color: var(--emphasis-text);
+}
