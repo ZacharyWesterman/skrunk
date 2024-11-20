@@ -41,7 +41,6 @@ def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list
 		return { '__typename': 'SubsonicError', 'message': str(e) }
 
 @query.field('getSystemInfo')
-@perms.module('subsonic')
 @perms.require('admin')
 def resolve_get_system_info(_, info) -> dict:
 	return { '__typename': 'SystemInfo', 'storage': system.disk_usage() }
