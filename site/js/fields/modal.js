@@ -351,17 +351,24 @@ modal.scanner = async () => {
 modal.scanner._awaiting = false
 
 
-modal.image = async (url) => {
-	await _('image-view-modal', url)
+modal.image = async (url, model3d = false) => {
+	await _('image-view-modal', {
+		url: url,
+		model3d: model3d,
+	})
 
 	$('image-window-modal').close()
 	$('image-window-modal').showModal()
 	$('image-window-expand').classList.add('expanded')
 
-	$('image-window-modal').onclick = () => {
+	$(model3d ? 'image-modal-close' : 'image-window-modal').onclick = () => {
 		$('image-window-expand').classList.remove('expanded')
 		setTimeout(() => { $('image-window-modal').close() }, 200)
 	}
+}
+
+modal.model3d = async (url) => {
+	await modal.image(url, true)
 }
 
 export default modal

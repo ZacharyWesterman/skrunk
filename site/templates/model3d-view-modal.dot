@@ -1,0 +1,7 @@
+<dialog id="image-window-modal">
+	<div id="image-window-expand" class="modal">
+		<div>
+			<model-viewer alt="3D model {{=it}}" src="{{=it}}" poster="3d_model.svg" auto-rotate camera-controls shadow-intensity="1" style="max-width:100%;"></model-viewer>
+		</div>
+	</div>
+</div>

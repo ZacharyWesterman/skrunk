@@ -8,11 +8,24 @@
 
 [name="image-view-modal"] {
 	position: absolute;
-	z-index: 9999;
+	z-index: 9998;
 }
 
 #image-window-expand {
 	padding: 1rem 0 .5rem;
+}
+
+#image-window-expand>div>model-viewer {
+	width: 90vw;
+	height: 90vh;
+}
+
+.close.big-modal {
+	position: absolute;
+	font-size: 4rem;
+	top: -1rem;
+	right: .8rem;
+	z-index: 9999;
 }
 
 dialog {

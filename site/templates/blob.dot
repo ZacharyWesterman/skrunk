@@ -39,7 +39,7 @@
 			<audio src="blob/{{=it.id}}{{=it.ext}}" controls></audio>
 		{{??it.mimetype.split('/')[0] === 'model'}}
 			{{= load_model_viewer() }}
-			<model-viewer alt="3D model {{=safe_html(it.name)}}{{=it.ext}}" src="preview/{{=it.preview}}" poster="3d_model.svg" auto-rotate camera-controls shadow-intensity="1"></model-viewer>
+			<model-viewer alt="3D model {{=safe_html(it.name)}}{{=it.ext}}" src="preview/{{=it.preview}}" poster="3d_model.svg" auto-rotate shadow-intensity="1" onclick="_.modal.model3d('preview/{{=it.preview}}')" ></model-viewer>
 		{{??it.mimetype.split('/')[0] === 'text'}}
 			<textarea id="ta-{{=it.id}}" *load="api.get('blob/{{=it.id}}{{=it.ext}}').then(res => $('ta-{{=it.id}}').value = res)" disabled></textarea>
 		{{??it.mimetype.split('/')[1] === 'pdf'}}

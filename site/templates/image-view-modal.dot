@@ -1,7 +1,12 @@
 <dialog id="image-window-modal">
 	<div id="image-window-expand" class="modal">
 		<div>
-			<img src="{{= it }}" alt="Failed to load image:{{= safe_html(it) }}" style="max-width: 100%;">
+			{{? it.model3d }}
+				<span id="image-modal-close" class="clickable close big-modal" >&times;</span>
+				<model-viewer alt="3D model {{= it.url }}" src="{{= it.url }}" poster="3d_model.svg" auto-rotate camera-controls shadow-intensity="1"></model-viewer>
+			{{??}}
+				<img src="{{= it.url }}" alt="Failed to load image:{{= safe_html(it.url) }}" style="max-width: 100%;">
+			{{?}}
 		</div>
 	</div>
 </div>
