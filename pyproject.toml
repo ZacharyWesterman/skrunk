@@ -24,6 +24,7 @@ psutil = "^5.9.6"
 pywebpush = "^1.14.0"
 trimesh = "^4.4.7"
 waitress = "^3.0.0"
+imageio = {extras = ["ffmpeg"], version = "^2.36.0"}
 
 [tool.poetry.dev-dependencies]
 

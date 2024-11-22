@@ -2,7 +2,7 @@ from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 import application.tags as tags
 from . import users
-from application.integrations import models, images
+from application.integrations import models, images, videos
 from application.objects import BlobSearchFilter, Sorting
 from werkzeug.datastructures import FileStorage
 from application.types import BlobStorage, BlobPreview, BlobThumbnail
@@ -99,7 +99,11 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 
 		elif blob['ext'].lower() in models.extensions():
 			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
-			create_preview(this_blob_path, blob['id'])
+			create_preview_model(this_blob_path, blob['id'])
+
+		elif blob['ext'].lower() in videos.extensions():
+			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
+			create_preview_video(this_blob_path, blob['id'])
 
 	return uploaded_blobs
 
@@ -427,9 +431,14 @@ def set_blob_ephemeral(blob_id: str, ephemeral: bool) -> dict:
 	blob_data['ephemeral'] = ephemeral
 	return blob_data
 
-def create_preview(blob_path: str, preview_id: str) -> None:
+def create_preview_model(blob_path: str, preview_id: str) -> None:
 	preview = BlobPreview(preview_id, '.glb')
 	models.to_glb(blob_path, preview.path())
+	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
+
+def create_preview_video(blob_path: str, preview_id: str) -> None:
+	preview = BlobPreview(preview_id, '.png')
+	videos.create_preview_from_first_frame(blob_path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
 def set_blob_hidden(blob_id: str, hidden: bool) -> dict:

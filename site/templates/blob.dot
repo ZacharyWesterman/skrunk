@@ -30,7 +30,7 @@
 		</div>
 
 		{{?it.mimetype.split('/')[0] === 'video'}}
-			<video width="100%" height="auto" controls>
+			<video width="100%" height="auto" poster="preview/{{=it.preview}}" controls>
 				<source type="{{=it.mimetype}}" src="blob/{{=it.id}}{{=it.ext}}">
 			</video>
 		{{??it.mimetype.split('/')[0] === 'image'}}
