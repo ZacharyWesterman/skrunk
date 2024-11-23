@@ -6,7 +6,7 @@
 					<b>{{=user.username}}</b>{{?user.exclude}}<i> (disabled)</i>{{?}}
 					<i class="right fa-solid fa-angles-down fa-lg"></i>
 				</h4>
-				<p>Last sent at: {{?user.last_sent}}{{=user.last_sent}}<br><span class="suppress">({{=date.elapsed(user.last_sent)}})</span>{{??}}Never{{?}}</p>
+				<p>Last sent at: {{?user.last_sent}}{{= date.output(user.last_sent) }}<br><span class="suppress">({{=date.elapsed(user.last_sent)}})</span>{{??}}Never{{?}}</p>
 			</div>
 
 			<div class="expand-container" id="card-{{=user.username}}">

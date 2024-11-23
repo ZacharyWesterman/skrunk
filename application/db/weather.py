@@ -116,7 +116,7 @@ def count_alert_history(username: str|None) -> list:
 
 def log_weather_alert(users: list[str], error: str|None) -> None:
 	db.weather_log.insert_one({
-		'timestamp': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
+		'timestamp': datetime.utcnow(),
 		'users': users,
 		'error': error,
 	})
@@ -124,7 +124,7 @@ def log_weather_alert(users: list[str], error: str|None) -> None:
 def log_user_weather_alert(username: str, message: str) -> None:
 	db_user_data = db.users.find_one({'username': username})
 	if db_user_data:
-		now = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+		now = datetime.utcnow()
 		db.weather_users.update_one(
 			{'_id': db_user_data['_id']},
 			{'$set': {'last_sent': now}}
