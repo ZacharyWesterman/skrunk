@@ -231,7 +231,10 @@ $.editor = id => {
 }
 $.editor.new = field => {
 	const id = (typeof field === 'string') ? field : (field.id || '---')
-	$._EDITORS[id] = new SimpleMDE({ element: $(field) })
+	$._EDITORS[id] = new SimpleMDE({
+		element: $(field),
+		autoDownloadFontAwesome: false,
+	})
 }
 $.editor.del = id => delete $._EDITORS[id]
 
