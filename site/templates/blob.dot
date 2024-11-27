@@ -22,7 +22,7 @@
 			{{?}}
 			{{?it.creator === api.username}}
 				<button class="icon right tooltip" *click="toggle_blob_hidden('{{=it.id}}')" id="hide-button-{{=it.id}}">
-					<i class="fa-solid fa-eye{{? it.hidden }}-slash error{{?}}"></i>
+					<i class="fa-solid fa-eye{{? it.hidden }}-slash emphasis{{?}}"></i>
 					<span class="tooltiptext t-left">{{? it.hidden }}File is only visible to you{{??}}File is visible to everyone{{?}}</span>
 				</button>
 			{{?}}
