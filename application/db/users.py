@@ -258,7 +258,7 @@ def export_user_data(username: str) -> dict:
 	]
 
 	#Create a ZIP file and blob entry
-	blob_storage = blob.BlobStorage(*blob.create_blob('data_export.zip', tags = ['export', '__temp_file'], hidden = False, ephemeral = True), '')
+	blob_storage = blob.BlobStorage(*blob.create_blob('data_export.zip', tags = ['export', '__temp_file'], hidden = False, ephemeral = True))
 	fp = ZipFile(blob_storage.path(create = True), 'w')
 
 	#Iterate over all collections, and append the file to the ZIP file.

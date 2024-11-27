@@ -136,7 +136,7 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 	return mime
 
 
-def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> str:
+def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> tuple[str, str]:
 	global db
 
 	mime = mimetypes.guess_type(name)[0]
