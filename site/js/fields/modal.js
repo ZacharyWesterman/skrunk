@@ -307,7 +307,7 @@ modal.upload.drop_file = event => {
 
 	//Append files to file input
 	document.getElementById('modal-file').files = data.files
-	document.getElementById('modal-button').disabled = false
+	modal.upload.activate()
 }
 
 modal.upload.drag_file = event => {
