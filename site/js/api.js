@@ -251,6 +251,7 @@ api.upload = function (file, progress_handler, auto_unzip = false, tag_list = []
 		xhr.upload.addEventListener('progress', progress_handler, false)
 		xhr.open('POST', '/upload', true)
 		xhr.send(data)
+		xhr.timeout = Infinity //Don't allow uploads to time out, as user can cancel them manually.
 
 		api.upload.xhr.push(xhr)
 
