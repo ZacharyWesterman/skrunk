@@ -51,9 +51,9 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and filename.lower().endswith('.zip')), ephemeral)
 	this_blob_path = BlobStorage(id, ext).path(create = True)
 
-	print(f'Beginning stream of file "{filename}"...')
+	print(f'Beginning stream of file "{filename}"...', flush=True)
 	file.save(this_blob_path)
-	print(f'Finished stream of file "{filename}".')
+	print(f'Finished stream of file "{filename}".', flush=True)
 
 	uploaded_blobs = []
 
