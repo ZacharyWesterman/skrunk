@@ -325,8 +325,6 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 			else:
 				print(f'[{100*item/total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
 
-			time.sleep(1)
-
 	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
 
 	size, md5sum = file_info(this_blob_path)
