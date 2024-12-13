@@ -9,12 +9,14 @@ application = None
 # Allow only specific files in site/ to be accessed without auth, as other files may have "sensitive" data.
 try:
 	with open('data/no_auth_files.txt') as fp:
-		__NO_AUTH_FILES = [ i.strip() for i in fp.readlines() if i.strip() != '' ]
+		__NO_AUTH_FILES = [i.strip() for i in fp.readlines() if i.strip() != '']
 except FileNotFoundError:
 	__NO_AUTH_FILES = []
 
+
 def main_page() -> Response:
 	return files.read_file_data('site/html/index.html')
+
 
 def get(path: str) -> Response:
 	path = files.sanitize_path(path)
@@ -30,7 +32,7 @@ def get(path: str) -> Response:
 
 	i = path.rfind('.')
 	if i > -1:
-		ext = path[i+1::]
+		ext = path[i + 1::]
 	else:
 		ext = ''
 
@@ -42,9 +44,11 @@ def get(path: str) -> Response:
 		else:
 			return Response('Access denied.', 403)
 
+
 def get_icon(path: str) -> Response:
 	path = files.sanitize_path(path)
 	return files.read_file_data(f'data/{path}.png')
+
 
 def get_svg(path: str) -> Response:
 	path = files.sanitize_path(path)

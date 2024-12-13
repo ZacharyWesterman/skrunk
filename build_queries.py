@@ -4,6 +4,7 @@ import ariadne
 from graphql import GraphQLField, GraphQLNonNull, GraphQLList, GraphQLScalarType, GraphQLObjectType, GraphQLUnionType
 import subprocess
 
+
 def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 	_tp = data_type
 	while True:
@@ -12,6 +13,7 @@ def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 		else:
 			break
 	return _tp
+
 
 def print_type_fields(fields: dict, indent: str) -> str:
 	text = ''
@@ -35,10 +37,10 @@ def print_field(field_type: str, field_name: str, field: GraphQLField) -> str:
 
 	return_type = trim_type(field.type)
 
-	#Print parameter list
+	# Print parameter list
 	if field.args:
-		text += f'{field_type} (' + ', '.join([ f'${k}: {field.args[k].type}' for k in field.args]) + ') {\n'
-		text += f'\t{field_name} (' + ', '.join([ f'{k}: ${k}' for k in field.args]) + ') '
+		text += f'{field_type} (' + ', '.join([f'${k}: {field.args[k].type}' for k in field.args]) + ') {\n'
+		text += f'\t{field_name} (' + ', '.join([f'{k}: ${k}' for k in field.args]) + ') '
 	else:
 		text += f'{field_type} {{ {field_name} '
 
@@ -89,23 +91,26 @@ def main():
 	subprocess.run(['git', 'clone', 'git@github.com:ZacharyWesterman/skrunk_api.git'])
 
 	for i in queries:
-		if i[0] == '_': continue
+		if i[0] == '_':
+			continue
 		field: GraphQLField = queries[i]
 		text = print_field('query', i, field)
 		with open(f'skrunk_api/queries/{i}.txt', 'w') as fp:
 			fp.write(text)
 
 	for i in mutations:
-		if i[0] == '_': continue
+		if i[0] == '_':
+			continue
 		field: GraphQLField = mutations[i]
 		text = print_field('mutation', i, field)
 		with open(f'skrunk_api/queries/{i}.txt', 'w') as fp:
 			fp.write(text)
 
-	subprocess.run(['git', 'add', '--all'], cwd = 'skrunk_api')
-	subprocess.run(['git', 'commit', '-m', 'Automatic API query update'], cwd = 'skrunk_api')
-	subprocess.run(['git', 'push'], cwd = 'skrunk_api')
+	subprocess.run(['git', 'add', '--all'], cwd='skrunk_api')
+	subprocess.run(['git', 'commit', '-m', 'Automatic API query update'], cwd='skrunk_api')
+	subprocess.run(['git', 'push'], cwd='skrunk_api')
 	subprocess.run(['rm', '-rf', 'skrunk_api'])
+
 
 if __name__ == '__main__':
 	main()

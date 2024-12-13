@@ -1,9 +1,13 @@
 from flask import Response
-import mimetypes, os
+import mimetypes
+import os
 
 # Remove absolute paths or paths that contain '../' to prevent access to files outside of site/
+
+
 def sanitize_path(path: str) -> str:
 	return os.path.relpath(os.path.normpath(os.path.join("/", path)), "/")
+
 
 def read_file_data(path: str) -> Response:
 	try:

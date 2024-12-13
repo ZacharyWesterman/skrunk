@@ -7,6 +7,7 @@ import re
 
 from . import exceptions
 
+
 @functools.cache
 def query(*, title: str = '', author: str = '') -> list:
 	query_fields = []
@@ -18,7 +19,7 @@ def query(*, title: str = '', author: str = '') -> list:
 		if len(a):
 			query_fields += ['intitle:' + t]
 		else:
-			#Check if field is an ISBN number
+			# Check if field is an ISBN number
 			isbn = t.replace('-', '')
 			if re.match(r'^\d{9,13}$', isbn):
 				query_fields += ['isbn:' + isbn]
@@ -40,7 +41,7 @@ def query(*, title: str = '', author: str = '') -> list:
 		book = i['volumeInfo']
 		book['id'] = i['id']
 		book['authors'] = book.get('authors', [])
-		book['thumbnail'] = book.get('imageLinks', {'thumbnail':None}).get('thumbnail')
+		book['thumbnail'] = book.get('imageLinks', {'thumbnail': None}).get('thumbnail')
 		if book.get('thumbnail') is not None:
 			book['thumbnail'] = book['thumbnail'].replace('http://', 'https://')
 		if book.get('title') is None:
@@ -50,6 +51,7 @@ def query(*, title: str = '', author: str = '') -> list:
 		books += [book]
 
 	return books
+
 
 @functools.cache
 def get(*, id: str) -> dict:
@@ -63,11 +65,11 @@ def get(*, id: str) -> dict:
 	book = json.loads(response.text)['volumeInfo']
 	book['id'] = id
 	book['authors'] = book.get('authors', [])
-	book['thumbnail'] = book.get('imageLinks', {'thumbnail':None}).get('thumbnail')
+	book['thumbnail'] = book.get('imageLinks', {'thumbnail': None}).get('thumbnail')
 	if book.get('thumbnail') is not None:
 		book['thumbnail'] = book['thumbnail'].replace('http://', 'https://')
 	if book.get('title') is None:
 		book['title'] = ''
 	if book.get('categories') is None:
-			book['categories'] = []
+		book['categories'] = []
 	return book

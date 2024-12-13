@@ -3,5 +3,10 @@
 	"files.insertFinalNewline": true,
 	"python.analysis.inlayHints.variableTypes": true,
 	"python.analysis.inlayHints.functionReturnTypes": false,
-	"editor.insertSpaces": false
+	"editor.insertSpaces": false,
+	"autopep8.args": [
+		"--ignore=W191",
+		"--max-line-length",
+		"256"
+	]
 }

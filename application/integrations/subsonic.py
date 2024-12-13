@@ -12,24 +12,29 @@ from aiohttp import ClientSession
 from difflib import SequenceMatcher
 import re
 
+
 class SessionError(Exception):
 	def __init__(self, message: str):
 		super().__init__(f'Subsonic Error: {message}')
+
 
 _P = re.compile(r'[\[\(][^\)]*[\[\)\]]')
 
 SUBSONIC_ALBUMID_CACHESZ = 8196
 
+
 class Session:
 	def __init__(self, host: str, username: str, password: str, *, client: str = 'serverclient', version: str = '1.15.0'):
-		salt = ('%32x' % random.randrange(16**32)).strip() #random 32 digit hex string
+		# random 32 digit hex string
+		salt = ('%32x' % random.randrange(16**32)).strip()
 
 		# Note that the password you pass in depends on how the credentials are stored on the server side!
 		# E.g. if it's stored in plaintext, pass in the plain text password
 		# however, if the encoder is MD5, pass in the md5sum to this function, NOT the plaintext password!
 		md5sum = hashlib.md5((password + salt).encode('utf-8')).hexdigest()
 
-		self.rest_params = f'u={username}&t={md5sum}&s={salt}&c={client}&v={version}&f=json'
+		self.rest_params = f'u={username}&t={
+			md5sum}&s={salt}&c={client}&v={version}&f=json'
 		self.connection_uri = host
 
 	def query(self, action: str, parameters: dict = {}, *, process: bool = True) -> dict:
@@ -39,7 +44,7 @@ class Session:
 				url += f'&{p}={urllib.parse.quote_plus(str(parameters[p]))}'
 
 		try:
-			res = requests.get(url, timeout = 31)
+			res = requests.get(url, timeout=31)
 		except requests.exceptions.ConnectionError as e:
 			raise SessionError(e)
 		except requests.exceptions.Timeout:
@@ -61,7 +66,7 @@ class Session:
 		return self.query('ping')
 
 	@functools.cache
-	def search(self, text: str, *, artist_count: int|None = None, artist_offset: int|None = None, album_count: int|None = None, album_offset: int|None = None, song_count: int|None = None, song_offset: int|None = None, music_folder_id: int|None = None) -> list:
+	def search(self, text: str, *, artist_count: int | None = None, artist_offset: int | None = None, album_count: int | None = None, album_offset: int | None = None, song_count: int | None = None, song_offset: int | None = None, music_folder_id: int | None = None) -> list:
 		data = self.query('search2', {
 			'query': text,
 			'artistCount': artist_count,
@@ -78,7 +83,8 @@ class Session:
 		return f'{self.connection_uri}/coverArt.view?size=160&id={album_id}&{self.rest_params}'
 
 	async def cover_art(self, album_id: str) -> str:
-		url = f'{self.connection_uri}/rest/getCoverArt.view?{self.rest_params}&id={album_id}&size=160'
+		url = f'{
+			self.connection_uri}/rest/getCoverArt.view?{self.rest_params}&id={album_id}&size=160'
 
 		async with ClientSession() as session, session.get(url) as result:
 			res = await result.read()
@@ -86,7 +92,8 @@ class Session:
 			return album_id, base64.b64encode(res).decode()
 
 	async def album_info(self, album_id: str) -> dict:
-		url = f'{self.connection_uri}/rest/getMusicDirectory.view?{self.rest_params}&id={album_id}'
+		url = f'{
+			self.connection_uri}/rest/getMusicDirectory.view?{self.rest_params}&id={album_id}'
 
 		async with ClientSession() as session, session.get(url) as result:
 			res = await result.read()
@@ -94,7 +101,7 @@ class Session:
 
 	def get_all_cover_art(self, album_ids: list) -> list:
 
-		#Async helper func to get all album covers for the given id list
+		# Async helper func to get all album covers for the given id list
 		async def multi_albums(album_ids: list) -> list:
 			tasks = [self.cover_art(i) for i in album_ids]
 			result = await asyncio.gather(*tasks)
@@ -114,7 +121,6 @@ class Session:
 			return r1, r2
 
 		return asyncio.run(m2(album_ids))
-
 
 	@functools.cached_property
 	def folders(self) -> dict:
@@ -172,7 +178,7 @@ class Session:
 
 	@functools.cache
 	def album_in_folder(self, album: str, folder: str) -> bool:
-		#Just a nearest match, not super exact
+		# Just a nearest match, not super exact
 		for i in self.all_albums(folder):
 			ratio = SequenceMatcher(None, album, i).ratio()
 			if ratio >= 0.8:
@@ -180,7 +186,7 @@ class Session:
 
 		return False
 
-	@functools.lru_cache(maxsize = SUBSONIC_ALBUMID_CACHESZ)
+	@functools.lru_cache(maxsize=SUBSONIC_ALBUMID_CACHESZ)
 	def get_album_id(self, album: str, folder: str) -> str:
 		global _P
 

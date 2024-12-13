@@ -6,6 +6,7 @@ import subprocess
 from .exceptions import RepoFetchFailed
 import cachetools.func
 
+
 @cachetools.func.ttl_cache()
 def gh_request(url: str) -> dict:
 	headers = None
@@ -17,12 +18,13 @@ def gh_request(url: str) -> dict:
 	except:
 		pass
 
-	res = requests.get(url, headers = headers)
+	res = requests.get(url, headers=headers)
 	if res.status_code >= 200 and res.status_code < 300:
 		return json.loads(res.text)
 	else:
 		print(res.text, flush=True)
 		raise RepoFetchFailed(url, res.json().get('message'))
+
 
 class Repository:
 	def __init__(self, owner, repo):
@@ -37,10 +39,11 @@ class Repository:
 		return gh_request(url)
 
 	def resolved_issues(self, since: str) -> list:
-		return self.issues(filter = 'state=closed&since=' + since)
+		return self.issues(filter='state=closed&since=' + since)
+
 
 class CurrentRepository(Repository):
-	def __init__(self, repo: str|None = None):
+	def __init__(self, repo: str | None = None):
 		repo_url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
 		info = repo_url.decode().strip().split(':')[1].split('/')
 

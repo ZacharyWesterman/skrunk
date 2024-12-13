@@ -3,7 +3,8 @@ __all__ = ['BlobStorage', 'BlobPreview', 'BlobThumbnail', 'blob_path']
 from dataclasses import dataclass
 from pathlib import Path
 
-blob_path: str|None = None
+blob_path: str | None = None
+
 
 @dataclass(init=False)
 class BlobStorage:
@@ -28,10 +29,12 @@ class BlobStorage:
 	def exists(self) -> bool:
 		full_path = f'{blob_path}/{self.id[0:2]}/{self.id[2:4]}'
 		return Path(f'{full_path}/{self.basename()}').exists()
-	
+
+
 class BlobPreview(BlobStorage):
 	def __init__(self, id: str, ext: str):
 		super().__init__(f'{id}_p' if ext != '' else str(id), ext)
+
 
 class BlobThumbnail(BlobStorage):
 	def __init__(self, id: str, ext: str):

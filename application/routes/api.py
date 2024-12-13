@@ -1,8 +1,10 @@
-import ariadne, json
+import ariadne
+import json
 from flask import jsonify, request, Response
 from . import auth
 
 application = None
+
 
 def graphql() -> Response:
 	if not auth.authorized():

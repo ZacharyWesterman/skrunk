@@ -1,39 +1,44 @@
 from cryptography.hazmat.primitives import serialization
-import jwt, os
+import jwt
+import os
 from flask import request
 import random
 
 from .db.sessions import start_session, valid_session
 from .db.apikeys import valid_api_key
 
-__private_key = serialization.load_ssh_private_key(open(os.environ['HOME']+'/.ssh/id_rsa', 'r').read().encode(), password=b'')
-__public_key = serialization.load_ssh_public_key(open(os.environ['HOME']+'/.ssh/id_rsa.pub', 'r').read().encode())
+__private_key = serialization.load_ssh_private_key(open(os.environ['HOME'] + '/.ssh/id_rsa', 'r').read().encode(), password=b'')
+__public_key = serialization.load_ssh_public_key(open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r').read().encode())
 
 __max_int = 2**32 - 1
+
 
 def create_user_token(username: str) -> str:
 	global __private_key, __max_int
 	token = jwt.encode(
-		payload = {
+		payload={
 			'username': username,
 			'token_id': random.randint(0, __max_int),
 		},
-		key = __private_key,
-		algorithm = 'RS256'
+		key=__private_key,
+		algorithm='RS256'
 	)
 	start_session(token, username)
 	return token
+
 
 def decode_user_token(token: str) -> dict:
 	global __public_key
 	return jwt.decode(
 		token,
-		key = __public_key,
-		algorithms = ['RS256']
+		key=__public_key,
+		algorithms=['RS256']
 	)
+
 
 def token_is_valid(token: str) -> bool:
 	return valid_session(token) or valid_api_key(token)
+
 
 def get_request_token() -> str:
 	if 'Authorization' in request.headers:
@@ -48,6 +53,7 @@ def get_request_token() -> str:
 		return None
 
 	return token[1]
+
 
 def decode_cookies(cookies: str) -> dict:
 	output = {}

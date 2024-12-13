@@ -3,7 +3,7 @@ import argparse
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(
-		prog = 'Skrunk Server',
+		prog='Skrunk Server',
 	)
 
 	parser.add_argument('--blob-path', action='store', default=None, type=str)
@@ -19,6 +19,6 @@ if __name__ == '__main__':
 	app = application.init(no_auth=args.no_auth, blob_path=args.blob_path, data_db_url=args.data_db)
 	if args.prod:
 		from waitress import serve
-		serve(app, host=args.ip, port=args.port, threads=32, max_request_body_size=5*1024*1024*1024)
+		serve(app, host=args.ip, port=args.port, threads=32, max_request_body_size=5 * 1024 * 1024 * 1024)
 	else:
 		app.run(args.ip, args.port, threaded=True, debug=True)

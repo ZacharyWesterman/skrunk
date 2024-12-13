@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-#Set user password via command-line
+# Set user password via command-line
 
 import application
 import argparse
 from application.db.users import update_user_password
-import bcrypt, hashlib
+import bcrypt
+import hashlib
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(
-		prog = 'Script Interface',
+		prog='Script Interface',
 	)
 
 	parser.add_argument('--blob-path', action='store', default=None, type=str)

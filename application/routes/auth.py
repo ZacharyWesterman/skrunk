@@ -4,6 +4,7 @@ from application.db.users import authenticate
 
 application = None
 
+
 def authorized() -> bool:
 	if not application.is_initialized:
 		print('INIT: No users exist, giving access for database setup!', flush=True)
@@ -19,13 +20,14 @@ def authorized() -> bool:
 
 	return tokens.token_is_valid(token)
 
+
 def auth_user() -> Response:
 	if not application.is_initialized:
 		return jsonify({'token': tokens.create_user_token('admin')})
 
 	data = request.get_json()
 
-	#Refresh user login token
+	# Refresh user login token
 	if 'token' in data:
 		token = data['token'].split(' ')
 		if len(token) < 2:
@@ -46,6 +48,7 @@ def auth_user() -> Response:
 		return jsonify({'token': login_token})
 	except exceptions.ClientError as e:
 		return jsonify({'error': str(e)})
+
 
 def verify_token() -> Response:
 	if not application.is_initialized:

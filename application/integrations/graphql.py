@@ -4,6 +4,7 @@ import ariadne
 from graphql import GraphQLField, GraphQLNonNull, GraphQLList, GraphQLScalarType, GraphQLObjectType, GraphQLUnionType, GraphQLArgument
 from functools import cache
 
+
 def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 	_tp = data_type
 	while True:
@@ -12,6 +13,7 @@ def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 		else:
 			break
 	return _tp
+
 
 def print_type_fields(fields: dict, indent: str) -> str:
 	text = ''
@@ -29,15 +31,16 @@ def print_type_fields(fields: dict, indent: str) -> str:
 
 	return text
 
+
 def print_field(field_type: str, field_name: str, field: GraphQLField) -> str:
 	text = ''
 
 	return_type = trim_type(field.type)
 
-	#Print parameter list
+	# Print parameter list
 	if field.args:
-		text += f'{field_type} (' + ', '.join([ f'${k}: {field.args[k].type}' for k in field.args]) + ') {\n'
-		text += f'\t{field_name} (' + ', '.join([ f'{k}: ${k}' for k in field.args]) + ') '
+		text += f'{field_type} (' + ', '.join([f'${k}: {field.args[k].type}' for k in field.args]) + ') {\n'
+		text += f'\t{field_name} (' + ', '.join([f'{k}: ${k}' for k in field.args]) + ') '
 	else:
 		text += f'{field_type} {{ {field_name} '
 
@@ -77,7 +80,8 @@ def print_field(field_type: str, field_name: str, field: GraphQLField) -> str:
 
 	return text + '\n'
 
-def get_type(type, param_type = None) -> dict:
+
+def get_type(type, param_type=None) -> dict:
 	_tp = trim_type(type)
 	fields = []
 
@@ -87,7 +91,6 @@ def get_type(type, param_type = None) -> dict:
 		fields = [str(i.type) for i in _tp.fields.values()]
 	elif isinstance(_tp, GraphQLArgument):
 		_tp = trim_type(_tp)
-
 
 	if param_type:
 		param_type = trim_type(param_type)
@@ -100,6 +103,7 @@ def get_type(type, param_type = None) -> dict:
 		'union': isinstance(_tp, GraphQLUnionType),
 		'subtypes': fields,
 	}
+
 
 def get_meta_types(data_type) -> tuple[bool, bool]:
 	optional = True
@@ -118,9 +122,11 @@ def get_meta_types(data_type) -> tuple[bool, bool]:
 
 	return optional, array
 
-#Cache the schema since it will never change until the server restarts
+
 @cache
 def schema():
+	"""Cache the schema since it will never change until the server restarts"""
+
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = ariadne.make_executable_schema(type_defs)
 
@@ -137,7 +143,8 @@ def schema():
 
 	def build_types(items: dict[str, GraphQLField]) -> None:
 		for i in items:
-			if str(i).startswith('_SRV_DUMMY'): continue
+			if str(i).startswith('_SRV_DUMMY'):
+				continue
 			field: GraphQLField = items[i]
 
 			retn_type = get_type(field.type)
@@ -149,7 +156,8 @@ def schema():
 
 	def generate(kind: str, altkind: str, items: dict[str, GraphQLField]) -> None:
 		for i in items:
-			if i[0] == '_': continue
+			if i[0] == '_':
+				continue
 			field: GraphQLField = items[i]
 
 			return_type = data_types[str(trim_type(field.type))]

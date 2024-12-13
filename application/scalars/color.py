@@ -6,6 +6,7 @@ import application.exceptions as exceptions
 
 scalar = ScalarType('Color')
 
+
 @scalar.value_parser
 def parse_color(value: str) -> str:
 	match = re.match(r"^#[0-9a-fA-F]{6}$", value)

@@ -2,6 +2,7 @@ from application.db import blob
 import psutil
 from pathlib import Path
 
+
 def disk_usage() -> list[dict]:
 
 	def info(name: str, dir: str) -> dict:
@@ -20,11 +21,10 @@ def disk_usage() -> list[dict]:
 
 		return str(parent)
 
-
 	if blob.blob_path:
 		if get_mount_point('.') == get_mount_point(blob.blob_path):
 			return [info('Application / Blob Storage', '.')]
 		else:
-			return [info('Application','.'), info('Blob Storage', blob.blob_path)]
+			return [info('Application', '.'), info('Blob Storage', blob.blob_path)]
 	else:
 		return [info('Application', '.')]

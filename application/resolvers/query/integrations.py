@@ -5,6 +5,7 @@ from . import query
 
 SUBSONIC = None
 
+
 @query.field('searchSubsonic')
 @perms.module('subsonic')
 def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list:
@@ -38,9 +39,10 @@ def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list
 			'album': res.get('album', []),
 		}
 	except subsonic.SessionError as e:
-		return { '__typename': 'SubsonicError', 'message': str(e) }
+		return {'__typename': 'SubsonicError', 'message': str(e)}
+
 
 @query.field('getSystemInfo')
 @perms.require('admin')
 def resolve_get_system_info(_, info) -> dict:
-	return { '__typename': 'SystemInfo', 'storage': system.disk_usage() }
+	return {'__typename': 'SystemInfo', 'storage': system.disk_usage()}

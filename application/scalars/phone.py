@@ -6,6 +6,7 @@ import application.exceptions as exceptions
 
 scalar = ScalarType('PhoneNumber')
 
+
 @scalar.value_parser
 def parse_phone(value: str) -> str:
 	value = re.sub('[^0-9]', '', value)

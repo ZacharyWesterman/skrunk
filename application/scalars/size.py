@@ -6,6 +6,7 @@ import application.exceptions as exceptions
 
 scalar = ScalarType('Size')
 
+
 @scalar.value_parser
 def parse_size(value: str) -> str:
 	match = re.match(r"^[0-9]+(%|px|r?em|in)$", value)

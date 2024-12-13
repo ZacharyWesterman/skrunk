@@ -7,20 +7,23 @@ from application.db.users import userids_in_groups
 from ..decorators import *
 from . import query
 
+
 @query.field('searchBooks')
 @perms.module('books')
 def resolve_search_google_books(_, info, title: str, author: str) -> dict:
 	try:
-		return { '__typename': 'BookList', 'books': google_books.query(title=title, author=author) }
+		return {'__typename': 'BookList', 'books': google_books.query(title=title, author=author)}
 	except ApiFailedError as e:
-		return { '__typename' : e.__class__.__name__, 'message' : str(e) }
+		return {'__typename': e.__class__.__name__, 'message': str(e)}
+
 
 @query.field('getBookByTag')
 @perms.module('books')
 @handle_client_exceptions
 def resolve_get_book_by_tag(_, info, rfid: str) -> dict:
-	tag_data = get_book_tag(rfid, parse = True)
-	return { '__typename': 'Book', **tag_data }
+	tag_data = get_book_tag(rfid, parse=True)
+	return {'__typename': 'Book', **tag_data}
+
 
 @query.field('getBooks')
 @perms.module('books')
@@ -33,6 +36,7 @@ def resolve_get_books(_, info, filter: BookSearchFilter, start: int, count: int,
 
 	return get_books(filter, start, count, sorting)
 
+
 @query.field('countBooks')
 @perms.module('books')
 def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
@@ -43,6 +47,7 @@ def resolve_count_books(_, info, filter: BookSearchFilter) -> int:
 			filter['owner'] = userids_in_groups(groups)
 
 	return count_books(filter)
+
 
 @query.field('countAllUserBooks')
 @perms.module('books')

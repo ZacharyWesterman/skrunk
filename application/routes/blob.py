@@ -1,11 +1,14 @@
 from flask import jsonify, request, Response
 import mimetypes
-import os, re, json
+import os
+import re
+import json
 from . import auth, files
 from application.db import blob
 import application.db.perms as perms
 
 application = None
+
 
 def get_chunk(full_path: str, byte1: int, byte2: int) -> tuple:
 	file_size = os.stat(full_path).st_size
@@ -18,13 +21,14 @@ def get_chunk(full_path: str, byte1: int, byte2: int) -> tuple:
 	else:
 		length = file_size - start
 
-	length = min(length, 1024*1024*5) #Max chunk size is 5MiB
+	length = min(length, 1024 * 1024 * 5)  # Max chunk size is 5MiB
 
 	with open(full_path, 'rb') as fp:
 		fp.seek(start)
 		chunk = fp.read(length)
 
 	return chunk, start, length, file_size
+
 
 def stream(path: str) -> Response:
 	# if not auth.authorized():
@@ -52,10 +56,11 @@ def stream(path: str) -> Response:
 		mime = mimetypes.guess_type(path)
 
 		resp = Response(chunk, 206, mimetype=mime[0], content_type=mime[0], direct_passthrough=True)
-		resp.headers.add('Content-Range', f'bytes {start}-{start+length-1}/{file_size}')
+		resp.headers.add('Content-Range', f'bytes {start}-{start + length - 1}/{file_size}')
 		return resp
 	except FileNotFoundError:
 		return Response('File not found.', 404)
+
 
 def download(path: str) -> Response:
 	if not auth.authorized():
@@ -67,6 +72,7 @@ def download(path: str) -> Response:
 	full_path = blob.BlobStorage(files.sanitize_path(path), '').path()
 	return files.read_file_data(full_path)
 
+
 def preview(path: str) -> Response:
 	if not auth.authorized():
 		return Response('Access denied.', 403)
@@ -76,6 +82,7 @@ def preview(path: str) -> Response:
 
 	full_path = blob.BlobPreview(files.sanitize_path(path), '').path()
 	return files.read_file_data(full_path)
+
 
 def upload() -> Response:
 	if not auth.authorized():
