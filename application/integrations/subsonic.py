@@ -33,8 +33,7 @@ class Session:
 		# however, if the encoder is MD5, pass in the md5sum to this function, NOT the plaintext password!
 		md5sum = hashlib.md5((password + salt).encode('utf-8')).hexdigest()
 
-		self.rest_params = f'u={username}&t={
-			md5sum}&s={salt}&c={client}&v={version}&f=json'
+		self.rest_params = f'u={username}&t={md5sum}&s={salt}&c={client}&v={version}&f=json'
 		self.connection_uri = host
 
 	def query(self, action: str, parameters: dict = {}, *, process: bool = True) -> dict:
@@ -83,8 +82,7 @@ class Session:
 		return f'{self.connection_uri}/coverArt.view?size=160&id={album_id}&{self.rest_params}'
 
 	async def cover_art(self, album_id: str) -> str:
-		url = f'{
-			self.connection_uri}/rest/getCoverArt.view?{self.rest_params}&id={album_id}&size=160'
+		url = f'{self.connection_uri}/rest/getCoverArt.view?{self.rest_params}&id={album_id}&size=160'
 
 		async with ClientSession() as session, session.get(url) as result:
 			res = await result.read()
@@ -92,8 +90,7 @@ class Session:
 			return album_id, base64.b64encode(res).decode()
 
 	async def album_info(self, album_id: str) -> dict:
-		url = f'{
-			self.connection_uri}/rest/getMusicDirectory.view?{self.rest_params}&id={album_id}'
+		url = f'{self.connection_uri}/rest/getMusicDirectory.view?{self.rest_params}&id={album_id}'
 
 		async with ClientSession() as session, session.get(url) as result:
 			res = await result.read()
