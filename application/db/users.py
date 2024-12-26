@@ -1,5 +1,7 @@
+from application.tokens import create_user_token
+from application.db import blob
 from datetime import datetime
-from zipfile import ZipFile, Path
+from zipfile import ZipFile
 from bson.objectid import ObjectId
 from bson import json_util
 import bcrypt
@@ -12,28 +14,50 @@ from pymongo.database import Database
 db: Collection = None
 top_level_db: Database = None
 
+
 def get_admins() -> list:
+	"""
+	Returns a list of all admin users.
+	"""
 	return [i for i in db.find({'perms': 'admin'})]
 
+
 def count_users() -> int:
+	"""
+	Returns the count of all non-ephemeral users.
+	"""
 	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})
 
+
 def get_user_list(groups: list = []) -> list:
+	"""
+	Returns a list of users with their username, display name, and last login.
+	If groups are specified, only users in those groups are returned.
+	"""
 	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
-	return [ {
+	return [{
 		'username': data['username'],
 		'display_name': data['display_name'],
 		'last_login': data.get('last_login'),
-	} for data in db.find(query, sort=[('username', 1)]) ]
+	} for data in db.find(query, sort=[('username', 1)])]
+
 
 def userids_in_groups(groups: list) -> list:
+	"""
+	Returns a list of user IDs for users in the specified groups.
+	"""
 	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
 	result = []
 	for i in db.find(query):
 		result += [i['_id']]
 	return result
 
+
 def get_user_by_id(id: ObjectId) -> dict:
+	"""
+	Returns user data for the user with the specified ID.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	userdata = db.find_one({'_id': id})
 	if userdata:
 		userdata['disabled_modules'] = settings.calculate_disabled_modules(userdata.get('disabled_modules', []))
@@ -41,7 +65,12 @@ def get_user_by_id(id: ObjectId) -> dict:
 
 	raise exceptions.UserDoesNotExistError(f'ID:{id}')
 
+
 def get_user_data(username: str) -> dict:
+	"""
+	Returns user data for the user with the specified username.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	userdata = db.find_one({'username': username})
 
 	if userdata:
@@ -50,7 +79,13 @@ def get_user_data(username: str) -> dict:
 	else:
 		raise exceptions.UserDoesNotExistError(username)
 
+
 def update_user_theme(username: str, theme: dict) -> dict:
+	"""
+	Updates the theme for the user with the specified username.
+	Returns the updated user data.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	userdata = db.find_one({'username': username})
 
 	if not userdata:
@@ -61,7 +96,13 @@ def update_user_theme(username: str, theme: dict) -> dict:
 	userdata['theme'] = theme
 	return userdata
 
+
 def update_user_perms(username: str, perms: list) -> dict:
+	"""
+	Updates the permissions for the user with the specified username.
+	Returns the updated user data.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	userdata = db.find_one({'username': username})
 
 	if not userdata:
@@ -72,7 +113,14 @@ def update_user_perms(username: str, perms: list) -> dict:
 	userdata['perms'] = perms
 	return userdata
 
+
 def create_user(username: str, password: str, *, groups: list = [], admin: bool = False, ephemeral: bool = False) -> dict:
+	"""
+	Creates a new user with the specified username, password, groups, admin status, and ephemeral status.
+	Returns the created user data.
+	Raises BadUserNameError if the username is empty.
+	Raises UserExistsError if the user already exists.
+	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -102,7 +150,13 @@ def create_user(username: str, password: str, *, groups: list = [], admin: bool 
 
 	return userdata
 
-def delete_user(username: str) -> None:
+
+def delete_user(username: str) -> dict:
+	"""
+	Deletes the user with the specified username.
+	Returns the deleted user data.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	userdata = db.find_one({'username': username})
 
 	if not userdata:
@@ -111,7 +165,14 @@ def delete_user(username: str) -> None:
 	db.delete_one({'username': username})
 	return userdata
 
+
 def update_user_password(username: str, password: str) -> dict:
+	"""
+	Updates the password for the user with the specified username.
+	Returns the updated user data.
+	Raises BadUserNameError if the username is empty.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -126,14 +187,22 @@ def update_user_password(username: str, password: str) -> dict:
 
 	return userdata
 
+
 def update_username(username: str, new_username: str) -> dict:
+	"""
+	Updates the username for the user with the specified username.
+	Returns the updated user data.
+	Raises BadUserNameError if the new username is empty.
+	Raises UserDoesNotExistError if the user is not found.
+	Raises UserExistsError if the new username already exists.
+	"""
 	if len(new_username) == 0:
 		raise exceptions.BadUserNameError
 
 	userdata = db.find_one({'username': username})
 	if not userdata:
 		raise exceptions.UserDoesNotExistError(username)
-	
+
 	if db.find_one({'username': new_username}):
 		raise exceptions.UserExistsError(new_username)
 
@@ -144,8 +213,14 @@ def update_username(username: str, new_username: str) -> dict:
 
 	return userdata
 
-def update_user_display_name(username: str, display_name: str) -> dict:
 
+def update_user_display_name(username: str, display_name: str) -> dict:
+	"""
+	Updates the display name for the user with the specified username.
+	Returns the updated user data.
+	Raises BadUserNameError if the username is empty.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -162,8 +237,14 @@ def update_user_display_name(username: str, display_name: str) -> dict:
 	userdata['display_name'] = display_name
 	return userdata
 
-def update_user_email(username: str, email: str) -> dict:
 
+def update_user_email(username: str, email: str) -> dict:
+	"""
+	Updates the email for the user with the specified username.
+	Returns the updated user data.
+	Raises BadUserNameError if the username is empty.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -177,7 +258,14 @@ def update_user_email(username: str, email: str) -> dict:
 	userdata['email'] = email
 	return userdata
 
+
 def update_user_groups(username: str, groups: list) -> dict:
+	"""
+	Updates the groups for the user with the specified username.
+	Returns the updated user data.
+	Raises BadUserNameError if the username is empty.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -192,7 +280,14 @@ def update_user_groups(username: str, groups: list) -> dict:
 	userdata['groups'] = groups
 	return userdata
 
+
 def update_user_module(username: str, module: str, disabled: bool) -> dict:
+	"""
+	Updates the disabled modules for the user with the specified username.
+	Returns the updated user data.
+	Raises BadUserNameError if the username is empty.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
 
@@ -216,18 +311,29 @@ def update_user_module(username: str, module: str, disabled: bool) -> dict:
 
 	return userdata
 
+
 def authenticate(username: str, password: str) -> str:
+	"""
+	Authenticates the user with the specified username and password.
+	Returns a login token if authentication is successful.
+	Raises AuthenticationError if authentication fails.
+	"""
 	userdata = get_user_data(username)
 
 	if not bcrypt.checkpw(password.encode(), userdata.get('password')):
 		raise exceptions.AuthenticationError
 
 	login_token = create_user_token(username)
-	db.update_one({'_id': userdata['_id']}, {'$set':{'last_login': datetime.utcnow()}})
+	db.update_one({'_id': userdata['_id']}, {'$set': {'last_login': datetime.utcnow()}})
 
 	return login_token
 
+
 def group_filter(filter: dict, user_data: dict) -> dict:
+	"""
+	Applies group filtering to the specified filter based on the user's groups.
+	Returns the updated filter.
+	"""
 	if filter.get('creator') is None:
 		groups = user_data.get('groups', [])
 		if len(groups):
@@ -235,15 +341,21 @@ def group_filter(filter: dict, user_data: dict) -> dict:
 
 	return filter
 
+
 def export_user_data(username: str) -> dict:
-	#Returns a blob after creating a ZIP file containing user data.
+	"""
+	Exports the user data for the user with the specified username.
+	Returns a blob containing the exported data.
+	Raises UserDoesNotExistError if the user is not found.
+	"""
+	# Returns a blob after creating a ZIP file containing user data.
 
 	print(f'Creating ZIP export of {username}\'s data...', flush=True)
 
 	userdata = db.find_one({'username': username})
 	if not userdata:
 		raise exceptions.UserDoesNotExistError(username)
-	
+
 	user_id = userdata['_id']
 
 	queries = [
@@ -257,15 +369,15 @@ def export_user_data(username: str) -> dict:
 		'api_keys', 'subscriptions',
 	]
 
-	#Create a ZIP file and blob entry
-	blob_storage = blob.BlobStorage(*blob.create_blob('data_export.zip', tags = ['export', '__temp_file'], hidden = False, ephemeral = True))
-	fp = ZipFile(blob_storage.path(create = True), 'w')
+	# Create a ZIP file and blob entry
+	blob_storage = blob.BlobStorage(*blob.create_blob('data_export.zip', tags=['export', '__temp_file'], hidden=False, ephemeral=True))
+	fp = ZipFile(blob_storage.path(create=True), 'w')
 
-	#Iterate over all collections, and append the file to the ZIP file.
+	# Iterate over all collections, and append the file to the ZIP file.
 	for collection in [i for i in top_level_db.list_collection_names() if i not in exclude_collections]:
 		items = []
 
-		#Get a list of documents to export
+		# Get a list of documents to export
 		this_coll = top_level_db[collection]
 		for i in queries:
 			if this_coll.count_documents(i) > 0:
@@ -280,10 +392,10 @@ def export_user_data(username: str) -> dict:
 					def doc_mutate(data: dict) -> dict:
 						del data['password']
 						return data
-				
+
 				items = [doc_mutate(i) for i in this_coll.find(i)]
 
-		#Don't add to export if there are no documents
+		# Don't add to export if there are no documents
 		if len(items) == 0:
 			continue
 
@@ -295,6 +407,3 @@ def export_user_data(username: str) -> dict:
 	print(f'Finished exporting {username}\'s data.', flush=True)
 
 	return blob.get_blob_data(blob_storage.id)
-
-from application.tokens import create_user_token
-from application.db import blob
