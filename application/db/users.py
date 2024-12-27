@@ -17,14 +17,16 @@ top_level_db: Database = None
 
 def get_admins() -> list:
 	"""
-	Returns a list of all admin users.
+	Returns:
+		list: A list of all admin users.
 	"""
 	return [i for i in db.find({'perms': 'admin'})]
 
 
 def count_users() -> int:
 	"""
-	Returns the count of all non-ephemeral users.
+	Returns:
+		int: The count of all non-ephemeral users.
 	"""
 	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})
 
@@ -32,7 +34,12 @@ def count_users() -> int:
 def get_user_list(groups: list = []) -> list:
 	"""
 	Returns a list of users with their username, display name, and last login.
-	If groups are specified, only users in those groups are returned.
+
+	Args:
+		groups (list, optional): List of groups to filter users by. Defaults to [].
+
+	Returns:
+		list: A list of users.
 	"""
 	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
 	return [{
@@ -45,6 +52,12 @@ def get_user_list(groups: list = []) -> list:
 def userids_in_groups(groups: list) -> list:
 	"""
 	Returns a list of user IDs for users in the specified groups.
+
+	Args:
+		groups (list): List of groups to filter users by.
+
+	Returns:
+		list: A list of user IDs.
 	"""
 	query = {'$or': [{'groups': i} for i in groups]} if len(groups) else {}
 	result = []
@@ -56,7 +69,15 @@ def userids_in_groups(groups: list) -> list:
 def get_user_by_id(id: ObjectId) -> dict:
 	"""
 	Returns user data for the user with the specified ID.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		id (ObjectId): The ID of the user.
+
+	Returns:
+		dict: The user data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
 	"""
 	userdata = db.find_one({'_id': id})
 	if userdata:
@@ -69,7 +90,15 @@ def get_user_by_id(id: ObjectId) -> dict:
 def get_user_data(username: str) -> dict:
 	"""
 	Returns user data for the user with the specified username.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+
+	Returns:
+		dict: The user data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
 	"""
 	userdata = db.find_one({'username': username})
 
@@ -83,8 +112,16 @@ def get_user_data(username: str) -> dict:
 def update_user_theme(username: str, theme: dict) -> dict:
 	"""
 	Updates the theme for the user with the specified username.
-	Returns the updated user data.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+		theme (dict): The new theme data.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
 	"""
 	userdata = db.find_one({'username': username})
 
@@ -100,8 +137,16 @@ def update_user_theme(username: str, theme: dict) -> dict:
 def update_user_perms(username: str, perms: list) -> dict:
 	"""
 	Updates the permissions for the user with the specified username.
-	Returns the updated user data.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+		perms (list): The new permissions.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
 	"""
 	userdata = db.find_one({'username': username})
 
@@ -117,9 +162,20 @@ def update_user_perms(username: str, perms: list) -> dict:
 def create_user(username: str, password: str, *, groups: list = [], admin: bool = False, ephemeral: bool = False) -> dict:
 	"""
 	Creates a new user with the specified username, password, groups, admin status, and ephemeral status.
-	Returns the created user data.
-	Raises BadUserNameError if the username is empty.
-	Raises UserExistsError if the user already exists.
+
+	Args:
+		username (str): The username of the new user.
+		password (str): The password of the new user.
+		groups (list, optional): List of groups the user belongs to. Defaults to [].
+		admin (bool, optional): Whether the user is an admin. Defaults to False.
+		ephemeral (bool, optional): Whether the user is ephemeral. Defaults to False.
+
+	Returns:
+		dict: The created user data.
+
+	Raises:
+		BadUserNameError: If the username is empty.
+		UserExistsError: If the user already exists.
 	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -154,8 +210,15 @@ def create_user(username: str, password: str, *, groups: list = [], admin: bool 
 def delete_user(username: str) -> dict:
 	"""
 	Deletes the user with the specified username.
-	Returns the deleted user data.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user to delete.
+
+	Returns:
+		dict: The deleted user data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
 	"""
 	userdata = db.find_one({'username': username})
 
@@ -169,9 +232,17 @@ def delete_user(username: str) -> dict:
 def update_user_password(username: str, password: str) -> dict:
 	"""
 	Updates the password for the user with the specified username.
-	Returns the updated user data.
-	Raises BadUserNameError if the username is empty.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+		password (str): The new password.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		BadUserNameError: If the username is empty.
+		UserDoesNotExistError: If the user is not found.
 	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -191,10 +262,18 @@ def update_user_password(username: str, password: str) -> dict:
 def update_username(username: str, new_username: str) -> dict:
 	"""
 	Updates the username for the user with the specified username.
-	Returns the updated user data.
-	Raises BadUserNameError if the new username is empty.
-	Raises UserDoesNotExistError if the user is not found.
-	Raises UserExistsError if the new username already exists.
+
+	Args:
+		username (str): The current username of the user.
+		new_username (str): The new username.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		BadUserNameError: If the new username is empty.
+		UserDoesNotExistError: If the user is not found.
+		UserExistsError: If the new username already exists.
 	"""
 	if len(new_username) == 0:
 		raise exceptions.BadUserNameError
@@ -217,9 +296,17 @@ def update_username(username: str, new_username: str) -> dict:
 def update_user_display_name(username: str, display_name: str) -> dict:
 	"""
 	Updates the display name for the user with the specified username.
-	Returns the updated user data.
-	Raises BadUserNameError if the username is empty.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+		display_name (str): The new display name.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		BadUserNameError: If the username is empty.
+		UserDoesNotExistError: If the user is not found.
 	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -241,9 +328,17 @@ def update_user_display_name(username: str, display_name: str) -> dict:
 def update_user_email(username: str, email: str) -> dict:
 	"""
 	Updates the email for the user with the specified username.
-	Returns the updated user data.
-	Raises BadUserNameError if the username is empty.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+		email (str): The new email.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		BadUserNameError: If the username is empty.
+		UserDoesNotExistError: If the user is not found.
 	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -262,9 +357,17 @@ def update_user_email(username: str, email: str) -> dict:
 def update_user_groups(username: str, groups: list) -> dict:
 	"""
 	Updates the groups for the user with the specified username.
-	Returns the updated user data.
-	Raises BadUserNameError if the username is empty.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+		groups (list): The new groups.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		BadUserNameError: If the username is empty.
+		UserDoesNotExistError: If the user is not found.
 	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -284,9 +387,18 @@ def update_user_groups(username: str, groups: list) -> dict:
 def update_user_module(username: str, module: str, disabled: bool) -> dict:
 	"""
 	Updates the disabled modules for the user with the specified username.
-	Returns the updated user data.
-	Raises BadUserNameError if the username is empty.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+		module (str): The module to update.
+		disabled (bool): Whether the module is disabled.
+
+	Returns:
+		dict: The updated user data.
+
+	Raises:
+		BadUserNameError: If the username is empty.
+		UserDoesNotExistError: If the user is not found.
 	"""
 	if len(username) == 0:
 		raise exceptions.BadUserNameError
@@ -315,8 +427,16 @@ def update_user_module(username: str, module: str, disabled: bool) -> dict:
 def authenticate(username: str, password: str) -> str:
 	"""
 	Authenticates the user with the specified username and password.
-	Returns a login token if authentication is successful.
-	Raises AuthenticationError if authentication fails.
+
+	Args:
+		username (str): The username of the user.
+		password (str): The password of the user.
+
+	Returns:
+		str: A login token if authentication is successful.
+
+	Raises:
+		AuthenticationError: If authentication fails.
 	"""
 	userdata = get_user_data(username)
 
@@ -332,7 +452,13 @@ def authenticate(username: str, password: str) -> str:
 def group_filter(filter: dict, user_data: dict) -> dict:
 	"""
 	Applies group filtering to the specified filter based on the user's groups.
-	Returns the updated filter.
+
+	Args:
+		filter (dict): The filter to apply group filtering to.
+		user_data (dict): The user data containing the groups.
+
+	Returns:
+		dict: The updated filter.
 	"""
 	if filter.get('creator') is None:
 		groups = user_data.get('groups', [])
@@ -345,8 +471,15 @@ def group_filter(filter: dict, user_data: dict) -> dict:
 def export_user_data(username: str) -> dict:
 	"""
 	Exports the user data for the user with the specified username.
-	Returns a blob containing the exported data.
-	Raises UserDoesNotExistError if the user is not found.
+
+	Args:
+		username (str): The username of the user.
+
+	Returns:
+		dict: A blob containing the exported data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
 	"""
 	# Returns a blob after creating a ZIP file containing user data.
 

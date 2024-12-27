@@ -4,6 +4,7 @@ import application.exceptions as exceptions
 
 db: Collection = None
 
+
 def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 	modules = db.find_one({'name': 'modules'})
 	if modules is None:
@@ -12,7 +13,7 @@ def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 	modules: list[str] = modules.get('enabled', [])
 
 	with open('site/config/modules.json', 'r') as fp:
-		module_config = { i['id']: i for i in json.load(fp) }
+		module_config = {i['id']: i for i in json.load(fp)}
 
 	for module in modules:
 		for parent_module in module_config.get(module, {}).get('requires', []):
@@ -22,7 +23,8 @@ def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 
 	return list(set(disabled_modules))
 
-def get_enabled_modules(user_data: dict|None = None, *, group: str|None = None) -> list:
+
+def get_enabled_modules(user_data: dict | None = None, *, group: str | None = None) -> list:
 	modules = db.find_one({'name': 'modules'})
 	if modules is None:
 		return []
@@ -44,6 +46,7 @@ def get_enabled_modules(user_data: dict|None = None, *, group: str|None = None) 
 
 	return [i for i in modules if i not in calculate_disabled_modules(disabled_modules)]
 
+
 def get_modules(user_data: dict) -> list:
 	modules = db.find_one({'name': 'modules'})
 	if modules is None:
@@ -61,13 +64,16 @@ def get_modules(user_data: dict) -> list:
 
 	return [i for i in modules if i not in calculate_disabled_modules(disabled_modules)]
 
-def set_module_enabled(module_id: str, enabled: bool, group: str|None) -> None:
+
+def set_module_enabled(module_id: str, enabled: bool, group: str | None) -> None:
 	if group is not None:
 		groups = db.find_one({'name': 'groups'})
-		if groups is None: return
+		if groups is None:
+			return
 
 		grp = groups.get('groups', {}).get(group, {})
-		if grp is None: return
+		if grp is None:
+			return
 
 		disabled_modules: list[str] = grp.get('disabled_modules', [])
 		if enabled and module_id in disabled_modules:
@@ -94,7 +100,7 @@ def set_module_enabled(module_id: str, enabled: bool, group: str|None) -> None:
 	module_is_enabled = module_id in modules
 
 	if enabled == module_is_enabled:
-		return #No change needs to be made
+		return  # No change needs to be made
 
 	if enabled:
 		modules += [module_id]
@@ -103,27 +109,28 @@ def set_module_enabled(module_id: str, enabled: bool, group: str|None) -> None:
 
 	db.update_one({'name': 'modules'}, {'$set': {'enabled': modules}})
 
+
 def update_groups(old_groups: list[str], new_groups: list[str]) -> None:
 	groups = db.find_one({'name': 'groups'})
 	if groups is None:
 		db.insert_one({
 			'name': 'groups',
 			'type': 'list',
-			'groups': { i: {
+			'groups': {i: {
 				'disabled_modules': [],
 				'user_count': 1,
-			} for i in new_groups },
+			} for i in new_groups},
 		})
 		return
 
-	#Decrement old groups
-	for i in [i for i in set(old_groups).difference(set(new_groups)) if i in groups['groups'] ]:
+	# Decrement old groups
+	for i in [i for i in set(old_groups).difference(set(new_groups)) if i in groups['groups']]:
 		groups['groups'][i]['user_count'] -= 1
-		#Delete group if no users are in it anymore
+		# Delete group if no users are in it anymore
 		if groups['groups'][i]['user_count'] < 1:
 			del groups['groups'][i]
 
-	#Increment new groups
+	# Increment new groups
 	for i in set(new_groups).difference(set(old_groups)):
 		if i in groups['groups']:
 			groups['groups'][i]['user_count'] += 1
@@ -133,14 +140,16 @@ def update_groups(old_groups: list[str], new_groups: list[str]) -> None:
 				'user_count': 1,
 			}
 
-	#Update database
+	# Update database
 	db.update_one({'name': 'groups'}, {'$set': {'groups': groups['groups']}})
+
 
 def get_groups() -> list:
 	groups = db.find_one({'name': 'groups'})
-	return [] if groups is None else [ i for i in groups['groups'] ]
+	return [] if groups is None else [i for i in groups['groups']]
 
-def set_config(name: str, value: str|None) -> None:
+
+def set_config(name: str, value: str | None) -> None:
 	real_name = f'config:{name}'
 
 	if value is None:
@@ -148,7 +157,8 @@ def set_config(name: str, value: str|None) -> None:
 	else:
 		db.update_one({'name': real_name}, {'$set': {'value': value, 'type': 'value'}}, upsert=True)
 
-def get_config(name: str) -> str|None:
+
+def get_config(name: str) -> str | None:
 	real_name = f'config:{name}'
 	config = db.find_one({'name': real_name})
 
@@ -156,6 +166,7 @@ def get_config(name: str) -> str|None:
 		return None
 
 	return config.get('value')
+
 
 def get_all_configs() -> list:
 	result = []
@@ -169,8 +180,10 @@ def get_all_configs() -> list:
 
 	return result
 
+
 def get_all_themes() -> list:
 	return [i for i in db.find({'type': 'theme'})]
+
 
 def create_theme(theme: dict) -> dict:
 	existing_theme = db.find_one({'type': 'theme', 'name': theme.get('name')})
@@ -181,10 +194,11 @@ def create_theme(theme: dict) -> dict:
 
 	return theme
 
+
 def delete_theme(name: str) -> dict:
-	theme = db.find_one({'type': 'theme', 'name': name })
+	theme = db.find_one({'type': 'theme', 'name': name})
 	if theme:
-		db.delete_one({'type': 'theme', 'name': name })
+		db.delete_one({'type': 'theme', 'name': name})
 		return theme
 
 	raise exceptions.MissingConfig(name)

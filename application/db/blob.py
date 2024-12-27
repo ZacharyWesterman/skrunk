@@ -20,16 +20,17 @@ import time
 
 from pymongo.collection import Collection
 db: Collection = None
-blob_path: str|None = None
+blob_path: str | None = None
 
 _zip_progress = {}
+
 
 def init() -> None:
 	global blob_path
 	blob_path = types.blob_path
 
-	#On startup, delete all ephemeral files which aren't referred to by any data.
-	#Restart should be scheduled regularly for this to apply
+	# On startup, delete all ephemeral files which aren't referred to by any data.
+	# Restart should be scheduled regularly for this to apply
 	deleted_ct = 0
 
 	for i in db.find({'ephemeral': True, 'references': 0}):
@@ -39,6 +40,7 @@ def init() -> None:
 	if deleted_ct:
 		print(f'Deleted {deleted_ct} ephemeral blob entries.', flush=True)
 
+
 def file_info(filename: str) -> str:
 	with open(filename, 'rb') as fp:
 		md5sum = hashlib.md5(fp.read()).hexdigest()
@@ -46,10 +48,11 @@ def file_info(filename: str) -> str:
 
 	return size, md5sum
 
+
 def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> list:
 	filename = file.filename
 	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and filename.lower().endswith('.zip')), ephemeral)
-	this_blob_path = BlobStorage(id, ext).path(create = True)
+	this_blob_path = BlobStorage(id, ext).path(create=True)
 
 	print(f'Beginning stream of file "{filename}"...', flush=True)
 	file.save(this_blob_path)
@@ -64,11 +67,12 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 			for name in fp.namelist():
 				print('Extracting ' + name, flush=True)
 				item = Path(fp, name)
-				if item.is_dir(): continue
+				if item.is_dir():
+					continue
 
-				#directly create new blobs from each item in the zip file
+				# directly create new blobs from each item in the zip file
 				id2, ext2 = create_blob(name, tags, hidden, ephemeral)
-				inner_blob_path = BlobStorage(id2, ext2).path(create = True)
+				inner_blob_path = BlobStorage(id2, ext2).path(create=True)
 				with fp.open(name, 'r') as input:
 					with open(inner_blob_path, 'wb') as output:
 						output.write(input.read())
@@ -85,7 +89,7 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 		mark_as_completed(id, size, md5sum)
 		uploaded_blobs += [{'id': id, 'ext': ext}]
 
-	#Create file previews
+	# Create file previews
 	for blob in uploaded_blobs:
 		if blob['ext'].lower() in images.extensions():
 			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
@@ -107,8 +111,10 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 
 	return uploaded_blobs
 
+
 def get_tags_from_mime(mime: str) -> list:
-	return [ i for i in mime.split('/') ]
+	return [i for i in mime.split('/')]
+
 
 def set_mime_from_ext(mime: str, ext: str) -> str:
 	documents = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.rtf', '.odf']
@@ -175,8 +181,10 @@ def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: boo
 		'references': 0,
 	}).inserted_id), ext
 
+
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size, 'md5sum': md5sum}})
+
 
 def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 	query = [{
@@ -213,6 +221,7 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 	return {'$and': query} if len(query) else {}
 
+
 def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting, user_id: ObjectId) -> list:
 	global db
 	try:
@@ -227,7 +236,7 @@ def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting
 
 	sort = [(i, -1 if sorting['descending'] else 1) for i in sorting['fields']]
 
-	selection = db.find(query, sort = sort)
+	selection = db.find(query, sort=sort)
 	for i in selection.limit(count).skip(start):
 		i['id'] = i['_id']
 		try:
@@ -239,6 +248,7 @@ def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting
 
 	return blobs
 
+
 def count_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 	global db
 
@@ -249,6 +259,7 @@ def count_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 
 	return db.count_documents(query)
 
+
 def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 	try:
 		query = build_blob_query(filter, user_id)
@@ -257,7 +268,7 @@ def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 
 	aggregate = db.aggregate([{
 		'$match': query
-	},{
+	}, {
 		'$group': {
 			'_id': None,
 			'total': {
@@ -271,8 +282,10 @@ def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 
 	return 0
 
+
 def get_uid() -> str:
 	return str(uuid.uuid4())
+
 
 def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id: str) -> dict:
 	global _zip_progress
@@ -283,11 +296,11 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	else:
 		query = {'complete': True}
 
-	blob_zip_id = blob_zip_id.replace("/","").replace("\\","")
-	id, ext = create_blob(f'ARCHIVE-{blob_zip_id[-8::]}.zip', [], ephemeral = True)
-	this_blob_path = BlobStorage(id, ext).path(create = True)
+	blob_zip_id = blob_zip_id.replace("/", "").replace("\\", "")
+	id, ext = create_blob(f'ARCHIVE-{blob_zip_id[-8::]}.zip', [], ephemeral=True)
+	this_blob_path = BlobStorage(id, ext).path(create=True)
 
-	#Update DB to allow polling progress.
+	# Update DB to allow polling progress.
 	_zip_progress[blob_zip_id] = [0, '', False]
 	cancelled = False
 
@@ -311,19 +324,19 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 			else:
 				file_names[file_name] = 0
 
-			#If this zip action was cancelled, quit.
+			# If this zip action was cancelled, quit.
 			if _zip_progress[blob_zip_id][2]:
 				cancelled = True
 				break
 
-			#Update db to allow polling progress.
+			# Update db to allow polling progress.
 			_zip_progress[blob_zip_id] = [item / total, file_name, False]
 
 			if sub_blob.exists:
-				print(f'[{100*item/total:.1f}%] Adding "{file_name}"...', flush=True)
+				print(f'[{100 * item / total:.1f}%] Adding "{file_name}"...', flush=True)
 				fp.write(sub_blob.path(), file_name)
 			else:
-				print(f'[{100*item/total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
+				print(f'[{100 * item / total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
 
 	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
 
@@ -340,6 +353,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	blob['id'] = blob['_id']
 	return blob
 
+
 def cancel_zip(blob_zip_id: str) -> dict:
 	global _zip_progress
 
@@ -354,6 +368,7 @@ def cancel_zip(blob_zip_id: str) -> dict:
 		'item': progress[1],
 	}
 
+
 def get_zip_progress(blob_zip_id: str) -> dict:
 	if blob_zip_id not in _zip_progress:
 		raise exceptions.BlobDoesNotExistError(blob_zip_id)
@@ -364,6 +379,7 @@ def get_zip_progress(blob_zip_id: str) -> dict:
 		'progress': progress[0],
 		'item': progress[1],
 	}
+
 
 def get_blob_data(id: str) -> dict:
 	global db
@@ -380,6 +396,7 @@ def get_blob_data(id: str) -> dict:
 		except exceptions.UserDoesNotExistError:
 			blob_data['creator'] = str(blob_data['creator'])
 	return blob_data
+
 
 def delete_blob(blob_id: str) -> dict:
 	global db
@@ -398,7 +415,7 @@ def delete_blob(blob_id: str) -> dict:
 			except FileNotFoundError:
 				pass
 
-		#Delete volume dirs if empty
+		# Delete volume dirs if empty
 		try:
 			item.parent.rmdir()
 			item.parent.parent.rmdir()
@@ -410,17 +427,19 @@ def delete_blob(blob_id: str) -> dict:
 
 	raise exceptions.BlobDoesNotExistError(blob_id)
 
+
 def set_blob_tags(blob_id: str, tags: list) -> dict:
 	global db
 	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if not blob_data:
 		raise exceptions.BlobDoesNotExistError(blob_id)
 
-	tags = [ i.lower() for i in list(set(tags)) ]
+	tags = [i.lower() for i in list(set(tags))]
 
 	db.update_one({'_id': ObjectId(blob_id)}, {'$set': {'tags': tags}})
 	blob_data['tags'] = tags
 	return blob_data
+
 
 def set_blob_ephemeral(blob_id: str, ephemeral: bool) -> dict:
 	blob_data = get_blob_data(blob_id)
@@ -429,15 +448,18 @@ def set_blob_ephemeral(blob_id: str, ephemeral: bool) -> dict:
 	blob_data['ephemeral'] = ephemeral
 	return blob_data
 
+
 def create_preview_model(blob_path: str, preview_id: str) -> None:
 	preview = BlobPreview(preview_id, '.glb')
 	models.to_glb(blob_path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
+
 def create_preview_video(blob_path: str, preview_id: str) -> None:
 	preview = BlobPreview(preview_id, '.png')
 	videos.create_preview_from_first_frame(blob_path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
+
 
 def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 	blob_data = get_blob_data(blob_id)
@@ -449,14 +471,17 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 
 	return blob_data
 
+
 def count_tag_uses(tag: str, users: list[str]) -> int:
-	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in users]} ]})
+	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in users]}]})
+
 
 def add_reference(id: str) -> None:
 	db.update_one({'_id': ObjectId(id)}, {'$inc': {'references': 1}})
 
+
 def remove_reference(id: str) -> None:
-	#If an invalid objectID, then there couldn't possibly be any references to it.
+	# If an invalid objectID, then there couldn't possibly be any references to it.
 	if not ObjectId.is_valid(id):
 		return
 
