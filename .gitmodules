@@ -2,3 +2,6 @@
 	path = application/tags
 	url = https://github.com/ZacharyWesterman/tag_query.git
 	branch = main
+[submodule "application/integrations/subsonic"]
+	path = application/integrations/subsonic
+	url = https://github.com/ZacharyWesterman/subsonic.git
