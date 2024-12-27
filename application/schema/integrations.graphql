@@ -14,7 +14,6 @@ type SubsonicAlbum {
 	coverArt: String
 	playCount: Int!
 	created: DateTime!
-	tracks: [SubsonicTrack!]!
 }
 
 type SubsonicTrack {
@@ -44,5 +43,7 @@ union SubsonicSearchResult = SubsonicSearch | SubsonicError
 
 extend type Query {
 	searchSubsonic (query: String!, start: Int!, count: Int!): SubsonicSearchResult!
+	subsonicAlbumTrackList (id: String!): [SubsonicTrack!]!
+	subsonicCoverArt (id: String!): String!
 	getSystemInfo: SystemInfo!
 }

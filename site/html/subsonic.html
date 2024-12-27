@@ -47,11 +47,6 @@
 						album
 						artist
 						coverArt
-						tracks {
-							id
-							title
-							duration
-						}
 					}
 				}
 				...on SubsonicError {
@@ -77,10 +72,60 @@
 		}
 
 		await _('subsonic-search', res)
+
+		for (const album of res.album) {
+			load_album_art(album.id, album.coverArt)
+			load_tracks(album.id)
+		}
 	}
 
 	export async function set_subsonic_link(field) {
 		const url = await api('{getConfig(name: "subsonic:url")}')
 		field.href = url
+	}
+
+	async function load_tracks(album_id) {
+		const tracks = await api(`query ($id: String!) {
+			subsonicAlbumTrackList (id: $id) {
+				id
+				title
+				duration
+			}
+		}`, {
+			id: album_id,
+		})
+
+		const field = $(`tracks-${album_id}`)
+		if (!field) { return }
+
+		let html = ''
+		for (const track of tracks) {
+			const duration = Math.floor(track.duration / 60) + ':' + (track.duration % 60).toString().padStart(2, '0')
+			html += `<li>${track.title} (${duration})</li>`
+		}
+		field.innerHTML = html
+
+		$(`track-count-${album_id}`).innerText = tracks.length + (tracks.length === 1 ? ' track' : ' tracks')
+	}
+
+	async function load_album_art(album_id, cover_art_id) {
+		if (!$(`album-art-${album_id}`)) return
+
+		if (!cover_art_id) {
+			$(`album-art-${album_id}`).alt = '<no cover art>'
+			return
+		}
+
+		const cover_art = await api(`query ($id: String!) {
+			subsonicCoverArt (id: $id)
+		}`, {
+			id: cover_art_id,
+		})
+
+		const field = $(`album-art-${album_id}`)
+		if (!field) { return }
+
+		field.src = 'data:image/png;base64,' + cover_art
+		field.alt = !cover_art ? '<no cover art>' : 'FAILED TO LOAD COVER ART'
 	}
 </script>

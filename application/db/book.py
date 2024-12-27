@@ -8,6 +8,7 @@ from datetime import datetime
 from bson.objectid import ObjectId
 import re
 import markdown
+import warnings
 
 from pymongo.collection import Collection
 db: Collection = None
@@ -32,25 +33,27 @@ def init() -> None:
 	Raises:
 		subsonic.SessionError: If unable to connect to the Subsonic server.
 	"""
-	global SUBSONIC
+	warnings.warn("The 'application.db.book.init' function is deprecated and will be removed in a future version.", DeprecationWarning)
+	# global SUBSONIC
 
-	url = get_config('subsonic:url')
-	if url is not None and 'subsonic' in get_enabled_modules():
-		username = get_config('subsonic:username')
-		password = get_config('subsonic:password')
-		SUBSONIC = subsonic.Session(url, username, password)
-		try:
-			print('Caching Subsonic data on startup...', flush=True)
-			# Get albums on startup so it's cached for later use.
-			SUBSONIC.all_albums('Audiobooks')
+	# url = get_config('subsonic:url')
+	# if url is not None and 'subsonic' in get_enabled_modules():
+	# 	username = get_config('subsonic:username')
+	# 	password = get_config('subsonic:password')
+	# 	SUBSONIC = subsonic.SubsonicClient(url, username, password)
+	# 	try:
+	# 		print('Caching Subsonic data on startup...', flush=True)
+	# 		# Get albums on startup so it's cached for later use.
+	# 		SUBSONIC. all_albums('Audiobooks')
 
-			# Cache as many album IDs as possible
-			for book_data in db.find({}).limit(subsonic.SUBSONIC_ALBUMID_CACHESZ):
-				SUBSONIC.get_album_id(book_data['title'], 'Audiobooks')
+	# 		# Cache as many album IDs as possible
+	# 		for book_data in db.find({}).limit(subsonic.SUBSONIC_ALBUMID_CACHESZ):
+	# 			SUBSONIC.get_album_id(book_data['title'], 'Audiobooks')
 
-			print('Finished caching Subsonic data.', flush=True)
-		except subsonic.SessionError:
-			print('Unable to connect to Subsonic server!', flush=True)
+	# 		print('Finished caching Subsonic data.', flush=True)
+	# 	except subsonic.SessionError:
+	# 		print('Unable to connect to Subsonic server!', flush=True)
+	pass
 
 
 def process_share_hist(share_history: list) -> list:

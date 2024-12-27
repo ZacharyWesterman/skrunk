@@ -3,22 +3,20 @@
 	<div class="card-inner">
 
 		<div class="clickable" *toggles="track-list-{{= album.id }}">
-			<b>{{= album.title }}</b><br>
+			<b>{{= album.album || album.title }}</b><br>
 			<i>{{= album.artist }}</i><br>
-			<img src="data:image/png;base64,{{= album.coverArt }}" alt="{{? !album.coverArt }}<no cover art>{{??}}FAILED TO LOAD COVER ART{{?}}">
+			<img src="#" alt="Loading album art..." id="album-art-{{= album.id }}" class="suppress">
 
 			<div>
-				{{= album.tracks.length }} track{{? album.tracks.length !== 1 }}s{{?}}
+				<span id="track-count-{{= album.id }}"><i class="gg-spinner"></i></span>
 				<i class="right fa-solid fa-angles-down"></i>
 			</div>
 		</div>
 
 		<div class="expand-container" id="track-list-{{= album.id }}">
 			<div>
-				<ol>
-				{{~ album.tracks : track }}
-					<li>{{= track.title }}</li>
-				{{~}}
+				<ol id="tracks-{{= album.id }}">
+					<li><i class="gg-spinner"></i></li>
 				</ol>
 			</div>
 		</div>
