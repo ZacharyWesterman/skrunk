@@ -19,6 +19,15 @@ db: Database = None
 
 
 def get_user_from_notif(id: str) -> dict:
+	"""
+	Retrieve user information based on a notification ID.
+
+	Args:
+		id (str): The ID of the notification.
+
+	Returns:
+		dict: A dictionary containing user information if found, otherwise an empty dictionary.
+	"""
 	notif = db.notif_log.find_one({'_id': ObjectId(id)})
 	if notif is None:
 		return {}
@@ -27,21 +36,61 @@ def get_user_from_notif(id: str) -> dict:
 
 
 def get_public_key() -> str:
+	"""
+	Retrieve the VAPID public key.
+
+	Returns:
+		str: The VAPID public key as a string.
+	"""
 	return VAPID_PUBLIC_KEY
 
 
 def get_subscriptions(username: str) -> list:
+	"""
+	Retrieve a list of notification subscription tokens for a given user.
+
+	Args:
+		username (str): The username of the user whose subscriptions are to be retrieved.
+
+	Returns:
+		list: A list of subscription tokens associated with the user.
+	"""
 	user_data = users.get_user_data(username)
 	return [i['token'] for i in db.subscriptions.find({'creator': user_data['_id']})]
 
 
 def get_subscription(auth: str) -> dict | None:
+	"""
+	Retrieve a notification subscription token from the database using the provided authentication key.
+
+	Args:
+		auth (str): The authentication key used to find the subscription.
+
+	Returns:
+		dict | None: The subscription token if found, otherwise None.
+	"""
 	subscription = db.subscriptions.find_one({'token.keys.auth': auth})
 	return subscription['token'] if subscription is not None else None
 
 
 def create_subscription(username: str, subscription_token: dict) -> None:
-	global db
+	"""
+	Create a notification subscription for a user.
+
+	Args:
+		username (str): The username of the user.
+		subscription_token (dict): A dictionary containing the subscription token details.
+			Expected keys are:
+				- 'endpoint' (str): The endpoint URL of the subscription.
+				- 'expirationTime' (int or None): The expiration time of the subscription.
+				- 'keys' (dict): A dictionary containing the keys for the subscription.
+					Expected keys are:
+						- 'p256dh' (str): The p256dh key.
+						- 'auth' (str): The auth key.
+
+	Raises:
+		exceptions.InvalidSubscriptionToken: If the subscription token is invalid.
+	"""
 	user_data = users.get_user_data(username)
 
 	try:
@@ -56,33 +105,79 @@ def create_subscription(username: str, subscription_token: dict) -> None:
 				},
 			},
 		})
-	except TypeError:
-		raise exceptions.InvalidSubscriptionToken
-	except KeyError:
+	except TypeError | KeyError:
 		raise exceptions.InvalidSubscriptionToken
 
 
 def delete_subscriptions(username: str) -> int:
+	"""
+	Delete all notification subscription records for a given user.
+
+	Args:
+		username (str): The username of the user whose subscriptions are to be deleted.
+
+	Returns:
+		int: The number of subscription records that were deleted.
+	"""
 	user_data = users.get_user_data(username)
 	return db.subscriptions.delete_many({'creator': user_data['_id']}).deleted_count
 
 
 def delete_subscription(auth: str) -> int:
+	"""
+	Deletes all notification subscriptions from the database that match the given authentication token.
+
+	Args:
+		auth (str): The authentication token used to identify subscriptions to delete.
+
+	Returns:
+		int: The number of subscriptions deleted.
+	"""
 	return db.subscriptions.delete_many({'token.keys.auth': auth}).deleted_count
 
 
 def mark_as_read(id: str) -> None:
+	"""
+	Marks a notification as read in the database.
+
+	Args:
+		id (str): The unique identifier of the notification to be marked as read.
+
+	Returns:
+		None
+	"""
 	db.notif_log.update_one({'_id': ObjectId(id)}, {'$set': {
 		'read': True
 	}})
 
 
 def mark_all_as_read(username: str) -> None:
+	"""
+	Marks all notifications as read for a given user.
+
+	Args:
+		username (str): The username of the user whose notifications are to be marked as read.
+
+	Returns:
+		None
+	"""
 	user_data = users.get_user_data(username)
 	db.notif_log.update_many({'recipient': user_data['_id'], 'read': False}, {'$set': {'read': True}})
 
 
 def get_notifications(username: str, read: bool, start: int, count: int) -> list:
+	"""
+	Retrieve a list of notifications for a given user.
+
+	Args:
+		username (str): The username of the recipient.
+		read (bool): Filter notifications based on their read status.
+		start (int): The starting index for pagination.
+		count (int): The number of notifications to retrieve.
+
+	Returns:
+		list: A list of notifications, each represented as a dictionary.
+	"""
 	user_data = users.get_user_data(username)
 	selection = db.notif_log.find({'recipient': user_data['_id'], 'read': read}, sort=[('created', -1)])
 	result = []
@@ -94,14 +189,37 @@ def get_notifications(username: str, read: bool, start: int, count: int) -> list
 
 
 def count_notifications(username: str, read: bool) -> int:
+	"""
+	Count the number of notifications for a given user based on their read status.
+
+	Args:
+		username (str): The username of the user whose notifications are to be counted.
+		read (bool): The read status of the notifications to be counted (True for read, False for unread).
+
+	Returns:
+		int: The number of notifications that match the given criteria.
+	"""
 	user_data = users.get_user_data(username)
 	return db.notif_log.count_documents({'recipient': user_data['_id'], 'read': read})
 
-# May raise exceptions.WebPushException, exceptions.UserDoesNotExistError, or exceptions.MissingConfig
-
 
 def send(title: str, body: str, username: str, *, category: str = 'general', read: bool = False) -> dict:
-	global VAPID_PRIVATE_KEY
+	"""
+	Send a notification to a user and log the notification in the database.
+
+	Args:
+		title (str): The title of the notification.
+		body (str): The body content of the notification.
+		username (str): The username of the recipient.
+		category (str, optional): The category of the notification. Defaults to 'general'.
+		read (bool, optional): Whether the notification is marked as read. Defaults to False.
+
+	Returns:
+		dict: A dictionary containing the logged notification data.
+
+	Raises:
+		exceptions.MissingConfig: If the admin email configuration is missing.
+	"""
 
 	user_data = users.get_user_data(username)
 

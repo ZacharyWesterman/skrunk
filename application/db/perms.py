@@ -10,6 +10,13 @@ apikeydb: Collection = None
 
 
 def bad_perms() -> dict:
+	"""
+	Returns a dictionary representing an insufficient permissions error.
+
+	Returns:
+		dict: A dictionary containing the error type and message indicating
+			  that the user is not allowed to perform the requested action.
+	"""
 	return {
 		'__typename': 'InsufficientPerms',
 		'message': 'You are not allowed to perform this action.',
@@ -17,6 +24,18 @@ def bad_perms() -> dict:
 
 
 def caller_info() -> str:
+	"""
+	Retrieves caller information based on the request token.
+
+	The function attempts to decode the request token to extract the username.
+	If decoding fails, it treats the token as an API key and retrieves the corresponding
+	API key information from the database.
+
+	Returns:
+		str: The user data associated with the username if available, otherwise the API key
+			 information if the token is an API key. Returns None if neither is found or an
+			 error occurs during retrieval.
+	"""
 	tok = tokens.get_request_token()
 	try:
 		username = tokens.decode_user_token(tok).get('username')
@@ -34,6 +53,16 @@ def caller_info() -> str:
 
 
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
+	"""
+	Check if the user has any of the specified permissions.
+
+	Args:
+		user_data (dict): A dictionary containing user information, including a 'perms' key with a list of permissions.
+		perm_list (list): A list of permissions to check against the user's permissions.
+
+	Returns:
+		bool: True if the user has any of the specified permissions, False otherwise.
+	"""
 	return any(k in user_data['perms'] for k in perm_list)
 
 
