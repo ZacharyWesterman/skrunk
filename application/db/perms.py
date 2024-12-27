@@ -8,11 +8,13 @@ from typing import Callable
 from pymongo.collection import Collection
 apikeydb: Collection = None
 
+
 def bad_perms() -> dict:
 	return {
 		'__typename': 'InsufficientPerms',
 		'message': 'You are not allowed to perform this action.',
 	}
+
 
 def caller_info() -> str:
 	tok = tokens.get_request_token()
@@ -30,10 +32,12 @@ def caller_info() -> str:
 	except exceptions.ClientError:
 		return None
 
+
 def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return any(k in user_data['perms'] for k in perm_list)
 
-def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = False, data_func: Callable|None = None) -> bool:
+
+def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = False, data_func: Callable | None = None) -> bool:
 	"""Check if the calling user has certain permissions.
 
 	Args:
@@ -70,7 +74,8 @@ def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = Fals
 	# If user does not have ALL required perms, fail.
 	return user_has_perms(user_data, perms)
 
-def require(*perms: list[str], perform_on_self: bool = False, data_func: Callable|None = None) -> Callable:
+
+def require(*perms: list[str], perform_on_self: bool = False, data_func: Callable | None = None) -> Callable:
 	"""Require the calling user to have certain permissions.
 
 	This is a decorator for application resolvers, to avoid redundant permission-checking logic all over the place.
@@ -87,7 +92,7 @@ def require(*perms: list[str], perform_on_self: bool = False, data_func: Callabl
 
 	def inner(method: Callable) -> Callable:
 		def wrap(_, info, *args, **kwargs):
-			if satisfies(perms, kwargs, perform_on_self = perform_on_self, data_func = data_func):
+			if satisfies(perms, kwargs, perform_on_self=perform_on_self, data_func=data_func):
 				return method(_, info, *args, **kwargs)
 			else:
 				return bad_perms()
@@ -95,6 +100,7 @@ def require(*perms: list[str], perform_on_self: bool = False, data_func: Callabl
 		return wrap
 
 	return inner
+
 
 def module(*modules: list[str]) -> Callable:
 	"""Require the calling user to have all the specified modules enabled.
