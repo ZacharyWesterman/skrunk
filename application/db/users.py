@@ -1,13 +1,9 @@
-from application.tokens import create_user_token
-from application.db import blob
 from datetime import datetime
 from zipfile import ZipFile
 from bson.objectid import ObjectId
 from bson import json_util
 import bcrypt
 
-import application.exceptions as exceptions
-from application.db import settings
 
 from pymongo.collection import Collection
 from pymongo.database import Database
@@ -540,3 +536,9 @@ def export_user_data(username: str) -> dict:
 	print(f'Finished exporting {username}\'s data.', flush=True)
 
 	return blob.get_blob_data(blob_storage.id)
+
+
+import application.exceptions as exceptions  # nopep8
+from application.db import settings  # nopep8
+from application.db import blob  # nopep8
+from application.tokens import create_user_token  # nopep8
