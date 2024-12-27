@@ -4,6 +4,17 @@ from pathlib import Path
 
 
 def disk_usage() -> list[dict]:
+	"""
+	Retrieve disk usage information for the application and for blob storage (if it exists).
+	If the application and blob storage are on the same disk, they are listed together.
+
+	Returns:
+		list[dict]: A list of dictionaries containing disk usage information. Each dictionary has the following keys:
+			- 'name' (str): The name of the storage (e.g., 'Application', 'Blob Storage').
+			- 'free' (int): The amount of free space in bytes.
+			- 'used' (int): The amount of used space in bytes.
+			- 'total' (int): The total amount of space in bytes.
+	"""
 
 	def info(name: str, dir: str) -> dict:
 		inf = psutil.disk_usage(dir)
