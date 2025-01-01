@@ -67,10 +67,10 @@ def user_has_perms(user_data: dict, perm_list: list) -> bool:
 
 
 def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = False, data_func: Callable | None = None) -> bool:
-	"""Check if the calling user has certain permissions.
+	"""Check if the calling user has any of the given permissions.
 
 	Args:
-		perms (list[str]): The permissions that must ALL be satisfied.
+		perms (list[str]): The permissions that must have at least 1 satisfied.
 		perform_on_self (bool): If True, permissions will be ignored when the user is editing their own data.
 		data_func (Callable|None): If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
 
@@ -105,13 +105,13 @@ def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = Fals
 
 
 def require(*perms: list[str], perform_on_self: bool = False, data_func: Callable | None = None) -> Callable:
-	"""Require the calling user to have certain permissions.
+	"""Require the calling user to have any of the specified permissions.
 
 	This is a decorator for application resolvers, to avoid redundant permission-checking logic all over the place.
 	If the permissions are not satisfied when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
 
 	Args:
-		perms (list[str]): The permissions that must ALL be satisfied.
+		perms (list[str]): The permissions that must have at least 1 satisfied.
 		perform_on_self (bool): If True, permissions will be ignored when the user is editing their own data.
 		data_func (Callable|None): If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
 
