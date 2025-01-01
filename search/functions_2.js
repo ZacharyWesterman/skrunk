@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['caller_5finfo_299',['caller_info',['../namespaceapplication_1_1db_1_1perms.html#aa7e3fdfcc1d5448e6e9146739aec79d2',1,'application::db::perms']]],
+  ['comment_5fon_5fbug_300',['comment_on_bug',['../namespaceapplication_1_1db_1_1bugs.html#a29035cdd38826d015bdb3d09db895180',1,'application::db::bugs']]],
+  ['count_5falert_5fhistory_301',['count_alert_history',['../namespaceapplication_1_1db_1_1weather.html#a98f9f7bfa6b6550cec652f73430280c7',1,'application::db::weather']]],
+  ['count_5fall_5fuser_5fbooks_302',['count_all_user_books',['../namespaceapplication_1_1db_1_1book.html#a1fb8b17fd66d8b20133a0924270486f3',1,'application::db::book']]],
+  ['count_5fbooks_303',['count_books',['../namespaceapplication_1_1db_1_1book.html#a5c2b7502ff88610c5ea6b21c9c31b9a3',1,'application::db::book']]],
+  ['count_5fbug_5freports_304',['count_bug_reports',['../namespaceapplication_1_1db_1_1bugs.html#ab226589e341a21e9755d7ab1356b3e6b',1,'application::db::bugs']]],
+  ['count_5fdocuments_305',['count_documents',['../namespaceapplication_1_1db_1_1datafeed.html#a395de93571f055e4e938927293ab2552',1,'application::db::datafeed']]],
+  ['count_5ffeeds_306',['count_feeds',['../namespaceapplication_1_1db_1_1datafeed.html#ac35632132b577a09440e370296275c19',1,'application::db::datafeed']]],
+  ['count_5finventory_307',['count_inventory',['../namespaceapplication_1_1db_1_1inventory.html#a91599203572e5b95bde76f9ceeecb0b2',1,'application::db::inventory']]],
+  ['count_5fnotifications_308',['count_notifications',['../namespaceapplication_1_1db_1_1notification.html#a78a5ae1eed5410c62c0b7c9fa65f03eb',1,'application::db::notification']]],
+  ['count_5fusers_309',['count_users',['../namespaceapplication_1_1db_1_1users.html#a4d7166ec35f07441f98c92448720598d',1,'application::db::users']]],
+  ['count_5fvalid_5fsessions_310',['count_valid_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a1d93d8aa985020ca8eae1fcd2df3a7c7',1,'application::db::sessions']]],
+  ['create_5fbook_311',['create_book',['../namespaceapplication_1_1db_1_1book.html#a08e0abbfc65c70407600115e2f9fda7b',1,'application::db::book']]],
+  ['create_5fdocument_312',['create_document',['../namespaceapplication_1_1db_1_1datafeed.html#ad71a08c5afe847db14e10a4b03cd9f7c',1,'application::db::datafeed']]],
+  ['create_5ffeed_313',['create_feed',['../namespaceapplication_1_1db_1_1datafeed.html#a0dab1761f23a4678a545da8dd9037f7d',1,'application::db::datafeed']]],
+  ['create_5finventory_5fitem_314',['create_inventory_item',['../namespaceapplication_1_1db_1_1inventory.html#a0c2978dc0a525b330d55dc4fdcedaa97',1,'application::db::inventory']]],
+  ['create_5fpreview_5ffrom_5ffirst_5fframe_315',['create_preview_from_first_frame',['../namespaceapplication_1_1integrations_1_1videos.html#a6778222a0b24a9e41af93ebd56e8b1dc',1,'application::integrations::videos']]],
+  ['create_5fsubscription_316',['create_subscription',['../namespaceapplication_1_1db_1_1notification.html#a97f76692b38e38613413813c735e7834',1,'application::db::notification']]],
+  ['create_5fuser_317',['create_user',['../namespaceapplication_1_1db_1_1users.html#ab1d5a7ffbac2b5adf540adde67fe174e',1,'application.db.users.create_user()'],['../namespaceapplication_1_1db_1_1weather.html#a36990cd6b8568dd47a970bfc50af1e27',1,'application.db.weather.create_user()']]]
+];

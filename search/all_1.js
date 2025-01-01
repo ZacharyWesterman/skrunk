@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['bad_5fperms_49',['bad_perms',['../namespaceapplication_1_1db_1_1perms.html#a422db4cce253d5903654152bbd8c942d',1,'application::db::perms']]],
+  ['badusernameerror_50',['BadUserNameError',['../classapplication_1_1exceptions_1_1BadUserNameError.html',1,'application::exceptions']]],
+  ['blobdoesnotexisterror_51',['BlobDoesNotExistError',['../classapplication_1_1exceptions_1_1BlobDoesNotExistError.html',1,'application::exceptions']]],
+  ['blobpreview_52',['BlobPreview',['../classapplication_1_1types_1_1blob__storage_1_1BlobPreview.html',1,'application::types::blob_storage']]],
+  ['blobsearchfilter_53',['BlobSearchFilter',['../classapplication_1_1objects_1_1BlobSearchFilter.html',1,'application::objects']]],
+  ['blobstorage_54',['BlobStorage',['../classapplication_1_1types_1_1blob__storage_1_1BlobStorage.html',1,'application::types::blob_storage']]],
+  ['blobthumbnail_55',['BlobThumbnail',['../classapplication_1_1types_1_1blob__storage_1_1BlobThumbnail.html',1,'application::types::blob_storage']]],
+  ['bookcannotbeshared_56',['BookCannotBeShared',['../classapplication_1_1exceptions_1_1BookCannotBeShared.html',1,'application::exceptions']]],
+  ['booksearchfilter_57',['BookSearchFilter',['../classapplication_1_1objects_1_1BookSearchFilter.html',1,'application::objects']]],
+  ['booktagdoesnotexisterror_58',['BookTagDoesNotExistError',['../classapplication_1_1exceptions_1_1BookTagDoesNotExistError.html',1,'application::exceptions']]],
+  ['booktagexistserror_59',['BookTagExistsError',['../classapplication_1_1exceptions_1_1BookTagExistsError.html',1,'application::exceptions']]],
+  ['borrow_5fbook_60',['borrow_book',['../namespaceapplication_1_1db_1_1book.html#a3657df852f8b3559cc02459939e78230',1,'application::db::book']]],
+  ['bugreportdoesnotexisterror_61',['BugReportDoesNotExistError',['../classapplication_1_1exceptions_1_1BugReportDoesNotExistError.html',1,'application::exceptions']]],
+  ['build_5fbook_5fquery_62',['build_book_query',['../namespaceapplication_1_1db_1_1book.html#a2d4845b4344563650a76de590943e50d',1,'application::db::book']]],
+  ['build_5finventory_5fquery_63',['build_inventory_query',['../namespaceapplication_1_1db_1_1inventory.html#afa78707cdab5f4bb8d60a3eb8b5d89d0',1,'application::db::inventory']]],
+  ['build_5fkeywords_64',['build_keywords',['../namespaceapplication_1_1db_1_1book.html#ad82854c605e43eb4b48ea65e4f187f76',1,'application::db::book']]]
+];
