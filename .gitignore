@@ -4,3 +4,5 @@ sitemap.json
 auth.json
 data/private_key.txt
 data/public_key.txt
+html
+doxygen.log
