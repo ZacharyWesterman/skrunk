@@ -75,6 +75,11 @@
 					<span class="tooltiptext t-center">What does this mean?</span>
 				</span>
 			</div>
+			{{? it.references === 0 }}
+			<div class="emphasis">
+				NO REFERENCES
+			</div>
+			{{?}}
 			{{?}}
 		</div>
 	</div>

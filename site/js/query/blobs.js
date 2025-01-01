@@ -32,6 +32,7 @@ export default {
 						thumbnail
 						hidden
 						ephemeral
+						references
 					}
 				}
 				...on BadTagQuery {
