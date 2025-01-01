@@ -1,3 +1,5 @@
+"""application.db.bugs"""
+
 from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 from . import users, notification

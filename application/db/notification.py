@@ -1,3 +1,5 @@
+"""application.db.notification"""
+
 from application.db import settings, users
 from application.db.sessions import get_first_session_token
 from application import exceptions

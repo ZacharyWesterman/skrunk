@@ -1,3 +1,5 @@
+"""application.resolvers.query.blob"""
+
 from application.db.blob import *
 from application.tags import exceptions
 from application.objects import BlobSearchFilter, Sorting

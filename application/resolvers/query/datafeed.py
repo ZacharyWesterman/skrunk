@@ -1,3 +1,5 @@
+"""application.resolvers.query.datafeed"""
+
 from application.db.datafeed import get_user_feeds, get_documents, count_documents, get_feed, get_feeds, count_feeds
 from application.exceptions import ClientError
 from application.objects import Sorting

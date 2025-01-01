@@ -1,3 +1,5 @@
+"""application.db.users"""
+
 from datetime import datetime
 from zipfile import ZipFile
 from bson.objectid import ObjectId

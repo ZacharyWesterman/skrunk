@@ -1,3 +1,5 @@
+"""application.routes"""
+
 from . import auth, api, misc, site, blob
 
 

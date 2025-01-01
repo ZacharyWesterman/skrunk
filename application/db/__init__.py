@@ -1,3 +1,5 @@
+"""application.db"""
+
 from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys, inventory, datafeed
 from pymongo import MongoClient
 from application.types import blob_storage

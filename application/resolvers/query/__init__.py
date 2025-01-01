@@ -1,3 +1,5 @@
+"""application.resolvers.query"""
+
 from ariadne import QueryType
 query = QueryType()
 

@@ -1,3 +1,5 @@
+"""application.exceptions"""
+
 class ClientError(Exception):
 	pass
 

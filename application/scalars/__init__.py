@@ -1,3 +1,5 @@
+"""application.scalars"""
+
 from . import datetime, date, phone, color, size, long
 
 scalars = [

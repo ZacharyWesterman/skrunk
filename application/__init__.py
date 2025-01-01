@@ -1,3 +1,5 @@
+"""application"""
+
 import ariadne
 from flask import Flask
 from ariadne.contrib.federation import make_federated_schema

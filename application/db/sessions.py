@@ -1,3 +1,5 @@
+"""application.db.sessions"""
+
 from datetime import datetime, timedelta
 from application.db.users import get_user_data
 

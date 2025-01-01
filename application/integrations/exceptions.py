@@ -1,3 +1,5 @@
+"""application.integrations.exceptions"""
+
 class ApiFailedError(Exception):
 	"""
 	Exception raised when an API call fails.

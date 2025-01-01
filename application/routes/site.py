@@ -1,3 +1,5 @@
+"""application.routes.site"""
+
 import mimetypes
 from flask import Response
 import re

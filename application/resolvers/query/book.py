@@ -1,3 +1,5 @@
+"""application.resolvers.query.book"""
+
 from application.integrations.exceptions import ApiFailedError
 from application.integrations import google_books
 from application.db.book import get_book_tag, get_books, count_books, count_all_user_books

@@ -1,3 +1,5 @@
+"""application.integrations.github"""
+
 __ALL__ = ['Repository', 'CurrentRepository']
 
 import json

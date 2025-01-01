@@ -1,3 +1,5 @@
+"""application.resolvers.mutation.settings"""
+
 from application.db.settings import set_module_enabled, get_enabled_modules, set_config, create_theme, delete_theme
 import application.db.perms as perms
 from ..decorators import *

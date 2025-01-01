@@ -1,3 +1,5 @@
+"""application.resolvers.query.users"""
+
 from application.db.users import get_user_data, get_user_list
 import application.db.perms as perms
 from ..decorators import *

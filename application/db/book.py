@@ -1,3 +1,5 @@
+"""application.db.book"""
+
 from application.tokens import decode_user_token, get_request_token
 from application.db.settings import get_config, get_enabled_modules
 import application.exceptions as exceptions

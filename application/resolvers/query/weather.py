@@ -1,3 +1,5 @@
+"""application.resolvers.query.weather"""
+
 import application.exceptions as exceptions
 from application.db.weather import get_users, get_last_exec, get_alert_history, count_alert_history, get_weather_user, process_weather_user
 from application.db import perms

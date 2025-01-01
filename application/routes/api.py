@@ -1,3 +1,5 @@
+"""application.routes.api"""
+
 import ariadne
 import json
 from flask import jsonify, request, Response

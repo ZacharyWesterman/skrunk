@@ -1,3 +1,5 @@
+"""application.db.perms"""
+
 __all__ = ['require']
 
 from application import tokens, exceptions

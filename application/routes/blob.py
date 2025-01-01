@@ -1,3 +1,5 @@
+"""application.routes.blob"""
+
 from flask import jsonify, request, Response
 import mimetypes
 import os

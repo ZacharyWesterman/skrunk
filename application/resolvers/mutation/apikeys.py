@@ -1,3 +1,5 @@
+"""application.resolvers.mutation.apikeys"""
+
 from application.db.apikeys import new_api_key, delete_api_key
 from application.db import perms
 from . import mutation

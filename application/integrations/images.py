@@ -1,3 +1,5 @@
+"""application.integrations.images"""
+
 from PIL import Image
 
 

@@ -1,3 +1,5 @@
+"""application.routes.misc"""
+
 from flask import Response
 import requests
 import random

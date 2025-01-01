@@ -1,3 +1,5 @@
+"""application.resolvers.query.notification"""
+
 from application.db import perms
 from application.db.notification import get_public_key, get_subscription, get_subscriptions, get_notifications, count_notifications
 from ..decorators import *

@@ -1,3 +1,5 @@
+"""application.resolvers.decorators"""
+
 from application.exceptions import ClientError
 from typing import Callable
 

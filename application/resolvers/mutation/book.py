@@ -1,3 +1,5 @@
+"""application.resolvers.mutation.book"""
+
 from application.db.book import *
 import application.db.perms as perms
 from application.integrations.exceptions import ApiFailedError

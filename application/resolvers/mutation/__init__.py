@@ -1,3 +1,5 @@
+"""application.resolvers.mutation"""
+
 from ariadne import MutationType
 mutation = MutationType()
 

@@ -1,3 +1,5 @@
+"""application.db.inventory"""
+
 from application.tokens import decode_user_token, get_request_token
 from . import users
 from datetime import datetime

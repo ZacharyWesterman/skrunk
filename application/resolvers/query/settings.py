@@ -1,3 +1,5 @@
+"""application.resolvers.query.settings"""
+
 from application.db.settings import get_enabled_modules, get_groups, get_all_configs, get_config, get_modules, get_all_themes
 from application.db import perms
 from application.integrations import graphql

@@ -1,3 +1,5 @@
+"""application.db.weather"""
+
 import application.exceptions as exceptions
 
 from bson.objectid import ObjectId

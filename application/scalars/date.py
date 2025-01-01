@@ -1,3 +1,5 @@
+"""application.scalars.date"""
+
 __all__ = ['scalar']
 
 from datetime import datetime

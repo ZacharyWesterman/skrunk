@@ -1,3 +1,5 @@
+"""application.db.datafeed"""
+
 from . import users, perms
 from datetime import datetime
 from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError, UserDoesNotExistError, FeedDocumentDoesNotExistError

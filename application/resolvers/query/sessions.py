@@ -1,3 +1,5 @@
+"""application.resolvers.query.sessions"""
+
 from application.db.sessions import revoke_sessions, count_valid_sessions
 import application.db.perms as perms
 from . import query

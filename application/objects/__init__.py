@@ -1,3 +1,5 @@
+"""application.objects"""
+
 from typing import TypedDict
 from datetime import datetime
 

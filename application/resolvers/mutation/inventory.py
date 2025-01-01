@@ -1,3 +1,5 @@
+"""application.resolvers.mutation.inventory"""
+
 import application.db.perms as perms
 from application.db.inventory import create_inventory_item, get_inventory_item, delete_inventory_item
 from ..decorators import *

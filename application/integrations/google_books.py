@@ -1,3 +1,5 @@
+"""application.integrations.google_books"""
+
 __all__ = ['query']
 
 import functools

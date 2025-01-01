@@ -1,3 +1,5 @@
+"""application.scalars.phone"""
+
 __all__ = ['scalar']
 
 from ariadne import ScalarType

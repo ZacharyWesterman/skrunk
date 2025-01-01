@@ -1,3 +1,5 @@
+"""application.integrations.videos"""
+
 from imageio.v3 import imread, imwrite
 
 

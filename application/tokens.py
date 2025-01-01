@@ -1,3 +1,5 @@
+"""application.tokens"""
+
 from cryptography.hazmat.primitives import serialization
 import jwt
 import os

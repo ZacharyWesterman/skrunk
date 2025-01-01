@@ -1,3 +1,5 @@
+"""application.types"""
+
 from .blob_storage import *
 import json
 

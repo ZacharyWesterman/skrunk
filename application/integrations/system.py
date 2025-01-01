@@ -1,3 +1,5 @@
+"""application.integrations.system"""
+
 from application.db import blob
 import psutil
 from pathlib import Path

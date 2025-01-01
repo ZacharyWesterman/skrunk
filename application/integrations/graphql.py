@@ -1,3 +1,5 @@
+"""application.integrations.graphql"""
+
 __all__ = ['schema']
 
 import ariadne

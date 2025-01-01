@@ -1,3 +1,5 @@
+"""application.resolvers.query.inventory"""
+
 from application.db.inventory import *
 import application.db.perms as perms
 from application.db.users import group_filter

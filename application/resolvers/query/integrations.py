@@ -1,3 +1,5 @@
+"""application.resolvers.query.integrations"""
+
 from application.integrations import subsonic, system
 from application.db.settings import get_config
 from application.db import perms

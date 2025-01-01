@@ -1,3 +1,5 @@
+"""application.routes.files"""
+
 from flask import Response
 import mimetypes
 import os

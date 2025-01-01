@@ -1,3 +1,5 @@
+"""application.routes.auth"""
+
 from flask import jsonify, request, Response
 from application import tokens, exceptions
 from application.db.users import authenticate

@@ -1,3 +1,5 @@
+"""application.resolvers.mutation.bugs"""
+
 from application.db.bugs import *
 import application.db.perms as perms
 from ..decorators import *

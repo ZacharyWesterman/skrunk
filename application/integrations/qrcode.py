@@ -1,3 +1,5 @@
+"""application.integrations.qrcode"""
+
 from pyzxing import BarCodeReader
 import qrcode
 import uuid

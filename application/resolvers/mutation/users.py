@@ -1,3 +1,5 @@
+"""application.resolvers.mutation.users"""
+
 from application.db.users import *
 import application.db.perms as perms
 from ..decorators import *

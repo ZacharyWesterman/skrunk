@@ -1,3 +1,5 @@
+"""application.resolvers.mutation.datafeed"""
+
 from application.db.datafeed import create_feed, delete_feed, get_feed, set_feed_notify, create_document, update_document, set_document_read, set_feed_inactive, set_feed_navigation
 from ..decorators import *
 from application.db import perms
