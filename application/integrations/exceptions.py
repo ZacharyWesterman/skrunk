@@ -1,4 +1,7 @@
-"""application.integrations.exceptions"""
+"""
+Exceptions that may be raised by various integrations.
+"""
+
 
 class ApiFailedError(Exception):
 	"""
