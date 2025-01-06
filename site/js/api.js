@@ -267,7 +267,7 @@ api.upload = function (file, progress_handler, auto_unzip = false, tag_list = []
 		xhr.onerror = () => {
 			api.upload.xhr = []
 			console.error(xhr)
-			reject({ text: 'XHR-ON-ERROR', status: xhr.status, statusText: xhr.statusText })
+			reject({ text: `XHR ERROR: ${xhr}`, status: xhr.status, statusText: xhr.statusText })
 		}
 	})
 }
