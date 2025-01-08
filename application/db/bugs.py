@@ -81,7 +81,8 @@ def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
 	report['convo'] += [convo_data]
 
 	# Let all involved users know that the bug report has a new comment!
-	for i in list(set([i['creator'] for i in report['convo']])):
+	# Make sure to include the user that created the bug report, even if they didn't comment on it.
+	for i in list(set([i['creator'] for i in report['convo']] + [user_data['_id']])):
 		# Don't send a notification if the user commented on their own bug report
 		if i == user_data['_id']:
 			continue
