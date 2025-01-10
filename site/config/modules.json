@@ -14,7 +14,7 @@
 	},
 	{
 		"id": "bugs",
-		"name": "Bug Tracker",
+		"name": "Issue Tracker",
 		"description": "Enable in-site bug reports and list planned features."
 	},
 	{

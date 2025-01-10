@@ -1,27 +1,43 @@
 <div class="page">
 	<h1>
 		<i class="fa-solid fa-bug fa-xl"></i>
-		Bug Tracker
+		Issue Tracker
 	</h1>
 
 	<div class="card">
 		<div class="card-inner">
 			<div class="clickable" *toggles="card-new-bug">
 				<h3>
-					Report a New Bug
+					Report Bug / Request Feature
 					<i class="right fa-solid fa-angles-down"></i>
 				</h3>
 			</div>
 
 			<div class="expand-container" id="card-new-bug">
 				<div>
-					Please include the following in your description:
+					<hr>
+					If you're reporting a bug or other issue, please include the following in your description:
 					<ul>
-						<li>The behavior of the bug.</li>
+						<li>Where you encountered the bug / issue.</li>
 						<li>What actions seem to trigger it.</li>
-						<li>How often the action triggers it.</li>
-						<li>Where you encountered the bug.</li>
+						<li>Whether it happens randomly or consistently.</li>
+						<li>The behavior you expected to see.</li>
+						<li>The actual behavior you are seeing.</li>
 					</ul>
+					<hr>
+					If you're requesting a new feature or a change to an existing feature, please be descriptive and
+					clear with what you want. E.g. prefer to write requests like:
+					<blockquote>
+						The UI on [page name] feels clunky to use, I have to go through a bunch of options just to find
+						[feature name].
+						I use it all the time so I'd like some sort of shortcut or streamlined way to use it.
+					</blockquote>
+					Instead of requests like:
+					<blockquote>
+						I don't like how [page name] feels, I can never find the option I want.
+					</blockquote>
+					<hr>
+
 					<input type="richtext" id="new-bug-text" placeholder="Enter a description...">
 					<button class="big border" id="new-bug-submit" *click="submit_bug_report">Submit</button>
 				</div>
