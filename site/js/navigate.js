@@ -362,13 +362,14 @@ window.set_field_logic = async function (DOM, url, module) {
 
 				const image = (await api.upload(file, ({ loaded, total }) => {
 					progressbar.value = loaded / total
-				}, false, img.tags, false, true))[0]
+				}, false, img.tags, false, true, 5).catch(() => [{ id: null }]))[0]
+
 				progressbar.removeAttribute('value')
 
-				const res = await query.blobs.single(image.id)
+				const res = image.id ? (await query.blobs.single(image.id)) : {}
 
 				img.src = `preview/${res.thumbnail}`
-				img.alt = 'FAILED TO LOAD THUMBNAIL'
+				img.alt = 'FAILED TO UPLOAD IMAGE'
 				img.blob_id = image.id
 				img.classList.add('clickable')
 				img.onclick = () => {

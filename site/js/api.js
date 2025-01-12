@@ -233,43 +233,59 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
  * @param {boolean} auto_unzip Automatically unpack any zip files once upload completes.
  * @param {string[]} tag_list Tags to attach to the file on upload.
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
+ * @param {int} max_retries If upload fails, retry the upload this many times before giving up.
  * @returns {any} The JSON response from the server.
  */
-api.upload = function (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false) {
-	return new Promise((resolve, reject) => {
-		let xhr = new XMLHttpRequest
-		let data = new FormData
+api.upload = async function (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false, max_retries = 0) {
+	function upload_fn() {
+		return new Promise((resolve, reject) => {
+			let xhr = new XMLHttpRequest
+			let data = new FormData
 
-		api.upload.canceled = false
+			api.upload.canceled = false
 
-		file.unzip = auto_unzip
-		data.append('file', file)
-		data.append('unzip', auto_unzip)
-		data.append('hidden', hidden)
-		data.append('ephemeral', ephemeral)
-		data.append('tags', JSON.stringify(tag_list))
-		xhr.upload.addEventListener('progress', progress_handler, false)
-		xhr.open('POST', '/upload', true)
-		xhr.send(data)
+			file.unzip = auto_unzip
+			data.append('file', file)
+			data.append('unzip', auto_unzip)
+			data.append('hidden', hidden)
+			data.append('ephemeral', ephemeral)
+			data.append('tags', JSON.stringify(tag_list))
+			xhr.upload.addEventListener('progress', progress_handler, false)
+			xhr.open('POST', '/upload', true)
+			xhr.send(data)
 
-		api.upload.xhr.push(xhr)
+			api.upload.xhr.push(xhr)
 
-		xhr.onload = () => {
-			api.upload.xhr = []
-			if (xhr.status >= 200 && xhr.status < 300) {
-				resolve(JSON.parse(xhr.responseText))
+			xhr.onload = () => {
+				api.upload.xhr = []
+				if (xhr.status >= 200 && xhr.status < 300) {
+					resolve(JSON.parse(xhr.responseText))
+				}
+				else {
+					reject({ text: xhr.responseText, status: xhr.status, statusText: xhr.statusText })
+				}
 			}
-			else {
-				reject({ text: xhr.responseText, status: xhr.status, statusText: xhr.statusText })
-			}
-		}
 
-		xhr.onerror = () => {
-			api.upload.xhr = []
-			console.error(xhr)
-			reject({ text: `XHR ERROR: ${xhr}`, status: xhr.status, statusText: xhr.statusText })
+			xhr.onerror = () => {
+				api.upload.xhr = []
+				console.error(xhr)
+				reject({ text: `XHR ERROR: ${xhr}`, status: xhr.status, statusText: xhr.statusText })
+			}
+		})
+	}
+
+
+	//Try to upload until success, or max retries is hit
+	for (let i = 0; i < max_retries; ++i) {
+		try {
+			return await upload_fn()
+		} catch (e) {
+			console.error(`Failed to upload file, trying again (${i + 1}/${max_retries})...`)
 		}
-	})
+	}
+
+	//Final attempt to upload, if this fails, no more retries
+	return await upload_fn()
 }
 
 /**
