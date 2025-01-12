@@ -38,7 +38,7 @@ def get(path: str) -> Response:
 	else:
 		ext = ''
 
-	if ext in ['js', 'css', 'html', 'dot', 'json']:
+	if ext in ['js', 'css', 'html', 'dot', 'json', 'aff', 'dic']:
 		return files.read_file_data(f'site/{path}')
 	else:
 		if auth.authorized():
