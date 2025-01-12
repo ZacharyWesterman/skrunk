@@ -4,39 +4,9 @@ var namespaceapplication_1_1db =
       [ "delete_api_key", "namespaceapplication_1_1db_1_1apikeys.html#af4de1e02d661af2fb257b49c2b308386", null ],
       [ "get_api_keys", "namespaceapplication_1_1db_1_1apikeys.html#a520bca39cfd8b4cbb3cb15ed640ef33e", null ],
       [ "new_api_key", "namespaceapplication_1_1db_1_1apikeys.html#a6b128063a8bf6f3593d81cd91da55575", null ],
-      [ "valid_api_key", "namespaceapplication_1_1db_1_1apikeys.html#aaa32eb0b7bb3cd71a65e69352d16b04a", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1apikeys.html#abcd04c251b7fe414c945dc3963084237", null ]
+      [ "valid_api_key", "namespaceapplication_1_1db_1_1apikeys.html#aaa32eb0b7bb3cd71a65e69352d16b04a", null ]
     ] ],
-    [ "blob", "namespaceapplication_1_1db_1_1blob.html", [
-      [ "add_reference", "namespaceapplication_1_1db_1_1blob.html#aafcfa2f65e17d893de679db2b37adce6", null ],
-      [ "build_blob_query", "namespaceapplication_1_1db_1_1blob.html#ac25b4780c5fa0d167968fee1f9d841c3", null ],
-      [ "cancel_zip", "namespaceapplication_1_1db_1_1blob.html#a1eacb6e11a664d8bc282b3349a510c17", null ],
-      [ "count_blobs", "namespaceapplication_1_1db_1_1blob.html#a14efc7754ba1510e36881ab63c475598", null ],
-      [ "count_tag_uses", "namespaceapplication_1_1db_1_1blob.html#ae2ee7fffc0c782636f71d689e5a71d25", null ],
-      [ "create_blob", "namespaceapplication_1_1db_1_1blob.html#a94d24cb070b1ec7f1dd7f310fc9352da", null ],
-      [ "create_preview_model", "namespaceapplication_1_1db_1_1blob.html#a7b944911e192c0b8c055465954a29f53", null ],
-      [ "create_preview_video", "namespaceapplication_1_1db_1_1blob.html#a245dbb6ddfb2b2fb954c740f5ce4a0b2", null ],
-      [ "delete_blob", "namespaceapplication_1_1db_1_1blob.html#a1cd50649ae6abe85eeb44ee0cdca881d", null ],
-      [ "file_info", "namespaceapplication_1_1db_1_1blob.html#aec705b2b3ee74895963f79ad92d5c40d", null ],
-      [ "get_blob_data", "namespaceapplication_1_1db_1_1blob.html#a97e64cf7bc0c2b304d57f5da2d8236c1", null ],
-      [ "get_blobs", "namespaceapplication_1_1db_1_1blob.html#a8bfe143a2c2d34f254ed67e44053fb22", null ],
-      [ "get_tags_from_mime", "namespaceapplication_1_1db_1_1blob.html#adece90541c04ceb7a1dc7854249ae54f", null ],
-      [ "get_uid", "namespaceapplication_1_1db_1_1blob.html#acf84805612e45bdd71888a4854ce238a", null ],
-      [ "get_zip_progress", "namespaceapplication_1_1db_1_1blob.html#ad21ded16136bb1cea5cf1a3a15883d8f", null ],
-      [ "init", "namespaceapplication_1_1db_1_1blob.html#a9a2e272b82a908e4c334e5cdf7af8a16", null ],
-      [ "mark_as_completed", "namespaceapplication_1_1db_1_1blob.html#a614a761bd8ab48e56c05c0fc58080f30", null ],
-      [ "remove_reference", "namespaceapplication_1_1db_1_1blob.html#a145d7badf205c23c2c272855fe068170", null ],
-      [ "save_blob_data", "namespaceapplication_1_1db_1_1blob.html#a48ec510f8ad6dc0e68383549bdae7652", null ],
-      [ "set_blob_ephemeral", "namespaceapplication_1_1db_1_1blob.html#a0f8243731ccfbadb5e4c764320c4ab5f", null ],
-      [ "set_blob_hidden", "namespaceapplication_1_1db_1_1blob.html#a010f7a264643a3fa6d9861b1a4c62d90", null ],
-      [ "set_blob_tags", "namespaceapplication_1_1db_1_1blob.html#a09e7ad741bddbf750213240f472233d3", null ],
-      [ "set_mime_from_ext", "namespaceapplication_1_1db_1_1blob.html#a713fd8dfdcc9f139c150433e5083fe20", null ],
-      [ "sum_blob_size", "namespaceapplication_1_1db_1_1blob.html#ae3bfd1a4e1a96f277a9321ed28608263", null ],
-      [ "zip_matching_blobs", "namespaceapplication_1_1db_1_1blob.html#a055deeaf742fcb162a3b1ebbca4dc456", null ],
-      [ "_zip_progress", "namespaceapplication_1_1db_1_1blob.html#ade67f8454e9cdfba8596a35946f1a1f0", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1blob.html#a907d0ebd2dc4d0949d476077a317a312", null ],
-      [ "None", "namespaceapplication_1_1db_1_1blob.html#a58952256387e3c470bfdcc8b80243813", null ]
-    ] ],
+    [ "blob", "namespaceapplication_1_1db_1_1blob.html", null ],
     [ "book", "namespaceapplication_1_1db_1_1book.html", [
       [ "append_ebook", "namespaceapplication_1_1db_1_1book.html#a70365d6cffaabc930a6a0f7fc28906e3", null ],
       [ "borrow_book", "namespaceapplication_1_1db_1_1book.html#a3657df852f8b3559cc02459939e78230", null ],
@@ -60,11 +30,7 @@ var namespaceapplication_1_1db =
       [ "return_book", "namespaceapplication_1_1db_1_1book.html#ac6f7d9e683c20144c289b18db8a2f898", null ],
       [ "set_book_owner", "namespaceapplication_1_1db_1_1book.html#abe4d5cfe9e99e63202c9f89f81cc7c2a", null ],
       [ "share_book_with_non_user", "namespaceapplication_1_1db_1_1book.html#a3e108f60a26b843794573c6eb1f6855f", null ],
-      [ "share_book_with_user", "namespaceapplication_1_1db_1_1book.html#ae900b61961a58bd2551324a9cda362e7", null ],
-      [ "unlink_book_tag", "namespaceapplication_1_1db_1_1book.html#ae77c33c66dfbe1c62759dadb339221a5", null ],
-      [ "_P", "namespaceapplication_1_1db_1_1book.html#a58e02c0fad79d35171d25502c1e89617", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1book.html#a2741149a8496c1e41a3e1c8f84a83d2c", null ],
-      [ "SUBSONIC", "namespaceapplication_1_1db_1_1book.html#aca3efd9b567bf94e0d23dacf75232573", null ]
+      [ "unlink_book_tag", "namespaceapplication_1_1db_1_1book.html#ae77c33c66dfbe1c62759dadb339221a5", null ]
     ] ],
     [ "bugs", "namespaceapplication_1_1db_1_1bugs.html", [
       [ "comment_on_bug", "namespaceapplication_1_1db_1_1bugs.html#a29035cdd38826d015bdb3d09db895180", null ],
@@ -74,8 +40,7 @@ var namespaceapplication_1_1db =
       [ "get_bug_reports", "namespaceapplication_1_1db_1_1bugs.html#a3370b652c2319ef4c273526577460a7f", null ],
       [ "process_bug_report", "namespaceapplication_1_1db_1_1bugs.html#a9b6deb0b52660388b643f35fe380249c", null ],
       [ "report_bug", "namespaceapplication_1_1db_1_1bugs.html#aad38a1c2641a0a8e4bcbf3ca1a524588", null ],
-      [ "set_bug_status", "namespaceapplication_1_1db_1_1bugs.html#a7fb3a8532a6115ef3632c513c9d12e54", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1bugs.html#a71d73ff792f6356a204fe87b5a61d7a3", null ]
+      [ "set_bug_status", "namespaceapplication_1_1db_1_1bugs.html#a7fb3a8532a6115ef3632c513c9d12e54", null ]
     ] ],
     [ "datafeed", "namespaceapplication_1_1db_1_1datafeed.html", [
       [ "count_documents", "namespaceapplication_1_1db_1_1datafeed.html#a395de93571f055e4e938927293ab2552", null ],
@@ -95,8 +60,7 @@ var namespaceapplication_1_1db =
       [ "set_feed_inactive", "namespaceapplication_1_1db_1_1datafeed.html#af7dbc7e53a3a5c118bfe16d6cefc3beb", null ],
       [ "set_feed_navigation", "namespaceapplication_1_1db_1_1datafeed.html#a0e3f10a44b0edbaf945678e671db4936", null ],
       [ "set_feed_notify", "namespaceapplication_1_1db_1_1datafeed.html#aa94bb6b86d56473159a98403993d7753", null ],
-      [ "update_document", "namespaceapplication_1_1db_1_1datafeed.html#a43813fa5320e71aa5768de13d5a18199", null ],
-      [ "Database", "namespaceapplication_1_1db_1_1datafeed.html#adeffa59e7cb40e84b063ba2cf66f9b4e", null ]
+      [ "update_document", "namespaceapplication_1_1db_1_1datafeed.html#a43813fa5320e71aa5768de13d5a18199", null ]
     ] ],
     [ "inventory", "namespaceapplication_1_1db_1_1inventory.html", [
       [ "build_inventory_query", "namespaceapplication_1_1db_1_1inventory.html#afa78707cdab5f4bb8d60a3eb8b5d89d0", null ],
@@ -107,8 +71,7 @@ var namespaceapplication_1_1db =
       [ "get_inventory_item", "namespaceapplication_1_1db_1_1inventory.html#a06880e8999111bc9a1c30e7ad959677c", null ],
       [ "get_item_categories", "namespaceapplication_1_1db_1_1inventory.html#a11f09a155721899bffa7501ecd882837", null ],
       [ "get_item_locations", "namespaceapplication_1_1db_1_1inventory.html#a84795875223656d723b958cc0ccb8bbd", null ],
-      [ "get_item_types", "namespaceapplication_1_1db_1_1inventory.html#a0266f4b6d89558e7b90c4e1c4c96b293", null ],
-      [ "Database", "namespaceapplication_1_1db_1_1inventory.html#a4c91bce2e3cdf135ecf4168875af21ec", null ]
+      [ "get_item_types", "namespaceapplication_1_1db_1_1inventory.html#a0266f4b6d89558e7b90c4e1c4c96b293", null ]
     ] ],
     [ "notification", "namespaceapplication_1_1db_1_1notification.html", [
       [ "count_notifications", "namespaceapplication_1_1db_1_1notification.html#a78a5ae1eed5410c62c0b7c9fa65f03eb", null ],
@@ -122,11 +85,7 @@ var namespaceapplication_1_1db =
       [ "get_user_from_notif", "namespaceapplication_1_1db_1_1notification.html#a0d11792c8bd43290ba13613b5c31373c", null ],
       [ "mark_all_as_read", "namespaceapplication_1_1db_1_1notification.html#a01b23d6feb208341b0f643da244d9f76", null ],
       [ "mark_as_read", "namespaceapplication_1_1db_1_1notification.html#a1299275ae6cbf8a42cad1b003fdfb4e8", null ],
-      [ "send", "namespaceapplication_1_1db_1_1notification.html#a3461f8b0e76893fdb33dbcc78fe7654d", null ],
-      [ "Database", "namespaceapplication_1_1db_1_1notification.html#ab58260d2e8e73455a0432f801c5ee445", null ],
-      [ "flush", "namespaceapplication_1_1db_1_1notification.html#aee49b7eaf7cb8ea16493c73e8400e553", null ],
-      [ "VAPID_PRIVATE_KEY", "namespaceapplication_1_1db_1_1notification.html#a34f7a7141ee6d25dd63bc9b272ba3f49", null ],
-      [ "VAPID_PUBLIC_KEY", "namespaceapplication_1_1db_1_1notification.html#a05ddd334cdd805966a29806a5e4d5247", null ]
+      [ "send", "namespaceapplication_1_1db_1_1notification.html#a3461f8b0e76893fdb33dbcc78fe7654d", null ]
     ] ],
     [ "perms", "namespaceapplication_1_1db_1_1perms.html", [
       [ "bad_perms", "namespaceapplication_1_1db_1_1perms.html#a422db4cce253d5903654152bbd8c942d", null ],
@@ -134,33 +93,16 @@ var namespaceapplication_1_1db =
       [ "module", "namespaceapplication_1_1db_1_1perms.html#ae2284c17c38ef5feb63cf96c56cb6c66", null ],
       [ "require", "namespaceapplication_1_1db_1_1perms.html#ae2617c3655d71ccf7223765359c63cdc", null ],
       [ "satisfies", "namespaceapplication_1_1db_1_1perms.html#a7218cc827b4159cd77ee363becd87d6c", null ],
-      [ "user_has_perms", "namespaceapplication_1_1db_1_1perms.html#af413cbac0899c49632ed9a5bd2067199", null ],
-      [ "__all__", "namespaceapplication_1_1db_1_1perms.html#a63fe8406c66d18ad7fe0703857cb78f4", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1perms.html#a8ff3f7fa048a43ac94bac6a295e0e8ad", null ]
+      [ "user_has_perms", "namespaceapplication_1_1db_1_1perms.html#af413cbac0899c49632ed9a5bd2067199", null ]
     ] ],
     [ "sessions", "namespaceapplication_1_1db_1_1sessions.html", [
       [ "count_valid_sessions", "namespaceapplication_1_1db_1_1sessions.html#a1d93d8aa985020ca8eae1fcd2df3a7c7", null ],
       [ "get_first_session_token", "namespaceapplication_1_1db_1_1sessions.html#ac6c35d209a70ad62b71d943c4f59b736", null ],
       [ "revoke_sessions", "namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d", null ],
       [ "start_session", "namespaceapplication_1_1db_1_1sessions.html#a2e32f8f6dfb9785f21e26435f157e42a", null ],
-      [ "valid_session", "namespaceapplication_1_1db_1_1sessions.html#a38a7dc70381403fc267067ee54bbf375", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1sessions.html#a45997a9a65a7aaa7be9245dac6a19d31", null ]
+      [ "valid_session", "namespaceapplication_1_1db_1_1sessions.html#a38a7dc70381403fc267067ee54bbf375", null ]
     ] ],
-    [ "settings", "namespaceapplication_1_1db_1_1settings.html", [
-      [ "calculate_disabled_modules", "namespaceapplication_1_1db_1_1settings.html#a85027833fdc04cda95ba0357d00d0f31", null ],
-      [ "create_theme", "namespaceapplication_1_1db_1_1settings.html#a8fb941f130e309e610dc161349723f2c", null ],
-      [ "delete_theme", "namespaceapplication_1_1db_1_1settings.html#a77467a601dcc9edb62d2bda01977e934", null ],
-      [ "get_all_configs", "namespaceapplication_1_1db_1_1settings.html#a256c40a09150554212ecb4bfca8ce178", null ],
-      [ "get_all_themes", "namespaceapplication_1_1db_1_1settings.html#adcc76fff7abb0bebd73377294f8b6be6", null ],
-      [ "get_config", "namespaceapplication_1_1db_1_1settings.html#a77ca976393cfa739524d54576d0291a8", null ],
-      [ "get_enabled_modules", "namespaceapplication_1_1db_1_1settings.html#ae5bc1170362302556318cb8fa4deffc7", null ],
-      [ "get_groups", "namespaceapplication_1_1db_1_1settings.html#af22a4cb67e5b9cc71851b90789ca44f1", null ],
-      [ "get_modules", "namespaceapplication_1_1db_1_1settings.html#a4e23336651a120765fc6a61ac1b60a0c", null ],
-      [ "set_config", "namespaceapplication_1_1db_1_1settings.html#a1d0d3bf2da930412d2262af749dbe763", null ],
-      [ "set_module_enabled", "namespaceapplication_1_1db_1_1settings.html#af5ff1b2b1d6c104afa9f9bf41cf74176", null ],
-      [ "update_groups", "namespaceapplication_1_1db_1_1settings.html#a55dae8ecdbb9eb30e402f827e5bc7475", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1settings.html#af22c83aebef8e61a991d22662957f8f2", null ]
-    ] ],
+    [ "settings", "namespaceapplication_1_1db_1_1settings.html", null ],
     [ "users", "namespaceapplication_1_1db_1_1users.html", [
       [ "authenticate", "namespaceapplication_1_1db_1_1users.html#a00abbb5e26d1c56b6eda50fb31582342", null ],
       [ "count_users", "namespaceapplication_1_1db_1_1users.html#a4d7166ec35f07441f98c92448720598d", null ],
@@ -180,9 +122,7 @@ var namespaceapplication_1_1db =
       [ "update_user_perms", "namespaceapplication_1_1db_1_1users.html#ad415db9d89d4a012681888358b70579d", null ],
       [ "update_user_theme", "namespaceapplication_1_1db_1_1users.html#acef10d0c8f53321dbda4e00b9ea4357d", null ],
       [ "update_username", "namespaceapplication_1_1db_1_1users.html#ad2925ed6203d6743827ae08d7437f77f", null ],
-      [ "userids_in_groups", "namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1", null ],
-      [ "Collection", "namespaceapplication_1_1db_1_1users.html#aa3780fe6024eacf0d14e4123d74a782f", null ],
-      [ "Database", "namespaceapplication_1_1db_1_1users.html#ae5006b424212bee0153401a149bd4ec6", null ]
+      [ "userids_in_groups", "namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1", null ]
     ] ],
     [ "weather", "namespaceapplication_1_1db_1_1weather.html", [
       [ "count_alert_history", "namespaceapplication_1_1db_1_1weather.html#a98f9f7bfa6b6550cec652f73430280c7", null ],
@@ -196,8 +136,7 @@ var namespaceapplication_1_1db =
       [ "log_weather_alert", "namespaceapplication_1_1db_1_1weather.html#a9a18b4776f3d5c8fc6850da8a9cfa75e", null ],
       [ "process_weather_user", "namespaceapplication_1_1db_1_1weather.html#aca3ded6cee6ba9d2c9a3c75d50ed5389", null ],
       [ "set_user_excluded", "namespaceapplication_1_1db_1_1weather.html#a5bb6b587f2e37acb7781b41c05d96f78", null ],
-      [ "update_user", "namespaceapplication_1_1db_1_1weather.html#a0baee93104485ae41d556f5a742946bf", null ],
-      [ "Database", "namespaceapplication_1_1db_1_1weather.html#aa5deb93de29f08b351e15b91cd9a309a", null ]
+      [ "update_user", "namespaceapplication_1_1db_1_1weather.html#a0baee93104485ae41d556f5a742946bf", null ]
     ] ],
     [ "init_db", "namespaceapplication_1_1db.html#a0523d510fb976e0b75f105dc39364524", null ],
     [ "setup_db", "namespaceapplication_1_1db.html#a92afec8b4c3d6a5818ac28398464a341", null ]

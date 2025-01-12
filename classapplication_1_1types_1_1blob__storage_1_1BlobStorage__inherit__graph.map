@@ -1,5 +1,7 @@
 <map id="application.types.blob_storage.BlobStorage" name="application.types.blob_storage.BlobStorage">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,172,80"/>
-<area shape="rect" id="node2" href="$classapplication_1_1types_1_1blob__storage_1_1BlobPreview.html" title=" " alt="" coords="227,5,393,47"/>
-<area shape="rect" id="node3" href="$classapplication_1_1types_1_1blob__storage_1_1BlobThumbnail.html" title=" " alt="" coords="220,71,400,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,172,77"/>
+<area shape="rect" id="Node000002" href="$classapplication_1_1types_1_1blob__storage_1_1BlobPreview.html" title=" " alt="" coords="227,5,393,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,41,226,35,227,40,186,46"/>
+<area shape="rect" id="Node000003" href="$classapplication_1_1types_1_1blob__storage_1_1BlobThumbnail.html" title=" " alt="" coords="220,69,400,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,69,220,74,220,79,185,74"/>
 </map>
