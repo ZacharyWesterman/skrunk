@@ -1,10 +1,8 @@
 """application.routes.site"""
 
-import mimetypes
 from flask import Response
 import re
 from . import auth, files
-import os
 
 application = None
 
