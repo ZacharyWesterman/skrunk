@@ -38,6 +38,22 @@
 	font-weight: bold;
 }
 
+.regex-delim {
+	color: #E87800;
+}
+
+.regex-escape {
+	color: rgb(111, 172, 129);
+}
+
+.regex-punct {
+	color: gray;
+}
+
+.regex-range {
+	color: rgb(20, 92, 173);
+}
+
 .cursor {
 	color: black;
 	animation: blink 1s step-start infinite;

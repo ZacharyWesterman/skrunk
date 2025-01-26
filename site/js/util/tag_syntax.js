@@ -1,12 +1,26 @@
 function lexer(src) {
-	const types = [
-		[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
-		[/^(eq|lt|gt|le|ge|equals?|exact(ly)?|min(imum)?|max(imum)?|fewer|greater|below|above)\b/i, 'func'],
-		[/^"(\\"|[^"])*"/, 'str'],
-		[/^[a-zA-Z0-9_\.]+/, 'str'],
-		[/^\*/, 'wild'],
-	]
+	const scopes = {
+		regex: [
+			[/^\}/, 'regex-delim', true],
+			[/^\\./, 'regex-escape'],
+			[/^[\[\]\(\)\{\}]/, 'regex-punct'],
+			[/^[$.*+^]/, 'wild'],
+			[/^.\-([^\]]|\\.)/, 'regex-range'],
+			[/^./, 'str'],
+		],
 
+		global: [
+			[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
+			[/^(eq|lt|gt|le|ge|equals?|exact(ly)?|min(imum)?|max(imum)?|fewer|greater|below|above)\b/i, 'func'],
+			[/^"(\\"|[^"])*"/, 'str'],
+			[/^[a-zA-Z0-9_\.]+/, 'str'],
+			[/^\*/, 'wild'],
+			[/^\{/, 'regex-delim', 'regex'],
+		]
+	}
+
+	let types = scopes.global
+	let scope_stack = []
 	let tokens = []
 	while (src) {
 		let matched = false
@@ -17,6 +31,17 @@ function lexer(src) {
 				src = src.substring(text.length)
 				tokens.push([text, type[1]])
 				matched = true
+
+				if (type[2]) {
+					if (type[2] === true) {
+						types = scope_stack.pop()
+					} else {
+						scope_stack.push(types)
+						types = scopes[type[2]]
+						console.log(types)
+					}
+				}
+
 				break
 			}
 		}
