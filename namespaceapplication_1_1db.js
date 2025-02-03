@@ -127,7 +127,7 @@ var namespaceapplication_1_1db =
     [ "weather", "namespaceapplication_1_1db_1_1weather.html", [
       [ "count_alert_history", "namespaceapplication_1_1db_1_1weather.html#a98f9f7bfa6b6550cec652f73430280c7", null ],
       [ "create_user", "namespaceapplication_1_1db_1_1weather.html#a36990cd6b8568dd47a970bfc50af1e27", null ],
-      [ "delete_user", "namespaceapplication_1_1db_1_1weather.html#a653f01a5357cf2c6594462814c0ec980", null ],
+      [ "delete_user", "namespaceapplication_1_1db_1_1weather.html#a6d3bb4c7c5ba0eb2a32f3c7d13b10ce2", null ],
       [ "get_alert_history", "namespaceapplication_1_1db_1_1weather.html#ab4eff6a062feb85d1f36bc0b49bed396", null ],
       [ "get_last_exec", "namespaceapplication_1_1db_1_1weather.html#a9d47eec102ff79c50bd1a91c16e308fd", null ],
       [ "get_users", "namespaceapplication_1_1db_1_1weather.html#a43f6f41b7bcf7475f92e2e8b91097758", null ],
@@ -136,7 +136,7 @@ var namespaceapplication_1_1db =
       [ "log_weather_alert", "namespaceapplication_1_1db_1_1weather.html#a9a18b4776f3d5c8fc6850da8a9cfa75e", null ],
       [ "process_weather_user", "namespaceapplication_1_1db_1_1weather.html#aca3ded6cee6ba9d2c9a3c75d50ed5389", null ],
       [ "set_user_excluded", "namespaceapplication_1_1db_1_1weather.html#a5bb6b587f2e37acb7781b41c05d96f78", null ],
-      [ "update_user", "namespaceapplication_1_1db_1_1weather.html#a0baee93104485ae41d556f5a742946bf", null ]
+      [ "update_user", "namespaceapplication_1_1db_1_1weather.html#a4ffc9980a9f8894da504c5f19fb9ec94", null ]
     ] ],
     [ "init_db", "namespaceapplication_1_1db.html#a0523d510fb976e0b75f105dc39364524", null ],
     [ "setup_db", "namespaceapplication_1_1db.html#a92afec8b4c3d6a5818ac28398464a341", null ]

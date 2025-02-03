@@ -2,7 +2,7 @@ var searchData=
 [
   ['unlink_5fbook_5ftag_0',['unlink_book_tag',['../namespaceapplication_1_1db_1_1book.html#ae77c33c66dfbe1c62759dadb339221a5',1,'application::db::book']]],
   ['update_5fdocument_1',['update_document',['../namespaceapplication_1_1db_1_1datafeed.html#a43813fa5320e71aa5768de13d5a18199',1,'application::db::datafeed']]],
-  ['update_5fuser_2',['update_user',['../namespaceapplication_1_1db_1_1weather.html#a0baee93104485ae41d556f5a742946bf',1,'application::db::weather']]],
+  ['update_5fuser_2',['update_user',['../namespaceapplication_1_1db_1_1weather.html#a4ffc9980a9f8894da504c5f19fb9ec94',1,'application::db::weather']]],
   ['update_5fuser_5fdisplay_5fname_3',['update_user_display_name',['../namespaceapplication_1_1db_1_1users.html#a8c8e873fc12f64d65ee8c0b5f4eac553',1,'application::db::users']]],
   ['update_5fuser_5femail_4',['update_user_email',['../namespaceapplication_1_1db_1_1users.html#a0f7d9140fedb204418cacf42417f49dd',1,'application::db::users']]],
   ['update_5fuser_5fgroups_5',['update_user_groups',['../namespaceapplication_1_1db_1_1users.html#a35b2e081eb224a848e4049a9e8c31b26',1,'application::db::users']]],
