@@ -5,4 +5,5 @@ auth.json
 data/private_key.txt
 data/public_key.txt
 html
+!site/html
 doxygen.log
