@@ -8,5 +8,8 @@
 		"--ignore=W191",
 		"--max-line-length",
 		"256"
-	]
+	],
+	"files.associations": {
+		"*.dot": "dotjs"
+	}
 }
