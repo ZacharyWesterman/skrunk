@@ -163,7 +163,7 @@ window.lookups = {
 	 * @returns The number of next pages.
 	 */
 	next_pages: (index, total) => {
-		let ct = Math.ceil((lookups.max_displayed_pages - 1) / 2)
+		let ct = Math.ceil((lookups.max_displayed_pages) / 2)
 
 		if (index - ct < 0) {
 			ct -= (index - ct) + 1
