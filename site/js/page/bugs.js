@@ -89,8 +89,8 @@ export async function comment_on_bug_report(bug_id) {
 	for (const comment of res.convo) {
 		html_content += `
 		<blockquote>
-			<div class="suppress">
-				${comment.creator} @ ${date.short(comment.created)}
+			<div>
+				<span class="emphasis">${comment.creator}</span><span class="suppress"> commented at ${date.short(comment.created)}</span>
 			</div>
 			${image_restrict(comment.body_html)}
 		</blockquote>`
