@@ -1,9 +1,9 @@
 {{?it.count > 0}}
 	{{? it.total}}
-		Found {{= it.total}} result{{? it.total !== 1}}s{{?}}{{? it.count > lookups.max_displayed_pages() }} ({{= it.count }} pages){{?}}.<br>
+		Found {{= it.total}} result{{? it.total !== 1}}s{{?}}{{? it.count > lookups.max_displayed_pages }} ({{= it.count }} pages){{?}}.<br>
 	{{?}}
 
-	{{? it.count > lookups.max_displayed_pages() }}
+	{{? it.count > lookups.max_displayed_pages }}
 		<button class="icon alt tooltip" *click="navigate_to_page(0)">
 			<i class="fa-solid fa-caret-left fa-lg"></i>
 			<span class="tooltiptext t-right">Go to first page</span>

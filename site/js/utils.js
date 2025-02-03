@@ -132,7 +132,7 @@ window.lookups = {
 	 * Get the maximum number of page icons that can be displayed at the current window width.
 	 * @returns {number} The number of displayable pages.
 	 */
-	max_displayed_pages: () => {
+	get max_displayed_pages() {
 		const rem_px = parseFloat(getComputedStyle(document.documentElement).fontSize)
 		const max_width = Math.min(window.innerWidth / rem_px - 4, 900 / rem_px) - 5
 		const max_pages = Math.floor(max_width / 2)
@@ -147,7 +147,7 @@ window.lookups = {
 	 * @returns {int} The number of prev pages.
 	 */
 	prev_pages: (index, total) => {
-		let ct = Math.floor((lookups.max_displayed_pages() - 1) / 2)
+		let ct = Math.floor((lookups.max_displayed_pages - 1) / 2)
 
 		if (index + ct >= total) {
 			ct += ct - (total - index) + 1
@@ -163,7 +163,7 @@ window.lookups = {
 	 * @returns The number of next pages.
 	 */
 	next_pages: (index, total) => {
-		let ct = Math.ceil((lookups.max_displayed_pages() - 1) / 2)
+		let ct = Math.ceil((lookups.max_displayed_pages - 1) / 2)
 
 		if (index - ct < 0) {
 			ct -= (index - ct) + 1
