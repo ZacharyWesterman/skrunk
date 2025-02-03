@@ -149,7 +149,7 @@ def create_user(user_data: dict) -> dict:
 	return process_weather_user(userdata)
 
 
-def delete_user(username: str) -> None:
+def delete_user(username: str) -> dict:
 	"""
 	Delete a user from the weather database.
 
@@ -157,7 +157,7 @@ def delete_user(username: str) -> None:
 		username (str): The username of the user to be deleted.
 
 	Returns:
-		None
+		dict: The user's previous (now nonexistent) weather information.
 	"""
 	userdata = get_weather_user(username)
 	db.weather_users.delete_one({'_id': userdata['_id']})
@@ -181,7 +181,7 @@ def set_user_excluded(username: str, exclude: bool) -> dict:
 	return process_weather_user(userdata)
 
 
-def update_user(user_data: dict) -> None:
+def update_user(user_data: dict) -> dict:
 	"""
 	Updates the weather information for a user in the database.
 
@@ -195,9 +195,9 @@ def update_user(user_data: dict) -> None:
 			- '_id' (Any): The unique identifier of the user in the database.
 
 	Returns:
-		None
+		dict: The user's updated weather information.
 	"""
-	get_weather_user(user_data['username'])
+	weather_user = get_weather_user(user_data['username'])
 	user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max']['value'])
 	user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min']['value'])
 
@@ -208,7 +208,7 @@ def update_user(user_data: dict) -> None:
 		'min': user_min,
 	}
 	db.weather_users.update_one(
-		{'_id': user_data['_id']},
+		{'_id': weather_user['_id']},
 		{'$set': userdata}
 	)
 

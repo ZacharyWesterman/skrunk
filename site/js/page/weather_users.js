@@ -104,7 +104,7 @@ export async function update_user(username, self) {
 
 	const res = await mutate.weather.update_user(username, lat, lon, max, min)
 
-	if (res.__typename !== 'UserData') {
+	if (res.__typename !== 'WeatherUser') {
 		_.modal.error(res.message)
 		return
 	}
