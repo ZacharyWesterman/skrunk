@@ -10,7 +10,12 @@ fi
 
 [ -d "$INPUT" ] || exit 1
 
-tmp="/tmp/$(uuidgen)"
-while ! rsync -a "$INPUT/" "$SERVER:$tmp"; do sleep 1; done
-while ! ssh "$SERVER" "mongorestore $tmp"; do sleep 1; done
-while ! ssh "$SERVER" "rm -rf $tmp"; do sleep 1; done
+if [ "$SERVER" == localhost ]
+then
+	mongorestore "$INPUT"
+else
+	tmp="/tmp/$(uuidgen)"
+	while ! rsync -a "$INPUT/" "$SERVER:$tmp"; do sleep 1; done
+	while ! ssh "$SERVER" "mongorestore $tmp"; do sleep 1; done
+	while ! ssh "$SERVER" "rm -rf $tmp"; do sleep 1; done
+fi
