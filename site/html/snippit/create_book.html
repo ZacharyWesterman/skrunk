@@ -3,7 +3,15 @@
 <table>
 	<tr>
 		<td>Owner is</td>
-		<td><div name="book-owner" template="dropdown"></div></td>
+		<td>
+			<span name="book-owner" template="dropdown"></span>
+			<span class="tooltip">
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-bottom">
+					If the owner is not you, you will not be able to edit this book after creation!
+				</span>
+			</span>
+		</td>
 	</tr>
 	<tr>
 		<td>Title</td>
@@ -35,6 +43,7 @@
 					<span class="tooltiptext t-left">
 						ISBN-10 or ISBN-13<br>
 						(click for more info)
+						<i class="fa-solid fa-link"></i>
 					</span>
 				</a>
 			</span>
