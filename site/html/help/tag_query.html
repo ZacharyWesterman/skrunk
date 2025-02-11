@@ -52,14 +52,11 @@
 			Tags may have an optional <i>glob operator</i> (<span class="code wild">*</span>) on either side for
 			basic pattern matching; e.g.
 			<span class="code">
-				<span class="str">the</span>
-				<span class="wild">*</span>
+				<span class="str">the</span><span class="wild">*</span>
 			</span>
 			will match any tags that begin with "the", and
 			<span class="code">
-				<span class="wild">*</span>
-				<span class="str">mp</span>
-				<span class="wild">*</span>
+				<span class="wild">*</span><span class="str">mp</span><span class="wild">*</span>
 			</span>
 			will match any tags that contain "mp" (such as "stamp", "amplify" or "imp").
 			<br>
@@ -68,6 +65,9 @@
 			arbitrary RegEx. The syntax for this is any regex enclosed by braces, e.g.
 			<span class="code str">{^[^a-z]+$}</span>
 			would match any tag that doesn't contain any alphabet characters.
+			For a quick rundown of regex, you can look at
+			<a href="https://www.regular-expressions.info/quickstart.html" target="_blank">
+				this quickstart guide <i class="fa-solid fa-link"></i></a>.
 		</div>
 	</div>
 
@@ -180,6 +180,19 @@
 				<span class="str">2</span>
 			</span>
 			will select all files that have a <span class="code str">video</span> tag <i>and at least one other tag</i>.
+			<br>
+
+			For convenience, these functions also have shorter aliases:<br>
+			<span class="code func">=</span>,
+			<span class="code func">&lt;</span>,
+			<span class="code func">&lt;=</span>,
+			<span class="code func">&gt;</span>
+			and <span class="code func">&gt;=</span> respectively; or<br>
+			<span class="code func">eq</span>,
+			<span class="code func">lt</span>,
+			<span class="code func">le</span>,
+			<span class="code func">gt</span>
+			and <span class="code func">ge</span> respectively.
 		</div>
 	</div>
 </div>
