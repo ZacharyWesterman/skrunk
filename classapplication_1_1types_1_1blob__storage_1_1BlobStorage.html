@@ -120,17 +120,14 @@ Inheritance diagram for application.types.blob_storage.BlobStorage:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a58c9e6bf30d43669c57021adb856969b" id="r_a58c9e6bf30d43669c57021adb856969b"><td class="memItemLeft" align="right" valign="top"><a id="a58c9e6bf30d43669c57021adb856969b" name="a58c9e6bf30d43669c57021adb856969b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self, str id, str ext)</td></tr>
+<tr class="memitem:a58c9e6bf30d43669c57021adb856969b" id="r_a58c9e6bf30d43669c57021adb856969b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classapplication_1_1types_1_1blob__storage_1_1BlobStorage.html#a58c9e6bf30d43669c57021adb856969b">__init__</a> (self, str id, str ext)</td></tr>
 <tr class="separator:a58c9e6bf30d43669c57021adb856969b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8240d7b10c94c909f1549c7b049d7dd4" id="r_a8240d7b10c94c909f1549c7b049d7dd4"><td class="memItemLeft" align="right" valign="top"><a id="a8240d7b10c94c909f1549c7b049d7dd4" name="a8240d7b10c94c909f1549c7b049d7dd4"></a>
-str&#160;</td><td class="memItemRight" valign="bottom"><b>path</b> (self, *bool create=False)</td></tr>
+<tr class="memitem:a8240d7b10c94c909f1549c7b049d7dd4" id="r_a8240d7b10c94c909f1549c7b049d7dd4"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classapplication_1_1types_1_1blob__storage_1_1BlobStorage.html#a8240d7b10c94c909f1549c7b049d7dd4">path</a> (self, *bool create=False)</td></tr>
 <tr class="separator:a8240d7b10c94c909f1549c7b049d7dd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a792eb09c70159246b4bdaed8418d487e" id="r_a792eb09c70159246b4bdaed8418d487e"><td class="memItemLeft" align="right" valign="top"><a id="a792eb09c70159246b4bdaed8418d487e" name="a792eb09c70159246b4bdaed8418d487e"></a>
 str&#160;</td><td class="memItemRight" valign="bottom"><b>basename</b> (self)</td></tr>
 <tr class="separator:a792eb09c70159246b4bdaed8418d487e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e57a615b58782effc58bc076e26d63f" id="r_a3e57a615b58782effc58bc076e26d63f"><td class="memItemLeft" align="right" valign="top"><a id="a3e57a615b58782effc58bc076e26d63f" name="a3e57a615b58782effc58bc076e26d63f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>exists</b> (self)</td></tr>
+<tr class="memitem:a3e57a615b58782effc58bc076e26d63f" id="r_a3e57a615b58782effc58bc076e26d63f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classapplication_1_1types_1_1blob__storage_1_1BlobStorage.html#a3e57a615b58782effc58bc076e26d63f">exists</a> (self)</td></tr>
 <tr class="separator:a3e57a615b58782effc58bc076e26d63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -151,6 +148,122 @@ str&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
 str&#160;</td><td class="memItemRight" valign="bottom"><b>ext</b></td></tr>
 <tr class="separator:a40ba3f94c16d64ce2837992d720f52b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">    A class to represent and manage blob storage paths.
+
+    Attributes:
+        id (str): The unique identifier for the blob.
+        ext (str): The file extension for the blob.
+        exists (bool): True if the blob exists, False otherwise.
+
+    Methods:
+        __init__(id: str, ext: str):
+            Initializes a new instance of the class.
+
+        path(create: bool = False) -&gt; str:
+            Returns the full path to the blob, optionally creating directories.
+
+        basename() -&gt; str:
+            Returns the base name of the blob.</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a58c9e6bf30d43669c57021adb856969b" name="a58c9e6bf30d43669c57021adb856969b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58c9e6bf30d43669c57021adb856969b">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">application.types.blob_storage.BlobStorage.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>ext</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">        Initializes a new instance of the class.
+
+        Args:
+            id (str): The identifier for the blob.
+            ext (str): The file extension for the blob.</pre> 
+<p>Reimplemented in <a class="el" href="classapplication_1_1types_1_1blob__storage_1_1BlobPreview.html#a61e67c3d54478c01245936a2d935dff1">application.types.blob_storage.BlobPreview</a>, and <a class="el" href="classapplication_1_1types_1_1blob__storage_1_1BlobThumbnail.html#adc82eaf935dd3b4a2cd574599fe944c0">application.types.blob_storage.BlobThumbnail</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3e57a615b58782effc58bc076e26d63f" name="a3e57a615b58782effc58bc076e26d63f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e57a615b58782effc58bc076e26d63f">&#9670;&#160;</a></span>exists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool application.types.blob_storage.BlobStorage.exists </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">        Check if the blob exists in the storage.
+
+        This method constructs the full path of the blob using its ID and checks
+        if a file with the blob's basename exists at that path.
+
+        Returns:
+            bool: True if the blob exists, False otherwise.</pre> 
+</div>
+</div>
+<a id="a8240d7b10c94c909f1549c7b049d7dd4" name="a8240d7b10c94c909f1549c7b049d7dd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8240d7b10c94c909f1549c7b049d7dd4">&#9670;&#160;</a></span>path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str application.types.blob_storage.BlobStorage.path </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">*bool &#160;</td>
+          <td class="paramname"><em>create</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">        Returns the full path to the blob, optionally creating directories.
+
+        Args:
+            create (bool): If True, the necessary directories will be created if they do not exist.
+
+        Returns:
+            str: The full path to the blob.</pre> 
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>application/types/<b>blob_storage.py</b></li>
 </ul>

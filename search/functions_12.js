@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['valid_5fapi_5fkey_0',['valid_api_key',['../namespaceapplication_1_1db_1_1apikeys.html#aaa32eb0b7bb3cd71a65e69352d16b04a',1,'application::db::apikeys']]],
-  ['valid_5fsession_1',['valid_session',['../namespaceapplication_1_1db_1_1sessions.html#a38a7dc70381403fc267067ee54bbf375',1,'application::db::sessions']]]
+  ['to_5fglb_0',['to_glb',['../namespaceapplication_1_1integrations_1_1models.html#a92f6af93fa9d689e7cd0eb623727ebb7',1,'application::integrations::models']]],
+  ['trim_5ftype_1',['trim_type',['../namespaceapplication_1_1integrations_1_1graphql.html#a30b6c4a7dc9233163b7f4e7a39bdf41f',1,'application::integrations::graphql']]]
 ];

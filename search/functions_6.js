@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handle_5fclient_5fexceptions_0',['handle_client_exceptions',['../namespaceapplication_1_1resolvers_1_1decorators.html#ae0366a8df5d16280feb28d3c7988fcf7',1,'application::resolvers::decorators']]]
+  ['file_5finfo_0',['file_info',['../namespaceapplication_1_1db_1_1blob.html#aec705b2b3ee74895963f79ad92d5c40d',1,'application::db::blob']]]
 ];

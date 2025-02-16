@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['link_5fbook_5ftag_0',['link_book_tag',['../namespaceapplication_1_1db_1_1book.html#a2c12e383769e7aef43a4c19a4a1af55c',1,'application::db::book']]],
-  ['log_5fuser_5fweather_5falert_1',['log_user_weather_alert',['../namespaceapplication_1_1db_1_1weather.html#a570d5b89ab2a198e0a5410c44371873a',1,'application::db::weather']]],
-  ['log_5fweather_5falert_2',['log_weather_alert',['../namespaceapplication_1_1db_1_1weather.html#a9a18b4776f3d5c8fc6850da8a9cfa75e',1,'application::db::weather']]]
+  ['init_0',['init',['../namespaceapplication.html#a8382727aecae1ade4c6df62b2044cc3d',1,'application.init()'],['../namespaceapplication_1_1db_1_1blob.html#a9a2e272b82a908e4c334e5cdf7af8a16',1,'application.db.blob.init()'],['../namespaceapplication_1_1db_1_1book.html#a489dd7a7cd69e687da8a812326342817',1,'application.db.book.init()']]],
+  ['init_5fdb_1',['init_db',['../namespaceapplication_1_1db.html#a0523d510fb976e0b75f105dc39364524',1,'application::db']]],
+  ['issues_2',['issues',['../classapplication_1_1integrations_1_1github_1_1Repository.html#a8057a6859942063de668579216ae5e24',1,'application::integrations::github::Repository']]],
+  ['issues_5fpending_5fresolution_3',['issues_pending_resolution',['../classapplication_1_1integrations_1_1github_1_1CurrentRepository.html#a83c9e58ffe712139910e1bfa8169a55a',1,'application::integrations::github::CurrentRepository']]]
 ];

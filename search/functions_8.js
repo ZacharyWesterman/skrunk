@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keyword_5ftokenize_0',['keyword_tokenize',['../namespaceapplication_1_1db_1_1book.html#ae566d13ab23f223051e92d14dbf5c1d8',1,'application::db::book']]]
+  ['handle_5fclient_5fexceptions_0',['handle_client_exceptions',['../namespaceapplication_1_1resolvers_1_1decorators.html#ae0366a8df5d16280feb28d3c7988fcf7',1,'application::resolvers::decorators']]]
 ];

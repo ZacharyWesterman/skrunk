@@ -4,9 +4,16 @@ var namespaceapplication_1_1db =
       [ "delete_api_key", "namespaceapplication_1_1db_1_1apikeys.html#af4de1e02d661af2fb257b49c2b308386", null ],
       [ "get_api_keys", "namespaceapplication_1_1db_1_1apikeys.html#a520bca39cfd8b4cbb3cb15ed640ef33e", null ],
       [ "new_api_key", "namespaceapplication_1_1db_1_1apikeys.html#a6b128063a8bf6f3593d81cd91da55575", null ],
-      [ "valid_api_key", "namespaceapplication_1_1db_1_1apikeys.html#aaa32eb0b7bb3cd71a65e69352d16b04a", null ]
+      [ "valid_api_key", "namespaceapplication_1_1db_1_1apikeys.html#aaa32eb0b7bb3cd71a65e69352d16b04a", null ],
+      [ "db", "namespaceapplication_1_1db_1_1apikeys.html#ab705b1db778601631f3332287564dbdb", null ]
     ] ],
-    [ "blob", "namespaceapplication_1_1db_1_1blob.html", null ],
+    [ "blob", "namespaceapplication_1_1db_1_1blob.html", [
+      [ "file_info", "namespaceapplication_1_1db_1_1blob.html#aec705b2b3ee74895963f79ad92d5c40d", null ],
+      [ "get_tags_from_mime", "namespaceapplication_1_1db_1_1blob.html#adece90541c04ceb7a1dc7854249ae54f", null ],
+      [ "init", "namespaceapplication_1_1db_1_1blob.html#a9a2e272b82a908e4c334e5cdf7af8a16", null ],
+      [ "save_blob_data", "namespaceapplication_1_1db_1_1blob.html#a48ec510f8ad6dc0e68383549bdae7652", null ],
+      [ "set_mime_from_ext", "namespaceapplication_1_1db_1_1blob.html#a713fd8dfdcc9f139c150433e5083fe20", null ]
+    ] ],
     [ "book", "namespaceapplication_1_1db_1_1book.html", [
       [ "append_ebook", "namespaceapplication_1_1db_1_1book.html#a70365d6cffaabc930a6a0f7fc28906e3", null ],
       [ "borrow_book", "namespaceapplication_1_1db_1_1book.html#a3657df852f8b3559cc02459939e78230", null ],

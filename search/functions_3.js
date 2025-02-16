@@ -1,12 +1,22 @@
 var searchData=
 [
-  ['delete_5fapi_5fkey_0',['delete_api_key',['../namespaceapplication_1_1db_1_1apikeys.html#af4de1e02d661af2fb257b49c2b308386',1,'application::db::apikeys']]],
-  ['delete_5fbug_5freport_1',['delete_bug_report',['../namespaceapplication_1_1db_1_1bugs.html#aa4eed7edae6f7b01db538d1f48fc2830',1,'application::db::bugs']]],
-  ['delete_5ffeed_2',['delete_feed',['../namespaceapplication_1_1db_1_1datafeed.html#ab40949386bafd8b4eeb87651a2a5c1df',1,'application::db::datafeed']]],
-  ['delete_5finventory_5fitem_3',['delete_inventory_item',['../namespaceapplication_1_1db_1_1inventory.html#a6e31e140ee4e2b3e8ba455d356740a69',1,'application::db::inventory']]],
-  ['delete_5fsubscription_4',['delete_subscription',['../namespaceapplication_1_1db_1_1notification.html#ace326a53ab1b52ab845f152500ff66a3',1,'application::db::notification']]],
-  ['delete_5fsubscriptions_5',['delete_subscriptions',['../namespaceapplication_1_1db_1_1notification.html#a35eded1d64208b28f92724bdff52805d',1,'application::db::notification']]],
-  ['delete_5fuser_6',['delete_user',['../namespaceapplication_1_1db_1_1users.html#a3ae238309073813c89cc58dbf1cf5db0',1,'application.db.users.delete_user()'],['../namespaceapplication_1_1db_1_1weather.html#a6d3bb4c7c5ba0eb2a32f3c7d13b10ce2',1,'application.db.weather.delete_user()']]],
-  ['disk_5fusage_7',['disk_usage',['../namespaceapplication_1_1integrations_1_1system.html#a01178ba63ef43705457cbfec0e1baa77',1,'application::integrations::system']]],
-  ['downscale_8',['downscale',['../namespaceapplication_1_1integrations_1_1images.html#a09b5a42ef2e3ecc65e1eb57ce76c5b29',1,'application::integrations::images']]]
+  ['caller_5finfo_0',['caller_info',['../namespaceapplication_1_1db_1_1perms.html#aa7e3fdfcc1d5448e6e9146739aec79d2',1,'application::db::perms']]],
+  ['comment_5fon_5fbug_1',['comment_on_bug',['../namespaceapplication_1_1db_1_1bugs.html#a29035cdd38826d015bdb3d09db895180',1,'application::db::bugs']]],
+  ['count_5falert_5fhistory_2',['count_alert_history',['../namespaceapplication_1_1db_1_1weather.html#a98f9f7bfa6b6550cec652f73430280c7',1,'application::db::weather']]],
+  ['count_5fall_5fuser_5fbooks_3',['count_all_user_books',['../namespaceapplication_1_1db_1_1book.html#a1fb8b17fd66d8b20133a0924270486f3',1,'application::db::book']]],
+  ['count_5fbooks_4',['count_books',['../namespaceapplication_1_1db_1_1book.html#a5c2b7502ff88610c5ea6b21c9c31b9a3',1,'application::db::book']]],
+  ['count_5fbug_5freports_5',['count_bug_reports',['../namespaceapplication_1_1db_1_1bugs.html#ab226589e341a21e9755d7ab1356b3e6b',1,'application::db::bugs']]],
+  ['count_5fdocuments_6',['count_documents',['../namespaceapplication_1_1db_1_1datafeed.html#a395de93571f055e4e938927293ab2552',1,'application::db::datafeed']]],
+  ['count_5ffeeds_7',['count_feeds',['../namespaceapplication_1_1db_1_1datafeed.html#ac35632132b577a09440e370296275c19',1,'application::db::datafeed']]],
+  ['count_5finventory_8',['count_inventory',['../namespaceapplication_1_1db_1_1inventory.html#a91599203572e5b95bde76f9ceeecb0b2',1,'application::db::inventory']]],
+  ['count_5fnotifications_9',['count_notifications',['../namespaceapplication_1_1db_1_1notification.html#a78a5ae1eed5410c62c0b7c9fa65f03eb',1,'application::db::notification']]],
+  ['count_5fusers_10',['count_users',['../namespaceapplication_1_1db_1_1users.html#a4d7166ec35f07441f98c92448720598d',1,'application::db::users']]],
+  ['count_5fvalid_5fsessions_11',['count_valid_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a1d93d8aa985020ca8eae1fcd2df3a7c7',1,'application::db::sessions']]],
+  ['create_5fbook_12',['create_book',['../namespaceapplication_1_1db_1_1book.html#a08e0abbfc65c70407600115e2f9fda7b',1,'application::db::book']]],
+  ['create_5fdocument_13',['create_document',['../namespaceapplication_1_1db_1_1datafeed.html#ad71a08c5afe847db14e10a4b03cd9f7c',1,'application::db::datafeed']]],
+  ['create_5ffeed_14',['create_feed',['../namespaceapplication_1_1db_1_1datafeed.html#a0dab1761f23a4678a545da8dd9037f7d',1,'application::db::datafeed']]],
+  ['create_5finventory_5fitem_15',['create_inventory_item',['../namespaceapplication_1_1db_1_1inventory.html#a0c2978dc0a525b330d55dc4fdcedaa97',1,'application::db::inventory']]],
+  ['create_5fpreview_5ffrom_5ffirst_5fframe_16',['create_preview_from_first_frame',['../namespaceapplication_1_1integrations_1_1videos.html#a6778222a0b24a9e41af93ebd56e8b1dc',1,'application::integrations::videos']]],
+  ['create_5fsubscription_17',['create_subscription',['../namespaceapplication_1_1db_1_1notification.html#a97f76692b38e38613413813c735e7834',1,'application::db::notification']]],
+  ['create_5fuser_18',['create_user',['../namespaceapplication_1_1db_1_1users.html#ab1d5a7ffbac2b5adf540adde67fe174e',1,'application.db.users.create_user()'],['../namespaceapplication_1_1db_1_1weather.html#a36990cd6b8568dd47a970bfc50af1e27',1,'application.db.weather.create_user()']]]
 ];

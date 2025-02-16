@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['new_5fapi_5fkey_0',['new_api_key',['../namespaceapplication_1_1db_1_1apikeys.html#a6b128063a8bf6f3593d81cd91da55575',1,'application::db::apikeys']]],
-  ['next_5fout_5fof_5fdate_5fbook_5frfid_1',['next_out_of_date_book_rfid',['../namespaceapplication_1_1db_1_1book.html#a1c6c0bcce1514cde5c46b87ffb4c151d',1,'application::db::book']]],
-  ['norm_5fquery_2',['norm_query',['../namespaceapplication_1_1db_1_1book.html#a111182c094308d254180e789d6735761',1,'application::db::book']]]
+  ['link_5fbook_5ftag_0',['link_book_tag',['../namespaceapplication_1_1db_1_1book.html#a2c12e383769e7aef43a4c19a4a1af55c',1,'application::db::book']]],
+  ['log_5fuser_5fweather_5falert_1',['log_user_weather_alert',['../namespaceapplication_1_1db_1_1weather.html#a570d5b89ab2a198e0a5410c44371873a',1,'application::db::weather']]],
+  ['log_5fweather_5falert_2',['log_weather_alert',['../namespaceapplication_1_1db_1_1weather.html#a9a18b4776f3d5c8fc6850da8a9cfa75e',1,'application::db::weather']]]
 ];

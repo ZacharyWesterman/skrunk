@@ -1,5 +1,22 @@
 var NAVTREEINDEX1 =
 {
+"namespaceapplication_1_1integrations_1_1qrcode.html#a28de1b7b8eac8d43f45f02c25eaf1afb":[0,0,0,2,6,1],
+"namespaceapplication_1_1integrations_1_1system.html":[0,0,0,2,7],
+"namespaceapplication_1_1integrations_1_1system.html#a01178ba63ef43705457cbfec0e1baa77":[0,0,0,2,7,0],
+"namespaceapplication_1_1integrations_1_1videos.html":[0,0,0,2,8],
+"namespaceapplication_1_1integrations_1_1videos.html#a2e11d76595d9bfe3c2122d25b87597f6":[0,0,0,2,8,1],
+"namespaceapplication_1_1integrations_1_1videos.html#a6778222a0b24a9e41af93ebd56e8b1dc":[0,0,0,2,8,0],
+"namespaceapplication_1_1objects.html":[0,0,0,3],
+"namespaceapplication_1_1resolvers.html":[0,0,0,4],
+"namespaceapplication_1_1resolvers_1_1decorators.html":[0,0,0,4,0],
+"namespaceapplication_1_1resolvers_1_1decorators.html#ae0366a8df5d16280feb28d3c7988fcf7":[0,0,0,4,0,0],
+"namespaceapplication_1_1resolvers_1_1mutation.html":[0,0,0,4,1],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html":[0,0,0,4,1,0],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1blob.html":[0,0,0,4,1,1],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1book.html":[0,0,0,4,1,2],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1bugs.html":[0,0,0,4,1,3],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1datafeed.html":[0,0,0,4,1,4],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1inventory.html":[0,0,0,4,1,5],
 "namespaceapplication_1_1resolvers_1_1mutation_1_1notification.html":[0,0,0,4,1,6],
 "namespaceapplication_1_1resolvers_1_1mutation_1_1sessions.html":[0,0,0,4,1,7],
 "namespaceapplication_1_1resolvers_1_1mutation_1_1settings.html":[0,0,0,4,1,8],
@@ -37,6 +54,7 @@ var NAVTREEINDEX1 =
 "namespaceapplication_1_1types_1_1blob__storage.html":[0,0,0,8,0],
 "namespacemembers.html":[0,1,0],
 "namespacemembers_func.html":[0,1,1],
+"namespacemembers_vars.html":[0,1,2],
 "namespaces.html":[0,0],
 "pages.html":[]
 };

@@ -8,5 +8,6 @@ var namespaceapplication =
     [ "routes", "namespaceapplication_1_1routes.html", "namespaceapplication_1_1routes" ],
     [ "scalars", "namespaceapplication_1_1scalars.html", "namespaceapplication_1_1scalars" ],
     [ "tokens", "namespaceapplication_1_1tokens.html", null ],
-    [ "types", "namespaceapplication_1_1types.html", "namespaceapplication_1_1types" ]
+    [ "types", "namespaceapplication_1_1types.html", "namespaceapplication_1_1types" ],
+    [ "init", "namespaceapplication.html#a8382727aecae1ade4c6df62b2044cc3d", null ]
 ];

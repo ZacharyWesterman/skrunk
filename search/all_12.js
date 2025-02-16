@@ -1,19 +1,5 @@
 var searchData=
 [
-  ['unlink_5fbook_5ftag_0',['unlink_book_tag',['../namespaceapplication_1_1db_1_1book.html#ae77c33c66dfbe1c62759dadb339221a5',1,'application::db::book']]],
-  ['unsupportedfileformat_1',['UnsupportedFileFormat',['../classapplication_1_1integrations_1_1exceptions_1_1UnsupportedFileFormat.html',1,'application::integrations::exceptions']]],
-  ['update_5fdocument_2',['update_document',['../namespaceapplication_1_1db_1_1datafeed.html#a43813fa5320e71aa5768de13d5a18199',1,'application::db::datafeed']]],
-  ['update_5fuser_3',['update_user',['../namespaceapplication_1_1db_1_1weather.html#a4ffc9980a9f8894da504c5f19fb9ec94',1,'application::db::weather']]],
-  ['update_5fuser_5fdisplay_5fname_4',['update_user_display_name',['../namespaceapplication_1_1db_1_1users.html#a8c8e873fc12f64d65ee8c0b5f4eac553',1,'application::db::users']]],
-  ['update_5fuser_5femail_5',['update_user_email',['../namespaceapplication_1_1db_1_1users.html#a0f7d9140fedb204418cacf42417f49dd',1,'application::db::users']]],
-  ['update_5fuser_5fgroups_6',['update_user_groups',['../namespaceapplication_1_1db_1_1users.html#a35b2e081eb224a848e4049a9e8c31b26',1,'application::db::users']]],
-  ['update_5fuser_5fmodule_7',['update_user_module',['../namespaceapplication_1_1db_1_1users.html#a8412d8d08760d314829ac08f896c96b9',1,'application::db::users']]],
-  ['update_5fuser_5fpassword_8',['update_user_password',['../namespaceapplication_1_1db_1_1users.html#a43423a57e6ecc5a5471cf7a4d3337f51',1,'application::db::users']]],
-  ['update_5fuser_5fperms_9',['update_user_perms',['../namespaceapplication_1_1db_1_1users.html#ad415db9d89d4a012681888358b70579d',1,'application::db::users']]],
-  ['update_5fuser_5ftheme_10',['update_user_theme',['../namespaceapplication_1_1db_1_1users.html#acef10d0c8f53321dbda4e00b9ea4357d',1,'application::db::users']]],
-  ['update_5fusername_11',['update_username',['../namespaceapplication_1_1db_1_1users.html#ad2925ed6203d6743827ae08d7437f77f',1,'application::db::users']]],
-  ['user_5fhas_5fperms_12',['user_has_perms',['../namespaceapplication_1_1db_1_1perms.html#af413cbac0899c49632ed9a5bd2067199',1,'application::db::perms']]],
-  ['userdoesnotexisterror_13',['UserDoesNotExistError',['../classapplication_1_1exceptions_1_1UserDoesNotExistError.html',1,'application::exceptions']]],
-  ['userexistserror_14',['UserExistsError',['../classapplication_1_1exceptions_1_1UserExistsError.html',1,'application::exceptions']]],
-  ['userids_5fin_5fgroups_15',['userids_in_groups',['../namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1',1,'application::db::users']]]
+  ['to_5fglb_0',['to_glb',['../namespaceapplication_1_1integrations_1_1models.html#a92f6af93fa9d689e7cd0eb623727ebb7',1,'application::integrations::models']]],
+  ['trim_5ftype_1',['trim_type',['../namespaceapplication_1_1integrations_1_1graphql.html#a30b6c4a7dc9233163b7f4e7a39bdf41f',1,'application::integrations::graphql']]]
 ];

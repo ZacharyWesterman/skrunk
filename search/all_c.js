@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['new_5fapi_5fkey_0',['new_api_key',['../namespaceapplication_1_1db_1_1apikeys.html#a6b128063a8bf6f3593d81cd91da55575',1,'application::db::apikeys']]],
-  ['next_5fout_5fof_5fdate_5fbook_5frfid_1',['next_out_of_date_book_rfid',['../namespaceapplication_1_1db_1_1book.html#a1c6c0bcce1514cde5c46b87ffb4c151d',1,'application::db::book']]],
-  ['norm_5fquery_2',['norm_query',['../namespaceapplication_1_1db_1_1book.html#a111182c094308d254180e789d6735761',1,'application::db::book']]]
+  ['mark_5fall_5fas_5fread_0',['mark_all_as_read',['../namespaceapplication_1_1db_1_1notification.html#a01b23d6feb208341b0f643da244d9f76',1,'application::db::notification']]],
+  ['mark_5fas_5fread_1',['mark_as_read',['../namespaceapplication_1_1db_1_1notification.html#a1299275ae6cbf8a42cad1b003fdfb4e8',1,'application::db::notification']]],
+  ['missingconfig_2',['MissingConfig',['../classapplication_1_1exceptions_1_1MissingConfig.html',1,'application::exceptions']]],
+  ['module_3',['module',['../namespaceapplication_1_1db_1_1perms.html#ae2284c17c38ef5feb63cf96c56cb6c66',1,'application::db::perms']]]
 ];
