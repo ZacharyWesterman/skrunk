@@ -6,6 +6,8 @@ from datetime import datetime
 from . import perms
 
 from pymongo.collection import Collection
+
+## A pointer to the API keys collection in the database.
 db: Collection = None
 
 

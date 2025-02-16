@@ -28,6 +28,14 @@ _zip_progress = {}
 
 
 def init() -> None:
+	"""
+	Initializes the blob module by setting the global blob_path and deleting
+	all ephemeral files that are not referred to by any data.
+
+	Note:
+		This function should be called on startup, and regular restarts should
+		be scheduled to ensure that ephemeral files are cleaned up.
+	"""
 	global blob_path
 	blob_path = types.blob_path
 
@@ -44,6 +52,15 @@ def init() -> None:
 
 
 def file_info(filename: str) -> str:
+	"""
+	Calculate the MD5 checksum and size of a file.
+
+	Args:
+		filename (str): The path to the file.
+
+	Returns:
+		tuple: A tuple containing the size of the file in bytes (int) and the MD5 checksum (str).
+	"""
 	with open(filename, 'rb') as fp:
 		md5sum = hashlib.md5(fp.read()).hexdigest()
 	size = pathlib.Path(filename).stat().st_size
@@ -52,6 +69,19 @@ def file_info(filename: str) -> str:
 
 
 def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> list:
+	"""
+	Save blob data to storage and optionally unzip if the file is a zip archive.
+
+	Args:
+		file (FileStorage): The file to be saved.
+		auto_unzip (bool): If True, automatically unzip the file if it is a zip archive.
+		tags (list, optional): List of tags to associate with the blob. Defaults to [].
+		hidden (bool, optional): If True, mark the blob as hidden. Defaults to False.
+		ephemeral (bool, optional): If True, mark the blob as ephemeral. Defaults to False.
+
+	Returns:
+		list: A list of dictionaries containing the unique ID and file extension of the uploaded blobs.
+	"""
 	filename = file.filename
 	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and filename.lower().endswith('.zip')), ephemeral)
 	this_blob_path = BlobStorage(id, ext).path(create=True)
@@ -115,10 +145,29 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 
 
 def get_tags_from_mime(mime: str) -> list:
+	"""
+	Extracts tags from a MIME type string.
+
+	Args:
+		mime (str): The MIME type string to be split into tags.
+
+	Returns:
+		list: A list of tags obtained by splitting the MIME type string by '/'.
+	"""
 	return [i for i in mime.split('/')]
 
 
 def set_mime_from_ext(mime: str, ext: str) -> str:
+	"""
+	Sets the MIME type based on the file extension.
+
+	Args:
+		mime (str): The initial MIME type.
+		ext (str): The file extension.
+
+	Returns:
+		str: The updated MIME type based on the file extension.
+	"""
 	documents = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.rtf', '.odf']
 	source = ['.c', '.cpp', '.h', '.hpp', '.py', '.html', '.xml', '.xhtml', '.htm', '.sh', '.bat', '.java', '.js', '.css', '.md', '.glsl']
 

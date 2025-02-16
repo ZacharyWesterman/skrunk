@@ -11,7 +11,18 @@ from .db import init_db, setup_db
 from . import routes
 
 
-def init(*, no_auth=False, blob_path=None, data_db_url=''):
+def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
+	"""
+	Initialize the application.
+
+	Parameters:
+		no_auth (bool): Flag to disable authentication. Default is False.
+		blob_path (str, optional): Path to the blob storage. Default is None.
+		data_db_url (str): URL to the database. Default is an empty string.
+
+	Returns:
+		Flask: The initialized Flask application instance.
+	"""
 	init_db(data_db_url, blob_path)
 
 	application = Flask(__name__)
