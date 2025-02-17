@@ -194,8 +194,18 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 
 
 def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> tuple[str, str]:
-	global db
+	"""
+	Creates a new blob entry in the database.
 
+	Args:
+		name (str): The name of the blob, typically the filename.
+		tags (list, optional): A list of tags associated with the blob. Defaults to an empty list.
+		hidden (bool, optional): A flag indicating if the blob should be hidden. Defaults to False.
+		ephemeral (bool, optional): A flag indicating if the blob is ephemeral. Defaults to False.
+
+	Returns:
+		tuple[str, str]: A tuple containing the inserted blob's ID and the file extension.
+	"""
 	mime = mimetypes.guess_type(name)[0]
 
 	if mime is None:
@@ -234,10 +244,41 @@ def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: boo
 
 
 def mark_as_completed(id: str, size: int, md5sum: str) -> None:
+	"""
+	Marks a blob as completed in the database.
+
+	Args:
+		id (str): The unique identifier of the blob.
+		size (int): The size of the blob in bytes.
+		md5sum (str): The MD5 checksum of the blob.
+
+	Returns:
+		None
+	"""
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'complete': True, 'size': size, 'md5sum': md5sum}})
 
 
 def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
+	"""
+	Builds a MongoDB query for searching blobs based on the provided filter and user ID.
+
+	Args:
+		filter (BlobSearchFilter): A filter object containing various search criteria.
+		user_id (ObjectId): The ID of the user making the query.
+
+	Returns:
+		dict: A MongoDB query dictionary constructed based on the provided filter and user ID.
+
+	The filter object can contain the following keys:
+		- tag_expr (str): A tag expression to filter blobs by tags.
+		- creator (str or list): A username or a list of usernames to filter blobs by their creators.
+		- begin_date (datetime): The start date to filter blobs created after this date.
+		- end_date (datetime): The end date to filter blobs created before this date.
+		- name (str): A regex pattern to filter blobs by their names.
+		- ephemeral (bool): A boolean to filter blobs by their ephemeral status.
+
+	The query will always include blobs that are either not hidden or created by the user.
+	"""
 	query = [{
 		'$or': [
 			{'hidden': False},
@@ -274,7 +315,19 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 
 def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting, user_id: ObjectId) -> list:
-	global db
+	"""
+	Retrieve a list of blobs from the database based on the provided filter, pagination, and sorting options.
+
+	Args:
+		filter (BlobSearchFilter): The filter criteria to apply to the blob search.
+		start (int): The starting index for pagination.
+		count (int): The number of blobs to retrieve.
+		sorting (Sorting): The sorting options for the blobs.
+		user_id (ObjectId): The ID of the user performing the search.
+
+	Returns:
+		list: A list of blobs matching the search criteria.
+	"""
 	try:
 		query = build_blob_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
@@ -301,8 +354,16 @@ def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting
 
 
 def count_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> int:
-	global db
+	"""
+	Count the number of blobs in the database that match the given filter and user ID.
 
+	Args:
+		filter (BlobSearchFilter): The filter criteria to apply to the blob search.
+		user_id (ObjectId): The ID of the user whose blobs are being counted.
+
+	Returns:
+		int: The number of blobs that match the filter criteria for the given user.
+	"""
 	try:
 		query = build_blob_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
@@ -312,6 +373,16 @@ def count_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 
 
 def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
+	"""
+	Calculate the total size of blobs that match the given filter for a specific user.
+
+	Args:
+		filter (BlobSearchFilter): The filter criteria to search for blobs.
+		user_id (ObjectId): The ID of the user whose blobs are being queried.
+
+	Returns:
+		int: The total size of the blobs that match the filter. Returns 0 if the user does not exist or no blobs match the filter.
+	"""
 	try:
 		query = build_blob_query(filter, user_id)
 	except exceptions.UserDoesNotExistError:
@@ -335,10 +406,33 @@ def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 
 
 def get_uid() -> str:
+	"""
+	Generate a unique identifier (UID).
+
+	This function generates a new unique identifier using the UUID version 4 standard,
+	which creates a random UUID.
+
+	Returns:
+		str: A string representation of the generated UUID.
+	"""
 	return str(uuid.uuid4())
 
 
 def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id: str) -> dict:
+	"""
+	Create a ZIP archive of blobs that match the given filter and user ID.
+
+	Args:
+		filter (BlobSearchFilter): The filter criteria to match blobs.
+		user_id (ObjectId): The ID of the user requesting the ZIP archive.
+		blob_zip_id (str): A unique identifier for the ZIP archive.
+
+	Returns:
+		dict: Information about the created ZIP blob, including its ID.
+
+	Raises:
+		exceptions.BlobDoesNotExistError: If the created ZIP blob does not exist in the database.
+	"""
 	global _zip_progress
 
 	query = build_blob_query(filter, user_id)
@@ -406,6 +500,18 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 
 def cancel_zip(blob_zip_id: str) -> dict:
+	"""
+	Cancels the zip operation for the given blob_zip_id.
+
+	Args:
+		blob_zip_id (str): The ID of the blob zip operation to cancel.
+
+	Raises:
+		BlobDoesNotExistError: If the blob_zip_id does not exist in the _zip_progress.
+
+	Returns:
+		dict: A dictionary containing the progress and item of the zip operation.
+	"""
 	global _zip_progress
 
 	if blob_zip_id not in _zip_progress:
@@ -421,6 +527,18 @@ def cancel_zip(blob_zip_id: str) -> dict:
 
 
 def get_zip_progress(blob_zip_id: str) -> dict:
+	"""
+	Retrieve the progress of a zip operation by its ID.
+
+	Args:
+		blob_zip_id (str): The ID of the zip operation.
+
+	Returns:
+		dict: A dictionary containing the progress and the current item being processed.
+
+	Raises:
+		BlobDoesNotExistError: If the provided blob_zip_id does not exist in the progress tracking.
+	"""
 	if blob_zip_id not in _zip_progress:
 		raise exceptions.BlobDoesNotExistError(blob_zip_id)
 
@@ -433,6 +551,20 @@ def get_zip_progress(blob_zip_id: str) -> dict:
 
 
 def get_blob_data(id: str) -> dict:
+	"""
+	Retrieve blob data from the database by its ID.
+
+	Args:
+		id (str): The ID of the blob to retrieve.
+
+	Returns:
+		dict: A dictionary containing the blob data. If the blob exists, the dictionary
+			  will include the blob's ID and the creator's username. If the creator does
+			  not exist, the creator field will contain the creator's ID as a string.
+
+	Raises:
+		exceptions.BlobDoesNotExistError: If the blob with the given ID does not exist.
+	"""
 	global db
 	try:
 		blob_data = db.find_one({'_id': ObjectId(id)})
@@ -450,7 +582,25 @@ def get_blob_data(id: str) -> dict:
 
 
 def delete_blob(blob_id: str) -> dict:
-	global db
+	"""
+	Deletes a blob from the database and the file system.
+
+	This function performs the following steps:
+	1. Retrieves the blob data from the database using the provided blob ID.
+	2. Deletes the blob file from the file system.
+	3. Deletes the preview file associated with the blob, if it exists.
+	4. Attempts to delete the parent directories if they are empty.
+	5. Deletes the blob entry from the database.
+
+	Args:
+		blob_id (str): The ID of the blob to be deleted.
+
+	Returns:
+		dict: The data of the deleted blob.
+
+	Raises:
+		BlobDoesNotExistError: If the blob with the given ID does not exist.
+	"""
 	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if blob_data:
 		try:
@@ -480,7 +630,22 @@ def delete_blob(blob_id: str) -> dict:
 
 
 def set_blob_tags(blob_id: str, tags: list) -> dict:
-	global db
+	"""
+	Set tags for a blob in the database.
+
+	This function updates the tags for a blob identified by its ID. If the blob does not exist,
+	it raises a BlobDoesNotExistError. The tags are converted to lowercase and duplicates are removed.
+
+	Args:
+		blob_id (str): The ID of the blob to update.
+		tags (list): A list of tags to set for the blob.
+
+	Returns:
+		dict: The updated blob data with the new tags.
+
+	Raises:
+		BlobDoesNotExistError: If the blob with the specified ID does not exist.
+	"""
 	blob_data = db.find_one({'_id': ObjectId(blob_id)})
 	if not blob_data:
 		raise exceptions.BlobDoesNotExistError(blob_id)
@@ -493,6 +658,16 @@ def set_blob_tags(blob_id: str, tags: list) -> dict:
 
 
 def set_blob_ephemeral(blob_id: str, ephemeral: bool) -> dict:
+	"""
+	Sets the 'ephemeral' status of a blob in the database and returns the updated blob data.
+
+	Args:
+		blob_id (str): The unique identifier of the blob.
+		ephemeral (bool): The new ephemeral status to set for the blob.
+
+	Returns:
+		dict: The updated blob data with the new ephemeral status.
+	"""
 	blob_data = get_blob_data(blob_id)
 
 	db.update_one({'_id': ObjectId(blob_id)}, {'$set': {'ephemeral': ephemeral}})
@@ -501,18 +676,51 @@ def set_blob_ephemeral(blob_id: str, ephemeral: bool) -> dict:
 
 
 def create_preview_model(blob_path: str, preview_id: str) -> None:
+	"""
+	Creates a preview model from a blob and updates the database with the preview information.
+
+	Args:
+		blob_path (str): The file path to the blob.
+		preview_id (str): The unique identifier for the preview.
+
+	Returns:
+		None
+	"""
 	preview = BlobPreview(preview_id, '.glb')
 	models.to_glb(blob_path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
 
 def create_preview_video(blob_path: str, preview_id: str) -> None:
+	"""
+	Creates a preview video from the first frame of the given video blob and updates the database with the preview information.
+
+	Args:
+		blob_path (str): The file path to the video blob.
+		preview_id (str): The unique identifier for the preview.
+
+	Returns:
+		None
+	"""
 	preview = BlobPreview(preview_id, '.png')
 	videos.create_preview_from_first_frame(blob_path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
 
 def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
+	"""
+	Set the hidden status of a blob in the database.
+
+	Args:
+		blob_id (str): The unique identifier of the blob.
+		hidden (bool): The hidden status to set for the blob.
+
+	Returns:
+		dict: The updated blob data.
+
+	Raises:
+		BlobDoesNotExistError: If the blob with the given ID does not exist.
+	"""
 	blob_data = get_blob_data(blob_id)
 	if not blob_data:
 		raise exceptions.BlobDoesNotExistError(blob_id)
@@ -524,14 +732,46 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 
 
 def count_tag_uses(tag: str, users: list[str]) -> int:
+	"""
+	Count the number of documents in the database that contain a specific tag and are created by any of the specified users.
+
+	Args:
+		tag (str): The tag to search for in the documents.
+		users (list[str]): A list of user identifiers to filter the documents by their creators.
+
+	Returns:
+		int: The count of documents that match the specified tag and creators.
+	"""
 	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in users]}]})
 
 
 def add_reference(id: str) -> None:
+	"""
+	Increment the 'references' field of a document in the database by 1.
+
+	Args:
+		id (str): The unique identifier of the document to update.
+
+	Returns:
+		None
+	"""
 	db.update_one({'_id': ObjectId(id)}, {'$inc': {'references': 1}})
 
 
 def remove_reference(id: str) -> None:
+	"""
+	Decrements the reference count of a database object identified by the given ID.
+
+	If the provided ID is not a valid ObjectId, the function returns immediately.
+	Otherwise, it decrements the 'references' field of the object by 1 and ensures
+	that the 'references' field does not go below 0.
+
+	Args:
+		id (str): The ID of the database object whose reference count is to be decremented.
+
+	Returns:
+		None
+	"""
 	# If an invalid objectID, then there couldn't possibly be any references to it.
 	if not ObjectId.is_valid(id):
 		return
