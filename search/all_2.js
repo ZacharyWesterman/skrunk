@@ -13,7 +13,8 @@ var searchData=
   ['booktagexistserror_10',['BookTagExistsError',['../classapplication_1_1exceptions_1_1BookTagExistsError.html',1,'application::exceptions']]],
   ['borrow_5fbook_11',['borrow_book',['../namespaceapplication_1_1db_1_1book.html#a3657df852f8b3559cc02459939e78230',1,'application::db::book']]],
   ['bugreportdoesnotexisterror_12',['BugReportDoesNotExistError',['../classapplication_1_1exceptions_1_1BugReportDoesNotExistError.html',1,'application::exceptions']]],
-  ['build_5fbook_5fquery_13',['build_book_query',['../namespaceapplication_1_1db_1_1book.html#a2d4845b4344563650a76de590943e50d',1,'application::db::book']]],
-  ['build_5finventory_5fquery_14',['build_inventory_query',['../namespaceapplication_1_1db_1_1inventory.html#afa78707cdab5f4bb8d60a3eb8b5d89d0',1,'application::db::inventory']]],
-  ['build_5fkeywords_15',['build_keywords',['../namespaceapplication_1_1db_1_1book.html#ad82854c605e43eb4b48ea65e4f187f76',1,'application::db::book']]]
+  ['build_5fblob_5fquery_13',['build_blob_query',['../namespaceapplication_1_1db_1_1blob.html#ac25b4780c5fa0d167968fee1f9d841c3',1,'application::db::blob']]],
+  ['build_5fbook_5fquery_14',['build_book_query',['../namespaceapplication_1_1db_1_1book.html#a2d4845b4344563650a76de590943e50d',1,'application::db::book']]],
+  ['build_5finventory_5fquery_15',['build_inventory_query',['../namespaceapplication_1_1db_1_1inventory.html#afa78707cdab5f4bb8d60a3eb8b5d89d0',1,'application::db::inventory']]],
+  ['build_5fkeywords_16',['build_keywords',['../namespaceapplication_1_1db_1_1book.html#ad82854c605e43eb4b48ea65e4f187f76',1,'application::db::book']]]
 ];

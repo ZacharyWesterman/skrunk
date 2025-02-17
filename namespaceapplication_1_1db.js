@@ -8,11 +8,31 @@ var namespaceapplication_1_1db =
       [ "db", "namespaceapplication_1_1db_1_1apikeys.html#ab705b1db778601631f3332287564dbdb", null ]
     ] ],
     [ "blob", "namespaceapplication_1_1db_1_1blob.html", [
+      [ "add_reference", "namespaceapplication_1_1db_1_1blob.html#aafcfa2f65e17d893de679db2b37adce6", null ],
+      [ "build_blob_query", "namespaceapplication_1_1db_1_1blob.html#ac25b4780c5fa0d167968fee1f9d841c3", null ],
+      [ "cancel_zip", "namespaceapplication_1_1db_1_1blob.html#a1eacb6e11a664d8bc282b3349a510c17", null ],
+      [ "count_blobs", "namespaceapplication_1_1db_1_1blob.html#a14efc7754ba1510e36881ab63c475598", null ],
+      [ "count_tag_uses", "namespaceapplication_1_1db_1_1blob.html#ae2ee7fffc0c782636f71d689e5a71d25", null ],
+      [ "create_blob", "namespaceapplication_1_1db_1_1blob.html#a94d24cb070b1ec7f1dd7f310fc9352da", null ],
+      [ "create_preview_model", "namespaceapplication_1_1db_1_1blob.html#a7b944911e192c0b8c055465954a29f53", null ],
+      [ "create_preview_video", "namespaceapplication_1_1db_1_1blob.html#a245dbb6ddfb2b2fb954c740f5ce4a0b2", null ],
+      [ "delete_blob", "namespaceapplication_1_1db_1_1blob.html#a1cd50649ae6abe85eeb44ee0cdca881d", null ],
       [ "file_info", "namespaceapplication_1_1db_1_1blob.html#aec705b2b3ee74895963f79ad92d5c40d", null ],
+      [ "get_blob_data", "namespaceapplication_1_1db_1_1blob.html#a97e64cf7bc0c2b304d57f5da2d8236c1", null ],
+      [ "get_blobs", "namespaceapplication_1_1db_1_1blob.html#a8bfe143a2c2d34f254ed67e44053fb22", null ],
       [ "get_tags_from_mime", "namespaceapplication_1_1db_1_1blob.html#adece90541c04ceb7a1dc7854249ae54f", null ],
+      [ "get_uid", "namespaceapplication_1_1db_1_1blob.html#acf84805612e45bdd71888a4854ce238a", null ],
+      [ "get_zip_progress", "namespaceapplication_1_1db_1_1blob.html#ad21ded16136bb1cea5cf1a3a15883d8f", null ],
       [ "init", "namespaceapplication_1_1db_1_1blob.html#a9a2e272b82a908e4c334e5cdf7af8a16", null ],
+      [ "mark_as_completed", "namespaceapplication_1_1db_1_1blob.html#a614a761bd8ab48e56c05c0fc58080f30", null ],
+      [ "remove_reference", "namespaceapplication_1_1db_1_1blob.html#a145d7badf205c23c2c272855fe068170", null ],
       [ "save_blob_data", "namespaceapplication_1_1db_1_1blob.html#a48ec510f8ad6dc0e68383549bdae7652", null ],
-      [ "set_mime_from_ext", "namespaceapplication_1_1db_1_1blob.html#a713fd8dfdcc9f139c150433e5083fe20", null ]
+      [ "set_blob_ephemeral", "namespaceapplication_1_1db_1_1blob.html#a0f8243731ccfbadb5e4c764320c4ab5f", null ],
+      [ "set_blob_hidden", "namespaceapplication_1_1db_1_1blob.html#a010f7a264643a3fa6d9861b1a4c62d90", null ],
+      [ "set_blob_tags", "namespaceapplication_1_1db_1_1blob.html#a09e7ad741bddbf750213240f472233d3", null ],
+      [ "set_mime_from_ext", "namespaceapplication_1_1db_1_1blob.html#a713fd8dfdcc9f139c150433e5083fe20", null ],
+      [ "sum_blob_size", "namespaceapplication_1_1db_1_1blob.html#ae3bfd1a4e1a96f277a9321ed28608263", null ],
+      [ "zip_matching_blobs", "namespaceapplication_1_1db_1_1blob.html#a055deeaf742fcb162a3b1ebbca4dc456", null ]
     ] ],
     [ "book", "namespaceapplication_1_1db_1_1book.html", [
       [ "append_ebook", "namespaceapplication_1_1db_1_1book.html#a70365d6cffaabc930a6a0f7fc28906e3", null ],
