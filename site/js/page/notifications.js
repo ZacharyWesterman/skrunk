@@ -1,5 +1,5 @@
 let CurrentPage = 0
-const LookupListLen = 5
+const LookupListLen = 15
 
 export async function init() {
 	await _('lookup', {
@@ -41,7 +41,7 @@ async function refresh_page_list() {
 	const lookup_start = CurrentPage * LookupListLen
 
 	//Get notification count (unread only)
-	const count_promise = api(`query ($username: String!, $read: Boolean!) { countNotifications(username: $username, read: $read) }`, {
+	const counts = await (api(`query ($username: String!, $read: Boolean!) { countNotifications(username: $username, read: $read) }`, {
 		username: api.username,
 		read: false,
 	}).then(count => {
@@ -53,9 +53,9 @@ async function refresh_page_list() {
 			current: Math.floor(lookup_start / LookupListLen),
 			total: count,
 		}
-	})
+	}))
 
-	await _('page-list', count_promise, true)
+	await _('page-list', counts, true)
 }
 
 export async function navigate_to_page(page_num) {
