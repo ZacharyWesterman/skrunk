@@ -1,4 +1,5 @@
 let CurrentPage = 0
+const LookupListLen = 5
 
 export async function init() {
 	await _('lookup', {
@@ -13,31 +14,9 @@ export async function init() {
 	navigate_to_page(0)
 }
 
-export async function navigate_to_page(page_num, update_nav = true) {
-	push.show_notifs()
-
-	const lookup_list_len = 15
-	const lookup_start = page_num * lookup_list_len
-
-	CurrentPage = page_num
-
-	//Get notification count (unread only)
-	const count_promise = api(`query ($username: String!, $read: Boolean!) { countNotifications(username: $username, read: $read) }`, {
-		username: api.username,
-		read: false,
-	}).then(count => {
-		const page_ct = Math.ceil(count / lookup_list_len)
-		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
-		return {
-			pages: pages,
-			count: page_ct,
-			current: Math.floor(lookup_start / lookup_list_len),
-			total: count,
-		}
-	})
-
+async function read_notifs(start, count) {
 	//Get notification list (unread only)
-	const items_promise = api(`query ($username: String!, $read: Boolean!, $start: Int!, $count: Int!) {
+	return api(`query ($username: String!, $read: Boolean!, $start: Int!, $count: Int!) {
 		getNotifications (username: $username, read: $read, start: $start, count: $count) {
 			recipient
 			created
@@ -48,17 +27,52 @@ export async function navigate_to_page(page_num, update_nav = true) {
 	}`, {
 		username: api.username,
 		read: false,
-		start: lookup_start,
-		count: lookup_list_len,
+		start: start,
+		count: count,
 	}).then(notifs => notifs.map(i => {
 		const msg = JSON.parse(i.message)
 		i.title = msg.title
 		i.body = msg.body
 		return i
 	}))
+}
+
+async function refresh_page_list() {
+	const lookup_start = CurrentPage * LookupListLen
+
+	//Get notification count (unread only)
+	const count_promise = api(`query ($username: String!, $read: Boolean!) { countNotifications(username: $username, read: $read) }`, {
+		username: api.username,
+		read: false,
+	}).then(count => {
+		const page_ct = Math.ceil(count / LookupListLen)
+		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
+		return {
+			pages: pages,
+			count: page_ct,
+			current: Math.floor(lookup_start / LookupListLen),
+			total: count,
+		}
+	})
+
+	await _('page-list', count_promise, true)
+}
+
+export async function navigate_to_page(page_num) {
+	push.show_notifs()
+
+	const lookup_start = page_num * LookupListLen
+	CurrentPage = page_num
+
+	//Get notification list (unread only)
+	const items_promise = read_notifs(lookup_start, LookupListLen)
+	refresh_page_list()
 
 	await _('lookup-results', items_promise)
-	await _('page-list', count_promise)
+
+	for (const i of $('notif', true)) {
+		i.onclick = () => mark_as_read(i.id)
+	}
 }
 
 export async function mark_as_read(id) {
@@ -68,7 +82,23 @@ export async function mark_as_read(id) {
 		id: id,
 	})
 
-	navigate_to_page(CurrentPage)
+	// Remove ONLY the notification that was marked as read.
+	await $.hide(id, true)
+	$(id).remove();
+
+	// Fetch another notification, and add it to the list.
+	const items = await read_notifs((CurrentPage + 1) * LookupListLen - 1, 1)
+	if (items.length) {
+		const parent = document.createElement('div');
+		parent.setAttribute('template', 'notifications')
+
+		await _(parent, items, true)
+		const child = parent.children[0]
+		$('lookup-results').appendChild(child)
+		child.onclick = () => mark_as_read(child.id)
+	}
+
+	refresh_page_list()
 	push.show_notifs()
 }
 
