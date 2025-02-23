@@ -1,9 +1,18 @@
+<table style="width:100%;">
 {{~ it : config }}
 {{? config.enabled }}
-	<div>
-		{{= config.name }}<br>
-		<input {{? config.type }}type="{{= config.type }}"{{?}} style="width:90%;" id="config-{{= config.id }}" value="{{= safe_html(config.value) }}" placeholder="<no value>" *bind="set_config('{{= config.id}}')">
-		&nbsp;<i id="icon-config-{{= config.id }}" class="fa-solid fa-circle-check hidden"></i>
-	</div>
+	<tr><td>{{= config.name }}</td></tr>
+	<tr>
+		<td style="width:calc(100%-2rem);">
+			<input style="width:100%;" {{? config.type === 'password' }}type="text" autoComplete="off" class="password"{{?? config.type }}type="{{= config.type }}"{{?}} id="config-{{= config.id }}" value="{{= safe_html(config.value) }}" placeholder="<no value>" *bind="set_config('{{= config.id}}'); $.show('config-reset-{{= config.id }}')"/>
+		</td>
+		<td style="width:1rem;">
+			<i id="icon-config-{{= config.id }}" class="fa-solid fa-circle-check hidden"></i>
+		</td>
+		<td>
+			<button id="config-reset-{{= config.id }}" class="reset clickable hidden" *click="$.wipe('config-{{= config.id }}', '{{= safe_html(config.value) }}'); $.hide('config-reset-{{= config.id}}',true,false); set_config('{{= config.id}}')"><i class="fa-solid fa-rotate-left fa-xl"></i></button>
+		</td>
+	</tr>
 {{?}}
 {{~}}
+</table>

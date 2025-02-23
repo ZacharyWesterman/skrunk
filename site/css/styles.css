@@ -488,3 +488,7 @@ th {
 	border-color: var(--emphasis-text);
 	color: var(--emphasis-text);
 }
+
+.password {
+	-webkit-text-security: disc;
+}
