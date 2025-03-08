@@ -141,7 +141,7 @@ async function init() {
 	await query.require('users')
 
 	//Load user theme (regardless of cookies)
-	query.users.get(api.username).then(async data => {
+	await query.users.get(api.username).then(async data => {
 		if (data.__typename !== 'UserData') {
 			//If user data does not exist, we don't want them to have access. Kick them out.
 			_.modal({
