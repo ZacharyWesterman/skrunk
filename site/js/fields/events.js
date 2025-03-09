@@ -10,6 +10,13 @@ export default {
 		register(field, action, 13)
 	},
 
+	hover: (field, action) => {
+		field.eventListener = event => {
+			action(event)
+		}
+		field.addEventListener('mouseover', field.eventListener)
+	},
+
 	resize: action => {
 		const listener = event => {
 			action(event)
@@ -23,6 +30,7 @@ export default {
 		tab: field => unregister(field, 9),
 		enter: field => unregister(field, 13),
 		escape: field => unregister(field, 27),
+		hover: field => field.removeEventListener('mouseover', field.eventListener),
 		resize: () => {
 			for (const i of __resize_listeners) {
 				window.removeEventListener('resize', i)

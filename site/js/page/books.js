@@ -300,15 +300,13 @@ export async function edit_book(rfid) {
 export async function navigate_to_page(page_num) {
 	//Immediately highlight the new page number
 	//(basically, lie to the user and say we're already there, then correct it later)
-	const prev = document.querySelector('.nav-page.border')?.classList
-	if (prev) {
-		prev.add('alt')
-		prev.remove('border')
+	for (const i of document.querySelectorAll('.nav-page.border')) {
+		i.classList.add('alt')
+		i.classList.remove('border')
 	}
-	const next = $('nav-page-' + page_num)?.classList
-	if (next) {
-		next.add('border')
-		next.remove('alt')
+	for (const i of $('nav-page-' + page_num, true)) {
+		i.classList.add('border')
+		i.classList.remove('alt')
 	}
 
 	//Now actually navigate to the new page
@@ -368,12 +366,12 @@ export async function search_books() {
 
 export async function load_description(id) {
 	const field = $('book-desc-' + id)
-
 	if (!field || field.is_loaded) return
+
+	field.is_loaded = true
 
 	const text = await query.books.get_description(id)
 	field.innerHTML = (text || '').replace('\n', '<br>')
-	field.is_loaded = true
 }
 
 async function reload_book_count() {

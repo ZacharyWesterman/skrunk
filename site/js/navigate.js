@@ -167,7 +167,7 @@ window.set_field_logic = async function (DOM, url, module) {
 
 	try {
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
-		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles', 'expand']
+		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles', 'expand', 'hover']
 		for (const attr of attrs) {
 			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
 				const key = field.getAttribute(`*${attr}`)
