@@ -2,7 +2,8 @@
 
 from application.integrations.exceptions import ApiFailedError
 from application.integrations import google_books
-from application.db.book import get_book_tag, get_books, count_books, count_all_user_books
+from application.exceptions import BookTagDoesNotExistError
+from application.db.book import get_book_tag, get_books, count_books, count_all_user_books, get_book
 from application.objects import BookSearchFilter, Sorting
 import application.db.perms as perms
 from application.db.users import userids_in_groups
@@ -57,3 +58,14 @@ def resolve_count_all_user_books(_, info) -> list:
 	user_data = perms.caller_info()
 	users = userids_in_groups(user_data.get('groups', []))
 	return count_all_user_books(users if len(users) else None)
+
+
+@query.field('getBookDescription')
+@perms.module('books')
+def resolve_get_book_description(_, info, id: str) -> str | None:
+	try:
+		book_data = get_book(id)
+	except BookTagDoesNotExistError:
+		return None
+
+	return book_data.get('description')

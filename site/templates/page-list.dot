@@ -10,7 +10,7 @@
 		</button>
 		{{const start = lookups.prev_pages(it.current, it.count);const end = lookups.next_pages(it.current, it.count);}}
 		{{~it.pages.slice(start, end) : page}}
-			<button class="icon {{?page !== it.current}}alt{{??}}border{{?}}" *click="navigate_to_page({{=page}})" {{? page >= 99 }}style="font-size: 80%"{{?}}>{{=page+1}}</button>
+			<button id="nav-page-{{= page }}" class="nav-page icon {{?page !== it.current}}alt{{??}}border{{?}}" *click="navigate_to_page({{=page}})" {{? page >= 99 }}style="font-size: 80%"{{?}}>{{=page+1}}</button>
 		{{~}}
 		<button class="icon alt tooltip" *click="navigate_to_page({{=it.count-1}})">
 			<i class="fa-solid fa-caret-right fa-lg"></i>

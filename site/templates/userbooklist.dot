@@ -13,12 +13,12 @@
 			</button>
 			{{?}}
 		</div>
-		<span *toggles="card-{{=book.id}}" class="clickable">
+		<span *toggles="card-{{=book.id}}" *click="load_description('{{= book.id }}')" class="clickable">
 			<b>{{=book.title}}</b><br>
 			{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
 			<div class="suppress">By {{=book.authors.join(', ')}}</div>
 		</span>
-		<table class="clickable" *toggles="card-{{=book.id}}" style="padding-left:0;">
+		<table class="clickable" *toggles="card-{{=book.id}}" *click="load_description('{{= book.id }}')" style="padding-left:0;">
 			<tr>
 				{{?book.thumbnail}}
 					<td>
@@ -59,7 +59,7 @@
 						</div>
 					</blockquote>
 				{{?}}
-				{{?book.description}}{{=book.description.replace('\n', '<br>')}}{{?}}
+				{{?book.has_description}}<span id="book-desc-{{= book.id }}"><i class="gg-spinner"></i></span>{{?}}
 			</div>
 		</div>
 		{{? book.ebooks.length > 0 }}
@@ -72,8 +72,8 @@
 		<br>
 		<div class="suppress">
 			Owned by {{= book.owner.display_name }}{{? (book.owner.display_name.toLowerCase() !== book.owner.username.toLowerCase()) }} ({{= book.owner.username }}){{?}}
-			{{?book.description}}<div class="actions right">
-				<button class="icon clickable tooltip" *toggles="card-{{=book.id}}" id="btn-{{= book.id }}">
+			{{?book.has_description}}<div class="actions right">
+				<button class="icon clickable tooltip" *toggles="card-{{=book.id}}" *click="load_description('{{= book.id }}')" id="btn-{{= book.id }}">
 					<i class="fa-solid fa-angles-down fa-lg"></i>
 					<span class="tooltiptext t-left">Show/hide description</span>
 				</button>

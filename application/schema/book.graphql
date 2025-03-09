@@ -5,7 +5,7 @@ type Book {
 	authors: [String!]!
 	publisher: String!
 	publishedDate: Date!
-	description: String
+	has_description: Boolean!
 	industryIdentifiers: [BookIdent!]!
 	pageCount: Int!
 	categories: [String!]!
@@ -123,6 +123,7 @@ extend type Query {
 	searchBooks(title: String!, author: String!): BookQueryResponse!
 	getBookByTag(rfid: String!): BookResponse!
 	countAllUserBooks: [UserBookCount!]!
+	getBookDescription(id: String!): String
 }
 
 extend type Mutation {

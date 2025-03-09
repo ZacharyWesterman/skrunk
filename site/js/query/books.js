@@ -9,7 +9,7 @@ export default {
 					subtitle
 					authors
 					thumbnail
-					description
+					has_description
 					owner {
 						username
 						display_name
@@ -49,7 +49,7 @@ export default {
 				title
 				subtitle
 				authors
-				description
+				has_description
 				thumbnail
 				owner {
 					username
@@ -79,6 +79,15 @@ export default {
 			start: start,
 			count: count,
 			sorting: sorting,
+		})
+	},
+
+	get_description: async id => {
+		return await api(`
+		query ($id: String!) {
+			getBookDescription(id: $id)
+		}`, {
+			id: id,
 		})
 	},
 

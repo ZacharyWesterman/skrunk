@@ -195,6 +195,8 @@ def process_book_tag(book_data: dict) -> dict:
 		except subsonic.SessionError:
 			pass
 
+	book_data['has_description'] = len((book_data.get('description', '') or '').strip()) > 0
+
 	return book_data
 
 
