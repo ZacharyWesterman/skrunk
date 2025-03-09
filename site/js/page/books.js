@@ -369,7 +369,7 @@ export async function search_books() {
 export async function load_description(id) {
 	const field = $('book-desc-' + id)
 
-	if (field?.is_loaded) return
+	if (!field || field.is_loaded) return
 
 	const text = await query.books.get_description(id)
 	field.innerHTML = (text || '').replace('\n', '<br>')
