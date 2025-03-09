@@ -372,7 +372,7 @@ export async function load_description(id) {
 	if (field?.is_loaded) return
 
 	const text = await query.books.get_description(id)
-	field.innerHTML = text.replace('\n', '<br>')
+	field.innerHTML = (text || '').replace('\n', '<br>')
 	field.is_loaded = true
 }
 
