@@ -35,11 +35,11 @@ filter() {
 }
 
 error() {
-	echo -e "\e[31mERROR:\e[0m $@"
+	echo -e "\e[31mERROR:\e[0m $*"
 }
 
 warn() {
-	echo -e "\e[33mWARNING:\e[0m $@"
+	echo -e "\e[33mWARNING:\e[0m $*"
 }
 
 #Check if dependencies are installed
