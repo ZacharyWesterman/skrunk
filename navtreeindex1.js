@@ -1,6 +1,7 @@
 var NAVTREEINDEX1 =
 {
 "namespaceapplication_1_1db_1_1users.html#a4d7166ec35f07441f98c92448720598d":[0,0,0,0,10,1],
+"namespaceapplication_1_1db_1_1users.html#a50a20e34df059c3212a21dc9cbac778a":[0,0,0,0,10,20],
 "namespaceapplication_1_1db_1_1users.html#a69c78bc8fe10f100efb99c650a86fbf3":[0,0,0,0,10,4],
 "namespaceapplication_1_1db_1_1users.html#a8412d8d08760d314829ac08f896c96b9":[0,0,0,0,10,13],
 "namespaceapplication_1_1db_1_1users.html#a8c8e873fc12f64d65ee8c0b5f4eac553":[0,0,0,0,10,10],
@@ -8,6 +9,7 @@ var NAVTREEINDEX1 =
 "namespaceapplication_1_1db_1_1users.html#aa6baf519702f5b73269f08d592653b47":[0,0,0,0,10,7],
 "namespaceapplication_1_1db_1_1users.html#ab1d5a7ffbac2b5adf540adde67fe174e":[0,0,0,0,10,2],
 "namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1":[0,0,0,0,10,18],
+"namespaceapplication_1_1db_1_1users.html#abee05131dd647b9e021810a29ffd4d48":[0,0,0,0,10,19],
 "namespaceapplication_1_1db_1_1users.html#acef10d0c8f53321dbda4e00b9ea4357d":[0,0,0,0,10,16],
 "namespaceapplication_1_1db_1_1users.html#ad2925ed6203d6743827ae08d7437f77f":[0,0,0,0,10,17],
 "namespaceapplication_1_1db_1_1users.html#ad415db9d89d4a012681888358b70579d":[0,0,0,0,10,15],
@@ -20,6 +22,7 @@ var NAVTREEINDEX1 =
 "namespaceapplication_1_1db_1_1weather.html#a570d5b89ab2a198e0a5410c44371873a":[0,0,0,0,11,7],
 "namespaceapplication_1_1db_1_1weather.html#a5bb6b587f2e37acb7781b41c05d96f78":[0,0,0,0,11,10],
 "namespaceapplication_1_1db_1_1weather.html#a6d3bb4c7c5ba0eb2a32f3c7d13b10ce2":[0,0,0,0,11,2],
+"namespaceapplication_1_1db_1_1weather.html#a7a3ab21559052fbe4314c72441b01c14":[0,0,0,0,11,12],
 "namespaceapplication_1_1db_1_1weather.html#a98f9f7bfa6b6550cec652f73430280c7":[0,0,0,0,11,0],
 "namespaceapplication_1_1db_1_1weather.html#a9a18b4776f3d5c8fc6850da8a9cfa75e":[0,0,0,0,11,8],
 "namespaceapplication_1_1db_1_1weather.html#a9d47eec102ff79c50bd1a91c16e308fd":[0,0,0,0,11,4],

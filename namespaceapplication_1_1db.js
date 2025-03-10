@@ -178,7 +178,9 @@ var namespaceapplication_1_1db =
       [ "update_user_perms", "namespaceapplication_1_1db_1_1users.html#ad415db9d89d4a012681888358b70579d", null ],
       [ "update_user_theme", "namespaceapplication_1_1db_1_1users.html#acef10d0c8f53321dbda4e00b9ea4357d", null ],
       [ "update_username", "namespaceapplication_1_1db_1_1users.html#ad2925ed6203d6743827ae08d7437f77f", null ],
-      [ "userids_in_groups", "namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1", null ]
+      [ "userids_in_groups", "namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1", null ],
+      [ "db", "namespaceapplication_1_1db_1_1users.html#abee05131dd647b9e021810a29ffd4d48", null ],
+      [ "top_level_db", "namespaceapplication_1_1db_1_1users.html#a50a20e34df059c3212a21dc9cbac778a", null ]
     ] ],
     [ "weather", "namespaceapplication_1_1db_1_1weather.html", [
       [ "count_alert_history", "namespaceapplication_1_1db_1_1weather.html#a98f9f7bfa6b6550cec652f73430280c7", null ],
@@ -192,7 +194,8 @@ var namespaceapplication_1_1db =
       [ "log_weather_alert", "namespaceapplication_1_1db_1_1weather.html#a9a18b4776f3d5c8fc6850da8a9cfa75e", null ],
       [ "process_weather_user", "namespaceapplication_1_1db_1_1weather.html#aca3ded6cee6ba9d2c9a3c75d50ed5389", null ],
       [ "set_user_excluded", "namespaceapplication_1_1db_1_1weather.html#a5bb6b587f2e37acb7781b41c05d96f78", null ],
-      [ "update_user", "namespaceapplication_1_1db_1_1weather.html#a4ffc9980a9f8894da504c5f19fb9ec94", null ]
+      [ "update_user", "namespaceapplication_1_1db_1_1weather.html#a4ffc9980a9f8894da504c5f19fb9ec94", null ],
+      [ "db", "namespaceapplication_1_1db_1_1weather.html#a7a3ab21559052fbe4314c72441b01c14", null ]
     ] ],
     [ "init_db", "namespaceapplication_1_1db.html#a0523d510fb976e0b75f105dc39364524", null ],
     [ "setup_db", "namespaceapplication_1_1db.html#a92afec8b4c3d6a5818ac28398464a341", null ]
