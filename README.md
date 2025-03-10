@@ -20,7 +20,7 @@ Every one of the above features is fully optional, and can be disabled from the 
 ---
 ### Setup
 
-This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python &ge; 3.10, MongoDB &ge; 5, and OpenJDK &ge; 8.
+This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python &ge; 3.10, [Poetry](https://python-poetry.org/), MongoDB &ge; 5, and OpenJDK &ge; 8.
 
 ---
 

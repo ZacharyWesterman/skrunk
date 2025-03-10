@@ -58,6 +58,12 @@ for i in "${DEPS_ERROR[@]}"; do error "$i is not installed. Please install it.";
 for i in "${DEPS_WARN[@]}"; do warn "$i is not installed. The application will still run, but some features may not be available."; done
 [ $MISSING_DEPS == 1 ] && exit 1
 
+# If --help flag is passed just run with that flag
+if [ "$1" == "--help" ]; then
+	poetry run python3 main.py --help
+	exit 0
+fi
+
 #Check if mongoDB is running
 if ! systemctl is-active mongod &>/dev/null; then
 	error "mongod service is not running! Start up the service with \`systemctl start mongod\` and then try again."
