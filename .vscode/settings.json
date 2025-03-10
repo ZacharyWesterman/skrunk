@@ -2,7 +2,7 @@
 	"editor.formatOnSave": true,
 	"files.insertFinalNewline": true,
 	"python.analysis.inlayHints.variableTypes": true,
-	"python.analysis.inlayHints.functionReturnTypes": false,
+	"python.analysis.inlayHints.functionReturnTypes": true,
 	"editor.insertSpaces": false,
 	"autopep8.args": [
 		"--ignore=W191,E266",

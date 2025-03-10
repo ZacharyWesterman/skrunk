@@ -9,7 +9,7 @@ class ClientError(Exception):
 class UserDoesNotExistError(ClientError):
 	"""Raised when a user does not exist."""
 
-	def __init__(self, username):
+	def __init__(self, username) -> None:
 		"""
 		Initializes the exception with a message indicating that the specified user does not exist.
 
@@ -22,7 +22,7 @@ class UserDoesNotExistError(ClientError):
 class UserExistsError(ClientError):
 	"""Raised when a user already exists."""
 
-	def __init__(self, username):
+	def __init__(self, username) -> None:
 		"""
 		Initializes the exception with a message indicating that the user already exists.
 
@@ -35,7 +35,7 @@ class UserExistsError(ClientError):
 class AuthenticationError(ClientError):
 	"""Raised when authentication fails."""
 
-	def __init__(self):
+	def __init__(self) -> None:
 		"""
 		Initializes the exception with a default message indicating authentication failure.
 		"""
@@ -45,7 +45,7 @@ class AuthenticationError(ClientError):
 class BadUserNameError(ClientError):
 	"""Raised when a username is invalid."""
 
-	def __init__(self):
+	def __init__(self) -> None:
 		"""
 		Initializes the exception with a default error message indicating an invalid username.
 		"""
@@ -55,7 +55,7 @@ class BadUserNameError(ClientError):
 class InvalidColor(ValueError):
 	"""Raised when a color string is not a valid 7-character hex color."""
 
-	def __init__(self, value):
+	def __init__(self, value) -> None:
 		"""
 		Initializes the exception with a custom error message indicating that the provided string is not a valid 7-character hex color.
 
@@ -68,7 +68,7 @@ class InvalidColor(ValueError):
 class InvalidSize(ValueError):
 	"""Raised when a size string is not a valid CSS size."""
 
-	def __init__(self, value):
+	def __init__(self, value) -> None:
 		"""
 		Initializes the exception with a message indicating that the provided string is not a valid CSS size.
 
@@ -81,7 +81,7 @@ class InvalidSize(ValueError):
 class InvalidPhone(ValueError):
 	"""Raised when a phone number is not exactly 10 digits."""
 
-	def __init__(self):
+	def __init__(self) -> None:
 		"""
 		Initializes the exception with a default error message indicating that
 		the phone number must be exactly 10 digits.
@@ -95,7 +95,7 @@ class InvalidPhone(ValueError):
 class BlobDoesNotExistError(ClientError):
 	"""Raised when a blob does not exist."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a message indicating that no blob exists with the given ID.
 
@@ -108,7 +108,7 @@ class BlobDoesNotExistError(ClientError):
 class BugReportDoesNotExistError(ClientError):
 	"""Raised when a bug report does not exist."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a specific bug report ID.
 
@@ -121,7 +121,7 @@ class BugReportDoesNotExistError(ClientError):
 class BookTagDoesNotExistError(ClientError):
 	"""Raised when a book tag does not exist."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a specific RFID tag.
 
@@ -134,7 +134,7 @@ class BookTagDoesNotExistError(ClientError):
 class BookTagExistsError(ClientError):
 	"""Raised when a book tag already exists."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a specific RFID tag.
 
@@ -147,7 +147,7 @@ class BookTagExistsError(ClientError):
 class BookCannotBeShared(ClientError):
 	"""Raised when a book cannot be shared."""
 
-	def __init__(self, msg: str):
+	def __init__(self, msg: str) -> None:
 		"""
 		Initializes the exception with a given message.
 
@@ -160,7 +160,7 @@ class BookCannotBeShared(ClientError):
 class MissingConfig(ClientError):
 	"""Raised when a required config item is missing."""
 
-	def __init__(self, config_name: str):
+	def __init__(self, config_name: str) -> None:
 		"""
 		Initializes the exception with a message indicating a missing required configuration item.
 
@@ -173,7 +173,7 @@ class MissingConfig(ClientError):
 class WebPushException(ClientError):
 	"""Raised when there is an error sending a web push notification."""
 
-	def __init__(self, msg: str):
+	def __init__(self, msg: str) -> None:
 		"""
 		Initializes the exception with a custom error message.
 
@@ -186,7 +186,7 @@ class WebPushException(ClientError):
 class InvalidSubscriptionToken(ClientError):
 	"""Raised when a notification subscription token is invalid."""
 
-	def __init__(self):
+	def __init__(self) -> None:
 		"""
 		Initializes the exception with a default error message indicating an invalid notification subscription token.
 		"""
@@ -196,7 +196,7 @@ class InvalidSubscriptionToken(ClientError):
 class ItemExistsError(ClientError):
 	"""Raised when an item already exists."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a message indicating that an item already exists with the given RFID.
 
@@ -209,7 +209,7 @@ class ItemExistsError(ClientError):
 class ItemDoesNotExistError(ClientError):
 	"""Raised when an item does not exist."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a message indicating that no item was found with the given ID.
 
@@ -222,7 +222,7 @@ class ItemDoesNotExistError(ClientError):
 class FeedDoesNotExistError(ClientError):
 	"""Raised when a feed does not exist."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a specific feed ID.
 
@@ -235,7 +235,7 @@ class FeedDoesNotExistError(ClientError):
 class FeedDocumentDoesNotExistError(ClientError):
 	"""Raised when a feed document does not exist."""
 
-	def __init__(self, id: str):
+	def __init__(self, id: str) -> None:
 		"""
 		Initializes the exception with a specific feed document ID.
 
@@ -248,7 +248,7 @@ class FeedDocumentDoesNotExistError(ClientError):
 class InvalidFeedKindError(ClientError):
 	"""Raised when a feed kind is not supported."""
 
-	def __init__(self, kind: str):
+	def __init__(self, kind: str) -> None:
 		"""
 		Initializes the exception with a message indicating that feeds of the specified kind are not supported.
 
