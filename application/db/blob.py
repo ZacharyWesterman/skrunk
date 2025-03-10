@@ -18,7 +18,6 @@ import pathlib
 import mimetypes
 import hashlib
 import uuid
-import time
 
 from pymongo.collection import Collection
 
