@@ -9,7 +9,11 @@ import bcrypt
 
 from pymongo.collection import Collection
 from pymongo.database import Database
+
+## A pointer to the users collection in the database.
 db: Collection = None
+
+## A pointer to the main database.
 top_level_db: Database = None
 
 

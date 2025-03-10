@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 from pymongo.database import Database
 from datetime import datetime
 
+## A pointer to the database object.
 db: Database = None
 
 
