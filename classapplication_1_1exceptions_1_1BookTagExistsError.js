@@ -1,4 +1,4 @@
 var classapplication_1_1exceptions_1_1BookTagExistsError =
 [
-    [ "__init__", "classapplication_1_1exceptions_1_1BookTagExistsError.html#aee54e2e3a032f859c28942fa45eab512", null ]
+    [ "__init__", "classapplication_1_1exceptions_1_1BookTagExistsError.html#a534f82bad639c6c00d7a00bebc2c9d07", null ]
 ];

@@ -1,4 +1,4 @@
 var classapplication_1_1exceptions_1_1InvalidFeedKindError =
 [
-    [ "__init__", "classapplication_1_1exceptions_1_1InvalidFeedKindError.html#acaebafa857722af1e5f35477249ebb6f", null ]
+    [ "__init__", "classapplication_1_1exceptions_1_1InvalidFeedKindError.html#ad214088dd39293a9dab8b0075b16b1b7", null ]
 ];
