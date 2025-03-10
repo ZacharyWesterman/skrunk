@@ -138,8 +138,7 @@ Functions</h2></td></tr>
 <tr class="separator:a12521de3ba99c53bf88a379438a71e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2b7502ff88610c5ea6b21c9c31b9a3" id="r_a5c2b7502ff88610c5ea6b21c9c31b9a3"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a5c2b7502ff88610c5ea6b21c9c31b9a3">count_books</a> (<a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a> filter)</td></tr>
 <tr class="separator:a5c2b7502ff88610c5ea6b21c9c31b9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae900b61961a58bd2551324a9cda362e7" id="r_ae900b61961a58bd2551324a9cda362e7"><td class="memItemLeft" align="right" valign="top"><a id="ae900b61961a58bd2551324a9cda362e7" name="ae900b61961a58bd2551324a9cda362e7"></a>
-dict&#160;</td><td class="memItemRight" valign="bottom"><b>share_book_with_user</b> (str book_id, str username)</td></tr>
+<tr class="memitem:ae900b61961a58bd2551324a9cda362e7" id="r_ae900b61961a58bd2551324a9cda362e7"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#ae900b61961a58bd2551324a9cda362e7">share_book_with_user</a> (str book_id, str username)</td></tr>
 <tr class="separator:ae900b61961a58bd2551324a9cda362e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e108f60a26b843794573c6eb1f6855f" id="r_a3e108f60a26b843794573c6eb1f6855f"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a3e108f60a26b843794573c6eb1f6855f">share_book_with_non_user</a> (str book_id, str name)</td></tr>
 <tr class="separator:a3e108f60a26b843794573c6eb1f6855f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,11 +159,14 @@ dict&#160;</td><td class="memItemRight" valign="bottom"><b>share_book_with_user<
 Variables</h2></td></tr>
 <tr class="memitem:a247939c89046dfb1572a1c19b60446c6" id="r_a247939c89046dfb1572a1c19b60446c6"><td class="memItemLeft" align="right" valign="top"><a id="a247939c89046dfb1572a1c19b60446c6" name="a247939c89046dfb1572a1c19b60446c6"></a>
 Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td></tr>
+<tr class="memdesc:a247939c89046dfb1572a1c19b60446c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pointer to the Book collection in the database. <br /></td></tr>
 <tr class="separator:a247939c89046dfb1572a1c19b60446c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca3efd9b567bf94e0d23dacf75232573" id="r_aca3efd9b567bf94e0d23dacf75232573"><td class="memItemLeft" align="right" valign="top"><a id="aca3efd9b567bf94e0d23dacf75232573" name="aca3efd9b567bf94e0d23dacf75232573"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SUBSONIC</b> = None</td></tr>
+<tr class="memdesc:aca3efd9b567bf94e0d23dacf75232573"><td class="mdescLeft">&#160;</td><td class="mdescRight">The client object that handles all Subsonic API requests. <br /></td></tr>
 <tr class="separator:aca3efd9b567bf94e0d23dacf75232573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c6eda017a0786d7b6359f440e8ad167" id="r_a5c6eda017a0786d7b6359f440e8ad167"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a5c6eda017a0786d7b6359f440e8ad167">_P</a></td></tr>
+<tr class="memdesc:a5c6eda017a0786d7b6359f440e8ad167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regular expressions used for extracting keywords from text.  <br /></td></tr>
 <tr class="separator:a5c6eda017a0786d7b6359f440e8ad167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -956,6 +958,44 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
         exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.</pre> 
 </div>
 </div>
+<a id="ae900b61961a58bd2551324a9cda362e7" name="ae900b61961a58bd2551324a9cda362e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae900b61961a58bd2551324a9cda362e7">&#9670;&#160;</a></span>share_book_with_user()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> dict application.db.book.share_book_with_user </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>book_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>username</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Marke a book as shared (with a user), updating the book's share history.
+
+    Args:
+        book_id (str): The ID of the book to be shared.
+        username (str): The username of the user with whom the book is being shared.
+
+    Returns:
+        dict: The book data after the share operation.
+
+    Raises:
+        exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.</pre> 
+</div>
+</div>
 <a id="ae77c33c66dfbe1c62759dadb339221a5" name="ae77c33c66dfbe1c62759dadb339221a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae77c33c66dfbe1c62759dadb339221a5">&#9670;&#160;</a></span>unlink_book_tag()</h2>
 
@@ -1012,6 +1052,8 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
 <div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&#39;nonwd&#39;</span>: re.compile(<span class="stringliteral">r&#39;[^\w]+&#39;</span>),</div>
 <div class="line"><span class="lineno">    4</span>}</div>
 </div><!-- fragment -->
+<p>Regular expressions used for extracting keywords from text. </p>
+
 </div>
 </div>
 </div><!-- contents -->
