@@ -390,8 +390,9 @@ window.set_field_logic = async function (DOM, url, module) {
 		//At the very end, run all *load (onload) selectors
 		DOM.querySelectorAll(`[\\*load]`).forEach(field => {
 			const key = field.getAttribute('*load')
-			const split_point = Math.min(key.indexOf('(') || Math.infinity, key.indexOf('.') || Math.infinity)
-			if (split_point > -1 && split_point !== Math.infinity) {
+			const split_point = Math.max(key.indexOf('('), key.indexOf('.'))
+
+			if (split_point > -1) {
 				//If we're running the function with params
 				const funcname = key.substring(0, split_point)
 				if (window[funcname] !== undefined || DOM.module[funcname] !== undefined) {
