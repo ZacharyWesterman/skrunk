@@ -9,14 +9,19 @@ from datetime import datetime
 from bson.objectid import ObjectId
 import json
 
+# Attempt to read the VAPID keys from the data directory.
 try:
+	## The VAPID private key used for sending notifications.
 	VAPID_PRIVATE_KEY = open('data/private_key.txt', 'r+').readline().strip('\n')
+
+	## The VAPID public key used for sending notifications.
 	VAPID_PUBLIC_KEY = open('data/public_key.txt', 'r+').read().strip('\n')
 except FileNotFoundError:
-	print('WARNING: No VAPID keys found!', flush=True)
-	pass
+	print('WARNING: No VAPID keys found!', ' ', '\n', None, True)
 
 from pymongo.database import Database
+
+## A pointer to the database object.
 db: Database = None
 
 

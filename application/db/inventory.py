@@ -10,6 +10,8 @@ import application.exceptions as exceptions
 from . import blob
 
 from pymongo.database import Database
+
+## A pointer to the database object.
 db: Database = None
 
 

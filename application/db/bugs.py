@@ -10,6 +10,8 @@ import markdown
 import html
 
 from pymongo.collection import Collection
+
+## A pointer to the bug reports collection in the database.
 db: Collection = None
 
 

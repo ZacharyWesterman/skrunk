@@ -5,7 +5,7 @@
 	"python.analysis.inlayHints.functionReturnTypes": false,
 	"editor.insertSpaces": false,
 	"autopep8.args": [
-		"--ignore=W191",
+		"--ignore=W191,E266",
 		"--max-line-length",
 		"256"
 	],

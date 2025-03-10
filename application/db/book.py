@@ -13,10 +13,14 @@ import markdown
 import warnings
 
 from pymongo.collection import Collection
+
+## A pointer to the Book collection in the database.
 db: Collection = None
 
+## The client object that handles all Subsonic API requests.
 SUBSONIC = None
 
+## Regular expressions used for extracting keywords from text.
 _P = {
 	'tag': re.compile(r'</?\w+>'),
 	'nonwd': re.compile(r'[^\w]+'),
@@ -606,6 +610,20 @@ def count_books(filter: BookSearchFilter) -> list:
 
 
 def share_book_with_user(book_id: str, username: str) -> dict:
+	"""
+	Marke a book as shared (with a user), updating the book's share history.
+
+	Args:
+		book_id (str): The ID of the book to be shared.
+		username (str): The username of the user with whom the book is being shared.
+
+	Returns:
+		dict: The book data after the share operation.
+
+	Raises:
+		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
+	"""
+
 	book_id = ObjectId(book_id)
 	book_data = db.find_one({'_id': book_id})
 	if book_data is None:

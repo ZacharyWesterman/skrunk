@@ -8,6 +8,8 @@ from ..objects import Sorting
 import markdown
 
 from pymongo.database import Database
+
+## A pointer to the database object.
 db: Database = None
 
 

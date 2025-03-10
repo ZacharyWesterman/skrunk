@@ -21,9 +21,14 @@ import uuid
 import time
 
 from pymongo.collection import Collection
+
+## A pointer to the Blob collection in the database.
 db: Collection = None
+
+## The path to the blob storage directory.
 blob_path: str | None = None
 
+## A dictionary to store the progress of ZIP operations.
 _zip_progress = {}
 
 
@@ -559,8 +564,8 @@ def get_blob_data(id: str) -> dict:
 
 	Returns:
 		dict: A dictionary containing the blob data. If the blob exists, the dictionary
-			  will include the blob's ID and the creator's username. If the creator does
-			  not exist, the creator field will contain the creator's ID as a string.
+			will include the blob's ID and the creator's username. If the creator does
+			not exist, the creator field will contain the creator's ID as a string.
 
 	Raises:
 		exceptions.BlobDoesNotExistError: If the blob with the given ID does not exist.

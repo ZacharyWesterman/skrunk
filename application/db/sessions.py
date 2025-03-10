@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from application.db.users import get_user_data
 
 from pymongo.collection import Collection
+
+## A pointer to the sessions database collection.
 db: Collection = None
 
 

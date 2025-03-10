@@ -8,6 +8,8 @@ from application.db import users
 from typing import Callable
 
 from pymongo.collection import Collection
+
+## A pointer to the API key database collection.
 apikeydb: Collection = None
 
 
