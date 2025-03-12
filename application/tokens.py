@@ -16,6 +16,19 @@ __max_int = 2**32 - 1
 
 
 def create_user_token(username: str) -> str:
+	"""
+	Generate a JWT token for a given username and start a session.
+
+	This function creates a JWT token using the provided username and a randomly generated token ID.
+	The token is signed using a private key and the RS256 algorithm. After generating the token,
+	it starts a session with the token and username.
+
+	Args:
+		username (str): The username for which the token is being created.
+
+	Returns:
+		str: The generated JWT token.
+	"""
 	global __private_key, __max_int
 	token = jwt.encode(
 		payload={
@@ -30,6 +43,19 @@ def create_user_token(username: str) -> str:
 
 
 def decode_user_token(token: str) -> dict:
+	"""
+	Decodes a JWT token using a global public key.
+
+	Args:
+		token (str): The JWT token to decode.
+
+	Returns:
+		dict: The decoded token payload.
+
+	Raises:
+		jwt.ExpiredSignatureError: If the token has expired.
+		jwt.InvalidTokenError: If the token is invalid for any reason.
+	"""
 	global __public_key
 	return jwt.decode(
 		token,
@@ -39,10 +65,32 @@ def decode_user_token(token: str) -> dict:
 
 
 def token_is_valid(token: str) -> bool:
+	"""
+	Check if the provided token is valid.
+
+	This function checks the validity of a token by verifying if it is either a valid session token
+	or a valid API key.
+
+	Args:
+		token (str): The token to be validated.
+
+	Returns:
+		bool: True if the token is valid, False otherwise.
+	"""
 	return valid_session(token) or valid_api_key(token)
 
 
 def get_request_token() -> str:
+	"""
+	Extracts the authorization token from the request headers.
+
+	The function checks for the 'Authorization' header first. If not found,
+	it looks for the 'Cookie' header and attempts to decode it to find the
+	'Authorization' token. If neither is found, it returns None.
+
+	Returns:
+		str: The extracted token if present and valid, otherwise None.
+	"""
 	if 'Authorization' in request.headers:
 		token = request.headers['Authorization']
 	elif 'Cookie' in request.headers:
@@ -58,6 +106,15 @@ def get_request_token() -> str:
 
 
 def decode_cookies(cookies: str) -> dict:
+	"""
+	Decodes a string of cookies into a dictionary.
+
+	Args:
+		cookies (str): A string containing cookies in the format 'key1=value1; key2=value2; ...'.
+
+	Returns:
+		dict: A dictionary where the keys are cookie names and the values are cookie values.
+	"""
 	output = {}
 	for i in cookies.split(';'):
 		cookie = i.split('=')
