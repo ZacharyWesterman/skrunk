@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['query_0',['query',['../namespaceapplication_1_1resolvers_1_1query.html#abba1771d18eed256b3b63eb1a19fcabc',1,'application::resolvers::query']]]
+  ['owner_0',['owner',['../classapplication_1_1objects_1_1BookSearchFilter.html#af5905ecfb9fb2034322212cf26bb7791',1,'application::objects::BookSearchFilter']]]
 ];

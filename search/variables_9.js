@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mutation_0',['mutation',['../namespaceapplication_1_1resolvers_1_1mutation.html#a94d8aa6da852d5fc2308ebc77d8cc84b',1,'application::resolvers::mutation']]]
+  ['location_0',['location',['../classapplication_1_1objects_1_1InventorySearchFilter.html#aafef1b795cb2bf50cd87c9736a18a60b',1,'application::objects::InventorySearchFilter']]]
 ];

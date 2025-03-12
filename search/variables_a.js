@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_0',['name',['../classapplication_1_1objects_1_1BlobSearchFilter.html#a841fef8fd15f4eb0e408ffaa9340879e',1,'application::objects::BlobSearchFilter']]]
+  ['mutation_0',['mutation',['../namespaceapplication_1_1resolvers_1_1mutation.html#a94d8aa6da852d5fc2308ebc77d8cc84b',1,'application::resolvers::mutation']]]
 ];

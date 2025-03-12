@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"namespaceapplication_1_1db_1_1inventory.html#a84795875223656d723b958cc0ccb8bbd":[0,0,0,0,5,7],
+"namespaceapplication_1_1db_1_1inventory.html#a91599203572e5b95bde76f9ceeecb0b2":[0,0,0,0,5,1],
+"namespaceapplication_1_1db_1_1inventory.html#aed402b8e66ba831885ab9348d7cf0d45":[0,0,0,0,5,4],
+"namespaceapplication_1_1db_1_1inventory.html#afa78707cdab5f4bb8d60a3eb8b5d89d0":[0,0,0,0,5,0],
+"namespaceapplication_1_1db_1_1notification.html":[0,0,0,0,6],
+"namespaceapplication_1_1db_1_1notification.html#a01b23d6feb208341b0f643da244d9f76":[0,0,0,0,6,9],
 "namespaceapplication_1_1db_1_1notification.html#a05ddd334cdd805966a29806a5e4d5247":[0,0,0,0,6,14],
 "namespaceapplication_1_1db_1_1notification.html#a0d11792c8bd43290ba13613b5c31373c":[0,0,0,0,6,8],
 "namespaceapplication_1_1db_1_1notification.html#a1299275ae6cbf8a42cad1b003fdfb4e8":[0,0,0,0,6,10],
@@ -178,6 +184,7 @@ var NAVTREEINDEX1 =
 "namespaceapplication_1_1types.html#a1d3062ed4101ff3d88daec160444997c":[0,0,0,8,2],
 "namespaceapplication_1_1types.html#a31f3c0a7590a150bb18f4b72c1826fcd":[0,0,0,8,1],
 "namespaceapplication_1_1types_1_1blob__storage.html":[0,0,0,8,0],
+"namespaceapplication_1_1types_1_1blob__storage.html#a538c9762bb2fd8f09313b52b1d3d0e25":[0,0,0,8,0,3],
 "namespacemembers.html":[0,1,0],
 "namespacemembers.html":[0,1,0,0],
 "namespacemembers_a.html":[0,1,0,1],
