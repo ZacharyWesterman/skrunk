@@ -1,5 +1,6 @@
 """application.resolvers.query.bugs"""
 
+from ariadne.types import GraphQLResolveInfo
 from application.db.bugs import *
 from application.integrations import github
 import application.db.perms as perms
@@ -18,7 +19,7 @@ def users_in_group(info, username: str | None) -> dict:
 
 @query.field('getBugReports')
 @perms.module('bugs')
-def resolve_get_bug_reports(_, info, username: str | None, start: int, count: int, resolved: bool) -> dict:
+def resolve_get_bug_reports(_, info: GraphQLResolveInfo, username: str | None, start: int, count: int, resolved: bool) -> dict:
 	return get_bug_reports(
 		userids=users_in_group(info, username),
 		start=start,
@@ -29,19 +30,19 @@ def resolve_get_bug_reports(_, info, username: str | None, start: int, count: in
 
 @query.field('countBugReports')
 @perms.module('bugs')
-def resolve_count_bug_reports(_, info, username: str | None, resolved: bool) -> dict:
+def resolve_count_bug_reports(_, info: GraphQLResolveInfo, username: str | None, resolved: bool) -> dict:
 	return count_bug_reports(users_in_group(info, username), resolved)
 
 
 @query.field('getBugReport')
 @perms.module('bugs')
-def resolve_get_bug_report(_, info, id: str) -> dict:
+def resolve_get_bug_report(_, info: GraphQLResolveInfo, id: str) -> dict:
 	return get_bug_report(id)
 
 
 @query.field('getOpenIssues')
 @perms.module('bugs')
-def resolve_get_issues(_, info) -> list:
+def resolve_get_issues(_, info: GraphQLResolveInfo) -> list:
 	try:
 		repo = github.CurrentRepository()
 		return {'__typename': 'IssueList', 'issues': repo.issues()}
@@ -51,7 +52,7 @@ def resolve_get_issues(_, info) -> list:
 
 @query.field('getPendingIssues')
 @perms.module('bugs')
-def resolve_get_pending_issues(_, info) -> dict:
+def resolve_get_pending_issues(_, info: GraphQLResolveInfo) -> dict:
 	try:
 		repo = github.CurrentRepository()
 		return {'__typename': 'IssueList', 'issues': repo.issues_pending_resolution()}

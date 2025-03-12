@@ -1,5 +1,6 @@
 """application.resolvers.query.integrations"""
 
+from ariadne.types import GraphQLResolveInfo
 from application.integrations import subsonic, system
 from application.db.settings import get_config
 from application.db import perms
@@ -20,7 +21,7 @@ def init_subsonic():
 
 @query.field('searchSubsonic')
 @perms.module('subsonic')
-def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list:
+def resolve_search_subsonic(_, info: GraphQLResolveInfo, query: str, start: int, count: int) -> list:
 	if SUBSONIC is None:
 		init_subsonic()
 
@@ -52,7 +53,7 @@ def resolve_search_subsonic(_, info, query: str, start: int, count: int) -> list
 
 @query.field('subsonicAlbumTrackList')
 @perms.module('subsonic')
-def resolve_subsonic_album_track_list(_, info, id: str) -> list:
+def resolve_subsonic_album_track_list(_, info: GraphQLResolveInfo, id: str) -> list:
 	if SUBSONIC is None:
 		init_subsonic()
 
@@ -70,7 +71,7 @@ def resolve_subsonic_album_track_list(_, info, id: str) -> list:
 
 @query.field('subsonicCoverArt')
 @perms.module('subsonic')
-def resolve_subsonic_cover_art(_, info, id: str) -> str:
+def resolve_subsonic_cover_art(_, info: GraphQLResolveInfo, id: str) -> str:
 	if SUBSONIC is None:
 		init_subsonic()
 
@@ -82,5 +83,5 @@ def resolve_subsonic_cover_art(_, info, id: str) -> str:
 
 @query.field('getSystemInfo')
 @perms.require('admin')
-def resolve_get_system_info(_, info) -> dict:
+def resolve_get_system_info(_, info: GraphQLResolveInfo) -> dict:
 	return {'__typename': 'SystemInfo', 'storage': system.disk_usage()}

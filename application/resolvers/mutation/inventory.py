@@ -1,5 +1,6 @@
 """application.resolvers.mutation.inventory"""
 
+from ariadne.types import GraphQLResolveInfo
 import application.db.perms as perms
 from application.db.inventory import create_inventory_item, get_inventory_item, delete_inventory_item
 from ..decorators import *
@@ -10,7 +11,7 @@ from . import mutation
 @perms.module('inventory')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_inventory_item(_, info, owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str | None) -> dict:
+def resolve_create_inventory_item(_, info: GraphQLResolveInfo, owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str | None) -> dict:
 	if category.strip() == '' or type.strip() == '' or location.strip() == '' or blob_id.strip() == '':
 		fields = []
 		if category.strip() == '':
@@ -36,5 +37,5 @@ def resolve_create_inventory_item(_, info, owner: str, category: str, type: str,
 @perms.require('edit')
 @perms.require('admin', perform_on_self=True, data_func=get_inventory_item)
 @handle_client_exceptions
-def resolve_delete_inventory_item(_, info, id: str) -> dict:
+def resolve_delete_inventory_item(_, info: GraphQLResolveInfo, id: str) -> dict:
 	return {'__typename': 'Item', **delete_inventory_item(id)}
