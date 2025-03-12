@@ -4,7 +4,10 @@ var searchData=
   ['remove_5freference_1',['remove_reference',['../namespaceapplication_1_1db_1_1blob.html#a145d7badf205c23c2c272855fe068170',1,'application::db::blob']]],
   ['report_5fbug_2',['report_bug',['../namespaceapplication_1_1db_1_1bugs.html#aad38a1c2641a0a8e4bcbf3ca1a524588',1,'application::db::bugs']]],
   ['require_3',['require',['../namespaceapplication_1_1db_1_1perms.html#ae2617c3655d71ccf7223765359c63cdc',1,'application::db::perms']]],
-  ['resolved_5fissues_4',['resolved_issues',['../classapplication_1_1integrations_1_1github_1_1Repository.html#a7340dd07729f4773cfc3f17341b150ae',1,'application::integrations::github::Repository']]],
-  ['return_5fbook_5',['return_book',['../namespaceapplication_1_1db_1_1book.html#ac6f7d9e683c20144c289b18db8a2f898',1,'application::db::book']]],
-  ['revoke_5fsessions_6',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]]
+  ['resolve_5fcreate_5fapi_5fkey_4',['resolve_create_api_key',['../namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#a980d0312f7fad9432a6f95b4f291e129',1,'application::resolvers::mutation::apikeys']]],
+  ['resolve_5fdelete_5fapi_5fkey_5',['resolve_delete_api_key',['../namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#aff2fe44224d2b610d71d0b3d9d5e0ccf',1,'application::resolvers::mutation::apikeys']]],
+  ['resolve_5fget_5fapi_5fkeys_6',['resolve_get_api_keys',['../namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html#aa36df7bf28710b6f077a982a353fadad',1,'application::resolvers::query::apikeys']]],
+  ['resolved_5fissues_7',['resolved_issues',['../classapplication_1_1integrations_1_1github_1_1Repository.html#a7340dd07729f4773cfc3f17341b150ae',1,'application::integrations::github::Repository']]],
+  ['return_5fbook_8',['return_book',['../namespaceapplication_1_1db_1_1book.html#ac6f7d9e683c20144c289b18db8a2f898',1,'application::db::book']]],
+  ['revoke_5fsessions_9',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]]
 ];

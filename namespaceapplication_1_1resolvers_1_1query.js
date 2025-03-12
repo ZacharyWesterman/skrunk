@@ -1,6 +1,8 @@
 var namespaceapplication_1_1resolvers_1_1query =
 [
-    [ "apikeys", "namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html", null ],
+    [ "apikeys", "namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html", [
+      [ "resolve_get_api_keys", "namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html#aa36df7bf28710b6f077a982a353fadad", null ]
+    ] ],
     [ "blob", "namespaceapplication_1_1resolvers_1_1query_1_1blob.html", null ],
     [ "book", "namespaceapplication_1_1resolvers_1_1query_1_1book.html", null ],
     [ "bugs", "namespaceapplication_1_1resolvers_1_1query_1_1bugs.html", null ],

@@ -105,15 +105,105 @@ $(document).ready(function(){initNavTree('namespaceapplication_1_1resolvers_1_1m
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad75e04695a52b2137b83aabc7d16f524" id="r_ad75e04695a52b2137b83aabc7d16f524"><td class="memItemLeft" align="right" valign="top"><a id="ad75e04695a52b2137b83aabc7d16f524" name="ad75e04695a52b2137b83aabc7d16f524"></a>
-str&#160;</td><td class="memItemRight" valign="bottom"><b>resolve_create_api_key</b> (_, info, str description, list[str] permissions)</td></tr>
-<tr class="separator:ad75e04695a52b2137b83aabc7d16f524"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a072a2a6f5d2faab16335c8959c6e3f08" id="r_a072a2a6f5d2faab16335c8959c6e3f08"><td class="memItemLeft" align="right" valign="top"><a id="a072a2a6f5d2faab16335c8959c6e3f08" name="a072a2a6f5d2faab16335c8959c6e3f08"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>resolve_delete_api_key</b> (_, info, str key)</td></tr>
-<tr class="separator:a072a2a6f5d2faab16335c8959c6e3f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a980d0312f7fad9432a6f95b4f291e129" id="r_a980d0312f7fad9432a6f95b4f291e129"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#a980d0312f7fad9432a6f95b4f291e129">resolve_create_api_key</a> (_, GraphQLResolveInfo info, str description, list[str] permissions)</td></tr>
+<tr class="separator:a980d0312f7fad9432a6f95b4f291e129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff2fe44224d2b610d71d0b3d9d5e0ccf" id="r_aff2fe44224d2b610d71d0b3d9d5e0ccf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#aff2fe44224d2b610d71d0b3d9d5e0ccf">resolve_delete_api_key</a> (_, GraphQLResolveInfo info, str key)</td></tr>
+<tr class="separator:aff2fe44224d2b610d71d0b3d9d5e0ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">application.resolvers.mutation.apikeys</pre> </div></div><!-- contents -->
+<div class="textblock"><pre class="fragment">application.resolvers.mutation.apikeys</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a980d0312f7fad9432a6f95b4f291e129" name="a980d0312f7fad9432a6f95b4f291e129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a980d0312f7fad9432a6f95b4f291e129">&#9670;&#160;</a></span>resolve_create_api_key()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str application.resolvers.mutation.apikeys.resolve_create_api_key </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphQLResolveInfo&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>description</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list[str]&#160;</td>
+          <td class="paramname"><em>permissions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Resolver function to create a new API key.
+
+    Args:
+        _ (Any): Placeholder.
+        info (GraphQLResolveInfo): Information about the GraphQL execution state.
+        description (str): A description for the new API key.
+        permissions (list[str]): A list of permissions to be associated with the new API key.
+
+    Returns:
+        str: The newly created API key.</pre> 
+</div>
+</div>
+<a id="aff2fe44224d2b610d71d0b3d9d5e0ccf" name="aff2fe44224d2b610d71d0b3d9d5e0ccf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff2fe44224d2b610d71d0b3d9d5e0ccf">&#9670;&#160;</a></span>resolve_delete_api_key()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool application.resolvers.mutation.apikeys.resolve_delete_api_key </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GraphQLResolveInfo&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Resolver function to delete an API key.
+
+    Args:
+        _ (Any): Placeholder.
+        info (GraphQLResolveInfo): Information about the GraphQL execution state.
+        key (str): The API key to be deleted.
+
+    Returns:
+        bool: True if the API key was successfully deleted, False otherwise.</pre> 
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
