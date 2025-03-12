@@ -22,12 +22,15 @@ class UnsupportedFileFormat(Exception):
 
 	Attributes:
 		filename (str): The name of the file with the unsupported format.
-
-	Args:
-		filename (str): The name of the file with the unsupported format.
 	"""
 
 	def __init__(self, filename: str) -> None:
+		"""
+		Initializes the exception with a message indicating an unsupported file format.
+
+		Args:
+			filename (str): The name of the file with the unsupported format.
+		"""
 		super().__init__(f'Unsupported file format for {filename}')
 
 
@@ -38,11 +41,17 @@ class RepoFetchFailed(Exception):
 	Attributes:
 		url (str): The URL of the repository that failed to fetch.
 		text (str): The error message associated with the fetch failure.
-
-	Args:
-		url (str): The URL of the repository that failed to fetch.
-		text (str): The error message associated with the fetch failure.
 	"""
 
 	def __init__(self, url: str, text: str) -> None:
+		"""
+		Initializes the exception with a custom error message.
+
+		Args:
+			url (str): The URL that was requested.
+			text (str): The error message text.
+
+		Returns:
+			None
+		"""
 		super().__init__(f'Unable to fetch data due to error: {text}. Request URL: {url}')

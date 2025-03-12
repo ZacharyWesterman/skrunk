@@ -15,10 +15,15 @@ class BookSearchFilter(TypedDict):
 		genre (str | None): The genre of the book.
 		shared (bool | None): Indicates if the book is shared.
 	"""
+	## The owner of the book.
 	owner: str | None
+	## The title of the book.
 	title: str | None
+	## The author of the book.
 	author: str | None
+	## The genre of the book.
 	genre: str | None
+	## Indicates if the book is shared.
 	shared: bool | None
 
 
@@ -33,10 +38,15 @@ class BlobSearchFilter(TypedDict):
 		name (str | None): The name of the blob. Can be None if not specified.
 		tag_expr (str | None): The tag expression for filtering blobs. Can be None if not specified.
 	"""
+	## The creator of the blob.
 	creator: str | None
+	## The start date for the search filter.
 	begin_date: datetime | None
+	## The end date for the search filter.
 	end_date: datetime | None
+	## The name of the blob.
 	name: str | None
+	## The tag expression for filtering blobs.
 	tag_expr: str | None
 
 
@@ -48,7 +58,9 @@ class Sorting(TypedDict):
 		fields (list[str]): A list of field names to sort by.
 		descending (bool): A boolean indicating if the sorting should be in descending order.
 	"""
+	## A list of field names to sort by.
 	fields: list[str]
+	## A boolean indicating if the sorting should be in descending order.
 	descending: bool
 
 
@@ -62,7 +74,11 @@ class InventorySearchFilter(TypedDict):
 		type (str | None): The type of the inventory item.
 		location (str | None): The location of the inventory item.
 	"""
+	## The creator of the inventory item
 	creator: str | None
+	## The category of the inventory item
 	category: str | None
+	## The type of the inventory item
 	type: str | None
+	## The location of the inventory item
 	location: str | None

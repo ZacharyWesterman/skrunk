@@ -64,6 +64,15 @@ class Repository:
 	"""
 
 	def __init__(self, owner: str, repo: str) -> None:
+		"""
+		Initializes the GitHub integration with the specified repository.
+
+		Args:
+			owner (str): The owner of the repository.
+			repo (str): The name of the repository.
+		"""
+
+		## The URL of the GitHub repository API endpoint.
 		self.url = f'https://api.github.com/repos/{owner}/{repo}'
 
 	def issues(self, *, filter: str = 'state=open') -> list:
@@ -110,6 +119,21 @@ class CurrentRepository(Repository):
 	"""
 
 	def __init__(self, repo: str | None = None) -> None:
+		"""
+		Initialize the GitHub integration.
+
+		This constructor retrieves the repository URL from the git configuration,
+		extracts the owner and repository name, and initializes the parent class
+		with these values. If the repository name is not provided, it is inferred
+		from the URL.
+
+		Args:
+			repo (str | None): The name of the repository. If None, the repository
+							   name is inferred from the git remote URL.
+
+		Returns:
+			None
+		"""
 		repo_url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
 		info = repo_url.decode().strip().split(':')[1].split('/')
 

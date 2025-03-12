@@ -1,6 +1,8 @@
 """application.resolvers.mutation"""
 
 from ariadne import MutationType
+
+## The MutationType object for the GraphQL schema.
 mutation = MutationType()
 
 from . import apikeys  # nopep8

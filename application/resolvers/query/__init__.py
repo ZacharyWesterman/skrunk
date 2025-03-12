@@ -1,6 +1,8 @@
 """application.resolvers.query"""
 
 from ariadne import QueryType
+
+## The QueryType object for the GraphQL schema.
 query = QueryType()
 
 from . import apikeys  # nopep8
