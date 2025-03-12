@@ -5,6 +5,7 @@ __all__ = ['BlobStorage', 'BlobPreview', 'BlobThumbnail', 'blob_path']
 from dataclasses import dataclass
 from pathlib import Path
 
+## The path to the directory where blobs are stored
 blob_path: str | None = None
 
 
@@ -28,7 +29,9 @@ class BlobStorage:
 		basename() -> str:
 			Returns the base name of the blob.
 	"""
+	## The unique identifier for the blob
 	id: str
+	## The file extension for the blob
 	ext: str
 
 	def __init__(self, id: str, ext: str):
@@ -39,7 +42,9 @@ class BlobStorage:
 			id (str): The identifier for the blob.
 			ext (str): The file extension for the blob.
 		"""
+		## The unique identifier for the blob
 		self.id = str(id)
+		## The file extension for the blob
 		self.ext = str(ext)
 
 	def path(self, *, create: bool = False) -> str:
@@ -59,6 +64,12 @@ class BlobStorage:
 		return f'{full_path}/{self.basename()}'
 
 	def basename(self) -> str:
+		"""
+		Generate the base name for the blob storage object.
+
+		Returns:
+			str: The base name consisting of the object's ID and its extension.
+		"""
 		return f'{self.id}{self.ext}'
 
 	@property
@@ -89,7 +100,15 @@ class BlobPreview(BlobStorage):
 	Methods:
 		__init__(id: str, ext: str): Initializes a BlobPreview instance with a modified id if an extension is provided.
 	"""
+
 	def __init__(self, id: str, ext: str):
+		"""
+		Initializes a new instance of the class.
+
+		Args:
+			id (str): The identifier for the instance.
+			ext (str): The extension to be appended to the identifier.
+		"""
 		super().__init__(f'{id}_p' if ext != '' else str(id), ext)
 
 
@@ -106,5 +125,13 @@ class BlobThumbnail(BlobStorage):
 	Methods:
 		__init__(id: str, ext: str): Initializes a BlobThumbnail instance with a modified id if an extension is provided.
 	"""
+
 	def __init__(self, id: str, ext: str):
+		"""
+		Initializes a new instance of the class.
+
+		Args:
+			id (str): The identifier for the instance.
+			ext (str): The extension associated with the instance. If the extension is not an empty string, the identifier will be suffixed with '_t'.
+		"""
 		super().__init__(f'{id}_t' if ext != '' else str(id), ext)
