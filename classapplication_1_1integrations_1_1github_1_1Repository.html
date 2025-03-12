@@ -117,8 +117,7 @@ Inheritance diagram for application.integrations.github.Repository:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a52ef751b12a6a9e99a80b5528c3758bc" id="r_a52ef751b12a6a9e99a80b5528c3758bc"><td class="memItemLeft" align="right" valign="top"><a id="a52ef751b12a6a9e99a80b5528c3758bc" name="a52ef751b12a6a9e99a80b5528c3758bc"></a>
-None&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self, str owner, str repo)</td></tr>
+<tr class="memitem:a52ef751b12a6a9e99a80b5528c3758bc" id="r_a52ef751b12a6a9e99a80b5528c3758bc"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classapplication_1_1integrations_1_1github_1_1Repository.html#a52ef751b12a6a9e99a80b5528c3758bc">__init__</a> (self, str owner, str repo)</td></tr>
 <tr class="separator:a52ef751b12a6a9e99a80b5528c3758bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8057a6859942063de668579216ae5e24" id="r_a8057a6859942063de668579216ae5e24"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classapplication_1_1integrations_1_1github_1_1Repository.html#a8057a6859942063de668579216ae5e24">issues</a> (self, *str filter='state=open')</td></tr>
 <tr class="separator:a8057a6859942063de668579216ae5e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +128,7 @@ None&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self, s
 Public Attributes</h2></td></tr>
 <tr class="memitem:aee6c9ad9931206da03c53d3e128a35dc" id="r_aee6c9ad9931206da03c53d3e128a35dc"><td class="memItemLeft" align="right" valign="top"><a id="aee6c9ad9931206da03c53d3e128a35dc" name="aee6c9ad9931206da03c53d3e128a35dc"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>url</b></td></tr>
+<tr class="memdesc:aee6c9ad9931206da03c53d3e128a35dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The URL of the GitHub repository API endpoint. <br /></td></tr>
 <tr class="separator:aee6c9ad9931206da03c53d3e128a35dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -145,7 +145,48 @@ Public Attributes</h2></td></tr>
             Retrieves a list of issues from the repository based on the provided filter.
 
         resolved_issues(since: str) -&gt; list:
-            Retrieves a list of resolved (closed) issues from the repository since the given date.</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+            Retrieves a list of resolved (closed) issues from the repository since the given date.</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a52ef751b12a6a9e99a80b5528c3758bc" name="a52ef751b12a6a9e99a80b5528c3758bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ef751b12a6a9e99a80b5528c3758bc">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None application.integrations.github.Repository.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>repo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">        Initializes the GitHub integration with the specified repository.
+
+        Args:
+            owner (str): The owner of the repository.
+            repo (str): The name of the repository.</pre> 
+<p>Reimplemented in <a class="el" href="classapplication_1_1integrations_1_1github_1_1CurrentRepository.html#aa994e41a9f132ed77711944159034fd5">application.integrations.github.CurrentRepository</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8057a6859942063de668579216ae5e24" name="a8057a6859942063de668579216ae5e24"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8057a6859942063de668579216ae5e24">&#9670;&#160;</a></span>issues()</h2>
 

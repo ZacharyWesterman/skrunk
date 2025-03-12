@@ -75,5 +75,6 @@ var searchData=
   ['application_3a_3atypes_72',['types',['../namespaceapplication_1_1types.html',1,'application']]],
   ['application_3a_3atypes_3a_3ablob_5fstorage_73',['blob_storage',['../namespaceapplication_1_1types_1_1blob__storage.html',1,'application::types']]],
   ['authenticate_74',['authenticate',['../namespaceapplication_1_1db_1_1users.html#a00abbb5e26d1c56b6eda50fb31582342',1,'application::db::users']]],
-  ['authenticationerror_75',['AuthenticationError',['../classapplication_1_1exceptions_1_1AuthenticationError.html',1,'application::exceptions']]]
+  ['authenticationerror_75',['AuthenticationError',['../classapplication_1_1exceptions_1_1AuthenticationError.html',1,'application::exceptions']]],
+  ['author_76',['author',['../classapplication_1_1objects_1_1BookSearchFilter.html#a191d0e583fba18c559727d9ed4760fdb',1,'application::objects::BookSearchFilter']]]
 ];

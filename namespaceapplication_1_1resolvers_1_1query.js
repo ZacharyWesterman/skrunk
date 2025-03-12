@@ -11,5 +11,6 @@ var namespaceapplication_1_1resolvers_1_1query =
     [ "sessions", "namespaceapplication_1_1resolvers_1_1query_1_1sessions.html", null ],
     [ "settings", "namespaceapplication_1_1resolvers_1_1query_1_1settings.html", null ],
     [ "users", "namespaceapplication_1_1resolvers_1_1query_1_1users.html", null ],
-    [ "weather", "namespaceapplication_1_1resolvers_1_1query_1_1weather.html", null ]
+    [ "weather", "namespaceapplication_1_1resolvers_1_1query_1_1weather.html", null ],
+    [ "query", "namespaceapplication_1_1resolvers_1_1query.html#abba1771d18eed256b3b63eb1a19fcabc", null ]
 ];

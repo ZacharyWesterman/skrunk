@@ -27,8 +27,8 @@ var annotated_dup =
       [ "integrations", "namespaceapplication_1_1integrations.html", [
         [ "exceptions", "namespaceapplication_1_1integrations_1_1exceptions.html", [
           [ "ApiFailedError", "classapplication_1_1integrations_1_1exceptions_1_1ApiFailedError.html", null ],
-          [ "RepoFetchFailed", "classapplication_1_1integrations_1_1exceptions_1_1RepoFetchFailed.html", null ],
-          [ "UnsupportedFileFormat", "classapplication_1_1integrations_1_1exceptions_1_1UnsupportedFileFormat.html", null ]
+          [ "RepoFetchFailed", "classapplication_1_1integrations_1_1exceptions_1_1RepoFetchFailed.html", "classapplication_1_1integrations_1_1exceptions_1_1RepoFetchFailed" ],
+          [ "UnsupportedFileFormat", "classapplication_1_1integrations_1_1exceptions_1_1UnsupportedFileFormat.html", "classapplication_1_1integrations_1_1exceptions_1_1UnsupportedFileFormat" ]
         ] ],
         [ "github", "namespaceapplication_1_1integrations_1_1github.html", [
           [ "CurrentRepository", "classapplication_1_1integrations_1_1github_1_1CurrentRepository.html", "classapplication_1_1integrations_1_1github_1_1CurrentRepository" ],

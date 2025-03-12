@@ -141,6 +141,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_classapplication_1_1integrations_1_1github_1_1Repository"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classapplication_1_1integrations_1_1github_1_1Repository')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classapplication_1_1integrations_1_1github_1_1Repository.html">application.integrations.github.Repository</a></td></tr>
 <tr class="memitem:aee6c9ad9931206da03c53d3e128a35dc inherit pub_attribs_classapplication_1_1integrations_1_1github_1_1Repository" id="r_aee6c9ad9931206da03c53d3e128a35dc"><td class="memItemLeft" align="right" valign="top">
 &#160;</td><td class="memItemRight" valign="bottom"><b>url</b></td></tr>
+<tr class="memdesc:aee6c9ad9931206da03c53d3e128a35dc inherit pub_attribs_classapplication_1_1integrations_1_1github_1_1Repository"><td class="mdescLeft">&#160;</td><td class="mdescRight">The URL of the GitHub repository API endpoint. <br /></td></tr>
 <tr class="separator:aee6c9ad9931206da03c53d3e128a35dc inherit pub_attribs_classapplication_1_1integrations_1_1github_1_1Repository"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -183,8 +184,20 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">        Initialize the GitHub integration.
 
-<p>Reimplemented from <a class="el" href="classapplication_1_1integrations_1_1github_1_1Repository.html">application.integrations.github.Repository</a>.</p>
+        This constructor retrieves the repository URL from the git configuration,
+        extracts the owner and repository name, and initializes the parent class
+        with these values. If the repository name is not provided, it is inferred
+        from the URL.
+
+        Args:
+            repo (str | None): The name of the repository. If None, the repository
+                               name is inferred from the git remote URL.
+
+        Returns:
+            None</pre> 
+<p>Reimplemented from <a class="el" href="classapplication_1_1integrations_1_1github_1_1Repository.html#a52ef751b12a6a9e99a80b5528c3758bc">application.integrations.github.Repository</a>.</p>
 
 </div>
 </div>

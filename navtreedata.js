@@ -39,7 +39,8 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ]
   ] ]
@@ -48,7 +49,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"namespaceapplication_1_1db_1_1notification.html#ac88ee8e05f116258c09342f65bfe7b7d"
+"namespaceapplication_1_1db_1_1notification.html#a05ddd334cdd805966a29806a5e4d5247"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
