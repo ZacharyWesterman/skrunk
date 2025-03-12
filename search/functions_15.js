@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zip_5fmatching_5fblobs_0',['zip_matching_blobs',['../namespaceapplication_1_1db_1_1blob.html#a055deeaf742fcb162a3b1ebbca4dc456',1,'application::db::blob']]]
+  ['wrapped_5fdefault_0',['wrapped_default',['../namespaceapplication_1_1types.html#a31f3c0a7590a150bb18f4b72c1826fcd',1,'application::types']]]
 ];

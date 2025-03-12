@@ -106,18 +106,46 @@ $(document).ready(function(){initNavTree('namespaceapplication_1_1scalars_1_1col
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab99c904df0be398f00fd623d940c8de1" id="r_ab99c904df0be398f00fd623d940c8de1"><td class="memItemLeft" align="right" valign="top"><a id="ab99c904df0be398f00fd623d940c8de1" name="ab99c904df0be398f00fd623d940c8de1"></a>
-str&#160;</td><td class="memItemRight" valign="bottom"><b>parse_color</b> (str value)</td></tr>
+<tr class="memitem:ab99c904df0be398f00fd623d940c8de1" id="r_ab99c904df0be398f00fd623d940c8de1"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1scalars_1_1color.html#ab99c904df0be398f00fd623d940c8de1">parse_color</a> (str value)</td></tr>
 <tr class="separator:ab99c904df0be398f00fd623d940c8de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a0b8fe863770295b92ed179ff1609a332" id="r_a0b8fe863770295b92ed179ff1609a332"><td class="memItemLeft" align="right" valign="top"><a id="a0b8fe863770295b92ed179ff1609a332" name="a0b8fe863770295b92ed179ff1609a332"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>scalar</b> = ScalarType('Color')</td></tr>
+<tr class="memdesc:a0b8fe863770295b92ed179ff1609a332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define a scalar type for color values. <br /></td></tr>
 <tr class="separator:a0b8fe863770295b92ed179ff1609a332"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">application.scalars.color</pre> </div></div><!-- contents -->
+<div class="textblock"><pre class="fragment">application.scalars.color</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab99c904df0be398f00fd623d940c8de1" name="ab99c904df0be398f00fd623d940c8de1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab99c904df0be398f00fd623d940c8de1">&#9670;&#160;</a></span>parse_color()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str application.scalars.color.parse_color </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Parses a string to ensure it is a valid hexadecimal color code.
+
+    Args:
+        value (str): The string to be validated as a hexadecimal color code.
+
+    Returns:
+        str: The validated hexadecimal color code.
+
+    Raises:
+        exceptions.InvalidColor: If the input string is not a valid hexadecimal color code.</pre> 
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

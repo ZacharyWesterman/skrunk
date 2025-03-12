@@ -106,18 +106,47 @@ $(document).ready(function(){initNavTree('namespaceapplication_1_1scalars_1_1siz
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae78fe9ec94b7e3c0c0c5310fc84642ff" id="r_ae78fe9ec94b7e3c0c0c5310fc84642ff"><td class="memItemLeft" align="right" valign="top"><a id="ae78fe9ec94b7e3c0c0c5310fc84642ff" name="ae78fe9ec94b7e3c0c0c5310fc84642ff"></a>
-str&#160;</td><td class="memItemRight" valign="bottom"><b>parse_size</b> (str value)</td></tr>
+<tr class="memitem:ae78fe9ec94b7e3c0c0c5310fc84642ff" id="r_ae78fe9ec94b7e3c0c0c5310fc84642ff"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1scalars_1_1size.html#ae78fe9ec94b7e3c0c0c5310fc84642ff">parse_size</a> (str value)</td></tr>
 <tr class="separator:ae78fe9ec94b7e3c0c0c5310fc84642ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a1e4c87390e6ff2097ccc7b8b39c22392" id="r_a1e4c87390e6ff2097ccc7b8b39c22392"><td class="memItemLeft" align="right" valign="top"><a id="a1e4c87390e6ff2097ccc7b8b39c22392" name="a1e4c87390e6ff2097ccc7b8b39c22392"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>scalar</b> = ScalarType('Size')</td></tr>
+<tr class="memdesc:a1e4c87390e6ff2097ccc7b8b39c22392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define a scalar type for size values. <br /></td></tr>
 <tr class="separator:a1e4c87390e6ff2097ccc7b8b39c22392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">application.scalars.size</pre> </div></div><!-- contents -->
+<div class="textblock"><pre class="fragment">application.scalars.size</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ae78fe9ec94b7e3c0c0c5310fc84642ff" name="ae78fe9ec94b7e3c0c0c5310fc84642ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78fe9ec94b7e3c0c0c5310fc84642ff">&#9670;&#160;</a></span>parse_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str application.scalars.size.parse_size </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Parses a size string and validates its format.
+
+    Args:
+        value (str): The size string to be parsed. It should be a numeric value followed by a unit 
+                     (%, px, em, rem, or in).
+
+    Returns:
+        str: The validated size string.
+
+    Raises:
+        exceptions.InvalidSize: If the size string does not match the expected format.</pre> 
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

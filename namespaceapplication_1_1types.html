@@ -112,18 +112,76 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a31f3c0a7590a150bb18f4b72c1826fcd" id="r_a31f3c0a7590a150bb18f4b72c1826fcd"><td class="memItemLeft" align="right" valign="top"><a id="a31f3c0a7590a150bb18f4b72c1826fcd" name="a31f3c0a7590a150bb18f4b72c1826fcd"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>wrapped_default</b> (self, obj)</td></tr>
+<tr class="memitem:a31f3c0a7590a150bb18f4b72c1826fcd" id="r_a31f3c0a7590a150bb18f4b72c1826fcd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1types.html#a31f3c0a7590a150bb18f4b72c1826fcd">wrapped_default</a> (self, obj)</td></tr>
 <tr class="separator:a31f3c0a7590a150bb18f4b72c1826fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a1d3062ed4101ff3d88daec160444997c" id="r_a1d3062ed4101ff3d88daec160444997c"><td class="memItemLeft" align="right" valign="top"><a id="a1d3062ed4101ff3d88daec160444997c" name="a1d3062ed4101ff3d88daec160444997c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>default</b></td></tr>
+<tr class="memitem:a1d3062ed4101ff3d88daec160444997c" id="r_a1d3062ed4101ff3d88daec160444997c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1types.html#a1d3062ed4101ff3d88daec160444997c">default</a></td></tr>
+<tr class="memdesc:a1d3062ed4101ff3d88daec160444997c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Monkey patch the default method of the JSONEncoder class to use the wrapped_default function.  <br /></td></tr>
 <tr class="separator:a1d3062ed4101ff3d88daec160444997c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">application.types</pre> </div></div><!-- contents -->
+<div class="textblock"><pre class="fragment">application.types</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a31f3c0a7590a150bb18f4b72c1826fcd" name="a31f3c0a7590a150bb18f4b72c1826fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31f3c0a7590a150bb18f4b72c1826fcd">&#9670;&#160;</a></span>wrapped_default()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">application.types.wrapped_default </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>obj</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Serializes an object to a dictionary representation.
+
+If the object has a `__dict__` attribute, it returns a dictionary containing
+the class name under the key `__typename` and the object's dictionary items.
+Otherwise, it returns the object itself.
+
+Args:
+    obj: The object to be serialized.
+
+Returns:
+    dict: A dictionary representation of the object if it has a `__dict__` attribute.
+    Otherwise, returns the object itself.
+</pre> 
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a1d3062ed4101ff3d88daec160444997c" name="a1d3062ed4101ff3d88daec160444997c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d3062ed4101ff3d88daec160444997c">&#9670;&#160;</a></span>default</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">application.types.default</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Monkey patch the default method of the JSONEncoder class to use the wrapped_default function. </p>
+<p>This will allow us to serialize objects to JSON without having to write custom serialization functions for each object. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

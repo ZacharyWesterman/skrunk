@@ -106,18 +106,47 @@ $(document).ready(function(){initNavTree('namespaceapplication_1_1scalars_1_1pho
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a24c0ff155ff764f626ef5dfa5306f234" id="r_a24c0ff155ff764f626ef5dfa5306f234"><td class="memItemLeft" align="right" valign="top"><a id="a24c0ff155ff764f626ef5dfa5306f234" name="a24c0ff155ff764f626ef5dfa5306f234"></a>
-str&#160;</td><td class="memItemRight" valign="bottom"><b>parse_phone</b> (str value)</td></tr>
+<tr class="memitem:a24c0ff155ff764f626ef5dfa5306f234" id="r_a24c0ff155ff764f626ef5dfa5306f234"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1scalars_1_1phone.html#a24c0ff155ff764f626ef5dfa5306f234">parse_phone</a> (str value)</td></tr>
 <tr class="separator:a24c0ff155ff764f626ef5dfa5306f234"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a5a1662c399d1412604dd4b6f35a3858f" id="r_a5a1662c399d1412604dd4b6f35a3858f"><td class="memItemLeft" align="right" valign="top"><a id="a5a1662c399d1412604dd4b6f35a3858f" name="a5a1662c399d1412604dd4b6f35a3858f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>scalar</b> = ScalarType('PhoneNumber')</td></tr>
+<tr class="memdesc:a5a1662c399d1412604dd4b6f35a3858f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define a scalar type for phone numbers. <br /></td></tr>
 <tr class="separator:a5a1662c399d1412604dd4b6f35a3858f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">application.scalars.phone</pre> </div></div><!-- contents -->
+<div class="textblock"><pre class="fragment">application.scalars.phone</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a24c0ff155ff764f626ef5dfa5306f234" name="a24c0ff155ff764f626ef5dfa5306f234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c0ff155ff764f626ef5dfa5306f234">&#9670;&#160;</a></span>parse_phone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str application.scalars.phone.parse_phone </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Parses a phone number string by removing all non-numeric characters and 
+    ensuring it is exactly 10 digits long.
+
+    Args:
+        value (str): The phone number string to be parsed.
+
+    Returns:
+        str: The cleaned phone number string containing only digits.
+
+    Raises:
+        exceptions.InvalidPhone: If the cleaned phone number is not exactly 10 digits long.</pre> 
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
