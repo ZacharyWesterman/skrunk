@@ -1,6 +1,6 @@
 """application.db"""
 
-from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys, inventory, datafeed
+from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys, inventory, datafeed, documents
 from pymongo import MongoClient
 from application.types import blob_storage
 from application.exceptions import BadUserNameError, UserExistsError
@@ -44,10 +44,10 @@ def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
 
 	notification.db = client.skrunk
 	inventory.db = client.skrunk
-
 	weather.db = client.skrunk
-
 	datafeed.db = client.skrunk
+
+	documents.db = client.skrunk.documents
 
 
 def setup_db() -> None:

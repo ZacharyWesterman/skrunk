@@ -1,0 +1,36 @@
+type Document {
+	id: String!
+	title: String!
+	body: String!
+	body_html: String!
+	created: DateTime!
+	updated: DateTime
+	creator: String!
+}
+
+type DocumentMin {
+	id: String!
+	title: String!
+}
+
+type DocumentDoesNotExistError {
+	message: String!
+}
+
+union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
+union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
+union DocumentCreateResponse = Document | InsufficientPerms
+union DocumentDeleteResponse = DocumentDoesNotExistError | InsufficientPerms
+
+#Resolvers below this line:
+
+extend type Query {
+	getDocument(id: String!): DocumentQueryResponse!
+	getChildDocuments(id: String): [DocumentMin!]!
+}
+
+extend type Mutation {
+	createDocument(title: String!, body: String!, parent: String): DocumentCreateResponse!
+	updateDocument(id: String!, title: String, body: String, parent: String): DocumentUpdateResponse!
+	deleteDocument(id: String!): DocumentDeleteResponse!
+}

@@ -18,3 +18,4 @@ from . import integrations  # nopep8
 from . import notification  # nopep8
 from . import inventory  # nopep8
 from . import datafeed  # nopep8
+from . import documents  # nopep8

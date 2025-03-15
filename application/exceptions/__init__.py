@@ -256,3 +256,16 @@ class InvalidFeedKindError(ClientError):
 			kind (str): The type of feed that is not supported.
 		"""
 		super().__init__(f'Feeds of kind "{kind}" are not supported')
+
+
+class DocumentDoesNotExistError(ClientError):
+	"""Raised when a document does not exist."""
+
+	def __init__(self, id: str) -> None:
+		"""
+		Initializes the exception with a specific document ID.
+
+		Args:
+			id (str): The ID of the document that was not found.
+		"""
+		super().__init__(f'No document found with ID "{id}"')
