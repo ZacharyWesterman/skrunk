@@ -4,6 +4,7 @@ const Imports = {
 	blobs: import('/js/query/blobs.js'),
 	bugs: import('/js/query/bugs.js'),
 	books: import('/js/query/books.js'),
+	documents: import('/js/query/documents.js'),
 }
 
 let Query = {
