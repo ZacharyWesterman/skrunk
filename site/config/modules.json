@@ -5,6 +5,11 @@
 		"description": "Library and book cataloging system."
 	},
 	{
+		"id": "documents",
+		"name": "Wiki",
+		"description": "Enable a wiki for documentation and other information."
+	},
+	{
 		"id": "inventory",
 		"name": "Inventory",
 		"description": "General-purpose inventory management system.",
