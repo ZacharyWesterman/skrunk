@@ -82,6 +82,7 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 		'updated': None,
 		'parent': ObjectId(parent) if parent else None,
 		'hidden': False,
+		'draft': False,
 		'tags': [],
 		'keywords': [],
 		'history': [],

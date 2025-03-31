@@ -19,7 +19,7 @@ type DocumentDoesNotExistError {
 
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
-union DocumentCreateResponse = Document | InsufficientPerms
+union DocumentCreateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentDeleteResponse = DocumentDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:
