@@ -59,7 +59,7 @@ class PreListLineBreaks(Preprocessor):
 		"""
 		# Add a line break before list items that are preceded by non-list lines
 		for i in range(len(lines) - 1):
-			if not re.match(r'^\s*(-|\*[^\*])|^\s*\d+\.', lines[i]) and re.match(r'^\s*[-*]|^\s*\d+\.', lines[i + 1]):
+			if not re.match(r'^\s*(-|\*[^\*])|^\s*\d+\.', lines[i]) and re.match(r'^\s*[-*]\s|^\s*\d+\.', lines[i + 1]):
 				lines.insert(i + 1, '')
 		return lines
 
