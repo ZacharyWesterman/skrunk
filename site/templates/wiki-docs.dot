@@ -1,5 +1,5 @@
 {{~ it.docs : doc }}
-<div class="card {{? !it.toplevel }}border{{?}}" *hover="load_doc_body('{{= doc.id }}')">
+<div style="max-width: 99%;" class="card {{? !it.toplevel }}border{{?}}" *hover="load_doc_body('{{= doc.id }}')">
 	<div class="card-inner">
 		<h2 class="clickable" *toggles="expand-{{= doc.id }}">
 			{{= doc.title }}
@@ -10,7 +10,7 @@
 				<div name="document-body" id="{{= doc.id }}"></div>
 				<div id="child-docs-{{= doc.id }}" template="wiki-docs"></div>
 
-				<button class="icon border right tooltip">
+				<button class="icon border right tooltip" *click="new_document('{{= doc.id }}')">
 					<i class="fa-solid fa-plus fa-xl"></i>
 					<span class="tooltiptext t-left">
 						Create child document
