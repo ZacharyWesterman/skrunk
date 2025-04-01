@@ -5,12 +5,14 @@ type Document {
 	body_html: String!
 	created: DateTime!
 	updated: DateTime
-	creator: String!
+	creator: UserMinData!
 }
 
 type DocumentMin {
 	id: String!
 	title: String!
+	creator: UserMinData!
+	created: DateTime!
 }
 
 type DocumentDoesNotExistError {

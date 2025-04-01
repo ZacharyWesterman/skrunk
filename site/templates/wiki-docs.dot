@@ -1,0 +1,29 @@
+{{~ it.docs : doc }}
+<div class="card {{? !it.toplevel }}border{{?}}" *hover="load_doc_body('{{= doc.id }}')">
+	<div class="card-inner">
+		<h2 class="clickable" *toggles="expand-{{= doc.id }}">
+			{{= doc.title }}
+			<i class="right fa-solid fa-angles-down"></i>
+		</h2>
+		<div class="expand-container" id="expand-{{= doc.id }}">
+			<div>
+				<div name="document-body" id="{{= doc.id }}"></div>
+				<div id="child-docs-{{= doc.id }}" template="wiki-docs"></div>
+
+				<button class="icon border right tooltip">
+					<i class="fa-solid fa-plus fa-xl"></i>
+					<span class="tooltiptext t-left">
+						Create child document
+					</span>
+				</button>
+
+				<span class="suppress">
+					Created by {{= doc.creator.username }}
+					<br>
+					{{= date.output(doc.created) }}
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+{{~}}

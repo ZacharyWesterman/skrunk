@@ -1,7 +1,7 @@
 """Allows users to create, read and edit arbitrary rich text documents."""
 
 from application.tokens import decode_user_token, get_request_token
-from application.exceptions import DocumentDoesNotExistError
+from application.exceptions import DocumentDoesNotExistError, UserDoesNotExistError
 from . import users
 
 from pymongo.collection import Collection
@@ -26,6 +26,14 @@ def parse_document(doc: dict) -> dict:
 
 	doc['id'] = str(doc['_id'])
 
+	try:
+		doc['creator'] = users.get_user_by_id(doc['creator'])
+	except UserDoesNotExistError:
+		doc['creator'] = {
+			'username': doc['creator'],
+			'display_name': doc['creator'],
+		}
+
 	return doc
 
 
@@ -39,7 +47,7 @@ def get_document(doc_id: str) -> dict:
 	Returns:
 		dict: The document.
 	"""
-	if doc := db.find_one({'_id': doc_id}):
+	if doc := db.find_one({'_id': ObjectId(doc_id)}):
 		return parse_document(doc)
 
 	raise DocumentDoesNotExistError(doc_id)
@@ -77,9 +85,11 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 	doc = {
 		'title': title,
 		'body': body,
-		'body_html': markdown.markdown(body),
+		'body_html': markdown.markdown(body, output_format='html'),
+		'creator': decode_user_token(get_request_token()).get('username'),
 		'created': datetime.now(UTC),
 		'updated': None,
+		'updater': None,
 		'parent': ObjectId(parent) if parent else None,
 		'hidden': False,
 		'draft': False,
