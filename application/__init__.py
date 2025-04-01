@@ -9,6 +9,7 @@ from .db.users import count_users
 from .scalars import scalars
 from .db import init_db, setup_db
 from . import routes
+from . import md
 
 
 def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:

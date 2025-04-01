@@ -85,7 +85,7 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 	doc = {
 		'title': title,
 		'body': body,
-		'body_html': markdown.markdown(body, output_format='html'),
+		'body_html': markdown.markdown(body),
 		'creator': decode_user_token(get_request_token()).get('username'),
 		'created': datetime.now(UTC),
 		'updated': None,
