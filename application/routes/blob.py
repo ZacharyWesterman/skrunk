@@ -12,7 +12,7 @@ import application.db.perms as perms
 application = None
 
 
-def get_chunk(full_path: str, byte1: int, byte2: int) -> tuple:
+def get_chunk(full_path: str, byte1: int, byte2: int, max_chunk_size: int) -> tuple:
 	file_size = os.stat(full_path).st_size
 	start = 0
 
@@ -23,7 +23,7 @@ def get_chunk(full_path: str, byte1: int, byte2: int) -> tuple:
 	else:
 		length = file_size - start
 
-	length = min(length, 1024 * 1024 * 5)  # Max chunk size is 5MiB
+	length = min(length, max_chunk_size)  # Max chunk size is 5MiB
 
 	with open(full_path, 'rb') as fp:
 		fp.seek(start)
@@ -32,10 +32,7 @@ def get_chunk(full_path: str, byte1: int, byte2: int) -> tuple:
 	return chunk, start, length, file_size
 
 
-def stream(path: str) -> Response:
-	# if not auth.authorized():
-	# 	return '', 403
-
+def stream(path: str, max_chunk_size: int = 1024 * 1024 * 5) -> Response:
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
@@ -54,7 +51,7 @@ def stream(path: str) -> Response:
 
 	full_path = blob.BlobStorage(path, '').path()
 	try:
-		chunk, start, length, file_size = get_chunk(full_path, byte1, byte2)
+		chunk, start, length, file_size = get_chunk(full_path, byte1, byte2, max_chunk_size)
 		mime = mimetypes.guess_type(path)
 
 		resp = Response(chunk, 206, mimetype=mime[0], content_type=mime[0], direct_passthrough=True)
@@ -68,11 +65,7 @@ def download(path: str) -> Response:
 	if not auth.authorized():
 		return Response('Access denied.', 403)
 
-	if application.blob_path is None:
-		return Response('No blob data path specified in server setup.', 404)
-
-	full_path = blob.BlobStorage(files.sanitize_path(path), '').path()
-	return files.read_file_data(full_path)
+	return stream(path, max_chunk_size=1024 * 1024 * 50)  # 50MiB
 
 
 def preview(path: str) -> Response:
