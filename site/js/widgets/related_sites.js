@@ -1,5 +1,5 @@
 export default async (config, field) => {
-	const related_sites = ((await api(`{ getConfig(name: "related_sites") }`)) || '')
+	const related_sites = ((await api(`{ getConfig(name: "related_sites") }`)) || '[]')
 		.split('\n')
 		.map(i => {
 			try {
