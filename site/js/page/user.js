@@ -179,11 +179,93 @@ function sync_perm_descs() {
 	}
 }
 
+function password_strength(password) {
+	if (password.length < 8) return 0 //very weak
+	if (password.includes(api.username)) return 0 //very weak
+	if (api.username.includes(password)) return 0 //very weak
+
+	const has_upper = /[A-Z]/.test(password)
+	const has_lower = /[a-z]/.test(password)
+	const has_number = /[0-9]/.test(password)
+	const has_symbol = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+	const long_password = password.length >= 12 ? 1 : 0
+
+	const score = has_upper + has_lower + has_number + has_symbol + long_password
+	return score
+}
+
+function is_valid_password(password) {
+	if (password.length < 8) return false
+	if (password.includes(api.username)) return false
+	if (api.username.includes(password)) return false
+
+	const has_upper = /[A-Z]/.test(password)
+	const has_lower = /[a-z]/.test(password)
+	const has_number = /[0-9]/.test(password)
+	const has_symbol = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+	if (has_upper + has_lower + has_number + has_symbol < 2) return false
+
+	return true
+}
+
+export function check_password() {
+	const password = $.val('user-new-password')
+
+	const criteria = {
+		'pw1': password.length >= 8,
+		'pw2': !password.includes(api.username),
+		'pw3': !api.username.includes(password),
+		'pw5': /[A-Z]/.test(password),
+		'pw6': /[a-z]/.test(password),
+		'pw7': /[0-9]/.test(password),
+		'pw8': /[!@#$%^&*(),.?":{}|<>]/.test(password),
+	}
+	criteria.pw4 = (criteria.pw5 + criteria.pw6 + criteria.pw7 + criteria.pw8) >= 2
+	if (criteria.pw4) {
+		criteria.pw5 = criteria.pw6 = criteria.pw7 = criteria.pw8 = true
+	}
+
+	for (const [key, valid] of Object.entries(criteria)) {
+		$(key).style.textDecoration = valid ? 'line-through' : ''
+		$(key).classList.toggle('suppress', valid)
+	}
+
+	const score = [
+		'Very Weak',
+		'Weak',
+		'Fair',
+		'Good',
+		'Strong',
+		'Very Strong',
+	][password_strength(password)]
+	$('password-strength').innerText = score
+}
+
+export function expand_password_hints() {
+	$.toggle_expand('password-hints', true)
+	$.show('password-strength')
+}
+
+export function contract_password_hints() {
+	$.toggle_expand('password-hints', false)
+	$.hide('password-strength', true)
+}
+
 export async function update_password(password, username) {
-	if ((password.length < 8) || (password === username) || (password.includes(username) && (password.length < username.length * 2))) {
+	if (password.length === 0) {
+		//Just flash the password field
+		$.flash('user-new-password')
+		$.flash('user-new-password2')
+		return
+	}
+
+	if (!is_valid_password(password)) {
 		const criteria = [
 			'Must be at least 8 characters long',
-			'May not contain the username, unless it\'s at least 2&times; the length',
+			'Must not contain your username, nor be a subset of your username',
+			'Must contain at least 2 of the following: uppercase, lowercase, number, symbol',
 		]
 
 		_.modal({
@@ -194,6 +276,9 @@ export async function update_password(password, username) {
 		}).catch(() => { })
 		return
 	}
+
+	//Hide the password hints and score, since the password is valid
+	contract_password_hints()
 
 	if (password !== $.val('user-new-password2')) {
 		_.modal({
@@ -223,6 +308,10 @@ export async function update_password(password, username) {
 		text: 'Password has been updated.',
 		buttons: ['OK'],
 	})
+
+	//Wipe password fields
+	$('user-new-password').value = ''
+	$('user-new-password2').value = ''
 }
 
 export async function update_user_display_name(username) {

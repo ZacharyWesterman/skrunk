@@ -12,9 +12,32 @@
 			</span>
 		</h2>
 		<div>
-			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password"><br>
-			<input id="user-new-password2" type="password" placeholder="Confirm Password" autocomplete="new-password">
+			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password" *focus="expand_password_hints" *bind="check_password">
+			&nbsp;
+			<span id="password-strength" class="hidden" style="font-size: 80%;"></span>
+			<br>
+
+			<input id="user-new-password2" type="password" placeholder="Confirm Password" autocomplete="new-password" *focus="contract_password_hints">
 			<button class="icon" *click="update_password($('user-new-password').value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
+
+			<div class="expand-container" id="password-hints">
+				<div>
+					New password must:
+					<ul style="font-size: 80%; margin-top: 0.5rem;">
+						<li><span id="pw1">Be at least 8 characters long</span></li>
+						<li><span id="pw2">Not contain your username</span></li>
+						<li><span id="pw3">Not be a subset of your username</span></li>
+						<li><span id="pw4">Contain at least 2 of the following:</span>
+							<ul>
+								<li><span id="pw5">Uppercase letters</span></li>
+								<li><span id="pw6">Lowercase letters</span></li>
+								<li><span id="pw7">Numbers</span></li>
+								<li><span id="pw8">Special characters</span></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 
 		<div>
