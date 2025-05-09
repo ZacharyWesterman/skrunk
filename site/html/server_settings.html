@@ -129,7 +129,11 @@
 		}
 
 		for (const m of modules) {
-			$(`module-${m}`).checked = true
+			const modl = $(`module-${m}`)
+			if (modl)
+				modl.checked = true
+			else
+				console.warn('Module not found:', m)
 		}
 
 		//Build configs list

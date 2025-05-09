@@ -18,5 +18,10 @@
 		"name": "Password for Subsonic Server",
 		"module": "subsonic",
 		"type": "password"
+	},
+	{
+		"id": "related_sites",
+		"name": "Related Sites JSON list",
+		"type": "code"
 	}
 ]

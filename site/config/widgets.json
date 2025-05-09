@@ -1,5 +1,9 @@
 [
 	{
+		"id": "related_sites",
+		"title": "Related Sites"
+	},
+	{
 		"id": "tagged_books",
 		"title": "Number of Tagged Books",
 		"module": "books"
