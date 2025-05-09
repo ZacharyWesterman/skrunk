@@ -4,6 +4,7 @@ export default async (config, field) => {
 		.map(i => {
 			try {
 				const info = JSON.parse(i)
+				if (!info) return null
 				return {
 					url: info[0],
 					title: info[1],
@@ -17,6 +18,7 @@ export default async (config, field) => {
 				}
 			}
 		})
+		.filter(i => i !== null)
 		.filter(i => !i.module || !SelfUserData.disabled_modules.includes(i.module))
 
 	if (related_sites.length === 0) {
