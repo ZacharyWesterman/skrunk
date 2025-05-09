@@ -10,10 +10,13 @@ export default async (config, field) => {
 					module: info[2],
 				}
 			} catch (e) {
-				return null
+				console.error('Error parsing related site config:', e)
+				return {
+					url: '#',
+					title: i,
+				}
 			}
 		})
-		.filter(i => i !== null)
 		.filter(i => !i.module || !SelfUserData.disabled_modules.includes(i.module))
 
 	if (related_sites.length === 0) {
