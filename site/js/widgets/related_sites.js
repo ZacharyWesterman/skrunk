@@ -1,11 +1,12 @@
 export default async (config, field) => {
-	const related_sites = ((await api(`{ getConfig(name: "related_sites") }`)) || '[]')
+	const related_sites = ((await api(`{ getConfig(name: "related_sites") }`)) || '')
 		.split('\n')
 		.map(i => {
+			if (i.trim() === '') return null
+
 			try {
-				if (i.trim() === '') return null
 				const info = JSON.parse(i)
-				if (!info) return null
+				if (!info || info.length === 0) return null
 				return {
 					url: info[0],
 					title: info[1],
