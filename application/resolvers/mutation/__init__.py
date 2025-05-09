@@ -1,9 +1,47 @@
 """application.resolvers.mutation"""
 
 from ariadne import MutationType
+from ariadne.types import Resolver
+from typing import Callable
+from datetime import datetime
+import json
+
+from application.tokens import get_request_token, decode_user_token
+
+
+class MutationWrapper(MutationType):
+	"""A wrapper for the MutationType class to keep track of when the last mutation was called."""
+
+	def __init__(self):
+		super().__init__()
+		self.last_mutation = None
+
+	def create_register_resolver(self, name: str) -> Callable[[Resolver], Resolver]:
+		"""Decorator to register a mutation resolver and track the last mutation called."""
+
+		parent_resolver = super().create_register_resolver(name)
+
+		def wrapped_resolver(f: Resolver) -> Resolver:
+			def func(*args, **kwargs):
+				# Store the last mutation, who called it, and when it was called.
+				# Do not store ANYTHING else, for privacy (and perhaps security?) reasons.
+				self.last_mutation = {
+					'request': name,
+					'username': decode_user_token(get_request_token()).get('username'),
+					'timestamp': datetime.now(),
+				}
+				return f(*args, **kwargs)
+			return parent_resolver(func)
+
+		return wrapped_resolver
+
+	def get_last_mutation(self) -> dict | None:
+		"""Get the last mutation name."""
+		return self.last_mutation
+
 
 ## The MutationType object for the GraphQL schema.
-mutation = MutationType()
+mutation = MutationWrapper()
 
 from . import apikeys  # nopep8
 from . import users  # nopep8

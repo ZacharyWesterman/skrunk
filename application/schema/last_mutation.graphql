@@ -1,0 +1,12 @@
+
+type LastMutation {
+	username: String
+	request: String!
+	timestamp: DateTime!
+}
+
+#Resolvers below this line:
+
+extend type Query {
+	getLastMutation: LastMutation
+}
