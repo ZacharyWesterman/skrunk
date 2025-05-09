@@ -9,6 +9,9 @@ var namespaceapplication_1_1resolvers_1_1query =
     [ "datafeed", "namespaceapplication_1_1resolvers_1_1query_1_1datafeed.html", null ],
     [ "integrations", "namespaceapplication_1_1resolvers_1_1query_1_1integrations.html", null ],
     [ "inventory", "namespaceapplication_1_1resolvers_1_1query_1_1inventory.html", null ],
+    [ "last_mutation", "namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html", [
+      [ "resolve_get_last_mutation", "namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html#adf19300a1ce020ecf3b27dd2b02b8e25", null ]
+    ] ],
     [ "notification", "namespaceapplication_1_1resolvers_1_1query_1_1notification.html", null ],
     [ "sessions", "namespaceapplication_1_1resolvers_1_1query_1_1sessions.html", null ],
     [ "settings", "namespaceapplication_1_1resolvers_1_1query_1_1settings.html", null ],

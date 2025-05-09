@@ -36,6 +36,9 @@ var hierarchy =
       [ "application.exceptions.InvalidPhone", "classapplication_1_1exceptions_1_1InvalidPhone.html", null ],
       [ "application.exceptions.InvalidSize", "classapplication_1_1exceptions_1_1InvalidSize.html", null ]
     ] ],
+    [ "MutationType", null, [
+      [ "application.resolvers.mutation.MutationWrapper", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html", null ]
+    ] ],
     [ "TypedDict", null, [
       [ "application.objects.BlobSearchFilter", "classapplication_1_1objects_1_1BlobSearchFilter.html", null ],
       [ "application.objects.BookSearchFilter", "classapplication_1_1objects_1_1BookSearchFilter.html", null ],

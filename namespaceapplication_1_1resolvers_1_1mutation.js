@@ -14,5 +14,6 @@ var namespaceapplication_1_1resolvers_1_1mutation =
     [ "settings", "namespaceapplication_1_1resolvers_1_1mutation_1_1settings.html", null ],
     [ "users", "namespaceapplication_1_1resolvers_1_1mutation_1_1users.html", null ],
     [ "weather", "namespaceapplication_1_1resolvers_1_1mutation_1_1weather.html", null ],
+    [ "MutationWrapper", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper" ],
     [ "mutation", "namespaceapplication_1_1resolvers_1_1mutation.html#a94d8aa6da852d5fc2308ebc77d8cc84b", null ]
 ];

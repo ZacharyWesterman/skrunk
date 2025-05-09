@@ -24,8 +24,9 @@ var searchData=
   ['create_5fpreview_5ffrom_5ffirst_5fframe_21',['create_preview_from_first_frame',['../namespaceapplication_1_1integrations_1_1videos.html#a6778222a0b24a9e41af93ebd56e8b1dc',1,'application::integrations::videos']]],
   ['create_5fpreview_5fmodel_22',['create_preview_model',['../namespaceapplication_1_1db_1_1blob.html#a7b944911e192c0b8c055465954a29f53',1,'application::db::blob']]],
   ['create_5fpreview_5fvideo_23',['create_preview_video',['../namespaceapplication_1_1db_1_1blob.html#a245dbb6ddfb2b2fb954c740f5ce4a0b2',1,'application::db::blob']]],
-  ['create_5fsubscription_24',['create_subscription',['../namespaceapplication_1_1db_1_1notification.html#a97f76692b38e38613413813c735e7834',1,'application::db::notification']]],
-  ['create_5ftheme_25',['create_theme',['../namespaceapplication_1_1db_1_1settings.html#a8fb941f130e309e610dc161349723f2c',1,'application::db::settings']]],
-  ['create_5fuser_26',['create_user',['../namespaceapplication_1_1db_1_1users.html#ab1d5a7ffbac2b5adf540adde67fe174e',1,'application.db.users.create_user()'],['../namespaceapplication_1_1db_1_1weather.html#a36990cd6b8568dd47a970bfc50af1e27',1,'application.db.weather.create_user()']]],
-  ['create_5fuser_5ftoken_27',['create_user_token',['../namespaceapplication_1_1tokens.html#ab55aa46887fa162ee0f55b04b7a7a33a',1,'application::tokens']]]
+  ['create_5fregister_5fresolver_24',['create_register_resolver',['../classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html#a0783bacee5d347b3bedbbc610a688aae',1,'application::resolvers::mutation::MutationWrapper']]],
+  ['create_5fsubscription_25',['create_subscription',['../namespaceapplication_1_1db_1_1notification.html#a97f76692b38e38613413813c735e7834',1,'application::db::notification']]],
+  ['create_5ftheme_26',['create_theme',['../namespaceapplication_1_1db_1_1settings.html#a8fb941f130e309e610dc161349723f2c',1,'application::db::settings']]],
+  ['create_5fuser_27',['create_user',['../namespaceapplication_1_1db_1_1users.html#ab1d5a7ffbac2b5adf540adde67fe174e',1,'application.db.users.create_user()'],['../namespaceapplication_1_1db_1_1weather.html#a36990cd6b8568dd47a970bfc50af1e27',1,'application.db.weather.create_user()']]],
+  ['create_5fuser_5ftoken_28',['create_user_token',['../namespaceapplication_1_1tokens.html#ab55aa46887fa162ee0f55b04b7a7a33a',1,'application::tokens']]]
 ];

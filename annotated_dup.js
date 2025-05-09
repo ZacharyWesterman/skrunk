@@ -41,6 +41,11 @@ var annotated_dup =
         [ "InventorySearchFilter", "classapplication_1_1objects_1_1InventorySearchFilter.html", null ],
         [ "Sorting", "classapplication_1_1objects_1_1Sorting.html", null ]
       ] ],
+      [ "resolvers", "namespaceapplication_1_1resolvers.html", [
+        [ "mutation", "namespaceapplication_1_1resolvers_1_1mutation.html", [
+          [ "MutationWrapper", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper" ]
+        ] ]
+      ] ],
       [ "types", "namespaceapplication_1_1types.html", [
         [ "blob_storage", "namespaceapplication_1_1types_1_1blob__storage.html", [
           [ "BlobPreview", "classapplication_1_1types_1_1blob__storage_1_1BlobPreview.html", "classapplication_1_1types_1_1blob__storage_1_1BlobPreview" ],

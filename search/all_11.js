@@ -9,7 +9,8 @@ var searchData=
   ['resolve_5fcreate_5fapi_5fkey_6',['resolve_create_api_key',['../namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#a980d0312f7fad9432a6f95b4f291e129',1,'application::resolvers::mutation::apikeys']]],
   ['resolve_5fdelete_5fapi_5fkey_7',['resolve_delete_api_key',['../namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#aff2fe44224d2b610d71d0b3d9d5e0ccf',1,'application::resolvers::mutation::apikeys']]],
   ['resolve_5fget_5fapi_5fkeys_8',['resolve_get_api_keys',['../namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html#aa36df7bf28710b6f077a982a353fadad',1,'application::resolvers::query::apikeys']]],
-  ['resolved_5fissues_9',['resolved_issues',['../classapplication_1_1integrations_1_1github_1_1Repository.html#a7340dd07729f4773cfc3f17341b150ae',1,'application::integrations::github::Repository']]],
-  ['return_5fbook_10',['return_book',['../namespaceapplication_1_1db_1_1book.html#ac6f7d9e683c20144c289b18db8a2f898',1,'application::db::book']]],
-  ['revoke_5fsessions_11',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]]
+  ['resolve_5fget_5flast_5fmutation_9',['resolve_get_last_mutation',['../namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html#adf19300a1ce020ecf3b27dd2b02b8e25',1,'application::resolvers::query::last_mutation']]],
+  ['resolved_5fissues_10',['resolved_issues',['../classapplication_1_1integrations_1_1github_1_1Repository.html#a7340dd07729f4773cfc3f17341b150ae',1,'application::integrations::github::Repository']]],
+  ['return_5fbook_11',['return_book',['../namespaceapplication_1_1db_1_1book.html#ac6f7d9e683c20144c289b18db8a2f898',1,'application::db::book']]],
+  ['revoke_5fsessions_12',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]]
 ];
