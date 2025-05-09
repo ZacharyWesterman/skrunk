@@ -3,6 +3,7 @@ export default async (config, field) => {
 		.split('\n')
 		.map(i => {
 			try {
+				if (i.trim() === '') return null
 				const info = JSON.parse(i)
 				if (!info) return null
 				return {
