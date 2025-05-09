@@ -124,3 +124,11 @@ export function can_create() {
 
 	$('create-button').disabled = false
 }
+
+export function maps_info() {
+	_.modal({
+		title: 'Getting Your Coordinates',
+		text: api.snippit('latitude-longitude'),
+		buttons: ['OK'],
+	})
+}
