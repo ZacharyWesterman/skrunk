@@ -18,6 +18,7 @@ import pathlib
 import mimetypes
 import hashlib
 import uuid
+import shutil
 
 from pymongo.collection import Collection
 
@@ -445,8 +446,17 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	else:
 		query = {'complete': True}
 
+	filename = f'ARCHIVE-{blob_zip_id[-8::]}.zip'
+	temp_filename = f'/tmp/{filename}'
+
+	# Make sure that there's enough space in /tmp for the zip file (+1MB for safety)
+	total_size = sum_blob_size(filter, user_id)
+	if (total_size + 1024 * 1024) > shutil.disk_usage('/tmp').free:
+		raise exceptions.InsufficientDiskSpace()
+
+	# Create the blob entry for the zip file.
 	blob_zip_id = blob_zip_id.replace("/", "").replace("\\", "")
-	id, ext = create_blob(f'ARCHIVE-{blob_zip_id[-8::]}.zip', [], ephemeral=True)
+	id, ext = create_blob(filename, [], ephemeral=True)
 	this_blob_path = BlobStorage(id, ext).path(create=True)
 
 	# Update DB to allow polling progress.
@@ -457,7 +467,8 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	print('Creating ZIP archive of blob files.', flush=True)
 
-	with ZipFile(this_blob_path, 'w') as fp:
+	# Create a temp zip file
+	with ZipFile(temp_filename, 'w') as fp:
 		total = db.count_documents(query)
 		item = 0
 
@@ -498,6 +509,11 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	if cancelled:
 		delete_blob(id)
+		Path(temp_filename).unlink()
+	else:
+		# Move the temp file to the blob storage path
+		shutil.move(temp_filename, this_blob_path)
+		print('Moved temp file to blob storage path.', flush=True)
 
 	blob['id'] = blob['_id']
 	return blob

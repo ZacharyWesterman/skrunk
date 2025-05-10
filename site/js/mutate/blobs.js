@@ -46,6 +46,7 @@ export default {
 				...on BadTagQuery { message }
 				...on UserDoesNotExistError { message }
 				...on InsufficientPerms { message }
+				...on InsufficientDiskSpace { message }
 			}
 		}`, {
 			filter: {

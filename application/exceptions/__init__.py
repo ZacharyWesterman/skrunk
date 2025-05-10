@@ -256,3 +256,13 @@ class InvalidFeedKindError(ClientError):
 			kind (str): The type of feed that is not supported.
 		"""
 		super().__init__(f'Feeds of kind "{kind}" are not supported')
+
+
+class InsufficientDiskSpace(ClientError):
+	"""Raised when there is not enough disk space."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating insufficient disk space.
+		"""
+		super().__init__('Not enough disk space to complete the operation. Please contact an admin!')
