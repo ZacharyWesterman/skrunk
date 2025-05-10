@@ -460,7 +460,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	this_blob_path = BlobStorage(id, ext).path(create=True)
 
 	# Update DB to allow polling progress.
-	_zip_progress[blob_zip_id] = [0, '', False]
+	_zip_progress[blob_zip_id] = [0, '', False, False]
 	cancelled = False
 
 	file_names = {}
@@ -499,6 +499,8 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 				print(f'[{100 * item / total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
 
 	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
+
+	_zip_progress[blob_zip_id][3] = True
 
 	if cancelled:
 		delete_blob(id)
@@ -567,6 +569,7 @@ def get_zip_progress(blob_zip_id: str) -> dict:
 	return {
 		'progress': progress[0],
 		'item': progress[1],
+		'finalizing': progress[3],
 	}
 
 

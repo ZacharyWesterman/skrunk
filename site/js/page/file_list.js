@@ -387,6 +387,11 @@ export async function download_all() {
 			const field = $('progress')
 			if (!field) return
 
+			if (res.finalizing) {
+				field.innerHTML = `Finalizing ZIP Archive...`
+				return
+			}
+
 			field.innerHTML = `Progress: <span class="emphasis">[${(res.progress * 100).toFixed(0)}%]</span><br>Item: <span class="suppress">${res.item}</span>`
 
 			if (!do_polling) return
