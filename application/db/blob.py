@@ -500,13 +500,6 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
 
-	size, md5sum = file_info(this_blob_path)
-	mark_as_completed(id, size, md5sum)
-
-	blob = db.find_one({'_id': ObjectId(id)})
-	if blob is None:
-		raise exceptions.BlobDoesNotExistError(id)
-
 	if cancelled:
 		delete_blob(id)
 		Path(temp_filename).unlink()
@@ -514,6 +507,13 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 		# Move the temp file to the blob storage path
 		shutil.move(temp_filename, this_blob_path)
 		print('Moved temp file to blob storage path.', flush=True)
+
+	size, md5sum = file_info(this_blob_path)
+	mark_as_completed(id, size, md5sum)
+
+	blob = db.find_one({'_id': ObjectId(id)})
+	if blob is None:
+		raise exceptions.BlobDoesNotExistError(id)
 
 	blob['id'] = blob['_id']
 	return blob
