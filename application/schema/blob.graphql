@@ -22,6 +22,10 @@ type BadTagQuery {
 	message: String!
 }
 
+type InsufficentDiskSpace {
+	message: String!
+}
+
 type BlobList {
 	blobs: [Blob!]!
 }
