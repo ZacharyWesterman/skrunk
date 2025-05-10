@@ -1,11 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" title=" " alt="" coords="5,109,92,134"/>
 <area shape="rect" id="Node000001" href="$classapplication_1_1objects_1_1BlobSearchFilter.html" title=" " alt="" coords="156,5,335,45"/>
-<area shape="poly" id="edge26_Node000000_Node000001" title=" " alt="" coords="74,97,104,75,139,55,167,43,169,48,141,60,107,80,77,102"/>
+<area shape="poly" id="edge27_Node000000_Node000001" title=" " alt="" coords="74,97,104,75,139,55,167,43,169,48,141,60,107,80,77,102"/>
 <area shape="rect" id="Node000002" href="$classapplication_1_1objects_1_1BookSearchFilter.html" title=" " alt="" coords="154,69,337,109"/>
-<area shape="poly" id="edge27_Node000000_Node000002" title=" " alt="" coords="105,110,153,102,154,107,106,115"/>
+<area shape="poly" id="edge28_Node000000_Node000002" title=" " alt="" coords="105,110,153,102,154,107,106,115"/>
 <area shape="rect" id="Node000003" href="$classapplication_1_1objects_1_1InventorySearchFilter.html" title=" " alt="" coords="140,133,351,173"/>
-<area shape="poly" id="edge28_Node000000_Node000003" title=" " alt="" coords="106,128,140,134,139,139,105,133"/>
+<area shape="poly" id="edge29_Node000000_Node000003" title=" " alt="" coords="106,128,140,134,139,139,105,133"/>
 <area shape="rect" id="Node000004" href="$classapplication_1_1objects_1_1Sorting.html" title=" " alt="" coords="148,198,343,223"/>
-<area shape="poly" id="edge29_Node000000_Node000004" title=" " alt="" coords="76,141,106,163,141,183,176,195,175,200,139,188,103,167,73,145"/>
+<area shape="poly" id="edge30_Node000000_Node000004" title=" " alt="" coords="76,141,106,163,141,183,176,195,175,200,139,188,103,167,73,145"/>
 </map>

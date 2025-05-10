@@ -12,6 +12,7 @@ var annotated_dup =
         [ "ClientError", "classapplication_1_1exceptions_1_1ClientError.html", null ],
         [ "FeedDocumentDoesNotExistError", "classapplication_1_1exceptions_1_1FeedDocumentDoesNotExistError.html", "classapplication_1_1exceptions_1_1FeedDocumentDoesNotExistError" ],
         [ "FeedDoesNotExistError", "classapplication_1_1exceptions_1_1FeedDoesNotExistError.html", "classapplication_1_1exceptions_1_1FeedDoesNotExistError" ],
+        [ "InsufficientDiskSpace", "classapplication_1_1exceptions_1_1InsufficientDiskSpace.html", "classapplication_1_1exceptions_1_1InsufficientDiskSpace" ],
         [ "InvalidColor", "classapplication_1_1exceptions_1_1InvalidColor.html", "classapplication_1_1exceptions_1_1InvalidColor" ],
         [ "InvalidFeedKindError", "classapplication_1_1exceptions_1_1InvalidFeedKindError.html", "classapplication_1_1exceptions_1_1InvalidFeedKindError" ],
         [ "InvalidPhone", "classapplication_1_1exceptions_1_1InvalidPhone.html", "classapplication_1_1exceptions_1_1InvalidPhone" ],

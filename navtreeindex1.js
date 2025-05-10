@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"namespaceapplication_1_1db_1_1datafeed.html#ad71a08c5afe847db14e10a4b03cd9f7c":[0,0,0,0,4,2],
+"namespaceapplication_1_1db_1_1datafeed.html#af7dbc7e53a3a5c118bfe16d6cefc3beb":[0,0,0,0,4,14],
+"namespaceapplication_1_1db_1_1datafeed.html#afcaf92ac39fb684412d6358015a4502c":[0,0,0,0,4,6],
+"namespaceapplication_1_1db_1_1inventory.html":[0,0,0,0,5],
 "namespaceapplication_1_1db_1_1inventory.html#a0266f4b6d89558e7b90c4e1c4c96b293":[0,0,0,0,5,8],
 "namespaceapplication_1_1db_1_1inventory.html#a06880e8999111bc9a1c30e7ad959677c":[0,0,0,0,5,5],
 "namespaceapplication_1_1db_1_1inventory.html#a0c2978dc0a525b330d55dc4fdcedaa97":[0,0,0,0,5,2],
