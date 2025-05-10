@@ -22,7 +22,7 @@ type BadTagQuery {
 	message: String!
 }
 
-type InsufficentDiskSpace {
+type InsufficientDiskSpace {
 	message: String!
 }
 
@@ -58,7 +58,7 @@ union BlobQueryResponse = BlobList | BadTagQuery | InsufficientPerms
 union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
 union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError | InsufficientPerms | BlobDoesNotExistError
 union BlobCreateResponse = Blob | InsufficientPerms
-union ZipProgressResponse = ZipProgress | BlobDoesNotExistError | InsufficentDiskSpace | InsufficientPerms
+union ZipProgressResponse = ZipProgress | BlobDoesNotExistError | InsufficientDiskSpace | InsufficientPerms
 
 #Resolvers below this line:
 
