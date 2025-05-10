@@ -359,7 +359,7 @@ export async function download_all() {
 	let cancelled = false
 
 	//Show a spinner so users know to wait for the ZIP archive to be generated.
-	_.modal({
+	const spinner = _.modal({
 		title: 'Creating ZIP Archive, Please be Patient...'.replaceAll(' ', '&nbsp;'),
 		text: '<div id="progress" style="width:300px;max-width:100%"></div><div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 47%; top: 50%;"></i></div>',
 	}, () => {
@@ -420,7 +420,9 @@ export async function download_all() {
 		_.modal.error(zip.message)
 		return
 	}
+
 	_.modal.cancel()
+	await spinner
 
 	//Now that ZIP has been created, download it
 	let link = document.createElement('a')
@@ -428,6 +430,12 @@ export async function download_all() {
 	link.href = `/download/${zip.id}${zip.ext}`
 	link.target = '_blank'
 	link.click()
+
+	await _.modal({
+		title: 'ZIP Archive Created',
+		text: 'The ZIP archive has been created and will now download to your device.',
+		buttons: ['OK'],
+	})
 }
 
 export async function toggle_blob_hidden(blob_id) {
