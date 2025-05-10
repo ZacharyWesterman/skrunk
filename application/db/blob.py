@@ -490,7 +490,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 				break
 
 			# Update db to allow polling progress.
-			_zip_progress[blob_zip_id] = [item / total, file_name, False]
+			_zip_progress[blob_zip_id] = [item / total, file_name, False, False]
 
 			if sub_blob.exists:
 				print(f'[{100 * item / total:.1f}%] Adding "{file_name}"...', flush=True)
