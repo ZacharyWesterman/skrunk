@@ -476,13 +476,6 @@ dict&#160;</td><td class="memItemRight" valign="bottom"><b>_zip_progress</b> = {
 </div><div class="memdoc">
 <pre class="fragment">    Deletes a blob from the database and the file system.
 
-    This function performs the following steps:
-    1. Retrieves the blob data from the database using the provided blob ID.
-    2. Deletes the blob file from the file system.
-    3. Deletes the preview file associated with the blob, if it exists.
-    4. Attempts to delete the parent directories if they are empty.
-    5. Deletes the blob entry from the database.
-
     Args:
         blob_id (str): The ID of the blob to be deleted.
 
