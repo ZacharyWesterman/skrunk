@@ -61,7 +61,7 @@ input ThemeSize {
 	value: Size!
 }
 
-union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientPerms
+union UserQueryResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserCreateResponse = UserData | BadUserNameError | UserExistsError | InsufficientPerms
 union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientPerms
@@ -70,7 +70,7 @@ union UserRenameResponse = UserData | BadUserNameError | UserDoesNotExistError |
 #Resolvers below this line:
 
 extend type Query {
-	getUser(username: String!): UserQueryReponse!
+	getUser(username: String!): UserQueryResponse!
 	listUsers(restrict: Boolean!): [UserMinData!]!
 	countSessions(username: String!): Int!
 }

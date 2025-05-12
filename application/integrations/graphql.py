@@ -230,6 +230,12 @@ def schema():
 			retn_type = get_type(field.type)
 			data_types[retn_type['type']] = retn_type
 
+			# Make sure union types have their subtypes added
+			if retn_type['union'] and retn_type['type'] == 'UserQueryResponse':
+				for i in trim_type(field.type).types:
+					union_type = get_type(i)
+					data_types[union_type['type']] = union_type
+
 			for f in field.args:
 				param_type = get_type(field.args[f], field.args[f].type)
 				data_types[param_type['type']] = param_type
