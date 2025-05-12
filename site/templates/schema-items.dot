@@ -1,0 +1,26 @@
+{{~ it : item }}
+<div class="card" style="width: 100%;">
+	<div class="card-inner">
+		<div class="clickable" *toggles="desc-{{= item.name }}">
+			<h3>
+				{{= item.name }}
+				&nbsp;&rarr;&nbsp;
+				<span class="code str">
+				&nbsp;
+				{{= `${item.returns.array ? '[' : ''}${item.returns.type}${item.returns.array ? '!]' : ''}${item.returns.optional ? '' : '!'}` }}
+				&nbsp;
+				</span>
+				<i class="right fa-solid fa-angles-down"></i>
+			</h3>
+		</div>
+
+		<div class="expand-container" id="desc-{{= item.name }}">
+			<div>
+				<div class="code">
+					{{= item.query.replaceAll('\t', '&nbsp;&nbsp;').replaceAll('\n', '<br>') }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{~}}

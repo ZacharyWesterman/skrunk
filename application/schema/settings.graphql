@@ -39,6 +39,7 @@ type SchemaType {
 	type: String!
 	union: Boolean!
 	subtypes: [String!]!
+	params: [SchemaParam!]!
 }
 
 type SchemaQuery {

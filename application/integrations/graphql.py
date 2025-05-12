@@ -134,11 +134,13 @@ def get_type(type, param_type=None) -> dict:
 	"""
 	_tp = trim_type(type)
 	fields = []
+	params = []
 
 	if isinstance(_tp, GraphQLUnionType):
 		fields = [str(i) for i in _tp.types]
 	elif isinstance(_tp, GraphQLObjectType):
 		fields = [str(i.type) for i in _tp.fields.values()]
+		params = [{'name': key, 'type': str(val.type), 'optional': False} for (key, val) in _tp.fields.items()]
 	elif isinstance(_tp, GraphQLArgument):
 		_tp = trim_type(_tp)
 
@@ -146,12 +148,14 @@ def get_type(type, param_type=None) -> dict:
 		param_type = trim_type(param_type)
 		if not isinstance(param_type, GraphQLScalarType):
 			fields = [str(i.type) for i in param_type.fields.values()]
+			params = [{'name': key, 'type': str(val.type), 'optional': False} for (key, val) in param_type.fields.items()]
 
 	return {
 		'name': str(_tp),
 		'type': trim_type(param_type) if param_type else str(_tp),
 		'union': isinstance(_tp, GraphQLUnionType),
 		'subtypes': fields,
+		'params': params,
 	}
 
 
@@ -248,7 +252,9 @@ def schema():
 
 	build_types(queries)
 	build_types(mutations)
-	output_data['types'] = data_types.values()
+	output_data['types'] = [
+		i for i in data_types.values() if not isinstance(i['type'], GraphQLScalarType) and i['type'] not in ['String', 'Int', 'Float', 'Boolean']
+	]
 
 	generate('queries', 'query', queries)
 	generate('mutations', 'mutation', mutations)

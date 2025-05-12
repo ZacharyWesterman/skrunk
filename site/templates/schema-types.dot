@@ -1,0 +1,29 @@
+{{~ it : item }}
+<div class="card" style="width: 100%;">
+	<div class="card-inner">
+		<div class="clickable" *toggles="desc-type-{{= item.type }}">
+			<h3>
+				{{= item.type }}
+				<i class="right fa-solid fa-angles-down"></i>
+				{{? item.union }}&nbsp;<span class="code oper">&nbsp;union&nbsp;</span>{{?}}
+			</h3>
+		</div>
+
+		<div class="expand-container" id="desc-type-{{= item.type }}">
+			<div>
+				<div class="code">
+					{{? item.union }}
+					<span class="oper">union</span> <span class="str">{{= item.type }}</span> = <span class="str">{{= item.subtypes.join('</span> | <span class="str">') }}</span>
+					{{??}}
+					<span class="oper">type</span> <span class="str">{{= item.type }}</span> {
+						{{~ item.params : param }}
+							<br>&nbsp;&nbsp;{{= param.name }}: <span class="str">{{= param.type }}</span>
+						{{~}}
+					<br>}
+					{{?}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{~}}
