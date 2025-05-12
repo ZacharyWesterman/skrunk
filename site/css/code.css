@@ -13,6 +13,8 @@
 	background-color: #ffffff40;
 	border-radius: var(--border-radius);
 	color: var(--secondary-text);
+	padding-left: .5rem;
+	padding-right: .5rem;
 }
 
 div.code {
@@ -41,7 +43,7 @@ div.code {
 }
 
 .code>.oper {
-	color: rgb(141, 141, 255);
+	color: rgb(46, 58, 225);
 }
 
 .code>.func {
@@ -49,7 +51,7 @@ div.code {
 }
 
 .code>.str {
-	color: rgb(68, 209, 68);
+	color: greenyellow;
 }
 
 .code>.wild {
@@ -57,7 +59,7 @@ div.code {
 }
 
 .code.oper {
-	color: rgb(141, 141, 255);
+	color: rgb(46, 58, 225);
 }
 
 .code.func {
@@ -65,7 +67,7 @@ div.code {
 }
 
 .code.str {
-	color: rgb(68, 209, 68);
+	color: greenyellow
 }
 
 .code.wild {

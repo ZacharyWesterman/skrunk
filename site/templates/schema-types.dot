@@ -5,7 +5,7 @@
 			<h3>
 				{{= item.type }}
 				<i class="right fa-solid fa-angles-down"></i>
-				{{? item.union }}&nbsp;<span class="code oper">&nbsp;union&nbsp;</span>{{?}}
+				{{? item.union }}&nbsp;<span class="code oper">union</span>{{?}}
 			</h3>
 		</div>
 
