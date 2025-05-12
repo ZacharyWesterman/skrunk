@@ -29,6 +29,6 @@ export default async (config, field) => {
 	}
 
 	field.innerHTML = related_sites.map(i => `<div style="text-align: center;">
-		<a href="${i.url}" target="_blank" class="related_site">${i.title}</a><br>
+		<a href="${i.url}" target="_blank" class="related_site">${i.title} <i class="fa-solid fa-link"></i></a><br>
 	</div>`).join(' ')
 }
