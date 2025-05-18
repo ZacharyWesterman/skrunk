@@ -1,0 +1,7 @@
+<map id="application.types.blob.Blob" name="application.types.blob.Blob">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,204,119"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8,5,95,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,41,100,91,95,94,64,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="119,5,200,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,44,115,94,110,91,142,41"/>
+</map>

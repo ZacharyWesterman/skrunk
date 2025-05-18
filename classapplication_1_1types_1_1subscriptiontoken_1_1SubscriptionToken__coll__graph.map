@@ -1,0 +1,8 @@
+<map id="application.types.subscriptiontoken.SubscriptionToken" name="application.types.subscriptiontoken.SubscriptionToken">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,183,263,223"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="85,5,172,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,44,136,183,131,183,127,45"/>
+<area shape="rect" id="Node000003" href="$classapplication_1_1types_1_1subscriptiontokenkeys_1_1SubscriptionTokenKeys.html" title=" " alt="" coords="151,80,437,120"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="166,34,256,78,254,82,163,39"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,129,165,185,163,180,251,125"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="application.types.feed.Feed" name="application.types.feed.Feed">
+<area shape="rect" id="Node000001" title=" " alt="" coords="61,183,263,208"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,92,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,44,49,81,53,101,60,119,76,139,95,156,136,180,133,185,92,160,72,143,56,121,48,102,44,82,43,45"/>
+<area shape="rect" id="Node000004" href="$classapplication_1_1types_1_1sorting___1_1Sorting__.html" title=" " alt="" coords="71,80,253,120"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="77,36,137,78,134,82,74,41"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="277,87,359,113"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="297,124,246,161,195,185,193,180,243,156,294,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,134,165,182,159,182,159,134"/>
+</map>

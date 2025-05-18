@@ -14,5 +14,6 @@ var searchData=
   ['process_5fdocument_11',['process_document',['../namespaceapplication_1_1db_1_1datafeed.html#acd58050e2ae54f1efb200421463f0187',1,'application::db::datafeed']]],
   ['process_5ffeed_12',['process_feed',['../namespaceapplication_1_1db_1_1datafeed.html#abe012fef1093a04fed90492bd396de55',1,'application::db::datafeed']]],
   ['process_5fshare_5fhist_13',['process_share_hist',['../namespaceapplication_1_1db_1_1book.html#aff992f88f0c3ce2d1a1ace7300273731',1,'application::db::book']]],
-  ['process_5fweather_5fuser_14',['process_weather_user',['../namespaceapplication_1_1db_1_1weather.html#aca3ded6cee6ba9d2c9a3c75d50ed5389',1,'application::db::weather']]]
+  ['process_5fweather_5fuser_14',['process_weather_user',['../namespaceapplication_1_1db_1_1weather.html#aca3ded6cee6ba9d2c9a3c75d50ed5389',1,'application::db::weather']]],
+  ['progress_15',['progress',['../classapplication_1_1types_1_1zipprogress_1_1ZipProgress.html#a66291b7a0c0cc872fcdd1c01093352d9',1,'application::types::zipprogress::ZipProgress']]]
 ];

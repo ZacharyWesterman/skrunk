@@ -15,7 +15,12 @@ var searchData=
   ['update_5fusername_12',['update_username',['../namespaceapplication_1_1db_1_1users.html#ad2925ed6203d6743827ae08d7437f77f',1,'application::db::users']]],
   ['url_13',['url',['../classapplication_1_1integrations_1_1github_1_1Repository.html#aee6c9ad9931206da03c53d3e128a35dc',1,'application::integrations::github::Repository']]],
   ['user_5fhas_5fperms_14',['user_has_perms',['../namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d',1,'application::db::perms']]],
-  ['userdoesnotexisterror_15',['UserDoesNotExistError',['../classapplication_1_1exceptions_1_1UserDoesNotExistError.html',1,'application::exceptions']]],
-  ['userexistserror_16',['UserExistsError',['../classapplication_1_1exceptions_1_1UserExistsError.html',1,'application::exceptions']]],
-  ['userids_5fin_5fgroups_17',['userids_in_groups',['../namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1',1,'application::db::users']]]
+  ['userbookcount_15',['UserBookCount',['../classapplication_1_1types_1_1userbookcount_1_1UserBookCount.html',1,'application::types::userbookcount']]],
+  ['userdata_16',['UserData',['../classapplication_1_1types_1_1userdata_1_1UserData.html',1,'application::types::userdata']]],
+  ['userdoesnotexisterror_17',['userdoesnotexisterror',['../classapplication_1_1types_1_1userdoesnotexisterror_1_1UserDoesNotExistError.html',1,'application.types.userdoesnotexisterror.UserDoesNotExistError'],['../classapplication_1_1exceptions_1_1UserDoesNotExistError.html',1,'application.exceptions.UserDoesNotExistError']]],
+  ['userexistserror_18',['userexistserror',['../classapplication_1_1types_1_1userexistserror_1_1UserExistsError.html',1,'application.types.userexistserror.UserExistsError'],['../classapplication_1_1exceptions_1_1UserExistsError.html',1,'application.exceptions.UserExistsError']]],
+  ['userids_5fin_5fgroups_19',['userids_in_groups',['../namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1',1,'application::db::users']]],
+  ['usermindata_20',['UserMinData',['../classapplication_1_1types_1_1usermindata_1_1UserMinData.html',1,'application::types::usermindata']]],
+  ['usertheme_21',['UserTheme',['../classapplication_1_1types_1_1usertheme_1_1UserTheme.html',1,'application::types::usertheme']]],
+  ['usertheme_5f_22',['UserTheme_',['../classapplication_1_1types_1_1usertheme___1_1UserTheme__.html',1,'application::types::usertheme_']]]
 ];

@@ -1,0 +1,8 @@
+<map id="application.types.subscription.Subscription" name="application.types.subscription.Subscription">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,183,227,223"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="67,5,154,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,44,118,183,113,183,109,45"/>
+<area shape="rect" id="Node000003" href="$classapplication_1_1types_1_1subscriptionkeys_1_1SubscriptionKeys.html" title=" " alt="" coords="132,80,383,120"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="145,35,224,78,221,82,143,40"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,130,144,185,141,180,218,126"/>
+</map>

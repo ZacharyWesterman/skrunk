@@ -1,0 +1,15 @@
+<map id="application.types.item.Item" name="application.types.item.Item">
+<area shape="rect" id="Node000001" title=" " alt="" coords="531,69,733,94"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,6,92,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,10,186,5,287,3,397,10,453,18,507,30,560,47,605,66,603,71,558,52,506,35,452,23,397,16,286,9,186,10,106,15"/>
+<area shape="rect" id="Node000004" href="$classapplication_1_1types_1_1usermindata_1_1UserMinData.html" title=" " alt="" coords="208,35,432,75"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="106,24,208,37,208,43,106,29"/>
+<area shape="rect" id="Node000005" href="$classapplication_1_1types_1_1blob_1_1Blob.html" title=" " alt="" coords="221,100,419,125"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="94,35,185,74,209,84,254,97,252,102,207,89,183,79,92,40"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="8,120,89,145"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,139,170,149,252,156,342,157,432,148,479,137,526,123,602,92,604,97,528,128,481,143,432,154,342,162,252,161,169,154,103,145"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="102,115,248,72,250,78,103,120"/>
+<area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="103,131,184,128,239,122,240,128,184,134,103,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="446,63,531,70,530,76,445,68"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="433,99,530,89,531,94,433,104"/>
+</map>

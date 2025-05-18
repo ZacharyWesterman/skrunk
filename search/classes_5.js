@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['missingconfig_0',['MissingConfig',['../classapplication_1_1exceptions_1_1MissingConfig.html',1,'application::exceptions']]],
-  ['mutationwrapper_1',['MutationWrapper',['../classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html',1,'application::resolvers::mutation']]]
+  ['ebook_0',['EBook',['../classapplication_1_1types_1_1ebook_1_1EBook.html',1,'application::types::ebook']]]
 ];

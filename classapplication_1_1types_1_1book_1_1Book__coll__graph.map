@@ -1,0 +1,11 @@
+<map id="application.types.book.Book" name="application.types.book.Book">
+<area shape="rect" id="Node000001" title=" " alt="" coords="32,196,238,221"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="37,5,124,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,41,35,61,17,83,8,108,9,120,13,132,30,153,51,170,98,194,95,198,48,175,26,157,9,135,4,121,3,107,13,81,31,57,52,37"/>
+<area shape="rect" id="Node000004" href="$classapplication_1_1types_1_1usermindata_1_1UserMinData.html" title=" " alt="" coords="23,93,247,133"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="96,41,126,92,122,95,92,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="168,5,249,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,37,254,53,266,74,271,94,270,113,261,135,244,157,222,175,175,198,172,194,219,170,240,153,257,132,265,112,266,94,261,76,250,56,237,41"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="193,43,152,95,148,91,189,40"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,147,138,196,132,196,132,147"/>
+</map>
