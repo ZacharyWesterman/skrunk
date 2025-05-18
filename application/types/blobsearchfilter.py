@@ -1,6 +1,7 @@
 from typing import TypedDict
 from datetime import datetime
 
+
 class BlobSearchFilter(TypedDict):
 	creator: str
 	begin_date: datetime
@@ -8,4 +9,3 @@ class BlobSearchFilter(TypedDict):
 	name: str
 	tag_expr: str
 	ephemeral: bool
-

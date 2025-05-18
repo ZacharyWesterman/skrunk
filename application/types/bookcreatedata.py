@@ -1,6 +1,7 @@
 from typing import TypedDict
 from datetime import datetime
 
+
 class BookCreateData(TypedDict):
 	title: str
 	subtitle: str
@@ -12,4 +13,3 @@ class BookCreateData(TypedDict):
 	publishedDate: datetime
 	rfid: str
 	thumbnail: str
-

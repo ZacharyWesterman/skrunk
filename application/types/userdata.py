@@ -2,6 +2,7 @@ from typing import TypedDict
 from .usertheme_ import UserTheme_
 from datetime import datetime
 
+
 class UserData(TypedDict):
 	username: str
 	display_name: str
@@ -11,4 +12,3 @@ class UserData(TypedDict):
 	groups: list[str]
 	disabled_modules: list[str]
 	email: str
-

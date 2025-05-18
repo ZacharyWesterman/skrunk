@@ -1,6 +1,7 @@
 from typing import TypedDict
 from datetime import datetime
 
+
 class Blob(TypedDict):
 	id: str
 	created: datetime
@@ -15,4 +16,3 @@ class Blob(TypedDict):
 	hidden: bool
 	ephemeral: bool
 	references: int
-

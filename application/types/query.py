@@ -38,6 +38,7 @@ from .weatheruser import WeatherUser
 from .weatherexecution import WeatherExecution
 from .weatheralert import WeatherAlert
 
+
 class Query(TypedDict):
 	_SRV_DUMMY_Q: bool
 	getAPIKeys: list[APIKey | None]
@@ -98,4 +99,3 @@ class Query(TypedDict):
 	weatherAlertHistory: list[WeatherAlert | None]
 	getWeatherAlerts: list[WeatherAlert | None]
 	countWeatherAlerts: int
-

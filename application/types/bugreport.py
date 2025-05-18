@@ -2,6 +2,7 @@ from typing import TypedDict
 from datetime import datetime
 from .bugcomment import BugComment
 
+
 class BugReport(TypedDict):
 	id: str
 	created: datetime
@@ -10,4 +11,3 @@ class BugReport(TypedDict):
 	body_html: str
 	convo: list[BugComment | None]
 	resolved: bool
-

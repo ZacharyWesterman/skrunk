@@ -3,6 +3,7 @@ from datetime import datetime
 from .usermindata import UserMinData
 from .blob import Blob
 
+
 class Item(TypedDict):
 	id: str
 	created: datetime
@@ -15,4 +16,3 @@ class Item(TypedDict):
 	description: str
 	description_html: str
 	rfid: list[str]
-

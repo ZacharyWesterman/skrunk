@@ -6,6 +6,7 @@ from .bookshare import BookShare
 from .bookownerhist import BookOwnerHist
 from .ebook import EBook
 
+
 class Book(TypedDict):
 	id: str
 	title: str
@@ -29,4 +30,3 @@ class Book(TypedDict):
 	ownerHistory: list[BookOwnerHist | None]
 	ebooks: list[EBook | None]
 	audiobook: str
-

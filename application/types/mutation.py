@@ -36,6 +36,7 @@ from .userexistserror import UserExistsError
 from .weatheruser import WeatherUser
 from .logresult import LogResult
 
+
 class Mutation(TypedDict):
 	_SRV_DUMMY_M: bool
 	createAPIKey: str
@@ -103,4 +104,3 @@ class Mutation(TypedDict):
 	updateWeatherUser: WeatherUser | UserDoesNotExistError | InsufficientPerms
 	logWeatherAlert: LogResult | InsufficientPerms
 	logUserWeatherAlert: LogResult | InsufficientPerms
-

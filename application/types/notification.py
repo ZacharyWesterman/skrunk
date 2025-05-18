@@ -1,6 +1,7 @@
 from typing import TypedDict
 from datetime import datetime
 
+
 class Notification(TypedDict):
 	recipient: str
 	created: datetime
@@ -9,4 +10,3 @@ class Notification(TypedDict):
 	device_count: int
 	read: bool
 	id: str
-

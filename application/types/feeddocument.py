@@ -1,6 +1,7 @@
 from typing import TypedDict
 from datetime import datetime
 
+
 class FeedDocument(TypedDict):
 	id: str
 	feed: str
@@ -13,4 +14,3 @@ class FeedDocument(TypedDict):
 	updated: datetime
 	url: str
 	read: bool
-

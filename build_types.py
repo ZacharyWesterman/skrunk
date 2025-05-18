@@ -44,7 +44,7 @@ def class_text(class_data: dict) -> str:
 
 		text += f'\t{i["name"]}: {data_type[0]}\n'
 
-	return '\n'.join(type_imports.values()) + '\n\n' + text + '\n'
+	return '\n'.join(type_imports.values()) + '\n\n\n' + text
 
 
 def type_text(data_type: str) -> tuple[str, list[str]]:
@@ -94,6 +94,13 @@ def output_types():
 			continue
 
 		filename = f'application/types/{t["name"].lower()}.py'
+
+		# Skip if the file already exists and is up to date
+		if Path(filename).exists():
+			with open(filename, 'r') as f:
+				if f.read() == class_text(t):
+					continue
+
 		print(f'Writing {filename}...')
 
 		text = class_text(t)

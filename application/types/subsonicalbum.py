@@ -1,6 +1,7 @@
 from typing import TypedDict
 from datetime import datetime
 
+
 class SubsonicAlbum(TypedDict):
 	id: str
 	parent: str
@@ -13,4 +14,3 @@ class SubsonicAlbum(TypedDict):
 	coverArt: str
 	playCount: int
 	created: datetime
-
