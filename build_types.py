@@ -2,6 +2,7 @@
 # This script builds all GraphQL types into TypedDict classes for use in the application.
 
 from application.integrations.graphql import schema
+from sys import argv
 
 type_aliases = {
 	'String': 'str',
@@ -76,7 +77,7 @@ def type_text(data_type: str) -> tuple[str, list[str]]:
 	return data_type + ' | None', [data_type]
 
 
-def main():
+def output_types():
 	types = schema()['types']
 
 	# Build list of unions
@@ -90,12 +91,21 @@ def main():
 		if t['union']:
 			continue
 
-		# print(t['name'])
+		filename = f'application/types/{t["name"].lower()}.py'
+		print(f'Writing {filename}...')
 
 		text = class_text(t)
-		with open(f'application/types/{t["name"].lower()}.py', 'w') as f:
+		with open(filename, 'w') as f:
 			f.write(text)
 
 
+def list_changed_types():
+	types = schema()['types']
+	print(', '.join([t['name'] for t in types]))
+
+
 if __name__ == '__main__':
-	main()
+	if 'check' in argv:
+		list_changed_types()
+	else:
+		output_types()
