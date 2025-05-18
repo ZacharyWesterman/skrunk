@@ -6,7 +6,7 @@ from application.db.users import get_user_data
 from pymongo.collection import Collection
 
 ## A pointer to the sessions database collection.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 
 def start_session(token: str, username: str) -> None:

@@ -1,6 +1,5 @@
 """application.db.inventory"""
 
-from application.tokens import decode_user_token, get_request_token
 from . import users
 from datetime import datetime
 import markdown
@@ -8,11 +7,12 @@ from application.objects import InventorySearchFilter, Sorting
 from bson.objectid import ObjectId
 import application.exceptions as exceptions
 from . import blob
+from .perms import caller_info_strict
 
 from pymongo.database import Database
 
 ## A pointer to the database object.
-db: Database = None
+db: Database = None  # type: ignore[assignment]
 
 
 def create_inventory_item(owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str | None) -> dict:
@@ -39,8 +39,7 @@ def create_inventory_item(owner: str, category: str, type: str, location: str, b
 	if db.items.find_one({'rfid': rfid}):
 		raise exceptions.ItemExistsError(rfid)
 
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 
 	item = {
 		'created': datetime.utcnow(),
@@ -234,7 +233,7 @@ def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting
 	return items
 
 
-def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> list:
+def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> int:
 	"""
 	Count the number of inventory items based on the provided filter and user ID.
 

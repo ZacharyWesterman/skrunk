@@ -3,6 +3,7 @@
 from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 from . import users, notification
+from .perms import caller_info_strict
 
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -12,7 +13,7 @@ import html
 from pymongo.collection import Collection
 
 ## A pointer to the bug reports collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 
 def report_bug(text: str, plaintext: bool = True) -> dict:
@@ -28,22 +29,21 @@ def report_bug(text: str, plaintext: bool = True) -> dict:
 	Returns:
 		dict: A dictionary containing the bug report details, including the newly assigned bug report ID.
 	"""
-	global db
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 
-	id = db.insert_one({
+	bug_report = {
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
 		'body': text,
 		'body_html': html.escape(text) if plaintext else markdown.markdown(text, output_format='html'),
 		'convo': [],
 		'resolved': False,
-	}).inserted_id
+	}
 
-	bug_report = db.find_one({'_id': id})
-	bug_report['id'] = bug_report['_id']
-	return bug_report
+	id = db.insert_one(bug_report).inserted_id
+	bug_report['_id'] = id
+
+	return process_bug_report(bug_report)
 
 
 def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
@@ -62,8 +62,7 @@ def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
 	Raises:
 		BugReportDoesNotExistError: If the bug report with the given id does not exist.
 	"""
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 
 	report = db.find_one({'_id': ObjectId(id)})
 	if report is None:
@@ -222,7 +221,6 @@ def delete_bug_report(id: str) -> dict:
 	Raises:
 		BugReportDoesNotExistError: If no bug report with the given ID exists.
 	"""
-	global db
 	bug_report = db.find_one({'_id': ObjectId(id)})
 	if bug_report is None:
 		raise exceptions.BugReportDoesNotExistError(id)
@@ -246,7 +244,6 @@ def set_bug_status(id: str, status: bool) -> dict:
 	Raises:
 		exceptions.BugReportDoesNotExistError: If the bug report with the given id does not exist.
 	"""
-	global db
 	bug_report = db.find_one({'_id': ObjectId(id)})
 	if bug_report is None:
 		raise exceptions.BugReportDoesNotExistError(id)
@@ -254,8 +251,7 @@ def set_bug_status(id: str, status: bool) -> dict:
 	db.update_one({'_id': ObjectId(id)}, {'$set': {'resolved': status}})
 	bug_report['resolved'] = status
 
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 
 	send_user = users.get_user_by_id(bug_report['creator'])
 

@@ -627,14 +627,9 @@ def delete_blob(blob_id: str) -> dict:
 	Raises:
 		BlobDoesNotExistError: If the blob with the given ID does not exist.
 	"""
-	blob_data = db.find_one({'_id': ObjectId(blob_id)})
-	if blob_data:
-		try:
-			item = pathlib.Path(BlobStorage(blob_id, blob_data['ext']).path())
-			item.unlink()
-		except FileNotFoundError:
-			pass
-
+	blob_data: dict | None = db.find_one({'_id': ObjectId(blob_id)})
+	if blob_data is not None:
+		# Delete the preview file if it exists
 		if blob_data.get('preview') is not None:
 			try:
 				prevw = pathlib.Path(BlobPreview(blob_data['preview'], '').path(), '')
@@ -642,11 +637,23 @@ def delete_blob(blob_id: str) -> dict:
 			except FileNotFoundError:
 				pass
 
-		# Delete volume dirs if empty
+		# Delete the thumbnail file if it exists
+		if blob_data.get('thumbnail') is not None:
+			try:
+				thumb = pathlib.Path(BlobThumbnail(blob_data['thumbnail'], '').path(), '')
+				thumb.unlink()
+			except FileNotFoundError:
+				pass
+
 		try:
+			# Delete the blob from disk
+			item = pathlib.Path(BlobStorage(blob_id, blob_data['ext']).path())
+			item.unlink()
+
+			# Delete volume dirs if empty
 			item.parent.rmdir()
 			item.parent.parent.rmdir()
-		except OSError:
+		except FileNotFoundError | OSError:
 			pass
 
 		db.delete_one({'_id': ObjectId(blob_id)})

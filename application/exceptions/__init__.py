@@ -1,5 +1,7 @@
 """application.exceptions"""
 
+from typing import Any
+
 
 class ClientError(Exception):
 	"""Base class for client-related errors."""
@@ -196,7 +198,7 @@ class InvalidSubscriptionToken(ClientError):
 class ItemExistsError(ClientError):
 	"""Raised when an item already exists."""
 
-	def __init__(self, id: str) -> None:
+	def __init__(self, id: Any) -> None:
 		"""
 		Initializes the exception with a message indicating that an item already exists with the given RFID.
 

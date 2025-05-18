@@ -70,6 +70,7 @@ def caller_info_strict() -> dict[str, Any]:
 
 	Raises:
 		exceptions.AuthenticationError: If the token is invalid or the user does not exist.
+		exceptions.UserDoesNotExistError: If the user does not exist in the database.
 	"""
 	tok = tokens.get_request_token()
 	try:
