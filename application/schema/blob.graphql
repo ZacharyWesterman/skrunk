@@ -39,8 +39,13 @@ type QRParseResponse {
 	error: String
 }
 
+"""
+A type for keeping track of the progress of a zip archive creation.
+"""
 type ZipProgress {
+	"""The progress of the zip archive creation. 0-100%"""
 	progress: Float!
+	"""The filename of the item being zipped"""
 	item: String!
 }
 

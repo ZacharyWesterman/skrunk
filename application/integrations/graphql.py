@@ -3,7 +3,17 @@
 __all__ = ['schema']
 
 import ariadne
-from graphql import GraphQLField, GraphQLNonNull, GraphQLList, GraphQLScalarType, GraphQLObjectType, GraphQLUnionType, GraphQLArgument
+from graphql import (
+	GraphQLField,
+	GraphQLNonNull,
+	GraphQLList,
+	GraphQLScalarType,
+	GraphQLObjectType,
+	GraphQLInputObjectType,
+	GraphQLUnionType,
+	GraphQLArgument,
+	GraphQLNamedType,
+)
 from functools import cache
 
 
@@ -29,7 +39,7 @@ def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 			_tp = _tp.type
 		else:
 			break
-	return _tp
+	return _tp  # type: ignore
 
 
 def print_type_fields(fields: dict, indent: str) -> str:
@@ -212,8 +222,8 @@ def schema():
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	schema = ariadne.make_executable_schema(type_defs)
 
-	queries = schema.query_type.fields
-	mutations = schema.mutation_type.fields
+	queries = schema.query_type.fields  # type: ignore
+	mutations = schema.mutation_type.fields  # type: ignore
 
 	output_data = {
 		'mutations': [],
@@ -223,24 +233,43 @@ def schema():
 
 	data_types = {}
 
-	def build_types(items: dict[str, GraphQLField]) -> None:
-		for i in items:
-			if str(i).startswith('_SRV_DUMMY'):
+	def build_types(type_map: dict[str, GraphQLNamedType]) -> None:
+		def build_type(name: str, obj: GraphQLNamedType) -> dict:
+			info = {
+				'name': name,
+				'type': name,
+				'union': False,
+				'subtypes': [],
+				'params': [],
+				'doc': obj.description or '',
+			}
+
+			if isinstance(obj, GraphQLObjectType) or isinstance(obj, GraphQLInputObjectType):
+				info['params'] = [{
+					'name': key,
+					'type': str(val.type),
+					'optional': False,
+					'doc': val.description or '',
+				} for (key, val) in obj.fields.items()]
+				info['subtypes'] = [str(i.type) for i in obj.fields.values()]
+			elif isinstance(obj, GraphQLUnionType):
+				info['union'] = True
+				info['subtypes'] = [str(i) for i in obj.types]
+			elif not isinstance(obj, GraphQLScalarType):
+				raise ValueError(f'Unknown type: {type(obj)}: {name}')
+
+			return info
+
+		for key, val in type_map.items():
+			if key[0:2] == '__':
 				continue
-			field: GraphQLField = items[i]
 
-			retn_type = get_type(field.type)
-			data_types[retn_type['type']] = retn_type
+			type_info = build_type(key, val)
 
-			# Make sure union types have their subtypes added
-			if retn_type['union'] and retn_type['type'] == 'UserQueryResponse':
-				for i in trim_type(field.type).types:
-					union_type = get_type(i)
-					data_types[union_type['type']] = union_type
+			if not isinstance(val, GraphQLScalarType) and key not in ['String', 'Int', 'Float', 'Boolean']:
+				output_data['types'] += [type_info]
 
-			for f in field.args:
-				param_type = get_type(field.args[f], field.args[f].type)
-				data_types[param_type['type']] = param_type
+			data_types[key] = type_info
 
 	def generate(kind: str, altkind: str, items: dict[str, GraphQLField]) -> None:
 		for i in items:
@@ -258,11 +287,12 @@ def schema():
 				'returns': return_type,
 			}]
 
-	build_types(queries)
-	build_types(mutations)
-	output_data['types'] = [
-		i for i in data_types.values() if not isinstance(i['type'], GraphQLScalarType) and i['type'] not in ['String', 'Int', 'Float', 'Boolean']
-	]
+	types = {
+            i: k for (i, k) in schema.type_map.items()
+            if type(k) is not str and i not in ['String', 'Int', 'Float', 'Boolean'] and i[0:2] != '__'
+        }
+
+	build_types(schema.type_map)
 
 	generate('queries', 'query', queries)
 	generate('mutations', 'mutation', mutations)
