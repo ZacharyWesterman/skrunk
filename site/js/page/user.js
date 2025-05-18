@@ -23,8 +23,6 @@ export async function revoke_sessions(username) {
 }
 
 export async function set_perms() {
-	console.log(UserData)
-
 	let new_perms = []
 	let perms_changed = []
 	for (const perm of Perms) {
@@ -215,17 +213,14 @@ export function check_password() {
 
 	const criteria = {
 		'pw1': password.length >= 8,
-		'pw2': !password.includes(api.username),
-		'pw3': !api.username.includes(password),
+		'pw2': !password.includes(api.username) && password.length > 0,
+		'pw3': !api.username.includes(password) && password.length > 0,
 		'pw5': /[A-Z]/.test(password),
 		'pw6': /[a-z]/.test(password),
 		'pw7': /[0-9]/.test(password),
 		'pw8': /[!@#$%^&*(),.?":{}|<>]/.test(password),
 	}
 	criteria.pw4 = (criteria.pw5 + criteria.pw6 + criteria.pw7 + criteria.pw8) >= 2
-	if (criteria.pw4) {
-		criteria.pw5 = criteria.pw6 = criteria.pw7 = criteria.pw8 = true
-	}
 
 	for (const [key, valid] of Object.entries(criteria)) {
 		$(key).style.textDecoration = valid ? 'line-through' : ''
@@ -241,6 +236,10 @@ export function check_password() {
 		'Very Strong',
 	][password_strength(password)]
 	$('password-strength').innerText = score
+}
+
+export function bind_password() {
+	$.bind('user-new-password', check_password, 10)
 }
 
 export function expand_password_hints() {

@@ -12,7 +12,7 @@
 			</span>
 		</h2>
 		<div>
-			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password" *focus="expand_password_hints" *bind="check_password">
+			<input id="user-new-password" type="password" placeholder="New Password" autocomplete="new-password" *focus="expand_password_hints" *load="bind_password">
 			&nbsp;
 			<span id="password-strength" class="hidden" style="font-size: 80%;"></span>
 			<br>
