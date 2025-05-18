@@ -434,8 +434,9 @@ export async function download_all() {
 	link.click()
 
 	await _.modal({
+		icon: 'circle-check',
 		title: 'ZIP Archive Created',
-		text: 'The ZIP archive has been created and will now download to your device.',
+		text: 'The ZIP archive has been created and will now download to your device.<hr>The archive file will be kept until the next server restart.<br>If you\'d like to download it again before then,<br>go to the <b><i class="fa-solid fa-hard-drive"></i> Files</b> page and click "Include ephemeral files".',
 		buttons: ['OK'],
 	})
 }

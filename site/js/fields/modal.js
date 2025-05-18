@@ -229,13 +229,18 @@ modal.upload.start = async function () {
 		if (res !== 'yes') return
 	}
 
+	//Hide the upload controls so the user can't change them while uploading.
+	$.toggle_expand('modal-upload-body', false)
+	await sleep(300)
+
 	//Add a progress bar for each file to be uploaded.
-	let innerHTML = ''
+	let innerHTML = '<h3>Upload in Progress</h3>'
+	innerHTML += '<p>When complete, a message will pop up<br>telling you that the upload is finished.<hr>Click the <b style="font-size: 28px;">&times;</b> button at any time to cancel the upload.<hr></p>'
 	for (let i = 0; i < files.length; ++i) {
 		innerHTML += `<div><progress id="upload-progressbar-${i}" value="0" max="99"></progress><span></span></div>`
 	}
 	$('upload-progress').innerHTML = innerHTML
-	$.show('upload-progress')
+	$.show('upload-progress', true)
 
 	try {
 		let promises = []
@@ -249,9 +254,10 @@ modal.upload.start = async function () {
 			await p
 		}
 
-		await modal({
-			title: 'Success',
-			text: 'Upload complete',
+		modal({
+			icon: 'circle-check',
+			title: 'Success!',
+			text: 'All files have been uploaded successfully.',
 			buttons: ['OK']
 		}).catch(() => { })
 	}
