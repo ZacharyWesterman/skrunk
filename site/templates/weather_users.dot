@@ -15,7 +15,7 @@
 						<tr>
 							<td class="tooltip" *click="maps_info">
 								<i class="fa-solid fa-circle-question"></i>
-								<span class="tooltiptext">
+								<span class="tooltiptext t-bottom">
 									How can I get my coordinates?
 								</span>
 							</td>
