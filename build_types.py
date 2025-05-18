@@ -3,6 +3,7 @@
 
 from application.integrations.graphql import schema
 from sys import argv
+from pathlib import Path
 
 type_aliases = {
 	'String': 'str',
@@ -87,6 +88,7 @@ def output_types():
 
 		unions[t['name']] = t['subtypes']
 
+	# Build list of types
 	for t in types:
 		if t['union']:
 			continue
@@ -101,7 +103,32 @@ def output_types():
 
 def list_changed_types():
 	types = schema()['types']
-	print(', '.join([t['name'] for t in types]))
+	changed_types = []
+
+	# Build list of unions
+	for t in types:
+		if not t['union']:
+			continue
+
+		unions[t['name']] = t['subtypes']
+
+	# Build list of types
+	for t in types:
+		if t['union']:
+			continue
+
+		filename = f'application/types/{t["name"].lower()}.py'
+		if not Path(filename).exists():
+			changed_types.append(filename)
+			continue
+
+		text = class_text(t)
+		with open(filename, 'r') as f:
+			if f.read() != text:
+				changed_types.append(filename)
+				continue
+
+	print(', '.join(sorted(changed_types)))
 
 
 if __name__ == '__main__':
