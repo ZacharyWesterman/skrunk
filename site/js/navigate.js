@@ -32,6 +32,14 @@ window.set_title = function () {
 	}
 }
 
+window.sleep = async (millis) => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve()
+		}, millis)
+	})
+}
+
 /*
 * Load content from URL into the given field.
 */

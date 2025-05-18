@@ -3,36 +3,49 @@
 		<div ondrop="_.modal.upload.drop_file(event)" ondragover="_.modal.upload.drag_file(event)" ondragleave="_.modal.upload.undrag_file(event)">
 			<span class="close" onclick="_.modal.upload.return()">&times;</span>
 
+			<div id="modal-upload-body" class="expand-container expanded">
+				<div>
 
-			{{? !environment.mobile }}
-			<br>
-			<div id="drag-drop-zone" class="drag-drop-zone">Drag files here,<br>or select files<br>to upload.</div>
-			{{??}}
-			<h4>Select files to upload</h4>
-			{{?}}
+					{{? !environment.mobile }}
+					<br>
+					<div id="drag-drop-zone" class="drag-drop-zone">Drag files here,<br>or select files<br>to upload.</div>
+					{{??}}
+					<h4>Select files to upload</h4>
+					{{?}}
 
-			<div id="modal-auto-unpack" class="hidden" style="display:none;">
-				Automatically extract ZIP files?
-				<input type="checkbox" id="modal-unpack-check">
+					<div id="modal-auto-unpack" class="hidden" style="display:none;">
+						Automatically extract ZIP files?
+						<input type="checkbox" id="modal-unpack-check">
+					</div>
+					<div id="modal-hide-file" class="hidden" style="display:none;">
+						Hide files from other users?
+						<input type="checkbox" id="modal-hidden-check">
+					</div>
+					<input id="modal-file" type="file" name="file" onchange="_.modal.upload.activate()" multiple>
+
+					<hr>
+					Uploaded file(s) will be tagged with:
+					<div id="modal-tag-list"></div>
+					<input id="modal-tag-input" placeholder="Input new tag" format="tag">
+					<button class="icon tooltip">
+						<i class="fa-solid fa-tag fa-lg"></i>
+						<span class="tooltiptext t-left">Accept tag</span>
+					</button>
+
+					<br>
+
+					<div class="spread-out">
+						<button class="modal-button" id="modal-button" onclick="_.modal.upload.start()" disabled>
+							OK
+						</button>
+
+						<button class="modal-button" id="modal-button" onclick="_.modal.upload.return()">
+							Cancel
+						</button>
+					</div>
+
+				</div>
 			</div>
-			<div id="modal-hide-file" class="hidden" style="display:none;">
-				Hide files from other users?
-				<input type="checkbox" id="modal-hidden-check">
-			</div>
-			<input id="modal-file" type="file" name="file" onchange="_.modal.upload.activate()" multiple>
-			<button class="icon tooltip" id="modal-button" onclick="_.modal.upload.start()" disabled>
-				<i class="fa-solid fa-file-arrow-up fa-lg"></i>
-				<span class="tooltiptext t-float-left">Upload file(s)</span>
-			</button><br>
-
-			<hr>
-			Uploaded file(s) will be tagged with:
-			<div id="modal-tag-list"></div>
-			<input id="modal-tag-input" placeholder="Input new tag" format="tag">
-			<button class="icon tooltip">
-				<i class="fa-solid fa-tag fa-lg"></i>
-				<span class="tooltiptext t-left">Accept tag</span>
-			</button>
 
 			<div id="upload-progress" class="hidden"></div>
 		</div>
