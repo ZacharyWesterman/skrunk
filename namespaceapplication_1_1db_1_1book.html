@@ -120,8 +120,8 @@ Functions</h2></td></tr>
 <tr class="separator:a945ffe237dcd5f6ed2f41e23762a5384"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c18efafab5ef9c7798ee428c02be5b8" id="r_a7c18efafab5ef9c7798ee428c02be5b8"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a7c18efafab5ef9c7798ee428c02be5b8">get_book</a> (str id, *bool parse=False)</td></tr>
 <tr class="separator:a7c18efafab5ef9c7798ee428c02be5b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c6c0bcce1514cde5c46b87ffb4c151d" id="r_a1c6c0bcce1514cde5c46b87ffb4c151d"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a1c6c0bcce1514cde5c46b87ffb4c151d">next_out_of_date_book_rfid</a> (datetime before)</td></tr>
-<tr class="separator:a1c6c0bcce1514cde5c46b87ffb4c151d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a932a4d4d32bdaee6c7a4e345121c10e1" id="r_a932a4d4d32bdaee6c7a4e345121c10e1"><td class="memItemLeft" align="right" valign="top">str|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a932a4d4d32bdaee6c7a4e345121c10e1">next_out_of_date_book_rfid</a> (datetime before)</td></tr>
+<tr class="separator:a932a4d4d32bdaee6c7a4e345121c10e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73de8f293dff5f7ec6249f2cea3598de" id="r_a73de8f293dff5f7ec6249f2cea3598de"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a73de8f293dff5f7ec6249f2cea3598de">refresh_book_data</a> (str rfid)</td></tr>
 <tr class="separator:a73de8f293dff5f7ec6249f2cea3598de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c12e383769e7aef43a4c19a4a1af55c" id="r_a2c12e383769e7aef43a4c19a4a1af55c"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a2c12e383769e7aef43a4c19a4a1af55c">link_book_tag</a> (str owner, str rfid, str book_id)</td></tr>
@@ -690,14 +690,14 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
         BookTagExistsError: If the RFID tag is already linked to a book.</pre> 
 </div>
 </div>
-<a id="a1c6c0bcce1514cde5c46b87ffb4c151d" name="a1c6c0bcce1514cde5c46b87ffb4c151d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c6c0bcce1514cde5c46b87ffb4c151d">&#9670;&#160;</a></span>next_out_of_date_book_rfid()</h2>
+<a id="a932a4d4d32bdaee6c7a4e345121c10e1" name="a932a4d4d32bdaee6c7a4e345121c10e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a932a4d4d32bdaee6c7a4e345121c10e1">&#9670;&#160;</a></span>next_out_of_date_book_rfid()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> str application.db.book.next_out_of_date_book_rfid </td>
+          <td class="memname"> str | None application.db.book.next_out_of_date_book_rfid </td>
           <td>(</td>
           <td class="paramtype">datetime&#160;</td>
           <td class="paramname"><em>before</em></td><td>)</td>

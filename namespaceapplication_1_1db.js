@@ -52,7 +52,7 @@ var namespaceapplication_1_1db =
       [ "init", "namespaceapplication_1_1db_1_1book.html#a489dd7a7cd69e687da8a812326342817", null ],
       [ "keyword_tokenize", "namespaceapplication_1_1db_1_1book.html#ae566d13ab23f223051e92d14dbf5c1d8", null ],
       [ "link_book_tag", "namespaceapplication_1_1db_1_1book.html#a2c12e383769e7aef43a4c19a4a1af55c", null ],
-      [ "next_out_of_date_book_rfid", "namespaceapplication_1_1db_1_1book.html#a1c6c0bcce1514cde5c46b87ffb4c151d", null ],
+      [ "next_out_of_date_book_rfid", "namespaceapplication_1_1db_1_1book.html#a932a4d4d32bdaee6c7a4e345121c10e1", null ],
       [ "norm_query", "namespaceapplication_1_1db_1_1book.html#a111182c094308d254180e789d6735761", null ],
       [ "process_book_tag", "namespaceapplication_1_1db_1_1book.html#a079308f5a61668b75eb45df21ae8e384", null ],
       [ "process_share_hist", "namespaceapplication_1_1db_1_1book.html#aff992f88f0c3ce2d1a1ace7300273731", null ],
@@ -198,6 +198,6 @@ var namespaceapplication_1_1db =
       [ "update_user", "namespaceapplication_1_1db_1_1weather.html#a4ffc9980a9f8894da504c5f19fb9ec94", null ],
       [ "db", "namespaceapplication_1_1db_1_1weather.html#a7a3ab21559052fbe4314c72441b01c14", null ]
     ] ],
-    [ "init_db", "namespaceapplication_1_1db.html#a0523d510fb976e0b75f105dc39364524", null ],
+    [ "init_db", "namespaceapplication_1_1db.html#a87044349bd6e0d495c2d5f9599c24f8f", null ],
     [ "setup_db", "namespaceapplication_1_1db.html#a92afec8b4c3d6a5818ac28398464a341", null ]
 ];
