@@ -5,12 +5,12 @@ __all__ = ['require']
 from application import tokens, exceptions
 from inspect import getfullargspec
 from application.db import users
-from typing import Callable
+from typing import Callable, Any
 
 from pymongo.collection import Collection
 
 ## A pointer to the API key database collection.
-apikeydb: Collection = None
+apikeydb: Collection = None  # type: ignore[assignment]
 
 
 def bad_perms() -> dict:
@@ -27,7 +27,7 @@ def bad_perms() -> dict:
 	}
 
 
-def caller_info() -> str:
+def caller_info() -> dict[str, Any] | None:
 	"""
 	Retrieves caller information based on the request token.
 
@@ -56,7 +56,38 @@ def caller_info() -> str:
 		return None
 
 
-def user_has_perms(user_data: dict, perm_list: list) -> bool:
+def caller_info_strict() -> dict[str, Any]:
+	"""
+	Retrieves caller information based on the request token.
+
+	The function attempts to decode the request token to extract the username.
+	If decoding fails, it treats the token as an API key and retrieves the corresponding
+	API key information from the database.
+
+	Returns:
+		str: The user data associated with the username if available, otherwise the API key
+			 information if the token is an API key.
+
+	Raises:
+		exceptions.AuthenticationError: If the token is invalid or the user does not exist.
+	"""
+	tok = tokens.get_request_token()
+	try:
+		username = tokens.decode_user_token(tok).get('username')
+	except:
+		apikey: dict | None = apikeydb.find_one({'key': tok})
+		if apikey is None:
+			raise exceptions.AuthenticationError()
+
+		return apikey
+
+	if username is None:
+		raise exceptions.AuthenticationError()
+
+	return users.get_user_data(username)
+
+
+def user_has_perms(user_data: dict, perm_list: tuple[str, ...]) -> bool:
 	"""
 	Check if the user has any of the specified permissions.
 
@@ -70,7 +101,7 @@ def user_has_perms(user_data: dict, perm_list: list) -> bool:
 	return any(k in user_data['perms'] for k in perm_list)
 
 
-def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = False, data_func: Callable | None = None) -> bool:
+def satisfies(perms: tuple[str, ...], data: dict = {}, *, perform_on_self: bool = False, data_func: Callable | None = None) -> bool | dict:
 	"""Check if the calling user has any of the given permissions.
 
 	Args:
@@ -108,14 +139,14 @@ def satisfies(perms: list[str], data: dict = {}, *, perform_on_self: bool = Fals
 	return user_has_perms(user_data, perms)
 
 
-def require(*perms: list[str], perform_on_self: bool = False, data_func: Callable | None = None) -> Callable:
+def require(*perms: str, perform_on_self: bool = False, data_func: Callable | None = None) -> Callable:
 	"""Require the calling user to have any of the specified permissions.
 
 	This is a decorator for application resolvers, to avoid redundant permission-checking logic all over the place.
 	If the permissions are not satisfied when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
 
 	Args:
-		perms (list[str]): The permissions that must have at least 1 satisfied.
+		*perms (str): The permissions that must have at least 1 satisfied.
 		perform_on_self (bool): If True, permissions will be ignored when the user is editing their own data.
 		data_func (Callable|None): If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
 
@@ -135,7 +166,7 @@ def require(*perms: list[str], perform_on_self: bool = False, data_func: Callabl
 	return inner
 
 
-def module(*modules: list[str]) -> Callable:
+def module(*modules: str) -> Callable:
 	"""Require the calling user to have all the specified modules enabled.
 
 	This is a decorator for application resolvers, to avoid redundant module-checking logic all over the place.

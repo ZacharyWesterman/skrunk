@@ -5,16 +5,16 @@ from zipfile import ZipFile
 from bson.objectid import ObjectId
 from bson import json_util
 import bcrypt
-
+from ..objects import BlobSearchFilter, InventorySearchFilter
 
 from pymongo.collection import Collection
 from pymongo.database import Database
 
 ## A pointer to the users collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 ## A pointer to the main database.
-top_level_db: Database = None
+top_level_db: Database = None  # type: ignore[assignment]
 
 
 def get_admins() -> list:
@@ -442,7 +442,7 @@ def authenticate(username: str, password: str) -> str:
 	"""
 	userdata = get_user_data(username)
 
-	if not bcrypt.checkpw(password.encode(), userdata.get('password')):
+	if not bcrypt.checkpw(password.encode(), userdata['password']):
 		raise exceptions.AuthenticationError
 
 	login_token = create_user_token(username)
@@ -451,12 +451,12 @@ def authenticate(username: str, password: str) -> str:
 	return login_token
 
 
-def group_filter(filter: dict, user_data: dict) -> dict:
+def group_filter(filter: BlobSearchFilter | InventorySearchFilter, user_data: dict) -> BlobSearchFilter | InventorySearchFilter:
 	"""
 	Applies group filtering to the specified filter based on the user's groups.
 
 	Args:
-		filter (dict): The filter to apply group filtering to.
+		filter (Filter): The filter to apply group filtering to.
 		user_data (dict): The user data containing the groups.
 
 	Returns:

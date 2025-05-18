@@ -4,17 +4,26 @@ from ariadne import MutationType
 from ariadne.types import Resolver
 from typing import Callable
 from datetime import datetime
-import json
 
 from application.tokens import get_request_token, decode_user_token
 
 
 class MutationWrapper(MutationType):
-	"""A wrapper for the MutationType class to keep track of when the last mutation was called."""
+	"""
+	A wrapper for the MutationType class to keep track of when the last mutation was called.
+	Attributes:
+		last_mutation (dict | None): A dictionary containing the last mutation name, the username
+		                             of the caller, and the timestamp of when it was called.
+	"""
 
 	def __init__(self):
+		"""Initialize the MutationWrapper class."""
 		super().__init__()
-		self.last_mutation = None
+
+		## @var last_mutation: dict | None
+		#  A dictionary containing the last mutation name, the username of the caller,
+		#  and the timestamp of when it was called.
+		self.last_mutation: dict | None = None
 
 	def create_register_resolver(self, name: str) -> Callable[[Resolver], Resolver]:
 		"""Decorator to register a mutation resolver and track the last mutation called."""

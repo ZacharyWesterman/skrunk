@@ -38,8 +38,8 @@ class BlobSearchFilter(TypedDict):
 		name (str | None): The name of the blob. Can be None if not specified.
 		tag_expr (str | None): The tag expression for filtering blobs. Can be None if not specified.
 	"""
-	## The creator of the blob.
-	creator: str | None
+	## The creator(s) of the blob.
+	creator: list[str] | str | None
 	## The start date for the search filter.
 	begin_date: datetime | None
 	## The end date for the search filter.
@@ -74,8 +74,8 @@ class InventorySearchFilter(TypedDict):
 		type (str | None): The type of the inventory item.
 		location (str | None): The location of the inventory item.
 	"""
-	## The creator of the inventory item
-	creator: str | None
+	## The creator(s) of the inventory item
+	creator: list[str] | str | None
 	## The category of the inventory item
 	category: str | None
 	## The type of the inventory item

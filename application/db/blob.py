@@ -23,7 +23,7 @@ import shutil
 from pymongo.collection import Collection
 
 ## A pointer to the Blob collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 ## The path to the blob storage directory.
 blob_path: str | None = None
@@ -56,7 +56,7 @@ def init() -> None:
 		print(f'Deleted {deleted_ct} ephemeral blob entries.', flush=True)
 
 
-def file_info(filename: str) -> str:
+def file_info(filename: str) -> tuple[int, str]:
 	"""
 	Calculate the MD5 checksum and size of a file.
 

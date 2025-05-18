@@ -1,6 +1,6 @@
 """application.resolvers.mutation.blob"""
 
-from ariadne.types import GraphQLResolveInfo
+from ariadne.types import GraphQLResolveInfo  # type: ignore
 from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage, set_blob_ephemeral, cancel_zip
 import application.db.perms as perms
 from application.db.users import group_filter
@@ -38,8 +38,9 @@ def resolve_set_blob_tags(_, info: GraphQLResolveInfo, id: str, tags: list) -> d
 @handle_client_exceptions
 def resolve_create_zip_archive(_, info: GraphQLResolveInfo, filter: BlobSearchFilter, uid: str) -> dict:
 	try:
-		user_data = perms.caller_info()
-		blob = zip_matching_blobs(group_filter(filter, user_data), user_data['_id'], uid)
+		user_data = perms.caller_info_strict()
+		groups: BlobSearchFilter = group_filter(filter, user_data)  # type: ignore
+		blob = zip_matching_blobs(groups, user_data['_id'], uid)
 		return {'__typename': 'Blob', **blob}
 	except ParseError as e:
 		return {'__typename': 'BadTagQuery', 'message': str(e)}
