@@ -509,7 +509,7 @@ export async function change_username(username) {
 		text: `<p>
 			If the new username is available, this will immediately update your <u>username</u> everywhere.
 			This will not affect your <u>Display Name</u>.<br>
-			<b>Changing your username will log you out of all devices.</b>
+			<b class="emphasis">Changing your username will log you out of all devices.</b>
 		</p>
 		&nbsp;<input id="username" placeholder="Username" format="id" value="${username}" />
 		&nbsp;<div id="username-message">&nbsp;</div>`,
@@ -517,9 +517,9 @@ export async function change_username(username) {
 	}, () => {
 		//When user edits username, automatically check if it's available.
 		$.bind('username', username_check)
-	}, choice => {
+	}, async choice => {
 		if (choice === 'cancel') return true
-		return username_check()
+		return await username_check()
 	},
 		choice => (choice === 'cancel') ? null : $.val('username')
 	).catch(() => null)
