@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 # This script builds all GraphQL types into TypedDict classes for use in the application.
 
+import sys  # nopep8
+import os  # nopep8
+sys.path.append(os.path.abspath('.'))  # nopep8
+
 from application.integrations.graphql import schema
-from sys import argv
 from pathlib import Path
 
 type_aliases = {
@@ -148,7 +151,7 @@ def list_changed_types():
 
 
 if __name__ == '__main__':
-	if 'check' in argv:
+	if 'check' in sys.argv:
 		list_changed_types()
 	else:
 		output_types()
