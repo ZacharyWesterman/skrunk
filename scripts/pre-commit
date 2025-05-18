@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+commit_fail() {
+	echo >&2 -e "\e[31mCommit aborted. Please fix any errors and try again.\e[0m"
+	unstash
+	exit 1
+}
+
+stashed=0
+require_stash() {
+	[ $stashed -eq 0 ] && git stash -q --include-untracked --keep-index
+	stashed=1
+}
+
+unstash() {
+	[ $stashed -eq 1 ] && git stash pop -q
+	stashed=0
+}
+
+gql_schema() {
+	# Check if graphql schema has changed.
+	echo >&2 -n "Checking GraphQL schema... "
+
+	if [ "$(git diff --name-only --cached | grep -e '\.graphql$')" == '' ]; then
+		echo >&2 -e "\e[32mNo changes.\e[0m"
+		return 0
+	fi
+
+	echo >&2 -e "\e[33mChanges detected.\e[0m"
+
+	require_stash
+
+	# Check if the GraphQL schema is valid.
+	echo >&2 -n "Validating GraphQL schema... "
+	if ! scripts/schema_check.py; then
+		echo >&2 -e "\e[31mERROR:\e[0m The GraphQL schema is invalid."
+		echo >&2 -e "\e[34mPlease fix the errors and try again.\e[0m"
+		return 1
+	fi
+	echo >&2 -e "\e[32mOK\e[0m."
+
+	# Check if types have changed and need to be generated.
+	echo >&2 -n "Checking GraphQL types... "
+	t="$(scripts/build_types.py check)"
+	if [ "$t" != '' ]; then
+		echo >&2 -e "\e[31mERROR:\e[0m The GraphQL schema changed for the following type(s):"
+		echo >&2 "  [ $t ]"
+		echo >&2 -e "\e[33mPlease run \`scripts/build_types.py\` to update the types, then add those file(s) to the commit.\e[0m"
+		return 1
+	fi
+	echo >&2 -e "\e[32mOK\e[0m."
+}
+
+echo >&2 -e "\e[34mRunning pre-commit hooks.\e[0m"
+
+gql_schema || commit_fail
+
+unstash
+
+echo >&2 -e "\e[32mAll checks passed. Proceeding with commit.\e[0m"
