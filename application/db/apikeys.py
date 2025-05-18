@@ -8,7 +8,7 @@ from . import perms
 from pymongo.collection import Collection
 
 ## A pointer to the API keys collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 
 def valid_api_key(key: str) -> bool:
@@ -38,7 +38,7 @@ def new_api_key(description: str, permissions: list[str]) -> str:
 	# Generate random 30-digit API key. This probably will not clash with an existing key.
 	api_key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(30))
 
-	user_data = perms.caller_info()
+	user_data = perms.caller_info_strict()
 
 	db.insert_one({
 		'key': api_key,

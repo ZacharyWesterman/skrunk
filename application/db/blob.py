@@ -87,7 +87,7 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 	Returns:
 		list: A list of dictionaries containing the unique ID and file extension of the uploaded blobs.
 	"""
-	filename = file.filename
+	filename = '<unknown>' if file.filename is None else file.filename
 	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and filename.lower().endswith('.zip')), ephemeral)
 	this_blob_path = BlobStorage(id, ext).path(create=True)
 
@@ -227,6 +227,9 @@ def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: boo
 	mime = set_mime_from_ext(mime, ext.lower()).lower()
 
 	username = decode_user_token(get_request_token()).get('username')
+	if username is None:
+		raise exceptions.AuthenticationError()
+
 	user_data = users.get_user_data(username)
 
 	auto_tags = get_tags_from_mime(mime)
@@ -291,13 +294,15 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 		]
 	}]
 
-	if filter.get('tag_expr') is not None:
-		tag_q = tags.parse(filter.get('tag_expr')).output()
+	tag_expr = filter.get('tag_expr')
+	if tag_expr is not None:
+		tag_q = tags.parse(tag_expr).output()
 		if tag_q:
 			query += [tag_q]
 
-	if type(filter.get('creator')) is str:
-		user_data = users.get_user_data(filter.get('creator'))
+	creator = filter.get('creator')
+	if type(creator) is str:
+		user_data = users.get_user_data(creator)
 		query += [{'creator': user_data['_id']}]
 
 	if filter.get('begin_date') is not None:
@@ -504,7 +509,9 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	if cancelled:
 		delete_blob(id)
-		Path(temp_filename).unlink()
+		# Remove the temp file
+		# linter complains that Path.unlink() doesn't exist, but it does
+		Path(temp_filename).unlink(missing_ok=True)  # type: ignore[union-attr]
 	else:
 		# Move the temp file to the blob storage path
 		shutil.move(temp_filename, this_blob_path)
@@ -594,13 +601,16 @@ def get_blob_data(id: str) -> dict:
 	except InvalidId:
 		raise exceptions.BlobDoesNotExistError(id)
 
-	if blob_data:
-		blob_data['id'] = blob_data['_id']
-		try:
-			user_data = users.get_user_by_id(blob_data['creator'])
-			blob_data['creator'] = user_data['username']
-		except exceptions.UserDoesNotExistError:
-			blob_data['creator'] = str(blob_data['creator'])
+	if blob_data is None:
+		raise exceptions.BlobDoesNotExistError(id)
+
+	blob_data['id'] = blob_data['_id']
+	try:
+		user_data = users.get_user_by_id(blob_data['creator'])
+		blob_data['creator'] = user_data['username']
+	except exceptions.UserDoesNotExistError:
+		blob_data['creator'] = str(blob_data['creator'])
+
 	return blob_data
 
 

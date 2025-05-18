@@ -6,7 +6,7 @@ from application.types import blob_storage
 from application.exceptions import BadUserNameError, UserExistsError
 
 
-def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
+def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> None:
 	"""
 	Initialize the database connections and set up the necessary collections.
 

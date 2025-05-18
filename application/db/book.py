@@ -15,7 +15,7 @@ import warnings
 from pymongo.collection import Collection
 
 ## A pointer to the Book collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 ## The client object that handles all Subsonic API requests.
 SUBSONIC = None
@@ -247,7 +247,7 @@ def get_book(id: str, *, parse: bool = False) -> dict:
 	return process_book_tag(book_data) if parse else book_data
 
 
-def next_out_of_date_book_rfid(before: datetime) -> str:
+def next_out_of_date_book_rfid(before: datetime) -> str | None:
 	"""
 	Retrieve the RFID of the next book that is out of date.
 
