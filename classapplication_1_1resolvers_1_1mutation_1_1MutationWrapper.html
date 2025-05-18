@@ -127,8 +127,7 @@ Collaboration diagram for application.resolvers.mutation.MutationWrapper:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae33a4cedabf60fb7242e2fe03c4708c9" id="r_ae33a4cedabf60fb7242e2fe03c4708c9"><td class="memItemLeft" align="right" valign="top"><a id="ae33a4cedabf60fb7242e2fe03c4708c9" name="ae33a4cedabf60fb7242e2fe03c4708c9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self)</td></tr>
+<tr class="memitem:ae33a4cedabf60fb7242e2fe03c4708c9" id="r_ae33a4cedabf60fb7242e2fe03c4708c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html#ae33a4cedabf60fb7242e2fe03c4708c9">__init__</a> (self)</td></tr>
 <tr class="separator:ae33a4cedabf60fb7242e2fe03c4708c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0783bacee5d347b3bedbbc610a688aae" id="r_a0783bacee5d347b3bedbbc610a688aae"><td class="memItemLeft" align="right" valign="top">Callable[[Resolver], Resolver]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html#a0783bacee5d347b3bedbbc610a688aae">create_register_resolver</a> (self, str name)</td></tr>
 <tr class="separator:a0783bacee5d347b3bedbbc610a688aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,10 +138,33 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a092f27b0f7f360f68723d4ce4fb5c4f0" id="r_a092f27b0f7f360f68723d4ce4fb5c4f0"><td class="memItemLeft" align="right" valign="top"><a id="a092f27b0f7f360f68723d4ce4fb5c4f0" name="a092f27b0f7f360f68723d4ce4fb5c4f0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>last_mutation</b></td></tr>
+<tr class="memdesc:a092f27b0f7f360f68723d4ce4fb5c4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dictionary containing the last mutation name, the username of the caller, and the timestamp of when it was called. <br /></td></tr>
 <tr class="separator:a092f27b0f7f360f68723d4ce4fb5c4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">A wrapper for the MutationType class to keep track of when the last mutation was called.</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><pre class="fragment">    A wrapper for the MutationType class to keep track of when the last mutation was called.
+    Attributes:
+        last_mutation (dict | None): A dictionary containing the last mutation name, the username
+                                     of the caller, and the timestamp of when it was called.</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae33a4cedabf60fb7242e2fe03c4708c9" name="ae33a4cedabf60fb7242e2fe03c4708c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae33a4cedabf60fb7242e2fe03c4708c9">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">application.resolvers.mutation.MutationWrapper.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Initialize the MutationWrapper class.</pre> 
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0783bacee5d347b3bedbbc610a688aae" name="a0783bacee5d347b3bedbbc610a688aae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0783bacee5d347b3bedbbc610a688aae">&#9670;&#160;</a></span>create_register_resolver()</h2>
 

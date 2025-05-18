@@ -12,6 +12,6 @@ var searchData=
   ['update_5fuser_5fperms_9',['update_user_perms',['../namespaceapplication_1_1db_1_1users.html#ad415db9d89d4a012681888358b70579d',1,'application::db::users']]],
   ['update_5fuser_5ftheme_10',['update_user_theme',['../namespaceapplication_1_1db_1_1users.html#acef10d0c8f53321dbda4e00b9ea4357d',1,'application::db::users']]],
   ['update_5fusername_11',['update_username',['../namespaceapplication_1_1db_1_1users.html#ad2925ed6203d6743827ae08d7437f77f',1,'application::db::users']]],
-  ['user_5fhas_5fperms_12',['user_has_perms',['../namespaceapplication_1_1db_1_1perms.html#af413cbac0899c49632ed9a5bd2067199',1,'application::db::perms']]],
+  ['user_5fhas_5fperms_12',['user_has_perms',['../namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d',1,'application::db::perms']]],
   ['userids_5fin_5fgroups_13',['userids_in_groups',['../namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1',1,'application::db::users']]]
 ];

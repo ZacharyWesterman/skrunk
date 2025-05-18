@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['satisfies_0',['satisfies',['../namespaceapplication_1_1db_1_1perms.html#a7218cc827b4159cd77ee363becd87d6c',1,'application::db::perms']]],
+  ['satisfies_0',['satisfies',['../namespaceapplication_1_1db_1_1perms.html#ad92ccee188ce04d10a30ae8c628c5596',1,'application::db::perms']]],
   ['save_5fblob_5fdata_1',['save_blob_data',['../namespaceapplication_1_1db_1_1blob.html#a48ec510f8ad6dc0e68383549bdae7652',1,'application::db::blob']]],
   ['schema_2',['schema',['../namespaceapplication_1_1integrations_1_1graphql.html#a7e352758bf8d4cacdc1f2e76a6e7055c',1,'application::integrations::graphql']]],
   ['send_3',['send',['../namespaceapplication_1_1db_1_1notification.html#a3461f8b0e76893fdb33dbcc78fe7654d',1,'application::db::notification']]],

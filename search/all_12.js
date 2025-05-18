@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['satisfies_0',['satisfies',['../namespaceapplication_1_1db_1_1perms.html#a7218cc827b4159cd77ee363becd87d6c',1,'application::db::perms']]],
+  ['satisfies_0',['satisfies',['../namespaceapplication_1_1db_1_1perms.html#ad92ccee188ce04d10a30ae8c628c5596',1,'application::db::perms']]],
   ['save_5fblob_5fdata_1',['save_blob_data',['../namespaceapplication_1_1db_1_1blob.html#a48ec510f8ad6dc0e68383549bdae7652',1,'application::db::blob']]],
   ['scalar_2',['scalar',['../namespaceapplication_1_1scalars_1_1color.html#a0b8fe863770295b92ed179ff1609a332',1,'application.scalars.color.scalar'],['../namespaceapplication_1_1scalars_1_1date.html#ab41c9e6097d5f46f435c50642f3f56cd',1,'application.scalars.date.scalar'],['../namespaceapplication_1_1scalars_1_1datetime.html#a45ae05958d8b44b03990fd843e9cdd98',1,'application.scalars.datetime.scalar'],['../namespaceapplication_1_1scalars_1_1long.html#af74fd72161757fa74b93ffbcda53ab4f',1,'application.scalars.long.scalar'],['../namespaceapplication_1_1scalars_1_1phone.html#a5a1662c399d1412604dd4b6f35a3858f',1,'application.scalars.phone.scalar'],['../namespaceapplication_1_1scalars_1_1size.html#a1e4c87390e6ff2097ccc7b8b39c22392',1,'application.scalars.size.scalar']]],
   ['scalars_3',['scalars',['../namespaceapplication_1_1scalars.html#a18b8fa4e9e719c129be1fb3b0f7e3c23',1,'application::scalars']]],

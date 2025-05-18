@@ -140,8 +140,8 @@ Functions</h2></td></tr>
 <tr class="separator:a8412d8d08760d314829ac08f896c96b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00abbb5e26d1c56b6eda50fb31582342" id="r_a00abbb5e26d1c56b6eda50fb31582342"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1users.html#a00abbb5e26d1c56b6eda50fb31582342">authenticate</a> (str username, str password)</td></tr>
 <tr class="separator:a00abbb5e26d1c56b6eda50fb31582342"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afde019ae5aafb0b942335804a6ce229f" id="r_afde019ae5aafb0b942335804a6ce229f"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1users.html#afde019ae5aafb0b942335804a6ce229f">group_filter</a> (dict filter, dict user_data)</td></tr>
-<tr class="separator:afde019ae5aafb0b942335804a6ce229f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abde933a5c387d4b36128c2f560a909d7" id="r_abde933a5c387d4b36128c2f560a909d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classapplication_1_1objects_1_1BlobSearchFilter.html">BlobSearchFilter</a>|<a class="el" href="classapplication_1_1objects_1_1InventorySearchFilter.html">InventorySearchFilter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1users.html#abde933a5c387d4b36128c2f560a909d7">group_filter</a> (<a class="el" href="classapplication_1_1objects_1_1BlobSearchFilter.html">BlobSearchFilter</a>|<a class="el" href="classapplication_1_1objects_1_1InventorySearchFilter.html">InventorySearchFilter</a> filter, dict user_data)</td></tr>
+<tr class="separator:abde933a5c387d4b36128c2f560a909d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69c78bc8fe10f100efb99c650a86fbf3" id="r_a69c78bc8fe10f100efb99c650a86fbf3"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1users.html#a69c78bc8fe10f100efb99c650a86fbf3">export_user_data</a> (str username)</td></tr>
 <tr class="separator:a69c78bc8fe10f100efb99c650a86fbf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -424,16 +424,16 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>top_level_db</b> 
         list: A list of users.</pre> 
 </div>
 </div>
-<a id="afde019ae5aafb0b942335804a6ce229f" name="afde019ae5aafb0b942335804a6ce229f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afde019ae5aafb0b942335804a6ce229f">&#9670;&#160;</a></span>group_filter()</h2>
+<a id="abde933a5c387d4b36128c2f560a909d7" name="abde933a5c387d4b36128c2f560a909d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abde933a5c387d4b36128c2f560a909d7">&#9670;&#160;</a></span>group_filter()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> dict application.db.users.group_filter </td>
+          <td class="memname"> <a class="el" href="classapplication_1_1objects_1_1BlobSearchFilter.html">BlobSearchFilter</a> | <a class="el" href="classapplication_1_1objects_1_1InventorySearchFilter.html">InventorySearchFilter</a> application.db.users.group_filter </td>
           <td>(</td>
-          <td class="paramtype">dict&#160;</td>
+          <td class="paramtype"><a class="el" href="classapplication_1_1objects_1_1BlobSearchFilter.html">BlobSearchFilter</a> | <a class="el" href="classapplication_1_1objects_1_1InventorySearchFilter.html">InventorySearchFilter</a>&#160;</td>
           <td class="paramname"><em>filter</em>, </td>
         </tr>
         <tr>
@@ -452,7 +452,7 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>top_level_db</b> 
 <pre class="fragment">    Applies group filtering to the specified filter based on the user's groups.
 
     Args:
-        filter (dict): The filter to apply group filtering to.
+        filter (Filter): The filter to apply group filtering to.
         user_data (dict): The user data containing the groups.
 
     Returns:

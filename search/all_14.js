@@ -14,7 +14,7 @@ var searchData=
   ['update_5fuser_5ftheme_11',['update_user_theme',['../namespaceapplication_1_1db_1_1users.html#acef10d0c8f53321dbda4e00b9ea4357d',1,'application::db::users']]],
   ['update_5fusername_12',['update_username',['../namespaceapplication_1_1db_1_1users.html#ad2925ed6203d6743827ae08d7437f77f',1,'application::db::users']]],
   ['url_13',['url',['../classapplication_1_1integrations_1_1github_1_1Repository.html#aee6c9ad9931206da03c53d3e128a35dc',1,'application::integrations::github::Repository']]],
-  ['user_5fhas_5fperms_14',['user_has_perms',['../namespaceapplication_1_1db_1_1perms.html#af413cbac0899c49632ed9a5bd2067199',1,'application::db::perms']]],
+  ['user_5fhas_5fperms_14',['user_has_perms',['../namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d',1,'application::db::perms']]],
   ['userdoesnotexisterror_15',['UserDoesNotExistError',['../classapplication_1_1exceptions_1_1UserDoesNotExistError.html',1,'application::exceptions']]],
   ['userexistserror_16',['UserExistsError',['../classapplication_1_1exceptions_1_1UserExistsError.html',1,'application::exceptions']]],
   ['userids_5fin_5fgroups_17',['userids_in_groups',['../namespaceapplication_1_1db_1_1users.html#ab84baadf3500198e73bcb32d3bf033a1',1,'application::db::users']]]

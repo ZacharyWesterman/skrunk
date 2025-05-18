@@ -3,7 +3,7 @@ var searchData=
   ['refresh_5fbook_5fdata_0',['refresh_book_data',['../namespaceapplication_1_1db_1_1book.html#a73de8f293dff5f7ec6249f2cea3598de',1,'application::db::book']]],
   ['remove_5freference_1',['remove_reference',['../namespaceapplication_1_1db_1_1blob.html#a145d7badf205c23c2c272855fe068170',1,'application::db::blob']]],
   ['report_5fbug_2',['report_bug',['../namespaceapplication_1_1db_1_1bugs.html#aad38a1c2641a0a8e4bcbf3ca1a524588',1,'application::db::bugs']]],
-  ['require_3',['require',['../namespaceapplication_1_1db_1_1perms.html#ae2617c3655d71ccf7223765359c63cdc',1,'application::db::perms']]],
+  ['require_3',['require',['../namespaceapplication_1_1db_1_1perms.html#a4617d4435276a7ed22259fa2cebaf5b6',1,'application::db::perms']]],
   ['resolve_5fcreate_5fapi_5fkey_4',['resolve_create_api_key',['../namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#a980d0312f7fad9432a6f95b4f291e129',1,'application::resolvers::mutation::apikeys']]],
   ['resolve_5fdelete_5fapi_5fkey_5',['resolve_delete_api_key',['../namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#aff2fe44224d2b610d71d0b3d9d5e0ccf',1,'application::resolvers::mutation::apikeys']]],
   ['resolve_5fget_5fapi_5fkeys_6',['resolve_get_api_keys',['../namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html#aa36df7bf28710b6f077a982a353fadad',1,'application::resolvers::query::apikeys']]],
