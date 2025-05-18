@@ -34,6 +34,11 @@ def class_text(class_data: dict) -> str:
 	}
 
 	text = f'class {class_data["name"]}(TypedDict):\n'
+	# Add any documentation
+	docs = class_data['doc'].strip().replace("\n", "\n\t")
+	if docs:
+		text += f'\t"""\n\t{docs}\n\t"""\n\n'
+
 	for i in class_data['params']:
 		data_type = type_text(i["type"])
 		for j in data_type[1]:
@@ -42,9 +47,13 @@ def class_text(class_data: dict) -> str:
 			elif j not in builtin_types:
 				type_imports[j] = f'from .{j.lower()} import {j}'
 
+		docs = i['doc'].strip().replace("\n", " ")
+		if docs:
+			text += f'\t## {docs}\n'
 		text += f'\t{i["name"]}: {data_type[0]}\n'
 
-	return '\n'.join(type_imports.values()) + '\n\n\n' + text
+	text = '\n'.join(type_imports.values()) + '\n\n\n' + text
+	return text
 
 
 def type_text(data_type: str) -> tuple[str, list[str]]:
@@ -94,16 +103,16 @@ def output_types():
 			continue
 
 		filename = f'application/types/{t["name"].lower()}.py'
+		text = class_text(t)
 
 		# Skip if the file already exists and is up to date
 		if Path(filename).exists():
 			with open(filename, 'r') as f:
-				if f.read() == class_text(t):
+				if f.read() == text:
 					continue
 
 		print(f'Writing {filename}...')
 
-		text = class_text(t)
 		with open(filename, 'w') as f:
 			f.write(text)
 

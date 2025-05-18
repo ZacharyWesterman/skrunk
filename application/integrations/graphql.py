@@ -241,10 +241,16 @@ def schema():
 				'union': False,
 				'subtypes': [],
 				'params': [],
+				'doc': obj.description or '',
 			}
 
 			if isinstance(obj, GraphQLObjectType) or isinstance(obj, GraphQLInputObjectType):
-				info['params'] = [{'name': key, 'type': str(val.type), 'optional': False} for (key, val) in obj.fields.items()]
+				info['params'] = [{
+					'name': key,
+					'type': str(val.type),
+					'optional': False,
+					'doc': val.description or '',
+				} for (key, val) in obj.fields.items()]
 				info['subtypes'] = [str(i.type) for i in obj.fields.values()]
 			elif isinstance(obj, GraphQLUnionType):
 				info['union'] = True
