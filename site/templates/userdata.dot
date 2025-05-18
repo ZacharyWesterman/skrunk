@@ -18,7 +18,10 @@
 			<br>
 
 			<input id="user-new-password2" type="password" placeholder="Confirm Password" autocomplete="new-password" *focus="contract_password_hints">
-			<button class="icon" *click="update_password($('user-new-password').value, '{{=it.user.username}}')"><i class="fa-solid fa-right-to-bracket fa-lg"></i></button>
+			<button class="icon tooltip" *click="update_password($('user-new-password').value, '{{=it.user.username}}')">
+				<i class="fa-solid fa-right-to-bracket fa-lg"></i>
+				<span class="tooltiptext t-center">Update password</span>
+			</button>
 
 			<div class="expand-container" id="password-hints">
 				<div>
@@ -69,6 +72,8 @@
 							<td>
 								<span class="tooltip">
 									{{=perm.name}}
+									&nbsp;
+									<i class="fa-solid fa-circle-info fa-sm"></i>
 									<span class="tooltiptext t-right t-persist" id="perm-tooltip-{{=perm.name}}">Placeholder Text. You should never see this!</span>
 								</span>
 							</td>
@@ -112,7 +117,11 @@
 							</td>
 							<td>
 								<span class="tooltip">
-									<span>Notifications</span>
+									<span>
+										Notifications
+										&nbsp;
+										<i class="fa-solid fa-circle-info fa-sm"></i>
+									</span>
 									<span class="tooltiptext t-right t-persist">Receive push notifications on this device.</span>
 								</span>
 							</td>
@@ -130,6 +139,8 @@
 							<td>
 								<span class="tooltip">
 									<span id="module-name-{{= mod }}">{{= mod }}</span>
+									&nbsp;
+									<i class="fa-solid fa-circle-info fa-sm"></i>
 									<span class="tooltiptext t-right t-persist" id="module-tooltip-{{= mod }}">Placeholder Text. You should never see this!</span>
 								</span>
 							</td>
