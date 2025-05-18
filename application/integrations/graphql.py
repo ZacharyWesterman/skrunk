@@ -25,6 +25,8 @@ def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 	while True:
 		if isinstance(_tp, GraphQLNonNull) or isinstance(_tp, GraphQLList):
 			_tp = _tp.of_type
+		elif isinstance(_tp, GraphQLArgument):
+			_tp = _tp.type
 		else:
 			break
 	return _tp
