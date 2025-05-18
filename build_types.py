@@ -135,13 +135,13 @@ def list_changed_types():
 
 		filename = f'application/types/{t["name"].lower()}.py'
 		if not Path(filename).exists():
-			changed_types.append(filename)
+			changed_types.append(t['name'])
 			continue
 
 		text = class_text(t)
 		with open(filename, 'r') as f:
 			if f.read() != text:
-				changed_types.append(filename)
+				changed_types.append(t['name'])
 				continue
 
 	print(', '.join(sorted(changed_types)))
