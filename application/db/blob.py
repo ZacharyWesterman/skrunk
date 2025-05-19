@@ -8,7 +8,7 @@ from application.objects import BlobSearchFilter, Sorting
 from werkzeug.datastructures import FileStorage
 from application.types import BlobStorage, BlobPreview, BlobThumbnail
 from application import types
-from perms import caller_info
+from .perms import caller_info
 
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
