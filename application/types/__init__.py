@@ -4,7 +4,7 @@ from .blob_storage import *
 import json
 
 
-def wrapped_default(self, obj):
+def wrapped_default(self, o):
     """
     Serializes an object to a dictionary representation.
 
@@ -19,7 +19,7 @@ def wrapped_default(self, obj):
         dict: A dictionary representation of the object if it has a `__dict__` attribute.
         Otherwise, returns the object itself.
     """
-    return {'__typename': obj.__class__.__name__, **obj.__dict__} if getattr(obj, '__dict__') else obj
+    return {'__typename': o.__class__.__name__, **o.__dict__} if getattr(o, '__dict__') else o
 
 
 ## Monkey patch the default method of the JSONEncoder class to use the wrapped_default function.

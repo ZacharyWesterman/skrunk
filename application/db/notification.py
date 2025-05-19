@@ -22,7 +22,7 @@ except FileNotFoundError:
 from pymongo.database import Database
 
 ## A pointer to the database object.
-db: Database = None
+db: Database = None  # type: ignore[assignment]
 
 
 def get_user_from_notif(id: str) -> dict:
@@ -235,19 +235,20 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 	if admin_email is None or admin_email == '':
 		raise exceptions.MissingConfig('Admin Email')
 
-	message = {
+	message: dict = {
 		'title': title,
 		'body': body,
 	}
 
-	log_id = db.notif_log.insert_one({
+	notif_data = {
 		'recipient': user_data['_id'],
 		'created': datetime.utcnow(),
 		'message': json.dumps(message),
 		'category': category,
 		'device_count': 0,
 		'read': read,
-	}).inserted_id
+	}
+	log_id = db.notif_log.insert_one(notif_data).inserted_id
 
 	message['login_token'] = get_first_session_token(username)
 	message['notif_id'] = str(log_id)
@@ -269,6 +270,10 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 			)
 		except WebPushException as e:
 			send_admin_alert = True
+
+			if e.response is None:
+				print(f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}', flush=True)
+				continue
 
 			# If user subscription is expired, just delete the subscription and continue
 			# There's nothing else we can do in that case.
@@ -293,7 +298,7 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 		'device_count': len(sub_tokens),
 	}})
 
-	notif_data = db.notif_log.find_one({'_id': log_id})
-	notif_data['id'] = notif_data['_id']
+	notif_data['device_count'] = len(sub_tokens)
+	notif_data['id'] = str(log_id)
 
 	return notif_data

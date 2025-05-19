@@ -1,6 +1,5 @@
 """application.db.blob"""
 
-from application.tokens import decode_user_token, get_request_token
 import application.exceptions as exceptions
 import application.tags as tags
 from . import users
@@ -9,6 +8,7 @@ from application.objects import BlobSearchFilter, Sorting
 from werkzeug.datastructures import FileStorage
 from application.types import BlobStorage, BlobPreview, BlobThumbnail
 from application import types
+from .perms import caller_info
 
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
@@ -226,11 +226,9 @@ def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: boo
 	real_mime = mime
 	mime = set_mime_from_ext(mime, ext.lower()).lower()
 
-	username = decode_user_token(get_request_token()).get('username')
-	if username is None:
+	user_data = caller_info()
+	if user_data is None:
 		raise exceptions.AuthenticationError()
-
-	user_data = users.get_user_data(username)
 
 	auto_tags = get_tags_from_mime(mime)
 
@@ -627,14 +625,9 @@ def delete_blob(blob_id: str) -> dict:
 	Raises:
 		BlobDoesNotExistError: If the blob with the given ID does not exist.
 	"""
-	blob_data = db.find_one({'_id': ObjectId(blob_id)})
-	if blob_data:
-		try:
-			item = pathlib.Path(BlobStorage(blob_id, blob_data['ext']).path())
-			item.unlink()
-		except FileNotFoundError:
-			pass
-
+	blob_data: dict | None = db.find_one({'_id': ObjectId(blob_id)})
+	if blob_data is not None:
+		# Delete the preview file if it exists
 		if blob_data.get('preview') is not None:
 			try:
 				prevw = pathlib.Path(BlobPreview(blob_data['preview'], '').path(), '')
@@ -642,11 +635,23 @@ def delete_blob(blob_id: str) -> dict:
 			except FileNotFoundError:
 				pass
 
-		# Delete volume dirs if empty
+		# Delete the thumbnail file if it exists
+		if blob_data.get('thumbnail') is not None:
+			try:
+				thumb = pathlib.Path(BlobThumbnail(blob_data['thumbnail'], '').path(), '')
+				thumb.unlink()
+			except FileNotFoundError:
+				pass
+
 		try:
+			# Delete the blob from disk
+			item = pathlib.Path(BlobStorage(blob_id, blob_data['ext']).path())
+			item.unlink()
+
+			# Delete volume dirs if empty
 			item.parent.rmdir()
 			item.parent.parent.rmdir()
-		except OSError:
+		except FileNotFoundError | OSError:
 			pass
 
 		db.delete_one({'_id': ObjectId(blob_id)})

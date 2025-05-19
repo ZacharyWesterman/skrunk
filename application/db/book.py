@@ -6,6 +6,7 @@ import application.exceptions as exceptions
 from application.objects import BookSearchFilter, Sorting
 from . import users, blob
 from application.integrations import google_books, subsonic
+from .perms import caller_info_strict
 from datetime import datetime
 from bson.objectid import ObjectId
 import re
@@ -13,6 +14,7 @@ import markdown
 import warnings
 
 from pymongo.collection import Collection
+from pymongo.cursor import Cursor
 
 ## A pointer to the Book collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -291,7 +293,7 @@ def refresh_book_data(rfid: str) -> None:
 	google_book_data = google_books.get(id=book_data['bookId'])
 
 	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
-	updated = {'lastSync': datetime.utcnow()}
+	updated: dict = {'lastSync': datetime.utcnow()}
 	for i in fields:
 		if i in book_data.get('noSyncFields', []):
 			continue
@@ -326,8 +328,7 @@ def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
 	google_book_data = google_books.get(id=book_id)
 	del google_book_data['id']
 
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 	owner_data = users.get_user_data(owner)
 
 	book_data = {
@@ -378,8 +379,7 @@ def create_book(owner: str, data: dict) -> dict:
 	Returns:
 		dict: A dictionary containing the created book data.
 	"""
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 	owner_data = users.get_user_data(owner)
 
 	book_data = {
@@ -472,7 +472,7 @@ def norm_query(query: dict, ownerq: dict | None) -> dict:
 	return query
 
 
-def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
+def build_book_query(filter: BookSearchFilter, sort: list = []) -> tuple[list[dict] | None, dict]:
 	"""
 	Builds a MongoDB query and aggregation pipeline based on the provided filter and sort criteria.
 
@@ -491,7 +491,7 @@ def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
 			- query (dict): The MongoDB query dictionary.
 	"""
 	query = {}
-	aggregate = None
+	aggregate: list[dict] | None = None
 
 	owner = filter.get('owner')
 	ownerq = None
@@ -511,13 +511,14 @@ def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
 	if filter.get('shared') is not None:
 		query['shared'] = filter.get('shared')
 
-	if filter.get('title') is not None:
-		isbn = filter.get('title').strip().replace('-', '')
+	title = filter.get('title')
+	if title is not None:
+		isbn = title.strip().replace('-', '')
 		if re.match(r'^\d{9,13}$', isbn):
 			query['industryIdentifiers.identifier'] = isbn
 			query = norm_query(query, ownerq)
 		else:
-			keywords = keyword_tokenize(filter.get('title'))
+			keywords = keyword_tokenize(title)
 			query['keywords'] = {'$in': keywords}
 			query['score'] = {'$gt': (len(keywords) + 1) // 2 if len(keywords) > 1 else 0}
 			query = norm_query(query, ownerq)
@@ -567,12 +568,17 @@ def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting
 	except exceptions.UserDoesNotExistError:
 		return []
 
+	selection: Cursor | None = None
+
 	if aggregate:
 		aggr_filter = [{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}}]
 		for i in db.aggregate(aggregate + aggr_filter):
 			selection = i['results']
 	else:
 		selection = db.find(query, sort=sort).limit(count).skip(start)
+
+	if selection is None:
+		return books
 
 	for i in selection:
 		i = process_book_tag(i.get('results', i))
@@ -581,7 +587,7 @@ def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting
 	return books
 
 
-def count_books(filter: BookSearchFilter) -> list:
+def count_books(filter: BookSearchFilter) -> int:
 	"""
 	Count the number of books in the database based on the provided filter.
 
@@ -608,6 +614,9 @@ def count_books(filter: BookSearchFilter) -> list:
 	else:
 		return db.count_documents(query)
 
+	# Should never reach here, but just in case.
+	return 0
+
 
 def share_book_with_user(book_id: str, username: str) -> dict:
 	"""
@@ -624,8 +633,8 @@ def share_book_with_user(book_id: str, username: str) -> dict:
 		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
 	"""
 
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
@@ -637,8 +646,8 @@ def share_book_with_user(book_id: str, username: str) -> dict:
 	else:
 		updates = {'shared': True}
 
-	db.update_one({'_id': book_id}, {'$set': updates})
-	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+	db.update_one({'_id': book_obj_id}, {'$set': updates})
+	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': user_data['_id'],
 		'name': username,
 		'start': datetime.utcnow(),
@@ -662,8 +671,8 @@ def share_book_with_non_user(book_id: str, name: str) -> dict:
 	Raises:
 		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
 	"""
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
@@ -673,8 +682,8 @@ def share_book_with_non_user(book_id: str, name: str) -> dict:
 	else:
 		updates = {'shared': True}
 
-	db.update_one({'_id': book_id}, {'$set': updates})
-	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+	db.update_one({'_id': book_obj_id}, {'$set': updates})
+	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': None,
 		'name': name,
 		'start': datetime.utcnow(),
@@ -701,8 +710,8 @@ def borrow_book(book_id: str, user_data: dict) -> dict:
 		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
 		exceptions.BookCannotBeShared: If the book is currently being borrowed by another user.
 	"""
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
@@ -718,8 +727,8 @@ def borrow_book(book_id: str, user_data: dict) -> dict:
 	else:
 		updates = {'shared': True}
 
-	db.update_one({'_id': book_id}, {'$set': updates})
-	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+	db.update_one({'_id': book_obj_id}, {'$set': updates})
+	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': user_data['_id'],
 		'name': user_data['username'],
 		'start': datetime.utcnow(),
@@ -744,8 +753,8 @@ def return_book(book_id: str, user_data: dict) -> dict:
 		BookTagDoesNotExistError: If the book with the given ID does not exist.
 		BookCannotBeShared: If the book is not currently shared or if the user did not borrow the book.
 	"""
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
@@ -756,7 +765,7 @@ def return_book(book_id: str, user_data: dict) -> dict:
 	if book_data['shareHistory'][-1]['user_id'] != user_data['_id'] and book_data['owner'] != user_data['_id']:
 		raise exceptions.BookCannotBeShared('You did not borrow this book.')
 
-	db.update_one({'_id': book_id}, {'$set': {'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()}})
+	db.update_one({'_id': book_obj_id}, {'$set': {'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()}})
 	return book_data
 
 

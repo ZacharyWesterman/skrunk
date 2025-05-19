@@ -8,11 +8,12 @@ import json
 from . import auth, files
 from application.db import blob
 import application.db.perms as perms
+from typing import Any
 
-application = None
+application: Any = None
 
 
-def get_chunk(full_path: str, byte1: int, byte2: int, max_chunk_size: int) -> tuple:
+def get_chunk(full_path: str, byte1: int, byte2: int | None, max_chunk_size: int) -> tuple:
 	file_size = os.stat(full_path).st_size
 	start = 0
 
@@ -42,6 +43,9 @@ def stream(path: str, max_chunk_size: int = 1024 * 1024 * 5) -> Response:
 	byte1, byte2 = 0, None
 	if range_header:
 		match = re.search(r'(\d+)-(\d*)', range_header)
+		if not match:
+			return Response('Invalid range header.', 416)
+
 		groups = match.groups()
 
 		if groups[0]:
@@ -86,7 +90,7 @@ def upload() -> Response:
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
-	if not perms.satisfies(['edit']):
+	if not perms.satisfies(('edit',)):
 		return Response('You are not allowed to perform this action.', 403)
 
 	auto_unzip = request.form['unzip'] == 'true'

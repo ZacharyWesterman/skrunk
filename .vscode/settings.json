@@ -3,6 +3,7 @@
 	"files.insertFinalNewline": true,
 	"python.analysis.inlayHints.variableTypes": true,
 	"python.analysis.inlayHints.functionReturnTypes": true,
+	"python.analysis.typeCheckingMode": "standard",
 	"editor.insertSpaces": false,
 	"autopep8.args": [
 		"--ignore=W191,E266",

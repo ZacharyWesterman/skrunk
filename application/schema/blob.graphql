@@ -1,41 +1,84 @@
+"""
+A type for blob data.
+"""
 type Blob {
+	"""The ID of the blob"""
 	id: String!
+	"""The date the blob was created"""
 	created: DateTime!
+	"""The username of the user who created the blob"""
 	creator: String!
+	"""The original filename of the blob"""
 	name: String!
+	"""The extension of the blob"""
 	ext: String!
+	"""The mime type of the blob"""
 	mimetype: String!
+	"""The size of the blob in bytes"""
 	size: Long!
+	"""A list of tags associated with the blob"""
 	tags: [String!]!
+	"""A preview URL or ID for the blob. For images, this is a smaller version of the image. For videos, it's the first frame. For 3d models, it's a version that can be easily rendered in a browser."""
 	preview: String
+	"""The thumbnail for the blob. This is a smaller version of the preview, used for displaying in lists, and is always an image."""
 	thumbnail: String
+	"""Whether the blob is restricted to only the user who created it."""
 	hidden: Boolean!
+	"""Whether the blob is ephemeral. Ephemeral blobs are deleted after a certain amount of time."""
 	ephemeral: Boolean!
+	"""The number of other documents that reference this blob. If ephemeral, this is used to determine if the blob can be deleted."""
 	references: Int!
 }
 
+"""
+An error that occurs when attempting to access a blob that does not exist.
+"""
 type BlobDoesNotExistError {
+	"""The error message"""
 	message: String!
 }
 
+"""
+An error that occurs when a tag query has invalid syntax.
+"""
 type BadTagQuery {
+	"""The error message"""
 	message: String!
 }
 
+"""
+An error that occurs when there is insufficient disk space to perform a file operation.
+"""
 type InsufficientDiskSpace {
+	"""The error message"""
 	message: String!
 }
 
+"""
+A list of blobs.
+This type is used so that if the query fails, we can return an error message instead of an empty list.
+"""
 type BlobList {
+	"""The blob list"""
 	blobs: [Blob!]!
 }
 
+"""
+A type for getting the number of blobs that match a query.
+This type is used so that if the query fails, we can return an error message instead of zero.
+"""
 type BlobCount {
+	"""The number of blobs that match the query"""
 	count: Long!
 }
 
+"""
+A type for the result of parsing a QR code.
+"""
 type QRParseResponse {
+	"""The parsed data from the QR code, if no error occurred"""
 	data: String
+	"""The error message, if an error occurred"""
 	error: String
 }
 
@@ -49,12 +92,22 @@ type ZipProgress {
 	item: String!
 }
 
+"""
+An input type for filtering blob data.
+All fields are optional, and if a field is null, it will not be used in the query.
+"""
 input BlobSearchFilter {
+	"""The username of the user who created the blob."""
 	creator: String
+	"""The earliest date the blob was created."""
 	begin_date: DateTime
+	"""The latest date the blob was created."""
 	end_date: DateTime
+	"""The original filename of the blob."""
 	name: String
+	"""The tag query to filter blobs by."""
 	tag_expr: String
+	"""Filter by whether the blob is ephemeral or not."""
 	ephemeral: Boolean
 }
 

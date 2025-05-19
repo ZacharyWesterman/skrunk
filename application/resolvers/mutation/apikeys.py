@@ -1,6 +1,6 @@
 """application.resolvers.mutation.apikeys"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.apikeys import new_api_key, delete_api_key
 from application.db import perms
 from . import mutation

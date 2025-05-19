@@ -10,7 +10,7 @@ import markdown
 from pymongo.database import Database
 
 ## A pointer to the database object.
-db: Database = None
+db: Database = None  # type: ignore[assignment]
 
 
 def process_feed(feed: dict) -> dict:
@@ -105,12 +105,12 @@ def create_feed(name: str, url: str, kind: str, notify: bool) -> dict:
 	Raises:
 		InvalidFeedKindError: If the kind is not 'markdown_recursive'.
 	"""
-	user_data = perms.caller_info()
+	user_data = perms.caller_info_strict()
 
 	if kind not in ['markdown_recursive']:
 		raise InvalidFeedKindError(kind)
 
-	id = db.feeds.insert_one({
+	feed = {
 		'name': name,
 		'url': url,
 		'kind': kind,
@@ -120,9 +120,11 @@ def create_feed(name: str, url: str, kind: str, notify: bool) -> dict:
 		'inactive': False,
 		'current_page': None,
 		'current_sort': None,
-	}).inserted_id
+	}
+	id = db.feeds.insert_one(feed).inserted_id
+	feed['_id'] = id
 
-	return process_feed(db.feeds.find_one({'_id': id}))
+	return process_feed(feed)
 
 
 def delete_feed(id: str) -> dict:
@@ -298,7 +300,7 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 	"""
 	feed_data = get_feed(feed)
 
-	id = db.documents.insert_one({
+	feed_document = {
 		'feed': ObjectId(feed),
 		'author': author,
 		'posted': posted,
@@ -309,9 +311,11 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 		'updated': None,
 		'url': url,
 		'read': False,
-	}).inserted_id
+	}
+	id = db.documents.insert_one(feed_document).inserted_id
+	feed_document['_id'] = id
 
-	return process_document(db.documents.find_one({'_id': id}))
+	return process_document(feed_document)
 
 
 def update_document(id: str, body: str) -> dict:

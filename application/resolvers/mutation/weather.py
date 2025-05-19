@@ -1,6 +1,6 @@
 """application.resolvers.mutation.weather"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.weather import create_user, delete_user, set_user_excluded, update_user, log_weather_alert, log_user_weather_alert
 import application.db.perms as perms
 from ..decorators import *

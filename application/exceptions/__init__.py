@@ -1,5 +1,7 @@
 """application.exceptions"""
 
+from typing import Any
+
 
 class ClientError(Exception):
 	"""Base class for client-related errors."""
@@ -196,7 +198,7 @@ class InvalidSubscriptionToken(ClientError):
 class ItemExistsError(ClientError):
 	"""Raised when an item already exists."""
 
-	def __init__(self, id: str) -> None:
+	def __init__(self, id: Any) -> None:
 		"""
 		Initializes the exception with a message indicating that an item already exists with the given RFID.
 
@@ -266,3 +268,13 @@ class InsufficientDiskSpace(ClientError):
 		Initializes the exception with a message indicating insufficient disk space.
 		"""
 		super().__init__('Not enough disk space to complete the operation. Please contact an admin!')
+
+
+class SubsonicError(ClientError):
+	"""Raised when an attempt to query Subsonic is made without being configured correctly."""
+
+	def __init__(self, msg: str = 'Subsonic integration is not configured correctly. Please contact an admin!') -> None:
+		"""
+		Initializes the exception with a message indicating that Subsonic is not configured.
+		"""
+		super().__init__(msg)

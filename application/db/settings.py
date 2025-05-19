@@ -5,7 +5,7 @@ from pymongo.collection import Collection
 import application.exceptions as exceptions
 
 ## A pointer to the settings database collection.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 
 def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
@@ -21,11 +21,11 @@ def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 				   indirectly disabled due to dependencies.
 	"""
 
-	modules = db.find_one({'name': 'modules'})
-	if modules is None:
+	module_config: dict | None = db.find_one({'name': 'modules'})
+	if module_config is None:
 		return []
 
-	modules: list[str] = modules.get('enabled', [])
+	modules: list[str] = module_config.get('enabled', [])
 
 	with open('site/config/modules.json', 'r') as fp:
 		module_config = {i['id']: i for i in json.load(fp)}
@@ -51,14 +51,14 @@ def get_enabled_modules(user_data: dict | None = None, *, group: str | None = No
 		list: A list of enabled modules, excluding those disabled for the specified user or group.
 	"""
 
-	modules = db.find_one({'name': 'modules'})
-	if modules is None:
+	module_config: dict | None = db.find_one({'name': 'modules'})
+	if module_config is None:
 		return []
 
-	modules: list[str] = modules.get('enabled', [])
+	modules: list[str] = module_config.get('enabled', [])
 
-	groups = db.find_one({'name': 'groups'})
-	groups: dict[str, dict[str, list[str]]] = {} if groups is None else groups.get('groups', {})
+	group_config: dict | None = db.find_one({'name': 'groups'})
+	groups: dict[str, dict[str, list[str]]] = {} if group_config is None else group_config.get('groups', {})
 
 	disabled_modules: list[str] = []
 
@@ -84,14 +84,14 @@ def get_modules(user_data: dict) -> list:
 		list: A list of enabled modules for the user, excluding any disabled modules.
 	"""
 
-	modules = db.find_one({'name': 'modules'})
-	if modules is None:
+	module_config: dict | None = db.find_one({'name': 'modules'})
+	if module_config is None:
 		return []
 
-	modules: list[str] = modules.get('enabled', [])
+	modules: list[str] = module_config.get('enabled', [])
 
-	groups = db.find_one({'name': 'groups'})
-	groups: dict[str, dict[str, list[str]]] = {} if groups is None else groups.get('groups', {})
+	group_config: dict | None = db.find_one({'name': 'groups'})
+	groups: dict[str, dict[str, list[str]]] = {} if group_config is None else group_config.get('groups', {})
 
 	disabled_modules: list[str] = []
 

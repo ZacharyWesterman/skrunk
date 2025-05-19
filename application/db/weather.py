@@ -7,7 +7,7 @@ from pymongo.database import Database
 from datetime import datetime
 
 ## A pointer to the database object.
-db: Database = None
+db: Database = None  # type: ignore[assignment]
 
 
 def process_weather_user(userdata: dict) -> dict:
@@ -255,7 +255,7 @@ def get_alert_history(username: str | None, start: int, count: int) -> list:
 	return result
 
 
-def count_alert_history(username: str | None) -> list:
+def count_alert_history(username: str | None) -> int:
 	"""
 	Count the number of alert history documents in the database.
 

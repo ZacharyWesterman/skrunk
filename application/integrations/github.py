@@ -7,10 +7,11 @@ import requests
 import subprocess
 from .exceptions import RepoFetchFailed
 import cachetools.func
+from typing import Any
 
 
 @cachetools.func.ttl_cache()
-def gh_request(url: str) -> dict:
+def gh_request(url: str) -> Any:
 	"""
 	Sends a GET request to the specified GitHub API URL with authorization headers.
 

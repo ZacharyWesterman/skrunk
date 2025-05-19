@@ -5,12 +5,13 @@ import jwt
 import os
 from flask import request
 import random
+from typing import Any
 
 from .db.sessions import start_session, valid_session
 from .db.apikeys import valid_api_key
 
-__private_key = serialization.load_ssh_private_key(open(os.environ['HOME'] + '/.ssh/id_rsa', 'r').read().encode(), password=b'')
-__public_key = serialization.load_ssh_public_key(open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r').read().encode())
+__private_key: Any = serialization.load_ssh_private_key(open(os.environ['HOME'] + '/.ssh/id_rsa', 'r').read().encode(), password=b'')
+__public_key: Any = serialization.load_ssh_public_key(open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r').read().encode())
 
 __max_int = 2**32 - 1
 
@@ -80,7 +81,7 @@ def token_is_valid(token: str) -> bool:
 	return valid_session(token) or valid_api_key(token)
 
 
-def get_request_token() -> str:
+def get_request_token() -> str | None:
 	"""
 	Extracts the authorization token from the request headers.
 

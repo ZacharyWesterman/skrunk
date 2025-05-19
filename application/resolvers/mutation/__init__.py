@@ -5,7 +5,7 @@ from ariadne.types import Resolver
 from typing import Callable
 from datetime import datetime
 
-from application.tokens import get_request_token, decode_user_token
+from application.db.perms import caller_info_strict
 
 
 class MutationWrapper(MutationType):
@@ -36,7 +36,7 @@ class MutationWrapper(MutationType):
 				# Do not store ANYTHING else, for privacy (and perhaps security?) reasons.
 				self.last_mutation = {
 					'request': name,
-					'username': decode_user_token(get_request_token()).get('username'),
+					'username': caller_info_strict().get('username'),
 					'timestamp': datetime.now(),
 				}
 				return f(*args, **kwargs)

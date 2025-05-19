@@ -1,6 +1,6 @@
 """application.resolvers.mutation.users"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.users import *
 import application.db.perms as perms
 from ..decorators import *

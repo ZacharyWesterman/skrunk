@@ -1,6 +1,6 @@
 """application.resolvers.query.settings"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.settings import get_enabled_modules, get_groups, get_all_configs, get_config, get_modules, get_all_themes
 from application.db import perms
 from application.integrations import graphql
@@ -9,12 +9,12 @@ from . import query
 
 @query.field('getEnabledModules')
 def resolve_get_enabled_modules(_, info: GraphQLResolveInfo) -> list:
-	return get_enabled_modules(perms.caller_info())
+	return get_enabled_modules(perms.caller_info_strict())
 
 
 @query.field('getModules')
 def resolve_get_modules(_, info: GraphQLResolveInfo) -> list:
-	return get_modules(perms.caller_info())
+	return get_modules(perms.caller_info_strict())
 
 
 @query.field('getServerEnabledModules')
@@ -29,7 +29,7 @@ def resolve_get_groups(_, info: GraphQLResolveInfo) -> list:
 
 @query.field('getConfigs')
 @perms.require('admin')
-def resolve_get_all_configs(_, info: GraphQLResolveInfo) -> list:
+def resolve_get_all_configs(_, info: GraphQLResolveInfo) -> dict:
 	return {'__typename': 'ConfigList', 'configs': get_all_configs()}
 
 
