@@ -40,10 +40,10 @@ var namespaceapplication_1_1db =
     [ "book", "namespaceapplication_1_1db_1_1book.html", [
       [ "append_ebook", "namespaceapplication_1_1db_1_1book.html#a70365d6cffaabc930a6a0f7fc28906e3", null ],
       [ "borrow_book", "namespaceapplication_1_1db_1_1book.html#a3657df852f8b3559cc02459939e78230", null ],
-      [ "build_book_query", "namespaceapplication_1_1db_1_1book.html#a2d4845b4344563650a76de590943e50d", null ],
+      [ "build_book_query", "namespaceapplication_1_1db_1_1book.html#a4b699c08b5dd2ca5dc86c48d8c573a58", null ],
       [ "build_keywords", "namespaceapplication_1_1db_1_1book.html#ad82854c605e43eb4b48ea65e4f187f76", null ],
       [ "count_all_user_books", "namespaceapplication_1_1db_1_1book.html#a1fb8b17fd66d8b20133a0924270486f3", null ],
-      [ "count_books", "namespaceapplication_1_1db_1_1book.html#a5c2b7502ff88610c5ea6b21c9c31b9a3", null ],
+      [ "count_books", "namespaceapplication_1_1db_1_1book.html#a94ebabf88a859e64bdc8beae9f0c215f", null ],
       [ "create_book", "namespaceapplication_1_1db_1_1book.html#a08e0abbfc65c70407600115e2f9fda7b", null ],
       [ "edit_book", "namespaceapplication_1_1db_1_1book.html#aaf831a4b533b6d4f483af68e3b60fd81", null ],
       [ "get_book", "namespaceapplication_1_1db_1_1book.html#a7c18efafab5ef9c7798ee428c02be5b8", null ],
@@ -100,7 +100,7 @@ var namespaceapplication_1_1db =
     ] ],
     [ "inventory", "namespaceapplication_1_1db_1_1inventory.html", [
       [ "build_inventory_query", "namespaceapplication_1_1db_1_1inventory.html#afa78707cdab5f4bb8d60a3eb8b5d89d0", null ],
-      [ "count_inventory", "namespaceapplication_1_1db_1_1inventory.html#a91599203572e5b95bde76f9ceeecb0b2", null ],
+      [ "count_inventory", "namespaceapplication_1_1db_1_1inventory.html#a2acaf7bd39c8acabdef74abac37e03ca", null ],
       [ "create_inventory_item", "namespaceapplication_1_1db_1_1inventory.html#a0c2978dc0a525b330d55dc4fdcedaa97", null ],
       [ "delete_inventory_item", "namespaceapplication_1_1db_1_1inventory.html#a6e31e140ee4e2b3e8ba455d356740a69", null ],
       [ "get_inventory", "namespaceapplication_1_1db_1_1inventory.html#aed402b8e66ba831885ab9348d7cf0d45", null ],
@@ -184,7 +184,7 @@ var namespaceapplication_1_1db =
       [ "top_level_db", "namespaceapplication_1_1db_1_1users.html#a50a20e34df059c3212a21dc9cbac778a", null ]
     ] ],
     [ "weather", "namespaceapplication_1_1db_1_1weather.html", [
-      [ "count_alert_history", "namespaceapplication_1_1db_1_1weather.html#a98f9f7bfa6b6550cec652f73430280c7", null ],
+      [ "count_alert_history", "namespaceapplication_1_1db_1_1weather.html#ac36fce29924146985fff55ba4673f57f", null ],
       [ "create_user", "namespaceapplication_1_1db_1_1weather.html#a36990cd6b8568dd47a970bfc50af1e27", null ],
       [ "delete_user", "namespaceapplication_1_1db_1_1weather.html#a6d3bb4c7c5ba0eb2a32f3c7d13b10ce2", null ],
       [ "get_alert_history", "namespaceapplication_1_1db_1_1weather.html#ab4eff6a062feb85d1f36bc0b49bed396", null ],

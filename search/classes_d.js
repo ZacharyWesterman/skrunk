@@ -13,7 +13,7 @@ var searchData=
   ['subscriptiontoken_10',['SubscriptionToken',['../classapplication_1_1types_1_1subscriptiontoken_1_1SubscriptionToken.html',1,'application::types::subscriptiontoken']]],
   ['subscriptiontokenkeys_11',['SubscriptionTokenKeys',['../classapplication_1_1types_1_1subscriptiontokenkeys_1_1SubscriptionTokenKeys.html',1,'application::types::subscriptiontokenkeys']]],
   ['subsonicalbum_12',['SubsonicAlbum',['../classapplication_1_1types_1_1subsonicalbum_1_1SubsonicAlbum.html',1,'application::types::subsonicalbum']]],
-  ['subsonicerror_13',['SubsonicError',['../classapplication_1_1types_1_1subsonicerror_1_1SubsonicError.html',1,'application::types::subsonicerror']]],
+  ['subsonicerror_13',['subsonicerror',['../classapplication_1_1exceptions_1_1SubsonicError.html',1,'application.exceptions.SubsonicError'],['../classapplication_1_1types_1_1subsonicerror_1_1SubsonicError.html',1,'application.types.subsonicerror.SubsonicError']]],
   ['subsonicsearch_14',['SubsonicSearch',['../classapplication_1_1types_1_1subsonicsearch_1_1SubsonicSearch.html',1,'application::types::subsonicsearch']]],
   ['subsonictrack_15',['SubsonicTrack',['../classapplication_1_1types_1_1subsonictrack_1_1SubsonicTrack.html',1,'application::types::subsonictrack']]],
   ['systeminfo_16',['SystemInfo',['../classapplication_1_1types_1_1systeminfo_1_1SystemInfo.html',1,'application::types::systeminfo']]]

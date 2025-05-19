@@ -24,7 +24,7 @@ var namespaceapplication_1_1integrations =
     ] ],
     [ "qrcode", "namespaceapplication_1_1integrations_1_1qrcode.html", [
       [ "generate", "namespaceapplication_1_1integrations_1_1qrcode.html#a0fe6def7d31bdb6b0f6902a19e41e6dd", null ],
-      [ "process", "namespaceapplication_1_1integrations_1_1qrcode.html#a28de1b7b8eac8d43f45f02c25eaf1afb", null ]
+      [ "process", "namespaceapplication_1_1integrations_1_1qrcode.html#abf09d65f8a5aa4a12c906bdb1b1ac724", null ]
     ] ],
     [ "system", "namespaceapplication_1_1integrations_1_1system.html", [
       [ "disk_usage", "namespaceapplication_1_1integrations_1_1system.html#a01178ba63ef43705457cbfec0e1baa77", null ]

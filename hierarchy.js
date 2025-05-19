@@ -21,6 +21,7 @@ var hierarchy =
         [ "application.exceptions.ItemDoesNotExistError", "classapplication_1_1exceptions_1_1ItemDoesNotExistError.html", null ],
         [ "application.exceptions.ItemExistsError", "classapplication_1_1exceptions_1_1ItemExistsError.html", null ],
         [ "application.exceptions.MissingConfig", "classapplication_1_1exceptions_1_1MissingConfig.html", null ],
+        [ "application.exceptions.SubsonicError", "classapplication_1_1exceptions_1_1SubsonicError.html", null ],
         [ "application.exceptions.UserDoesNotExistError", "classapplication_1_1exceptions_1_1UserDoesNotExistError.html", null ],
         [ "application.exceptions.UserExistsError", "classapplication_1_1exceptions_1_1UserExistsError.html", null ],
         [ "application.exceptions.WebPushException", "classapplication_1_1exceptions_1_1WebPushException.html", null ]

@@ -132,12 +132,12 @@ Functions</h2></td></tr>
 <tr class="separator:ae77c33c66dfbe1c62759dadb339221a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a111182c094308d254180e789d6735761" id="r_a111182c094308d254180e789d6735761"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a111182c094308d254180e789d6735761">norm_query</a> (dict query, dict|None ownerq)</td></tr>
 <tr class="separator:a111182c094308d254180e789d6735761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d4845b4344563650a76de590943e50d" id="r_a2d4845b4344563650a76de590943e50d"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a2d4845b4344563650a76de590943e50d">build_book_query</a> (<a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a> filter, list sort=[])</td></tr>
-<tr class="separator:a2d4845b4344563650a76de590943e50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b699c08b5dd2ca5dc86c48d8c573a58" id="r_a4b699c08b5dd2ca5dc86c48d8c573a58"><td class="memItemLeft" align="right" valign="top">tuple[list[dict]|None, dict]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a4b699c08b5dd2ca5dc86c48d8c573a58">build_book_query</a> (<a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a> filter, list sort=[])</td></tr>
+<tr class="separator:a4b699c08b5dd2ca5dc86c48d8c573a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12521de3ba99c53bf88a379438a71e90" id="r_a12521de3ba99c53bf88a379438a71e90"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a12521de3ba99c53bf88a379438a71e90">get_books</a> (<a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a> filter, int start, int count, <a class="el" href="classapplication_1_1objects_1_1Sorting.html">Sorting</a> sorting)</td></tr>
 <tr class="separator:a12521de3ba99c53bf88a379438a71e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c2b7502ff88610c5ea6b21c9c31b9a3" id="r_a5c2b7502ff88610c5ea6b21c9c31b9a3"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a5c2b7502ff88610c5ea6b21c9c31b9a3">count_books</a> (<a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a> filter)</td></tr>
-<tr class="separator:a5c2b7502ff88610c5ea6b21c9c31b9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94ebabf88a859e64bdc8beae9f0c215f" id="r_a94ebabf88a859e64bdc8beae9f0c215f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a94ebabf88a859e64bdc8beae9f0c215f">count_books</a> (<a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a> filter)</td></tr>
+<tr class="separator:a94ebabf88a859e64bdc8beae9f0c215f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae900b61961a58bd2551324a9cda362e7" id="r_ae900b61961a58bd2551324a9cda362e7"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#ae900b61961a58bd2551324a9cda362e7">share_book_with_user</a> (str book_id, str username)</td></tr>
 <tr class="separator:ae900b61961a58bd2551324a9cda362e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e108f60a26b843794573c6eb1f6855f" id="r_a3e108f60a26b843794573c6eb1f6855f"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a3e108f60a26b843794573c6eb1f6855f">share_book_with_non_user</a> (str book_id, str name)</td></tr>
@@ -250,14 +250,14 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
         exceptions.BookCannotBeShared: If the book is currently being borrowed by another user.</pre> 
 </div>
 </div>
-<a id="a2d4845b4344563650a76de590943e50d" name="a2d4845b4344563650a76de590943e50d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d4845b4344563650a76de590943e50d">&#9670;&#160;</a></span>build_book_query()</h2>
+<a id="a4b699c08b5dd2ca5dc86c48d8c573a58" name="a4b699c08b5dd2ca5dc86c48d8c573a58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b699c08b5dd2ca5dc86c48d8c573a58">&#9670;&#160;</a></span>build_book_query()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> dict application.db.book.build_book_query </td>
+          <td class="memname"> tuple[list[dict] | None, dict] application.db.book.build_book_query </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a>&#160;</td>
           <td class="paramname"><em>filter</em>, </td>
@@ -351,14 +351,14 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
         list: A list of dictionaries, each containing the 'owner' information (username and display name) and the 'count' of books owned by that user.</pre> 
 </div>
 </div>
-<a id="a5c2b7502ff88610c5ea6b21c9c31b9a3" name="a5c2b7502ff88610c5ea6b21c9c31b9a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c2b7502ff88610c5ea6b21c9c31b9a3">&#9670;&#160;</a></span>count_books()</h2>
+<a id="a94ebabf88a859e64bdc8beae9f0c215f" name="a94ebabf88a859e64bdc8beae9f0c215f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94ebabf88a859e64bdc8beae9f0c215f">&#9670;&#160;</a></span>count_books()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> list application.db.book.count_books </td>
+          <td class="memname"> int application.db.book.count_books </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classapplication_1_1objects_1_1BookSearchFilter.html">BookSearchFilter</a>&#160;</td>
           <td class="paramname"><em>filter</em></td><td>)</td>

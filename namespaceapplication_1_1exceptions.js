@@ -19,6 +19,7 @@ var namespaceapplication_1_1exceptions =
     [ "ItemDoesNotExistError", "classapplication_1_1exceptions_1_1ItemDoesNotExistError.html", "classapplication_1_1exceptions_1_1ItemDoesNotExistError" ],
     [ "ItemExistsError", "classapplication_1_1exceptions_1_1ItemExistsError.html", "classapplication_1_1exceptions_1_1ItemExistsError" ],
     [ "MissingConfig", "classapplication_1_1exceptions_1_1MissingConfig.html", "classapplication_1_1exceptions_1_1MissingConfig" ],
+    [ "SubsonicError", "classapplication_1_1exceptions_1_1SubsonicError.html", "classapplication_1_1exceptions_1_1SubsonicError" ],
     [ "UserDoesNotExistError", "classapplication_1_1exceptions_1_1UserDoesNotExistError.html", "classapplication_1_1exceptions_1_1UserDoesNotExistError" ],
     [ "UserExistsError", "classapplication_1_1exceptions_1_1UserExistsError.html", "classapplication_1_1exceptions_1_1UserExistsError" ],
     [ "WebPushException", "classapplication_1_1exceptions_1_1WebPushException.html", "classapplication_1_1exceptions_1_1WebPushException" ]

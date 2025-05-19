@@ -1,5 +1,9 @@
 var NAVTREEINDEX2 =
 {
+"namespaceapplication_1_1resolvers_1_1query_1_1bugs.html":[0,0,0,4,2,3],
+"namespaceapplication_1_1resolvers_1_1query_1_1datafeed.html":[0,0,0,4,2,4],
+"namespaceapplication_1_1resolvers_1_1query_1_1integrations.html":[0,0,0,4,2,5],
+"namespaceapplication_1_1resolvers_1_1query_1_1inventory.html":[0,0,0,4,2,6],
 "namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html":[0,0,0,4,2,7],
 "namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html#adf19300a1ce020ecf3b27dd2b02b8e25":[0,0,0,4,2,7,0],
 "namespaceapplication_1_1resolvers_1_1query_1_1notification.html":[0,0,0,4,2,8],
@@ -37,11 +41,11 @@ var NAVTREEINDEX2 =
 "namespaceapplication_1_1tokens.html#a15738da8009ccaa1463b4c2ee5e9a1b7":[0,0,0,7,1],
 "namespaceapplication_1_1tokens.html#a1b186ec5279fb740bbe1d86a10c9e1d0":[0,0,0,7,2],
 "namespaceapplication_1_1tokens.html#a2611454e09d76d694ca355bd8ad49135":[0,0,0,7,4],
+"namespaceapplication_1_1tokens.html#a4631a8cac8c5ce809a07718d531a1492":[0,0,0,7,3],
 "namespaceapplication_1_1tokens.html#ab55aa46887fa162ee0f55b04b7a7a33a":[0,0,0,7,0],
-"namespaceapplication_1_1tokens.html#abc7f7a61527d0868c0457f9ffed501aa":[0,0,0,7,3],
 "namespaceapplication_1_1types.html":[0,0,0,8],
 "namespaceapplication_1_1types.html#a1d3062ed4101ff3d88daec160444997c":[0,0,0,8,2],
-"namespaceapplication_1_1types.html#a31f3c0a7590a150bb18f4b72c1826fcd":[0,0,0,8,1],
+"namespaceapplication_1_1types.html#ac395f5dd7cbcabc07c42819c046343bb":[0,0,0,8,1],
 "namespaceapplication_1_1types_1_1blob__storage.html":[0,0,0,8,0],
 "namespaceapplication_1_1types_1_1blob__storage.html#a538c9762bb2fd8f09313b52b1d3d0e25":[0,0,0,8,0,3],
 "namespacemembers.html":[0,1,0],
