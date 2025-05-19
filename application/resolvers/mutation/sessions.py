@@ -1,6 +1,6 @@
 """application.resolvers.mutation.sessions"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.sessions import revoke_sessions, count_valid_sessions
 import application.db.perms as perms
 from . import mutation

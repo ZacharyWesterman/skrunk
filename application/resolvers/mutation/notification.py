@@ -1,6 +1,6 @@
 """application.resolvers.mutation.notification"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db import perms
 from application.db.notification import create_subscription, delete_subscription, delete_subscriptions, send, mark_as_read, get_user_from_notif, mark_all_as_read
 from ..decorators import *

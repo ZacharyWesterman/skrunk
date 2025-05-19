@@ -1,6 +1,6 @@
 """application.resolvers.query.book"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.integrations.exceptions import ApiFailedError
 from application.integrations import google_books
 from application.exceptions import BookTagDoesNotExistError

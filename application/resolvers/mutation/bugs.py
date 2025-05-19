@@ -1,6 +1,6 @@
 """application.resolvers.mutation.bugs"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.bugs import *
 import application.db.perms as perms
 from ..decorators import *

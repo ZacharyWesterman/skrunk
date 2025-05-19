@@ -3,8 +3,9 @@
 from flask import jsonify, request, Response
 from application import tokens, exceptions
 from application.db.users import authenticate
+from typing import Any
 
-application = None
+application: Any = None
 
 
 def authorized() -> bool:

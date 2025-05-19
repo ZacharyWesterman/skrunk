@@ -1,11 +1,11 @@
 """application.routes.api"""
 
 import ariadne
-import json
 from flask import jsonify, request, Response
 from . import auth
+from typing import Any
 
-application = None
+application: Any = None
 
 
 def graphql() -> Response:
@@ -22,4 +22,4 @@ def graphql() -> Response:
 	else:
 		result_code = 200
 
-	return jsonify(result), result_code
+	return Response(result, result_code)

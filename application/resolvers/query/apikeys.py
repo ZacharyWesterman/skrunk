@@ -1,6 +1,6 @@
 """application.resolvers.query.apikeys"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.apikeys import get_api_keys
 from application.db import perms
 from . import query

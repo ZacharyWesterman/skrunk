@@ -1,29 +1,33 @@
 """application.resolvers.query.integrations"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.integrations import subsonic, system
+from application.exceptions import SubsonicError
 from application.db.settings import get_config
 from application.db import perms
 from . import query
 
-SUBSONIC = None
+SUBSONIC: subsonic.SubsonicClient | None = None
 
 
-def init_subsonic():
-	global SUBSONIC
+def init_subsonic() -> subsonic.SubsonicClient:
 
 	url = get_config('subsonic:url')
 	username = get_config('subsonic:username')
 	password = get_config('subsonic:password')
 
-	SUBSONIC = subsonic.SubsonicClient(url, username, password)
+	if not url or not username or not password:
+		raise SubsonicError()
+
+	return subsonic.SubsonicClient(url, username, password)
 
 
 @query.field('searchSubsonic')
 @perms.module('subsonic')
-def resolve_search_subsonic(_, info: GraphQLResolveInfo, query: str, start: int, count: int) -> list:
+def resolve_search_subsonic(_, info: GraphQLResolveInfo, query: str, start: int, count: int) -> dict:
+	global SUBSONIC
 	if SUBSONIC is None:
-		init_subsonic()
+		SUBSONIC = init_subsonic()
 
 	try:
 		res = SUBSONIC.search(query)
@@ -54,8 +58,9 @@ def resolve_search_subsonic(_, info: GraphQLResolveInfo, query: str, start: int,
 @query.field('subsonicAlbumTrackList')
 @perms.module('subsonic')
 def resolve_subsonic_album_track_list(_, info: GraphQLResolveInfo, id: str) -> list:
+	global SUBSONIC
 	if SUBSONIC is None:
-		init_subsonic()
+		SUBSONIC = init_subsonic()
 
 	try:
 		return [
@@ -72,8 +77,9 @@ def resolve_subsonic_album_track_list(_, info: GraphQLResolveInfo, id: str) -> l
 @query.field('subsonicCoverArt')
 @perms.module('subsonic')
 def resolve_subsonic_cover_art(_, info: GraphQLResolveInfo, id: str) -> str:
+	global SUBSONIC
 	if SUBSONIC is None:
-		init_subsonic()
+		SUBSONIC = init_subsonic()
 
 	try:
 		return SUBSONIC.cover_art(id)

@@ -2,9 +2,10 @@
 
 from flask import Response
 import re
+from typing import Any
 from . import auth, files
 
-application = None
+application: Any = None
 
 # Allow only specific files in site/ to be accessed without auth, as other files may have "sensitive" data.
 try:

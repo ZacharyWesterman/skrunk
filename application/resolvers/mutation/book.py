@@ -1,6 +1,6 @@
 """application.resolvers.mutation.book"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.book import *
 import application.db.perms as perms
 from application.integrations.exceptions import ApiFailedError
@@ -51,7 +51,7 @@ def resolve_share_book_with_non_user(_, info: GraphQLResolveInfo, id: str, name:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_borrow_book(_, info: GraphQLResolveInfo, id: str) -> dict:
-	user_data = perms.caller_info()
+	user_data = perms.caller_info_strict()
 	return {'__typename': 'Book', **borrow_book(id, user_data)}
 
 
@@ -60,7 +60,7 @@ def resolve_borrow_book(_, info: GraphQLResolveInfo, id: str) -> dict:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_request_borrow_book(_, info: GraphQLResolveInfo, id: str) -> dict:
-	user_data = perms.caller_info()
+	user_data = perms.caller_info_strict()
 	book_data = get_book(id)
 	owner_data = get_user_by_id(book_data['owner'])
 
@@ -83,7 +83,7 @@ def resolve_request_borrow_book(_, info: GraphQLResolveInfo, id: str) -> dict:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_return_book(_, info: GraphQLResolveInfo, id: str) -> dict:
-	user_data = perms.caller_info()
+	user_data = perms.caller_info_strict()
 	return {'__typename': 'Book', **return_book(id, user_data)}
 
 

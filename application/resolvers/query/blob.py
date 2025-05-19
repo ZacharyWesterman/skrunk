@@ -1,6 +1,6 @@
 """application.resolvers.query.blob"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.blob import *
 from application.tags import exceptions
 from application.objects import BlobSearchFilter, Sorting

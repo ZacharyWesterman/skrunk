@@ -41,10 +41,16 @@ def caller_info() -> dict[str, Any] | None:
 			 error occurs during retrieval.
 	"""
 	tok = tokens.get_request_token()
+	if not tok:
+		return None
+
 	try:
 		username = tokens.decode_user_token(tok).get('username')
 	except:
 		apikey = apikeydb.find_one({'key': tok})
+		if apikey is None:
+			return None
+		apikey['username'] = f'API: {apikey["description"]}'
 		return apikey
 
 	if username is None:
@@ -73,6 +79,9 @@ def caller_info_strict() -> dict[str, Any]:
 		exceptions.UserDoesNotExistError: If the user does not exist in the database.
 	"""
 	tok = tokens.get_request_token()
+	if not tok:
+		raise exceptions.AuthenticationError()
+
 	try:
 		username = tokens.decode_user_token(tok).get('username')
 	except:

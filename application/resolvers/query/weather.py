@@ -1,6 +1,6 @@
 """application.resolvers.query.weather"""
 
-from ariadne.types import GraphQLResolveInfo
+from graphql.type import GraphQLResolveInfo
 from application.db.weather import get_users, get_last_exec, get_alert_history, count_alert_history, get_weather_user, process_weather_user
 from application.db import perms
 from . import query
@@ -20,7 +20,7 @@ def resolve_get_weather_users(_, info: GraphQLResolveInfo) -> list:
 
 @query.field('getLastWeatherExec')
 @perms.module('weather')
-def resolve_get_last_execution(_, info: GraphQLResolveInfo) -> dict:
+def resolve_get_last_execution(_, info: GraphQLResolveInfo) -> dict | None:
 	return get_last_exec()  # May return None if weather alerts has never been run.
 
 
@@ -40,5 +40,5 @@ def resolve_get_weather_alerts(_, info: GraphQLResolveInfo, username: str, start
 @query.field('countWeatherAlerts')
 @perms.module('weather')
 @perms.require('admin', perform_on_self=True)
-def resolve_count_weather_alerts(_, info: GraphQLResolveInfo, username: str) -> list:
+def resolve_count_weather_alerts(_, info: GraphQLResolveInfo, username: str) -> int:
 	return count_alert_history(username)

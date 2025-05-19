@@ -1,6 +1,6 @@
 """application.resolvers.mutation.blob"""
 
-from ariadne.types import GraphQLResolveInfo  # type: ignore
+from graphql.type import GraphQLResolveInfo
 from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage, set_blob_ephemeral, cancel_zip
 import application.db.perms as perms
 from application.db.users import group_filter
