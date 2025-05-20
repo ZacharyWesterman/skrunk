@@ -22,4 +22,7 @@ def graphql() -> Response:
 	else:
 		result_code = 200
 
-	return Response(result, result_code)
+	response = jsonify(result)
+	response.status_code = result_code
+
+	return response
