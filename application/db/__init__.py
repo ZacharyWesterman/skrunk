@@ -1,22 +1,12 @@
 """application.db"""
 
 from pymongo import MongoClient
+
 from application.exceptions import BadUserNameError, UserExistsError
 from application.types import blob_storage
-from . import (
-	users,
-	perms,
-	weather,
-	sessions,
-	blob,
-	bugs,
-	book,
-	settings,
-	notification,
-	apikeys,
-	inventory,
-	datafeed
-)
+
+from . import (apikeys, blob, book, bugs, datafeed, inventory, notification,
+               perms, sessions, settings, users, weather)
 
 
 def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> None:
@@ -71,7 +61,7 @@ def setup_db() -> None:
 	2. Creates necessary indexes for the database to function properly.
 	"""
 	try:
-		users.create_user('admin', '', admin=True, ephemeral=True)
+		users.create_user('admin', '', groups=[], admin=True, ephemeral=True)
 	except (BadUserNameError, UserExistsError):
 		pass
 
