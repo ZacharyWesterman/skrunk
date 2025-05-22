@@ -112,8 +112,8 @@ def create_subscription(username: str, subscription_token: dict) -> None:
 				},
 			},
 		})
-	except TypeError | KeyError:
-		raise exceptions.InvalidSubscriptionToken
+	except (TypeError, KeyError) as e:
+		raise exceptions.InvalidSubscriptionToken from e
 
 
 def delete_subscriptions(username: str) -> int:

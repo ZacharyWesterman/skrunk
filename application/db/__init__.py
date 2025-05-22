@@ -1,9 +1,22 @@
 """application.db"""
 
-from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys, inventory, datafeed
 from pymongo import MongoClient
-from application.types import blob_storage
 from application.exceptions import BadUserNameError, UserExistsError
+from application.types import blob_storage
+from . import (
+	users,
+	perms,
+	weather,
+	sessions,
+	blob,
+	bugs,
+	book,
+	settings,
+	notification,
+	apikeys,
+	inventory,
+	datafeed
+)
 
 
 def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> None:
@@ -55,15 +68,11 @@ def setup_db() -> None:
 	Sets up the database by performing the following actions:
 
 	1. Attempts to create a temporary admin user.
-	   If the user creation fails, the exception is caught and ignored.
-
-	2. Creates necessary indexes for the database to function properly:
-	   - An index on the 'expires' field in the sessions collection with an expiration time of 1 second.
-	   - An index on the 'title' field in the book collection.
+	2. Creates necessary indexes for the database to function properly.
 	"""
 	try:
 		users.create_user('admin', '', admin=True, ephemeral=True)
-	except BadUserNameError | UserExistsError:
+	except (BadUserNameError, UserExistsError):
 		pass
 
 	# Create all indexes that are needed for the db to function properly

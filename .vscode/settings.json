@@ -12,5 +12,8 @@
 	],
 	"files.associations": {
 		"*.dot": "dotjs"
-	}
+	},
+	"pylint.args": [
+		"--indent-string=\t"
+	]
 }

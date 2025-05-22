@@ -651,7 +651,7 @@ def delete_blob(blob_id: str) -> dict:
 			# Delete volume dirs if empty
 			item.parent.rmdir()
 			item.parent.parent.rmdir()
-		except FileNotFoundError | OSError:
+		except (FileNotFoundError, OSError):
 			pass
 
 		db.delete_one({'_id': ObjectId(blob_id)})
