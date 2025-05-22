@@ -14,6 +14,13 @@
 		"*.dot": "dotjs"
 	},
 	"pylint.args": [
-		"--indent-string=\t"
-	]
+		"--indent-string=\t",
+		"--disable=global-statement",
+		"--disable=redefined-builtin"
+	],
+	"[python]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "always"
+		}
+	}
 }

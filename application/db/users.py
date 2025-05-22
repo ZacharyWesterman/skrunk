@@ -2,13 +2,14 @@
 
 from datetime import datetime
 from zipfile import ZipFile
-from bson.objectid import ObjectId
-from bson import json_util
-import bcrypt
-from ..objects import BlobSearchFilter, InventorySearchFilter
 
+import bcrypt
+from bson import json_util
+from bson.objectid import ObjectId
 from pymongo.collection import Collection
 from pymongo.database import Database
+
+from ..objects import BlobSearchFilter, InventorySearchFilter
 
 ## A pointer to the users collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -520,13 +521,15 @@ def export_user_data(username: str) -> dict:
 					return data
 
 				if collection == 'feeds':
-					def doc_mutate(data: dict) -> dict:
+					def m2(data: dict) -> dict:
 						data['documents'] = [i for i in top_level_db.documents.find({'feed': data['_id']})]
 						return data
+					doc_mutate = m2
 				elif collection == 'users':
-					def doc_mutate(data: dict) -> dict:
+					def m2(data: dict) -> dict:
 						del data['password']
 						return data
+					doc_mutate = m2
 
 				items = [doc_mutate(i) for i in this_coll.find(i)]
 
@@ -545,6 +548,6 @@ def export_user_data(username: str) -> dict:
 
 
 import application.exceptions as exceptions  # nopep8
-from application.db import settings  # nopep8
 from application.db import blob  # nopep8
+from application.db import settings  # nopep8
 from application.tokens import create_user_token  # nopep8

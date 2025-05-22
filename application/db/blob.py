@@ -1,26 +1,26 @@
 """application.db.blob"""
 
-import application.exceptions as exceptions
-import application.tags as tags
-from . import users
-from application.integrations import models, images, videos
-from application.objects import BlobSearchFilter, Sorting
-from werkzeug.datastructures import FileStorage
-from application.types import BlobStorage, BlobPreview, BlobThumbnail
-from application import types
-from .perms import caller_info
-
-from bson.objectid import ObjectId
-from bson.errors import InvalidId
-from datetime import datetime
-from zipfile import ZipFile, Path
-import pathlib
-import mimetypes
 import hashlib
-import uuid
+import mimetypes
+import pathlib
 import shutil
+import uuid
+from datetime import datetime
+from zipfile import Path, ZipFile
 
+from bson.errors import InvalidId
+from bson.objectid import ObjectId
 from pymongo.collection import Collection
+from werkzeug.datastructures import FileStorage
+
+import application.tags as tag_parser
+from application import exceptions, types
+from application.integrations import images, models, videos
+from application.objects import BlobSearchFilter, Sorting
+from application.types import BlobPreview, BlobStorage, BlobThumbnail
+
+from . import users
+from .perms import caller_info
 
 ## A pointer to the Blob collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -73,58 +73,61 @@ def file_info(filename: str) -> tuple[int, str]:
 	return size, md5sum
 
 
-def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> list:
+def unzip_file_into_blobs(filename: str, tags: list[str], hidden: bool, ephemeral: bool) -> list:
 	"""
-	Save blob data to storage and optionally unzip if the file is a zip archive.
+	Unzips a ZIP archive and creates blobs from each file inside.
 
 	Args:
-		file (FileStorage): The file to be saved.
-		auto_unzip (bool): If True, automatically unzip the file if it is a zip archive.
-		tags (list, optional): List of tags to associate with the blob. Defaults to [].
-		hidden (bool, optional): If True, mark the blob as hidden. Defaults to False.
-		ephemeral (bool, optional): If True, mark the blob as ephemeral. Defaults to False.
+		filename (str): Path to the ZIP file to be extracted.
+		tags (list[str]): List of tags to associate with each created blob.
+		hidden (bool): Whether the created blobs should be marked as hidden.
+		ephemeral (bool): Whether the created blobs should be marked as ephemeral.
 
 	Returns:
-		list: A list of dictionaries containing the unique ID and file extension of the uploaded blobs.
+		list: A list of dictionaries, each containing the 'id' and 'ext' of a created blob.
 	"""
-	filename = '<unknown>' if file.filename is None else file.filename
-	id, ext = create_blob(filename, tags, hidden and not (auto_unzip and filename.lower().endswith('.zip')), ephemeral)
-	this_blob_path = BlobStorage(id, ext).path(create=True)
 
-	print(f'Beginning stream of file "{filename}"...', flush=True)
-	file.save(this_blob_path)
-	print(f'Finished stream of file "{filename}".', flush=True)
-
+	print(f'Unzipping file "{filename}"...')
 	uploaded_blobs = []
 
-	if auto_unzip and ext == '.zip':
-		print(f'Unzipping file "{filename}"...')
-		extract_count = 0
-		with ZipFile(this_blob_path, 'r') as fp:
-			for name in fp.namelist():
-				print('Extracting ' + name, flush=True)
-				item = Path(fp, name)
-				if item.is_dir():
-					continue
+	with ZipFile(filename, 'r') as fp:
+		for name in fp.namelist():
+			print('Extracting ' + name, flush=True)
+			item = Path(fp, name)
+			if item.is_dir():
+				continue
 
-				# directly create new blobs from each item in the zip file
-				id2, ext2 = create_blob(name, tags, hidden, ephemeral)
-				inner_blob_path = BlobStorage(id2, ext2).path(create=True)
-				with fp.open(name, 'r') as input:
-					with open(inner_blob_path, 'wb') as output:
-						output.write(input.read())
-				size, md5sum = file_info(inner_blob_path)
-				mark_as_completed(id2, size, md5sum)
-				extract_count += 1
+			# directly create new blobs from each item in the zip file
+			id2, ext2 = create_blob(name, tags, hidden, ephemeral)
+			inner_blob_path = BlobStorage(id2, ext2).path(create=True)
+			with fp.open(name, 'r') as input_fp:
+				with open(inner_blob_path, 'wb') as output:
+					output.write(input_fp.read())
+			size, md5sum = file_info(inner_blob_path)
+			mark_as_completed(id2, size, md5sum)
 
-				uploaded_blobs += [{'id': id2, 'ext': ext2}]
+			uploaded_blobs += [{'id': id2, 'ext': ext2}]
 
-		print(f'Finished unzipping "{filename}" (extracted {extract_count} files).')
-		delete_blob(id)
-	else:
-		size, md5sum = file_info(this_blob_path)
-		mark_as_completed(id, size, md5sum)
-		uploaded_blobs += [{'id': id, 'ext': ext}]
+		print(f'Finished unzipping "{filename}" (extracted {len(uploaded_blobs)} files).')
+
+	return uploaded_blobs
+
+
+def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
+	"""
+	Generates and stores preview and thumbnail images for uploaded blobs based on their file type.
+
+	For each blob in the provided list:
+	- If the blob is an image, creates a preview (512px) and a thumbnail (128px).
+	- If the blob is a 3D model, generates a preview that can be viewed in browser.
+	- If the blob is a video, generates a preview image.
+
+	Args:
+		uploaded_blobs (list[dict[str,str]]): A list of dictionaries containing blob IDs and extensions.
+
+	Returns:
+		None
+	"""
 
 	# Create file previews
 	for blob in uploaded_blobs:
@@ -146,6 +149,53 @@ def save_blob_data(file: FileStorage, auto_unzip: bool, tags: list = [], hidden:
 			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
 			create_preview_video(this_blob_path, blob['id'])
 
+
+def save_blob_data(
+    file: FileStorage,
+    auto_unzip: bool,
+    tags: list[str],
+    hidden: bool = False,
+    ephemeral: bool = False
+) -> list:
+	"""
+	Save blob data to storage and optionally unzip if the file is a zip archive.
+
+	Args:
+		file (FileStorage): The file to be saved.
+		auto_unzip (bool): If True, automatically unzip the file if it is a zip archive.
+		tags (list[str]): List of tags to associate with the blob.
+		hidden (bool, optional): If True, mark the blob as hidden. Defaults to False.
+		ephemeral (bool, optional): If True, mark the blob as ephemeral. Defaults to False.
+
+	Returns:
+		list: A list of dictionaries containing the unique ID and file extension of the uploaded blobs.
+	"""
+
+	filename = '<unknown>' if file.filename is None else file.filename
+	item_id, ext = create_blob(
+		filename,
+		tags,
+		hidden and not (auto_unzip and filename.lower().endswith('.zip')),
+		ephemeral
+	)
+	this_blob_path = BlobStorage(item_id, ext).path(create=True)
+
+	print(f'Beginning stream of file "{filename}"...', flush=True)
+	file.save(this_blob_path)
+	print(f'Finished stream of file "{filename}".', flush=True)
+
+	uploaded_blobs = []
+
+	if auto_unzip and ext == '.zip':
+		uploaded_blobs = unzip_file_into_blobs(this_blob_path, tags, hidden, ephemeral)
+		delete_blob(item_id)
+	else:
+		size, md5sum = file_info(this_blob_path)
+		mark_as_completed(item_id, size, md5sum)
+		uploaded_blobs += [{'id': item_id, 'ext': ext}]
+
+	create_blob_previews(uploaded_blobs)
+
 	return uploaded_blobs
 
 
@@ -159,7 +209,7 @@ def get_tags_from_mime(mime: str) -> list:
 	Returns:
 		list: A list of tags obtained by splitting the MIME type string by '/'.
 	"""
-	return [i for i in mime.split('/')]
+	return mime.split('/')
 
 
 def set_mime_from_ext(mime: str, ext: str) -> str:
@@ -174,7 +224,12 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 		str: The updated MIME type based on the file extension.
 	"""
 	documents = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.rtf', '.odf']
-	source = ['.c', '.cpp', '.h', '.hpp', '.py', '.html', '.xml', '.xhtml', '.htm', '.sh', '.bat', '.java', '.js', '.css', '.md', '.glsl']
+	source = [
+		'.c', '.cpp', '.h', '.hpp', '.py',
+		'.html', '.xml', '.xhtml', '.htm',
+		'.sh', '.bat', '.java', '.js',
+		'.css', '.md', '.glsl'
+	]
 
 	mime = mime.replace('application/', '')
 
@@ -198,13 +253,18 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 	return mime
 
 
-def create_blob(name: str, tags: list = [], hidden: bool = False, ephemeral: bool = False) -> tuple[str, str]:
+def create_blob(
+    name: str,
+    tags: list[str],
+    hidden: bool = False,
+    ephemeral: bool = False
+) -> tuple[str, str]:
 	"""
 	Creates a new blob entry in the database.
 
 	Args:
 		name (str): The name of the blob, typically the filename.
-		tags (list, optional): A list of tags associated with the blob. Defaults to an empty list.
+		tags (list[str]): A list of tags associated with the blob. Defaults to an empty list.
 		hidden (bool, optional): A flag indicating if the blob should be hidden. Defaults to False.
 		ephemeral (bool, optional): A flag indicating if the blob is ephemeral. Defaults to False.
 
@@ -294,12 +354,12 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 	tag_expr = filter.get('tag_expr')
 	if tag_expr is not None:
-		tag_q = tags.parse(tag_expr).output()
+		tag_q = tag_parser.parse(tag_expr).output()
 		if tag_q:
 			query += [tag_q]
 
 	creator = filter.get('creator')
-	if type(creator) is str:
+	if isinstance(creator, str):
 		user_data = users.get_user_data(creator)
 		query += [{'creator': user_data['_id']}]
 
@@ -316,15 +376,22 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 		query += [{'ephemeral': filter.get('ephemeral')}]
 
 	creator = filter.get('creator')
-	if type(creator) is list and len(creator):
+	if isinstance(creator, list) and len(creator):
 		query += [{'$or': [{'creator': i} for i in creator]}]
 
-	return {'$and': query} if len(query) else {}
+	return {'$and': query} if len(query) > 0 else {}
 
 
-def get_blobs(filter: BlobSearchFilter, start: int, count: int, sorting: Sorting, user_id: ObjectId) -> list:
+def get_blobs(
+    filter: BlobSearchFilter,
+    start: int,
+    count: int,
+    sorting: Sorting,
+    user_id: ObjectId
+) -> list:
 	"""
-	Retrieve a list of blobs from the database based on the provided filter, pagination, and sorting options.
+	Retrieve a list of blobs from the database based on
+	the provided filter, pagination, and sorting options.
 
 	Args:
 		filter (BlobSearchFilter): The filter criteria to apply to the blob search.
@@ -389,7 +456,8 @@ def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 		user_id (ObjectId): The ID of the user whose blobs are being queried.
 
 	Returns:
-		int: The total size of the blobs that match the filter. Returns 0 if the user does not exist or no blobs match the filter.
+		int: The total size of the blobs that match the filter.
+			Returns 0 if the user does not exist or no blobs match the filter.
 	"""
 	try:
 		query = build_blob_query(filter, user_id)
@@ -441,7 +509,6 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	Raises:
 		exceptions.BlobDoesNotExistError: If the created ZIP blob does not exist in the database.
 	"""
-	global _zip_progress
 
 	query = build_blob_query(filter, user_id)
 	if query:
@@ -539,7 +606,6 @@ def cancel_zip(blob_zip_id: str) -> dict:
 	Returns:
 		dict: A dictionary containing the progress and item of the zip operation.
 	"""
-	global _zip_progress
 
 	if blob_zip_id not in _zip_progress:
 		raise exceptions.BlobDoesNotExistError(blob_zip_id)
@@ -593,11 +659,10 @@ def get_blob_data(id: str) -> dict:
 	Raises:
 		exceptions.BlobDoesNotExistError: If the blob with the given ID does not exist.
 	"""
-	global db
 	try:
 		blob_data = db.find_one({'_id': ObjectId(id)})
-	except InvalidId:
-		raise exceptions.BlobDoesNotExistError(id)
+	except InvalidId as e:
+		raise exceptions.BlobDoesNotExistError(id) from e
 
 	if blob_data is None:
 		raise exceptions.BlobDoesNotExistError(id)
@@ -706,35 +771,35 @@ def set_blob_ephemeral(blob_id: str, ephemeral: bool) -> dict:
 	return blob_data
 
 
-def create_preview_model(blob_path: str, preview_id: str) -> None:
+def create_preview_model(path: str, preview_id: str) -> None:
 	"""
 	Creates a preview model from a blob and updates the database with the preview information.
 
 	Args:
-		blob_path (str): The file path to the blob.
+		path (str): The file path to the blob.
 		preview_id (str): The unique identifier for the preview.
 
 	Returns:
 		None
 	"""
 	preview = BlobPreview(preview_id, '.glb')
-	models.to_glb(blob_path, preview.path())
+	models.to_glb(path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
 
-def create_preview_video(blob_path: str, preview_id: str) -> None:
+def create_preview_video(path: str, preview_id: str) -> None:
 	"""
 	Creates a preview video from the first frame of the given video blob and updates the database with the preview information.
 
 	Args:
-		blob_path (str): The file path to the video blob.
+		path (str): The file path to the video blob.
 		preview_id (str): The unique identifier for the preview.
 
 	Returns:
 		None
 	"""
 	preview = BlobPreview(preview_id, '.png')
-	videos.create_preview_from_first_frame(blob_path, preview.path())
+	videos.create_preview_from_first_frame(path, preview.path())
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
 
@@ -762,18 +827,18 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 	return blob_data
 
 
-def count_tag_uses(tag: str, users: list[str]) -> int:
+def count_tag_uses(tag: str, user_ids: list[str]) -> int:
 	"""
 	Count the number of documents in the database that contain a specific tag and are created by any of the specified users.
 
 	Args:
 		tag (str): The tag to search for in the documents.
-		users (list[str]): A list of user identifiers to filter the documents by their creators.
+		user_ids (list[str]): A list of user identifiers to filter the documents by their creators.
 
 	Returns:
 		int: The count of documents that match the specified tag and creators.
 	"""
-	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in users]}]})
+	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in user_ids]}]})
 
 
 def add_reference(id: str) -> None:
