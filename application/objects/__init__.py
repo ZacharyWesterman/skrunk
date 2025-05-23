@@ -1,7 +1,9 @@
 """application.objects"""
 
-from typing import TypedDict
 from datetime import datetime
+from typing import TypedDict
+
+from bson.objectid import ObjectId
 
 
 class BookSearchFilter(TypedDict):
@@ -39,7 +41,7 @@ class BlobSearchFilter(TypedDict):
 		tag_expr (str | None): The tag expression for filtering blobs. Can be None if not specified.
 	"""
 	## The creator(s) of the blob.
-	creator: list[str] | str | None
+	creator: list[ObjectId] | str | None
 	## The start date for the search filter.
 	begin_date: datetime | None
 	## The end date for the search filter.
@@ -75,7 +77,7 @@ class InventorySearchFilter(TypedDict):
 		location (str | None): The location of the inventory item.
 	"""
 	## The creator(s) of the inventory item
-	creator: list[str] | str | None
+	creator: list[ObjectId] | str | None
 	## The category of the inventory item
 	category: str | None
 	## The type of the inventory item

@@ -3,6 +3,7 @@
 from pymongo import MongoClient
 from application.exceptions import BadUserNameError, UserExistsError
 from application.types import blob_storage
+
 from . import (
 	users,
 	perms,
@@ -71,7 +72,7 @@ def setup_db() -> None:
 	2. Creates necessary indexes for the database to function properly.
 	"""
 	try:
-		users.create_user('admin', '', admin=True, ephemeral=True)
+		users.create_user('admin', '', groups=[], admin=True, ephemeral=True)
 	except (BadUserNameError, UserExistsError):
 		pass
 

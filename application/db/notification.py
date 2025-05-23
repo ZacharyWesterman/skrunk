@@ -1,41 +1,43 @@
 """application.db.notification"""
 
+import json
+from datetime import datetime
+from urllib.parse import urlsplit
+from bson.objectid import ObjectId
+from pymongo.database import Database
+from pywebpush import webpush, WebPushException
+
 from application.db import settings, users
 from application.db.sessions import get_first_session_token
 from application import exceptions
-from pywebpush import webpush, WebPushException
-from urllib.parse import urlsplit
-from datetime import datetime
-from bson.objectid import ObjectId
-import json
 
 # Attempt to read the VAPID keys from the data directory.
 try:
 	## The VAPID private key used for sending notifications.
-	VAPID_PRIVATE_KEY = open('data/private_key.txt', 'r+').readline().strip('\n')
+	with open('data/private_key.txt', 'r+', encoding='utf8') as fp:
+		VAPID_PRIVATE_KEY = fp.readline().strip('\n')
 
 	## The VAPID public key used for sending notifications.
-	VAPID_PUBLIC_KEY = open('data/public_key.txt', 'r+').read().strip('\n')
+	with open('data/public_key.txt', 'r+', encoding='utf8') as fp:
+		VAPID_PUBLIC_KEY = fp.read().strip('\n')
 except FileNotFoundError:
 	print('WARNING: No VAPID keys found!', ' ', '\n', None, True)
-
-from pymongo.database import Database
 
 ## A pointer to the database object.
 db: Database = None  # type: ignore[assignment]
 
 
-def get_user_from_notif(id: str) -> dict:
+def get_user_from_notif(item_id: str) -> dict:
 	"""
 	Retrieve user information based on a notification ID.
 
 	Args:
-		id (str): The ID of the notification.
+		item_id (str): The ID of the notification.
 
 	Returns:
 		dict: A dictionary containing user information if found, otherwise an empty dictionary.
 	"""
-	notif = db.notif_log.find_one({'_id': ObjectId(id)})
+	notif = db.notif_log.find_one({'_id': ObjectId(item_id)})
 	if notif is None:
 		return {}
 
@@ -143,17 +145,17 @@ def delete_subscription(auth: str) -> int:
 	return db.subscriptions.delete_many({'token.keys.auth': auth}).deleted_count
 
 
-def mark_as_read(id: str) -> None:
+def mark_as_read(item_id: str) -> None:
 	"""
 	Marks a notification as read in the database.
 
 	Args:
-		id (str): The unique identifier of the notification to be marked as read.
+		item_id (str): The unique identifier of the notification to be marked as read.
 
 	Returns:
 		None
 	"""
-	db.notif_log.update_one({'_id': ObjectId(id)}, {'$set': {
+	db.notif_log.update_one({'_id': ObjectId(item_id)}, {'$set': {
 		'read': True
 	}})
 
@@ -186,7 +188,10 @@ def get_notifications(username: str, read: bool, start: int, count: int) -> list
 		list: A list of notifications, each represented as a dictionary.
 	"""
 	user_data = users.get_user_data(username)
-	selection = db.notif_log.find({'recipient': user_data['_id'], 'read': read}, sort=[('created', -1)])
+	selection = db.notif_log.find({
+		'recipient': user_data['_id'],
+		'read': read,
+	}, sort=[('created', -1)])
 	result = []
 	for i in selection.limit(count).skip(start):
 		i['id'] = str(i['_id'])
@@ -272,7 +277,11 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 			send_admin_alert = True
 
 			if e.response is None:
-				print(f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}', flush=True)
+				msg = (
+					'WebPushException when sending notification to ' +
+					f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
+				)
+				print(msg, flush=True)
 				continue
 
 			# If user subscription is expired, just delete the subscription and continue
@@ -288,7 +297,13 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 					db.notif_log.insert_one({
 						'recipient': user['_id'],
 						'created': datetime.utcnow(),
-						'message': json.dumps({'title': 'WebPushException when sending notification', 'body': f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}'}),
+						'message': json.dumps({
+							'title': 'WebPushException when sending notification',
+							'body': (
+								'WebPushException when sending notification to ' +
+								f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
+							),
+						}),
 						'device_count': 0,
 						'read': False,
 						'category': 'webpushexception',
