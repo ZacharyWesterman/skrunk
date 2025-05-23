@@ -20,7 +20,7 @@
 	],
 	"[python]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": "always"
+			// "source.organizeImports": "explicit"
 		}
 	}
 }

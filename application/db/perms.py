@@ -2,12 +2,13 @@
 
 __all__ = ['require']
 
-from application import tokens, exceptions
 from inspect import getfullargspec
-from application.db import users
-from typing import Callable, Any
+from typing import Any, Callable
 
 from pymongo.collection import Collection
+
+from application import exceptions, tokens
+from application.db import users
 
 ## A pointer to the API key database collection.
 apikeydb: Collection = None  # type: ignore[assignment]

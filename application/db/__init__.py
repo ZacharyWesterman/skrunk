@@ -1,12 +1,23 @@
 """application.db"""
 
 from pymongo import MongoClient
-
 from application.exceptions import BadUserNameError, UserExistsError
 from application.types import blob_storage
 
-from . import (apikeys, blob, book, bugs, datafeed, inventory, notification,
-               perms, sessions, settings, users, weather)
+from . import (
+	users,
+	perms,
+	weather,
+	sessions,
+	blob,
+	bugs,
+	book,
+	settings,
+	notification,
+	apikeys,
+	inventory,
+	datafeed
+)
 
 
 def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> None:
