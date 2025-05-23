@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"namespaceapplication_1_1resolvers_1_1query_1_1book.html":[0,0,0,4,2,2],
 "namespaceapplication_1_1resolvers_1_1query_1_1bugs.html":[0,0,0,4,2,3],
 "namespaceapplication_1_1resolvers_1_1query_1_1datafeed.html":[0,0,0,4,2,4],
 "namespaceapplication_1_1resolvers_1_1query_1_1integrations.html":[0,0,0,4,2,5],

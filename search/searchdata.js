@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "_abcdefilmnqrstuwz",
   2: "a",
   3: "_abcdefghiklmnpqrstuvwz",
-  4: "_abcdefghilmnopqrstuv",
+  4: "_abcdefghilmnopqrstu",
   5: "s"
 };
 
