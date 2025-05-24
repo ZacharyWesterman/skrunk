@@ -1,9 +1,13 @@
 """application.resolvers.query.settings"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.settings import get_enabled_modules, get_groups, get_all_configs, get_config, get_modules, get_all_themes
+
 from application.db import perms
+from application.db.settings import (get_all_configs, get_all_themes,
+                                     get_config, get_enabled_modules,
+                                     get_groups, get_modules)
 from application.integrations import graphql
+
 from . import query
 
 

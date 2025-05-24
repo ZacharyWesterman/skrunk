@@ -1,10 +1,14 @@
 """application.resolvers.query.datafeed"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.datafeed import get_user_feeds, get_documents, count_documents, get_feed, get_feeds, count_feeds
+
+from application.db import perms
+from application.db.datafeed import (count_documents, count_feeds,
+                                     get_documents, get_feed, get_feeds,
+                                     get_user_feeds)
 from application.exceptions import ClientError
 from application.objects import Sorting
-from application.db import perms
+
 from ..decorators import handle_client_exceptions
 from . import query
 

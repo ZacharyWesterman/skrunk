@@ -1,8 +1,10 @@
 """application.routes.site"""
 
-from flask import Response
 import re
 from typing import Any
+
+from flask import Response
+
 from . import auth, files
 
 application: Any = None

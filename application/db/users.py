@@ -175,7 +175,8 @@ def create_user(
     ephemeral: bool = False
 ) -> dict:
 	"""
-	Creates a new user with the specified username, password, groups, admin status, and ephemeral status.
+	Creates a new user with the specified username, password,
+	groups, admin status, and ephemeral status.
 
 	Args:
 		username (str): The username of the new user.
@@ -457,7 +458,7 @@ def authenticate(username: str, password: str) -> str:
 	if not bcrypt.checkpw(password.encode(), userdata['password']):
 		raise exceptions.AuthenticationError
 
-	login_token = create_user_token(username)
+	login_token = tokens.create_user_token(username)
 	db.update_one({'_id': userdata['_id']}, {'$set': {'last_login': datetime.utcnow()}})
 
 	return login_token
@@ -571,9 +572,8 @@ def export_user_data(username: str) -> dict:
 # pylint: disable=wrong-import-order
 # pylint: disable=wrong-import-position
 
-from application import exceptions  # nopep8
+from application import exceptions, tokens  # nopep8
 from application.db import blob, settings  # nopep8
-from application.tokens import create_user_token  # nopep8
 
 # pylint: enable=wrong-import-position
 # pylint: enable=wrong-import-order

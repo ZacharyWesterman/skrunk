@@ -1,16 +1,16 @@
 """application.db.bugs"""
 
-from application.tokens import decode_user_token, get_request_token
-import application.exceptions as exceptions
-from . import users, notification
-from .perms import caller_info_strict
-
-from bson.objectid import ObjectId
-from datetime import datetime
-import markdown
 import html
+from datetime import datetime
 
+import markdown
+from bson.objectid import ObjectId
 from pymongo.collection import Collection
+
+from application import exceptions
+
+from . import notification, users
+from .perms import caller_info_strict
 
 ## A pointer to the bug reports collection in the database.
 db: Collection = None  # type: ignore[assignment]

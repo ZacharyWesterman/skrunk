@@ -1,9 +1,10 @@
 """application.resolvers.mutation"""
 
+from datetime import datetime
+from typing import Callable
+
 from ariadne import MutationType
 from ariadne.types import Resolver
-from typing import Callable
-from datetime import datetime
 
 from application.db.perms import caller_info_strict
 
@@ -52,14 +53,17 @@ class MutationWrapper(MutationType):
 ## The MutationType object for the GraphQL schema.
 mutation = MutationWrapper()
 
+# pylint: disable=wrong-import-position
 from . import apikeys  # nopep8
+from . import blob  # nopep8
+from . import book  # nopep8
+from . import bugs  # nopep8
+from . import datafeed  # nopep8
+from . import inventory  # nopep8
+from . import notification  # nopep8
+from . import sessions  # nopep8
+from . import settings  # nopep8
 from . import users  # nopep8
 from . import weather  # nopep8
-from . import sessions  # nopep8
-from . import blob  # nopep8
-from . import bugs  # nopep8
-from . import book  # nopep8
-from . import settings  # nopep8
-from . import notification  # nopep8
-from . import inventory  # nopep8
-from . import datafeed  # nopep8
+
+# pylint: enable=wrong-import-position

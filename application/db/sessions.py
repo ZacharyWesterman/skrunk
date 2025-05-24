@@ -1,9 +1,10 @@
 """application.db.sessions"""
 
 from datetime import datetime, timedelta
-from application.db.users import get_user_data
 
 from pymongo.collection import Collection
+
+from application.db.users import get_user_data
 
 ## A pointer to the sessions database collection.
 db: Collection = None  # type: ignore[assignment]

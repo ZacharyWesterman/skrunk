@@ -1,10 +1,11 @@
 """application.integrations.qrcode"""
 
-from pyzxing import BarCodeReader
-import qrcode
 import uuid
-from PIL import Image
 from typing import Any
+
+import qrcode
+from PIL import Image
+from pyzxing import BarCodeReader
 
 
 def process(file_path: str) -> dict:

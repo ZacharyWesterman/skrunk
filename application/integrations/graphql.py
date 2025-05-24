@@ -2,19 +2,12 @@
 
 __all__ = ['schema']
 
-import ariadne
-from graphql import (
-	GraphQLField,
-	GraphQLNonNull,
-	GraphQLList,
-	GraphQLScalarType,
-	GraphQLObjectType,
-	GraphQLInputObjectType,
-	GraphQLUnionType,
-	GraphQLArgument,
-	GraphQLNamedType,
-)
 from functools import cache
+
+import ariadne
+from graphql import (GraphQLArgument, GraphQLField, GraphQLInputObjectType,
+                     GraphQLList, GraphQLNamedType, GraphQLNonNull,
+                     GraphQLObjectType, GraphQLScalarType, GraphQLUnionType)
 
 
 def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:

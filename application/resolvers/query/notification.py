@@ -1,8 +1,12 @@
 """application.resolvers.query.notification"""
 
 from graphql.type import GraphQLResolveInfo
+
 from application.db import perms
-from application.db.notification import get_public_key, get_subscription, get_subscriptions, get_notifications, count_notifications
+from application.db.notification import (count_notifications,
+                                         get_notifications, get_public_key,
+                                         get_subscription, get_subscriptions)
+
 from ..decorators import *
 from . import query
 

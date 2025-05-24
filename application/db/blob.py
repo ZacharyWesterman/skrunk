@@ -566,7 +566,8 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 				print(f'[{100 * item / total:.1f}%] Adding "{file_name}"...', flush=True)
 				fp.write(sub_blob.path(), file_name)
 			else:
-				print(f'[{100 * item / total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!', flush=True)
+				msg = f'[{100 * item / total:.1f}%] ERROR: Blob {blob["_id"]}{blob["ext"]} does not exist!'
+				print(msg, flush=True)
 
 	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
 
@@ -789,7 +790,8 @@ def create_preview_model(path: str, preview_id: str) -> None:
 
 def create_preview_video(path: str, preview_id: str) -> None:
 	"""
-	Creates a preview video from the first frame of the given video blob and updates the database with the preview information.
+	Creates a preview video from the first frame of the given video blob
+	and updates the database with the preview information.
 
 	Args:
 		path (str): The file path to the video blob.
@@ -829,7 +831,8 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 
 def count_tag_uses(tag: str, user_ids: list[str]) -> int:
 	"""
-	Count the number of documents in the database that contain a specific tag and are created by any of the specified users.
+	Count the number of documents in the database that contain a specific tag
+	and are created by any of the specified users.
 
 	Args:
 		tag (str): The tag to search for in the documents.

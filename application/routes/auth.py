@@ -1,9 +1,11 @@
 """application.routes.auth"""
 
-from flask import jsonify, request, Response
-from application import tokens, exceptions
-from application.db.users import authenticate
 from typing import Any
+
+from flask import Response, jsonify, request
+
+from application import exceptions, tokens
+from application.db.users import authenticate
 
 application: Any = None
 

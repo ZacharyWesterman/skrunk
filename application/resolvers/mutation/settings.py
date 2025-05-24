@@ -1,8 +1,12 @@
 """application.resolvers.mutation.settings"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.settings import set_module_enabled, get_enabled_modules, set_config, create_theme, delete_theme
+
 import application.db.perms as perms
+from application.db.settings import (create_theme, delete_theme,
+                                     get_enabled_modules, set_config,
+                                     set_module_enabled)
+
 from ..decorators import *
 from . import mutation
 

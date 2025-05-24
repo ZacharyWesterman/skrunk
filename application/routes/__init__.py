@@ -1,6 +1,6 @@
 """application.routes"""
 
-from . import auth, api, misc, site, blob
+from . import api, auth, blob, misc, site
 
 
 def init(application) -> None:

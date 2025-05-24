@@ -1,15 +1,16 @@
 """application"""
 
-import ariadne
-from flask import Flask
-from ariadne.contrib.federation.schema import make_federated_schema
 from typing import Any
 
-from .resolvers import query, mutation
-from .db.users import count_users
-from .scalars import scalars
-from .db import init_db, setup_db
+import ariadne
+from ariadne.contrib.federation.schema import make_federated_schema
+from flask import Flask
+
 from . import routes
+from .db import init_db, setup_db
+from .db.users import count_users
+from .resolvers import mutation, query
+from .scalars import scalars
 
 
 def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:

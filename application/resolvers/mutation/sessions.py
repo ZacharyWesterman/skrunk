@@ -1,8 +1,10 @@
 """application.resolvers.mutation.sessions"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.sessions import revoke_sessions, count_valid_sessions
+
 import application.db.perms as perms
+from application.db.sessions import count_valid_sessions, revoke_sessions
+
 from . import mutation
 
 

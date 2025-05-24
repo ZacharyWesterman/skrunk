@@ -3,9 +3,10 @@
 __all__ = ['query']
 
 import functools
-import requests
 import json
 import re
+
+import requests
 
 from . import exceptions
 

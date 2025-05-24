@@ -1,9 +1,11 @@
 """application.routes.api"""
 
-import ariadne
-from flask import jsonify, request, Response
-from . import auth
 from typing import Any
+
+import ariadne
+from flask import Response, jsonify, request
+
+from . import auth
 
 application: Any = None
 

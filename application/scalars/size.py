@@ -2,10 +2,11 @@
 
 __all__ = ['scalar']
 
-from ariadne import ScalarType
 import re
-import application.exceptions as exceptions
 
+from ariadne import ScalarType
+
+import application.exceptions as exceptions
 
 ## Define a scalar type for size values
 scalar = ScalarType('Size')

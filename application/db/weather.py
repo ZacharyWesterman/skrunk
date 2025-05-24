@@ -1,10 +1,11 @@
 """application.db.weather"""
 
-import application.exceptions as exceptions
+from datetime import datetime
 
 from bson.objectid import ObjectId
 from pymongo.database import Database
-from datetime import datetime
+
+from application import exceptions
 
 ## A pointer to the database object.
 db: Database = None  # type: ignore[assignment]
@@ -43,14 +44,14 @@ def process_weather_user(userdata: dict) -> dict:
 		userdata['username'] = userdata['_id']
 
 	userdata['max'] = {
-		'value': userdata.get('max') if type(userdata.get('max')) is float else 0.0,
+		'value': userdata.get('max') if isinstance(userdata.get('max'), float) else 0.0,
 		'default': userdata.get('max') is None,
-		'disable': userdata.get('max') == False,
+		'disable': userdata.get('max') is False,
 	}
 	userdata['min'] = {
-		'value': userdata.get('min') if type(userdata.get('min')) is float else 0.0,
+		'value': userdata.get('min') if isinstance(userdata.get('min'), float) else 0.0,
 		'default': userdata.get('min') is None,
-		'disable': userdata.get('min') == False,
+		'disable': userdata.get('min') is False,
 	}
 
 	return userdata
@@ -133,8 +134,12 @@ def create_user(user_data: dict) -> dict:
 	if userdata:
 		raise exceptions.UserExistsError(user_data['username'])
 
-	user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max'])
-	user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min'])
+	user_max = False if user_data['max']['disable'] else (
+		None if user_data['max']['default'] else user_data['max']
+	)
+	user_min = False if user_data['min']['disable'] else (
+		None if user_data['min']['default'] else user_data['min']
+	)
 
 	userdata = {
 		'_id': db_user_data['_id'],
@@ -191,16 +196,22 @@ def update_user(user_data: dict) -> dict:
 			- 'username' (str): The username of the user.
 			- 'lat' (float): The latitude of the user's location.
 			- 'lon' (float): The longitude of the user's location.
-			- 'max' (dict): A dictionary with keys 'disable', 'default', and 'value' for the maximum temperature settings.
-			- 'min' (dict): A dictionary with keys 'disable', 'default', and 'value' for the minimum temperature settings.
+			- 'max' (dict): A dictionary with keys 'disable', 'default',
+				and 'value' for the maximum temperature settings.
+			- 'min' (dict): A dictionary with keys 'disable', 'default',
+				and 'value' for the minimum temperature settings.
 			- '_id' (Any): The unique identifier of the user in the database.
 
 	Returns:
 		dict: The user's updated weather information.
 	"""
 	weather_user = get_weather_user(user_data['username'])
-	user_max = False if user_data['max']['disable'] else (None if user_data['max']['default'] else user_data['max']['value'])
-	user_min = False if user_data['min']['disable'] else (None if user_data['min']['default'] else user_data['min']['value'])
+	user_max = False if user_data['max']['disable'] else (
+		None if user_data['max']['default'] else user_data['max']['value']
+	)
+	user_min = False if user_data['min']['disable'] else (
+		None if user_data['min']['default'] else user_data['min']['value']
+	)
 
 	userdata = {
 		'lat': user_data['lat'],
@@ -232,7 +243,8 @@ def get_alert_history(username: str | None, start: int, count: int) -> list:
 	Retrieve a list of alert history records from the database.
 
 	Args:
-		username (str | None): The username to filter the alert history by. If None, retrieves all alert history.
+		username (str | None): The username to filter the alert history by.
+			If None, retrieves all alert history.
 		start (int): The starting index for the records to retrieve.
 		count (int): The number of records to retrieve.
 
@@ -260,7 +272,8 @@ def count_alert_history(username: str | None) -> int:
 	Count the number of alert history documents in the database.
 
 	Args:
-		username (str | None): The username to filter the alert history by. If None, count all alert history documents.
+		username (str | None): The username to filter the alert history by.
+			If None, count all alert history documents.
 
 	Returns:
 		list: The count of alert history documents matching the criteria.

@@ -1,13 +1,18 @@
 """application.db.datafeed"""
 
-from . import users, perms
 from datetime import datetime
-from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError, UserDoesNotExistError, FeedDocumentDoesNotExistError
-from bson.objectid import ObjectId
-from ..objects import Sorting
-import markdown
 
+import markdown
+from bson.objectid import ObjectId
 from pymongo.database import Database
+
+from application.exceptions import (FeedDocumentDoesNotExistError,
+                                    FeedDoesNotExistError,
+                                    InvalidFeedKindError,
+                                    UserDoesNotExistError)
+
+from ..objects import Sorting
+from . import perms, users
 
 ## A pointer to the database object.
 db: Database = None  # type: ignore[assignment]

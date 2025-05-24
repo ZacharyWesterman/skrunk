@@ -3,11 +3,13 @@
 __ALL__ = ['Repository', 'CurrentRepository']
 
 import json
-import requests
 import subprocess
-from .exceptions import RepoFetchFailed
-import cachetools.func
 from typing import Any
+
+import cachetools.func
+import requests
+
+from .exceptions import RepoFetchFailed
 
 
 @cachetools.func.ttl_cache()

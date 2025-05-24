@@ -1,11 +1,17 @@
 """application.resolvers.mutation.datafeed"""
 
-from graphql.type import GraphQLResolveInfo
-from application.db.datafeed import create_feed, delete_feed, get_feed, set_feed_notify, create_document, update_document, set_document_read, set_feed_inactive, set_feed_navigation
-from ..decorators import *
-from application.db import perms
 from datetime import datetime
+
+from graphql.type import GraphQLResolveInfo
+
+from application.db import perms
+from application.db.datafeed import (create_document, create_feed, delete_feed,
+                                     get_feed, set_document_read,
+                                     set_feed_inactive, set_feed_navigation,
+                                     set_feed_notify, update_document)
 from application.objects import Sorting
+
+from ..decorators import *
 from . import mutation
 
 

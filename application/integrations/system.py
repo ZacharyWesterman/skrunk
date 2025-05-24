@@ -1,8 +1,10 @@
 """application.integrations.system"""
 
-from application.db import blob
-import psutil
 from pathlib import Path
+
+import psutil
+
+from application.db import blob
 
 
 def disk_usage() -> list[dict]:

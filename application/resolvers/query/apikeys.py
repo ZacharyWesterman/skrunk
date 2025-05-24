@@ -1,8 +1,10 @@
 """application.resolvers.query.apikeys"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.apikeys import get_api_keys
+
 from application.db import perms
+from application.db.apikeys import get_api_keys
+
 from . import query
 
 

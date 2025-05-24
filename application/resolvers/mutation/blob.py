@@ -1,12 +1,17 @@
 """application.resolvers.mutation.blob"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.blob import delete_blob, get_blob_data, set_blob_tags, zip_matching_blobs, create_blob, set_blob_hidden, BlobStorage, set_blob_ephemeral, cancel_zip
+
 import application.db.perms as perms
+from application.db.blob import (BlobStorage, cancel_zip, create_blob,
+                                 delete_blob, get_blob_data,
+                                 set_blob_ephemeral, set_blob_hidden,
+                                 set_blob_tags, zip_matching_blobs)
 from application.db.users import group_filter
+from application.integrations import qrcode
 from application.objects import BlobSearchFilter
 from application.tags.exceptions import ParseError
-from application.integrations import qrcode
+
 from ..decorators import *
 from . import mutation
 

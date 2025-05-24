@@ -1,7 +1,9 @@
 """application.db.settings"""
 
 import json
+
 from pymongo.collection import Collection
+
 import application.exceptions as exceptions
 
 ## A pointer to the settings database collection.

@@ -1,8 +1,10 @@
 """application.resolvers.mutation.bugs"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.bugs import *
+
 import application.db.perms as perms
+from application.db.bugs import *
+
 from ..decorators import *
 from . import mutation
 

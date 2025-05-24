@@ -1,8 +1,9 @@
 """application.routes.files"""
 
-from flask import Response
 import mimetypes
 import os
+
+from flask import Response
 
 # Remove absolute paths or paths that contain '../' to prevent access to files outside of site/
 

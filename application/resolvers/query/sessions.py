@@ -1,8 +1,10 @@
 """application.resolvers.query.sessions"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.sessions import count_valid_sessions
+
 import application.db.perms as perms
+from application.db.sessions import count_valid_sessions
+
 from . import query
 
 

@@ -1,15 +1,16 @@
 """application.db.inventory"""
 
-from . import users
 from datetime import datetime
-import markdown
-from application.objects import InventorySearchFilter, Sorting
-from bson.objectid import ObjectId
-import application.exceptions as exceptions
-from . import blob
-from .perms import caller_info_strict
 
+import markdown
+from bson.objectid import ObjectId
 from pymongo.database import Database
+
+from application import exceptions
+from application.objects import InventorySearchFilter, Sorting
+
+from . import blob, users
+from .perms import caller_info_strict
 
 ## A pointer to the database object.
 db: Database = None  # type: ignore[assignment]
@@ -169,7 +170,7 @@ def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> d
 	if filter.get('location') is not None:
 		query += [{'location': filter.get('location')}]
 
-	return {'$and': query} if len(query) else {}
+	return {'$and': query} if len(query) > 0 else {}
 
 
 def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting: Sorting, user_id: ObjectId) -> list:

@@ -3,9 +3,10 @@
 import random
 import string
 from datetime import datetime
+from pymongo.collection import Collection
+
 from . import perms
 
-from pymongo.collection import Collection
 
 ## A pointer to the API keys collection in the database.
 db: Collection = None  # type: ignore[assignment]

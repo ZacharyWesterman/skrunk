@@ -1,7 +1,8 @@
 """application.resolvers.decorators"""
 
-from application.exceptions import ClientError
 from typing import Callable
+
+from application.exceptions import ClientError
 
 
 def handle_client_exceptions(func: Callable) -> Callable:

@@ -1,8 +1,12 @@
 """application.resolvers.query.weather"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.weather import get_users, get_last_exec, get_alert_history, count_alert_history, get_weather_user, process_weather_user
+
 from application.db import perms
+from application.db.weather import (count_alert_history, get_alert_history,
+                                    get_last_exec, get_users, get_weather_user,
+                                    process_weather_user)
+
 from . import query
 
 

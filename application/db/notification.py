@@ -3,13 +3,14 @@
 import json
 from datetime import datetime
 from urllib.parse import urlsplit
+
 from bson.objectid import ObjectId
 from pymongo.database import Database
-from pywebpush import webpush, WebPushException
+from pywebpush import WebPushException, webpush
 
+from application import exceptions
 from application.db import settings, users
 from application.db.sessions import get_first_session_token
-from application import exceptions
 
 # Attempt to read the VAPID keys from the data directory.
 try:

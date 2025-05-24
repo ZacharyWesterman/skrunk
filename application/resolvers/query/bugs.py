@@ -1,10 +1,12 @@
 """application.resolvers.query.bugs"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.bugs import *
-from application.integrations import github
+
 import application.db.perms as perms
-from application.db.users import userids_in_groups, get_user_data
+from application.db.bugs import *
+from application.db.users import get_user_data, userids_in_groups
+from application.integrations import github
+
 from . import query
 
 

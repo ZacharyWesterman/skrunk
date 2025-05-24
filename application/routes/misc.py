@@ -1,8 +1,9 @@
 """application.routes.misc"""
 
-from flask import Response
-import requests
 import random
+
+import requests
+from flask import Response
 
 application = None
 

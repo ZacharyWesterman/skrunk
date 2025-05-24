@@ -1,10 +1,12 @@
 """application.resolvers.query.inventory"""
 
 from graphql.type import GraphQLResolveInfo
-from application.db.inventory import *
+
 import application.db.perms as perms
+from application.db.inventory import *
 from application.db.users import group_filter
 from application.objects import InventorySearchFilter, Sorting
+
 from . import query
 
 

@@ -1,10 +1,12 @@
 """application.resolvers.query.integrations"""
 
 from graphql.type import GraphQLResolveInfo
-from application.integrations import subsonic, system
-from application.exceptions import SubsonicError
-from application.db.settings import get_config
+
 from application.db import perms
+from application.db.settings import get_config
+from application.exceptions import SubsonicError
+from application.integrations import subsonic, system
+
 from . import query
 
 SUBSONIC: subsonic.SubsonicClient | None = None

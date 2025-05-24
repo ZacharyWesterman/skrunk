@@ -1,7 +1,9 @@
 """application.resolvers.query.last_mutation"""
+
 from graphql.type import GraphQLResolveInfo
-from application.resolvers.query import query
+
 from application.resolvers.mutation import mutation
+from application.resolvers.query import query
 
 
 @query.field('getLastMutation')

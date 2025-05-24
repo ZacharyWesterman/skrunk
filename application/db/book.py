@@ -1,20 +1,20 @@
 """application.db.book"""
 
-from application.tokens import decode_user_token, get_request_token
-from application.db.settings import get_config, get_enabled_modules
-import application.exceptions as exceptions
-from application.objects import BookSearchFilter, Sorting
-from . import users, blob
-from application.integrations import google_books, subsonic
-from .perms import caller_info_strict
-from datetime import datetime
-from bson.objectid import ObjectId
 import re
-import markdown
 import warnings
+from datetime import datetime
 
+import markdown
+from bson.objectid import ObjectId
 from pymongo.collection import Collection
 from pymongo.cursor import Cursor
+
+from application import exceptions
+from application.integrations import google_books, subsonic
+from application.objects import BookSearchFilter, Sorting
+
+from . import blob, users
+from .perms import caller_info_strict
 
 ## A pointer to the Book collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -27,41 +27,6 @@ _P = {
 	'tag': re.compile(r'</?\w+>'),
 	'nonwd': re.compile(r'[^\w]+'),
 }
-
-
-def init() -> None:
-	"""
-	Initialize the Subsonic session and cache data on startup.
-
-	This function retrieves the Subsonic URL, username, and password from the configuration,
-	initializes a Subsonic session, and caches album data for later use. If the Subsonic
-	module is enabled and the URL is provided, it attempts to connect to the Subsonic server
-	and cache album data. If the connection fails, an error message is printed.
-
-	Raises:
-		subsonic.SessionError: If unable to connect to the Subsonic server.
-	"""
-	warnings.warn("The 'application.db.book.init' function is deprecated and will be removed in a future version.", DeprecationWarning)
-	# global SUBSONIC
-
-	# url = get_config('subsonic:url')
-	# if url is not None and 'subsonic' in get_enabled_modules():
-	# 	username = get_config('subsonic:username')
-	# 	password = get_config('subsonic:password')
-	# 	SUBSONIC = subsonic.SubsonicClient(url, username, password)
-	# 	try:
-	# 		print('Caching Subsonic data on startup...', flush=True)
-	# 		# Get albums on startup so it's cached for later use.
-	# 		SUBSONIC. all_albums('Audiobooks')
-
-	# 		# Cache as many album IDs as possible
-	# 		for book_data in db.find({}).limit(subsonic.SUBSONIC_ALBUMID_CACHESZ):
-	# 			SUBSONIC.get_album_id(book_data['title'], 'Audiobooks')
-
-	# 		print('Finished caching Subsonic data.', flush=True)
-	# 	except subsonic.SessionError:
-	# 		print('Unable to connect to Subsonic server!', flush=True)
-	pass
 
 
 def process_share_hist(share_history: list) -> list:
@@ -172,8 +137,6 @@ def process_book_tag(book_data: dict) -> dict:
 	- Builds and adds 'keywords' field.
 	- Adds an 'audiobook' field if SUBSONIC is enabled and the album is found.
 	"""
-	global SUBSONIC
-
 	try:
 		userdata = users.get_user_by_id(book_data['owner'])
 		book_data['owner'] = userdata

@@ -54,7 +54,6 @@ def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> Non
 
 	bugs.db = client.skrunk.bug_reports
 	book.db = client.skrunk.books
-	book.init()
 
 	notification.db = client.skrunk
 	inventory.db = client.skrunk

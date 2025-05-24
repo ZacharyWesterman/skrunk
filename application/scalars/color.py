@@ -2,8 +2,10 @@
 
 __all__ = ['scalar']
 
-from ariadne import ScalarType
 import re
+
+from ariadne import ScalarType
+
 import application.exceptions as exceptions
 
 ## Define a scalar type for color values

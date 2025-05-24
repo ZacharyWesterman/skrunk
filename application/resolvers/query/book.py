@@ -1,13 +1,16 @@
 """application.resolvers.query.book"""
 
 from graphql.type import GraphQLResolveInfo
-from application.integrations.exceptions import ApiFailedError
-from application.integrations import google_books
-from application.exceptions import BookTagDoesNotExistError
-from application.db.book import get_book_tag, get_books, count_books, count_all_user_books, get_book
-from application.objects import BookSearchFilter, Sorting
+
 import application.db.perms as perms
+from application.db.book import (count_all_user_books, count_books, get_book,
+                                 get_book_tag, get_books)
 from application.db.users import userids_in_groups
+from application.exceptions import BookTagDoesNotExistError
+from application.integrations import google_books
+from application.integrations.exceptions import ApiFailedError
+from application.objects import BookSearchFilter, Sorting
+
 from ..decorators import *
 from . import query
 
