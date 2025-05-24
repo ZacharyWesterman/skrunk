@@ -13,6 +13,7 @@ var namespaceapplication_1_1exceptions =
     [ "InsufficientDiskSpace", "classapplication_1_1exceptions_1_1InsufficientDiskSpace.html", "classapplication_1_1exceptions_1_1InsufficientDiskSpace" ],
     [ "InvalidColor", "classapplication_1_1exceptions_1_1InvalidColor.html", "classapplication_1_1exceptions_1_1InvalidColor" ],
     [ "InvalidFeedKindError", "classapplication_1_1exceptions_1_1InvalidFeedKindError.html", "classapplication_1_1exceptions_1_1InvalidFeedKindError" ],
+    [ "InvalidJWTError", "classapplication_1_1exceptions_1_1InvalidJWTError.html", "classapplication_1_1exceptions_1_1InvalidJWTError" ],
     [ "InvalidPhone", "classapplication_1_1exceptions_1_1InvalidPhone.html", "classapplication_1_1exceptions_1_1InvalidPhone" ],
     [ "InvalidSize", "classapplication_1_1exceptions_1_1InvalidSize.html", "classapplication_1_1exceptions_1_1InvalidSize" ],
     [ "InvalidSubscriptionToken", "classapplication_1_1exceptions_1_1InvalidSubscriptionToken.html", "classapplication_1_1exceptions_1_1InvalidSubscriptionToken" ],

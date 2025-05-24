@@ -114,8 +114,8 @@ Functions</h2></td></tr>
 <tr class="separator:a95560ee9353072b8a4e53d1fc38e2562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae287eb13111b894298137ab0c99c435d" id="r_ae287eb13111b894298137ab0c99c435d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d">user_has_perms</a> (dict user_data, tuple[str,...] perm_list)</td></tr>
 <tr class="separator:ae287eb13111b894298137ab0c99c435d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad92ccee188ce04d10a30ae8c628c5596" id="r_ad92ccee188ce04d10a30ae8c628c5596"><td class="memItemLeft" align="right" valign="top">bool|dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#ad92ccee188ce04d10a30ae8c628c5596">satisfies</a> (tuple[str,...] perms, dict data={}, *bool perform_on_self=False, Callable|None data_func=None)</td></tr>
-<tr class="separator:ad92ccee188ce04d10a30ae8c628c5596"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a008e335de145d06584a57608fae23912" id="r_a008e335de145d06584a57608fae23912"><td class="memItemLeft" align="right" valign="top">bool|dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a008e335de145d06584a57608fae23912">satisfies</a> (tuple[str,...] perms, dict|None data=None, *bool perform_on_self=False, Callable|None data_func=None)</td></tr>
+<tr class="separator:a008e335de145d06584a57608fae23912"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4617d4435276a7ed22259fa2cebaf5b6" id="r_a4617d4435276a7ed22259fa2cebaf5b6"><td class="memItemLeft" align="right" valign="top">Callable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a4617d4435276a7ed22259fa2cebaf5b6">require</a> (*str perms, bool perform_on_self=False, Callable|None data_func=None)</td></tr>
 <tr class="separator:a4617d4435276a7ed22259fa2cebaf5b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f86c190d4809a768d93147cf4eb76d3" id="r_a4f86c190d4809a768d93147cf4eb76d3"><td class="memItemLeft" align="right" valign="top">Callable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a4f86c190d4809a768d93147cf4eb76d3">module</a> (*str modules)</td></tr>
@@ -223,8 +223,11 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
 </div><div class="memdoc">
 <pre class="fragment">Require the calling user to have all the specified modules enabled.
 
-    This is a decorator for application resolvers, to avoid redundant module-checking logic all over the place.
-    If the user does not have one or more of the specified modules enabled when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
+    This is a decorator for application resolvers,
+    to avoid redundant module-checking logic all over the place.
+    If the user does not have one or more of the specified modules enabled 
+    when the resolver is called, then the resolver will be overridden and 
+    will instead return a bad_perms() dict.
 
     Args:
         modules (list[str]): The modules that must ALL be enabled for the user.
@@ -266,20 +269,25 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
 </div><div class="memdoc">
 <pre class="fragment">Require the calling user to have any of the specified permissions.
 
-    This is a decorator for application resolvers, to avoid redundant permission-checking logic all over the place.
-    If the permissions are not satisfied when the resolver is called, then the resolver will be overridden and will instead return a bad_perms() dict.
+    This is a decorator for application resolvers,
+    to avoid redundant permission-checking logic all over the place.
+    If the permissions are not satisfied when the resolver is called, 
+    then the resolver will be overridden and will instead return a bad_perms() dict.
 
     Args:
         *perms (str): The permissions that must have at least 1 satisfied.
-        perform_on_self (bool): If True, permissions will be ignored when the user is editing their own data.
-        data_func (Callable|None): If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
+        perform_on_self (bool): If True, permissions will be ignored
+            when the user is editing their own data.
+        data_func (Callable|None): If specified, this function will give
+            the data to be checked for ownership. Otherwise, the main function's
+            parameters are checked.
 
     Returns:
         Callable: The resolver function, with decorator applied.</pre> 
 </div>
 </div>
-<a id="ad92ccee188ce04d10a30ae8c628c5596" name="ad92ccee188ce04d10a30ae8c628c5596"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad92ccee188ce04d10a30ae8c628c5596">&#9670;&#160;</a></span>satisfies()</h2>
+<a id="a008e335de145d06584a57608fae23912" name="a008e335de145d06584a57608fae23912"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a008e335de145d06584a57608fae23912">&#9670;&#160;</a></span>satisfies()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -293,8 +301,8 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">dict &#160;</td>
-          <td class="paramname"><em>data</em> = <code>{}</code>, </td>
+          <td class="paramtype">dict | None &#160;</td>
+          <td class="paramname"><em>data</em> = <code>None</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -319,11 +327,14 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
 
     Args:
         perms (list[str]): The permissions that must have at least 1 satisfied.
-        perform_on_self (bool): If True, permissions will be ignored when the user is editing their own data.
-        data_func (Callable|None): If specified, this function will give the data to be checked for ownership. Otherwise, the main function's parameters are checked.
+        perform_on_self (bool): If True, permissions will be ignored when
+            the user is editing their own data.
+        data_func (Callable|None): If specified, this function will give the
+            data to be checked for ownership. Otherwise, the main function's parameters are checked.
 
     Returns:
-        bool: True if the user has all required permissions, or if perform_on_self is True AND the data being operated on belongs to the user.</pre> 
+        bool: True if the user has all required permissions, or
+            if perform_on_self is True AND the data being operated on belongs to the user.</pre> 
 </div>
 </div>
 <a id="ae287eb13111b894298137ab0c99c435d" name="ae287eb13111b894298137ab0c99c435d"></a>
@@ -354,7 +365,8 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
 <pre class="fragment">    Check if the user has any of the specified permissions.
 
     Args:
-        user_data (dict): A dictionary containing user information, including a 'perms' key with a list of permissions.
+        user_data (dict): A dictionary containing user information,
+            including a 'perms' key with a list of permissions.
         perm_list (list): A list of permissions to check against the user's permissions.
 
     Returns:

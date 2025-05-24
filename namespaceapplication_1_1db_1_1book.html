@@ -106,8 +106,6 @@ $(document).ready(function(){initNavTree('namespaceapplication_1_1db_1_1book.htm
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a489dd7a7cd69e687da8a812326342817" id="r_a489dd7a7cd69e687da8a812326342817"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#a489dd7a7cd69e687da8a812326342817">init</a> ()</td></tr>
-<tr class="separator:a489dd7a7cd69e687da8a812326342817"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff992f88f0c3ce2d1a1ace7300273731" id="r_aff992f88f0c3ce2d1a1ace7300273731"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#aff992f88f0c3ce2d1a1ace7300273731">process_share_hist</a> (list share_history)</td></tr>
 <tr class="separator:aff992f88f0c3ce2d1a1ace7300273731"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae566d13ab23f223051e92d14dbf5c1d8" id="r_ae566d13ab23f223051e92d14dbf5c1d8"><td class="memItemLeft" align="right" valign="top">list[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1book.html#ae566d13ab23f223051e92d14dbf5c1d8">keyword_tokenize</a> (str text)</td></tr>
@@ -585,31 +583,6 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
 
     Returns:
         list: A list of books that match the filter criteria, sorted and paginated as specified.</pre> 
-</div>
-</div>
-<a id="a489dd7a7cd69e687da8a812326342817" name="a489dd7a7cd69e687da8a812326342817"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a489dd7a7cd69e687da8a812326342817">&#9670;&#160;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None application.db.book.init </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">    Initialize the Subsonic session and cache data on startup.
-
-    This function retrieves the Subsonic URL, username, and password from the configuration,
-    initializes a Subsonic session, and caches album data for later use. If the Subsonic
-    module is enabled and the URL is provided, it attempts to connect to the Subsonic server
-    and cache album data. If the connection fails, an error message is printed.
-
-    Raises:
-        subsonic.SessionError: If unable to connect to the Subsonic server.</pre> 
 </div>
 </div>
 <a id="ae566d13ab23f223051e92d14dbf5c1d8" name="ae566d13ab23f223051e92d14dbf5c1d8"></a>

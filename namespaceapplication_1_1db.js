@@ -51,7 +51,6 @@ var namespaceapplication_1_1db =
       [ "get_book", "namespaceapplication_1_1db_1_1book.html#a7c18efafab5ef9c7798ee428c02be5b8", null ],
       [ "get_book_tag", "namespaceapplication_1_1db_1_1book.html#a945ffe237dcd5f6ed2f41e23762a5384", null ],
       [ "get_books", "namespaceapplication_1_1db_1_1book.html#a12521de3ba99c53bf88a379438a71e90", null ],
-      [ "init", "namespaceapplication_1_1db_1_1book.html#a489dd7a7cd69e687da8a812326342817", null ],
       [ "keyword_tokenize", "namespaceapplication_1_1db_1_1book.html#ae566d13ab23f223051e92d14dbf5c1d8", null ],
       [ "link_book_tag", "namespaceapplication_1_1db_1_1book.html#a2c12e383769e7aef43a4c19a4a1af55c", null ],
       [ "next_out_of_date_book_rfid", "namespaceapplication_1_1db_1_1book.html#a932a4d4d32bdaee6c7a4e345121c10e1", null ],
@@ -134,7 +133,7 @@ var namespaceapplication_1_1db =
       [ "caller_info_strict", "namespaceapplication_1_1db_1_1perms.html#a95560ee9353072b8a4e53d1fc38e2562", null ],
       [ "module", "namespaceapplication_1_1db_1_1perms.html#a4f86c190d4809a768d93147cf4eb76d3", null ],
       [ "require", "namespaceapplication_1_1db_1_1perms.html#a4617d4435276a7ed22259fa2cebaf5b6", null ],
-      [ "satisfies", "namespaceapplication_1_1db_1_1perms.html#ad92ccee188ce04d10a30ae8c628c5596", null ],
+      [ "satisfies", "namespaceapplication_1_1db_1_1perms.html#a008e335de145d06584a57608fae23912", null ],
       [ "user_has_perms", "namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d", null ],
       [ "apikeydb", "namespaceapplication_1_1db_1_1perms.html#ad01aad28b8767cf358095f088390fe4b", null ]
     ] ],

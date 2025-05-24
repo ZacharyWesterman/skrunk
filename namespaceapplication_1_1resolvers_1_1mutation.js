@@ -1,8 +1,8 @@
 var namespaceapplication_1_1resolvers_1_1mutation =
 [
     [ "apikeys", "namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html", [
-      [ "resolve_create_api_key", "namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#a980d0312f7fad9432a6f95b4f291e129", null ],
-      [ "resolve_delete_api_key", "namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#aff2fe44224d2b610d71d0b3d9d5e0ccf", null ]
+      [ "resolve_create_api_key", "namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#a53f8c38670b17e191b095f16967093a0", null ],
+      [ "resolve_delete_api_key", "namespaceapplication_1_1resolvers_1_1mutation_1_1apikeys.html#a2d55b14b2162b84d7042f961736e6a58", null ]
     ] ],
     [ "blob", "namespaceapplication_1_1resolvers_1_1mutation_1_1blob.html", null ],
     [ "book", "namespaceapplication_1_1resolvers_1_1mutation_1_1book.html", null ],

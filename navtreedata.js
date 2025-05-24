@@ -49,8 +49,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"functions.html",
-"namespaceapplication_1_1resolvers_1_1query_1_1book.html"
+"classapplication_1_1types_1_1weatheruserinput_1_1WeatherUserInput.html",
+"namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

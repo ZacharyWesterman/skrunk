@@ -158,7 +158,8 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td
 <pre class="fragment">    Count the number of alert history documents in the database.
 
     Args:
-        username (str | None): The username to filter the alert history by. If None, count all alert history documents.
+        username (str | None): The username to filter the alert history by.
+            If None, count all alert history documents.
 
     Returns:
         list: The count of alert history documents matching the criteria.</pre> 
@@ -265,7 +266,8 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td
 <pre class="fragment">    Retrieve a list of alert history records from the database.
 
     Args:
-        username (str | None): The username to filter the alert history by. If None, retrieves all alert history.
+        username (str | None): The username to filter the alert history by.
+            If None, retrieves all alert history.
         start (int): The starting index for the records to retrieve.
         count (int): The number of records to retrieve.
 
@@ -519,8 +521,10 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td
             - 'username' (str): The username of the user.
             - 'lat' (float): The latitude of the user's location.
             - 'lon' (float): The longitude of the user's location.
-            - 'max' (dict): A dictionary with keys 'disable', 'default', and 'value' for the maximum temperature settings.
-            - 'min' (dict): A dictionary with keys 'disable', 'default', and 'value' for the minimum temperature settings.
+            - 'max' (dict): A dictionary with keys 'disable', 'default',
+                and 'value' for the maximum temperature settings.
+            - 'min' (dict): A dictionary with keys 'disable', 'default',
+                and 'value' for the minimum temperature settings.
             - '_id' (Any): The unique identifier of the user in the database.
 
     Returns:

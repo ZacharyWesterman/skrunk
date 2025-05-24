@@ -1,49 +1,51 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,685,92,710"/>
-<area shape="rect" id="Node000001" href="$classapplication_1_1exceptions_1_1ClientError.html" title=" " alt="" coords="162,581,373,621"/>
-<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="73,674,103,651,139,631,170,619,172,624,141,636,106,656,76,678"/>
-<area shape="rect" id="Node000021" href="$classapplication_1_1integrations_1_1exceptions_1_1ApiFailedError.html" title=" " alt="" coords="140,645,395,685"/>
-<area shape="poly" id="edge24_Node000000_Node000021" title=" " alt="" coords="105,686,140,681,140,687,106,692"/>
-<area shape="rect" id="Node000022" href="$classapplication_1_1integrations_1_1exceptions_1_1RepoFetchFailed.html" title=" " alt="" coords="140,709,395,749"/>
-<area shape="poly" id="edge25_Node000000_Node000022" title=" " alt="" coords="106,703,140,708,140,713,105,708"/>
-<area shape="rect" id="Node000023" href="$classapplication_1_1integrations_1_1exceptions_1_1UnsupportedFileFormat.html" title=" " alt="" coords="140,773,395,813"/>
-<area shape="poly" id="edge26_Node000000_Node000023" title=" " alt="" coords="76,716,106,739,141,759,172,771,170,776,139,764,103,743,73,721"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,717,92,742"/>
+<area shape="rect" id="Node000001" href="$classapplication_1_1exceptions_1_1ClientError.html" title=" " alt="" coords="162,613,373,653"/>
+<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="73,706,103,683,139,663,170,651,172,656,141,668,106,688,76,710"/>
+<area shape="rect" id="Node000022" href="$classapplication_1_1integrations_1_1exceptions_1_1ApiFailedError.html" title=" " alt="" coords="140,677,395,717"/>
+<area shape="poly" id="edge25_Node000000_Node000022" title=" " alt="" coords="105,718,140,713,140,719,106,724"/>
+<area shape="rect" id="Node000023" href="$classapplication_1_1integrations_1_1exceptions_1_1RepoFetchFailed.html" title=" " alt="" coords="140,741,395,781"/>
+<area shape="poly" id="edge26_Node000000_Node000023" title=" " alt="" coords="106,735,140,740,140,745,105,740"/>
+<area shape="rect" id="Node000024" href="$classapplication_1_1integrations_1_1exceptions_1_1UnsupportedFileFormat.html" title=" " alt="" coords="140,805,395,845"/>
+<area shape="poly" id="edge27_Node000000_Node000024" title=" " alt="" coords="76,748,106,771,141,791,172,803,170,808,139,796,103,775,73,753"/>
 <area shape="rect" id="Node000002" href="$classapplication_1_1exceptions_1_1AuthenticationError.html" title=" " alt="" coords="443,5,711,45"/>
-<area shape="poly" id="edge5_Node000001_Node000002" title=" " alt="" coords="266,567,273,467,282,400,297,329,319,254,349,182,390,114,414,83,441,55,457,43,460,48,444,59,418,87,394,117,354,184,324,256,302,330,287,401,278,467,271,567"/>
+<area shape="poly" id="edge5_Node000001_Node000002" title=" " alt="" coords="265,599,270,493,279,423,293,347,315,268,346,190,387,118,412,85,441,55,457,43,460,48,444,59,416,89,392,121,350,193,320,270,298,348,284,424,276,494,271,599"/>
 <area shape="rect" id="Node000003" href="$classapplication_1_1exceptions_1_1BadUserNameError.html" title=" " alt="" coords="477,69,676,109"/>
-<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="268,567,278,478,289,419,305,356,328,292,357,229,394,170,441,119,476,99,478,104,444,123,399,174,362,231,333,294,310,358,294,421,284,478,273,568"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="267,599,276,504,286,442,301,374,323,305,353,237,392,174,441,119,458,107,476,98,478,103,460,112,444,123,396,177,358,240,328,307,306,376,291,443,281,505,272,599"/>
 <area shape="rect" id="Node000004" href="$classapplication_1_1exceptions_1_1BlobDoesNotExistError.html" title=" " alt="" coords="475,133,678,173"/>
-<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="270,567,284,488,314,384,336,329,364,276,399,226,441,183,474,164,476,169,444,187,403,230,369,279,341,332,319,386,289,490,275,568"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="269,599,281,515,293,461,310,402,332,343,361,284,397,230,441,183,474,164,477,168,444,187,401,234,365,287,337,345,315,404,298,462,286,516,274,600"/>
 <area shape="rect" id="Node000005" href="$classapplication_1_1exceptions_1_1BookCannotBeShared.html" title=" " alt="" coords="473,197,680,237"/>
-<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="273,567,291,500,323,413,345,367,372,323,404,283,441,247,472,230,474,234,444,251,408,286,376,326,350,370,328,415,296,501,278,569"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="271,599,287,526,318,431,341,380,368,331,402,286,441,247,472,229,475,234,444,251,406,290,373,334,345,383,323,432,292,527,276,600"/>
 <area shape="rect" id="Node000006" href="$classapplication_1_1exceptions_1_1BookTagDoesNotExistError.html" title=" " alt="" coords="473,261,680,301"/>
-<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="277,567,298,511,332,442,380,371,409,339,441,311,472,295,474,299,444,316,412,343,384,374,337,444,303,513,282,569"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="274,599,294,537,328,459,350,418,376,379,406,343,441,311,472,294,474,299,444,316,410,346,380,382,354,421,332,461,299,539,280,601"/>
 <area shape="rect" id="Node000007" href="$classapplication_1_1exceptions_1_1BookTagExistsError.html" title=" " alt="" coords="473,325,680,365"/>
-<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="282,568,307,524,343,471,388,419,441,375,472,360,474,365,444,380,392,423,347,475,312,527,287,570"/>
+<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="279,600,302,550,337,489,384,427,411,399,441,375,472,359,474,364,444,380,415,403,388,431,342,492,307,552,284,602"/>
 <area shape="rect" id="Node000008" href="$classapplication_1_1exceptions_1_1BugReportDoesNotExistError.html" title=" " alt="" coords="477,389,676,429"/>
-<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="291,569,355,503,396,468,441,439,476,425,478,429,444,444,399,472,358,507,295,572"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="286,600,313,562,349,519,392,475,441,439,476,423,478,428,444,444,395,480,353,522,317,566,291,603"/>
 <area shape="rect" id="Node000009" href="$classapplication_1_1exceptions_1_1FeedDocumentDoesNotExistError.html" title=" " alt="" coords="473,453,681,493"/>
-<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="310,571,371,536,442,503,478,491,480,496,444,508,373,541,312,576"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="298,602,361,551,400,525,442,503,473,491,475,496,444,508,403,530,365,556,302,606"/>
 <area shape="rect" id="Node000010" href="$classapplication_1_1exceptions_1_1FeedDoesNotExistError.html" title=" " alt="" coords="475,517,679,557"/>
-<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="378,576,479,555,480,560,379,581"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="330,606,442,567,485,555,487,560,443,572,332,611"/>
 <area shape="rect" id="Node000011" href="$classapplication_1_1exceptions_1_1InsufficientDiskSpace.html" title=" " alt="" coords="454,581,699,621"/>
-<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="387,599,454,599,454,604,387,604"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="386,618,454,611,454,617,387,624"/>
 <area shape="rect" id="Node000012" href="$classapplication_1_1exceptions_1_1InvalidFeedKindError.html" title=" " alt="" coords="468,645,685,685"/>
-<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="379,622,480,643,479,648,378,627"/>
-<area shape="rect" id="Node000013" href="$classapplication_1_1exceptions_1_1InvalidSubscriptionToken.html" title=" " alt="" coords="468,709,685,749"/>
-<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="386,625,396,631,413,647,421,664,429,680,444,695,469,708,467,713,441,699,425,683,416,667,408,650,393,635,383,630"/>
-<area shape="rect" id="Node000014" href="$classapplication_1_1exceptions_1_1ItemDoesNotExistError.html" title=" " alt="" coords="475,773,678,813"/>
-<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="387,624,397,631,410,647,417,664,421,697,425,729,432,745,444,759,476,778,474,783,441,763,427,747,420,731,416,698,412,665,406,650,393,635,384,628"/>
-<area shape="rect" id="Node000015" href="$classapplication_1_1exceptions_1_1ItemExistsError.html" title=" " alt="" coords="475,837,678,877"/>
-<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="386,623,397,632,414,656,422,680,423,705,421,730,419,754,420,777,428,801,445,823,459,835,476,843,474,848,456,839,441,827,423,803,415,778,414,754,416,729,418,705,417,681,410,658,393,635,383,627"/>
-<area shape="rect" id="Node000016" href="$classapplication_1_1exceptions_1_1MissingConfig.html" title=" " alt="" coords="465,901,688,941"/>
-<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="386,622,397,632,419,664,427,697,426,730,421,762,416,794,415,825,423,857,445,887,467,904,464,908,441,891,419,859,410,826,411,793,416,761,421,729,422,697,414,666,393,635,383,626"/>
-<area shape="rect" id="Node000017" href="$classapplication_1_1exceptions_1_1SubsonicError.html" title=" " alt="" coords="461,965,692,1005"/>
-<area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="386,622,397,632,412,652,423,672,432,713,429,754,421,794,413,834,410,873,419,913,429,932,445,951,462,966,459,970,441,955,425,935,414,914,405,874,408,833,416,793,424,753,427,714,418,674,408,655,393,635,382,626"/>
-<area shape="rect" id="Node000018" href="$classapplication_1_1exceptions_1_1UserDoesNotExistError.html" title=" " alt="" coords="475,1029,678,1069"/>
-<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="386,622,397,632,415,656,427,681,434,705,437,730,432,778,421,826,410,874,405,921,408,945,415,968,427,992,445,1016,459,1028,476,1037,474,1042,456,1032,441,1019,422,995,410,970,403,946,400,921,404,873,416,825,427,777,431,730,429,706,422,683,410,659,393,635,382,626"/>
-<area shape="rect" id="Node000019" href="$classapplication_1_1exceptions_1_1UserExistsError.html" title=" " alt="" coords="475,1093,678,1133"/>
-<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="387,622,397,632,418,660,431,689,439,717,442,746,435,802,421,858,407,914,401,969,403,997,411,1024,424,1052,445,1080,459,1092,476,1101,474,1106,456,1096,441,1083,420,1055,406,1026,398,998,395,969,401,913,416,857,430,801,436,746,434,718,426,691,413,663,393,635,383,626"/>
-<area shape="rect" id="Node000020" href="$classapplication_1_1exceptions_1_1WebPushException.html" title=" " alt="" coords="476,1157,677,1197"/>
-<area shape="poly" id="edge23_Node000001_Node000020" title=" " alt="" coords="386,621,397,632,409,651,418,676,426,738,425,811,421,890,417,968,417,1041,425,1101,433,1125,445,1144,459,1156,477,1166,474,1170,456,1161,441,1147,428,1127,420,1103,411,1041,412,968,416,889,420,811,420,738,412,677,404,654,393,635,382,625"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="387,643,468,651,467,657,386,648"/>
+<area shape="rect" id="Node000013" href="$classapplication_1_1exceptions_1_1InvalidJWTError.html" title=" " alt="" coords="468,709,685,749"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="376,655,396,663,420,679,444,695,476,707,475,712,441,700,417,684,393,668,374,660"/>
+<area shape="rect" id="Node000014" href="$classapplication_1_1exceptions_1_1InvalidSubscriptionToken.html" title=" " alt="" coords="468,773,685,813"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="387,656,396,663,408,675,415,688,421,713,427,737,434,748,444,759,469,774,467,779,441,763,429,752,422,739,416,714,410,690,404,678,393,667,384,661"/>
+<area shape="rect" id="Node000015" href="$classapplication_1_1exceptions_1_1ItemDoesNotExistError.html" title=" " alt="" coords="475,837,678,877"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="386,655,397,663,412,684,420,704,421,745,423,786,430,805,444,823,477,843,474,848,441,827,425,807,417,787,416,746,415,705,408,686,393,667,383,659"/>
+<area shape="rect" id="Node000016" href="$classapplication_1_1exceptions_1_1ItemExistsError.html" title=" " alt="" coords="475,901,678,941"/>
+<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="386,654,397,664,417,692,425,721,425,749,421,778,418,806,418,834,426,861,445,888,459,899,476,908,474,913,456,904,441,891,421,863,412,834,412,806,416,777,419,749,419,721,412,694,393,667,383,659"/>
+<area shape="rect" id="Node000017" href="$classapplication_1_1exceptions_1_1MissingConfig.html" title=" " alt="" coords="465,965,688,1005"/>
+<area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="386,654,397,664,421,700,429,737,428,774,421,810,414,846,413,881,421,917,445,952,467,968,464,972,441,955,416,919,408,882,409,845,416,809,422,773,424,738,416,702,393,667,382,658"/>
+<area shape="rect" id="Node000018" href="$classapplication_1_1exceptions_1_1SubsonicError.html" title=" " alt="" coords="461,1029,692,1069"/>
+<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="386,654,397,664,414,686,425,708,432,731,434,753,431,798,421,842,411,886,408,929,411,951,417,972,428,994,445,1015,463,1030,460,1034,441,1019,424,997,412,974,405,952,403,930,406,885,416,841,426,797,429,754,426,732,420,710,409,689,393,667,382,658"/>
+<area shape="rect" id="Node000019" href="$classapplication_1_1exceptions_1_1UserDoesNotExistError.html" title=" " alt="" coords="475,1093,678,1133"/>
+<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="386,654,397,664,416,690,429,717,437,743,439,770,434,822,421,874,408,926,403,977,406,1003,413,1028,425,1054,445,1080,459,1092,476,1101,474,1106,456,1096,441,1083,421,1057,408,1030,400,1004,398,977,403,925,416,873,429,821,434,770,431,744,424,719,412,693,393,667,383,658"/>
+<area shape="rect" id="Node000020" href="$classapplication_1_1exceptions_1_1UserExistsError.html" title=" " alt="" coords="475,1157,678,1197"/>
+<area shape="poly" id="edge23_Node000001_Node000020" title=" " alt="" coords="387,654,397,664,419,694,434,725,442,756,444,786,437,846,421,906,405,966,398,1025,401,1054,408,1084,423,1114,445,1144,459,1156,476,1165,474,1170,456,1160,441,1147,418,1116,403,1086,395,1055,393,1025,400,965,416,905,432,845,439,786,436,757,429,727,414,697,393,667,383,658"/>
+<area shape="rect" id="Node000021" href="$classapplication_1_1exceptions_1_1WebPushException.html" title=" " alt="" coords="476,1221,677,1261"/>
+<area shape="poly" id="edge24_Node000001_Node000021" title=" " alt="" coords="386,653,397,664,410,685,419,711,427,776,426,854,421,938,416,1021,415,1098,424,1163,432,1188,445,1208,459,1220,477,1230,474,1234,456,1225,441,1211,428,1190,418,1164,410,1099,411,1021,416,937,421,854,422,777,413,712,405,687,393,667,382,657"/>
 </map>

@@ -17,6 +17,7 @@ var hierarchy =
         [ "application.exceptions.FeedDoesNotExistError", "classapplication_1_1exceptions_1_1FeedDoesNotExistError.html", null ],
         [ "application.exceptions.InsufficientDiskSpace", "classapplication_1_1exceptions_1_1InsufficientDiskSpace.html", null ],
         [ "application.exceptions.InvalidFeedKindError", "classapplication_1_1exceptions_1_1InvalidFeedKindError.html", null ],
+        [ "application.exceptions.InvalidJWTError", "classapplication_1_1exceptions_1_1InvalidJWTError.html", null ],
         [ "application.exceptions.InvalidSubscriptionToken", "classapplication_1_1exceptions_1_1InvalidSubscriptionToken.html", null ],
         [ "application.exceptions.ItemDoesNotExistError", "classapplication_1_1exceptions_1_1ItemDoesNotExistError.html", null ],
         [ "application.exceptions.ItemExistsError", "classapplication_1_1exceptions_1_1ItemExistsError.html", null ],
