@@ -7,7 +7,7 @@ from application.db.datafeed import (count_documents, count_feeds,
                                      get_documents, get_feed, get_feeds,
                                      get_user_feeds)
 from application.exceptions import ClientError
-from application.objects import Sorting
+from application.types import Sorting
 
 from ..decorators import handle_client_exceptions
 from . import query

@@ -9,7 +9,7 @@ from application.db.datafeed import (create_document, create_feed, delete_feed,
                                      get_feed, set_document_read,
                                      set_feed_inactive, set_feed_navigation,
                                      set_feed_notify, update_document)
-from application.objects import Sorting
+from application.types import Sorting
 
 from ..decorators import handle_client_exceptions
 from . import mutation

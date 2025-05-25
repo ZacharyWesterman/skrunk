@@ -2,7 +2,7 @@
 
 from graphql.type import GraphQLResolveInfo
 
-import application.db.perms as perms
+from application.db import perms
 from application.db.users import (create_user, delete_user, export_user_data,
                                   update_user_display_name, update_user_email,
                                   update_user_groups, update_user_module,

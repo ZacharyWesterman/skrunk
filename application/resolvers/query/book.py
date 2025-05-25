@@ -2,7 +2,7 @@
 
 from graphql.type import GraphQLResolveInfo
 
-import application.db.perms as perms
+from application.db import perms
 from application.db.book import (count_all_user_books, count_books, get_book,
                                  get_book_tag, get_books)
 from application.db.users import userids_in_groups

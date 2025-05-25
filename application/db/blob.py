@@ -16,8 +16,7 @@ from werkzeug.datastructures import FileStorage
 import application.tags as tag_parser
 from application import exceptions
 from application.integrations import images, models, videos
-from application.objects import BlobSearchFilter, Sorting
-from application.types import blob_storage
+from application.types import BlobSearchFilter, Sorting, blob_storage
 from application.types.blob_storage import (BlobPreview, BlobStorage,
                                             BlobThumbnail)
 
@@ -831,7 +830,7 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 	return blob_data
 
 
-def count_tag_uses(tag: str, user_ids: list[str]) -> int:
+def count_tag_uses(tag: str, user_ids: list[ObjectId]) -> int:
 	"""
 	Count the number of documents in the database that contain a specific tag
 	and are created by any of the specified users.

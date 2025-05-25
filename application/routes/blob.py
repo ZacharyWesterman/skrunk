@@ -8,8 +8,7 @@ from typing import Any
 
 from flask import Response, jsonify, request
 
-import application.db.perms as perms
-from application.db import blob
+from application.db import blob, perms
 
 from . import auth, files
 

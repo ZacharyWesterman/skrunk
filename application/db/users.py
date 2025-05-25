@@ -12,7 +12,7 @@ from bson.objectid import ObjectId
 from pymongo.collection import Collection
 from pymongo.database import Database
 
-from ..objects import BlobSearchFilter, InventorySearchFilter
+from ..types import BlobSearchFilter, InventorySearchFilter
 
 ## A pointer to the users collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -484,7 +484,7 @@ def group_filter(
 	if filter.get('creator') is None:
 		groups = user_data.get('groups', [])
 		if len(groups):
-			filter['creator'] = userids_in_groups(groups)
+			filter['creator'] = userids_in_groups(groups)  # type: ignore[assignment]
 
 	return filter
 

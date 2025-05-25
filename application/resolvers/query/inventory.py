@@ -7,7 +7,7 @@ from application.db.inventory import (count_inventory, get_inventory,
                                       get_item_categories, get_item_locations,
                                       get_item_types)
 from application.db.users import group_filter
-from application.objects import InventorySearchFilter, Sorting
+from application.types import InventorySearchFilter, Sorting
 
 from . import query
 

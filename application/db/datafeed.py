@@ -11,7 +11,7 @@ from application.exceptions import (FeedDocumentDoesNotExistError,
                                     InvalidFeedKindError,
                                     UserDoesNotExistError)
 
-from ..objects import Sorting
+from ..types import Sorting
 from . import perms, users
 
 ## A pointer to the database object.

@@ -2,7 +2,7 @@
 
 from graphql.type import GraphQLResolveInfo
 
-import application.db.perms as perms
+from application.db import perms
 from application.db.settings import (create_theme, delete_theme,
                                      get_enabled_modules, set_config,
                                      set_module_enabled)

@@ -2,15 +2,15 @@
 
 from graphql.type import GraphQLResolveInfo
 
-import application.db.perms as perms
+from application.db import perms
 from application.db.blob import (BlobStorage, cancel_zip, create_blob,
                                  delete_blob, get_blob_data,
                                  set_blob_ephemeral, set_blob_hidden,
                                  set_blob_tags, zip_matching_blobs)
 from application.db.users import group_filter
 from application.integrations import qrcode
-from application.objects import BlobSearchFilter
 from application.tags.exceptions import ParseError
+from application.types import BlobSearchFilter
 
 from ..decorators import handle_client_exceptions
 from . import mutation

@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 from pymongo.database import Database
 
 from application import exceptions
-from application.objects import InventorySearchFilter, Sorting
+from application.types import InventorySearchFilter, Sorting
 
 from . import blob, users
 from .perms import caller_info_strict

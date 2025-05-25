@@ -10,7 +10,7 @@ from pymongo.cursor import Cursor
 
 from application import exceptions
 from application.integrations import google_books, subsonic
-from application.objects import BookSearchFilter, Sorting
+from application.types import BookSearchFilter, Sorting
 
 from . import blob, users
 from .perms import caller_info_strict
