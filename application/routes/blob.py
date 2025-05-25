@@ -3,7 +3,6 @@
 import json
 import mimetypes
 import os
-import re
 from typing import Any, Generator
 
 from flask import Response, jsonify, request
@@ -14,7 +13,7 @@ from . import auth, files
 
 application: Any = None
 
-CHUNK_SIZE = 1024 * 1024 * 5  # 5 MiB
+CHUNK_SIZE = 1024 * 1024 * 100  # 100 MiB
 
 
 def get_chunk(full_path: str, byte1: int, byte2: int | None, max_chunk_size: int) -> tuple:
@@ -79,13 +78,18 @@ def stream(path: str) -> Response:
 		return Response('File not found.', 404)
 
 	mime = mimetypes.guess_type(path)
+	file_size = os.stat(full_path).st_size
 
 	resp = Response(
 		file_stream(full_path),
 		206,
 		mimetype=mime[0],
 		content_type=mime[0],
-		direct_passthrough=True
+		direct_passthrough=True,
+		headers={
+			'Accept-Ranges': 'bytes',
+			'Content-Length': str(file_size),
+		}
 	)
 	return resp
 
