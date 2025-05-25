@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wrapped_5fdefault_0',['wrapped_default',['../namespaceapplication_1_1types.html#ac395f5dd7cbcabc07c42819c046343bb',1,'application::types']]]
+  ['wrapped_5fdefault_0',['wrapped_default',['../namespaceapplication_1_1monkeypatch_1_1json__encoder__patch.html#af825c3a5000a71372917d7e398693309',1,'application::monkeypatch::json_encoder_patch']]]
 ];

@@ -3,6 +3,7 @@ var namespaceapplication =
     [ "db", "namespaceapplication_1_1db.html", "namespaceapplication_1_1db" ],
     [ "exceptions", "namespaceapplication_1_1exceptions.html", "namespaceapplication_1_1exceptions" ],
     [ "integrations", "namespaceapplication_1_1integrations.html", "namespaceapplication_1_1integrations" ],
+    [ "monkeypatch", "namespaceapplication_1_1monkeypatch.html", "namespaceapplication_1_1monkeypatch" ],
     [ "objects", "namespaceapplication_1_1objects.html", "namespaceapplication_1_1objects" ],
     [ "resolvers", "namespaceapplication_1_1resolvers.html", "namespaceapplication_1_1resolvers" ],
     [ "routes", "namespaceapplication_1_1routes.html", "namespaceapplication_1_1routes" ],

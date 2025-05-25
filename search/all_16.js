@@ -7,5 +7,5 @@ var searchData=
   ['weatheruser_4',['WeatherUser',['../classapplication_1_1types_1_1weatheruser_1_1WeatherUser.html',1,'application::types::weatheruser']]],
   ['weatheruserinput_5',['WeatherUserInput',['../classapplication_1_1types_1_1weatheruserinput_1_1WeatherUserInput.html',1,'application::types::weatheruserinput']]],
   ['webpushexception_6',['webpushexception',['../classapplication_1_1exceptions_1_1WebPushException.html',1,'application.exceptions.WebPushException'],['../classapplication_1_1types_1_1webpushexception_1_1WebPushException.html',1,'application.types.webpushexception.WebPushException']]],
-  ['wrapped_5fdefault_7',['wrapped_default',['../namespaceapplication_1_1types.html#ac395f5dd7cbcabc07c42819c046343bb',1,'application::types']]]
+  ['wrapped_5fdefault_7',['wrapped_default',['../namespaceapplication_1_1monkeypatch_1_1json__encoder__patch.html#af825c3a5000a71372917d7e398693309',1,'application::monkeypatch::json_encoder_patch']]]
 ];
