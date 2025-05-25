@@ -51,7 +51,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "classapplication_1_1types_1_1notification_1_1Notification.html",
 "namespaceapplication_1_1db_1_1notification.html#a35eded1d64208b28f92724bdff52805d",
-"namespaceapplication_1_1types_1_1theme__.html"
+"namespaceapplication_1_1types_1_1theme.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

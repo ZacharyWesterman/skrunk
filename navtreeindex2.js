@@ -149,6 +149,7 @@ var NAVTREEINDEX2 =
 "namespaceapplication_1_1routes_1_1api.html":[0,0,0,5,0],
 "namespaceapplication_1_1routes_1_1auth.html":[0,0,0,5,1],
 "namespaceapplication_1_1routes_1_1blob.html":[0,0,0,5,2],
+"namespaceapplication_1_1routes_1_1blob.html#ad1fe8e82607d5c78b7f67075135061dc":[0,0,0,5,2,0],
 "namespaceapplication_1_1routes_1_1files.html":[0,0,0,5,3],
 "namespaceapplication_1_1routes_1_1misc.html":[0,0,0,5,4],
 "namespaceapplication_1_1routes_1_1site.html":[0,0,0,5,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "namespaceapplication_1_1types_1_1subsonicerror.html":[0,0,0,8,66],
 "namespaceapplication_1_1types_1_1subsonicsearch.html":[0,0,0,8,67],
 "namespaceapplication_1_1types_1_1subsonictrack.html":[0,0,0,8,68],
-"namespaceapplication_1_1types_1_1systeminfo.html":[0,0,0,8,69],
-"namespaceapplication_1_1types_1_1theme.html":[0,0,0,8,70]
+"namespaceapplication_1_1types_1_1systeminfo.html":[0,0,0,8,69]
 };

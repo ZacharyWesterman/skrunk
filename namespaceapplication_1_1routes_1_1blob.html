@@ -109,9 +109,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a70b75e43c76780c3f54b06259e882dda" id="r_a70b75e43c76780c3f54b06259e882dda"><td class="memItemLeft" align="right" valign="top"><a id="a70b75e43c76780c3f54b06259e882dda" name="a70b75e43c76780c3f54b06259e882dda"></a>
 tuple&#160;</td><td class="memItemRight" valign="bottom"><b>get_chunk</b> (str full_path, int byte1, int|None byte2, int max_chunk_size)</td></tr>
 <tr class="separator:a70b75e43c76780c3f54b06259e882dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c8ad82aa8842beccb9fc9872aa7cd72" id="r_a1c8ad82aa8842beccb9fc9872aa7cd72"><td class="memItemLeft" align="right" valign="top"><a id="a1c8ad82aa8842beccb9fc9872aa7cd72" name="a1c8ad82aa8842beccb9fc9872aa7cd72"></a>
-Response&#160;</td><td class="memItemRight" valign="bottom"><b>stream</b> (str path, int max_chunk_size=1024 *1024 *5)</td></tr>
-<tr class="separator:a1c8ad82aa8842beccb9fc9872aa7cd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1fe8e82607d5c78b7f67075135061dc" id="r_ad1fe8e82607d5c78b7f67075135061dc"><td class="memItemLeft" align="right" valign="top">Generator[bytes, None, None]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1routes_1_1blob.html#ad1fe8e82607d5c78b7f67075135061dc">file_stream</a> (str full_path)</td></tr>
+<tr class="separator:ad1fe8e82607d5c78b7f67075135061dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae88f7acc56a26d7a33b3bc61e55f1390" id="r_ae88f7acc56a26d7a33b3bc61e55f1390"><td class="memItemLeft" align="right" valign="top"><a id="ae88f7acc56a26d7a33b3bc61e55f1390" name="ae88f7acc56a26d7a33b3bc61e55f1390"></a>
+Response&#160;</td><td class="memItemRight" valign="bottom"><b>stream</b> (str path)</td></tr>
+<tr class="separator:ae88f7acc56a26d7a33b3bc61e55f1390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a958337c4acd8e95c32a05958bb682965" id="r_a958337c4acd8e95c32a05958bb682965"><td class="memItemLeft" align="right" valign="top"><a id="a958337c4acd8e95c32a05958bb682965" name="a958337c4acd8e95c32a05958bb682965"></a>
 Response&#160;</td><td class="memItemRight" valign="bottom"><b>download</b> (str path)</td></tr>
 <tr class="separator:a958337c4acd8e95c32a05958bb682965"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,9 +129,37 @@ Variables</h2></td></tr>
 <tr class="memitem:a368d03003cc23a25bd3aedb0e73cf952" id="r_a368d03003cc23a25bd3aedb0e73cf952"><td class="memItemLeft" align="right" valign="top"><a id="a368d03003cc23a25bd3aedb0e73cf952" name="a368d03003cc23a25bd3aedb0e73cf952"></a>
 Any&#160;</td><td class="memItemRight" valign="bottom"><b>application</b> = None</td></tr>
 <tr class="separator:a368d03003cc23a25bd3aedb0e73cf952"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14cbc615542ae93dbf8cb2f8df65729d" id="r_a14cbc615542ae93dbf8cb2f8df65729d"><td class="memItemLeft" align="right" valign="top"><a id="a14cbc615542ae93dbf8cb2f8df65729d" name="a14cbc615542ae93dbf8cb2f8df65729d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>CHUNK_SIZE</b> = 1024 * 1024 * 5</td></tr>
+<tr class="separator:a14cbc615542ae93dbf8cb2f8df65729d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">application.routes.blob</pre> </div></div><!-- contents -->
+<div class="textblock"><pre class="fragment">application.routes.blob</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ad1fe8e82607d5c78b7f67075135061dc" name="ad1fe8e82607d5c78b7f67075135061dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1fe8e82607d5c78b7f67075135061dc">&#9670;&#160;</a></span>file_stream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Generator[bytes, None, None] application.routes.blob.file_stream </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>full_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Generator to stream file data in chunks.
+
+    Args:
+        full_path (str): The full path to the file to be streamed.
+
+    Yields:
+        bytes: Chunks of file data.</pre> 
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

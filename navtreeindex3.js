@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"namespaceapplication_1_1types_1_1theme.html":[0,0,0,8,70],
 "namespaceapplication_1_1types_1_1theme__.html":[0,0,0,8,71],
 "namespaceapplication_1_1types_1_1themecolor.html":[0,0,0,8,72],
 "namespaceapplication_1_1types_1_1themecolor__.html":[0,0,0,8,73],
