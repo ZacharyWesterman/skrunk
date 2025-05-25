@@ -133,8 +133,9 @@ var namespaceapplication_1_1db =
       [ "caller_info", "namespaceapplication_1_1db_1_1perms.html#aca82bbe2dbbe70da797de8568c9c63a8", null ],
       [ "caller_info_strict", "namespaceapplication_1_1db_1_1perms.html#a95560ee9353072b8a4e53d1fc38e2562", null ],
       [ "module", "namespaceapplication_1_1db_1_1perms.html#a4f86c190d4809a768d93147cf4eb76d3", null ],
-      [ "require", "namespaceapplication_1_1db_1_1perms.html#a4617d4435276a7ed22259fa2cebaf5b6", null ],
-      [ "satisfies", "namespaceapplication_1_1db_1_1perms.html#a008e335de145d06584a57608fae23912", null ],
+      [ "require", "namespaceapplication_1_1db_1_1perms.html#a361bf0e3f003c36a907029713e3d2a22", null ],
+      [ "require_all", "namespaceapplication_1_1db_1_1perms.html#af640dc95aaa5b12c0be26bb22ead4e4a", null ],
+      [ "satisfies", "namespaceapplication_1_1db_1_1perms.html#a08790dd64f045b85640890782347e760", null ],
       [ "user_has_perms", "namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d", null ],
       [ "apikeydb", "namespaceapplication_1_1db_1_1perms.html#ad01aad28b8767cf358095f088390fe4b", null ]
     ] ],

@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"namespaceapplication_1_1resolvers_1_1mutation_1_1weather.html":[0,0,0,4,1,10],
 "namespaceapplication_1_1resolvers_1_1query.html":[0,0,0,4,2],
 "namespaceapplication_1_1resolvers_1_1query.html#abba1771d18eed256b3b63eb1a19fcabc":[0,0,0,4,2,13],
 "namespaceapplication_1_1resolvers_1_1query_1_1apikeys.html":[0,0,0,4,2,0],

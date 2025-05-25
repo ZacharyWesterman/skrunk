@@ -136,14 +136,15 @@ var NAVTREEINDEX1 =
 "namespaceapplication_1_1db_1_1notification.html#ae1e2e9fca37c810a6269dd1f1df8c854":[0,0,0,0,6,7],
 "namespaceapplication_1_1db_1_1notification.html#ae212a29b6104f250a6e4ed8f4874a125":[0,0,0,0,6,12],
 "namespaceapplication_1_1db_1_1perms.html":[0,0,0,0,7],
-"namespaceapplication_1_1db_1_1perms.html#a008e335de145d06584a57608fae23912":[0,0,0,0,7,5],
+"namespaceapplication_1_1db_1_1perms.html#a08790dd64f045b85640890782347e760":[0,0,0,0,7,6],
+"namespaceapplication_1_1db_1_1perms.html#a361bf0e3f003c36a907029713e3d2a22":[0,0,0,0,7,4],
 "namespaceapplication_1_1db_1_1perms.html#a422db4cce253d5903654152bbd8c942d":[0,0,0,0,7,0],
-"namespaceapplication_1_1db_1_1perms.html#a4617d4435276a7ed22259fa2cebaf5b6":[0,0,0,0,7,4],
 "namespaceapplication_1_1db_1_1perms.html#a4f86c190d4809a768d93147cf4eb76d3":[0,0,0,0,7,3],
 "namespaceapplication_1_1db_1_1perms.html#a95560ee9353072b8a4e53d1fc38e2562":[0,0,0,0,7,2],
 "namespaceapplication_1_1db_1_1perms.html#aca82bbe2dbbe70da797de8568c9c63a8":[0,0,0,0,7,1],
-"namespaceapplication_1_1db_1_1perms.html#ad01aad28b8767cf358095f088390fe4b":[0,0,0,0,7,7],
-"namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d":[0,0,0,0,7,6],
+"namespaceapplication_1_1db_1_1perms.html#ad01aad28b8767cf358095f088390fe4b":[0,0,0,0,7,8],
+"namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d":[0,0,0,0,7,7],
+"namespaceapplication_1_1db_1_1perms.html#af640dc95aaa5b12c0be26bb22ead4e4a":[0,0,0,0,7,5],
 "namespaceapplication_1_1db_1_1sessions.html":[0,0,0,0,8],
 "namespaceapplication_1_1db_1_1sessions.html#a1d93d8aa985020ca8eae1fcd2df3a7c7":[0,0,0,0,8,0],
 "namespaceapplication_1_1db_1_1sessions.html#a2e32f8f6dfb9785f21e26435f157e42a":[0,0,0,0,8,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "namespaceapplication_1_1resolvers_1_1mutation_1_1notification.html":[0,0,0,4,1,6],
 "namespaceapplication_1_1resolvers_1_1mutation_1_1sessions.html":[0,0,0,4,1,7],
 "namespaceapplication_1_1resolvers_1_1mutation_1_1settings.html":[0,0,0,4,1,8],
-"namespaceapplication_1_1resolvers_1_1mutation_1_1users.html":[0,0,0,4,1,9],
-"namespaceapplication_1_1resolvers_1_1mutation_1_1weather.html":[0,0,0,4,1,10]
+"namespaceapplication_1_1resolvers_1_1mutation_1_1users.html":[0,0,0,4,1,9]
 };

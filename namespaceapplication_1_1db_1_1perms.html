@@ -114,10 +114,12 @@ Functions</h2></td></tr>
 <tr class="separator:a95560ee9353072b8a4e53d1fc38e2562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae287eb13111b894298137ab0c99c435d" id="r_ae287eb13111b894298137ab0c99c435d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#ae287eb13111b894298137ab0c99c435d">user_has_perms</a> (dict user_data, tuple[str,...] perm_list)</td></tr>
 <tr class="separator:ae287eb13111b894298137ab0c99c435d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a008e335de145d06584a57608fae23912" id="r_a008e335de145d06584a57608fae23912"><td class="memItemLeft" align="right" valign="top">bool|dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a008e335de145d06584a57608fae23912">satisfies</a> (tuple[str,...] perms, dict|None data=None, *bool perform_on_self=False, Callable|None data_func=None)</td></tr>
-<tr class="separator:a008e335de145d06584a57608fae23912"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4617d4435276a7ed22259fa2cebaf5b6" id="r_a4617d4435276a7ed22259fa2cebaf5b6"><td class="memItemLeft" align="right" valign="top">Callable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a4617d4435276a7ed22259fa2cebaf5b6">require</a> (*str perms, bool perform_on_self=False, Callable|None data_func=None)</td></tr>
-<tr class="separator:a4617d4435276a7ed22259fa2cebaf5b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08790dd64f045b85640890782347e760" id="r_a08790dd64f045b85640890782347e760"><td class="memItemLeft" align="right" valign="top">bool|dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a08790dd64f045b85640890782347e760">satisfies</a> (tuple[str,...] perms, dict|None data=None, *bool|tuple[bool,...] perform_on_self=False, Callable|None data_func=None)</td></tr>
+<tr class="separator:a08790dd64f045b85640890782347e760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a361bf0e3f003c36a907029713e3d2a22" id="r_a361bf0e3f003c36a907029713e3d2a22"><td class="memItemLeft" align="right" valign="top">Callable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a361bf0e3f003c36a907029713e3d2a22">require</a> (*str perms, bool|tuple[bool,...] perform_on_self=False, Callable|None data_func=None)</td></tr>
+<tr class="separator:a361bf0e3f003c36a907029713e3d2a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af640dc95aaa5b12c0be26bb22ead4e4a" id="r_af640dc95aaa5b12c0be26bb22ead4e4a"><td class="memItemLeft" align="right" valign="top">Callable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#af640dc95aaa5b12c0be26bb22ead4e4a">require_all</a> (*str perms, bool|tuple[bool,...] perform_on_self=False, Callable|None data_func=None)</td></tr>
+<tr class="separator:af640dc95aaa5b12c0be26bb22ead4e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f86c190d4809a768d93147cf4eb76d3" id="r_a4f86c190d4809a768d93147cf4eb76d3"><td class="memItemLeft" align="right" valign="top">Callable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1perms.html#a4f86c190d4809a768d93147cf4eb76d3">module</a> (*str modules)</td></tr>
 <tr class="separator:a4f86c190d4809a768d93147cf4eb76d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -236,8 +238,8 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
         Callable: The resolver function, with decorator applied.</pre> 
 </div>
 </div>
-<a id="a4617d4435276a7ed22259fa2cebaf5b6" name="a4617d4435276a7ed22259fa2cebaf5b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4617d4435276a7ed22259fa2cebaf5b6">&#9670;&#160;</a></span>require()</h2>
+<a id="a361bf0e3f003c36a907029713e3d2a22" name="a361bf0e3f003c36a907029713e3d2a22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a361bf0e3f003c36a907029713e3d2a22">&#9670;&#160;</a></span>require()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,7 +253,7 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool &#160;</td>
+          <td class="paramtype">bool | tuple[bool, ...] &#160;</td>
           <td class="paramname"><em>perform_on_self</em> = <code>False</code>, </td>
         </tr>
         <tr>
@@ -276,7 +278,7 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
 
     Args:
         *perms (str): The permissions that must have at least 1 satisfied.
-        perform_on_self (bool): If True, permissions will be ignored
+        perform_on_self (bool | tuple[bool, ...]): If True, permissions will be ignored
             when the user is editing their own data.
         data_func (Callable|None): If specified, this function will give
             the data to be checked for ownership. Otherwise, the main function's
@@ -286,8 +288,58 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
         Callable: The resolver function, with decorator applied.</pre> 
 </div>
 </div>
-<a id="a008e335de145d06584a57608fae23912" name="a008e335de145d06584a57608fae23912"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a008e335de145d06584a57608fae23912">&#9670;&#160;</a></span>satisfies()</h2>
+<a id="af640dc95aaa5b12c0be26bb22ead4e4a" name="af640dc95aaa5b12c0be26bb22ead4e4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af640dc95aaa5b12c0be26bb22ead4e4a">&#9670;&#160;</a></span>require_all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Callable application.db.perms.require_all </td>
+          <td>(</td>
+          <td class="paramtype">*str&#160;</td>
+          <td class="paramname"><em>perms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool | tuple[bool, ...] &#160;</td>
+          <td class="paramname"><em>perform_on_self</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Callable | None &#160;</td>
+          <td class="paramname"><em>data_func</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Require the calling user to have all of the specified permissions.
+
+    This is a decorator for application resolvers,
+    to avoid redundant permission-checking logic all over the place.
+    If the permissions are not satisfied when the resolver is called, 
+    then the resolver will be overridden and will instead return a bad_perms() dict.
+
+    Args:
+        *perms (str): The permissions that must all be satisfied.
+        perform_on_self (bool | tuple[bool, ...]): If True, permissions will be ignored
+            when the user is editing their own data.
+        data_func (Callable|None): If specified, this function will give
+            the data to be checked for ownership. Otherwise, the main function's
+            parameters are checked.
+
+    Returns:
+        Callable: The resolver function, with decorator applied.</pre> 
+</div>
+</div>
+<a id="a08790dd64f045b85640890782347e760" name="a08790dd64f045b85640890782347e760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08790dd64f045b85640890782347e760">&#9670;&#160;</a></span>satisfies()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -307,7 +359,7 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">*bool &#160;</td>
+          <td class="paramtype">*bool | tuple[bool, ...] &#160;</td>
           <td class="paramname"><em>perform_on_self</em> = <code>False</code>, </td>
         </tr>
         <tr>
@@ -327,7 +379,7 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>apikeydb</b> = 
 
     Args:
         perms (list[str]): The permissions that must have at least 1 satisfied.
-        perform_on_self (bool): If True, permissions will be ignored when
+        perform_on_self (bool | tuple[bool, ...]): If True, permissions will be ignored when
             the user is editing their own data.
         data_func (Callable|None): If specified, this function will give the
             data to be checked for ownership. Otherwise, the main function's parameters are checked.
