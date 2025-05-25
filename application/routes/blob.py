@@ -4,7 +4,7 @@ import json
 import mimetypes
 import os
 import re
-from typing import Any
+from typing import Any, Generator
 
 from flask import Response, jsonify, request
 
@@ -13,6 +13,8 @@ from application.db import blob, perms
 from . import auth, files
 
 application: Any = None
+
+CHUNK_SIZE = 1024 * 1024 * 5  # 5 MiB
 
 
 def get_chunk(full_path: str, byte1: int, byte2: int | None, max_chunk_size: int) -> tuple:
@@ -35,43 +37,66 @@ def get_chunk(full_path: str, byte1: int, byte2: int | None, max_chunk_size: int
 	return chunk, start, length, file_size
 
 
-def stream(path: str, max_chunk_size: int = 1024 * 1024 * 5) -> Response:
+def file_stream(full_path: str) -> Generator[bytes, None, None]:
+	"""
+	Generator to stream file data in chunks.
+
+	Args:
+		full_path (str): The full path to the file to be streamed.
+
+	Yields:
+		bytes: Chunks of file data.
+	"""
+	byte1 = 0
+	byte2 = None
+
+	while True:
+		chunk, _start, length, file_size = get_chunk(full_path, byte1, byte2, CHUNK_SIZE)
+		if not chunk:
+			break
+
+		yield chunk
+
+		byte1 += length
+		if byte2 is not None:
+			byte2 += length
+
+		if byte1 >= file_size:
+			break
+
+
+def stream(path: str) -> Response:
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
 	path = files.sanitize_path(path)
 
-	range_header = request.headers.get('Range')
-	byte1, byte2 = 0, None
-	if range_header:
-		match = re.search(r'(\d+)-(\d*)', range_header)
-		if not match:
-			return Response('Invalid range header.', 416)
-
-		groups = match.groups()
-
-		if groups[0]:
-			byte1 = int(groups[0])
-		if groups[1]:
-			byte2 = int(groups[1])
-
 	full_path = blob.BlobStorage(path, '').path()
 	try:
-		chunk, start, length, file_size = get_chunk(full_path, byte1, byte2, max_chunk_size)
-		mime = mimetypes.guess_type(path)
-
-		resp = Response(chunk, 206, mimetype=mime[0], content_type=mime[0], direct_passthrough=True)
-		resp.headers.add('Content-Range', f'bytes {start}-{start + length - 1}/{file_size}')
-		return resp
+		with open(full_path, 'rb'):
+			pass
 	except FileNotFoundError:
 		return Response('File not found.', 404)
+
+	mime = mimetypes.guess_type(path)
+
+	resp = Response(
+		file_stream(full_path),
+		206,
+		mimetype=mime[0],
+		content_type=mime[0],
+		direct_passthrough=True
+	)
+	return resp
 
 
 def download(path: str) -> Response:
 	if not auth.authorized():
 		return Response('Access denied.', 403)
 
-	return stream(path, max_chunk_size=1024 * 1024 * 50)  # 50MiB
+	print(f"Downloading blob: {path}")
+
+	return stream(path)
 
 
 def preview(path: str) -> Response:
