@@ -2,7 +2,7 @@
 
 from graphql.type import GraphQLResolveInfo
 
-import application.db.perms as perms
+from application.db import perms
 from application.db.weather import (create_user, delete_user,
                                     log_user_weather_alert, log_weather_alert,
                                     set_user_excluded, update_user)
@@ -46,14 +46,13 @@ def resolve_disable_weather_user(_, _info: GraphQLResolveInfo, username: str) ->
 
 @mutation.field('updateWeatherUser')
 @perms.module('weather')
+@perms.require_all(
+	'edit', 'admin',
+	perform_on_self=(False, True),
+	data_func=lambda **kwargs: kwargs.get('userdata', {})
+)
 @handle_client_exceptions
 def resolve_update_weather_user(_, _info: GraphQLResolveInfo, userdata: dict) -> dict:
-	if (
-		not perms.satisfies(('edit',)) and
-		not perms.satisfies(('admin',), userdata, perform_on_self=True)
-	):
-		return perms.bad_perms()
-
 	return {'__typename': 'WeatherUser', **update_user(userdata)}
 
 

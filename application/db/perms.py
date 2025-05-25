@@ -117,14 +117,14 @@ def satisfies(
     perms: tuple[str, ...],
     data: dict | None = None,
     *,
-	perform_on_self: bool = False,
+	perform_on_self: bool | tuple[bool, ...] = False,
     data_func: Callable | None = None
 ) -> bool | dict:
 	"""Check if the calling user has any of the given permissions.
 
 	Args:
 		perms (list[str]): The permissions that must have at least 1 satisfied.
-		perform_on_self (bool): If True, permissions will be ignored when
+		perform_on_self (bool | tuple[bool, ...]): If True, permissions will be ignored when
 			the user is editing their own data.
 		data_func (Callable|None): If specified, this function will give the
 			data to be checked for ownership. Otherwise, the main function's parameters are checked.
@@ -142,25 +142,37 @@ def satisfies(
 	if data is None:
 		data = {}
 
+	if isinstance(perform_on_self, bool):
+		# If perform_on_self is a bool, convert it to a tuple for consistency.
+		perform_on_self = (perform_on_self,)
+
+	if isinstance(perform_on_self, tuple) and len(perform_on_self) < len(perms):
+		# if the tuple is shorter than the number of permissions,
+		# append False for the remaining permissions.
+		perform_on_self = perform_on_self + (False,) * (len(perms) - len(perform_on_self))
+
 	# Unless otherwise specified,
 	# Ignore credentials if user is editing their own data.
-	if perform_on_self and 'username' in user_data:
-		if data_func is not None:
-			spec = getfullargspec(data_func)
-			args = dict((i, data[i]) for i in spec[0] + spec[4] if i in data)
-			data = data_func(**args)
+	if 'username' in user_data and True in perform_on_self:
+		for i in range(len(perms)):
+			if perform_on_self[i]:
+				self_data = data
+				if data_func is not None:
+					spec = getfullargspec(data_func)
+					args = dict((i, data[i]) for i in spec[0] + spec[4] if i in data)
+					self_data = data_func(**args)
 
-		if not isinstance(data, dict):
-			return bad_perms()
+				if not isinstance(self_data, dict):
+					return bad_perms()
 
-		fields = [i for i in ['owner', 'creator', 'username'] if i in data]
-		other_user = str(data.get(fields[0])) if len(fields) else None
+				fields = [i for i in ['owner', 'creator', 'username'] if i in self_data]
+				other_user = str(self_data.get(fields[0])) if len(fields) else None
 
-		if other_user is not None and (
-			other_user == user_data.get('username') or
-			other_user == str(user_data.get('_id'))
-		):
-			return True
+				if other_user is not None and (
+					other_user == user_data.get('username') or
+					other_user == str(user_data.get('_id'))
+				):
+					return True
 
 	# If user does not have ALL required perms, fail.
 	return user_has_perms(user_data, perms)
@@ -168,7 +180,7 @@ def satisfies(
 
 def require(
     *perms: str,
-    perform_on_self: bool = False,
+    perform_on_self: bool | tuple[bool, ...] = False,
     data_func: Callable | None = None
 ) -> Callable:
 	"""Require the calling user to have any of the specified permissions.
@@ -180,7 +192,7 @@ def require(
 
 	Args:
 		*perms (str): The permissions that must have at least 1 satisfied.
-		perform_on_self (bool): If True, permissions will be ignored
+		perform_on_self (bool | tuple[bool, ...]): If True, permissions will be ignored
 			when the user is editing their own data.
 		data_func (Callable|None): If specified, this function will give
 			the data to be checked for ownership. Otherwise, the main function's
@@ -196,6 +208,42 @@ def require(
 				return method(_, info, *args, **kwargs)
 
 			return bad_perms()
+
+		return wrap
+
+	return inner
+
+
+def require_all(
+    *perms: str,
+    perform_on_self: bool | tuple[bool, ...] = False,
+    data_func: Callable | None = None
+) -> Callable:
+	"""Require the calling user to have all of the specified permissions.
+
+	This is a decorator for application resolvers,
+	to avoid redundant permission-checking logic all over the place.
+	If the permissions are not satisfied when the resolver is called, 
+	then the resolver will be overridden and will instead return a bad_perms() dict.
+
+	Args:
+		*perms (str): The permissions that must all be satisfied.
+		perform_on_self (bool | tuple[bool, ...]): If True, permissions will be ignored
+			when the user is editing their own data.
+		data_func (Callable|None): If specified, this function will give
+			the data to be checked for ownership. Otherwise, the main function's
+			parameters are checked.
+
+	Returns:
+		Callable: The resolver function, with decorator applied.
+	"""
+
+	def inner(method: Callable) -> Callable:
+		def wrap(_, info, *args, **kwargs):
+			if not satisfies(perms, kwargs, perform_on_self=perform_on_self, data_func=data_func):
+				return bad_perms()
+
+			return method(_, info, *args, **kwargs)
 
 		return wrap
 
