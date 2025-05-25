@@ -13,26 +13,7 @@ from . import auth, files
 
 application: Any = None
 
-CHUNK_SIZE = 1024 * 1024 * 100  # 100 MiB
-
-
-def get_chunk(full_path: str, byte1: int, byte2: int | None, max_chunk_size: int, file_size: int) -> tuple:
-	start = 0
-
-	if byte1 < file_size:
-		start = byte1
-	if byte2:
-		length = byte2 + 1 - byte1
-	else:
-		length = file_size - start
-
-	length = min(length, max_chunk_size)  # Max chunk size is 5MiB
-
-	with open(full_path, 'rb') as fp:
-		fp.seek(start)
-		chunk = fp.read(length)
-
-	return chunk, start, length, file_size
+CHUNK_SIZE = 1024 * 1024 * 16  # 16 MiB
 
 
 def file_stream(full_path: str) -> Generator[bytes, None, None]:
@@ -49,10 +30,22 @@ def file_stream(full_path: str) -> Generator[bytes, None, None]:
 	byte2 = None
 
 	file_size = os.stat(full_path).st_size
+	fp = open(full_path, 'rb')
 
 	while True:
-		chunk_size = CHUNK_SIZE if byte1 > 0 else 1024 * 1024  # 1 MiB for the first chunk
-		chunk, _start, length, file_size = get_chunk(full_path, byte1, byte2, chunk_size, file_size)
+		start = 0
+
+		if byte1 < file_size:
+			start = byte1
+		if byte2:
+			length = byte2 + 1 - byte1
+		else:
+			length = file_size - start
+
+		chunk_size = CHUNK_SIZE if byte1 > 0 else 1024  # 1 KiB for the first chunk
+		length = min(length, chunk_size)
+
+		chunk = fp.read(length)
 		if not chunk:
 			break
 
@@ -64,6 +57,8 @@ def file_stream(full_path: str) -> Generator[bytes, None, None]:
 
 		if byte1 >= file_size:
 			break
+
+	fp.close()
 
 
 def stream(path: str) -> Response:
