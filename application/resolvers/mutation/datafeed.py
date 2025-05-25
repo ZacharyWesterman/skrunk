@@ -11,14 +11,14 @@ from application.db.datafeed import (create_document, create_feed, delete_feed,
                                      set_feed_notify, update_document)
 from application.objects import Sorting
 
-from ..decorators import *
+from ..decorators import handle_client_exceptions
 from . import mutation
 
 
 @mutation.field('createFeed')
 @perms.module('feed')
 @handle_client_exceptions
-def resolve_create_feed(_, info: GraphQLResolveInfo, name: str, url: str, kind: str, notify: bool) -> dict:
+def resolve_create_feed(_, _info: GraphQLResolveInfo, name: str, url: str, kind: str, notify: bool) -> dict:
 	return {'__typename': 'Feed', **create_feed(name, url, kind, notify)}
 
 
@@ -26,7 +26,7 @@ def resolve_create_feed(_, info: GraphQLResolveInfo, name: str, url: str, kind: 
 @perms.module('feed')
 @handle_client_exceptions
 @perms.require('admin', perform_on_self=True, data_func=get_feed)
-def resolve_delete_feed(_, info: GraphQLResolveInfo, id: str) -> dict:
+def resolve_delete_feed(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	return {'__typename': 'Feed', **delete_feed(id)}
 
 
@@ -34,7 +34,7 @@ def resolve_delete_feed(_, info: GraphQLResolveInfo, id: str) -> dict:
 @perms.module('feed')
 @perms.require('admin', perform_on_self=True, data_func=get_feed)
 @handle_client_exceptions
-def resolve_update_feed_notify(_, info: GraphQLResolveInfo, id: str, notify: bool) -> dict:
+def resolve_update_feed_notify(_, _info: GraphQLResolveInfo, id: str, notify: bool) -> dict:
 	return {'__typename': 'Feed', **set_feed_notify(id, notify)}
 
 
@@ -42,7 +42,7 @@ def resolve_update_feed_notify(_, info: GraphQLResolveInfo, id: str, notify: boo
 @perms.module('feed')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_feed_document(_, info: GraphQLResolveInfo, feed: str, author: str | None, posted: datetime | None, body: str, title: str | None, url: str) -> dict:
+def resolve_create_feed_document(_, _info: GraphQLResolveInfo, feed: str, author: str | None, posted: datetime | None, body: str, title: str | None, url: str) -> dict:
 	return {'__typename': 'FeedDocument', **create_document(feed, author, posted, body, title, url)}
 
 
@@ -50,7 +50,7 @@ def resolve_create_feed_document(_, info: GraphQLResolveInfo, feed: str, author:
 @perms.module('feed')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_update_feed_document(_, info: GraphQLResolveInfo, id: str, body: str) -> dict:
+def resolve_update_feed_document(_, _info: GraphQLResolveInfo, id: str, body: str) -> dict:
 	return {'__typename': 'FeedDocument', **update_document(id, body)}
 
 
@@ -58,7 +58,7 @@ def resolve_update_feed_document(_, info: GraphQLResolveInfo, id: str, body: str
 @perms.module('feed')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_mark_document_read(_, info: GraphQLResolveInfo, id: str, read: bool) -> dict:
+def resolve_mark_document_read(_, _info: GraphQLResolveInfo, id: str, read: bool) -> dict:
 	return {'__typename': 'FeedDocument', **set_document_read(id, read)}
 
 
@@ -66,7 +66,7 @@ def resolve_mark_document_read(_, info: GraphQLResolveInfo, id: str, read: bool)
 @perms.module('feed')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_set_feed_inactive(_, info: GraphQLResolveInfo, id: str, inactive: bool) -> dict:
+def resolve_set_feed_inactive(_, _info: GraphQLResolveInfo, id: str, inactive: bool) -> dict:
 	return {'__typename': 'Feed', **set_feed_inactive(id, inactive)}
 
 
@@ -74,5 +74,5 @@ def resolve_set_feed_inactive(_, info: GraphQLResolveInfo, id: str, inactive: bo
 @perms.module('feed')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_set_feed_navigation(_, info: GraphQLResolveInfo, id: str, page: int | None, sorting: Sorting | None) -> dict:
+def resolve_set_feed_navigation(_, _info: GraphQLResolveInfo, id: str, page: int | None, sorting: Sorting | None) -> dict:
 	return {'__typename': 'Feed', **set_feed_navigation(id, page, sorting)}

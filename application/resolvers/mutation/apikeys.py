@@ -10,7 +10,12 @@ from . import mutation
 
 @mutation.field('createAPIKey')
 @perms.require('admin')
-def resolve_create_api_key(_, _info: GraphQLResolveInfo, description: str, permissions: list[str]) -> str:
+def resolve_create_api_key(
+	_,
+    _info: GraphQLResolveInfo,
+    description: str,
+    permissions: list[str]
+) -> str:
 	"""
 	Resolver function to create a new API key.
 

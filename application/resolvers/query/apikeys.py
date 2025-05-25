@@ -10,7 +10,7 @@ from . import query
 
 @query.field('getAPIKeys')
 @perms.require('admin')
-def resolve_get_api_keys(_, info: GraphQLResolveInfo) -> list:
+def resolve_get_api_keys(_, _info: GraphQLResolveInfo) -> list:
 	"""
 	Resolver function to get API keys.
 

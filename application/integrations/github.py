@@ -33,14 +33,14 @@ def gh_request(url: str) -> Any:
 	"""
 	headers = None
 	try:
-		with open('data/auth.json', 'r') as fp:
+		with open('data/auth.json', 'r', encoding='utf8') as fp:
 			headers = {
 				'Authorization': 'Bearer ' + json.load(fp)['github'],
 			}
-	except:
+	except OSError:
 		pass
 
-	res = requests.get(url, headers=headers)
+	res = requests.get(url, headers=headers, timeout=10)
 	if res.status_code >= 200 and res.status_code < 300:
 		return json.loads(res.text)
 	else:
@@ -95,7 +95,8 @@ class Repository:
 		Retrieve a list of resolved (closed) issues since a given date.
 
 		Args:
-			since (str): The date in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ) from which to retrieve closed issues.
+			since (str): The date in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)
+				from which to retrieve closed issues.
 
 		Returns:
 			list: A list of issues that have been closed since the specified date.
@@ -157,5 +158,7 @@ class CurrentRepository(Repository):
 		Returns:
 			list: A list of issues that are pending resolution.
 		"""
-		last_commit = subprocess.check_output(['git', 'log', '-1', '--date=format:%Y-%m-%dT%T', '--format=%ad']).decode().strip()
+		last_commit = subprocess.check_output([
+			'git', 'log', '-1', '--date=format:%Y-%m-%dT%T', '--format=%ad'
+		]).decode().strip()
 		return self.resolved_issues(last_commit)

@@ -12,7 +12,7 @@ from application.integrations import qrcode
 from application.objects import BlobSearchFilter
 from application.tags.exceptions import ParseError
 
-from ..decorators import *
+from ..decorators import handle_client_exceptions
 from . import mutation
 
 
@@ -21,7 +21,7 @@ from . import mutation
 @perms.require('edit')
 @perms.require('admin', perform_on_self=True, data_func=get_blob_data)
 @handle_client_exceptions
-def resolve_delete_blob(_, info: GraphQLResolveInfo, id: str) -> dict:
+def resolve_delete_blob(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	blob_data = get_blob_data(id)
 
 	blob_data = delete_blob(id)
@@ -33,7 +33,7 @@ def resolve_delete_blob(_, info: GraphQLResolveInfo, id: str) -> dict:
 @perms.module('files')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_set_blob_tags(_, info: GraphQLResolveInfo, id: str, tags: list) -> dict:
+def resolve_set_blob_tags(_, _info: GraphQLResolveInfo, id: str, tags: list) -> dict:
 	return {'__typename': 'Blob', **set_blob_tags(id, tags)}
 
 
@@ -41,7 +41,7 @@ def resolve_set_blob_tags(_, info: GraphQLResolveInfo, id: str, tags: list) -> d
 @perms.module('files')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_zip_archive(_, info: GraphQLResolveInfo, filter: BlobSearchFilter, uid: str) -> dict:
+def resolve_create_zip_archive(_, _info: GraphQLResolveInfo, filter: BlobSearchFilter, uid: str) -> dict:
 	try:
 		user_data = perms.caller_info_strict()
 		groups: BlobSearchFilter = group_filter(filter, user_data)  # type: ignore
@@ -55,7 +55,7 @@ def resolve_create_zip_archive(_, info: GraphQLResolveInfo, filter: BlobSearchFi
 @perms.module('files')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_generate_blob_from_qr(_, info: GraphQLResolveInfo, text: str | None, amount: int) -> dict:
+def resolve_generate_blob_from_qr(_, _info: GraphQLResolveInfo, text: str | None, amount: int) -> dict:
 	amount = min(70, max(1, amount))
 	id, ext = create_blob('QR.png', tags=['qr', '__temp_file'], ephemeral=True)
 	qrcode.generate(BlobStorage(id, ext).path(create=True), text, amount)
@@ -67,7 +67,7 @@ def resolve_generate_blob_from_qr(_, info: GraphQLResolveInfo, text: str | None,
 @perms.require('edit')
 @perms.require('admin', perform_on_self=True)
 @handle_client_exceptions
-def resolve_set_blob_hidden(_, info: GraphQLResolveInfo, id: str, hidden: bool) -> dict:
+def resolve_set_blob_hidden(_, _info: GraphQLResolveInfo, id: str, hidden: bool) -> dict:
 	return {'__typename': 'Blob', **set_blob_hidden(id, hidden)}
 
 
@@ -76,12 +76,12 @@ def resolve_set_blob_hidden(_, info: GraphQLResolveInfo, id: str, hidden: bool) 
 @perms.require('edit')
 @perms.require('admin', perform_on_self=True)
 @handle_client_exceptions
-def resolve_set_blob_ephemeral(_, info: GraphQLResolveInfo, id: str, ephemeral: bool) -> dict:
+def resolve_set_blob_ephemeral(_, _info: GraphQLResolveInfo, id: str, ephemeral: bool) -> dict:
 	return {'__typename': 'Blob', **set_blob_ephemeral(id, ephemeral)}
 
 
 @mutation.field('cancelZipArchive')
 @perms.module('files')
 @perms.require('edit')
-def resolve_cancel_zip_archive(_, info: GraphQLResolveInfo, uid: str) -> dict:
+def resolve_cancel_zip_archive(_, _info: GraphQLResolveInfo, uid: str) -> dict:
 	return {'__typename': 'ZipProgress', **cancel_zip(uid)}

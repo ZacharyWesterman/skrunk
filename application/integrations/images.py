@@ -23,7 +23,8 @@ def downscale(path: str, max_width: int, output_path: str) -> bool:
 	output_path (str): The file path to save the downscaled image.
 
 	Returns:
-	bool: True if the image was downscaled, False if the image width was already less than or equal to max_width.
+	bool: True if the image was downscaled,
+		False if the image width was already less than or equal to max_width.
 	"""
 	image = Image.open(path)
 	width = image.size[0]

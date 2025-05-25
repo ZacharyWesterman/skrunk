@@ -12,16 +12,16 @@ from graphql import (GraphQLArgument, GraphQLField, GraphQLInputObjectType,
 
 def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
 	"""
-	Recursively trims a GraphQL type to its core type by removing any 
+	Recursively trims a GraphQL type to its core type by removing any
 	GraphQLNonNull or GraphQLList wrappers.
 
 	Args:
-		data_type: The GraphQL type to be trimmed. It can be an instance of 
-				   GraphQLNonNull, GraphQLList, GraphQLScalarType, or 
+		data_type: The GraphQL type to be trimmed. It can be an instance of
+				   GraphQLNonNull, GraphQLList, GraphQLScalarType, or
 				   GraphQLObjectType.
 
 	Returns:
-		The core GraphQL type, which will be either a GraphQLScalarType or 
+		The core GraphQL type, which will be either a GraphQLScalarType or
 		GraphQLObjectType.
 	"""
 	_tp = data_type
@@ -40,7 +40,8 @@ def print_type_fields(fields: dict, indent: str) -> str:
 	Recursively generates a string representation of GraphQL type fields with indentation.
 
 	Args:
-		fields (dict): A dictionary of GraphQL fields where keys are field names and values are field definitions.
+		fields (dict): A dictionary of GraphQL fields where keys
+			are field names and values are field definitions.
 		indent (str): A string used for indentation to format the output.
 
 	Returns:
@@ -80,7 +81,11 @@ def print_field(field_type: str, field_name: str, field: GraphQLField) -> str:
 
 	# Print parameter list
 	if field.args:
-		text += f'{field_type} (' + ', '.join([f'${k}: {field.args[k].type}' for k in field.args]) + ') {\n'
+		text += (
+			f'{field_type} (' +
+			', '.join([f'${k}: {field.args[k].type}' for k in field.args]) +
+			') {\n'
+		)
 		text += f'\t{field_name} (' + ', '.join([f'{k}: ${k}' for k in field.args]) + ') '
 	else:
 		text += f'{field_type} {{ {field_name} '
@@ -88,21 +93,26 @@ def print_field(field_type: str, field_name: str, field: GraphQLField) -> str:
 	indent = '\t\t' if field.args else '\t'
 
 	if isinstance(return_type, GraphQLUnionType):
-		text += f'{{\n{indent}__typename\n'
+		def gql_union_text():
+			text = f'{{\n{indent}__typename\n'
 
-		for i in return_type.types:
-			text += f'{indent}...on {i} {{\n'
-			if isinstance(i, GraphQLObjectType):
-				text += print_type_fields(i.fields, indent + '\t')
+			for i in return_type.types:
+				text += f'{indent}...on {i} {{\n'
+				if isinstance(i, GraphQLObjectType):
+					text += print_type_fields(i.fields, indent + '\t')
+				else:
+					text += f'{i}'
+				text += f'{indent}}}\n'
+
+			text += f'{indent[0:-1]}}}'
+			if field.args:
+				text += '\n}'
 			else:
-				text += f'{i}'
-			text += f'{indent}}}\n'
+				text += '}'
 
-		text += f'{indent[0:-1]}}}'
-		if field.args:
-			text += '\n}'
-		else:
-			text += '}'
+			return text
+
+		text += gql_union_text()
 
 	elif isinstance(return_type, GraphQLObjectType):
 		text += '{\n'
@@ -127,8 +137,10 @@ def get_type(type, param_type=None) -> dict:
 	Extracts and returns type information from a GraphQL type.
 
 	Args:
-		type: The GraphQL type to extract information from. This can be a GraphQLUnionType, GraphQLObjectType, or GraphQLArgument.
-		param_type: An optional parameter that specifies the type of the parameter. This can be used to further refine the type information.
+		type: The GraphQL type to extract information from.
+			This can be a GraphQLUnionType, GraphQLObjectType, or GraphQLArgument.
+		param_type: An optional parameter that specifies the type of the parameter.
+			This can be used to further refine the type information.
 
 	Returns:
 		dict: A dictionary containing the following keys:
@@ -145,7 +157,10 @@ def get_type(type, param_type=None) -> dict:
 		fields = [str(i) for i in _tp.types]
 	elif isinstance(_tp, GraphQLObjectType):
 		fields = [str(i.type) for i in _tp.fields.values()]
-		params = [{'name': key, 'type': str(val.type), 'optional': False} for (key, val) in _tp.fields.items()]
+		params = [
+			{'name': key, 'type': str(val.type), 'optional': False}
+			for (key, val) in _tp.fields.items()
+		]
 	elif isinstance(_tp, GraphQLArgument):
 		_tp = trim_type(_tp)
 
@@ -153,7 +168,10 @@ def get_type(type, param_type=None) -> dict:
 		param_type = trim_type(param_type)
 		if not isinstance(param_type, GraphQLScalarType):
 			fields = [str(i.type) for i in param_type.fields.values()]
-			params = [{'name': key, 'type': str(val.type), 'optional': False} for (key, val) in param_type.fields.items()]
+			params = [
+				{'name': key, 'type': str(val.type), 'optional': False}
+				for (key, val) in param_type.fields.items()
+			]
 
 	return {
 		'name': str(_tp),
@@ -213,10 +231,10 @@ def schema():
 	"""
 
 	type_defs = ariadne.load_schema_from_path('application/schema')
-	schema = ariadne.make_executable_schema(type_defs)
+	gql_schema = ariadne.make_executable_schema(type_defs)
 
-	queries = schema.query_type.fields  # type: ignore
-	mutations = schema.mutation_type.fields  # type: ignore
+	queries = gql_schema.query_type.fields  # type: ignore
+	mutations = gql_schema.mutation_type.fields  # type: ignore
 
 	output_data = {
 		'mutations': [],
@@ -237,7 +255,7 @@ def schema():
 				'doc': obj.description or '',
 			}
 
-			if isinstance(obj, GraphQLObjectType) or isinstance(obj, GraphQLInputObjectType):
+			if isinstance(obj, (GraphQLObjectType, GraphQLInputObjectType)):
 				info['params'] = [{
 					'name': key,
 					'type': str(val.type),
@@ -280,12 +298,7 @@ def schema():
 				'returns': return_type,
 			}]
 
-	types = {
-            i: k for (i, k) in schema.type_map.items()
-            if type(k) is not str and i not in ['String', 'Int', 'Float', 'Boolean'] and i[0:2] != '__'
-        }
-
-	build_types(schema.type_map)
+	build_types(gql_schema.type_map)
 
 	generate('queries', 'query', queries)
 	generate('mutations', 'mutation', mutations)
