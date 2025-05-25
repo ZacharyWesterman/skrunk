@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 # This script builds all GraphQL types into TypedDict classes for use in the application.
 
-import sys  # nopep8
 import os  # nopep8
+import sys  # nopep8
+
 sys.path.append(os.path.abspath('.'))  # nopep8
 
-from application.integrations.graphql import schema
+# pylint: disable=wrong-import-position
 from pathlib import Path
+
+from application.integrations.graphql import schema
+
+# pylint: enable=wrong-import-position
 
 type_aliases = {
 	'String': 'str',
@@ -32,6 +37,16 @@ unions: dict[str, list[str]] = {}
 
 
 def class_text(class_data: dict) -> str:
+	"""
+	Convert a GraphQL type to a TypedDict class definition.
+
+	Args:
+		class_data (dict): The GraphQL type data to convert.
+
+	Returns:
+		str: The converted TypedDict class definition.
+	"""
+
 	type_imports: dict[str, str] = {
 		'TypedDict': 'from typing import TypedDict'
 	}
@@ -70,7 +85,7 @@ def type_text(data_type: str) -> tuple[str, list[str]]:
 
 	if data_type in type_aliases:
 		return type_aliases[data_type], [type_aliases[data_type]]
-	elif data_type in unions:
+	if data_type in unions:
 		return ' | '.join(unions[data_type]), unions[data_type]
 
 	if data_type.startswith('['):
@@ -90,7 +105,11 @@ def type_text(data_type: str) -> tuple[str, list[str]]:
 	return data_type + ' | None', [data_type]
 
 
-def output_types():
+def output_types() -> None:
+	"""Build all GraphQL types into TypedDict classes for use in the application."""
+
+	init_py_files: list[str] = []
+
 	types = schema()['types']
 
 	# Build list of unions
@@ -108,19 +127,43 @@ def output_types():
 		filename = f'application/types/{t["name"].lower()}.py'
 		text = class_text(t)
 
+		init_py_files += [t['name']]
+
 		# Skip if the file already exists and is up to date
 		if Path(filename).exists():
-			with open(filename, 'r') as f:
+			with open(filename, 'r', encoding='utf8') as f:
 				if f.read() == text:
 					continue
 
 		print(f'Writing {filename}...')
 
-		with open(filename, 'w') as f:
+		with open(filename, 'w', encoding='utf8') as f:
 			f.write(text)
 
+	# Create the __init__.py file
+	if len(init_py_files) > 0:
+		init_filename = 'application/types/__init__.py'
 
-def list_changed_types():
+		# Retain the module docstring if it exists
+		init_py_text = ''
+		with open(init_filename, 'r', encoding='utf8') as fp:
+			parts = fp.read().split('"""')
+			if len(parts) > 1:
+				init_py_text += '"""' + parts[1] + '"""\n\n'
+
+		# Sort the imports to satisfy pylint
+		for i in sorted((i for i in init_py_files if i[0] == '_'), key=lambda x: x.lower()):
+			init_py_text += f'from .{i.lower()} import {i}\n'
+		for i in sorted((i for i in init_py_files if i[0] != '_'), key=lambda x: x.lower()):
+			init_py_text += f'from .{i.lower()} import {i}\n'
+
+		with open(init_filename, 'w', encoding='utf8') as fp:
+			fp.write(init_py_text)
+
+
+def list_changed_types() -> None:
+	"""List all types that have changed since the last build."""
+
 	types = schema()['types']
 	changed_types = []
 
@@ -142,7 +185,7 @@ def list_changed_types():
 			continue
 
 		text = class_text(t)
-		with open(filename, 'r') as f:
+		with open(filename, 'r', encoding='utf8') as f:
 			if f.read() != text:
 				changed_types.append(t['name'])
 				continue
