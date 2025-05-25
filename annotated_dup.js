@@ -50,25 +50,22 @@ var annotated_dup =
         ] ]
       ] ],
       [ "types", "namespaceapplication_1_1types.html", [
-        [ "_theme", null, [
-          [ "_Theme", "classapplication_1_1types_1_1__theme_1_1__Theme.html", null ]
-        ] ],
-        [ "apifailederror", null, [
+        [ "apifailederror", "namespaceapplication_1_1types_1_1apifailederror.html", [
           [ "ApiFailedError", "classapplication_1_1types_1_1apifailederror_1_1ApiFailedError.html", null ]
         ] ],
-        [ "apikey", null, [
+        [ "apikey", "namespaceapplication_1_1types_1_1apikey.html", [
           [ "APIKey", "classapplication_1_1types_1_1apikey_1_1APIKey.html", null ]
         ] ],
-        [ "badnotification", null, [
+        [ "badnotification", "namespaceapplication_1_1types_1_1badnotification.html", [
           [ "BadNotification", "classapplication_1_1types_1_1badnotification_1_1BadNotification.html", null ]
         ] ],
-        [ "badtagquery", null, [
+        [ "badtagquery", "namespaceapplication_1_1types_1_1badtagquery.html", [
           [ "BadTagQuery", "classapplication_1_1types_1_1badtagquery_1_1BadTagQuery.html", null ]
         ] ],
-        [ "badusernameerror", null, [
+        [ "badusernameerror", "namespaceapplication_1_1types_1_1badusernameerror.html", [
           [ "BadUserNameError", "classapplication_1_1types_1_1badusernameerror_1_1BadUserNameError.html", null ]
         ] ],
-        [ "blob", null, [
+        [ "blob", "namespaceapplication_1_1types_1_1blob.html", [
           [ "Blob", "classapplication_1_1types_1_1blob_1_1Blob.html", null ]
         ] ],
         [ "blob_storage", "namespaceapplication_1_1types_1_1blob__storage.html", [
@@ -76,253 +73,256 @@ var annotated_dup =
           [ "BlobStorage", "classapplication_1_1types_1_1blob__storage_1_1BlobStorage.html", "classapplication_1_1types_1_1blob__storage_1_1BlobStorage" ],
           [ "BlobThumbnail", "classapplication_1_1types_1_1blob__storage_1_1BlobThumbnail.html", "classapplication_1_1types_1_1blob__storage_1_1BlobThumbnail" ]
         ] ],
-        [ "blobcount", null, [
+        [ "blobcount", "namespaceapplication_1_1types_1_1blobcount.html", [
           [ "BlobCount", "classapplication_1_1types_1_1blobcount_1_1BlobCount.html", null ]
         ] ],
-        [ "blobdoesnotexisterror", null, [
+        [ "blobdoesnotexisterror", "namespaceapplication_1_1types_1_1blobdoesnotexisterror.html", [
           [ "BlobDoesNotExistError", "classapplication_1_1types_1_1blobdoesnotexisterror_1_1BlobDoesNotExistError.html", null ]
         ] ],
-        [ "bloblist", null, [
+        [ "bloblist", "namespaceapplication_1_1types_1_1bloblist.html", [
           [ "BlobList", "classapplication_1_1types_1_1bloblist_1_1BlobList.html", null ]
         ] ],
-        [ "blobsearchfilter", null, [
+        [ "blobsearchfilter", "namespaceapplication_1_1types_1_1blobsearchfilter.html", [
           [ "BlobSearchFilter", "classapplication_1_1types_1_1blobsearchfilter_1_1BlobSearchFilter.html", null ]
         ] ],
-        [ "book", null, [
+        [ "book", "namespaceapplication_1_1types_1_1book.html", [
           [ "Book", "classapplication_1_1types_1_1book_1_1Book.html", null ]
         ] ],
-        [ "bookcannotbeshared", null, [
+        [ "bookcannotbeshared", "namespaceapplication_1_1types_1_1bookcannotbeshared.html", [
           [ "BookCannotBeShared", "classapplication_1_1types_1_1bookcannotbeshared_1_1BookCannotBeShared.html", null ]
         ] ],
-        [ "bookcreatedata", null, [
+        [ "bookcreatedata", "namespaceapplication_1_1types_1_1bookcreatedata.html", [
           [ "BookCreateData", "classapplication_1_1types_1_1bookcreatedata_1_1BookCreateData.html", null ]
         ] ],
-        [ "bookeditdata", null, [
+        [ "bookeditdata", "namespaceapplication_1_1types_1_1bookeditdata.html", [
           [ "BookEditData", "classapplication_1_1types_1_1bookeditdata_1_1BookEditData.html", null ]
         ] ],
-        [ "bookident", null, [
+        [ "bookident", "namespaceapplication_1_1types_1_1bookident.html", [
           [ "BookIdent", "classapplication_1_1types_1_1bookident_1_1BookIdent.html", null ]
         ] ],
-        [ "booklist", null, [
+        [ "booklist", "namespaceapplication_1_1types_1_1booklist.html", [
           [ "BookList", "classapplication_1_1types_1_1booklist_1_1BookList.html", null ]
         ] ],
-        [ "bookownerhist", null, [
+        [ "bookownerhist", "namespaceapplication_1_1types_1_1bookownerhist.html", [
           [ "BookOwnerHist", "classapplication_1_1types_1_1bookownerhist_1_1BookOwnerHist.html", null ]
         ] ],
-        [ "booksearchfilter", null, [
+        [ "booksearchfilter", "namespaceapplication_1_1types_1_1booksearchfilter.html", [
           [ "BookSearchFilter", "classapplication_1_1types_1_1booksearchfilter_1_1BookSearchFilter.html", null ]
         ] ],
-        [ "bookshare", null, [
+        [ "bookshare", "namespaceapplication_1_1types_1_1bookshare.html", [
           [ "BookShare", "classapplication_1_1types_1_1bookshare_1_1BookShare.html", null ]
         ] ],
-        [ "booktag", null, [
+        [ "booktag", "namespaceapplication_1_1types_1_1booktag.html", [
           [ "BookTag", "classapplication_1_1types_1_1booktag_1_1BookTag.html", null ]
         ] ],
-        [ "booktagdoesnotexisterror", null, [
+        [ "booktagdoesnotexisterror", "namespaceapplication_1_1types_1_1booktagdoesnotexisterror.html", [
           [ "BookTagDoesNotExistError", "classapplication_1_1types_1_1booktagdoesnotexisterror_1_1BookTagDoesNotExistError.html", null ]
         ] ],
-        [ "booktagexistserror", null, [
+        [ "booktagexistserror", "namespaceapplication_1_1types_1_1booktagexistserror.html", [
           [ "BookTagExistsError", "classapplication_1_1types_1_1booktagexistserror_1_1BookTagExistsError.html", null ]
         ] ],
-        [ "bugcomment", null, [
+        [ "bugcomment", "namespaceapplication_1_1types_1_1bugcomment.html", [
           [ "BugComment", "classapplication_1_1types_1_1bugcomment_1_1BugComment.html", null ]
         ] ],
-        [ "bugreport", null, [
+        [ "bugreport", "namespaceapplication_1_1types_1_1bugreport.html", [
           [ "BugReport", "classapplication_1_1types_1_1bugreport_1_1BugReport.html", null ]
         ] ],
-        [ "bugreportcreationfailederror", null, [
+        [ "bugreportcreationfailederror", "namespaceapplication_1_1types_1_1bugreportcreationfailederror.html", [
           [ "BugReportCreationFailedError", "classapplication_1_1types_1_1bugreportcreationfailederror_1_1BugReportCreationFailedError.html", null ]
         ] ],
-        [ "bugreportdoesnotexisterror", null, [
+        [ "bugreportdoesnotexisterror", "namespaceapplication_1_1types_1_1bugreportdoesnotexisterror.html", [
           [ "BugReportDoesNotExistError", "classapplication_1_1types_1_1bugreportdoesnotexisterror_1_1BugReportDoesNotExistError.html", null ]
         ] ],
-        [ "config", null, [
+        [ "config", "namespaceapplication_1_1types_1_1config.html", [
           [ "Config", "classapplication_1_1types_1_1config_1_1Config.html", null ]
         ] ],
-        [ "configlist", null, [
+        [ "configlist", "namespaceapplication_1_1types_1_1configlist.html", [
           [ "ConfigList", "classapplication_1_1types_1_1configlist_1_1ConfigList.html", null ]
         ] ],
-        [ "diskusage", null, [
+        [ "diskusage", "namespaceapplication_1_1types_1_1diskusage.html", [
           [ "DiskUsage", "classapplication_1_1types_1_1diskusage_1_1DiskUsage.html", null ]
         ] ],
-        [ "ebook", null, [
+        [ "ebook", "namespaceapplication_1_1types_1_1ebook.html", [
           [ "EBook", "classapplication_1_1types_1_1ebook_1_1EBook.html", null ]
         ] ],
-        [ "feed", null, [
+        [ "feed", "namespaceapplication_1_1types_1_1feed.html", [
           [ "Feed", "classapplication_1_1types_1_1feed_1_1Feed.html", null ]
         ] ],
-        [ "feeddocument", null, [
+        [ "feeddocument", "namespaceapplication_1_1types_1_1feeddocument.html", [
           [ "FeedDocument", "classapplication_1_1types_1_1feeddocument_1_1FeedDocument.html", null ]
         ] ],
-        [ "feeddocumentdoesnotexisterror", null, [
+        [ "feeddocumentdoesnotexisterror", "namespaceapplication_1_1types_1_1feeddocumentdoesnotexisterror.html", [
           [ "FeedDocumentDoesNotExistError", "classapplication_1_1types_1_1feeddocumentdoesnotexisterror_1_1FeedDocumentDoesNotExistError.html", null ]
         ] ],
-        [ "feeddoesnotexisterror", null, [
+        [ "feeddoesnotexisterror", "namespaceapplication_1_1types_1_1feeddoesnotexisterror.html", [
           [ "FeedDoesNotExistError", "classapplication_1_1types_1_1feeddoesnotexisterror_1_1FeedDoesNotExistError.html", null ]
         ] ],
-        [ "insufficientdiskspace", null, [
+        [ "insufficientdiskspace", "namespaceapplication_1_1types_1_1insufficientdiskspace.html", [
           [ "InsufficientDiskSpace", "classapplication_1_1types_1_1insufficientdiskspace_1_1InsufficientDiskSpace.html", null ]
         ] ],
-        [ "insufficientperms", null, [
+        [ "insufficientperms", "namespaceapplication_1_1types_1_1insufficientperms.html", [
           [ "InsufficientPerms", "classapplication_1_1types_1_1insufficientperms_1_1InsufficientPerms.html", null ]
         ] ],
-        [ "invalidfeedkinderror", null, [
+        [ "invalidfeedkinderror", "namespaceapplication_1_1types_1_1invalidfeedkinderror.html", [
           [ "InvalidFeedKindError", "classapplication_1_1types_1_1invalidfeedkinderror_1_1InvalidFeedKindError.html", null ]
         ] ],
-        [ "invalidfields", null, [
+        [ "invalidfields", "namespaceapplication_1_1types_1_1invalidfields.html", [
           [ "InvalidFields", "classapplication_1_1types_1_1invalidfields_1_1InvalidFields.html", null ]
         ] ],
-        [ "invalidsubscriptiontoken", null, [
+        [ "invalidsubscriptiontoken", "namespaceapplication_1_1types_1_1invalidsubscriptiontoken.html", [
           [ "InvalidSubscriptionToken", "classapplication_1_1types_1_1invalidsubscriptiontoken_1_1InvalidSubscriptionToken.html", null ]
         ] ],
-        [ "inventorysearchfilter", null, [
+        [ "inventorysearchfilter", "namespaceapplication_1_1types_1_1inventorysearchfilter.html", [
           [ "InventorySearchFilter", "classapplication_1_1types_1_1inventorysearchfilter_1_1InventorySearchFilter.html", null ]
         ] ],
-        [ "issuelabel", null, [
+        [ "issuelabel", "namespaceapplication_1_1types_1_1issuelabel.html", [
           [ "IssueLabel", "classapplication_1_1types_1_1issuelabel_1_1IssueLabel.html", null ]
         ] ],
-        [ "issuelist", null, [
+        [ "issuelist", "namespaceapplication_1_1types_1_1issuelist.html", [
           [ "IssueList", "classapplication_1_1types_1_1issuelist_1_1IssueList.html", null ]
         ] ],
-        [ "item", null, [
+        [ "item", "namespaceapplication_1_1types_1_1item.html", [
           [ "Item", "classapplication_1_1types_1_1item_1_1Item.html", null ]
         ] ],
-        [ "itemdoesnotexisterror", null, [
+        [ "itemdoesnotexisterror", "namespaceapplication_1_1types_1_1itemdoesnotexisterror.html", [
           [ "ItemDoesNotExistError", "classapplication_1_1types_1_1itemdoesnotexisterror_1_1ItemDoesNotExistError.html", null ]
         ] ],
-        [ "itemexistserror", null, [
+        [ "itemexistserror", "namespaceapplication_1_1types_1_1itemexistserror.html", [
           [ "ItemExistsError", "classapplication_1_1types_1_1itemexistserror_1_1ItemExistsError.html", null ]
         ] ],
-        [ "lastmutation", null, [
+        [ "lastmutation", "namespaceapplication_1_1types_1_1lastmutation.html", [
           [ "LastMutation", "classapplication_1_1types_1_1lastmutation_1_1LastMutation.html", null ]
         ] ],
-        [ "logresult", null, [
+        [ "logresult", "namespaceapplication_1_1types_1_1logresult.html", [
           [ "LogResult", "classapplication_1_1types_1_1logresult_1_1LogResult.html", null ]
         ] ],
-        [ "missingconfig", null, [
+        [ "missingconfig", "namespaceapplication_1_1types_1_1missingconfig.html", [
           [ "MissingConfig", "classapplication_1_1types_1_1missingconfig_1_1MissingConfig.html", null ]
         ] ],
-        [ "notification", null, [
+        [ "notification", "namespaceapplication_1_1types_1_1notification.html", [
           [ "Notification", "classapplication_1_1types_1_1notification_1_1Notification.html", null ]
         ] ],
-        [ "qrparseresponse", null, [
+        [ "qrparseresponse", "namespaceapplication_1_1types_1_1qrparseresponse.html", [
           [ "QRParseResponse", "classapplication_1_1types_1_1qrparseresponse_1_1QRParseResponse.html", null ]
         ] ],
-        [ "repofetchfailed", null, [
+        [ "repofetchfailed", "namespaceapplication_1_1types_1_1repofetchfailed.html", [
           [ "RepoFetchFailed", "classapplication_1_1types_1_1repofetchfailed_1_1RepoFetchFailed.html", null ]
         ] ],
-        [ "repositoryissue", null, [
+        [ "repositoryissue", "namespaceapplication_1_1types_1_1repositoryissue.html", [
           [ "RepositoryIssue", "classapplication_1_1types_1_1repositoryissue_1_1RepositoryIssue.html", null ]
         ] ],
-        [ "schema", null, [
+        [ "schema", "namespaceapplication_1_1types_1_1schema.html", [
           [ "Schema", "classapplication_1_1types_1_1schema_1_1Schema.html", null ]
         ] ],
-        [ "schemaparam", null, [
+        [ "schemaparam", "namespaceapplication_1_1types_1_1schemaparam.html", [
           [ "SchemaParam", "classapplication_1_1types_1_1schemaparam_1_1SchemaParam.html", null ]
         ] ],
-        [ "schemaquery", null, [
+        [ "schemaquery", "namespaceapplication_1_1types_1_1schemaquery.html", [
           [ "SchemaQuery", "classapplication_1_1types_1_1schemaquery_1_1SchemaQuery.html", null ]
         ] ],
-        [ "schemareturntype", null, [
+        [ "schemareturntype", "namespaceapplication_1_1types_1_1schemareturntype.html", [
           [ "SchemaReturnType", "classapplication_1_1types_1_1schemareturntype_1_1SchemaReturnType.html", null ]
         ] ],
-        [ "schematype", null, [
+        [ "schematype", "namespaceapplication_1_1types_1_1schematype.html", [
           [ "SchemaType", "classapplication_1_1types_1_1schematype_1_1SchemaType.html", null ]
         ] ],
-        [ "sorting", null, [
+        [ "sorting", "namespaceapplication_1_1types_1_1sorting.html", [
           [ "Sorting", "classapplication_1_1types_1_1sorting_1_1Sorting.html", null ]
         ] ],
-        [ "sorting_", null, [
+        [ "sorting_", "namespaceapplication_1_1types_1_1sorting__.html", [
           [ "Sorting_", "classapplication_1_1types_1_1sorting___1_1Sorting__.html", null ]
         ] ],
-        [ "subscription", null, [
+        [ "subscription", "namespaceapplication_1_1types_1_1subscription.html", [
           [ "Subscription", "classapplication_1_1types_1_1subscription_1_1Subscription.html", null ]
         ] ],
-        [ "subscriptionkeys", null, [
+        [ "subscriptionkeys", "namespaceapplication_1_1types_1_1subscriptionkeys.html", [
           [ "SubscriptionKeys", "classapplication_1_1types_1_1subscriptionkeys_1_1SubscriptionKeys.html", null ]
         ] ],
-        [ "subscriptionlist", null, [
+        [ "subscriptionlist", "namespaceapplication_1_1types_1_1subscriptionlist.html", [
           [ "SubscriptionList", "classapplication_1_1types_1_1subscriptionlist_1_1SubscriptionList.html", null ]
         ] ],
-        [ "subscriptiontoken", null, [
+        [ "subscriptiontoken", "namespaceapplication_1_1types_1_1subscriptiontoken.html", [
           [ "SubscriptionToken", "classapplication_1_1types_1_1subscriptiontoken_1_1SubscriptionToken.html", null ]
         ] ],
-        [ "subscriptiontokenkeys", null, [
+        [ "subscriptiontokenkeys", "namespaceapplication_1_1types_1_1subscriptiontokenkeys.html", [
           [ "SubscriptionTokenKeys", "classapplication_1_1types_1_1subscriptiontokenkeys_1_1SubscriptionTokenKeys.html", null ]
         ] ],
-        [ "subsonicalbum", null, [
+        [ "subsonicalbum", "namespaceapplication_1_1types_1_1subsonicalbum.html", [
           [ "SubsonicAlbum", "classapplication_1_1types_1_1subsonicalbum_1_1SubsonicAlbum.html", null ]
         ] ],
-        [ "subsonicerror", null, [
+        [ "subsonicerror", "namespaceapplication_1_1types_1_1subsonicerror.html", [
           [ "SubsonicError", "classapplication_1_1types_1_1subsonicerror_1_1SubsonicError.html", null ]
         ] ],
-        [ "subsonicsearch", null, [
+        [ "subsonicsearch", "namespaceapplication_1_1types_1_1subsonicsearch.html", [
           [ "SubsonicSearch", "classapplication_1_1types_1_1subsonicsearch_1_1SubsonicSearch.html", null ]
         ] ],
-        [ "subsonictrack", null, [
+        [ "subsonictrack", "namespaceapplication_1_1types_1_1subsonictrack.html", [
           [ "SubsonicTrack", "classapplication_1_1types_1_1subsonictrack_1_1SubsonicTrack.html", null ]
         ] ],
-        [ "systeminfo", null, [
+        [ "systeminfo", "namespaceapplication_1_1types_1_1systeminfo.html", [
           [ "SystemInfo", "classapplication_1_1types_1_1systeminfo_1_1SystemInfo.html", null ]
         ] ],
-        [ "theme", null, [
+        [ "theme", "namespaceapplication_1_1types_1_1theme.html", [
           [ "Theme", "classapplication_1_1types_1_1theme_1_1Theme.html", null ]
         ] ],
-        [ "themecolor", null, [
+        [ "theme_", "namespaceapplication_1_1types_1_1theme__.html", [
+          [ "Theme_", "classapplication_1_1types_1_1theme___1_1Theme__.html", null ]
+        ] ],
+        [ "themecolor", "namespaceapplication_1_1types_1_1themecolor.html", [
           [ "ThemeColor", "classapplication_1_1types_1_1themecolor_1_1ThemeColor.html", null ]
         ] ],
-        [ "themecolor_", null, [
+        [ "themecolor_", "namespaceapplication_1_1types_1_1themecolor__.html", [
           [ "ThemeColor_", "classapplication_1_1types_1_1themecolor___1_1ThemeColor__.html", null ]
         ] ],
-        [ "themesize", null, [
+        [ "themesize", "namespaceapplication_1_1types_1_1themesize.html", [
           [ "ThemeSize", "classapplication_1_1types_1_1themesize_1_1ThemeSize.html", null ]
         ] ],
-        [ "themesize_", null, [
+        [ "themesize_", "namespaceapplication_1_1types_1_1themesize__.html", [
           [ "ThemeSize_", "classapplication_1_1types_1_1themesize___1_1ThemeSize__.html", null ]
         ] ],
-        [ "userbookcount", null, [
+        [ "userbookcount", "namespaceapplication_1_1types_1_1userbookcount.html", [
           [ "UserBookCount", "classapplication_1_1types_1_1userbookcount_1_1UserBookCount.html", null ]
         ] ],
-        [ "userdata", null, [
+        [ "userdata", "namespaceapplication_1_1types_1_1userdata.html", [
           [ "UserData", "classapplication_1_1types_1_1userdata_1_1UserData.html", null ]
         ] ],
-        [ "userdoesnotexisterror", null, [
+        [ "userdoesnotexisterror", "namespaceapplication_1_1types_1_1userdoesnotexisterror.html", [
           [ "UserDoesNotExistError", "classapplication_1_1types_1_1userdoesnotexisterror_1_1UserDoesNotExistError.html", null ]
         ] ],
-        [ "userexistserror", null, [
+        [ "userexistserror", "namespaceapplication_1_1types_1_1userexistserror.html", [
           [ "UserExistsError", "classapplication_1_1types_1_1userexistserror_1_1UserExistsError.html", null ]
         ] ],
-        [ "usermindata", null, [
+        [ "usermindata", "namespaceapplication_1_1types_1_1usermindata.html", [
           [ "UserMinData", "classapplication_1_1types_1_1usermindata_1_1UserMinData.html", null ]
         ] ],
-        [ "usertheme", null, [
+        [ "usertheme", "namespaceapplication_1_1types_1_1usertheme.html", [
           [ "UserTheme", "classapplication_1_1types_1_1usertheme_1_1UserTheme.html", null ]
         ] ],
-        [ "usertheme_", null, [
+        [ "usertheme_", "namespaceapplication_1_1types_1_1usertheme__.html", [
           [ "UserTheme_", "classapplication_1_1types_1_1usertheme___1_1UserTheme__.html", null ]
         ] ],
-        [ "weatheralert", null, [
+        [ "weatheralert", "namespaceapplication_1_1types_1_1weatheralert.html", [
           [ "WeatherAlert", "classapplication_1_1types_1_1weatheralert_1_1WeatherAlert.html", null ]
         ] ],
-        [ "weatherexecution", null, [
+        [ "weatherexecution", "namespaceapplication_1_1types_1_1weatherexecution.html", [
           [ "WeatherExecution", "classapplication_1_1types_1_1weatherexecution_1_1WeatherExecution.html", null ]
         ] ],
-        [ "weathertemp", null, [
+        [ "weathertemp", "namespaceapplication_1_1types_1_1weathertemp.html", [
           [ "WeatherTemp", "classapplication_1_1types_1_1weathertemp_1_1WeatherTemp.html", null ]
         ] ],
-        [ "weathertemp_", null, [
+        [ "weathertemp_", "namespaceapplication_1_1types_1_1weathertemp__.html", [
           [ "WeatherTemp_", "classapplication_1_1types_1_1weathertemp___1_1WeatherTemp__.html", null ]
         ] ],
-        [ "weatheruser", null, [
+        [ "weatheruser", "namespaceapplication_1_1types_1_1weatheruser.html", [
           [ "WeatherUser", "classapplication_1_1types_1_1weatheruser_1_1WeatherUser.html", null ]
         ] ],
-        [ "weatheruserinput", null, [
+        [ "weatheruserinput", "namespaceapplication_1_1types_1_1weatheruserinput.html", [
           [ "WeatherUserInput", "classapplication_1_1types_1_1weatheruserinput_1_1WeatherUserInput.html", null ]
         ] ],
-        [ "webpushexception", null, [
+        [ "webpushexception", "namespaceapplication_1_1types_1_1webpushexception.html", [
           [ "WebPushException", "classapplication_1_1types_1_1webpushexception_1_1WebPushException.html", null ]
         ] ],
-        [ "zipprogress", null, [
+        [ "zipprogress", "namespaceapplication_1_1types_1_1zipprogress.html", [
           [ "ZipProgress", "classapplication_1_1types_1_1zipprogress_1_1ZipProgress.html", null ]
         ] ]
       ] ]

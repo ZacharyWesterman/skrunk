@@ -1,6 +1,20 @@
 var searchData=
 [
-  ['repofetchfailed_0',['repofetchfailed',['../classapplication_1_1integrations_1_1exceptions_1_1RepoFetchFailed.html',1,'application.integrations.exceptions.RepoFetchFailed'],['../classapplication_1_1types_1_1repofetchfailed_1_1RepoFetchFailed.html',1,'application.types.repofetchfailed.RepoFetchFailed']]],
-  ['repository_1',['Repository',['../classapplication_1_1integrations_1_1github_1_1Repository.html',1,'application::integrations::github']]],
-  ['repositoryissue_2',['RepositoryIssue',['../classapplication_1_1types_1_1repositoryissue_1_1RepositoryIssue.html',1,'application::types::repositoryissue']]]
+  ['schema_0',['Schema',['../classapplication_1_1types_1_1schema_1_1Schema.html',1,'application::types::schema']]],
+  ['schemaparam_1',['SchemaParam',['../classapplication_1_1types_1_1schemaparam_1_1SchemaParam.html',1,'application::types::schemaparam']]],
+  ['schemaquery_2',['SchemaQuery',['../classapplication_1_1types_1_1schemaquery_1_1SchemaQuery.html',1,'application::types::schemaquery']]],
+  ['schemareturntype_3',['SchemaReturnType',['../classapplication_1_1types_1_1schemareturntype_1_1SchemaReturnType.html',1,'application::types::schemareturntype']]],
+  ['schematype_4',['SchemaType',['../classapplication_1_1types_1_1schematype_1_1SchemaType.html',1,'application::types::schematype']]],
+  ['sorting_5',['sorting',['../classapplication_1_1objects_1_1Sorting.html',1,'application.objects.Sorting'],['../classapplication_1_1types_1_1sorting_1_1Sorting.html',1,'application.types.sorting.Sorting']]],
+  ['sorting_5f_6',['Sorting_',['../classapplication_1_1types_1_1sorting___1_1Sorting__.html',1,'application::types::sorting_']]],
+  ['subscription_7',['Subscription',['../classapplication_1_1types_1_1subscription_1_1Subscription.html',1,'application::types::subscription']]],
+  ['subscriptionkeys_8',['SubscriptionKeys',['../classapplication_1_1types_1_1subscriptionkeys_1_1SubscriptionKeys.html',1,'application::types::subscriptionkeys']]],
+  ['subscriptionlist_9',['SubscriptionList',['../classapplication_1_1types_1_1subscriptionlist_1_1SubscriptionList.html',1,'application::types::subscriptionlist']]],
+  ['subscriptiontoken_10',['SubscriptionToken',['../classapplication_1_1types_1_1subscriptiontoken_1_1SubscriptionToken.html',1,'application::types::subscriptiontoken']]],
+  ['subscriptiontokenkeys_11',['SubscriptionTokenKeys',['../classapplication_1_1types_1_1subscriptiontokenkeys_1_1SubscriptionTokenKeys.html',1,'application::types::subscriptiontokenkeys']]],
+  ['subsonicalbum_12',['SubsonicAlbum',['../classapplication_1_1types_1_1subsonicalbum_1_1SubsonicAlbum.html',1,'application::types::subsonicalbum']]],
+  ['subsonicerror_13',['subsonicerror',['../classapplication_1_1exceptions_1_1SubsonicError.html',1,'application.exceptions.SubsonicError'],['../classapplication_1_1types_1_1subsonicerror_1_1SubsonicError.html',1,'application.types.subsonicerror.SubsonicError']]],
+  ['subsonicsearch_14',['SubsonicSearch',['../classapplication_1_1types_1_1subsonicsearch_1_1SubsonicSearch.html',1,'application::types::subsonicsearch']]],
+  ['subsonictrack_15',['SubsonicTrack',['../classapplication_1_1types_1_1subsonictrack_1_1SubsonicTrack.html',1,'application::types::subsonictrack']]],
+  ['systeminfo_16',['SystemInfo',['../classapplication_1_1types_1_1systeminfo_1_1SystemInfo.html',1,'application::types::systeminfo']]]
 ];
