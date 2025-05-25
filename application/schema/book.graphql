@@ -29,28 +29,41 @@ type BookTag {
 	creator: String!
 }
 
+"""An industry identifier for a book, such as ISBN."""
 type BookIdent {
+	"""The type of identifier, e.g., ISBN_10, ISBN_13."""
 	type: String!
+	"""The identifier value."""
 	identifier: String!
 }
 
+"""A list of books."""
 type BookList {
+	"""The list of books."""
 	books: [Book!]!
 }
 
+"""Error thrown when a Google Books API request fails."""
 type ApiFailedError {
+	"""Error message from the API."""
 	message: String!
 }
 
+"""Error thrown when trying to tag a book that already exists."""
 type BookTagExistsError {
+	"""Message indicating that the book tag already exists."""
 	message: String!
 }
 
+"""Error thrown when a book does not exist."""
 type BookTagDoesNotExistError {
+	"""Message indicating that the book tag does not exist."""
 	message: String!
 }
 
+"""Error thrown when a book cannot be shared."""
 type BookCannotBeShared {
+	"""Message indicating that the book cannot be shared."""
 	message: String!
 }
 

@@ -5,4 +5,9 @@ from .book import Book
 
 
 class BookList(TypedDict):
+	"""
+	A list of books.
+	"""
+
+	## The list of books.
 	books: list[Book]
