@@ -120,7 +120,7 @@ var namespaceapplication_1_1db =
       [ "get_public_key", "namespaceapplication_1_1db_1_1notification.html#a4fd2b98d40b9d4e9c642cc60aaee5fec", null ],
       [ "get_subscription", "namespaceapplication_1_1db_1_1notification.html#a1b706a772f78c65ede157e4c41715d43", null ],
       [ "get_subscriptions", "namespaceapplication_1_1db_1_1notification.html#ae1e2e9fca37c810a6269dd1f1df8c854", null ],
-      [ "get_user_from_notif", "namespaceapplication_1_1db_1_1notification.html#aa1834f9d510fb6d71346ecad8817276b", null ],
+      [ "get_user_from_notif", "namespaceapplication_1_1db_1_1notification.html#a0d11792c8bd43290ba13613b5c31373c", null ],
       [ "mark_all_as_read", "namespaceapplication_1_1db_1_1notification.html#a01b23d6feb208341b0f643da244d9f76", null ],
       [ "mark_as_read", "namespaceapplication_1_1db_1_1notification.html#a2def0cfb7fe22c28f8094ecd00c71959", null ],
       [ "send", "namespaceapplication_1_1db_1_1notification.html#a3461f8b0e76893fdb33dbcc78fe7654d", null ],

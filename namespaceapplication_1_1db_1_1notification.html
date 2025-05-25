@@ -106,8 +106,8 @@ $(document).ready(function(){initNavTree('namespaceapplication_1_1db_1_1notifica
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa1834f9d510fb6d71346ecad8817276b" id="r_aa1834f9d510fb6d71346ecad8817276b"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1notification.html#aa1834f9d510fb6d71346ecad8817276b">get_user_from_notif</a> (str item_id)</td></tr>
-<tr class="separator:aa1834f9d510fb6d71346ecad8817276b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d11792c8bd43290ba13613b5c31373c" id="r_a0d11792c8bd43290ba13613b5c31373c"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1notification.html#a0d11792c8bd43290ba13613b5c31373c">get_user_from_notif</a> (str id)</td></tr>
+<tr class="separator:a0d11792c8bd43290ba13613b5c31373c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fd2b98d40b9d4e9c642cc60aaee5fec" id="r_a4fd2b98d40b9d4e9c642cc60aaee5fec"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1notification.html#a4fd2b98d40b9d4e9c642cc60aaee5fec">get_public_key</a> ()</td></tr>
 <tr class="separator:a4fd2b98d40b9d4e9c642cc60aaee5fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1e2e9fca37c810a6269dd1f1df8c854" id="r_ae1e2e9fca37c810a6269dd1f1df8c854"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1notification.html#ae1e2e9fca37c810a6269dd1f1df8c854">get_subscriptions</a> (str username)</td></tr>
@@ -391,8 +391,8 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td
         list: A list of subscription tokens associated with the user.</pre> 
 </div>
 </div>
-<a id="aa1834f9d510fb6d71346ecad8817276b" name="aa1834f9d510fb6d71346ecad8817276b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1834f9d510fb6d71346ecad8817276b">&#9670;&#160;</a></span>get_user_from_notif()</h2>
+<a id="a0d11792c8bd43290ba13613b5c31373c" name="a0d11792c8bd43290ba13613b5c31373c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d11792c8bd43290ba13613b5c31373c">&#9670;&#160;</a></span>get_user_from_notif()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -401,7 +401,7 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td
           <td class="memname"> dict application.db.notification.get_user_from_notif </td>
           <td>(</td>
           <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>item_id</em></td><td>)</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -409,7 +409,7 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td
 <pre class="fragment">    Retrieve user information based on a notification ID.
 
     Args:
-        item_id (str): The ID of the notification.
+        id (str): The ID of the notification.
 
     Returns:
         dict: A dictionary containing user information if found, otherwise an empty dictionary.</pre> 
