@@ -14,10 +14,12 @@ from pymongo.collection import Collection
 from werkzeug.datastructures import FileStorage
 
 import application.tags as tag_parser
-from application import exceptions, types
+from application import exceptions
 from application.integrations import images, models, videos
 from application.objects import BlobSearchFilter, Sorting
-from application.types import BlobPreview, BlobStorage, BlobThumbnail
+from application.types import blob_storage
+from application.types.blob_storage import (BlobPreview, BlobStorage,
+                                            BlobThumbnail)
 
 from . import users
 from .perms import caller_info
@@ -42,7 +44,7 @@ def init() -> None:
 		be scheduled to ensure that ephemeral files are cleaned up.
 	"""
 	global blob_path
-	blob_path = types.blob_path
+	blob_path = blob_storage.blob_path
 
 	# On startup, delete all ephemeral files which aren't referred to by any data.
 	# Restart should be scheduled regularly for this to apply

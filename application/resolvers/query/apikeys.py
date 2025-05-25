@@ -16,7 +16,7 @@ def resolve_get_api_keys(_, _info: GraphQLResolveInfo) -> list:
 
 	Args:
 		_ (Any): Placeholder.
-		info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
 
 	Returns:
 		list: A list of API keys.

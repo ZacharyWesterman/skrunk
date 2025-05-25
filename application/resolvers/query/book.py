@@ -9,15 +9,16 @@ from application.db.users import userids_in_groups
 from application.exceptions import BookTagDoesNotExistError
 from application.integrations import google_books
 from application.integrations.exceptions import ApiFailedError
-from application.objects import BookSearchFilter, Sorting
+from application.types.booksearchfilter import BookSearchFilter
+from application.types.sorting import Sorting
 
-from ..decorators import *
+from ..decorators import handle_client_exceptions
 from . import query
 
 
 @query.field('searchBooks')
 @perms.module('books')
-def resolve_search_google_books(_, info: GraphQLResolveInfo, title: str, author: str) -> dict:
+def resolve_search_google_books(_, _info: GraphQLResolveInfo, title: str, author: str) -> dict:
 	try:
 		return {'__typename': 'BookList', 'books': google_books.query(title=title, author=author)}
 	except ApiFailedError as e:
@@ -27,14 +28,14 @@ def resolve_search_google_books(_, info: GraphQLResolveInfo, title: str, author:
 @query.field('getBookByTag')
 @perms.module('books')
 @handle_client_exceptions
-def resolve_get_book_by_tag(_, info: GraphQLResolveInfo, rfid: str) -> dict:
+def resolve_get_book_by_tag(_, _info: GraphQLResolveInfo, rfid: str) -> dict:
 	tag_data = get_book_tag(rfid, parse=True)
 	return {'__typename': 'Book', **tag_data}
 
 
 @query.field('getBooks')
 @perms.module('books')
-def resolve_get_books(_, info: GraphQLResolveInfo, filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
+def resolve_get_books(_, _info: GraphQLResolveInfo, filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	if filter.get('owner') is None:
 		user_data = perms.caller_info()
 		groups = user_data.get('groups', [])
@@ -46,7 +47,7 @@ def resolve_get_books(_, info: GraphQLResolveInfo, filter: BookSearchFilter, sta
 
 @query.field('countBooks')
 @perms.module('books')
-def resolve_count_books(_, info: GraphQLResolveInfo, filter: BookSearchFilter) -> int:
+def resolve_count_books(_, _info: GraphQLResolveInfo, filter: BookSearchFilter) -> int:
 	if filter.get('owner') is None:
 		user_data = perms.caller_info()
 		groups = user_data.get('groups', [])
@@ -58,7 +59,7 @@ def resolve_count_books(_, info: GraphQLResolveInfo, filter: BookSearchFilter) -
 
 @query.field('countAllUserBooks')
 @perms.module('books')
-def resolve_count_all_user_books(_, info: GraphQLResolveInfo) -> list:
+def resolve_count_all_user_books(_, _info: GraphQLResolveInfo) -> list:
 	user_data = perms.caller_info()
 	users = userids_in_groups(user_data.get('groups', []))
 	return count_all_user_books(users if len(users) else None)
@@ -66,7 +67,7 @@ def resolve_count_all_user_books(_, info: GraphQLResolveInfo) -> list:
 
 @query.field('getBookDescription')
 @perms.module('books')
-def resolve_get_book_description(_, info: GraphQLResolveInfo, id: str) -> str | None:
+def resolve_get_book_description(_, _info: GraphQLResolveInfo, id: str) -> str | None:
 	try:
 		book_data = get_book(id)
 	except BookTagDoesNotExistError:

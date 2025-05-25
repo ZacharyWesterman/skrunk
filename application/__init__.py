@@ -6,7 +6,7 @@ import ariadne
 from ariadne.contrib.federation.schema import make_federated_schema
 from flask import Flask
 
-from . import routes
+from . import monkeypatch, routes
 from .db import init_db, setup_db
 from .db.users import count_users
 from .resolvers import mutation, query
@@ -28,7 +28,9 @@ def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
 	init_db(data_db_url, blob_path)
 
 	application: Any = Flask(__name__)
-	application.config['MAX_CONTENT_LENGTH'] = 5 * 1000 * 1000 * 1000  # 5GB file size limit for uploads
+
+	# 5GB file size limit for uploads
+	application.config['MAX_CONTENT_LENGTH'] = 5 * 1000 * 1000 * 1000
 
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	application.schema = make_federated_schema(type_defs, [query, mutation] + scalars)
