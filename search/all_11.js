@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['read_0',['read',['../classapplication_1_1types_1_1feeddocument_1_1FeedDocument.html#aa09c6de4d1c5e6776865cc7b66fc5c0c',1,'application::types::feeddocument::FeedDocument']]],
-  ['recipient_1',['recipient',['../classapplication_1_1types_1_1weatheralert_1_1WeatherAlert.html#a081c7882aab3e466c1054a2d25204767',1,'application::types::weatheralert::WeatherAlert']]],
+  ['read_0',['read',['../classapplication_1_1types_1_1feeddocument_1_1FeedDocument.html#aa09c6de4d1c5e6776865cc7b66fc5c0c',1,'application.types.feeddocument.FeedDocument.read'],['../classapplication_1_1types_1_1notification_1_1Notification.html#a61fda7d21ae8d2e5c39257ce5a817865',1,'application.types.notification.Notification.read']]],
+  ['recipient_1',['recipient',['../classapplication_1_1types_1_1weatheralert_1_1WeatherAlert.html#a081c7882aab3e466c1054a2d25204767',1,'application.types.weatheralert.WeatherAlert.recipient'],['../classapplication_1_1types_1_1notification_1_1Notification.html#a342db36921cd3a47e35f409b477846f0',1,'application.types.notification.Notification.recipient']]],
   ['references_2',['references',['../classapplication_1_1types_1_1blob_1_1Blob.html#a1c770cfbc94cf960ab9e5352b3b66a7c',1,'application::types::blob::Blob']]],
   ['refresh_5fbook_5fdata_3',['refresh_book_data',['../namespaceapplication_1_1db_1_1book.html#a73de8f293dff5f7ec6249f2cea3598de',1,'application::db::book']]],
   ['remove_5freference_4',['remove_reference',['../namespaceapplication_1_1db_1_1blob.html#a145d7badf205c23c2c272855fe068170',1,'application::db::blob']]],
@@ -20,6 +20,7 @@ var searchData=
   ['resolved_5fissues_17',['resolved_issues',['../classapplication_1_1integrations_1_1github_1_1Repository.html#a7340dd07729f4773cfc3f17341b150ae',1,'application::integrations::github::Repository']]],
   ['result_18',['result',['../classapplication_1_1types_1_1logresult_1_1LogResult.html#a2fc79404accbebb9f02737a8849ebf0b',1,'application::types::logresult::LogResult']]],
   ['return_5fbook_19',['return_book',['../namespaceapplication_1_1db_1_1book.html#ac6f7d9e683c20144c289b18db8a2f898',1,'application::db::book']]],
-  ['revoke_5fsessions_20',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]],
-  ['rfid_21',['rfid',['../classapplication_1_1types_1_1item_1_1Item.html#af301b4d378ed639bbe0f2483dd781951',1,'application.types.item.Item.rfid'],['../classapplication_1_1types_1_1booktag_1_1BookTag.html#ae12a83007a223ac42d4b43700eb2c056',1,'application.types.booktag.BookTag.rfid'],['../classapplication_1_1types_1_1bookcreatedata_1_1BookCreateData.html#a6d896c8e8e5ffb63ddac848a5aa93609',1,'application.types.bookcreatedata.BookCreateData.rfid'],['../classapplication_1_1types_1_1book_1_1Book.html#aa3657ba6350f849f76743d96059f76f0',1,'application.types.book.Book.rfid']]]
+  ['returns_20',['returns',['../classapplication_1_1types_1_1schemaquery_1_1SchemaQuery.html#a44025e1bcfb466a1d757f6fd0ea9a623',1,'application::types::schemaquery::SchemaQuery']]],
+  ['revoke_5fsessions_21',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]],
+  ['rfid_22',['rfid',['../classapplication_1_1types_1_1item_1_1Item.html#af301b4d378ed639bbe0f2483dd781951',1,'application.types.item.Item.rfid'],['../classapplication_1_1types_1_1booktag_1_1BookTag.html#ae12a83007a223ac42d4b43700eb2c056',1,'application.types.booktag.BookTag.rfid'],['../classapplication_1_1types_1_1bookcreatedata_1_1BookCreateData.html#a6d896c8e8e5ffb63ddac848a5aa93609',1,'application.types.bookcreatedata.BookCreateData.rfid'],['../classapplication_1_1types_1_1book_1_1Book.html#aa3657ba6350f849f76743d96059f76f0',1,'application.types.book.Book.rfid']]]
 ];

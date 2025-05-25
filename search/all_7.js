@@ -50,5 +50,6 @@ var searchData=
   ['get_5fweather_5fuser_47',['get_weather_user',['../namespaceapplication_1_1db_1_1weather.html#a37d1b980e07f2d577a3345bf555dd02e',1,'application::db::weather']]],
   ['get_5fzip_5fprogress_48',['get_zip_progress',['../namespaceapplication_1_1db_1_1blob.html#ad21ded16136bb1cea5cf1a3a15883d8f',1,'application::db::blob']]],
   ['gh_5frequest_49',['gh_request',['../namespaceapplication_1_1integrations_1_1github.html#ae7b29fc5f1bee3e3f89c4dfcb75e3812',1,'application::integrations::github']]],
-  ['group_5ffilter_50',['group_filter',['../namespaceapplication_1_1db_1_1users.html#aefa7cf8b87f4dd8442b1f3da7b6bf40c',1,'application::db::users']]]
+  ['group_5ffilter_50',['group_filter',['../namespaceapplication_1_1db_1_1users.html#aefa7cf8b87f4dd8442b1f3da7b6bf40c',1,'application::db::users']]],
+  ['groups_51',['groups',['../classapplication_1_1types_1_1userdata_1_1UserData.html#a765a28107721f9d4ee6c5d30765f1b42',1,'application::types::userdata::UserData']]]
 ];

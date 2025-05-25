@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"namespaceapplication_1_1types_1_1subscriptionlist.html":[0,0,0,9,62],
+"namespaceapplication_1_1types_1_1subscriptiontoken.html":[0,0,0,9,63],
 "namespaceapplication_1_1types_1_1subscriptiontokenkeys.html":[0,0,0,9,64],
 "namespaceapplication_1_1types_1_1subsonicalbum.html":[0,0,0,9,65],
 "namespaceapplication_1_1types_1_1subsonicerror.html":[0,0,0,9,66],

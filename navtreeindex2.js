@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"namespaceapplication_1_1db_1_1inventory.html#a84795875223656d723b958cc0ccb8bbd":[0,0,0,0,5,7],
+"namespaceapplication_1_1db_1_1inventory.html#a87aa10a0d0d191552feee131aa9c5724":[0,0,0,0,5,1],
 "namespaceapplication_1_1db_1_1notification.html":[0,0,0,0,6],
 "namespaceapplication_1_1db_1_1notification.html#a01b23d6feb208341b0f643da244d9f76":[0,0,0,0,6,9],
 "namespaceapplication_1_1db_1_1notification.html#a0d11792c8bd43290ba13613b5c31373c":[0,0,0,0,6,8],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "namespaceapplication_1_1types_1_1sorting.html":[0,0,0,9,58],
 "namespaceapplication_1_1types_1_1sorting__.html":[0,0,0,9,59],
 "namespaceapplication_1_1types_1_1subscription.html":[0,0,0,9,60],
-"namespaceapplication_1_1types_1_1subscriptionkeys.html":[0,0,0,9,61],
-"namespaceapplication_1_1types_1_1subscriptionlist.html":[0,0,0,9,62],
-"namespaceapplication_1_1types_1_1subscriptiontoken.html":[0,0,0,9,63]
+"namespaceapplication_1_1types_1_1subscriptionkeys.html":[0,0,0,9,61]
 };
