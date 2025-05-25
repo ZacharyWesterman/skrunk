@@ -5,7 +5,8 @@ from typing import TypedDict
 
 class BookSearchFilter(TypedDict):
 	"""
-	A filter for searching books. All fields are optional, and if none are provided, all books will be returned.
+	A filter for searching books.
+	All fields are optional, and if none are provided, all books will be returned.
 	"""
 
 	## The username of the book owner.

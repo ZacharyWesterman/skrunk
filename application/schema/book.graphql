@@ -139,7 +139,10 @@ type EBook {
 	fileType: String!
 }
 
-"""A filter for searching books. All fields are optional, and if none are provided, all books will be returned."""
+"""
+A filter for searching books.
+All fields are optional, and if none are provided, all books will be returned.
+"""
 input BookSearchFilter {
 	"""The username of the book owner."""
 	owner: String
