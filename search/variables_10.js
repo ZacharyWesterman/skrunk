@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['references_0',['references',['../classapplication_1_1types_1_1blob_1_1Blob.html#a1c770cfbc94cf960ab9e5352b3b66a7c',1,'application::types::blob::Blob']]]
+  ['query_0',['query',['../namespaceapplication_1_1resolvers_1_1query.html#abba1771d18eed256b3b63eb1a19fcabc',1,'application::resolvers::query']]]
 ];

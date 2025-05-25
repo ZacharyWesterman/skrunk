@@ -15,5 +15,6 @@ var searchData=
   ['resolve_5fget_5flast_5fmutation_12',['resolve_get_last_mutation',['../namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html#ae2837971d0893e61964ec02da99afd46',1,'application::resolvers::query::last_mutation']]],
   ['resolved_5fissues_13',['resolved_issues',['../classapplication_1_1integrations_1_1github_1_1Repository.html#a7340dd07729f4773cfc3f17341b150ae',1,'application::integrations::github::Repository']]],
   ['return_5fbook_14',['return_book',['../namespaceapplication_1_1db_1_1book.html#ac6f7d9e683c20144c289b18db8a2f898',1,'application::db::book']]],
-  ['revoke_5fsessions_15',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]]
+  ['revoke_5fsessions_15',['revoke_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a72b60e0015c60079812147f02ce1ce3d',1,'application::db::sessions']]],
+  ['rfid_16',['rfid',['../classapplication_1_1types_1_1book_1_1Book.html#aa3657ba6350f849f76743d96059f76f0',1,'application.types.book.Book.rfid'],['../classapplication_1_1types_1_1bookcreatedata_1_1BookCreateData.html#a6d896c8e8e5ffb63ddac848a5aa93609',1,'application.types.bookcreatedata.BookCreateData.rfid'],['../classapplication_1_1types_1_1booktag_1_1BookTag.html#ae12a83007a223ac42d4b43700eb2c056',1,'application.types.booktag.BookTag.rfid']]]
 ];
