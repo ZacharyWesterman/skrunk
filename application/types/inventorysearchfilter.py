@@ -2,7 +2,7 @@ from typing import TypedDict
 
 
 class InventorySearchFilter(TypedDict):
-	owner: str
-	category: str
-	type: str
-	location: str
+	owner: str | None
+	category: str | None
+	type: str | None
+	location: str | None

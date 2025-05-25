@@ -3,4 +3,4 @@ from .subsonicalbum import SubsonicAlbum
 
 
 class SubsonicSearch(TypedDict):
-	album: list[SubsonicAlbum | None]
+	album: list[SubsonicAlbum]

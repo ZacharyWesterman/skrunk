@@ -5,12 +5,12 @@ from datetime import datetime
 class FeedDocument(TypedDict):
 	id: str
 	feed: str
-	author: str
-	title: str
-	posted: datetime
+	author: str | None
+	title: str | None
+	posted: datetime | None
 	body: str
 	body_html: str
 	created: datetime
-	updated: datetime
+	updated: datetime | None
 	url: str
 	read: bool

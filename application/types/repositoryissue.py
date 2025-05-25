@@ -6,4 +6,4 @@ class RepositoryIssue(TypedDict):
 	title: str
 	state: str
 	number: int
-	labels: list[IssueLabel | None]
+	labels: list[IssueLabel]

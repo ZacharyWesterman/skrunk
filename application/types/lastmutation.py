@@ -3,6 +3,6 @@ from datetime import datetime
 
 
 class LastMutation(TypedDict):
-	username: str
+	username: str | None
 	request: str
 	timestamp: datetime

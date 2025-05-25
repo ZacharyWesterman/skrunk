@@ -14,16 +14,16 @@ from application.integrations.graphql import schema
 # pylint: enable=wrong-import-position
 
 type_aliases = {
-	'String': 'str',
-	'Int': 'int',
-	'Float': 'float',
-	'Boolean': 'bool',
-	'DateTime': 'datetime',
-	'Date': 'datetime',
-	'PhoneNumber': 'str',
-	'Color': 'str',
-	'Size': 'str',
-	'Long': 'int',
+	'String!': 'str',
+	'Int!': 'int',
+	'Float!': 'float',
+	'Boolean!': 'bool',
+	'DateTime!': 'datetime',
+	'Date!': 'datetime',
+	'PhoneNumber!': 'str',
+	'Color!': 'str',
+	'Size!': 'str',
+	'Long!': 'int',
 }
 
 builtin_types = [
@@ -100,9 +100,10 @@ def type_text(data_type: str) -> tuple[str, list[str]]:
 
 	if data_type.endswith('!'):
 		data_type = data_type[0:-1]
-		return type_text(data_type)
+		return data_type, [data_type]
 
-	return data_type + ' | None', [data_type]
+	text, types = type_text(data_type + '!')
+	return text + ' | None', types
 
 
 def output_types() -> None:
@@ -130,10 +131,10 @@ def output_types() -> None:
 		init_py_files += [t['name']]
 
 		# Skip if the file already exists and is up to date
-		if Path(filename).exists():
-			with open(filename, 'r', encoding='utf8') as f:
-				if f.read() == text:
-					continue
+		# if Path(filename).exists():
+		# 	with open(filename, 'r', encoding='utf8') as f:
+		# 		if f.read() == text:
+		# 			continue
 
 		print(f'Writing {filename}...')
 

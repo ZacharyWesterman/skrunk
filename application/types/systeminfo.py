@@ -3,4 +3,4 @@ from .diskusage import DiskUsage
 
 
 class SystemInfo(TypedDict):
-	storage: list[DiskUsage | None]
+	storage: list[DiskUsage]

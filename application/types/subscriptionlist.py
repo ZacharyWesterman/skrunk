@@ -3,4 +3,4 @@ from .subscription import Subscription
 
 
 class SubscriptionList(TypedDict):
-	list: list[Subscription | None]
+	list: list[Subscription]

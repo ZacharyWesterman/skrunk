@@ -7,7 +7,7 @@ class WeatherUser(TypedDict):
 	username: str
 	lat: float
 	lon: float
-	max: WeatherTemp_ | None
-	min: WeatherTemp_ | None
-	last_sent: datetime
+	max: WeatherTemp_
+	min: WeatherTemp_
+	last_sent: datetime | None
 	exclude: bool

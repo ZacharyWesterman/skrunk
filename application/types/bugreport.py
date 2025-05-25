@@ -9,5 +9,5 @@ class BugReport(TypedDict):
 	creator: str
 	body: str
 	body_html: str
-	convo: list[BugComment | None]
+	convo: list[BugComment]
 	resolved: bool

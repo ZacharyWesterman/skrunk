@@ -9,4 +9,4 @@ class BlobList(TypedDict):
 	"""
 
 	## The blob list
-	blobs: list[Blob | None]
+	blobs: list[Blob]

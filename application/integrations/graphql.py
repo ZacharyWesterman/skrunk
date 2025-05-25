@@ -298,7 +298,9 @@ def schema():
 				'returns': return_type,
 			}]
 
-	build_types(gql_schema.type_map)
+	build_types({
+		key: val for (key, val) in gql_schema.type_map.items() if key not in ['Query', 'Mutation']
+	})
 
 	generate('queries', 'query', queries)
 	generate('mutations', 'mutation', mutations)

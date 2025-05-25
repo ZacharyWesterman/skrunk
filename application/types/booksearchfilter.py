@@ -2,8 +2,8 @@ from typing import TypedDict
 
 
 class BookSearchFilter(TypedDict):
-	owner: str
-	title: str
-	author: str
-	genre: str
-	shared: bool
+	owner: str | None
+	title: str | None
+	author: str | None
+	genre: str | None
+	shared: bool | None

@@ -3,4 +3,4 @@ from .repositoryissue import RepositoryIssue
 
 
 class IssueList(TypedDict):
-	issues: list[RepositoryIssue | None]
+	issues: list[RepositoryIssue]

@@ -7,12 +7,12 @@ from .blob import Blob
 class Item(TypedDict):
 	id: str
 	created: datetime
-	creator: UserMinData | None
-	owner: UserMinData | None
+	creator: UserMinData
+	owner: UserMinData
 	category: str
 	type: str
 	location: str
-	blob: Blob | None
+	blob: Blob
 	description: str
 	description_html: str
 	rfid: list[str]

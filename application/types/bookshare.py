@@ -3,8 +3,8 @@ from datetime import datetime
 
 
 class BookShare(TypedDict):
-	user_id: str
+	user_id: str | None
 	name: str
 	display_name: str
 	start: datetime
-	stop: datetime
+	stop: datetime | None

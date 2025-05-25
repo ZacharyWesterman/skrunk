@@ -3,5 +3,5 @@ from .usermindata import UserMinData
 
 
 class UserBookCount(TypedDict):
-	owner: UserMinData | None
+	owner: UserMinData
 	count: int

@@ -4,5 +4,5 @@ from .subscriptiontokenkeys import SubscriptionTokenKeys
 
 class SubscriptionToken(TypedDict):
 	endpoint: str
-	expirationTime: str
-	keys: SubscriptionTokenKeys | None
+	expirationTime: str | None
+	keys: SubscriptionTokenKeys

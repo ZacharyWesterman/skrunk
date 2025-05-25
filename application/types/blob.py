@@ -24,9 +24,9 @@ class Blob(TypedDict):
 	## A list of tags associated with the blob
 	tags: list[str]
 	## A preview URL or ID for the blob. For images, this is a smaller version of the image. For videos, it's the first frame. For 3d models, it's a version that can be easily rendered in a browser.
-	preview: str
+	preview: str | None
 	## The thumbnail for the blob. This is a smaller version of the preview, used for displaying in lists, and is always an image.
-	thumbnail: str
+	thumbnail: str | None
 	## Whether the blob is restricted to only the user who created it.
 	hidden: bool
 	## Whether the blob is ephemeral. Ephemeral blobs are deleted after a certain amount of time.

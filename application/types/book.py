@@ -10,23 +10,23 @@ from .ebook import EBook
 class Book(TypedDict):
 	id: str
 	title: str
-	subtitle: str
+	subtitle: str | None
 	authors: list[str]
 	publisher: str
 	publishedDate: datetime
 	has_description: bool
-	industryIdentifiers: list[BookIdent | None]
+	industryIdentifiers: list[BookIdent]
 	pageCount: int
 	categories: list[str]
 	maturityRating: str
 	language: str
-	thumbnail: str
-	smallThumbnail: str
+	thumbnail: str | None
+	smallThumbnail: str | None
 	creator: str
-	owner: UserMinData | None
+	owner: UserMinData
 	shared: bool
-	shareHistory: list[BookShare | None]
+	shareHistory: list[BookShare]
 	rfid: str
-	ownerHistory: list[BookOwnerHist | None]
-	ebooks: list[EBook | None]
-	audiobook: str
+	ownerHistory: list[BookOwnerHist]
+	ebooks: list[EBook]
+	audiobook: str | None

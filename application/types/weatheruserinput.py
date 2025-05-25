@@ -6,5 +6,5 @@ class WeatherUserInput(TypedDict):
 	username: str
 	lat: float
 	lon: float
-	max: WeatherTemp | None
-	min: WeatherTemp | None
+	max: WeatherTemp
+	min: WeatherTemp

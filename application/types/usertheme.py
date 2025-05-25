@@ -4,5 +4,5 @@ from .themesize import ThemeSize
 
 
 class UserTheme(TypedDict):
-	colors: list[ThemeColor | None]
-	sizes: list[ThemeSize | None]
+	colors: list[ThemeColor]
+	sizes: list[ThemeSize]

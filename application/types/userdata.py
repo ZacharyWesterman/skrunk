@@ -6,9 +6,9 @@ from datetime import datetime
 class UserData(TypedDict):
 	username: str
 	display_name: str
-	theme: UserTheme_ | None
+	theme: UserTheme_
 	perms: list[str]
-	last_login: datetime
+	last_login: datetime | None
 	groups: list[str]
 	disabled_modules: list[str]
 	email: str

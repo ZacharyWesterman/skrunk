@@ -5,6 +5,6 @@ from .schemareturntype import SchemaReturnType
 
 class SchemaQuery(TypedDict):
 	name: str
-	params: list[SchemaParam | None]
+	params: list[SchemaParam]
 	query: str
-	returns: SchemaReturnType | None
+	returns: SchemaReturnType

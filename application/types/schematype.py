@@ -6,4 +6,4 @@ class SchemaType(TypedDict):
 	type: str
 	union: bool
 	subtypes: list[str]
-	params: list[SchemaParam | None]
+	params: list[SchemaParam]

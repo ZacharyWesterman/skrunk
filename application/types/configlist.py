@@ -3,4 +3,4 @@ from .config import Config
 
 
 class ConfigList(TypedDict):
-	configs: list[Config | None]
+	configs: list[Config]

@@ -12,5 +12,5 @@ class Feed(TypedDict):
 	url: str
 	notify: bool
 	inactive: bool
-	currentPage: int
+	currentPage: int | None
 	currentSort: Sorting_ | None

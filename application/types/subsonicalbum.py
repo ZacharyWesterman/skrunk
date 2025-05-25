@@ -9,8 +9,8 @@ class SubsonicAlbum(TypedDict):
 	title: str
 	album: str
 	artist: str
-	year: int
-	genre: str
-	coverArt: str
+	year: int | None
+	genre: str | None
+	coverArt: str | None
 	playCount: int
 	created: datetime

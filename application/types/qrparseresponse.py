@@ -7,6 +7,6 @@ class QRParseResponse(TypedDict):
 	"""
 
 	## The parsed data from the QR code, if no error occurred
-	data: str
+	data: str | None
 	## The error message, if an error occurred
-	error: str
+	error: str | None

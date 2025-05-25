@@ -49,10 +49,8 @@ from .itemexistserror import ItemExistsError
 from .lastmutation import LastMutation
 from .logresult import LogResult
 from .missingconfig import MissingConfig
-from .mutation import Mutation
 from .notification import Notification
 from .qrparseresponse import QRParseResponse
-from .query import Query
 from .repofetchfailed import RepoFetchFailed
 from .repositoryissue import RepositoryIssue
 from .schema import Schema

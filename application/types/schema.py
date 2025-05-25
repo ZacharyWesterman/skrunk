@@ -4,6 +4,6 @@ from .schematype import SchemaType
 
 
 class Schema(TypedDict):
-	mutations: list[SchemaQuery | None]
-	queries: list[SchemaQuery | None]
-	types: list[SchemaType | None]
+	mutations: list[SchemaQuery]
+	queries: list[SchemaQuery]
+	types: list[SchemaType]
