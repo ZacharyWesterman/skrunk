@@ -75,9 +75,12 @@ def class_text(class_data: dict) -> str:
 
 
 def type_text(data_type: str) -> tuple[str, list[str]]:
-	"""Convert a GraphQL type to a DataClass object definition.
+	"""
+	Convert a GraphQL type to a DataClass object definition.
+
 	Args:
 		data_type (str): The GraphQL type to convert.
+
 	Returns:
 		str: The converted DataClass.
 		str: The base type (without any modifiers).
@@ -131,10 +134,10 @@ def output_types() -> None:
 		init_py_files += [t['name']]
 
 		# Skip if the file already exists and is up to date
-		# if Path(filename).exists():
-		# 	with open(filename, 'r', encoding='utf8') as f:
-		# 		if f.read() == text:
-		# 			continue
+		if Path(filename).exists():
+			with open(filename, 'r', encoding='utf8') as f:
+				if f.read() == text:
+					continue
 
 		print(f'Writing {filename}...')
 

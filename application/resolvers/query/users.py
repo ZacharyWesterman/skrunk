@@ -20,5 +20,4 @@ def resolve_list_users(_, _info: GraphQLResolveInfo, restrict: bool) -> list:
 	user_data = perms.caller_info_strict()
 	if not restrict and perms.user_has_perms(user_data, ('admin',)):
 		return get_user_list([])
-	else:
-		return get_user_list(user_data.get('groups', []))
+	return get_user_list(user_data.get('groups', []))

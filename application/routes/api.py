@@ -15,7 +15,12 @@ def graphql() -> Response:
 		return Response('Access denied.', 403)
 
 	data = request.get_json()
-	success, result = ariadne.graphql_sync(application.schema, data, context_value=request, debug=application.config.get('DEBUG'))
+	success, result = ariadne.graphql_sync(
+		application.schema,
+		data,
+		context_value=request,
+		debug=application.config.get('DEBUG')
+	)
 
 	if not success:
 		result_code = 400

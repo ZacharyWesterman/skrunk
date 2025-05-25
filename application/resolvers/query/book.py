@@ -48,7 +48,7 @@ def resolve_get_books(_, _info: GraphQLResolveInfo, filter: BookSearchFilter, st
 @perms.module('books')
 def resolve_count_books(_, _info: GraphQLResolveInfo, filter: BookSearchFilter) -> int:
 	if filter.get('owner') is None:
-		user_data = perms.caller_info()
+		user_data = perms.caller_info_strict()
 		groups = user_data.get('groups', [])
 		if len(groups):
 			filter['owner'] = userids_in_groups(groups)
@@ -59,7 +59,7 @@ def resolve_count_books(_, _info: GraphQLResolveInfo, filter: BookSearchFilter) 
 @query.field('countAllUserBooks')
 @perms.module('books')
 def resolve_count_all_user_books(_, _info: GraphQLResolveInfo) -> list:
-	user_data = perms.caller_info()
+	user_data = perms.caller_info_strict()
 	users = userids_in_groups(user_data.get('groups', []))
 	return count_all_user_books(users if len(users) else None)
 

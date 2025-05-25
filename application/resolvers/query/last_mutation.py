@@ -7,6 +7,6 @@ from application.resolvers.query import query
 
 
 @query.field('getLastMutation')
-def resolve_get_last_mutation(_, info: GraphQLResolveInfo) -> dict | None:
+def resolve_get_last_mutation(_, _info: GraphQLResolveInfo) -> dict | None:
 	"""Get the last mutation called."""
 	return mutation.get_last_mutation()

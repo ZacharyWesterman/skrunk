@@ -9,9 +9,10 @@ from . import auth, files
 
 application: Any = None
 
-# Allow only specific files in site/ to be accessed without auth, as other files may have "sensitive" data.
+# Allow only specific files in site/ to be accessed without auth,
+# as other files may have "sensitive" data.
 try:
-	with open('data/no_auth_files.txt') as fp:
+	with open('data/no_auth_files.txt', 'r', encoding='utf8') as fp:
 		__NO_AUTH_FILES = [i.strip() for i in fp.readlines() if i.strip() != '']
 except FileNotFoundError:
 	__NO_AUTH_FILES = []
@@ -30,8 +31,15 @@ def get(path: str) -> Response:
 		return Response('Access denied.', 403)
 
 	if not application.is_initialized and path == 'html/login.html':
-		with open(f'site/{path}') as fp:
-			return Response(fp.read().replace('Authentication Required', '<b class="emphasis">This server has not been set up.<br><br>Login as user "admin" (any password) and create at least one user.<br><br>Then restart the server, and (optionally) delete the admin user.</b>'), 200)
+		with open(f'site/{path}', 'r', encoding='utf8') as f:
+			return Response(f.read().replace(
+				'Authentication Required',
+				"""<b class="emphasis">
+					This server has not been set up.<br><br>
+					Login as user "admin" (any password) and create at least one user.
+					<br><br>Then restart the server, and (optionally) delete the admin user.
+				</b>"""
+			), 200)
 
 	i = path.rfind('.')
 	if i > -1:

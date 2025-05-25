@@ -1,6 +1,7 @@
 """application.db.users"""
 
 from datetime import datetime
+from typing import Any
 from zipfile import ZipFile
 
 import bcrypt
@@ -467,7 +468,7 @@ def authenticate(username: str, password: str) -> str:
 def group_filter(
 	filter: BlobSearchFilter | InventorySearchFilter,
 	user_data: dict
-) -> BlobSearchFilter | InventorySearchFilter:
+) -> Any:
 	"""
 	Applies group filtering to the specified filter based on the user's groups.
 

@@ -15,7 +15,7 @@ from . import query
 
 @query.field('getUserFeeds')
 @perms.module('feed')
-def resolve_get_user_feeds(_, info: GraphQLResolveInfo, username: str) -> list[dict]:
+def resolve_get_user_feeds(_, _info: GraphQLResolveInfo, username: str) -> list[dict]:
 	try:
 		return get_user_feeds(username)
 	except ClientError:
@@ -24,30 +24,30 @@ def resolve_get_user_feeds(_, info: GraphQLResolveInfo, username: str) -> list[d
 
 @query.field('getFeedDocuments')
 @perms.module('feed')
-def resolve_get_feed_documents(_, info: GraphQLResolveInfo, feed: str, start: int, count: int, sorting: Sorting) -> list[dict]:
+def resolve_get_feed_documents(_, _info: GraphQLResolveInfo, feed: str, start: int, count: int, sorting: Sorting) -> list[dict]:
 	return get_documents(feed, start, count, sorting)
 
 
 @query.field('countFeedDocuments')
 @perms.module('feed')
-def resolve_count_feed_documents(_, info: GraphQLResolveInfo, feed: str) -> int:
+def resolve_count_feed_documents(_, _info: GraphQLResolveInfo, feed: str) -> int:
 	return count_documents(feed)
 
 
 @query.field('getFeed')
 @perms.module('feed')
 @handle_client_exceptions
-def resolve_get_feed(_, info: GraphQLResolveInfo, id: str) -> dict:
+def resolve_get_feed(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	return {'__typename': 'Feed', **get_feed(id)}
 
 
 @query.field('getFeeds')
 @perms.module('feed')
-def resolve_get_feeds(_, info: GraphQLResolveInfo, start: int, count: int) -> list[dict]:
+def resolve_get_feeds(_, _info: GraphQLResolveInfo, start: int, count: int) -> list[dict]:
 	return get_feeds(start, count)
 
 
 @query.field('countFeeds')
 @perms.module('feed')
-def resolve_count_feeds(_, info: GraphQLResolveInfo) -> int:
+def resolve_count_feeds(_, _info: GraphQLResolveInfo) -> int:
 	return count_feeds()
