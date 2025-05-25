@@ -177,8 +177,10 @@ Functions</h2></td></tr>
 <pre class="fragment">    Extracts and returns type information from a GraphQL type.
 
     Args:
-        type: The GraphQL type to extract information from. This can be a GraphQLUnionType, GraphQLObjectType, or GraphQLArgument.
-        param_type: An optional parameter that specifies the type of the parameter. This can be used to further refine the type information.
+        type: The GraphQL type to extract information from.
+            This can be a GraphQLUnionType, GraphQLObjectType, or GraphQLArgument.
+        param_type: An optional parameter that specifies the type of the parameter.
+            This can be used to further refine the type information.
 
     Returns:
         dict: A dictionary containing the following keys:
@@ -258,7 +260,8 @@ Functions</h2></td></tr>
 <pre class="fragment">    Recursively generates a string representation of GraphQL type fields with indentation.
 
     Args:
-        fields (dict): A dictionary of GraphQL fields where keys are field names and values are field definitions.
+        fields (dict): A dictionary of GraphQL fields where keys
+            are field names and values are field definitions.
         indent (str): A string used for indentation to format the output.
 
     Returns:
@@ -307,16 +310,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">    Recursively trims a GraphQL type to its core type by removing any 
+<pre class="fragment">    Recursively trims a GraphQL type to its core type by removing any
     GraphQLNonNull or GraphQLList wrappers.
 
     Args:
-        data_type: The GraphQL type to be trimmed. It can be an instance of 
-                   GraphQLNonNull, GraphQLList, GraphQLScalarType, or 
+        data_type: The GraphQL type to be trimmed. It can be an instance of
+                   GraphQLNonNull, GraphQLList, GraphQLScalarType, or
                    GraphQLObjectType.
 
     Returns:
-        The core GraphQL type, which will be either a GraphQLScalarType or 
+        The core GraphQL type, which will be either a GraphQLScalarType or
         GraphQLObjectType.</pre> 
 </div>
 </div>
