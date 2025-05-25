@@ -202,17 +202,11 @@ var annotated_dup =
         [ "missingconfig", null, [
           [ "MissingConfig", "classapplication_1_1types_1_1missingconfig_1_1MissingConfig.html", null ]
         ] ],
-        [ "mutation", null, [
-          [ "Mutation", "classapplication_1_1types_1_1mutation_1_1Mutation.html", null ]
-        ] ],
         [ "notification", null, [
           [ "Notification", "classapplication_1_1types_1_1notification_1_1Notification.html", null ]
         ] ],
         [ "qrparseresponse", null, [
           [ "QRParseResponse", "classapplication_1_1types_1_1qrparseresponse_1_1QRParseResponse.html", null ]
-        ] ],
-        [ "query", null, [
-          [ "Query", "classapplication_1_1types_1_1query_1_1Query.html", null ]
         ] ],
         [ "repofetchfailed", null, [
           [ "RepoFetchFailed", "classapplication_1_1types_1_1repofetchfailed_1_1RepoFetchFailed.html", null ]

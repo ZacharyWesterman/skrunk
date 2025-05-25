@@ -1,8 +1,6 @@
 var NAVTREEINDEX1 =
 {
-"classapplication_1_1types_1_1weatheruserinput_1_1WeatherUserInput.html":[1,0,0,4,90,0],
-"classapplication_1_1types_1_1webpushexception_1_1WebPushException.html":[1,0,0,4,91,0],
-"classapplication_1_1types_1_1zipprogress_1_1ZipProgress.html":[1,0,0,4,92,0],
+"classapplication_1_1types_1_1zipprogress_1_1ZipProgress.html":[1,0,0,4,90,0],
 "classes.html":[1,1],
 "functions.html":[1,3,0],
 "functions_func.html":[1,3,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX1 =
 "namespaceapplication_1_1resolvers_1_1mutation_1_1bugs.html":[0,0,0,5,1,3],
 "namespaceapplication_1_1resolvers_1_1mutation_1_1datafeed.html":[0,0,0,5,1,4],
 "namespaceapplication_1_1resolvers_1_1mutation_1_1inventory.html":[0,0,0,5,1,5],
-"namespaceapplication_1_1resolvers_1_1mutation_1_1notification.html":[0,0,0,5,1,6]
+"namespaceapplication_1_1resolvers_1_1mutation_1_1notification.html":[0,0,0,5,1,6],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1sessions.html":[0,0,0,5,1,7],
+"namespaceapplication_1_1resolvers_1_1mutation_1_1settings.html":[0,0,0,5,1,8]
 };

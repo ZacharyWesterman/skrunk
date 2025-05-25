@@ -7,6 +7,6 @@ var searchData=
   ['mimetype_4',['mimetype',['../classapplication_1_1types_1_1blob_1_1Blob.html#ab1dd62322d74574e8cb88bad509d210a',1,'application::types::blob::Blob']]],
   ['missingconfig_5',['missingconfig',['../classapplication_1_1exceptions_1_1MissingConfig.html',1,'application.exceptions.MissingConfig'],['../classapplication_1_1types_1_1missingconfig_1_1MissingConfig.html',1,'application.types.missingconfig.MissingConfig']]],
   ['module_6',['module',['../namespaceapplication_1_1db_1_1perms.html#a4f86c190d4809a768d93147cf4eb76d3',1,'application::db::perms']]],
-  ['mutation_7',['mutation',['../classapplication_1_1types_1_1mutation_1_1Mutation.html',1,'application.types.mutation.Mutation'],['../namespaceapplication_1_1resolvers_1_1mutation.html#a94d8aa6da852d5fc2308ebc77d8cc84b',1,'application.resolvers.mutation.mutation']]],
+  ['mutation_7',['mutation',['../namespaceapplication_1_1resolvers_1_1mutation.html#a94d8aa6da852d5fc2308ebc77d8cc84b',1,'application::resolvers::mutation']]],
   ['mutationwrapper_8',['MutationWrapper',['../classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html',1,'application::resolvers::mutation']]]
 ];
