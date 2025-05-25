@@ -109,6 +109,71 @@ def type_text(data_type: str) -> tuple[str, list[str]]:
 	return text + ' | None', types
 
 
+def parse_file_text(name: str, filename: str, text: str) -> tuple[bool, str]:
+	"""
+	Compare the given text with the contents of a file,
+	and return whether the file needs to be updated.
+
+	Args:
+		filename (str): The path to the file to check.
+		text (str): The text to compare against the file contents.
+		file_docstring (str): The docstring to use for the file.
+
+	Returns:
+		tuple[bool, str]: A tuple where the first element is True if the file needs to be updated,
+		and the second element is the docstring to use for the file.
+	"""
+
+	file_docstring = f'"""application.types.{name}"""'
+
+	if not Path(filename).exists():
+		print(f'File {filename} does not exist, creating...')
+		return True, file_docstring + '\n\n' + text
+
+	with open(filename, 'r', encoding='utf8') as f:
+		file_text = f.read()
+
+	# Retain the module docstring if it exists
+	if file_text.startswith('"""'):
+		index = file_text.find('"""', 3)
+		if index != -1:
+			file_docstring = '"""' + file_text[3:index] + '"""'
+			file_text = file_text[index + 3:].lstrip()
+
+	return file_text != text, file_docstring + '\n\n' + text
+
+
+def create_init_py(init_py_files: list[str]) -> None:
+	"""
+	Create the __init__.py file for the types module, importing all types.
+
+	Args:
+		init_py_files (list[str]): A list of type names to import in the __init__.py file.
+	"""
+
+	init_filename = 'application/types/__init__.py'
+
+	# Retain the module docstring if it exists
+	init_py_text = ''
+	existing_text = ''
+	with open(init_filename, 'r', encoding='utf8') as fp:
+		existing_text = fp.read()
+		parts = existing_text.split('"""')
+		if len(parts) > 1:
+			init_py_text += '"""' + parts[1] + '"""\n\n'
+
+	# Sort the imports to satisfy pylint
+	for i in sorted((i for i in init_py_files if i[0] == '_'), key=lambda x: x.lower()):
+		init_py_text += f'from .{i.lower()} import {i}\n'
+	for i in sorted((i for i in init_py_files if i[0] != '_'), key=lambda x: x.lower()):
+		init_py_text += f'from .{i.lower()} import {i}\n'
+
+	if existing_text != init_py_text:
+		print(f'Writing {init_filename}...')
+		with open(init_filename, 'w', encoding='utf8') as fp:
+			fp.write(init_py_text)
+
+
 def output_types() -> None:
 	"""Build all GraphQL types into TypedDict classes for use in the application."""
 
@@ -123,60 +188,40 @@ def output_types() -> None:
 
 		unions[t['name']] = t['subtypes']
 
+	file_list = ['__init__', 'blob_storage']
+
 	# Build list of types
 	for t in types:
 		if t['union']:
 			continue
 
 		filename = f'application/types/{t["name"].lower()}.py'
-		file_docstring = '"""application.types.' + t['name'].lower() + '"""'
 
 		text = class_text(t)
 
 		init_py_files += [t['name']]
 
-		# Skip if the file already exists and is up to date
-		if Path(filename).exists():
-			with open(filename, 'r', encoding='utf8') as f:
-				file_text = f.read()
-				# Retain the module docstring if it exists
-				if file_text.startswith('"""'):
-					index = file_text.find('"""', 3)
-					if index > -1:
-						file_docstring = '"""' + file_text[:index] + '"""'
-						file_text = file_text[index + 3:].lstrip()
+		file_list.append(t['name'].lower())
 
-				if file_text == text:
-					continue
+		# Skip if the file already exists and is up to date
+		changed, new_text = parse_file_text(t['name'].lower(), filename, text)
+		if not changed:
+			continue
 
 		print(f'Writing {filename}...')
 
 		with open(filename, 'w', encoding='utf8') as f:
-			f.write(file_docstring + '\n\n' + text)
+			f.write(new_text)
 
 	# Create the __init__.py file
 	if len(init_py_files) > 0:
-		init_filename = 'application/types/__init__.py'
+		create_init_py(init_py_files)
 
-		# Retain the module docstring if it exists
-		init_py_text = ''
-		existing_text = ''
-		with open(init_filename, 'r', encoding='utf8') as fp:
-			existing_text = fp.read()
-			parts = existing_text.split('"""')
-			if len(parts) > 1:
-				init_py_text += '"""' + parts[1] + '"""\n\n'
-
-		# Sort the imports to satisfy pylint
-		for i in sorted((i for i in init_py_files if i[0] == '_'), key=lambda x: x.lower()):
-			init_py_text += f'from .{i.lower()} import {i}\n'
-		for i in sorted((i for i in init_py_files if i[0] != '_'), key=lambda x: x.lower()):
-			init_py_text += f'from .{i.lower()} import {i}\n'
-
-		if existing_text != init_py_text:
-			print(f'Writing {init_filename}...')
-			with open(init_filename, 'w', encoding='utf8') as fp:
-				fp.write(init_py_text)
+	# Delete any old files that are no longer needed
+	for file in Path('application/types').glob('*.py'):
+		if file.name[:-3] not in file_list:
+			print(f'Deleting {file.name}...')
+			file.unlink()
 
 
 def list_changed_types() -> None:
@@ -203,10 +248,11 @@ def list_changed_types() -> None:
 			continue
 
 		text = class_text(t)
-		with open(filename, 'r', encoding='utf8') as f:
-			if f.read() != text:
-				changed_types.append(t['name'])
-				continue
+
+		if not parse_file_text(t['name'].lower(), filename, text)[0]:
+			continue
+
+		changed_types.append(t['name'])
 
 	print(', '.join(sorted(changed_types)))
 

@@ -1,9 +1,9 @@
-"""application.types._theme"""
+"""application.types.theme_"""
 
 from typing import TypedDict
 
 
-class _Theme(TypedDict):
+class Theme_(TypedDict):
 	name: str
 	colors: list[str]
 	text: list[str]

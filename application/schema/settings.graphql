@@ -15,7 +15,7 @@ type Theme {
 	border: String!
 }
 
-input _Theme {
+input Theme_ {
 	name: String!
 	colors: [String!]!
 	text: [String!]!
@@ -74,6 +74,6 @@ extend type Query {
 extend type Mutation {
 	setModuleEnabled(module_id: String!, enabled: Boolean!, group: String): [String!]!
 	setConfig(name: String!, value: String): Boolean!
-	createTheme(theme: _Theme!): ThemeEditResponse!
+	createTheme(theme: Theme_!): ThemeEditResponse!
 	deleteTheme(name: String!): ThemeEditResponse!
 }

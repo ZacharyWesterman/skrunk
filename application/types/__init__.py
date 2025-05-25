@@ -1,6 +1,5 @@
 """application.types"""
 
-from ._theme import _Theme
 from .apifailederror import ApiFailedError
 from .apikey import APIKey
 from .badnotification import BadNotification
@@ -71,6 +70,7 @@ from .subsonicsearch import SubsonicSearch
 from .subsonictrack import SubsonicTrack
 from .systeminfo import SystemInfo
 from .theme import Theme
+from .theme_ import Theme_
 from .themecolor import ThemeColor
 from .themecolor_ import ThemeColor_
 from .themesize import ThemeSize
