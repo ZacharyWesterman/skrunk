@@ -28,17 +28,17 @@ except FileNotFoundError:
 db: Database = None  # type: ignore[assignment]
 
 
-def get_user_from_notif(item_id: str) -> dict:
+def get_user_from_notif(id: str) -> dict:
 	"""
 	Retrieve user information based on a notification ID.
 
 	Args:
-		item_id (str): The ID of the notification.
+		id (str): The ID of the notification.
 
 	Returns:
 		dict: A dictionary containing user information if found, otherwise an empty dictionary.
 	"""
-	notif = db.notif_log.find_one({'_id': ObjectId(item_id)})
+	notif = db.notif_log.find_one({'_id': ObjectId(id)})
 	if notif is None:
 		return {}
 
