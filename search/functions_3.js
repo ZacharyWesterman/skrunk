@@ -14,7 +14,7 @@ var searchData=
   ['count_5ffeeds_11',['count_feeds',['../namespaceapplication_1_1db_1_1datafeed.html#ac35632132b577a09440e370296275c19',1,'application::db::datafeed']]],
   ['count_5finventory_12',['count_inventory',['../namespaceapplication_1_1db_1_1inventory.html#a87aa10a0d0d191552feee131aa9c5724',1,'application::db::inventory']]],
   ['count_5fnotifications_13',['count_notifications',['../namespaceapplication_1_1db_1_1notification.html#a78a5ae1eed5410c62c0b7c9fa65f03eb',1,'application::db::notification']]],
-  ['count_5ftag_5fuses_14',['count_tag_uses',['../namespaceapplication_1_1db_1_1blob.html#ae09ca50bd6a37c6728dcac90f85ac09c',1,'application::db::blob']]],
+  ['count_5ftag_5fuses_14',['count_tag_uses',['../namespaceapplication_1_1db_1_1blob.html#a08b2c8ca09672227cbebb9ce9c8cc222',1,'application::db::blob']]],
   ['count_5fusers_15',['count_users',['../namespaceapplication_1_1db_1_1users.html#a4d7166ec35f07441f98c92448720598d',1,'application::db::users']]],
   ['count_5fvalid_5fsessions_16',['count_valid_sessions',['../namespaceapplication_1_1db_1_1sessions.html#a1d93d8aa985020ca8eae1fcd2df3a7c7',1,'application::db::sessions']]],
   ['create_5fblob_17',['create_blob',['../namespaceapplication_1_1db_1_1blob.html#ac0eaa402d62f9e1fa1c4501df3fdbe1c',1,'application::db::blob']]],

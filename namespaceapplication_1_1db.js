@@ -12,7 +12,7 @@ var namespaceapplication_1_1db =
       [ "build_blob_query", "namespaceapplication_1_1db_1_1blob.html#ac25b4780c5fa0d167968fee1f9d841c3", null ],
       [ "cancel_zip", "namespaceapplication_1_1db_1_1blob.html#a1eacb6e11a664d8bc282b3349a510c17", null ],
       [ "count_blobs", "namespaceapplication_1_1db_1_1blob.html#a14efc7754ba1510e36881ab63c475598", null ],
-      [ "count_tag_uses", "namespaceapplication_1_1db_1_1blob.html#ae09ca50bd6a37c6728dcac90f85ac09c", null ],
+      [ "count_tag_uses", "namespaceapplication_1_1db_1_1blob.html#a08b2c8ca09672227cbebb9ce9c8cc222", null ],
       [ "create_blob", "namespaceapplication_1_1db_1_1blob.html#ac0eaa402d62f9e1fa1c4501df3fdbe1c", null ],
       [ "create_blob_previews", "namespaceapplication_1_1db_1_1blob.html#af883f4678460dbe77e86cd2e65a2afd5", null ],
       [ "create_preview_model", "namespaceapplication_1_1db_1_1blob.html#aab2fae7659c9850120ccea1394a0349b", null ],

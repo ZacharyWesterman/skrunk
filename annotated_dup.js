@@ -38,12 +38,6 @@ var annotated_dup =
           [ "Repository", "classapplication_1_1integrations_1_1github_1_1Repository.html", "classapplication_1_1integrations_1_1github_1_1Repository" ]
         ] ]
       ] ],
-      [ "objects", "namespaceapplication_1_1objects.html", [
-        [ "BlobSearchFilter", "classapplication_1_1objects_1_1BlobSearchFilter.html", null ],
-        [ "BookSearchFilter", "classapplication_1_1objects_1_1BookSearchFilter.html", null ],
-        [ "InventorySearchFilter", "classapplication_1_1objects_1_1InventorySearchFilter.html", null ],
-        [ "Sorting", "classapplication_1_1objects_1_1Sorting.html", null ]
-      ] ],
       [ "resolvers", "namespaceapplication_1_1resolvers.html", [
         [ "mutation", "namespaceapplication_1_1resolvers_1_1mutation.html", [
           [ "MutationWrapper", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper" ]

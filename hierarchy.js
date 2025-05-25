@@ -43,10 +43,6 @@ var hierarchy =
       [ "application.resolvers.mutation.MutationWrapper", "classapplication_1_1resolvers_1_1mutation_1_1MutationWrapper.html", null ]
     ] ],
     [ "TypedDict", null, [
-      [ "application.objects.BlobSearchFilter", "classapplication_1_1objects_1_1BlobSearchFilter.html", null ],
-      [ "application.objects.BookSearchFilter", "classapplication_1_1objects_1_1BookSearchFilter.html", null ],
-      [ "application.objects.InventorySearchFilter", "classapplication_1_1objects_1_1InventorySearchFilter.html", null ],
-      [ "application.objects.Sorting", "classapplication_1_1objects_1_1Sorting.html", null ],
       [ "application.types.apifailederror.ApiFailedError", "classapplication_1_1types_1_1apifailederror_1_1ApiFailedError.html", null ],
       [ "application.types.apikey.APIKey", "classapplication_1_1types_1_1apikey_1_1APIKey.html", null ],
       [ "application.types.badnotification.BadNotification", "classapplication_1_1types_1_1badnotification_1_1BadNotification.html", null ],

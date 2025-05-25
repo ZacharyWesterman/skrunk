@@ -5,7 +5,7 @@ var searchData=
   ['schemaquery_2',['SchemaQuery',['../classapplication_1_1types_1_1schemaquery_1_1SchemaQuery.html',1,'application::types::schemaquery']]],
   ['schemareturntype_3',['SchemaReturnType',['../classapplication_1_1types_1_1schemareturntype_1_1SchemaReturnType.html',1,'application::types::schemareturntype']]],
   ['schematype_4',['SchemaType',['../classapplication_1_1types_1_1schematype_1_1SchemaType.html',1,'application::types::schematype']]],
-  ['sorting_5',['sorting',['../classapplication_1_1objects_1_1Sorting.html',1,'application.objects.Sorting'],['../classapplication_1_1types_1_1sorting_1_1Sorting.html',1,'application.types.sorting.Sorting']]],
+  ['sorting_5',['Sorting',['../classapplication_1_1types_1_1sorting_1_1Sorting.html',1,'application::types::sorting']]],
   ['sorting_5f_6',['Sorting_',['../classapplication_1_1types_1_1sorting___1_1Sorting__.html',1,'application::types::sorting_']]],
   ['subscription_7',['Subscription',['../classapplication_1_1types_1_1subscription_1_1Subscription.html',1,'application::types::subscription']]],
   ['subscriptionkeys_8',['SubscriptionKeys',['../classapplication_1_1types_1_1subscriptionkeys_1_1SubscriptionKeys.html',1,'application::types::subscriptionkeys']]],

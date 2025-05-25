@@ -1,7 +1,7 @@
 var searchData=
 [
   ['generate_0',['generate',['../namespaceapplication_1_1integrations_1_1qrcode.html#a0fe6def7d31bdb6b0f6902a19e41e6dd',1,'application::integrations::qrcode']]],
-  ['genre_1',['genre',['../classapplication_1_1types_1_1booksearchfilter_1_1BookSearchFilter.html#a5995b85b361a7bb623a3426f4037fd9b',1,'application.types.booksearchfilter.BookSearchFilter.genre'],['../classapplication_1_1types_1_1subsonicalbum_1_1SubsonicAlbum.html#afe0d9f6482b5dcdff01526ae800bfe58',1,'application.types.subsonicalbum.SubsonicAlbum.genre'],['../classapplication_1_1objects_1_1BookSearchFilter.html#a854f9e0d25b6e5b0517d5ea54bef6fb2',1,'application.objects.BookSearchFilter.genre']]],
+  ['genre_1',['genre',['../classapplication_1_1types_1_1subsonicalbum_1_1SubsonicAlbum.html#afe0d9f6482b5dcdff01526ae800bfe58',1,'application.types.subsonicalbum.SubsonicAlbum.genre'],['../classapplication_1_1types_1_1booksearchfilter_1_1BookSearchFilter.html#a5995b85b361a7bb623a3426f4037fd9b',1,'application.types.booksearchfilter.BookSearchFilter.genre']]],
   ['get_2',['get',['../namespaceapplication_1_1integrations_1_1google__books.html#ad9b30ac64f6dee52179ca00ad99d3d67',1,'application::integrations::google_books']]],
   ['get_5fadmins_3',['get_admins',['../namespaceapplication_1_1db_1_1users.html#a488c8ea2e7dd94c4f795b394de419808',1,'application::db::users']]],
   ['get_5falert_5fhistory_4',['get_alert_history',['../namespaceapplication_1_1db_1_1weather.html#ab4eff6a062feb85d1f36bc0b49bed396',1,'application::db::weather']]],

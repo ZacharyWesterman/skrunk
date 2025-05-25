@@ -1,7 +1,0 @@
-<map id="application.objects.BlobSearchFilter" name="application.objects.BlobSearchFilter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="13,108,191,148"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,92,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,42,95,107,90,109,58,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="116,5,197,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,44,114,109,109,106,142,42"/>
-</map>

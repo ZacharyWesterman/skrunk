@@ -9,7 +9,7 @@ var searchData=
   ['invalidphone_6',['InvalidPhone',['../classapplication_1_1exceptions_1_1InvalidPhone.html',1,'application::exceptions']]],
   ['invalidsize_7',['InvalidSize',['../classapplication_1_1exceptions_1_1InvalidSize.html',1,'application::exceptions']]],
   ['invalidsubscriptiontoken_8',['invalidsubscriptiontoken',['../classapplication_1_1exceptions_1_1InvalidSubscriptionToken.html',1,'application.exceptions.InvalidSubscriptionToken'],['../classapplication_1_1types_1_1invalidsubscriptiontoken_1_1InvalidSubscriptionToken.html',1,'application.types.invalidsubscriptiontoken.InvalidSubscriptionToken']]],
-  ['inventorysearchfilter_9',['inventorysearchfilter',['../classapplication_1_1objects_1_1InventorySearchFilter.html',1,'application.objects.InventorySearchFilter'],['../classapplication_1_1types_1_1inventorysearchfilter_1_1InventorySearchFilter.html',1,'application.types.inventorysearchfilter.InventorySearchFilter']]],
+  ['inventorysearchfilter_9',['InventorySearchFilter',['../classapplication_1_1types_1_1inventorysearchfilter_1_1InventorySearchFilter.html',1,'application::types::inventorysearchfilter']]],
   ['issuelabel_10',['IssueLabel',['../classapplication_1_1types_1_1issuelabel_1_1IssueLabel.html',1,'application::types::issuelabel']]],
   ['issuelist_11',['IssueList',['../classapplication_1_1types_1_1issuelist_1_1IssueList.html',1,'application::types::issuelist']]],
   ['item_12',['Item',['../classapplication_1_1types_1_1item_1_1Item.html',1,'application::types::item']]],
