@@ -9,8 +9,7 @@ from application.db.users import userids_in_groups
 from application.exceptions import BookTagDoesNotExistError
 from application.integrations import google_books
 from application.integrations.exceptions import ApiFailedError
-from application.types.booksearchfilter import BookSearchFilter
-from application.types.sorting import Sorting
+from application.types import BookSearchFilter, Sorting
 
 from ..decorators import handle_client_exceptions
 from . import query
@@ -37,7 +36,7 @@ def resolve_get_book_by_tag(_, _info: GraphQLResolveInfo, rfid: str) -> dict:
 @perms.module('books')
 def resolve_get_books(_, _info: GraphQLResolveInfo, filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	if filter.get('owner') is None:
-		user_data = perms.caller_info()
+		user_data = perms.caller_info_strict()
 		groups = user_data.get('groups', [])
 		if len(groups):
 			filter['owner'] = userids_in_groups(groups)
