@@ -13,7 +13,7 @@ var NAVTREEINDEX2 =
 "namespaceapplication_1_1resolvers_1_1query_1_1integrations.html":[0,0,0,5,2,5],
 "namespaceapplication_1_1resolvers_1_1query_1_1inventory.html":[0,0,0,5,2,6],
 "namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html":[0,0,0,5,2,7],
-"namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html#adf19300a1ce020ecf3b27dd2b02b8e25":[0,0,0,5,2,7,0],
+"namespaceapplication_1_1resolvers_1_1query_1_1last__mutation.html#ae2837971d0893e61964ec02da99afd46":[0,0,0,5,2,7,0],
 "namespaceapplication_1_1resolvers_1_1query_1_1notification.html":[0,0,0,5,2,8],
 "namespaceapplication_1_1resolvers_1_1query_1_1sessions.html":[0,0,0,5,2,9],
 "namespaceapplication_1_1resolvers_1_1query_1_1settings.html":[0,0,0,5,2,10],

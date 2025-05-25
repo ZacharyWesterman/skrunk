@@ -173,7 +173,7 @@ var namespaceapplication_1_1db =
       [ "get_user_by_id", "namespaceapplication_1_1db_1_1users.html#a8ca3f23e813905aff4b668a2cd43932b", null ],
       [ "get_user_data", "namespaceapplication_1_1db_1_1users.html#aa6baf519702f5b73269f08d592653b47", null ],
       [ "get_user_list", "namespaceapplication_1_1db_1_1users.html#af93d1794f1ec9784f34cbd0df0f66e20", null ],
-      [ "group_filter", "namespaceapplication_1_1db_1_1users.html#abde933a5c387d4b36128c2f560a909d7", null ],
+      [ "group_filter", "namespaceapplication_1_1db_1_1users.html#aefa7cf8b87f4dd8442b1f3da7b6bf40c", null ],
       [ "update_user_display_name", "namespaceapplication_1_1db_1_1users.html#a8c8e873fc12f64d65ee8c0b5f4eac553", null ],
       [ "update_user_email", "namespaceapplication_1_1db_1_1users.html#a0f7d9140fedb204418cacf42417f49dd", null ],
       [ "update_user_groups", "namespaceapplication_1_1db_1_1users.html#a35b2e081eb224a848e4049a9e8c31b26", null ],
