@@ -128,6 +128,8 @@ Functions</h2></td></tr>
 <tr class="separator:ac88ee8e05f116258c09342f65bfe7b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78a5ae1eed5410c62c0b7c9fa65f03eb" id="r_a78a5ae1eed5410c62c0b7c9fa65f03eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1notification.html#a78a5ae1eed5410c62c0b7c9fa65f03eb">count_notifications</a> (str username, bool read)</td></tr>
 <tr class="separator:a78a5ae1eed5410c62c0b7c9fa65f03eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae212a29b6104f250a6e4ed8f4874a125" id="r_ae212a29b6104f250a6e4ed8f4874a125"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1notification.html#ae212a29b6104f250a6e4ed8f4874a125">try_send_webpush</a> (str username, dict subscription_token, dict message, str admin_email, str endpoint)</td></tr>
+<tr class="separator:ae212a29b6104f250a6e4ed8f4874a125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3461f8b0e76893fdb33dbcc78fe7654d" id="r_a3461f8b0e76893fdb33dbcc78fe7654d"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1notification.html#a3461f8b0e76893fdb33dbcc78fe7654d">send</a> (str title, str body, str username, *str category='general', bool read=False)</td></tr>
 <tr class="separator:a3461f8b0e76893fdb33dbcc78fe7654d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -520,6 +522,63 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</td
 
     Raises:
         exceptions.MissingConfig: If the admin email configuration is missing.</pre> 
+</div>
+</div>
+<a id="ae212a29b6104f250a6e4ed8f4874a125" name="ae212a29b6104f250a6e4ed8f4874a125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae212a29b6104f250a6e4ed8f4874a125">&#9670;&#160;</a></span>try_send_webpush()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool application.db.notification.try_send_webpush </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">dict&#160;</td>
+          <td class="paramname"><em>subscription_token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">dict&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>admin_email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str
+&#160;</td>
+          <td class="paramname"><em>endpoint</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Attempts to send a web push notification to a user and handles exceptions.
+
+    Args:
+        username (str): The username of the notification recipient.
+        subscription_token (dict): The web push subscription information for the user.
+        message (dict): The notification message payload to send.
+        admin_email (str): The administrator's email address for VAPID claims.
+        endpoint (str): The endpoint URL for the push service.
+
+    Returns:
+        bool: True if the notification was sent successfully, False otherwise.</pre> 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>

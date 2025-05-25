@@ -13,5 +13,6 @@ var searchData=
   ['token_5fis_5fvalid_10',['token_is_valid',['../namespaceapplication_1_1tokens.html#a2611454e09d76d694ca355bd8ad49135',1,'application::tokens']]],
   ['top_5flevel_5fdb_11',['top_level_db',['../namespaceapplication_1_1db_1_1users.html#a50a20e34df059c3212a21dc9cbac778a',1,'application::db::users']]],
   ['trim_5ftype_12',['trim_type',['../namespaceapplication_1_1integrations_1_1graphql.html#a30b6c4a7dc9233163b7f4e7a39bdf41f',1,'application::integrations::graphql']]],
-  ['type_13',['type',['../classapplication_1_1objects_1_1InventorySearchFilter.html#a20a855b6ee471dbdd4e80c51d137e312',1,'application::objects::InventorySearchFilter']]]
+  ['try_5fsend_5fwebpush_13',['try_send_webpush',['../namespaceapplication_1_1db_1_1notification.html#ae212a29b6104f250a6e4ed8f4874a125',1,'application::db::notification']]],
+  ['type_14',['type',['../classapplication_1_1objects_1_1InventorySearchFilter.html#a20a855b6ee471dbdd4e80c51d137e312',1,'application::objects::InventorySearchFilter']]]
 ];

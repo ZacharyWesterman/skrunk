@@ -310,10 +310,12 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">    Retrieve a list of enabled modules, optionally filtering out those disabled for a specific user or group.
+<pre class="fragment">    Retrieve a list of enabled modules, optionally
+    filtering out those disabled for a specific user or group.
 
     Args:
-        user_data (dict | None, optional): A dictionary containing user-specific data, including disabled modules and groups. Defaults to None.
+        user_data (dict | None, optional): A dictionary containing user-specific data,
+            including disabled modules and groups. Defaults to None.
         group (str | None, optional): A specific group to consider for disabled modules. Defaults to None.
 
     Returns:
@@ -355,7 +357,8 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">    Retrieve a list of modules available to a user, excluding any disabled modules based on the user's groups.
+<pre class="fragment">    Retrieve a list of modules available to a user,
+    excluding any disabled modules based on the user's groups.
 
     Args:
         user_data (dict): A dictionary containing user information, including their groups.
@@ -396,7 +399,8 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
 
     Args:
         name (str): The name of the configuration setting.
-        value (str | None): The value to set for the configuration setting. If None, the setting is deleted.
+        value (str | None): The value to set for the configuration setting.
+            If None, the setting is deleted.
 
     Returns:
         None</pre> 
@@ -441,7 +445,8 @@ Collection&#160;</td><td class="memItemRight" valign="bottom"><b>db</b> = None</
     Args:
         module_id (str): The ID of the module to be enabled or disabled.
         enabled (bool): True to enable the module, False to disable it.
-        group (str | None): The group within which to update the module's state. If None, the global state is updated.
+        group (str | None): The group within which to update the module's state.
+            If None, the global state is updated.
 
     Returns:
         None</pre> 

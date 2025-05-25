@@ -12,5 +12,6 @@ var searchData=
   ['delete_5ftheme_9',['delete_theme',['../namespaceapplication_1_1db_1_1settings.html#a77467a601dcc9edb62d2bda01977e934',1,'application::db::settings']]],
   ['delete_5fuser_10',['delete_user',['../namespaceapplication_1_1db_1_1users.html#a3ae238309073813c89cc58dbf1cf5db0',1,'application.db.users.delete_user()'],['../namespaceapplication_1_1db_1_1weather.html#a6d3bb4c7c5ba0eb2a32f3c7d13b10ce2',1,'application.db.weather.delete_user()']]],
   ['disk_5fusage_11',['disk_usage',['../namespaceapplication_1_1integrations_1_1system.html#a01178ba63ef43705457cbfec0e1baa77',1,'application::integrations::system']]],
-  ['downscale_12',['downscale',['../namespaceapplication_1_1integrations_1_1images.html#a09b5a42ef2e3ecc65e1eb57ce76c5b29',1,'application::integrations::images']]]
+  ['downscale_12',['downscale',['../namespaceapplication_1_1integrations_1_1images.html#a09b5a42ef2e3ecc65e1eb57ce76c5b29',1,'application::integrations::images']]],
+  ['dump_5fcollection_13',['dump_collection',['../namespaceapplication_1_1db_1_1users.html#a89c777b7f28c665a337021f6b7e1ea77',1,'application::db::users']]]
 ];

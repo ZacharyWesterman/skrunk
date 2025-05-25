@@ -142,6 +142,8 @@ Functions</h2></td></tr>
 <tr class="separator:a00abbb5e26d1c56b6eda50fb31582342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abde933a5c387d4b36128c2f560a909d7" id="r_abde933a5c387d4b36128c2f560a909d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classapplication_1_1objects_1_1BlobSearchFilter.html">BlobSearchFilter</a>|<a class="el" href="classapplication_1_1objects_1_1InventorySearchFilter.html">InventorySearchFilter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1users.html#abde933a5c387d4b36128c2f560a909d7">group_filter</a> (<a class="el" href="classapplication_1_1objects_1_1BlobSearchFilter.html">BlobSearchFilter</a>|<a class="el" href="classapplication_1_1objects_1_1InventorySearchFilter.html">InventorySearchFilter</a> filter, dict user_data)</td></tr>
 <tr class="separator:abde933a5c387d4b36128c2f560a909d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89c777b7f28c665a337021f6b7e1ea77" id="r_a89c777b7f28c665a337021f6b7e1ea77"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1users.html#a89c777b7f28c665a337021f6b7e1ea77">dump_collection</a> (str collection, list queries, ZipFile fp)</td></tr>
+<tr class="separator:a89c777b7f28c665a337021f6b7e1ea77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69c78bc8fe10f100efb99c650a86fbf3" id="r_a69c78bc8fe10f100efb99c650a86fbf3"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceapplication_1_1db_1_1users.html#a69c78bc8fe10f100efb99c650a86fbf3">export_user_data</a> (str username)</td></tr>
 <tr class="separator:a69c78bc8fe10f100efb99c650a86fbf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -300,6 +302,47 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><b>top_level_db</b> 
 
     Raises:
         UserDoesNotExistError: If the user is not found.</pre> 
+</div>
+</div>
+<a id="a89c777b7f28c665a337021f6b7e1ea77" name="a89c777b7f28c665a337021f6b7e1ea77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89c777b7f28c665a337021f6b7e1ea77">&#9670;&#160;</a></span>dump_collection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None application.db.users.dump_collection </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>collection</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list&#160;</td>
+          <td class="paramname"><em>queries</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ZipFile&#160;</td>
+          <td class="paramname"><em>fp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">    Exports documents from a specified MongoDB collection based on provided queries
+    and writes them to a ZipFile as JSON.
+    Any sensitive information, such as passwords, is excluded from the export.
+
+    Args:
+        collection (str): The name of the MongoDB collection to export.
+        queries (list): A list of query dictionaries to filter documents for export.
+        fp (ZipFile): An open ZipFile object to which the exported JSON will be written.</pre> 
 </div>
 </div>
 <a id="a69c78bc8fe10f100efb99c650a86fbf3" name="a69c78bc8fe10f100efb99c650a86fbf3"></a>

@@ -17,7 +17,7 @@ var searchData=
   ['count_5fbug_5freports_14',['count_bug_reports',['../namespaceapplication_1_1db_1_1bugs.html#ab226589e341a21e9755d7ab1356b3e6b',1,'application::db::bugs']]],
   ['count_5fdocuments_15',['count_documents',['../namespaceapplication_1_1db_1_1datafeed.html#a395de93571f055e4e938927293ab2552',1,'application::db::datafeed']]],
   ['count_5ffeeds_16',['count_feeds',['../namespaceapplication_1_1db_1_1datafeed.html#ac35632132b577a09440e370296275c19',1,'application::db::datafeed']]],
-  ['count_5finventory_17',['count_inventory',['../namespaceapplication_1_1db_1_1inventory.html#a2acaf7bd39c8acabdef74abac37e03ca',1,'application::db::inventory']]],
+  ['count_5finventory_17',['count_inventory',['../namespaceapplication_1_1db_1_1inventory.html#a87aa10a0d0d191552feee131aa9c5724',1,'application::db::inventory']]],
   ['count_5fnotifications_18',['count_notifications',['../namespaceapplication_1_1db_1_1notification.html#a78a5ae1eed5410c62c0b7c9fa65f03eb',1,'application::db::notification']]],
   ['count_5ftag_5fuses_19',['count_tag_uses',['../namespaceapplication_1_1db_1_1blob.html#ae09ca50bd6a37c6728dcac90f85ac09c',1,'application::db::blob']]],
   ['count_5fusers_20',['count_users',['../namespaceapplication_1_1db_1_1users.html#a4d7166ec35f07441f98c92448720598d',1,'application::db::users']]],

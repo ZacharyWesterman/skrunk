@@ -42,7 +42,7 @@ var namespaceapplication_1_1db =
     [ "book", "namespaceapplication_1_1db_1_1book.html", [
       [ "append_ebook", "namespaceapplication_1_1db_1_1book.html#a70365d6cffaabc930a6a0f7fc28906e3", null ],
       [ "borrow_book", "namespaceapplication_1_1db_1_1book.html#a3657df852f8b3559cc02459939e78230", null ],
-      [ "build_book_query", "namespaceapplication_1_1db_1_1book.html#a4b699c08b5dd2ca5dc86c48d8c573a58", null ],
+      [ "build_book_query", "namespaceapplication_1_1db_1_1book.html#ae249bbb146ab74db10dc5188026edc99", null ],
       [ "build_keywords", "namespaceapplication_1_1db_1_1book.html#ad82854c605e43eb4b48ea65e4f187f76", null ],
       [ "count_all_user_books", "namespaceapplication_1_1db_1_1book.html#a1fb8b17fd66d8b20133a0924270486f3", null ],
       [ "count_books", "namespaceapplication_1_1db_1_1book.html#a94ebabf88a859e64bdc8beae9f0c215f", null ],
@@ -100,11 +100,11 @@ var namespaceapplication_1_1db =
       [ "db", "namespaceapplication_1_1db_1_1datafeed.html#a56b60968db42e10531c3e0f64bba3d9d", null ]
     ] ],
     [ "inventory", "namespaceapplication_1_1db_1_1inventory.html", [
-      [ "build_inventory_query", "namespaceapplication_1_1db_1_1inventory.html#afa78707cdab5f4bb8d60a3eb8b5d89d0", null ],
-      [ "count_inventory", "namespaceapplication_1_1db_1_1inventory.html#a2acaf7bd39c8acabdef74abac37e03ca", null ],
+      [ "build_inventory_query", "namespaceapplication_1_1db_1_1inventory.html#a71bf6b5f55085df624fdda8b51f7d358", null ],
+      [ "count_inventory", "namespaceapplication_1_1db_1_1inventory.html#a87aa10a0d0d191552feee131aa9c5724", null ],
       [ "create_inventory_item", "namespaceapplication_1_1db_1_1inventory.html#a0c2978dc0a525b330d55dc4fdcedaa97", null ],
       [ "delete_inventory_item", "namespaceapplication_1_1db_1_1inventory.html#a6e31e140ee4e2b3e8ba455d356740a69", null ],
-      [ "get_inventory", "namespaceapplication_1_1db_1_1inventory.html#aed402b8e66ba831885ab9348d7cf0d45", null ],
+      [ "get_inventory", "namespaceapplication_1_1db_1_1inventory.html#a101d3268e2c432e8e06b07077f88d26c", null ],
       [ "get_inventory_item", "namespaceapplication_1_1db_1_1inventory.html#a06880e8999111bc9a1c30e7ad959677c", null ],
       [ "get_item_categories", "namespaceapplication_1_1db_1_1inventory.html#a11f09a155721899bffa7501ecd882837", null ],
       [ "get_item_locations", "namespaceapplication_1_1db_1_1inventory.html#a84795875223656d723b958cc0ccb8bbd", null ],
@@ -124,6 +124,7 @@ var namespaceapplication_1_1db =
       [ "mark_all_as_read", "namespaceapplication_1_1db_1_1notification.html#a01b23d6feb208341b0f643da244d9f76", null ],
       [ "mark_as_read", "namespaceapplication_1_1db_1_1notification.html#a2def0cfb7fe22c28f8094ecd00c71959", null ],
       [ "send", "namespaceapplication_1_1db_1_1notification.html#a3461f8b0e76893fdb33dbcc78fe7654d", null ],
+      [ "try_send_webpush", "namespaceapplication_1_1db_1_1notification.html#ae212a29b6104f250a6e4ed8f4874a125", null ],
       [ "db", "namespaceapplication_1_1db_1_1notification.html#a3f06f9ffeb385f82153fb20e6175b740", null ],
       [ "encoding", "namespaceapplication_1_1db_1_1notification.html#abeff543fa84d170a715e29bcff2535f5", null ]
     ] ],
@@ -165,6 +166,7 @@ var namespaceapplication_1_1db =
       [ "count_users", "namespaceapplication_1_1db_1_1users.html#a4d7166ec35f07441f98c92448720598d", null ],
       [ "create_user", "namespaceapplication_1_1db_1_1users.html#aabcbe26bc7f7c99e8e626836691a6725", null ],
       [ "delete_user", "namespaceapplication_1_1db_1_1users.html#a3ae238309073813c89cc58dbf1cf5db0", null ],
+      [ "dump_collection", "namespaceapplication_1_1db_1_1users.html#a89c777b7f28c665a337021f6b7e1ea77", null ],
       [ "export_user_data", "namespaceapplication_1_1db_1_1users.html#a69c78bc8fe10f100efb99c650a86fbf3", null ],
       [ "get_admins", "namespaceapplication_1_1db_1_1users.html#a488c8ea2e7dd94c4f795b394de419808", null ],
       [ "get_user_by_id", "namespaceapplication_1_1db_1_1users.html#a8ca3f23e813905aff4b668a2cd43932b", null ],
