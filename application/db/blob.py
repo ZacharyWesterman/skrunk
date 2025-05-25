@@ -355,7 +355,7 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 	tag_expr = filter.get('tag_expr')
 	if tag_expr is not None:
-		tag_q = tag_parser.parse(tag_expr).output()
+		tag_q = tag_parser.compile_query(tag_expr, 'tags')
 		if tag_q:
 			query += [tag_q]
 
