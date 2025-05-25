@@ -16,8 +16,7 @@ application: Any = None
 CHUNK_SIZE = 1024 * 1024 * 100  # 100 MiB
 
 
-def get_chunk(full_path: str, byte1: int, byte2: int | None, max_chunk_size: int) -> tuple:
-	file_size = os.stat(full_path).st_size
+def get_chunk(full_path: str, byte1: int, byte2: int | None, max_chunk_size: int, file_size: int) -> tuple:
 	start = 0
 
 	if byte1 < file_size:
@@ -49,8 +48,11 @@ def file_stream(full_path: str) -> Generator[bytes, None, None]:
 	byte1 = 0
 	byte2 = None
 
+	file_size = os.stat(full_path).st_size
+
 	while True:
-		chunk, _start, length, file_size = get_chunk(full_path, byte1, byte2, CHUNK_SIZE)
+		chunk_size = CHUNK_SIZE if byte1 > 0 else 1024 * 1024  # 1 MiB for the first chunk
+		chunk, _start, length, file_size = get_chunk(full_path, byte1, byte2, chunk_size, file_size)
 		if not chunk:
 			break
 
