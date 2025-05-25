@@ -207,6 +207,7 @@ def save_blob_data(
 		uploaded_blobs += [{'id': item_id, 'ext': ext}]
 
 	create_blob_previews(uploaded_blobs)
+	print(f'Finished upload of "{filename}".', flush=True)
 
 	return uploaded_blobs
 
