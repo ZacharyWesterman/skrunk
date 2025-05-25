@@ -92,7 +92,7 @@ def create_subscription(username: str, subscription_token: dict) -> None:
 		subscription_token (dict): A dictionary containing the subscription token details.
 			Expected keys are:
 				- 'endpoint' (str): The endpoint URL of the subscription.
-				- 'expirationTime' (int or None): The expiration time of the subscription.
+				- 'expirationTime' (str | None): The expiration time of the subscription.
 				- 'keys' (dict): A dictionary containing the keys for the subscription.
 					Expected keys are:
 						- 'p256dh' (str): The p256dh key.
