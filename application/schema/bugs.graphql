@@ -1,46 +1,76 @@
+"""Information about a bug report."""
 type BugReport {
+	"""The unique identifier for the bug report."""
 	id: String!
+	"""The creation date and time of the bug report."""
 	created: DateTime!
+	"""The username of the creator of the bug report."""
 	creator: String!
+	"""The raw text of the bug report."""
 	body: String!
+	"""The HTML-rendered version of the bug report body."""
 	body_html: String!
+	"""A list of comments on the bug report."""
 	convo: [BugComment!]!
+	"""The status of the bug report, indicating whether it is resolved or not."""
 	resolved: Boolean!
 }
 
+"""A comment on a bug report."""
 type BugComment {
+	"""The creation date and time of the comment."""
 	created: DateTime!
+	"""The username of the creator of the comment."""
 	creator: String!
+	"""The raw text of the comment."""
 	body: String!
+	"""The HTML-rendered version of the comment body."""
 	body_html: String!
 }
 
+"""An error indicating that a bug report does not exist."""
 type BugReportDoesNotExistError {
+	"""The error message."""
 	message: String!
 }
 
+"""An error indicating that creating a bug report failed."""
 type BugReportCreationFailedError {
+	"""The error message."""
 	message: String!
 }
 
+"""A type representing a GitHub issue."""
 type RepositoryIssue {
+	"""The title of the issue."""
 	title: String!
+	"""The state of the issue, e.g. 'open', 'closed'."""
 	state: String!
+	"""The number of the issue in the repository."""
 	number: Int!
+	"""A list of labels on the issue."""
 	labels: [IssueLabel!]!
 }
 
+"""A GitHub issue label."""
 type IssueLabel {
+	"""The name of the label."""
 	name: String!
+	"""The color of the label in hex format."""
 	color: String!
+	"""A description of the label."""
 	description: String!
 }
 
+"""A list of GitHub issues."""
 type IssueList {
+	"""A list of issues in the repository."""
 	issues: [RepositoryIssue!]!
 }
 
+"""An error indicating that fetching repository info from GitHub failed."""
 type RepoFetchFailed {
+	"""The error message."""
 	message: String!
 }
 
