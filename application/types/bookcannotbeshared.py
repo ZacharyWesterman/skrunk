@@ -1,3 +1,5 @@
+"""application.types.bookcannotbeshared"""
+
 from typing import TypedDict
 
 

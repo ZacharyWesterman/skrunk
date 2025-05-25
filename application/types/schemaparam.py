@@ -1,3 +1,5 @@
+"""application.types.schemaparam"""
+
 from typing import TypedDict
 
 

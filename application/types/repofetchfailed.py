@@ -1,3 +1,5 @@
+"""application.types.repofetchfailed"""
+
 from typing import TypedDict
 
 

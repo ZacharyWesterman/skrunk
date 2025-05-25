@@ -1,3 +1,5 @@
+"""application.types.subsonicsearch"""
+
 from typing import TypedDict
 from .subsonicalbum import SubsonicAlbum
 

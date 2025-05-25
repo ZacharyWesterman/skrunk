@@ -1,3 +1,5 @@
+"""application.types.diskusage"""
+
 from typing import TypedDict
 
 

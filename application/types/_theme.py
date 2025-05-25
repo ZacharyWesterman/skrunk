@@ -1,3 +1,5 @@
+"""application.types._theme"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.subscriptiontoken"""
+
 from typing import TypedDict
 from .subscriptiontokenkeys import SubscriptionTokenKeys
 

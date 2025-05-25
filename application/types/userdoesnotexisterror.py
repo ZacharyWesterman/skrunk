@@ -1,3 +1,5 @@
+"""application.types.userdoesnotexisterror"""
+
 from typing import TypedDict
 
 

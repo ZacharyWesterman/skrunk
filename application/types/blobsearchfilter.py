@@ -1,3 +1,5 @@
+"""application.types.blobsearchfilter"""
+
 from typing import TypedDict
 from datetime import datetime
 

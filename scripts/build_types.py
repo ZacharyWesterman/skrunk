@@ -129,6 +129,8 @@ def output_types() -> None:
 			continue
 
 		filename = f'application/types/{t["name"].lower()}.py'
+		file_docstring = '"""application.types.' + t['name'].lower() + '"""'
+
 		text = class_text(t)
 
 		init_py_files += [t['name']]
@@ -136,13 +138,21 @@ def output_types() -> None:
 		# Skip if the file already exists and is up to date
 		if Path(filename).exists():
 			with open(filename, 'r', encoding='utf8') as f:
-				if f.read() == text:
+				file_text = f.read()
+				# Retain the module docstring if it exists
+				if file_text.startswith('"""'):
+					index = file_text.find('"""', 3)
+					if index > -1:
+						file_docstring = '"""' + file_text[:index] + '"""'
+						file_text = file_text[index + 3:].lstrip()
+
+				if file_text == text:
 					continue
 
 		print(f'Writing {filename}...')
 
 		with open(filename, 'w', encoding='utf8') as f:
-			f.write(text)
+			f.write(file_docstring + '\n\n' + text)
 
 	# Create the __init__.py file
 	if len(init_py_files) > 0:
@@ -150,8 +160,10 @@ def output_types() -> None:
 
 		# Retain the module docstring if it exists
 		init_py_text = ''
+		existing_text = ''
 		with open(init_filename, 'r', encoding='utf8') as fp:
-			parts = fp.read().split('"""')
+			existing_text = fp.read()
+			parts = existing_text.split('"""')
 			if len(parts) > 1:
 				init_py_text += '"""' + parts[1] + '"""\n\n'
 
@@ -161,8 +173,10 @@ def output_types() -> None:
 		for i in sorted((i for i in init_py_files if i[0] != '_'), key=lambda x: x.lower()):
 			init_py_text += f'from .{i.lower()} import {i}\n'
 
-		with open(init_filename, 'w', encoding='utf8') as fp:
-			fp.write(init_py_text)
+		if existing_text != init_py_text:
+			print(f'Writing {init_filename}...')
+			with open(init_filename, 'w', encoding='utf8') as fp:
+				fp.write(init_py_text)
 
 
 def list_changed_types() -> None:

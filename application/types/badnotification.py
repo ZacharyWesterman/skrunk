@@ -1,3 +1,5 @@
+"""application.types.badnotification"""
+
 from typing import TypedDict
 
 

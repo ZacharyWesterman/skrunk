@@ -1,3 +1,5 @@
+"""application.types.schematype"""
+
 from typing import TypedDict
 from .schemaparam import SchemaParam
 

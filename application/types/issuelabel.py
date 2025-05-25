@@ -1,3 +1,5 @@
+"""application.types.issuelabel"""
+
 from typing import TypedDict
 
 

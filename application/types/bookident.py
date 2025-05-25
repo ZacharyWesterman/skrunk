@@ -1,3 +1,5 @@
+"""application.types.bookident"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.booksearchfilter"""
+
 from typing import TypedDict
 
 

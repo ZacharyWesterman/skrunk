@@ -1,3 +1,5 @@
+"""application.types.bugreportcreationfailederror"""
+
 from typing import TypedDict
 
 

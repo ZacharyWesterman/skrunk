@@ -1,3 +1,5 @@
+"""application.types.schemaquery"""
+
 from typing import TypedDict
 from .schemaparam import SchemaParam
 from .schemareturntype import SchemaReturnType

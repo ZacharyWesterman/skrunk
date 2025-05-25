@@ -1,3 +1,5 @@
+"""application.types.bookeditdata"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.weatheruserinput"""
+
 from typing import TypedDict
 from .weathertemp import WeatherTemp
 

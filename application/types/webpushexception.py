@@ -1,3 +1,5 @@
+"""application.types.webpushexception"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.repositoryissue"""
+
 from typing import TypedDict
 from .issuelabel import IssueLabel
 

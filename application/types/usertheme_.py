@@ -1,3 +1,5 @@
+"""application.types.usertheme_"""
+
 from typing import TypedDict
 from .themecolor_ import ThemeColor_
 from .themesize_ import ThemeSize_

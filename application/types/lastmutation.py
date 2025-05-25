@@ -1,3 +1,5 @@
+"""application.types.lastmutation"""
+
 from typing import TypedDict
 from datetime import datetime
 

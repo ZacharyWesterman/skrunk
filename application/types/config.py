@@ -1,3 +1,5 @@
+"""application.types.config"""
+
 from typing import TypedDict
 
 

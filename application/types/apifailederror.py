@@ -1,3 +1,5 @@
+"""application.types.apifailederror"""
+
 from typing import TypedDict
 
 

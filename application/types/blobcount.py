@@ -1,3 +1,5 @@
+"""application.types.blobcount"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.subsonictrack"""
+
 from typing import TypedDict
 
 

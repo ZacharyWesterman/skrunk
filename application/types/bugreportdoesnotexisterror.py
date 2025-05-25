@@ -1,3 +1,5 @@
+"""application.types.bugreportdoesnotexisterror"""
+
 from typing import TypedDict
 
 

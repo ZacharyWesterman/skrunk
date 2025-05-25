@@ -1,3 +1,5 @@
+"""application.types.subscriptionlist"""
+
 from typing import TypedDict
 from .subscription import Subscription
 

@@ -1,3 +1,5 @@
+"""application.types.schemareturntype"""
+
 from typing import TypedDict
 
 

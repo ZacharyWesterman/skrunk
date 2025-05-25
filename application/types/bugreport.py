@@ -1,3 +1,5 @@
+"""application.types.bugreport"""
+
 from typing import TypedDict
 from datetime import datetime
 from .bugcomment import BugComment

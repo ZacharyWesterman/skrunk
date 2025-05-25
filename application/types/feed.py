@@ -1,3 +1,5 @@
+"""application.types.feed"""
+
 from typing import TypedDict
 from datetime import datetime
 from .sorting_ import Sorting_

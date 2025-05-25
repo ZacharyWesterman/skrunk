@@ -1,3 +1,5 @@
+"""application.types.blobdoesnotexisterror"""
+
 from typing import TypedDict
 
 

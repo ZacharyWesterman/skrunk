@@ -1,3 +1,5 @@
+"""application.types.invalidfields"""
+
 from typing import TypedDict
 
 

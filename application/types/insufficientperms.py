@@ -1,3 +1,5 @@
+"""application.types.insufficientperms"""
+
 from typing import TypedDict
 
 

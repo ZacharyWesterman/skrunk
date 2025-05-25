@@ -1,3 +1,5 @@
+"""application.types.userdata"""
+
 from typing import TypedDict
 from .usertheme_ import UserTheme_
 from datetime import datetime

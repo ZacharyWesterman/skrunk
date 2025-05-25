@@ -1,3 +1,5 @@
+"""application.types.badtagquery"""
+
 from typing import TypedDict
 
 

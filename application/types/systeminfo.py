@@ -1,3 +1,5 @@
+"""application.types.systeminfo"""
+
 from typing import TypedDict
 from .diskusage import DiskUsage
 

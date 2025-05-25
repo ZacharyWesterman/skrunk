@@ -1,3 +1,5 @@
+"""application.types.insufficientdiskspace"""
+
 from typing import TypedDict
 
 

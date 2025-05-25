@@ -1,3 +1,5 @@
+"""application.types.bloblist"""
+
 from typing import TypedDict
 from .blob import Blob
 

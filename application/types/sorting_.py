@@ -1,3 +1,5 @@
+"""application.types.sorting_"""
+
 from typing import TypedDict
 
 

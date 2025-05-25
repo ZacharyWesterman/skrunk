@@ -1,3 +1,5 @@
+"""application.types.zipprogress"""
+
 from typing import TypedDict
 
 

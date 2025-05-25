@@ -1,3 +1,5 @@
+"""application.types.configlist"""
+
 from typing import TypedDict
 from .config import Config
 

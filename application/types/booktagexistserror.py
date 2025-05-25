@@ -1,3 +1,5 @@
+"""application.types.booktagexistserror"""
+
 from typing import TypedDict
 
 

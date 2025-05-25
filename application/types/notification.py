@@ -1,3 +1,5 @@
+"""application.types.notification"""
+
 from typing import TypedDict
 from datetime import datetime
 

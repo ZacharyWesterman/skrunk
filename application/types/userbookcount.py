@@ -1,3 +1,5 @@
+"""application.types.userbookcount"""
+
 from typing import TypedDict
 from .usermindata import UserMinData
 

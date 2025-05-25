@@ -1,3 +1,5 @@
+"""application.types.item"""
+
 from typing import TypedDict
 from datetime import datetime
 from .usermindata import UserMinData

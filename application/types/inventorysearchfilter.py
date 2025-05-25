@@ -1,3 +1,5 @@
+"""application.types.inventorysearchfilter"""
+
 from typing import TypedDict
 
 

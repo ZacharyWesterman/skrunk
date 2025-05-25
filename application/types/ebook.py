@@ -1,3 +1,5 @@
+"""application.types.ebook"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.weathertemp_"""
+
 from typing import TypedDict
 
 

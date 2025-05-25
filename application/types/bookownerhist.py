@@ -1,3 +1,5 @@
+"""application.types.bookownerhist"""
+
 from typing import TypedDict
 from datetime import datetime
 

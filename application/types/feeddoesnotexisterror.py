@@ -1,3 +1,5 @@
+"""application.types.feeddoesnotexisterror"""
+
 from typing import TypedDict
 
 

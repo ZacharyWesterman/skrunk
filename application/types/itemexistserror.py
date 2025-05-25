@@ -1,3 +1,5 @@
+"""application.types.itemexistserror"""
+
 from typing import TypedDict
 
 

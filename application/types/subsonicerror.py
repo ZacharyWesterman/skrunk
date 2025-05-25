@@ -1,3 +1,5 @@
+"""application.types.subsonicerror"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.invalidfeedkinderror"""
+
 from typing import TypedDict
 
 

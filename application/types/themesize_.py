@@ -1,3 +1,5 @@
+"""application.types.themesize_"""
+
 from typing import TypedDict
 
 

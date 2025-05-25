@@ -1,3 +1,5 @@
+"""application.types.invalidsubscriptiontoken"""
+
 from typing import TypedDict
 
 

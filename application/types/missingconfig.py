@@ -1,3 +1,5 @@
+"""application.types.missingconfig"""
+
 from typing import TypedDict
 
 

@@ -1,3 +1,5 @@
+"""application.types.qrparseresponse"""
+
 from typing import TypedDict
 
 

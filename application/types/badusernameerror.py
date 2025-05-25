@@ -1,3 +1,5 @@
+"""application.types.badusernameerror"""
+
 from typing import TypedDict
 
 

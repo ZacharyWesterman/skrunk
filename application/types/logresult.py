@@ -1,3 +1,5 @@
+"""application.types.logresult"""
+
 from typing import TypedDict
 
 

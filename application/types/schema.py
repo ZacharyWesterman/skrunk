@@ -1,3 +1,5 @@
+"""application.types.schema"""
+
 from typing import TypedDict
 from .schemaquery import SchemaQuery
 from .schematype import SchemaType

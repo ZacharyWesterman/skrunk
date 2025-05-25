@@ -1,3 +1,5 @@
+"""application.types.book"""
+
 from typing import TypedDict
 from datetime import datetime
 from .bookident import BookIdent

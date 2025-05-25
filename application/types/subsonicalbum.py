@@ -1,3 +1,5 @@
+"""application.types.subsonicalbum"""
+
 from typing import TypedDict
 from datetime import datetime
 

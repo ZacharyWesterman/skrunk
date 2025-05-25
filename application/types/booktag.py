@@ -1,3 +1,5 @@
+"""application.types.booktag"""
+
 from typing import TypedDict
 
 

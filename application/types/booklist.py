@@ -1,3 +1,5 @@
+"""application.types.booklist"""
+
 from typing import TypedDict
 from .book import Book
 
