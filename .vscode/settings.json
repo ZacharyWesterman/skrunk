@@ -16,7 +16,9 @@
 	"pylint.args": [
 		"--indent-string=\t",
 		"--disable=global-statement",
-		"--disable=redefined-builtin"
+		"--disable=redefined-builtin",
+		"--disable=too-many-arguments",
+		"--disable=too-many-positional-arguments"
 	],
 	"[python]": {
 		"editor.codeActionsOnSave": {

@@ -161,16 +161,19 @@ def delete_feed(id: str) -> dict:
 
 def get_documents(feed: str, start: int, count: int, sorting: Sorting) -> list[dict]:
 	"""
-	Retrieve a list of documents from the database based on the specified feed, starting index, count, and sorting order.
+	Retrieve a list of documents from the database based on
+	the specified feed, starting index, count, and sorting order.
 
 	Args:
 		feed (str): The ID of the feed to retrieve documents from.
 		start (int): The starting index of the documents to retrieve.
 		count (int): The number of documents to retrieve.
-		sorting (Sorting): The sorting criteria for the documents. It should be a dictionary with 'fields' as a list of field names and 'descending' as a boolean indicating the sort order.
+		sorting (Sorting): The sorting criteria for the documents. It should be a dictionary with 'fields'
+			as a list of field names and 'descending' as a boolean indicating the sort order.
 
 	Returns:
-		list[dict]: A list of documents matching the specified criteria. Each document is represented as a dictionary.
+		list[dict]: A list of documents matching the specified criteria.
+			Each document is represented as a dictionary.
 	"""
 	if not ObjectId.is_valid(feed):
 		return []
@@ -283,7 +286,7 @@ def get_body_html(feed_kind: str, body: str) -> str:
 	if feed_kind == 'markdown_recursive':
 		body_html = markdown.markdown(body)
 	else:
-		raise InvalidFeedKindError(feed_kind)  # Should never happen, but we want the caller to know about it if it does happen!
+		raise InvalidFeedKindError(feed_kind)
 
 	return body_html
 

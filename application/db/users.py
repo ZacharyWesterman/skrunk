@@ -486,6 +486,47 @@ def group_filter(
 	return filter
 
 
+def dump_collection(collection: str, queries: list, fp: ZipFile) -> None:
+	"""
+	Exports documents from a specified MongoDB collection based on provided queries
+	and writes them to a ZipFile as JSON.
+	Any sensitive information, such as passwords, is excluded from the export.
+
+	Args:
+		collection (str): The name of the MongoDB collection to export.
+		queries (list): A list of query dictionaries to filter documents for export.
+		fp (ZipFile): An open ZipFile object to which the exported JSON will be written.
+	"""
+
+	items = []
+
+	# Get a list of documents to export
+	this_coll = top_level_db[collection]
+	for i in queries:
+		if this_coll.count_documents(i) > 0:
+			def doc_mutate(data: dict) -> dict:
+				return data
+
+			if collection == 'feeds':
+				def m2(data: dict) -> dict:
+					data['documents'] = [i for i in top_level_db.documents.find({'feed': data['_id']})]
+					return data
+				doc_mutate = m2
+			elif collection == 'users':
+				def m2(data: dict) -> dict:
+					del data['password']
+					return data
+				doc_mutate = m2
+
+			items = [doc_mutate(i) for i in this_coll.find(i)]
+
+	# Don't add to export if there are no documents
+	if len(items) == 0:
+		return
+
+	fp.writestr(f'{collection}.json', json_util.dumps(items, indent=2))
+
+
 def export_user_data(username: str) -> dict:
 	"""
 	Exports the user data for the user with the specified username.
@@ -532,33 +573,7 @@ def export_user_data(username: str) -> dict:
 	# Iterate over all collections, and append the file to the ZIP file.
 	iter = (i for i in top_level_db.list_collection_names() if i not in exclude_collections)
 	for collection in iter:
-		items = []
-
-		# Get a list of documents to export
-		this_coll = top_level_db[collection]
-		for i in queries:
-			if this_coll.count_documents(i) > 0:
-				def doc_mutate(data: dict) -> dict:
-					return data
-
-				if collection == 'feeds':
-					def m2(data: dict) -> dict:
-						data['documents'] = [i for i in top_level_db.documents.find({'feed': data['_id']})]
-						return data
-					doc_mutate = m2
-				elif collection == 'users':
-					def m2(data: dict) -> dict:
-						del data['password']
-						return data
-					doc_mutate = m2
-
-				items = [doc_mutate(i) for i in this_coll.find(i)]
-
-		# Don't add to export if there are no documents
-		if len(items) == 0:
-			continue
-
-		fp.writestr(f'{collection}.json', json_util.dumps(items, indent=2))
+		dump_collection(collection, queries, fp)
 
 	size, md5sum = blob.file_info(blob_storage.path())
 	blob.mark_as_completed(blob_storage.id, size, md5sum)

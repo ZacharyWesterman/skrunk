@@ -103,7 +103,8 @@ def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
 
 def process_bug_report(report: dict) -> dict:
 	"""
-	Prepares a bug report database item for display by populating the report's creator and comments with usernames.
+	Prepares a bug report database item for display by
+	populating the report's creator and comments with usernames.
 
 	Args:
 		report (dict): A dictionary containing the bug report details. 
@@ -201,11 +202,11 @@ def count_bug_reports(userids: list, resolved: bool) -> int:
 	"""
 	if len(userids) == 0:
 		return db.count_documents({'resolved': resolved})
-	else:
-		return db.count_documents({
-			'resolved': resolved,
-			'$or': [{'creator': i} for i in userids],
-		})
+
+	return db.count_documents({
+		'resolved': resolved,
+		'$or': [{'creator': i} for i in userids],
+	})
 
 
 def delete_bug_report(id: str) -> dict:
@@ -255,9 +256,12 @@ def set_bug_status(id: str, status: bool) -> dict:
 
 	send_user = users.get_user_by_id(bug_report['creator'])
 
+	bug_status = "resolved" if status else "reopened"
+	body = bug_report["body"][0:100]
+
 	notification.send(
 		title=f'A bug has been {"resolved" if status else "reopened"}',
-		body=f'{user_data["display_name"]} has {"resolved" if status else "reopened"} the issue you reported:\n{bug_report["body"][0:100]}',
+		body=f'{user_data["display_name"]} has {bug_status} the issue you reported:\n{body}',
 		username=send_user['username'],
 		category='bugs'
 	)

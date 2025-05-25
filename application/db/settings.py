@@ -4,7 +4,7 @@ import json
 
 from pymongo.collection import Collection
 
-import application.exceptions as exceptions
+from application import exceptions
 
 ## A pointer to the settings database collection.
 db: Collection = None  # type: ignore[assignment]
@@ -29,7 +29,7 @@ def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 
 	modules: list[str] = module_config.get('enabled', [])
 
-	with open('site/config/modules.json', 'r') as fp:
+	with open('site/config/modules.json', 'r', encoding='utf8') as fp:
 		module_config = {i['id']: i for i in json.load(fp)}
 
 	for module in modules:
@@ -43,10 +43,12 @@ def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 
 def get_enabled_modules(user_data: dict | None = None, *, group: str | None = None) -> list:
 	"""
-	Retrieve a list of enabled modules, optionally filtering out those disabled for a specific user or group.
+	Retrieve a list of enabled modules, optionally
+	filtering out those disabled for a specific user or group.
 
 	Args:
-		user_data (dict | None, optional): A dictionary containing user-specific data, including disabled modules and groups. Defaults to None.
+		user_data (dict | None, optional): A dictionary containing user-specific data,
+			including disabled modules and groups. Defaults to None.
 		group (str | None, optional): A specific group to consider for disabled modules. Defaults to None.
 
 	Returns:
@@ -60,7 +62,9 @@ def get_enabled_modules(user_data: dict | None = None, *, group: str | None = No
 	modules: list[str] = module_config.get('enabled', [])
 
 	group_config: dict | None = db.find_one({'name': 'groups'})
-	groups: dict[str, dict[str, list[str]]] = {} if group_config is None else group_config.get('groups', {})
+	groups: dict[str, dict[str, list[str]]] = (
+		{} if group_config is None else group_config.get('groups', {})
+	)
 
 	disabled_modules: list[str] = []
 
@@ -77,7 +81,8 @@ def get_enabled_modules(user_data: dict | None = None, *, group: str | None = No
 
 def get_modules(user_data: dict) -> list:
 	"""
-	Retrieve a list of modules available to a user, excluding any disabled modules based on the user's groups.
+	Retrieve a list of modules available to a user,
+	excluding any disabled modules based on the user's groups.
 
 	Args:
 		user_data (dict): A dictionary containing user information, including their groups.
@@ -93,7 +98,9 @@ def get_modules(user_data: dict) -> list:
 	modules: list[str] = module_config.get('enabled', [])
 
 	group_config: dict | None = db.find_one({'name': 'groups'})
-	groups: dict[str, dict[str, list[str]]] = {} if group_config is None else group_config.get('groups', {})
+	groups: dict[str, dict[str, list[str]]] = (
+		{} if group_config is None else group_config.get('groups', {})
+	)
 
 	disabled_modules: list[str] = []
 
@@ -113,7 +120,8 @@ def set_module_enabled(module_id: str, enabled: bool, group: str | None) -> None
 	Args:
 		module_id (str): The ID of the module to be enabled or disabled.
 		enabled (bool): True to enable the module, False to disable it.
-		group (str | None): The group within which to update the module's state. If None, the global state is updated.
+		group (str | None): The group within which to update the module's state.
+			If None, the global state is updated.
 
 	Returns:
 		None
@@ -230,7 +238,8 @@ def set_config(name: str, value: str | None) -> None:
 
 	Args:
 		name (str): The name of the configuration setting.
-		value (str | None): The value to set for the configuration setting. If None, the setting is deleted.
+		value (str | None): The value to set for the configuration setting.
+			If None, the setting is deleted.
 
 	Returns:
 		None
@@ -289,7 +298,7 @@ def get_all_themes() -> list:
 	Returns:
 		list: A list of all themes found in the database.
 	"""
-	return [i for i in db.find({'type': 'theme'})]
+	return list(db.find({'type': 'theme'}))
 
 
 def create_theme(theme: dict) -> dict:

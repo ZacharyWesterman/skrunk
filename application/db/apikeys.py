@@ -3,10 +3,10 @@
 import random
 import string
 from datetime import datetime
+
 from pymongo.collection import Collection
 
 from . import perms
-
 
 ## A pointer to the API keys collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -22,7 +22,7 @@ def valid_api_key(key: str) -> bool:
 	Returns:
 		bool: True if the API key is found in the database, False otherwise.
 	"""
-	return True if db.find_one({'key': key}) else False
+	return bool(db.find_one({'key': key}))
 
 
 def new_api_key(description: str, permissions: list[str]) -> str:
@@ -62,7 +62,7 @@ def delete_api_key(key: str) -> bool:
 	Returns:
 		bool: True if the API key was successfully deleted, False otherwise.
 	"""
-	return True if db.delete_one({'key': key}).deleted_count else False
+	return bool(db.delete_one({'key': key}).deleted_count)
 
 
 def get_api_keys() -> list:
@@ -76,4 +76,4 @@ def get_api_keys() -> list:
 		list: A list of API keys sorted by creation date in descending order.
 	"""
 	# Should never have this many API keys floating around, but just in case.
-	return [i for i in db.find(sort=[('created', -1)]).limit(200)]
+	return list(db.find(sort=[('created', -1)]).limit(200))

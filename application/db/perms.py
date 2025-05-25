@@ -117,7 +117,7 @@ def satisfies(
     perms: tuple[str, ...],
     data: dict | None = None,
     *,
-		  perform_on_self: bool = False,
+	perform_on_self: bool = False,
     data_func: Callable | None = None
 ) -> bool | dict:
 	"""Check if the calling user has any of the given permissions.

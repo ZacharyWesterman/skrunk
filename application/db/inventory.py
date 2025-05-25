@@ -16,7 +16,15 @@ from .perms import caller_info_strict
 db: Database = None  # type: ignore[assignment]
 
 
-def create_inventory_item(owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str | None) -> dict:
+def create_inventory_item(
+    owner: str,
+    category: str,
+    type: str,
+    location: str,
+    blob_id: str,
+    description: str,
+    rfid: str | None
+) -> dict:
 	"""
 	Create a new inventory item in the database.
 
@@ -140,7 +148,7 @@ def get_item_locations(owner: str) -> list[str]:
 	return [i for i in db.items.distinct('location', {'creator': user_data['_id']})]
 
 
-def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> dict:
+def build_inventory_query(filter: InventorySearchFilter) -> dict:
 	"""
 	Builds a MongoDB query dictionary for searching inventory based on the provided filter and user ID.
 
@@ -154,11 +162,11 @@ def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> d
 	query = [{}]
 
 	owner = filter.get('owner')
-	if type(owner) is str:
+	if isinstance(owner, str):
 		user_data = users.get_user_data(owner)
 		query += [{'owner': user_data['_id']}]
 
-	if type(owner) is list and len(owner):
+	if isinstance(owner, list) and len(owner):
 		query += [{'$or': [{'owner': i} for i in owner]}]
 
 	if filter.get('category') is not None:
@@ -173,7 +181,7 @@ def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> d
 	return {'$and': query} if len(query) > 0 else {}
 
 
-def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting: Sorting, user_id: ObjectId) -> list:
+def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	"""
 	Retrieves a list of inventory items based on the provided filter, pagination, and sorting options.
 
@@ -191,7 +199,7 @@ def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting
 		exceptions.UserDoesNotExistError: If the user specified in the filter does not exist.
 	"""
 	try:
-		query = build_inventory_query(filter, user_id)
+		query = build_inventory_query(filter)
 	except exceptions.UserDoesNotExistError:
 		return []
 
@@ -234,7 +242,7 @@ def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting
 	return items
 
 
-def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> int:
+def count_inventory(filter: InventorySearchFilter) -> int:
 	"""
 	Count the number of inventory items based on the provided filter and user ID.
 
@@ -250,7 +258,7 @@ def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> int:
 		exceptions.UserDoesNotExistError: If the user does not exist.
 	"""
 	try:
-		query = build_inventory_query(filter, user_id)
+		query = build_inventory_query(filter)
 	except exceptions.UserDoesNotExistError:
 		return 0
 

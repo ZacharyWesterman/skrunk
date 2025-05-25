@@ -216,7 +216,84 @@ def count_notifications(username: str, read: bool) -> int:
 	return db.notif_log.count_documents({'recipient': user_data['_id'], 'read': read})
 
 
-def send(title: str, body: str, username: str, *, category: str = 'general', read: bool = False) -> dict:
+def try_send_webpush(
+	username: str,
+    subscription_token: dict,
+    message: dict,
+    admin_email: str,
+    endpoint: str
+) -> bool:
+	"""
+	Attempts to send a web push notification to a user and handles exceptions.
+
+	Args:
+		username (str): The username of the notification recipient.
+		subscription_token (dict): The web push subscription information for the user.
+		message (dict): The notification message payload to send.
+		admin_email (str): The administrator's email address for VAPID claims.
+		endpoint (str): The endpoint URL for the push service.
+
+	Returns:
+		bool: True if the notification was sent successfully, False otherwise.
+	"""
+
+	try:
+		webpush(
+			subscription_info=subscription_token,
+			data=json.dumps(message),
+			vapid_private_key=VAPID_PRIVATE_KEY,
+			vapid_claims={
+				'sub': f'mailto:{admin_email}',
+				'aud': endpoint,
+			}
+		)
+	except WebPushException as e:
+		send_admin_alert = True
+
+		if e.response is None:
+			msg = (
+				'WebPushException when sending notification to ' +
+				f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
+			)
+			print(msg, flush=True)
+			return False
+
+		# If user subscription is expired, just delete the subscription and continue
+		# There's nothing else we can do in that case.
+		if e.response.status_code == 410:
+			print(f'A notification subscription for user "{username}" has expired.', flush=True)
+			delete_subscription(subscription_token.get('keys', {}).get('auth'))
+			send_admin_alert = False
+
+		# Send notification to admins if an unhandled WebPushException occurs!
+		if send_admin_alert:
+			for user in users.get_admins():
+				db.notif_log.insert_one({
+					'recipient': user['_id'],
+					'created': datetime.utcnow(),
+					'message': json.dumps({
+						'title': 'WebPushException when sending notification',
+						'body': (
+							'WebPushException when sending notification to ' +
+							f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
+						),
+					}),
+					'device_count': 0,
+					'read': False,
+					'category': 'webpushexception',
+				})
+
+	return True
+
+
+def send(
+    title: str,
+    body: str,
+    username: str,
+    *,
+    category: str = 'general',
+    read: bool = False
+) -> dict:
 	"""
 	Send a notification to a user and log the notification in the database.
 
@@ -263,52 +340,14 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 	for subscription_token in sub_tokens:
 		url = urlsplit(subscription_token['endpoint'])
 		endpoint = f'{url.scheme}://{url.netloc}'
-
-		try:
-			webpush(
-				subscription_info=subscription_token,
-				data=json.dumps(message),
-				vapid_private_key=VAPID_PRIVATE_KEY,
-				vapid_claims={
-					'sub': f'mailto:{admin_email}',
-					'aud': endpoint,
-				}
-			)
-		except WebPushException as e:
-			send_admin_alert = True
-
-			if e.response is None:
-				msg = (
-					'WebPushException when sending notification to ' +
-					f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
-				)
-				print(msg, flush=True)
-				continue
-
-			# If user subscription is expired, just delete the subscription and continue
-			# There's nothing else we can do in that case.
-			if e.response.status_code == 410:
-				print(f'A notification subscription for user "{username}" has expired.', flush=True)
-				delete_subscription(subscription_token.get('keys', {}).get('auth'))
-				send_admin_alert = False
-
-			# Send notification to admins if an unhandled WebPushException occurs!
-			if send_admin_alert:
-				for user in users.get_admins():
-					db.notif_log.insert_one({
-						'recipient': user['_id'],
-						'created': datetime.utcnow(),
-						'message': json.dumps({
-							'title': 'WebPushException when sending notification',
-							'body': (
-								'WebPushException when sending notification to ' +
-								f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
-							),
-						}),
-						'device_count': 0,
-						'read': False,
-						'category': 'webpushexception',
-					})
+		if not try_send_webpush(
+			username,
+			subscription_token,
+			message,
+			admin_email,
+			endpoint
+		):
+			continue
 
 	db.notif_log.update_one({'_id': log_id}, {'$set': {
 		'device_count': len(sub_tokens),
