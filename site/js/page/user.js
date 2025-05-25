@@ -449,6 +449,12 @@ export async function export_data(username) {
 
 	if (choice !== 'yes') return
 
+	_.modal({
+		text: api.snippit('export-waiting'),
+		buttons: [],
+		no_cancel: true,
+	})
+
 	const res = await api(`mutation ($username: String!) {
 		exportUserData(username: $username) {
 			__typename
@@ -466,6 +472,8 @@ export async function export_data(username) {
 		_.modal.error(res.message)
 		return
 	}
+
+	_.modal.return()
 
 	//Download user data
 	let link = document.createElement('a')
