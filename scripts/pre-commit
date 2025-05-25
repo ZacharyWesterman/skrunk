@@ -51,9 +51,29 @@ gql_schema() {
 	echo >&2 -e "\e[32mOK\e[0m."
 }
 
+application() {
+	# Check if any Python files have changed.
+	echo >&2 -n "Checking application... "
+	if [ "$(git diff --name-only --cached | grep -e '\.py$')" == '' ]; then
+		echo >&2 -e "\e[32mNo changes.\e[0m"
+		return 0
+	fi
+
+	echo >&2 -e "\e[33mChanges detected.\e[0m"
+
+	require_stash
+
+	# Check if the application will immediately crash.
+	echo >&2 -n "Importing application module... "
+	poetry run python -c "import application" || return 1
+	echo >&2 -e "\e[32mOK\e[0m."
+
+}
+
 echo >&2 -e "\e[34mRunning pre-commit hooks.\e[0m"
 
 gql_schema || commit_fail
+application || commit_fail
 
 unstash
 
