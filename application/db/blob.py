@@ -5,8 +5,8 @@ import mimetypes
 import pathlib
 import shutil
 import uuid
-from datetime import datetime
-from zipfile import Path, ZipFile
+from datetime import datetime, timedelta
+from zipfile import ZIP_DEFLATED, Path, ZipFile
 
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
@@ -45,11 +45,16 @@ def init() -> None:
 	global blob_path
 	blob_path = blob_storage.blob_path
 
-	# On startup, delete all ephemeral files which aren't referred to by any data.
-	# Restart should be scheduled regularly for this to apply
+	# On startup, delete all ephemeral files which aren't referred to by any data,
+	# and which are older than 12 hours.
+	# Restart should be scheduled regularly for this to apply.
 	deleted_ct = 0
 
-	for i in db.find({'ephemeral': True, 'references': 0}):
+	for i in db.find({
+		'ephemeral': True,
+		'references': 0,
+		'created': {'$lt': datetime.utcnow() - timedelta(hours=12)}
+	}):
 		delete_blob(i['_id'])
 		deleted_ct += 1
 
@@ -530,7 +535,6 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 		query = {'complete': True}
 
 	filename = f'ARCHIVE-{blob_zip_id[-8::]}.zip'
-	temp_filename = f'/tmp/{filename}'
 
 	# Make sure that there's enough space in /tmp for the zip file (+1MB for safety)
 	total_size = sum_blob_size(filter, user_id)
@@ -551,7 +555,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 	print('Creating ZIP archive of blob files.', flush=True)
 
 	# Create a temp zip file
-	with ZipFile(temp_filename, 'w') as fp:
+	with ZipFile(this_blob_path, 'w', compression=ZIP_DEFLATED, compresslevel=9) as fp:
 		total = db.count_documents(query)
 		item = 0
 
@@ -584,25 +588,21 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
 
-	_zip_progress[blob_zip_id][3] = True
-
 	if cancelled:
 		delete_blob(id)
-		# Remove the temp file
-		pathlib.Path(temp_filename).unlink(missing_ok=True)
 	else:
-		# Move the temp file to the blob storage path
-		shutil.move(temp_filename, this_blob_path)
-		print('Moved temp file to blob storage path.', flush=True)
-
 		size, md5sum = file_info(this_blob_path)
 		mark_as_completed(id, size, md5sum)
 
 	blob = db.find_one({'_id': ObjectId(id)})
 	if blob is None:
+		print(f'ERROR: Blob {id} does not exist in the database after zipping!', flush=True)
 		raise exceptions.BlobDoesNotExistError(id)
 
 	blob['id'] = blob['_id']
+
+	_zip_progress[blob_zip_id][3] = True
+
 	return blob
 
 
