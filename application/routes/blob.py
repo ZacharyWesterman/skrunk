@@ -17,7 +17,7 @@ application: Any = None
 CHUNK_SIZE = 1024 * 1024 * 16  # 16 MiB
 
 
-def file_stream(full_path: str) -> Generator[bytes, None, None]:
+def file_stream(full_path: str, range_header: str | None) -> Generator[bytes, None, None]:
 	"""
 	Generator to stream file data in chunks.
 
@@ -34,13 +34,13 @@ def file_stream(full_path: str) -> Generator[bytes, None, None]:
 	fp = open(full_path, 'rb')
 
 	# Check if the request has a Range header for partial content
-	range_header = request.headers.get('Range')
 	if range_header:
 		match = re.search(r'(\d+)-(\d*)', range_header)
 		if match:
 			groups = match.groups()
 			if groups[0]:
 				byte1 = int(groups[0])
+				fp.seek(byte1)
 			if groups[1]:
 				byte2 = int(groups[1])
 
@@ -90,8 +90,10 @@ def stream(path: str) -> Response:
 	mime = mimetypes.guess_type(path)
 	file_size = os.stat(full_path).st_size
 
+	range_header = request.headers.get('Range')
+
 	resp = Response(
-		file_stream(full_path),
+		file_stream(full_path, range_header),
 		206,
 		mimetype=mime[0],
 		content_type=mime[0],
