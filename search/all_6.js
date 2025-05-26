@@ -8,5 +8,6 @@ var searchData=
   ['file_5finfo_5',['file_info',['../namespaceapplication_1_1db_1_1blob.html#a2276b75d8cab854b2d52f858182ae27d',1,'application::db::blob']]],
   ['file_5fstream_6',['file_stream',['../namespaceapplication_1_1routes_1_1blob.html#ad1fe8e82607d5c78b7f67075135061dc',1,'application::routes::blob']]],
   ['filetype_7',['fileType',['../classapplication_1_1types_1_1ebook_1_1EBook.html#a507b3f6f466daddde5ce602e71231a15',1,'application::types::ebook::EBook']]],
-  ['free_8',['free',['../classapplication_1_1types_1_1diskusage_1_1DiskUsage.html#ae0d171f22ade91856b73a9282ac0e0ec',1,'application::types::diskusage::DiskUsage']]]
+  ['finalizing_8',['finalizing',['../classapplication_1_1types_1_1zipprogress_1_1ZipProgress.html#aec0df14f0182dbadfa9e001c9bfeda2e',1,'application::types::zipprogress::ZipProgress']]],
+  ['free_9',['free',['../classapplication_1_1types_1_1diskusage_1_1DiskUsage.html#ae0d171f22ade91856b73a9282ac0e0ec',1,'application::types::diskusage::DiskUsage']]]
 ];
