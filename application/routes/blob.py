@@ -3,6 +3,7 @@
 import json
 import mimetypes
 import os
+import re
 from typing import Any, Generator
 
 from flask import Response, jsonify, request
@@ -32,6 +33,18 @@ def file_stream(full_path: str) -> Generator[bytes, None, None]:
 	file_size = os.stat(full_path).st_size
 	fp = open(full_path, 'rb')
 
+	# Check if the request has a Range header for partial content
+	range_header = request.headers.get('Range')
+	if range_header:
+		match = re.search(r'(\d+)-(\d*)', range_header)
+		if match:
+			groups = match.groups()
+			if groups[0]:
+				byte1 = int(groups[0])
+			if groups[1]:
+				byte2 = int(groups[1])
+
+	# Stream the file.
 	while True:
 		start = 0
 
