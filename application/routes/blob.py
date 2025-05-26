@@ -94,7 +94,7 @@ def stream(path: str) -> Response:
 
 	resp = Response(
 		file_stream(full_path, range_header),
-		206,
+		200,
 		mimetype=mime[0],
 		content_type=mime[0],
 		direct_passthrough=True,
@@ -107,10 +107,8 @@ def stream(path: str) -> Response:
 
 
 def download(path: str) -> Response:
-	# if not auth.authorized():
-	# 	return Response('Access denied.', 403)
-
-	print(f"Downloading blob: {path}")
+	if not auth.authorized():
+		return Response('Access denied.', 403)
 
 	return stream(path)
 
