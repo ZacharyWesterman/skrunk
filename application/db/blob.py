@@ -595,8 +595,8 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 		shutil.move(temp_filename, this_blob_path)
 		print('Moved temp file to blob storage path.', flush=True)
 
-	size, md5sum = file_info(this_blob_path)
-	mark_as_completed(id, size, md5sum)
+		size, md5sum = file_info(this_blob_path)
+		mark_as_completed(id, size, md5sum)
 
 	blob = db.find_one({'_id': ObjectId(id)})
 	if blob is None:

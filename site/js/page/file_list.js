@@ -372,7 +372,7 @@ export async function download_all() {
 			const res = await api(`query ($uid: String!) {
 				pollZipProgress(uid: $uid) {
 					__typename
-					...on ZipProgress { progress item }
+					...on ZipProgress { progress item finalizing }
 					...on BlobDoesNotExistError { message }
 				}
 			}`, {

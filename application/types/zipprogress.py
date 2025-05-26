@@ -12,3 +12,5 @@ class ZipProgress(TypedDict):
 	progress: float
 	## The filename of the item being zipped
 	item: str
+	## If true, the ZIP file is being finalized and will soon be available for download.
+	finalizing: bool

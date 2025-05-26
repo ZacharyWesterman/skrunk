@@ -90,6 +90,8 @@ type ZipProgress {
 	progress: Float!
 	"""The filename of the item being zipped"""
 	item: String!
+	"""If true, the ZIP file is being finalized and will soon be available for download."""
+	finalizing: Boolean!
 }
 
 """
