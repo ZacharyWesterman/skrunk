@@ -192,7 +192,7 @@ api.get_json = async url => {
  * @param {string} contentType Values like "image/png,video/*" or "image/*", etc.
  * @param {boolean} multiple Allow selecting multiple files.
  * @param {string} capture If specified, can be values like "camera".
- * @returns {File} The uploaded file, if one was uploaded. An array of files if the multiple flag is true.
+ * @returns {Promise<File>} The uploaded file, if one was uploaded. An array of files if the multiple flag is true.
  */
 api.file_prompt = function (contentType = '*', multiple = false, capture = null) {
 	return new Promise((resolve, reject) => {

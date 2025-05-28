@@ -359,17 +359,52 @@ window.chart = {
  * Helper functions for handling QR codes.
  */
 window.qr = {
-	/**
-	 * Upload an image to the server and process it as a QR code, then delete the image.
-	 * If no QR code was found, this function returns null.
-	 * @returns {string|null} The text that the QR code contained.
-	 */
-	load_and_process: async () => {
-		const file = await api.file_prompt('image/*', false, 'camera')
-		let qrcode = null
+	crop_image: (canvas, file, startX, startY, endX, endY) => {
+		return new Promise(resolve => {
+			//Resize canvas to full image, then crop
+			const ctx = canvas.getContext('2d')
 
-		let startX, startY, endX, endY, isDragging = false
+			const image = new Image()
+			const reader = new FileReader()
+			reader.onload = event => {
+				image.src = event.target.result
+			}
+			reader.readAsDataURL(file)
+
+			ctx.drawImage(image, 0, 0, image.width, image.height)
+
+			console.log(image.width, image.height, canvas.width, canvas.height)
+
+			if (startX !== undefined && startY !== undefined && endX !== undefined && endY !== undefined) {
+				if (startX > endX) endX = [startX, startX = endX][0]
+				if (startY > endY) endY = [startY, startY = endY][0]
+
+				let scaleX = 1
+				let scaleY = 1
+				if (image.width > canvas.width) {
+					scaleX = image.width / canvas.width
+					scaleY = image.height / canvas.height
+				}
+
+				const cropWidth = (endX - startX) * scaleX
+				const cropHeight = (endY - startY) * scaleY
+				const croppedImage = ctx.getImageData(startX * scaleX, startY * scaleY, cropWidth, cropHeight)
+
+				canvas.width = cropWidth
+				canvas.height = cropHeight
+				ctx.putImageData(croppedImage, 0, 0)
+			}
+
+			canvas.toBlob(blob => {
+				resolve(new File([blob], 'QR.png'))
+			}, 'image/png')
+		})
+	},
+
+	upload_image: async () => {
+		const file = await api.file_prompt('image/*', false, 'camera')
 		let blob_upload = null
+		let startX, startY, endX, endY, isDragging = false
 
 		const img_choice = await _.modal({
 			title: '<span id="qr-title">Image Preview</span>',
@@ -521,6 +556,150 @@ window.qr = {
 			return null
 		}
 
+		return blob_upload
+	},
+
+	capture_image: () => {
+		return new Promise((resolve, reject) => {
+			const video = $('camera-video')
+			const canvas = $('camera-canvas')
+
+			async function init_camera() {
+				try {
+					const stream = await navigator.mediaDevices.getUserMedia({
+						video: { facingMode: 'environment' },
+						audio: false
+					});
+					video.srcObject = stream
+					return true
+				} catch (err) {
+					console.info("Camera access denied or not available.")
+					return false
+				}
+			}
+
+			function take_photo() {
+				return new Promise(resolve => {
+					//Get the file
+					const context = canvas.getContext('2d')
+					canvas.width = video.videoWidth
+					canvas.height = video.videoHeight
+					context.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+					new Promise(res => {
+						canvas.toBlob(blob => {
+							res(new File([blob], 'QR.png'))
+						}, 'image/png')
+					}).then(file => {
+
+						const reticle = $('camera-reticle').getBoundingClientRect()
+						const container = $('camera-container').getBoundingClientRect()
+
+						//Get the bounds of the reticle
+						const top = (reticle.top) / container.height * canvas.height
+						const left = reticle.left / container.width * canvas.width
+						const right = reticle.right / container.width * canvas.width
+						const bottom = (reticle.bottom) / container.height * canvas.height
+
+						qr.crop_image(canvas, file, left, top, right, bottom).then(result_file => {
+							console.log("Captured image:", result_file)
+							resolve(result_file)
+						})
+					})
+				})
+			}
+
+			init_camera().then(cameraAllowed => {
+				if (!cameraAllowed) {
+					reject('Camera access denied or not available.')
+					return
+				}
+
+				$.show('camera-container')
+				$.focus('camera-reticle')
+
+				$('camera-container').onclick = async () => {
+					const blob_upload = await take_photo()
+
+					$.unfocus()
+					$.hide('camera-container')
+
+					// Remove camera stream to stop it from running in the background
+					if (video.srcObject) {
+						const tracks = video.srcObject.getTracks()
+						tracks.forEach(track => track.stop())
+						video.srcObject = null
+					}
+
+					// Remove click handler to prevent multiple captures
+					$('camera-container').onclick = () => { }
+
+					resolve(blob_upload)
+				}
+			})
+		})
+	},
+
+	/**
+	 * Upload an image to the server and process it as a QR code, then delete the image.
+	 * If no QR code was found, this function returns null.
+	 * @returns {Promise<string?>} The text that the QR code contained.
+	 */
+	load_and_process: async () => {
+		let qrcode = null
+		let blob_upload = null
+
+		try {
+			while (true) {
+				const res = await new Promise((resolve, reject) => {
+					qr.capture_image().then(file => {
+						const reader = new FileReader()
+						reader.onload = () => {
+							_.modal({
+								type: 'question',
+								title: 'QR Code Capture',
+								text: `
+									Does this image look correct?<br>
+									<img src="${reader.result}" style="max-width: 100%; max-height: 100%;" />
+								`,
+								buttons: ['Yes', 'No', 'Cancel'],
+							}).then(choice => {
+								if (choice === 'cancel') {
+									resolve(false) // User cancelled the image capture
+									return
+								}
+								resolve((choice === 'yes') ? file : null)
+							}).catch(() => {
+								reject('Image capture cancelled.')
+							})
+						}
+						reader.readAsDataURL(file)
+
+					}).catch(reject)
+				})
+
+				// If the user confirmed the image, upload it
+				if (res) {
+					blob_upload = res
+					break
+				}
+
+				// If the user cancelled, break the loop
+				if (res === false) {
+					break
+				}
+			}
+		} catch (e) {
+			blob_upload = await qr.upload_image().catch(() => null)
+		}
+
+		// If the user cancelled the image upload, return null
+		if (blob_upload === null) {
+			return null
+		}
+
+		// Upload the image to the server and process it as a QR code.
+
 		await _.modal({
 			title: '<span id="qr-title">Uploading QR Code...</span>',
 			text: '<div style="height: 10rem; align-items: center;"><i class="gg-spinner" style="transform: scale(5,5); left: 45%; top: 50%;"></i></div><progress id="upload-progressbar-qr" value="0" max="100"></progress>',
@@ -545,7 +724,7 @@ window.qr = {
 			})
 
 			for (const blob of upload_res) {
-				mutate.blobs.delete(blob.id)
+				// mutate.blobs.delete(blob.id)
 			}
 
 			if (res.error !== null) {
