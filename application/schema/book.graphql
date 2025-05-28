@@ -15,6 +15,8 @@ type Book {
 	publishedDate: Date!
 	"""Whether the book has a description. If true, the description can be fetched using the getBookDescription query, but by default it is not included in the book data, to save bandwidth."""
 	has_description: Boolean!
+	"""The description of the book, if available."""
+	description: String
 	"""A list of industry identifiers for the book, such as ISBN."""
 	industryIdentifiers: [BookIdent!]!
 	"""The page count of the book."""
