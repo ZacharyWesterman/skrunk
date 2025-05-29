@@ -68,7 +68,7 @@ def query(*, title: str = '', author: str = '') -> list:
 
 	url = (
 		'https://www.googleapis.com/books/v1/volumes' +
-		f'url?q={text_query}&fields={response_fields}&orderBy=relevance&maxResults=20'
+		f'?q={text_query}&fields={response_fields}&orderBy=relevance&maxResults=20'
 	)
 	response = requests.get(url, timeout=10)
 	if response.status_code < 200 or response.status_code >= 300:
