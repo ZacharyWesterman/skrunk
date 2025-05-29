@@ -45,8 +45,8 @@ def query(*, title: str = '', author: str = '') -> list:
 	t = title.replace(':', '').strip().replace(' ', '+')
 	a = author.replace(':', '').strip().replace(' ', '+')
 
-	if len(t):
-		if len(a):
+	if len(t) > 0:
+		if len(a) > 0:
 			query_fields += ['intitle:' + t]
 		else:
 			# Check if field is an ISBN number
@@ -55,7 +55,7 @@ def query(*, title: str = '', author: str = '') -> list:
 				query_fields += ['isbn:' + isbn]
 			else:
 				query_fields += [t]
-	if len(a):
+	if len(a) > 0:
 		query_fields += ['inauthor:"' + a + '"']
 
 	text_query = '+'.join(query_fields)
