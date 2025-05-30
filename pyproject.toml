@@ -6,7 +6,7 @@ authors = ["Zachary Westerman <westerman.zachary@gmail.com>"]
 license = "GPL 3"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<4.0"
+python = ">=3.11,<4.0"
 ariadne = "^0.15.1"
 Flask = "^2.1.2"
 pymongo = "^4.1.1"
@@ -30,7 +30,11 @@ lxml = "^5.3.0"
 
 [tool.poetry.dev-dependencies]
 
+[tool.poetry.group.dev.dependencies]
+sphinx = "^8.2.3"
+sphinx-autodoc-typehints = "^3.2.0"
+sphinx-rtd-theme = "^3.0.2"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
