@@ -1,4 +1,8 @@
-"""application.db.blob"""
+"""
+This module provides functions to manage blobs in the database, including creating,
+updating, deleting, and retrieving blob data. It also handles file uploads,
+packing and unpacking of ZIP files, and generating previews for various file types.
+"""
 
 import hashlib
 import mimetypes
