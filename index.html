@@ -262,18 +262,54 @@
                   
   <section id="skrunk-server-documentation">
 <h1>Skrunk Server documentation<a class="headerlink" href="#skrunk-server-documentation" title="Link to this heading">#</a></h1>
-<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
 <div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">application</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="application.html">application package</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">application</a></li>
 </ul>
 </div>
+<hr class="docutils" />
+<p>My home-built database solution for managing personal data and interacting with other projects.</p>
+<p>Current features include:</p>
+<ul class="simple">
+<li><p>Full support for modern Android/iOS mobile as well as desktop browsers.</p></li>
+<li><p>A fully featured library/book cataloging system: type the name of a book, click the correct match, then scan a QR code, barcode, or RFID tag. Bam, it’s now cataloged under your name, and you can easily find it later, specify if someone’s borrowing it, transfer ownership, etc.</p></li>
+<li><p>Arbitrary item inventory system: similar to books, but meant for catalogging stuff like tools, furniture, etc.</p></li>
+<li><p>File storage with advanced tagging functionality and minimal limitations. Want to upload 75 photos of your dog? Can do, just select them all and add the “dog” and “my-dog’s-name” tags when uploading. Has it been 10 years and you can’t find those images? Just search for your dog’s name. Want to download all the results from that search? Just click the “download all” button. Don’t want anyone else to see that video of you in a tutu? Just mark the file as “only visible to me”.</p></li>
+<li><p>Allow users to report bugs, request new features, and see what features are planned or in progress.</p></li>
+<li><p><a class="reference external" href="https://github.com/ZacharyWesterman/weather-alerts">Weather Alerts</a> integration: if you moved, changed your phone number, want to change the default temperature thresholds, or just disable your alerts altogether, you can do so in the user settings page.</p></li>
+<li><p>Subsonic Music Server Integration: Search albums, and interact with the Library to show what books also have an audiobook version.</p></li>
+<li><p>Dynamic theme: If you don’t like the default colors or styling, you can always change it in user settings.</p></li>
+<li><p>Data feeds: Allow the server to automatically fetch content from across the web, e.g. regularly-updated webcomics or serials; getting a guaranteed notification when new updates come out.</p></li>
+<li><p>Fine-grained user control:</p>
+<ul>
+<li><p>User Isolation: Sometimes you don’t want certain groups of users to interact (e.g. in-laws, different friend groups, etc). If that’s the case, admins can assign a “group” to users. Any users not in the same group will not be able to see or interact with each other’s data.</p></li>
+<li><p>User Permissions: Control what type of actions users are allowed to do, and what they’re allowed to see.</p></li>
+</ul>
+</li>
+<li><p>Bot friendly: admins can generate API tokens to allow bots or other services to securely make requests. These tokens can have the same permissions restrictions applied to them as users! Check out the <a class="reference external" href="https://github.com/ZacharyWesterman/skrunk_api">Python API repo</a> for a fast way to get started.</p></li>
+</ul>
+<p>Every one of the above features is fully optional, and can be disabled from the admin options, on a per-group basis, and individually by each user.</p>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python &amp;ge; 3.10, <a class="reference external" href="https://python-poetry.org/">Poetry</a>, MongoDB &amp;ge; 5, and OpenJDK &amp;ge; 8.</p>
+<hr class="docutils" />
+<p>To get all set up, first download the repo, then install dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ZacharyWesterman/skrunk.git<span class="w"> </span>--recursive
+<span class="nb">cd</span><span class="w"> </span>skrunk
+poetry<span class="w"> </span>install
+</pre></div>
+</div>
+<p>If you plan to enable the file module, you’ll want to make sure you have a place to store blob data that is uploaded to the site.
+It can be any directory, but going forward we’ll assume it’s <code class="docutils literal notranslate"><span class="pre">/var/blob_data</span></code>.</p>
+<p>Also, make sure you know the MongoDB URL of the database. If not specified at run-time, this will default to <code class="docutils literal notranslate"><span class="pre">localhost</span></code>.</p>
+<hr class="docutils" />
+<p>To run this application with minimal params:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run.sh<span class="w"> </span>--blob-path<span class="o">=</span>/var/blob_data
+</pre></div>
+</div>
+<p>Additional parameters are available. You can run <code class="docutils literal notranslate"><span class="pre">./run.sh</span> <span class="pre">--help</span></code> to see them all.</p>
+</section>
 </section>
 
 
@@ -305,6 +341,18 @@ documentation for details.</p>
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
   <div role="note" aria-label="source link">
