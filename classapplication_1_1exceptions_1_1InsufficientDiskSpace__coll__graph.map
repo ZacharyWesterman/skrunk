@@ -1,7 +1,0 @@
-<map id="application.exceptions.InsufficientDiskSpace" name="application.exceptions.InsufficientDiskSpace">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,167,251,207"/>
-<area shape="rect" id="Node000002" href="$classapplication_1_1exceptions_1_1ClientError.html" title=" " alt="" coords="23,79,233,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,133,131,166,125,166,125,133"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="85,5,171,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="131,44,131,79,125,79,125,44"/>
-</map>

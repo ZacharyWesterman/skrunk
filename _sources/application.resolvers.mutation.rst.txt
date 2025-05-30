@@ -1,0 +1,101 @@
+application.resolvers.mutation package
+======================================
+
+Submodules
+----------
+
+application.resolvers.mutation.apikeys module
+---------------------------------------------
+
+.. automodule:: application.resolvers.mutation.apikeys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.blob module
+------------------------------------------
+
+.. automodule:: application.resolvers.mutation.blob
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.book module
+------------------------------------------
+
+.. automodule:: application.resolvers.mutation.book
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.bugs module
+------------------------------------------
+
+.. automodule:: application.resolvers.mutation.bugs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.datafeed module
+----------------------------------------------
+
+.. automodule:: application.resolvers.mutation.datafeed
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.inventory module
+-----------------------------------------------
+
+.. automodule:: application.resolvers.mutation.inventory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.notification module
+--------------------------------------------------
+
+.. automodule:: application.resolvers.mutation.notification
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.sessions module
+----------------------------------------------
+
+.. automodule:: application.resolvers.mutation.sessions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.settings module
+----------------------------------------------
+
+.. automodule:: application.resolvers.mutation.settings
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.users module
+-------------------------------------------
+
+.. automodule:: application.resolvers.mutation.users
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.resolvers.mutation.weather module
+---------------------------------------------
+
+.. automodule:: application.resolvers.mutation.weather
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.resolvers.mutation
+   :members:
+   :show-inheritance:
+   :undoc-members:

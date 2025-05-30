@@ -1,0 +1,2987 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; Skrunk Server 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Skrunk Server 1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.blob.add_reference">add_reference() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.album">album (application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.subsonicsearch.SubsonicSearch.album">(application.types.subsonicsearch.SubsonicSearch attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.integrations.html#application.integrations.exceptions.ApiFailedError">ApiFailedError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.apifailederror.ApiFailedError">(class in application.types.apifailederror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.apikey.APIKey">APIKey (class in application.types.apikey)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.append_ebook">append_ebook() (in module application.db.book)</a>
+</li>
+      <li>
+    application.db
+
+      <ul>
+        <li><a href="application.db.html#module-application.db">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.apikeys
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.apikeys">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.blob
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.blob">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.book
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.book">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.bugs
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.bugs">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.datafeed
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.datafeed">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.inventory
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.inventory">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.notification
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.notification">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.perms
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.perms">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.sessions
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.sessions">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.settings
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.settings">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.users
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.users">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.db.weather
+
+      <ul>
+        <li><a href="application.db.html#module-application.db.weather">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.exceptions
+
+      <ul>
+        <li><a href="application.exceptions.html#module-application.exceptions">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.exceptions
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.exceptions">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.github
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.github">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.google_books
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.google_books">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.graphql
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.graphql">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.images
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.images">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.models
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.models">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.qrcode
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.qrcode">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.system
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.system">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.integrations.videos
+
+      <ul>
+        <li><a href="application.integrations.html#module-application.integrations.videos">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.monkeypatch
+
+      <ul>
+        <li><a href="application.monkeypatch.html#module-application.monkeypatch">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.monkeypatch.json_encoder_patch
+
+      <ul>
+        <li><a href="application.monkeypatch.html#module-application.monkeypatch.json_encoder_patch">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types
+
+      <ul>
+        <li><a href="application.types.html#module-application.types">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.apifailederror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.apifailederror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.apikey
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.apikey">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.badnotification
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.badnotification">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.badtagquery
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.badtagquery">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.badusernameerror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.badusernameerror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.blob
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.blob">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.blob_storage
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.blob_storage">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.blobcount
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.blobcount">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.blobdoesnotexisterror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.blobdoesnotexisterror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bloblist
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bloblist">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.blobsearchfilter
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.blobsearchfilter">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.book
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.book">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bookcannotbeshared
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bookcannotbeshared">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bookcreatedata
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bookcreatedata">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bookeditdata
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bookeditdata">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bookident
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bookident">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.booklist
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.booklist">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bookownerhist
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bookownerhist">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.booksearchfilter
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.booksearchfilter">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bookshare
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bookshare">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.booktag
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.booktag">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.booktagdoesnotexisterror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.booktagdoesnotexisterror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.booktagexistserror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.booktagexistserror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bugcomment
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bugcomment">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bugreport
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bugreport">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bugreportcreationfailederror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bugreportcreationfailederror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.bugreportdoesnotexisterror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.bugreportdoesnotexisterror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.config
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.config">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.configlist
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.configlist">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.diskusage
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.diskusage">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.ebook
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.ebook">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.feed
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.feed">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.feeddocument
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.feeddocument">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    application.types.feeddocumentdoesnotexisterror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.feeddocumentdoesnotexisterror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.feeddoesnotexisterror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.feeddoesnotexisterror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.insufficientdiskspace
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.insufficientdiskspace">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.insufficientperms
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.insufficientperms">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.invalidfeedkinderror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.invalidfeedkinderror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.invalidfields
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.invalidfields">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.invalidsubscriptiontoken
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.invalidsubscriptiontoken">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.inventorysearchfilter
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.inventorysearchfilter">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.issuelabel
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.issuelabel">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.issuelist
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.issuelist">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.item
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.item">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.itemdoesnotexisterror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.itemdoesnotexisterror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.itemexistserror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.itemexistserror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.lastmutation
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.lastmutation">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.logresult
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.logresult">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.missingconfig
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.missingconfig">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.notification
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.notification">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.qrparseresponse
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.qrparseresponse">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.repofetchfailed
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.repofetchfailed">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.repositoryissue
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.repositoryissue">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.schema
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.schema">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.schemaparam
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.schemaparam">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.schemaquery
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.schemaquery">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.schemareturntype
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.schemareturntype">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.schematype
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.schematype">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.sorting
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.sorting">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.sorting_
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.sorting_">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subscription
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subscription">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subscriptionkeys
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subscriptionkeys">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subscriptionlist
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subscriptionlist">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subscriptiontoken
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subscriptiontoken">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subscriptiontokenkeys
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subscriptiontokenkeys">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subsonicalbum
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subsonicalbum">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subsonicerror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subsonicerror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subsonicsearch
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subsonicsearch">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.subsonictrack
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.subsonictrack">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.systeminfo
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.systeminfo">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.theme
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.theme">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.theme_
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.theme_">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.themecolor
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.themecolor">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.themecolor_
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.themecolor_">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.themesize
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.themesize">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.themesize_
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.themesize_">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.userbookcount
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.userbookcount">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.userdata
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.userdata">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.userdoesnotexisterror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.userdoesnotexisterror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.userexistserror
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.userexistserror">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.usermindata
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.usermindata">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.usertheme
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.usertheme">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.usertheme_
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.usertheme_">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.weatheralert
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.weatheralert">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.weatherexecution
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.weatherexecution">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.weathertemp
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.weathertemp">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.weathertemp_
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.weathertemp_">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.weatheruser
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.weatheruser">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.weatheruserinput
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.weatheruserinput">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.webpushexception
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.webpushexception">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.zipprogress
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.zipprogress">module</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.schemareturntype.SchemaReturnType.array">array (application.types.schemareturntype.SchemaReturnType attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.artist">artist (application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.audiobook">audiobook (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscriptionkeys.SubscriptionKeys.auth">auth (application.types.subscriptionkeys.SubscriptionKeys attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.subscriptiontokenkeys.SubscriptionTokenKeys.auth">(application.types.subscriptiontokenkeys.SubscriptionTokenKeys attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.users.authenticate">authenticate() (in module application.db.users)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.AuthenticationError">AuthenticationError</a>
+</li>
+      <li><a href="application.types.html#application.types.booksearchfilter.BookSearchFilter.author">author (application.types.booksearchfilter.BookSearchFilter attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.feeddocument.FeedDocument.author">(application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.book.Book.authors">authors (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.authors">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookeditdata.BookEditData.authors">(application.types.bookeditdata.BookEditData attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.badnotification.BadNotification">BadNotification (class in application.types.badnotification)</a>
+</li>
+      <li><a href="application.types.html#application.types.badtagquery.BadTagQuery">BadTagQuery (class in application.types.badtagquery)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.BadUserNameError">BadUserNameError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.badusernameerror.BadUserNameError">(class in application.types.badusernameerror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.blob_storage.BlobStorage.basename">basename() (application.types.blob_storage.BlobStorage method)</a>, <a href="application.types.html#id0">[1]</a>
+</li>
+      <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.begin_date">begin_date (application.types.blobsearchfilter.BlobSearchFilter attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.item.Item.blob">blob (application.types.item.Item attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob.Blob">Blob (class in application.types.blob)</a>
+</li>
+      <li><a href="application.types.html#application.types.blobcount.BlobCount">BlobCount (class in application.types.blobcount)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.BlobDoesNotExistError">BlobDoesNotExistError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blobdoesnotexisterror.BlobDoesNotExistError">(class in application.types.blobdoesnotexisterror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.bloblist.BlobList">BlobList (class in application.types.bloblist)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob_storage.BlobPreview">BlobPreview (class in application.types.blob_storage)</a>
+</li>
+      <li><a href="application.types.html#application.types.bloblist.BlobList.blobs">blobs (application.types.bloblist.BlobList attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter">BlobSearchFilter (class in application.types.blobsearchfilter)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob_storage.BlobStorage">BlobStorage (class in application.types.blob_storage)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob_storage.BlobThumbnail">BlobThumbnail (class in application.types.blob_storage)</a>
+</li>
+      <li><a href="application.types.html#application.types.bugcomment.BugComment.body">body (application.types.bugcomment.BugComment attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bugreport.BugReport.body">(application.types.bugreport.BugReport attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddocument.FeedDocument.body">(application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.bugcomment.BugComment.body_html">body_html (application.types.bugcomment.BugComment attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bugreport.BugReport.body_html">(application.types.bugreport.BugReport attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddocument.FeedDocument.body_html">(application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.book.Book">Book (class in application.types.book)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.BookCannotBeShared">BookCannotBeShared</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcannotbeshared.BookCannotBeShared">(class in application.types.bookcannotbeshared)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData">BookCreateData (class in application.types.bookcreatedata)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookeditdata.BookEditData">BookEditData (class in application.types.bookeditdata)</a>
+</li>
+      <li><a href="application.types.html#application.types.booktag.BookTag.bookId">bookId (application.types.booktag.BookTag attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookident.BookIdent">BookIdent (class in application.types.bookident)</a>
+</li>
+      <li><a href="application.types.html#application.types.booklist.BookList">BookList (class in application.types.booklist)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookownerhist.BookOwnerHist">BookOwnerHist (class in application.types.bookownerhist)</a>
+</li>
+      <li><a href="application.types.html#application.types.booklist.BookList.books">books (application.types.booklist.BookList attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.booksearchfilter.BookSearchFilter">BookSearchFilter (class in application.types.booksearchfilter)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookshare.BookShare">BookShare (class in application.types.bookshare)</a>
+</li>
+      <li><a href="application.types.html#application.types.booktag.BookTag">BookTag (class in application.types.booktag)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.BookTagDoesNotExistError">BookTagDoesNotExistError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.booktagdoesnotexisterror.BookTagDoesNotExistError">(class in application.types.booktagdoesnotexisterror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.exceptions.html#application.exceptions.BookTagExistsError">BookTagExistsError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.booktagexistserror.BookTagExistsError">(class in application.types.booktagexistserror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.theme.Theme.border">border (application.types.theme.Theme attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.theme_.Theme_.border">(application.types.theme_.Theme_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.book.borrow_book">borrow_book() (in module application.db.book)</a>
+</li>
+      <li><a href="application.types.html#application.types.bugcomment.BugComment">BugComment (class in application.types.bugcomment)</a>
+</li>
+      <li><a href="application.types.html#application.types.bugreport.BugReport">BugReport (class in application.types.bugreport)</a>
+</li>
+      <li><a href="application.types.html#application.types.bugreportcreationfailederror.BugReportCreationFailedError">BugReportCreationFailedError (class in application.types.bugreportcreationfailederror)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.BugReportDoesNotExistError">BugReportDoesNotExistError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bugreportdoesnotexisterror.BugReportDoesNotExistError">(class in application.types.bugreportdoesnotexisterror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.blob.build_blob_query">build_blob_query() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.build_book_query">build_book_query() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.build_inventory_query">build_inventory_query() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.build_keywords">build_keywords() (in module application.db.book)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.settings.calculate_disabled_modules">calculate_disabled_modules() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.cancel_zip">cancel_zip() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.categories">categories (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.category">category (application.types.inventorysearchfilter.InventorySearchFilter attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.item.Item.category">(application.types.item.Item attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.notification.Notification.category">(application.types.notification.Notification attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.exceptions.html#application.exceptions.ClientError">ClientError</a>
+</li>
+      <li><a href="application.types.html#application.types.issuelabel.IssueLabel.color">color (application.types.issuelabel.IssueLabel attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.theme.Theme.colors">colors (application.types.theme.Theme attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.theme_.Theme_.colors">(application.types.theme_.Theme_ attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.usertheme.UserTheme.colors">(application.types.usertheme.UserTheme attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.usertheme_.UserTheme_.colors">(application.types.usertheme_.UserTheme_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.bugs.comment_on_bug">comment_on_bug() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.types.html#application.types.config.Config">Config (class in application.types.config)</a>
+</li>
+      <li><a href="application.types.html#application.types.configlist.ConfigList">ConfigList (class in application.types.configlist)</a>
+</li>
+      <li><a href="application.types.html#application.types.configlist.ConfigList.configs">configs (application.types.configlist.ConfigList attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.bugreport.BugReport.convo">convo (application.types.bugreport.BugReport attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blobcount.BlobCount.count">count (application.types.blobcount.BlobCount attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.userbookcount.UserBookCount.count">(application.types.userbookcount.UserBookCount attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.weather.count_alert_history">count_alert_history() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.count_all_user_books">count_all_user_books() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.count_blobs">count_blobs() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.count_books">count_books() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.bugs.count_bug_reports">count_bug_reports() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.count_documents">count_documents() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.count_feeds">count_feeds() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.count_inventory">count_inventory() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.count_notifications">count_notifications() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.count_tag_uses">count_tag_uses() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.count_users">count_users() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.sessions.count_valid_sessions">count_valid_sessions() (in module application.db.sessions)</a>
+</li>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.coverArt">coverArt (application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.blob.create_blob">create_blob() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.create_blob_previews">create_blob_previews() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.create_book">create_book() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.create_document">create_document() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.create_feed">create_feed() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.create_inventory_item">create_inventory_item() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.videos.create_preview_from_first_frame">create_preview_from_first_frame() (in module application.integrations.videos)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.create_preview_model">create_preview_model() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.create_preview_video">create_preview_video() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.create_subscription">create_subscription() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.create_theme">create_theme() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.create_user">create_user() (in module application.db.users)</a>
+
+      <ul>
+        <li><a href="application.db.html#application.db.weather.create_user">(in module application.db.weather)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.apikey.APIKey.created">created (application.types.apikey.APIKey attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blob.Blob.created">(application.types.blob.Blob attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bugcomment.BugComment.created">(application.types.bugcomment.BugComment attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bugreport.BugReport.created">(application.types.bugreport.BugReport attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feed.Feed.created">(application.types.feed.Feed attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddocument.FeedDocument.created">(application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.item.Item.created">(application.types.item.Item attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.notification.Notification.created">(application.types.notification.Notification attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.created">(application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.blob.Blob.creator">creator (application.types.blob.Blob attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.creator">(application.types.blobsearchfilter.BlobSearchFilter attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.book.Book.creator">(application.types.book.Book attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.booktag.BookTag.creator">(application.types.booktag.BookTag attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bugcomment.BugComment.creator">(application.types.bugcomment.BugComment attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bugreport.BugReport.creator">(application.types.bugreport.BugReport attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feed.Feed.creator">(application.types.feed.Feed attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.item.Item.creator">(application.types.item.Item attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.feed.Feed.currentPage">currentPage (application.types.feed.Feed attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.github.CurrentRepository">CurrentRepository (class in application.integrations.github)</a>
+</li>
+      <li><a href="application.types.html#application.types.feed.Feed.currentSort">currentSort (application.types.feed.Feed attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.qrparseresponse.QRParseResponse.data">data (application.types.qrparseresponse.QRParseResponse attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.weathertemp.WeatherTemp.default">default (application.types.weathertemp.WeatherTemp attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weathertemp_.WeatherTemp_.default">(application.types.weathertemp_.WeatherTemp_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.apikeys.delete_api_key">delete_api_key() (in module application.db.apikeys)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.delete_blob">delete_blob() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.bugs.delete_bug_report">delete_bug_report() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.delete_feed">delete_feed() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.delete_inventory_item">delete_inventory_item() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.delete_subscription">delete_subscription() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.delete_subscriptions">delete_subscriptions() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.delete_theme">delete_theme() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.delete_user">delete_user() (in module application.db.users)</a>
+
+      <ul>
+        <li><a href="application.db.html#application.db.weather.delete_user">(in module application.db.weather)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.sorting.Sorting.descending">descending (application.types.sorting.Sorting attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.sorting_.Sorting_.descending">(application.types.sorting_.Sorting_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.apikey.APIKey.description">description (application.types.apikey.APIKey attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.book.Book.description">(application.types.book.Book attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.description">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.issuelabel.IssueLabel.description">(application.types.issuelabel.IssueLabel attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.item.Item.description">(application.types.item.Item attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.item.Item.description_html">description_html (application.types.item.Item attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.notification.Notification.device_count">device_count (application.types.notification.Notification attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.weathertemp.WeatherTemp.disable">disable (application.types.weathertemp.WeatherTemp attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weathertemp_.WeatherTemp_.disable">(application.types.weathertemp_.WeatherTemp_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.userdata.UserData.disabled_modules">disabled_modules (application.types.userdata.UserData attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.system.disk_usage">disk_usage() (in module application.integrations.system)</a>
+</li>
+      <li><a href="application.types.html#application.types.diskusage.DiskUsage">DiskUsage (class in application.types.diskusage)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookownerhist.BookOwnerHist.display_name">display_name (application.types.bookownerhist.BookOwnerHist attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookshare.BookShare.display_name">(application.types.bookshare.BookShare attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.userdata.UserData.display_name">(application.types.userdata.UserData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.usermindata.UserMinData.display_name">(application.types.usermindata.UserMinData attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.integrations.html#application.integrations.images.downscale">downscale() (in module application.integrations.images)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.dump_collection">dump_collection() (in module application.db.users)</a>
+</li>
+      <li><a href="application.types.html#application.types.subsonictrack.SubsonicTrack.duration">duration (application.types.subsonictrack.SubsonicTrack attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.ebook.EBook">EBook (class in application.types.ebook)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.ebooks">ebooks (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.edit_book">edit_book() (in module application.db.book)</a>
+</li>
+      <li><a href="application.types.html#application.types.userdata.UserData.email">email (application.types.userdata.UserData attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.end_date">end_date (application.types.blobsearchfilter.BlobSearchFilter attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscription.Subscription.endpoint">endpoint (application.types.subscription.Subscription attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.subscriptiontoken.SubscriptionToken.endpoint">(application.types.subscriptiontoken.SubscriptionToken attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.blob.Blob.ephemeral">ephemeral (application.types.blob.Blob attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.ephemeral">(application.types.blobsearchfilter.BlobSearchFilter attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.qrparseresponse.QRParseResponse.error">error (application.types.qrparseresponse.QRParseResponse attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weatherexecution.WeatherExecution.error">(application.types.weatherexecution.WeatherExecution attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.weatheruser.WeatherUser.exclude">exclude (application.types.weatheruser.WeatherUser attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob_storage.BlobPreview.exists">exists (application.types.blob_storage.BlobPreview attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blob_storage.BlobStorage.exists">(application.types.blob_storage.BlobStorage attribute)</a>
+</li>
+        <li><a href="application.types.html#id1">(application.types.blob_storage.BlobStorage property)</a>
+</li>
+        <li><a href="application.types.html#application.types.blob_storage.BlobThumbnail.exists">(application.types.blob_storage.BlobThumbnail attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.subscription.Subscription.expirationTime">expirationTime (application.types.subscription.Subscription attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.subscriptiontoken.SubscriptionToken.expirationTime">(application.types.subscriptiontoken.SubscriptionToken attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.users.export_user_data">export_user_data() (in module application.db.users)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob.Blob.ext">ext (application.types.blob.Blob attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blob_storage.BlobPreview.ext">(application.types.blob_storage.BlobPreview attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.blob_storage.BlobStorage.ext">(application.types.blob_storage.BlobStorage attribute)</a>, <a href="application.types.html#id2">[1]</a>
+</li>
+        <li><a href="application.types.html#application.types.blob_storage.BlobThumbnail.ext">(application.types.blob_storage.BlobThumbnail attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.integrations.html#application.integrations.images.extensions">extensions() (in module application.integrations.images)</a>
+
+      <ul>
+        <li><a href="application.integrations.html#application.integrations.models.extensions">(in module application.integrations.models)</a>
+</li>
+        <li><a href="application.integrations.html#application.integrations.videos.extensions">(in module application.integrations.videos)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.feeddocument.FeedDocument.feed">feed (application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.feed.Feed">Feed (class in application.types.feed)</a>
+</li>
+      <li><a href="application.types.html#application.types.feeddocument.FeedDocument">FeedDocument (class in application.types.feeddocument)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.FeedDocumentDoesNotExistError">FeedDocumentDoesNotExistError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.feeddocumentdoesnotexisterror.FeedDocumentDoesNotExistError">(class in application.types.feeddocumentdoesnotexisterror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.exceptions.html#application.exceptions.FeedDoesNotExistError">FeedDoesNotExistError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.feeddoesnotexisterror.FeedDoesNotExistError">(class in application.types.feeddoesnotexisterror)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.invalidfields.InvalidFields.fields">fields (application.types.invalidfields.InvalidFields attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.sorting.Sorting.fields">(application.types.sorting.Sorting attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.sorting_.Sorting_.fields">(application.types.sorting_.Sorting_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.blob.file_info">file_info() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.exceptions.UnsupportedFileFormat.filename">filename (application.integrations.exceptions.UnsupportedFileFormat attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.ebook.EBook.fileType">fileType (application.types.ebook.EBook attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.zipprogress.ZipProgress.finalizing">finalizing (application.types.zipprogress.ZipProgress attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.diskusage.DiskUsage.free">free (application.types.diskusage.DiskUsage attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.integrations.html#application.integrations.qrcode.generate">generate() (in module application.integrations.qrcode)</a>
+</li>
+      <li><a href="application.types.html#application.types.booksearchfilter.BookSearchFilter.genre">genre (application.types.booksearchfilter.BookSearchFilter attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.genre">(application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.users.get_admins">get_admins() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.get_alert_history">get_alert_history() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.get_all_configs">get_all_configs() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.get_all_themes">get_all_themes() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.apikeys.get_api_keys">get_api_keys() (in module application.db.apikeys)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.get_blob_data">get_blob_data() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.get_blobs">get_blobs() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.get_body_html">get_body_html() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.get_book">get_book() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.get_book_tag">get_book_tag() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.get_books">get_books() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.bugs.get_bug_report">get_bug_report() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.db.html#application.db.bugs.get_bug_reports">get_bug_reports() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.get_config">get_config() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.get_document">get_document() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.get_documents">get_documents() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.get_enabled_modules">get_enabled_modules() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.get_feed">get_feed() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.get_feeds">get_feeds() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.sessions.get_first_session_token">get_first_session_token() (in module application.db.sessions)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.get_groups">get_groups() (in module application.db.settings)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.inventory.get_inventory">get_inventory() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.get_inventory_item">get_inventory_item() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.get_item_categories">get_item_categories() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.get_item_locations">get_item_locations() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.inventory.get_item_types">get_item_types() (in module application.db.inventory)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.get_last_exec">get_last_exec() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.get_modules">get_modules() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.get_notifications">get_notifications() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.get_public_key">get_public_key() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.get_subscription">get_subscription() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.get_subscriptions">get_subscriptions() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.get_tags_from_mime">get_tags_from_mime() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.get_uid">get_uid() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.get_user_by_id">get_user_by_id() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.get_user_data">get_user_data() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.get_user_feeds">get_user_feeds() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.get_user_from_notif">get_user_from_notif() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.get_user_list">get_user_list() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.get_users">get_users() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.get_weather_user">get_weather_user() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.get_zip_progress">get_zip_progress() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.github.gh_request">gh_request() (in module application.integrations.github)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.group_filter">group_filter() (in module application.db.users)</a>
+</li>
+      <li><a href="application.types.html#application.types.userdata.UserData.groups">groups (application.types.userdata.UserData attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.book.Book.has_description">has_description (application.types.book.Book attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.blob.Blob.hidden">hidden (application.types.blob.Blob attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.blob.Blob.id">id (application.types.blob.Blob attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blob_storage.BlobPreview.id">(application.types.blob_storage.BlobPreview attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.blob_storage.BlobStorage.id">(application.types.blob_storage.BlobStorage attribute)</a>, <a href="application.types.html#id3">[1]</a>
+</li>
+        <li><a href="application.types.html#application.types.blob_storage.BlobThumbnail.id">(application.types.blob_storage.BlobThumbnail attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.book.Book.id">(application.types.book.Book attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bugreport.BugReport.id">(application.types.bugreport.BugReport attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feed.Feed.id">(application.types.feed.Feed attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddocument.FeedDocument.id">(application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.item.Item.id">(application.types.item.Item attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.notification.Notification.id">(application.types.notification.Notification attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.id">(application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.subsonictrack.SubsonicTrack.id">(application.types.subsonictrack.SubsonicTrack attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.bookident.BookIdent.identifier">identifier (application.types.bookident.BookIdent attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.feed.Feed.inactive">inactive (application.types.feed.Feed attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.industryIdentifiers">industryIdentifiers (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.init">init() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.init_db">init_db() (in module application.db)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.InsufficientDiskSpace">InsufficientDiskSpace</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.insufficientdiskspace.InsufficientDiskSpace">(class in application.types.insufficientdiskspace)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.insufficientperms.InsufficientPerms">InsufficientPerms (class in application.types.insufficientperms)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.InvalidColor">InvalidColor</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.exceptions.html#application.exceptions.InvalidFeedKindError">InvalidFeedKindError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.invalidfeedkinderror.InvalidFeedKindError">(class in application.types.invalidfeedkinderror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.invalidfields.InvalidFields">InvalidFields (class in application.types.invalidfields)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.InvalidJWTError">InvalidJWTError</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.InvalidPhone">InvalidPhone</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.InvalidSize">InvalidSize</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.InvalidSubscriptionToken">InvalidSubscriptionToken</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.invalidsubscriptiontoken.InvalidSubscriptionToken">(class in application.types.invalidsubscriptiontoken)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter">InventorySearchFilter (class in application.types.inventorysearchfilter)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.isbn">isbn (application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.isDir">isDir (application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.issuelabel.IssueLabel">IssueLabel (class in application.types.issuelabel)</a>
+</li>
+      <li><a href="application.types.html#application.types.issuelist.IssueList">IssueList (class in application.types.issuelist)</a>
+</li>
+      <li><a href="application.types.html#application.types.issuelist.IssueList.issues">issues (application.types.issuelist.IssueList attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.github.Repository.issues">issues() (application.integrations.github.Repository method)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.github.CurrentRepository.issues_pending_resolution">issues_pending_resolution() (application.integrations.github.CurrentRepository method)</a>, <a href="application.integrations.html#id0">[1]</a>
+</li>
+      <li><a href="application.types.html#application.types.zipprogress.ZipProgress.item">item (application.types.zipprogress.ZipProgress attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.item.Item">Item (class in application.types.item)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.ItemDoesNotExistError">ItemDoesNotExistError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.itemdoesnotexisterror.ItemDoesNotExistError">(class in application.types.itemdoesnotexisterror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.exceptions.html#application.exceptions.ItemExistsError">ItemExistsError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.itemexistserror.ItemExistsError">(class in application.types.itemexistserror)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.apikey.APIKey.key">key (application.types.apikey.APIKey attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.book.keyword_tokenize">keyword_tokenize() (in module application.db.book)</a>
+</li>
+      <li><a href="application.types.html#application.types.feed.Feed.kind">kind (application.types.feed.Feed attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.repositoryissue.RepositoryIssue.labels">labels (application.types.repositoryissue.RepositoryIssue attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.language">language (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.userdata.UserData.last_login">last_login (application.types.userdata.UserData attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.usermindata.UserMinData.last_login">(application.types.usermindata.UserMinData attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.weatheruser.WeatherUser.last_sent">last_sent (application.types.weatheruser.WeatherUser attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.lastmutation.LastMutation">LastMutation (class in application.types.lastmutation)</a>
+</li>
+      <li><a href="application.types.html#application.types.weatheruser.WeatherUser.lat">lat (application.types.weatheruser.WeatherUser attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weatheruserinput.WeatherUserInput.lat">(application.types.weatheruserinput.WeatherUserInput attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.book.link_book_tag">link_book_tag() (in module application.db.book)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscriptionlist.SubscriptionList.list">list (application.types.subscriptionlist.SubscriptionList attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.location">location (application.types.inventorysearchfilter.InventorySearchFilter attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.item.Item.location">(application.types.item.Item attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.weather.log_user_weather_alert">log_user_weather_alert() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.log_weather_alert">log_weather_alert() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.types.html#application.types.logresult.LogResult">LogResult (class in application.types.logresult)</a>
+</li>
+      <li><a href="application.types.html#application.types.weatheruser.WeatherUser.lon">lon (application.types.weatheruser.WeatherUser attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weatheruserinput.WeatherUserInput.lon">(application.types.weatheruserinput.WeatherUserInput attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.notification.mark_all_as_read">mark_all_as_read() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.mark_as_completed">mark_as_completed() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.mark_as_read">mark_as_read() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.maturityRating">maturityRating (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.weatheruser.WeatherUser.max">max (application.types.weatheruser.WeatherUser attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weatheruserinput.WeatherUserInput.max">(application.types.weatheruserinput.WeatherUserInput attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.integrations.html#application.integrations.exceptions.ApiFailedError.message">message (application.integrations.exceptions.ApiFailedError attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.apifailederror.ApiFailedError.message">(application.types.apifailederror.ApiFailedError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.badnotification.BadNotification.message">(application.types.badnotification.BadNotification attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.badtagquery.BadTagQuery.message">(application.types.badtagquery.BadTagQuery attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.badusernameerror.BadUserNameError.message">(application.types.badusernameerror.BadUserNameError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.blobdoesnotexisterror.BlobDoesNotExistError.message">(application.types.blobdoesnotexisterror.BlobDoesNotExistError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookcannotbeshared.BookCannotBeShared.message">(application.types.bookcannotbeshared.BookCannotBeShared attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.booktagdoesnotexisterror.BookTagDoesNotExistError.message">(application.types.booktagdoesnotexisterror.BookTagDoesNotExistError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.booktagexistserror.BookTagExistsError.message">(application.types.booktagexistserror.BookTagExistsError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bugreportcreationfailederror.BugReportCreationFailedError.message">(application.types.bugreportcreationfailederror.BugReportCreationFailedError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bugreportdoesnotexisterror.BugReportDoesNotExistError.message">(application.types.bugreportdoesnotexisterror.BugReportDoesNotExistError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddocumentdoesnotexisterror.FeedDocumentDoesNotExistError.message">(application.types.feeddocumentdoesnotexisterror.FeedDocumentDoesNotExistError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddoesnotexisterror.FeedDoesNotExistError.message">(application.types.feeddoesnotexisterror.FeedDoesNotExistError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.insufficientdiskspace.InsufficientDiskSpace.message">(application.types.insufficientdiskspace.InsufficientDiskSpace attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.insufficientperms.InsufficientPerms.message">(application.types.insufficientperms.InsufficientPerms attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.invalidfeedkinderror.InvalidFeedKindError.message">(application.types.invalidfeedkinderror.InvalidFeedKindError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.invalidfields.InvalidFields.message">(application.types.invalidfields.InvalidFields attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.invalidsubscriptiontoken.InvalidSubscriptionToken.message">(application.types.invalidsubscriptiontoken.InvalidSubscriptionToken attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.itemdoesnotexisterror.ItemDoesNotExistError.message">(application.types.itemdoesnotexisterror.ItemDoesNotExistError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.itemexistserror.ItemExistsError.message">(application.types.itemexistserror.ItemExistsError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.missingconfig.MissingConfig.message">(application.types.missingconfig.MissingConfig attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.notification.Notification.message">(application.types.notification.Notification attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.repofetchfailed.RepoFetchFailed.message">(application.types.repofetchfailed.RepoFetchFailed attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.subsonicerror.SubsonicError.message">(application.types.subsonicerror.SubsonicError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.userdoesnotexisterror.UserDoesNotExistError.message">(application.types.userdoesnotexisterror.UserDoesNotExistError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.userexistserror.UserExistsError.message">(application.types.userexistserror.UserExistsError attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.weatheralert.WeatherAlert.message">(application.types.weatheralert.WeatherAlert attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.webpushexception.WebPushException.message">(application.types.webpushexception.WebPushException attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.blob.Blob.mimetype">mimetype (application.types.blob.Blob attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.weatheruser.WeatherUser.min">min (application.types.weatheruser.WeatherUser attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weatheruserinput.WeatherUserInput.min">(application.types.weatheruserinput.WeatherUserInput attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.exceptions.html#application.exceptions.MissingConfig">MissingConfig</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.missingconfig.MissingConfig">(class in application.types.missingconfig)</a>
+</li>
+      </ul></li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="application.db.html#module-application.db">application.db</a>
+</li>
+        <li><a href="application.db.html#module-application.db.apikeys">application.db.apikeys</a>
+</li>
+        <li><a href="application.db.html#module-application.db.blob">application.db.blob</a>
+</li>
+        <li><a href="application.db.html#module-application.db.book">application.db.book</a>
+</li>
+        <li><a href="application.db.html#module-application.db.bugs">application.db.bugs</a>
+</li>
+        <li><a href="application.db.html#module-application.db.datafeed">application.db.datafeed</a>
+</li>
+        <li><a href="application.db.html#module-application.db.inventory">application.db.inventory</a>
+</li>
+        <li><a href="application.db.html#module-application.db.notification">application.db.notification</a>
+</li>
+        <li><a href="application.db.html#module-application.db.perms">application.db.perms</a>
+</li>
+        <li><a href="application.db.html#module-application.db.sessions">application.db.sessions</a>
+</li>
+        <li><a href="application.db.html#module-application.db.settings">application.db.settings</a>
+</li>
+        <li><a href="application.db.html#module-application.db.users">application.db.users</a>
+</li>
+        <li><a href="application.db.html#module-application.db.weather">application.db.weather</a>
+</li>
+        <li><a href="application.exceptions.html#module-application.exceptions">application.exceptions</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations">application.integrations</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.exceptions">application.integrations.exceptions</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.github">application.integrations.github</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.google_books">application.integrations.google_books</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.graphql">application.integrations.graphql</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.images">application.integrations.images</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.models">application.integrations.models</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.qrcode">application.integrations.qrcode</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.system">application.integrations.system</a>
+</li>
+        <li><a href="application.integrations.html#module-application.integrations.videos">application.integrations.videos</a>
+</li>
+        <li><a href="application.monkeypatch.html#module-application.monkeypatch">application.monkeypatch</a>
+</li>
+        <li><a href="application.monkeypatch.html#module-application.monkeypatch.json_encoder_patch">application.monkeypatch.json_encoder_patch</a>
+</li>
+        <li><a href="application.types.html#module-application.types">application.types</a>
+</li>
+        <li><a href="application.types.html#module-application.types.apifailederror">application.types.apifailederror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.apikey">application.types.apikey</a>
+</li>
+        <li><a href="application.types.html#module-application.types.badnotification">application.types.badnotification</a>
+</li>
+        <li><a href="application.types.html#module-application.types.badtagquery">application.types.badtagquery</a>
+</li>
+        <li><a href="application.types.html#module-application.types.badusernameerror">application.types.badusernameerror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.blob">application.types.blob</a>
+</li>
+        <li><a href="application.types.html#module-application.types.blob_storage">application.types.blob_storage</a>
+</li>
+        <li><a href="application.types.html#module-application.types.blobcount">application.types.blobcount</a>
+</li>
+        <li><a href="application.types.html#module-application.types.blobdoesnotexisterror">application.types.blobdoesnotexisterror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bloblist">application.types.bloblist</a>
+</li>
+        <li><a href="application.types.html#module-application.types.blobsearchfilter">application.types.blobsearchfilter</a>
+</li>
+        <li><a href="application.types.html#module-application.types.book">application.types.book</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bookcannotbeshared">application.types.bookcannotbeshared</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bookcreatedata">application.types.bookcreatedata</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bookeditdata">application.types.bookeditdata</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bookident">application.types.bookident</a>
+</li>
+        <li><a href="application.types.html#module-application.types.booklist">application.types.booklist</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bookownerhist">application.types.bookownerhist</a>
+</li>
+        <li><a href="application.types.html#module-application.types.booksearchfilter">application.types.booksearchfilter</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bookshare">application.types.bookshare</a>
+</li>
+        <li><a href="application.types.html#module-application.types.booktag">application.types.booktag</a>
+</li>
+        <li><a href="application.types.html#module-application.types.booktagdoesnotexisterror">application.types.booktagdoesnotexisterror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.booktagexistserror">application.types.booktagexistserror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bugcomment">application.types.bugcomment</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bugreport">application.types.bugreport</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bugreportcreationfailederror">application.types.bugreportcreationfailederror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.bugreportdoesnotexisterror">application.types.bugreportdoesnotexisterror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.config">application.types.config</a>
+</li>
+        <li><a href="application.types.html#module-application.types.configlist">application.types.configlist</a>
+</li>
+        <li><a href="application.types.html#module-application.types.diskusage">application.types.diskusage</a>
+</li>
+        <li><a href="application.types.html#module-application.types.ebook">application.types.ebook</a>
+</li>
+        <li><a href="application.types.html#module-application.types.feed">application.types.feed</a>
+</li>
+        <li><a href="application.types.html#module-application.types.feeddocument">application.types.feeddocument</a>
+</li>
+        <li><a href="application.types.html#module-application.types.feeddocumentdoesnotexisterror">application.types.feeddocumentdoesnotexisterror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.feeddoesnotexisterror">application.types.feeddoesnotexisterror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.insufficientdiskspace">application.types.insufficientdiskspace</a>
+</li>
+        <li><a href="application.types.html#module-application.types.insufficientperms">application.types.insufficientperms</a>
+</li>
+        <li><a href="application.types.html#module-application.types.invalidfeedkinderror">application.types.invalidfeedkinderror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.invalidfields">application.types.invalidfields</a>
+</li>
+        <li><a href="application.types.html#module-application.types.invalidsubscriptiontoken">application.types.invalidsubscriptiontoken</a>
+</li>
+        <li><a href="application.types.html#module-application.types.inventorysearchfilter">application.types.inventorysearchfilter</a>
+</li>
+        <li><a href="application.types.html#module-application.types.issuelabel">application.types.issuelabel</a>
+</li>
+        <li><a href="application.types.html#module-application.types.issuelist">application.types.issuelist</a>
+</li>
+        <li><a href="application.types.html#module-application.types.item">application.types.item</a>
+</li>
+        <li><a href="application.types.html#module-application.types.itemdoesnotexisterror">application.types.itemdoesnotexisterror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.itemexistserror">application.types.itemexistserror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.lastmutation">application.types.lastmutation</a>
+</li>
+        <li><a href="application.types.html#module-application.types.logresult">application.types.logresult</a>
+</li>
+        <li><a href="application.types.html#module-application.types.missingconfig">application.types.missingconfig</a>
+</li>
+        <li><a href="application.types.html#module-application.types.notification">application.types.notification</a>
+</li>
+        <li><a href="application.types.html#module-application.types.qrparseresponse">application.types.qrparseresponse</a>
+</li>
+        <li><a href="application.types.html#module-application.types.repofetchfailed">application.types.repofetchfailed</a>
+</li>
+        <li><a href="application.types.html#module-application.types.repositoryissue">application.types.repositoryissue</a>
+</li>
+        <li><a href="application.types.html#module-application.types.schema">application.types.schema</a>
+</li>
+        <li><a href="application.types.html#module-application.types.schemaparam">application.types.schemaparam</a>
+</li>
+        <li><a href="application.types.html#module-application.types.schemaquery">application.types.schemaquery</a>
+</li>
+        <li><a href="application.types.html#module-application.types.schemareturntype">application.types.schemareturntype</a>
+</li>
+        <li><a href="application.types.html#module-application.types.schematype">application.types.schematype</a>
+</li>
+        <li><a href="application.types.html#module-application.types.sorting">application.types.sorting</a>
+</li>
+        <li><a href="application.types.html#module-application.types.sorting_">application.types.sorting_</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subscription">application.types.subscription</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subscriptionkeys">application.types.subscriptionkeys</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subscriptionlist">application.types.subscriptionlist</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subscriptiontoken">application.types.subscriptiontoken</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subscriptiontokenkeys">application.types.subscriptiontokenkeys</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subsonicalbum">application.types.subsonicalbum</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subsonicerror">application.types.subsonicerror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subsonicsearch">application.types.subsonicsearch</a>
+</li>
+        <li><a href="application.types.html#module-application.types.subsonictrack">application.types.subsonictrack</a>
+</li>
+        <li><a href="application.types.html#module-application.types.systeminfo">application.types.systeminfo</a>
+</li>
+        <li><a href="application.types.html#module-application.types.theme">application.types.theme</a>
+</li>
+        <li><a href="application.types.html#module-application.types.theme_">application.types.theme_</a>
+</li>
+        <li><a href="application.types.html#module-application.types.themecolor">application.types.themecolor</a>
+</li>
+        <li><a href="application.types.html#module-application.types.themecolor_">application.types.themecolor_</a>
+</li>
+        <li><a href="application.types.html#module-application.types.themesize">application.types.themesize</a>
+</li>
+        <li><a href="application.types.html#module-application.types.themesize_">application.types.themesize_</a>
+</li>
+        <li><a href="application.types.html#module-application.types.userbookcount">application.types.userbookcount</a>
+</li>
+        <li><a href="application.types.html#module-application.types.userdata">application.types.userdata</a>
+</li>
+        <li><a href="application.types.html#module-application.types.userdoesnotexisterror">application.types.userdoesnotexisterror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.userexistserror">application.types.userexistserror</a>
+</li>
+        <li><a href="application.types.html#module-application.types.usermindata">application.types.usermindata</a>
+</li>
+        <li><a href="application.types.html#module-application.types.usertheme">application.types.usertheme</a>
+</li>
+        <li><a href="application.types.html#module-application.types.usertheme_">application.types.usertheme_</a>
+</li>
+        <li><a href="application.types.html#module-application.types.weatheralert">application.types.weatheralert</a>
+</li>
+        <li><a href="application.types.html#module-application.types.weatherexecution">application.types.weatherexecution</a>
+</li>
+        <li><a href="application.types.html#module-application.types.weathertemp">application.types.weathertemp</a>
+</li>
+        <li><a href="application.types.html#module-application.types.weathertemp_">application.types.weathertemp_</a>
+</li>
+        <li><a href="application.types.html#module-application.types.weatheruser">application.types.weatheruser</a>
+</li>
+        <li><a href="application.types.html#module-application.types.weatheruserinput">application.types.weatheruserinput</a>
+</li>
+        <li><a href="application.types.html#module-application.types.webpushexception">application.types.webpushexception</a>
+</li>
+        <li><a href="application.types.html#module-application.types.zipprogress">application.types.zipprogress</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.schema.Schema.mutations">mutations (application.types.schema.Schema attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.blob.Blob.name">name (application.types.blob.Blob attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.name">(application.types.blobsearchfilter.BlobSearchFilter attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookownerhist.BookOwnerHist.name">(application.types.bookownerhist.BookOwnerHist attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookshare.BookShare.name">(application.types.bookshare.BookShare attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.config.Config.name">(application.types.config.Config attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.diskusage.DiskUsage.name">(application.types.diskusage.DiskUsage attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feed.Feed.name">(application.types.feed.Feed attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.issuelabel.IssueLabel.name">(application.types.issuelabel.IssueLabel attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.schemaparam.SchemaParam.name">(application.types.schemaparam.SchemaParam attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.schemaquery.SchemaQuery.name">(application.types.schemaquery.SchemaQuery attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.theme.Theme.name">(application.types.theme.Theme attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.theme_.Theme_.name">(application.types.theme_.Theme_ attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.themecolor.ThemeColor.name">(application.types.themecolor.ThemeColor attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.themecolor_.ThemeColor_.name">(application.types.themecolor_.ThemeColor_ attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.themesize.ThemeSize.name">(application.types.themesize.ThemeSize attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.themesize_.ThemeSize_.name">(application.types.themesize_.ThemeSize_ attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.apikeys.new_api_key">new_api_key() (in module application.db.apikeys)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.next_out_of_date_book_rfid">next_out_of_date_book_rfid() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.norm_query">norm_query() (in module application.db.book)</a>
+</li>
+      <li><a href="application.types.html#application.types.notification.Notification">Notification (class in application.types.notification)</a>
+</li>
+      <li><a href="application.types.html#application.types.feed.Feed.notify">notify (application.types.feed.Feed attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.repositoryissue.RepositoryIssue.number">number (application.types.repositoryissue.RepositoryIssue attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.schemaparam.SchemaParam.optional">optional (application.types.schemaparam.SchemaParam attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.schemareturntype.SchemaReturnType.optional">(application.types.schemareturntype.SchemaReturnType attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.book.Book.owner">owner (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.booksearchfilter.BookSearchFilter.owner">(application.types.booksearchfilter.BookSearchFilter attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.owner">(application.types.inventorysearchfilter.InventorySearchFilter attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.item.Item.owner">(application.types.item.Item attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.userbookcount.UserBookCount.owner">(application.types.userbookcount.UserBookCount attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.book.Book.ownerHistory">ownerHistory (application.types.book.Book attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.subscriptionkeys.SubscriptionKeys.p256dh">p256dh (application.types.subscriptionkeys.SubscriptionKeys attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.subscriptiontokenkeys.SubscriptionTokenKeys.p256dh">(application.types.subscriptiontokenkeys.SubscriptionTokenKeys attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.book.Book.pageCount">pageCount (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.pageCount">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.schemaquery.SchemaQuery.params">params (application.types.schemaquery.SchemaQuery attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.schematype.SchemaType.params">(application.types.schematype.SchemaType attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.parent">parent (application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob_storage.BlobStorage.path">path() (application.types.blob_storage.BlobStorage method)</a>
+</li>
+      <li><a href="application.types.html#application.types.apikey.APIKey.perms">perms (application.types.apikey.APIKey attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.userdata.UserData.perms">(application.types.userdata.UserData attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.playCount">playCount (application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.feeddocument.FeedDocument.posted">posted (application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.blob.Blob.preview">preview (application.types.blob.Blob attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.qrcode.process">process() (in module application.integrations.qrcode)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.process_book_tag">process_book_tag() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.bugs.process_bug_report">process_bug_report() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.process_document">process_document() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.process_feed">process_feed() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.process_share_hist">process_share_hist() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.process_weather_user">process_weather_user() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.types.html#application.types.zipprogress.ZipProgress.progress">progress (application.types.zipprogress.ZipProgress attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.publishedDate">publishedDate (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.publishedDate">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.book.Book.publisher">publisher (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.publisher">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.qrparseresponse.QRParseResponse">QRParseResponse (class in application.types.qrparseresponse)</a>
+</li>
+      <li><a href="application.types.html#application.types.schema.Schema.queries">queries (application.types.schema.Schema attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.schemaquery.SchemaQuery.query">query (application.types.schemaquery.SchemaQuery attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.google_books.query">query() (in module application.integrations.google_books)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.feeddocument.FeedDocument.read">read (application.types.feeddocument.FeedDocument attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.notification.Notification.read">(application.types.notification.Notification attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.notification.Notification.recipient">recipient (application.types.notification.Notification attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weatheralert.WeatherAlert.recipient">(application.types.weatheralert.WeatherAlert attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.blob.Blob.references">references (application.types.blob.Blob attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.refresh_book_data">refresh_book_data() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.remove_reference">remove_reference() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.github.CurrentRepository.repo">repo (application.integrations.github.CurrentRepository attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.exceptions.RepoFetchFailed">RepoFetchFailed</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.repofetchfailed.RepoFetchFailed">(class in application.types.repofetchfailed)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.bugs.report_bug">report_bug() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.github.Repository">Repository (class in application.integrations.github)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.repositoryissue.RepositoryIssue">RepositoryIssue (class in application.types.repositoryissue)</a>
+</li>
+      <li><a href="application.types.html#application.types.lastmutation.LastMutation.request">request (application.types.lastmutation.LastMutation attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.perms.require">require() (in module application.db.perms)</a>
+</li>
+      <li><a href="application.types.html#application.types.bugreport.BugReport.resolved">resolved (application.types.bugreport.BugReport attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.github.Repository.resolved_issues">resolved_issues() (application.integrations.github.Repository method)</a>
+</li>
+      <li><a href="application.types.html#application.types.logresult.LogResult.result">result (application.types.logresult.LogResult attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.return_book">return_book() (in module application.db.book)</a>
+</li>
+      <li><a href="application.types.html#application.types.schemaquery.SchemaQuery.returns">returns (application.types.schemaquery.SchemaQuery attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.sessions.revoke_sessions">revoke_sessions() (in module application.db.sessions)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.rfid">rfid (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.rfid">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.booktag.BookTag.rfid">(application.types.booktag.BookTag attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.item.Item.rfid">(application.types.item.Item attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.blob.save_blob_data">save_blob_data() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.types.html#application.types.schema.Schema">Schema (class in application.types.schema)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.graphql.schema">schema() (in module application.integrations.graphql)</a>
+</li>
+      <li><a href="application.types.html#application.types.schemaparam.SchemaParam">SchemaParam (class in application.types.schemaparam)</a>
+</li>
+      <li><a href="application.types.html#application.types.schemaquery.SchemaQuery">SchemaQuery (class in application.types.schemaquery)</a>
+</li>
+      <li><a href="application.types.html#application.types.schemareturntype.SchemaReturnType">SchemaReturnType (class in application.types.schemareturntype)</a>
+</li>
+      <li><a href="application.types.html#application.types.schematype.SchemaType">SchemaType (class in application.types.schematype)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.send">send() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.types.html#application.types.weatheralert.WeatherAlert.sent">sent (application.types.weatheralert.WeatherAlert attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.set_blob_ephemeral">set_blob_ephemeral() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.set_blob_hidden">set_blob_hidden() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.set_blob_tags">set_blob_tags() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.set_book_owner">set_book_owner() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.bugs.set_bug_status">set_bug_status() (in module application.db.bugs)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.set_config">set_config() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.set_document_read">set_document_read() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.set_feed_inactive">set_feed_inactive() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.set_feed_navigation">set_feed_navigation() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.set_feed_notify">set_feed_notify() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.set_mime_from_ext">set_mime_from_ext() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.set_module_enabled">set_module_enabled() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.set_user_excluded">set_user_excluded() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.setup_db">setup_db() (in module application.db)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.share_book_with_non_user">share_book_with_non_user() (in module application.db.book)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.share_book_with_user">share_book_with_user() (in module application.db.book)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.shared">shared (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.booksearchfilter.BookSearchFilter.shared">(application.types.booksearchfilter.BookSearchFilter attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.book.Book.shareHistory">shareHistory (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob.Blob.size">size (application.types.blob.Blob attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.usertheme.UserTheme.sizes">sizes (application.types.usertheme.UserTheme attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.usertheme_.UserTheme_.sizes">(application.types.usertheme_.UserTheme_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.book.Book.smallThumbnail">smallThumbnail (application.types.book.Book attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.sorting.Sorting">Sorting (class in application.types.sorting)</a>
+</li>
+      <li><a href="application.types.html#application.types.sorting_.Sorting_">Sorting_ (class in application.types.sorting_)</a>
+</li>
+      <li><a href="application.types.html#application.types.theme.Theme.special">special (application.types.theme.Theme attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.theme_.Theme_.special">(application.types.theme_.Theme_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.bookownerhist.BookOwnerHist.start">start (application.types.bookownerhist.BookOwnerHist attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookshare.BookShare.start">(application.types.bookshare.BookShare attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.sessions.start_session">start_session() (in module application.db.sessions)</a>
+</li>
+      <li><a href="application.types.html#application.types.repositoryissue.RepositoryIssue.state">state (application.types.repositoryissue.RepositoryIssue attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookownerhist.BookOwnerHist.stop">stop (application.types.bookownerhist.BookOwnerHist attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookshare.BookShare.stop">(application.types.bookshare.BookShare attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.systeminfo.SystemInfo.storage">storage (application.types.systeminfo.SystemInfo attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscription.Subscription">Subscription (class in application.types.subscription)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscriptionkeys.SubscriptionKeys">SubscriptionKeys (class in application.types.subscriptionkeys)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscriptionlist.SubscriptionList">SubscriptionList (class in application.types.subscriptionlist)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscriptiontoken.SubscriptionToken">SubscriptionToken (class in application.types.subscriptiontoken)</a>
+</li>
+      <li><a href="application.types.html#application.types.subscriptiontokenkeys.SubscriptionTokenKeys">SubscriptionTokenKeys (class in application.types.subscriptiontokenkeys)</a>
+</li>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum">SubsonicAlbum (class in application.types.subsonicalbum)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.SubsonicError">SubsonicError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.subsonicerror.SubsonicError">(class in application.types.subsonicerror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.subsonicsearch.SubsonicSearch">SubsonicSearch (class in application.types.subsonicsearch)</a>
+</li>
+      <li><a href="application.types.html#application.types.subsonictrack.SubsonicTrack">SubsonicTrack (class in application.types.subsonictrack)</a>
+</li>
+      <li><a href="application.types.html#application.types.book.Book.subtitle">subtitle (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.subtitle">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookeditdata.BookEditData.subtitle">(application.types.bookeditdata.BookEditData attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.schematype.SchemaType.subtypes">subtypes (application.types.schematype.SchemaType attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.sum_blob_size">sum_blob_size() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.types.html#application.types.systeminfo.SystemInfo">SystemInfo (class in application.types.systeminfo)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.tag_expr">tag_expr (application.types.blobsearchfilter.BlobSearchFilter attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob.Blob.tags">tags (application.types.blob.Blob attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.exceptions.RepoFetchFailed.text">text (application.integrations.exceptions.RepoFetchFailed attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.theme.Theme.text">(application.types.theme.Theme attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.theme_.Theme_.text">(application.types.theme_.Theme_ attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.userdata.UserData.theme">theme (application.types.userdata.UserData attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.theme.Theme">Theme (class in application.types.theme)</a>
+</li>
+      <li><a href="application.types.html#application.types.theme_.Theme_">Theme_ (class in application.types.theme_)</a>
+</li>
+      <li><a href="application.types.html#application.types.themecolor.ThemeColor">ThemeColor (class in application.types.themecolor)</a>
+</li>
+      <li><a href="application.types.html#application.types.themecolor_.ThemeColor_">ThemeColor_ (class in application.types.themecolor_)</a>
+</li>
+      <li><a href="application.types.html#application.types.themesize.ThemeSize">ThemeSize (class in application.types.themesize)</a>
+</li>
+      <li><a href="application.types.html#application.types.themesize_.ThemeSize_">ThemeSize_ (class in application.types.themesize_)</a>
+</li>
+      <li><a href="application.types.html#application.types.blob.Blob.thumbnail">thumbnail (application.types.blob.Blob attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.book.Book.thumbnail">(application.types.book.Book attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.thumbnail">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.lastmutation.LastMutation.timestamp">timestamp (application.types.lastmutation.LastMutation attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.weatherexecution.WeatherExecution.timestamp">(application.types.weatherexecution.WeatherExecution attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.book.Book.title">title (application.types.book.Book attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookcreatedata.BookCreateData.title">(application.types.bookcreatedata.BookCreateData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.bookeditdata.BookEditData.title">(application.types.bookeditdata.BookEditData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.booksearchfilter.BookSearchFilter.title">(application.types.booksearchfilter.BookSearchFilter attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddocument.FeedDocument.title">(application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.repositoryissue.RepositoryIssue.title">(application.types.repositoryissue.RepositoryIssue attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.title">(application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.subsonictrack.SubsonicTrack.title">(application.types.subsonictrack.SubsonicTrack attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.integrations.html#application.integrations.models.to_glb">to_glb() (in module application.integrations.models)</a>
+</li>
+      <li><a href="application.types.html#application.types.diskusage.DiskUsage.total">total (application.types.diskusage.DiskUsage attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.notification.try_send_webpush">try_send_webpush() (in module application.db.notification)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookident.BookIdent.type">type (application.types.bookident.BookIdent attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.type">(application.types.inventorysearchfilter.InventorySearchFilter attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.item.Item.type">(application.types.item.Item attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.schemaparam.SchemaParam.type">(application.types.schemaparam.SchemaParam attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.schemareturntype.SchemaReturnType.type">(application.types.schemareturntype.SchemaReturnType attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.schematype.SchemaType.type">(application.types.schematype.SchemaType attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.schema.Schema.types">types (application.types.schema.Schema attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.schematype.SchemaType.union">union (application.types.schematype.SchemaType attribute)</a>
+</li>
+      <li><a href="application.db.html#application.db.book.unlink_book_tag">unlink_book_tag() (in module application.db.book)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.exceptions.UnsupportedFileFormat">UnsupportedFileFormat</a>
+</li>
+      <li><a href="application.db.html#application.db.blob.unzip_file_into_blobs">unzip_file_into_blobs() (in module application.db.blob)</a>
+</li>
+      <li><a href="application.db.html#application.db.datafeed.update_document">update_document() (in module application.db.datafeed)</a>
+</li>
+      <li><a href="application.db.html#application.db.settings.update_groups">update_groups() (in module application.db.settings)</a>
+</li>
+      <li><a href="application.db.html#application.db.weather.update_user">update_user() (in module application.db.weather)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_user_display_name">update_user_display_name() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_user_email">update_user_email() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_user_groups">update_user_groups() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_user_module">update_user_module() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_user_password">update_user_password() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_user_perms">update_user_perms() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_user_theme">update_user_theme() (in module application.db.users)</a>
+</li>
+      <li><a href="application.db.html#application.db.users.update_username">update_username() (in module application.db.users)</a>
+</li>
+      <li><a href="application.types.html#application.types.feeddocument.FeedDocument.updated">updated (application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+      <li><a href="application.integrations.html#application.integrations.exceptions.RepoFetchFailed.url">url (application.integrations.exceptions.RepoFetchFailed attribute)</a>
+
+      <ul>
+        <li><a href="application.integrations.html#application.integrations.github.Repository.url">(application.integrations.github.Repository attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.ebook.EBook.url">(application.types.ebook.EBook attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feed.Feed.url">(application.types.feed.Feed attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.feeddocument.FeedDocument.url">(application.types.feeddocument.FeedDocument attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.diskusage.DiskUsage.used">used (application.types.diskusage.DiskUsage attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.bookownerhist.BookOwnerHist.user_id">user_id (application.types.bookownerhist.BookOwnerHist attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.bookshare.BookShare.user_id">(application.types.bookshare.BookShare attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.userbookcount.UserBookCount">UserBookCount (class in application.types.userbookcount)</a>
+</li>
+      <li><a href="application.types.html#application.types.userdata.UserData">UserData (class in application.types.userdata)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.UserDoesNotExistError">UserDoesNotExistError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.userdoesnotexisterror.UserDoesNotExistError">(class in application.types.userdoesnotexisterror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.exceptions.html#application.exceptions.UserExistsError">UserExistsError</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.userexistserror.UserExistsError">(class in application.types.userexistserror)</a>
+</li>
+      </ul></li>
+      <li><a href="application.db.html#application.db.users.userids_in_groups">userids_in_groups() (in module application.db.users)</a>
+</li>
+      <li><a href="application.types.html#application.types.usermindata.UserMinData">UserMinData (class in application.types.usermindata)</a>
+</li>
+      <li><a href="application.types.html#application.types.lastmutation.LastMutation.username">username (application.types.lastmutation.LastMutation attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.userdata.UserData.username">(application.types.userdata.UserData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.usermindata.UserMinData.username">(application.types.usermindata.UserMinData attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.weatheruser.WeatherUser.username">(application.types.weatheruser.WeatherUser attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.weatheruserinput.WeatherUserInput.username">(application.types.weatheruserinput.WeatherUserInput attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="application.types.html#application.types.weatherexecution.WeatherExecution.users">users (application.types.weatherexecution.WeatherExecution attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.usertheme.UserTheme">UserTheme (class in application.types.usertheme)</a>
+</li>
+      <li><a href="application.types.html#application.types.usertheme_.UserTheme_">UserTheme_ (class in application.types.usertheme_)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.apikeys.valid_api_key">valid_api_key() (in module application.db.apikeys)</a>
+</li>
+      <li><a href="application.db.html#application.db.sessions.valid_session">valid_session() (in module application.db.sessions)</a>
+</li>
+      <li><a href="application.types.html#application.types.config.Config.value">value (application.types.config.Config attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.themecolor.ThemeColor.value">(application.types.themecolor.ThemeColor attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.themecolor_.ThemeColor_.value">(application.types.themecolor_.ThemeColor_ attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.themesize.ThemeSize.value">(application.types.themesize.ThemeSize attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.themesize_.ThemeSize_.value">(application.types.themesize_.ThemeSize_ attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.weathertemp.WeatherTemp.value">(application.types.weathertemp.WeatherTemp attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.weathertemp_.WeatherTemp_.value">(application.types.weathertemp_.WeatherTemp_ attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.weatheralert.WeatherAlert">WeatherAlert (class in application.types.weatheralert)</a>
+</li>
+      <li><a href="application.types.html#application.types.weatherexecution.WeatherExecution">WeatherExecution (class in application.types.weatherexecution)</a>
+</li>
+      <li><a href="application.types.html#application.types.weathertemp.WeatherTemp">WeatherTemp (class in application.types.weathertemp)</a>
+</li>
+      <li><a href="application.types.html#application.types.weathertemp_.WeatherTemp_">WeatherTemp_ (class in application.types.weathertemp_)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.weatheruser.WeatherUser">WeatherUser (class in application.types.weatheruser)</a>
+</li>
+      <li><a href="application.types.html#application.types.weatheruserinput.WeatherUserInput">WeatherUserInput (class in application.types.weatheruserinput)</a>
+</li>
+      <li><a href="application.exceptions.html#application.exceptions.WebPushException">WebPushException</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.webpushexception.WebPushException">(class in application.types.webpushexception)</a>
+</li>
+      </ul></li>
+      <li><a href="application.monkeypatch.html#application.monkeypatch.json_encoder_patch.wrapped_default">wrapped_default() (in module application.monkeypatch.json_encoder_patch)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.year">year (application.types.subsonicalbum.SubsonicAlbum attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.db.html#application.db.blob.zip_matching_blobs">zip_matching_blobs() (in module application.db.blob)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="application.types.html#application.types.zipprogress.ZipProgress">ZipProgress (class in application.types.zipprogress)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Zachary Westerman.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

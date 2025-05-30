@@ -1,6 +1,0 @@
-var searchData=
-[
-  ['optional_0',['optional',['../classapplication_1_1types_1_1schemaparam_1_1SchemaParam.html#acd75cac14014a2bc13fd7c397ad8114b',1,'application.types.schemaparam.SchemaParam.optional'],['../classapplication_1_1types_1_1schemareturntype_1_1SchemaReturnType.html#ad8a241020e385f4709353723c5054bcd',1,'application.types.schemareturntype.SchemaReturnType.optional']]],
-  ['owner_1',['owner',['../classapplication_1_1types_1_1book_1_1Book.html#a95a4f2a0dc3f72983838c89253edfff8',1,'application.types.book.Book.owner'],['../classapplication_1_1types_1_1booksearchfilter_1_1BookSearchFilter.html#adadcbff73dc38614ef5745383c045f9a',1,'application.types.booksearchfilter.BookSearchFilter.owner'],['../classapplication_1_1types_1_1inventorysearchfilter_1_1InventorySearchFilter.html#ac20a6df63bad317f551f54b306fc01b1',1,'application.types.inventorysearchfilter.InventorySearchFilter.owner'],['../classapplication_1_1types_1_1item_1_1Item.html#ae532d202966ee446f8eb7189c42497e5',1,'application.types.item.Item.owner'],['../classapplication_1_1types_1_1userbookcount_1_1UserBookCount.html#a29138db711e58e58a3ef7a246c87f966',1,'application.types.userbookcount.UserBookCount.owner']]],
-  ['ownerhistory_2',['ownerHistory',['../classapplication_1_1types_1_1book_1_1Book.html#ae5baf347a42e2ee33f1585f6858e3fb0',1,'application::types::book::Book']]]
-];

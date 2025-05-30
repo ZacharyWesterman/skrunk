@@ -1,7 +1,0 @@
-<map id="application.types.bookshare.BookShare" name="application.types.bookshare.BookShare">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,216,148"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="14,5,101,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,42,104,107,99,109,67,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="125,5,206,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,44,123,109,118,106,151,42"/>
-</map>

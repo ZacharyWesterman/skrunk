@@ -1,7 +1,0 @@
-<map id="application.types.bugreport.BugReport" name="application.types.bugreport.BugReport">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,211,133"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="11,5,98,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,41,99,92,95,94,66,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="122,5,203,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,44,121,95,117,92,147,41"/>
-</map>

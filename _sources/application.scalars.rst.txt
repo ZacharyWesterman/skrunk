@@ -1,0 +1,61 @@
+application.scalars package
+===========================
+
+Submodules
+----------
+
+application.scalars.color module
+--------------------------------
+
+.. automodule:: application.scalars.color
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.scalars.date module
+-------------------------------
+
+.. automodule:: application.scalars.date
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.scalars.datetime module
+-----------------------------------
+
+.. automodule:: application.scalars.datetime
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.scalars.long module
+-------------------------------
+
+.. automodule:: application.scalars.long
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.scalars.phone module
+--------------------------------
+
+.. automodule:: application.scalars.phone
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.scalars.size module
+-------------------------------
+
+.. automodule:: application.scalars.size
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.scalars
+   :members:
+   :show-inheritance:
+   :undoc-members:

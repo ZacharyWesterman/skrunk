@@ -1,0 +1,10 @@
+application.exceptions package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: application.exceptions
+   :members:
+   :show-inheritance:
+   :undoc-members:

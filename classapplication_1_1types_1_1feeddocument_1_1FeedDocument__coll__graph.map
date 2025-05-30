@@ -1,7 +1,0 @@
-<map id="application.types.feeddocument.FeedDocument" name="application.types.feeddocument.FeedDocument">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,123,241,163"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="27,5,113,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,43,117,121,113,123,78,45"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="137,5,219,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,45,134,123,129,121,165,43"/>
-</map>

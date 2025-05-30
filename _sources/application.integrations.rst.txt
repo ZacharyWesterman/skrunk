@@ -1,0 +1,85 @@
+application.integrations package
+================================
+
+Submodules
+----------
+
+application.integrations.exceptions module
+------------------------------------------
+
+.. automodule:: application.integrations.exceptions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.github module
+--------------------------------------
+
+.. automodule:: application.integrations.github
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.google\_books module
+---------------------------------------------
+
+.. automodule:: application.integrations.google_books
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.graphql module
+---------------------------------------
+
+.. automodule:: application.integrations.graphql
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.images module
+--------------------------------------
+
+.. automodule:: application.integrations.images
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.models module
+--------------------------------------
+
+.. automodule:: application.integrations.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.qrcode module
+--------------------------------------
+
+.. automodule:: application.integrations.qrcode
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.system module
+--------------------------------------
+
+.. automodule:: application.integrations.system
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.videos module
+--------------------------------------
+
+.. automodule:: application.integrations.videos
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.integrations
+   :members:
+   :show-inheritance:
+   :undoc-members:

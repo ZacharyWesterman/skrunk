@@ -1,0 +1,61 @@
+application.routes package
+==========================
+
+Submodules
+----------
+
+application.routes.api module
+-----------------------------
+
+.. automodule:: application.routes.api
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.routes.auth module
+------------------------------
+
+.. automodule:: application.routes.auth
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.routes.blob module
+------------------------------
+
+.. automodule:: application.routes.blob
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.routes.files module
+-------------------------------
+
+.. automodule:: application.routes.files
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.routes.misc module
+------------------------------
+
+.. automodule:: application.routes.misc
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.routes.site module
+------------------------------
+
+.. automodule:: application.routes.site
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.routes
+   :members:
+   :show-inheritance:
+   :undoc-members:

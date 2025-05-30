@@ -1,0 +1,1690 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>application package &#8212; Skrunk Server 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'application';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="application.db package" href="application.db.html" />
+    <link rel="prev" title="application" href="modules.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Skrunk Server 1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">application package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html">application.integrations package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">application</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">application package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="application-package">
+<h1>application package<a class="headerlink" href="#application-package" title="Link to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="application.db.html">application.db package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.apikeys">application.db.apikeys module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.apikeys.delete_api_key"><code class="docutils literal notranslate"><span class="pre">delete_api_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.apikeys.get_api_keys"><code class="docutils literal notranslate"><span class="pre">get_api_keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.apikeys.new_api_key"><code class="docutils literal notranslate"><span class="pre">new_api_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.apikeys.valid_api_key"><code class="docutils literal notranslate"><span class="pre">valid_api_key()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.blob">application.db.blob module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.add_reference"><code class="docutils literal notranslate"><span class="pre">add_reference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.build_blob_query"><code class="docutils literal notranslate"><span class="pre">build_blob_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.cancel_zip"><code class="docutils literal notranslate"><span class="pre">cancel_zip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.count_blobs"><code class="docutils literal notranslate"><span class="pre">count_blobs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.count_tag_uses"><code class="docutils literal notranslate"><span class="pre">count_tag_uses()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_blob"><code class="docutils literal notranslate"><span class="pre">create_blob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_blob_previews"><code class="docutils literal notranslate"><span class="pre">create_blob_previews()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_preview_model"><code class="docutils literal notranslate"><span class="pre">create_preview_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_preview_video"><code class="docutils literal notranslate"><span class="pre">create_preview_video()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.delete_blob"><code class="docutils literal notranslate"><span class="pre">delete_blob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.file_info"><code class="docutils literal notranslate"><span class="pre">file_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_blob_data"><code class="docutils literal notranslate"><span class="pre">get_blob_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_blobs"><code class="docutils literal notranslate"><span class="pre">get_blobs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_tags_from_mime"><code class="docutils literal notranslate"><span class="pre">get_tags_from_mime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_uid"><code class="docutils literal notranslate"><span class="pre">get_uid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_zip_progress"><code class="docutils literal notranslate"><span class="pre">get_zip_progress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.mark_as_completed"><code class="docutils literal notranslate"><span class="pre">mark_as_completed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.remove_reference"><code class="docutils literal notranslate"><span class="pre">remove_reference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.save_blob_data"><code class="docutils literal notranslate"><span class="pre">save_blob_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.set_blob_ephemeral"><code class="docutils literal notranslate"><span class="pre">set_blob_ephemeral()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.set_blob_hidden"><code class="docutils literal notranslate"><span class="pre">set_blob_hidden()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.set_blob_tags"><code class="docutils literal notranslate"><span class="pre">set_blob_tags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.set_mime_from_ext"><code class="docutils literal notranslate"><span class="pre">set_mime_from_ext()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.sum_blob_size"><code class="docutils literal notranslate"><span class="pre">sum_blob_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.unzip_file_into_blobs"><code class="docutils literal notranslate"><span class="pre">unzip_file_into_blobs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.zip_matching_blobs"><code class="docutils literal notranslate"><span class="pre">zip_matching_blobs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.book">application.db.book module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.append_ebook"><code class="docutils literal notranslate"><span class="pre">append_ebook()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.borrow_book"><code class="docutils literal notranslate"><span class="pre">borrow_book()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.build_book_query"><code class="docutils literal notranslate"><span class="pre">build_book_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.build_keywords"><code class="docutils literal notranslate"><span class="pre">build_keywords()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.count_all_user_books"><code class="docutils literal notranslate"><span class="pre">count_all_user_books()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.count_books"><code class="docutils literal notranslate"><span class="pre">count_books()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.create_book"><code class="docutils literal notranslate"><span class="pre">create_book()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.edit_book"><code class="docutils literal notranslate"><span class="pre">edit_book()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.get_book"><code class="docutils literal notranslate"><span class="pre">get_book()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.get_book_tag"><code class="docutils literal notranslate"><span class="pre">get_book_tag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.get_books"><code class="docutils literal notranslate"><span class="pre">get_books()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.keyword_tokenize"><code class="docutils literal notranslate"><span class="pre">keyword_tokenize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.link_book_tag"><code class="docutils literal notranslate"><span class="pre">link_book_tag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.next_out_of_date_book_rfid"><code class="docutils literal notranslate"><span class="pre">next_out_of_date_book_rfid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.norm_query"><code class="docutils literal notranslate"><span class="pre">norm_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.process_book_tag"><code class="docutils literal notranslate"><span class="pre">process_book_tag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.process_share_hist"><code class="docutils literal notranslate"><span class="pre">process_share_hist()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.refresh_book_data"><code class="docutils literal notranslate"><span class="pre">refresh_book_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.return_book"><code class="docutils literal notranslate"><span class="pre">return_book()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.set_book_owner"><code class="docutils literal notranslate"><span class="pre">set_book_owner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.share_book_with_non_user"><code class="docutils literal notranslate"><span class="pre">share_book_with_non_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.share_book_with_user"><code class="docutils literal notranslate"><span class="pre">share_book_with_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.book.unlink_book_tag"><code class="docutils literal notranslate"><span class="pre">unlink_book_tag()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.bugs">application.db.bugs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.comment_on_bug"><code class="docutils literal notranslate"><span class="pre">comment_on_bug()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.count_bug_reports"><code class="docutils literal notranslate"><span class="pre">count_bug_reports()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.delete_bug_report"><code class="docutils literal notranslate"><span class="pre">delete_bug_report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.get_bug_report"><code class="docutils literal notranslate"><span class="pre">get_bug_report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.get_bug_reports"><code class="docutils literal notranslate"><span class="pre">get_bug_reports()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.process_bug_report"><code class="docutils literal notranslate"><span class="pre">process_bug_report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.report_bug"><code class="docutils literal notranslate"><span class="pre">report_bug()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.bugs.set_bug_status"><code class="docutils literal notranslate"><span class="pre">set_bug_status()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.datafeed">application.db.datafeed module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.count_documents"><code class="docutils literal notranslate"><span class="pre">count_documents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.count_feeds"><code class="docutils literal notranslate"><span class="pre">count_feeds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.create_document"><code class="docutils literal notranslate"><span class="pre">create_document()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.create_feed"><code class="docutils literal notranslate"><span class="pre">create_feed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.delete_feed"><code class="docutils literal notranslate"><span class="pre">delete_feed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.get_body_html"><code class="docutils literal notranslate"><span class="pre">get_body_html()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.get_document"><code class="docutils literal notranslate"><span class="pre">get_document()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.get_documents"><code class="docutils literal notranslate"><span class="pre">get_documents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.get_feed"><code class="docutils literal notranslate"><span class="pre">get_feed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.get_feeds"><code class="docutils literal notranslate"><span class="pre">get_feeds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.get_user_feeds"><code class="docutils literal notranslate"><span class="pre">get_user_feeds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.process_document"><code class="docutils literal notranslate"><span class="pre">process_document()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.process_feed"><code class="docutils literal notranslate"><span class="pre">process_feed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.set_document_read"><code class="docutils literal notranslate"><span class="pre">set_document_read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.set_feed_inactive"><code class="docutils literal notranslate"><span class="pre">set_feed_inactive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.set_feed_navigation"><code class="docutils literal notranslate"><span class="pre">set_feed_navigation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.set_feed_notify"><code class="docutils literal notranslate"><span class="pre">set_feed_notify()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.datafeed.update_document"><code class="docutils literal notranslate"><span class="pre">update_document()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.inventory">application.db.inventory module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.build_inventory_query"><code class="docutils literal notranslate"><span class="pre">build_inventory_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.count_inventory"><code class="docutils literal notranslate"><span class="pre">count_inventory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.create_inventory_item"><code class="docutils literal notranslate"><span class="pre">create_inventory_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.delete_inventory_item"><code class="docutils literal notranslate"><span class="pre">delete_inventory_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.get_inventory"><code class="docutils literal notranslate"><span class="pre">get_inventory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.get_inventory_item"><code class="docutils literal notranslate"><span class="pre">get_inventory_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.get_item_categories"><code class="docutils literal notranslate"><span class="pre">get_item_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.get_item_locations"><code class="docutils literal notranslate"><span class="pre">get_item_locations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.get_item_types"><code class="docutils literal notranslate"><span class="pre">get_item_types()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.notification">application.db.notification module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.count_notifications"><code class="docutils literal notranslate"><span class="pre">count_notifications()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.create_subscription"><code class="docutils literal notranslate"><span class="pre">create_subscription()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.delete_subscription"><code class="docutils literal notranslate"><span class="pre">delete_subscription()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.delete_subscriptions"><code class="docutils literal notranslate"><span class="pre">delete_subscriptions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_notifications"><code class="docutils literal notranslate"><span class="pre">get_notifications()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_public_key"><code class="docutils literal notranslate"><span class="pre">get_public_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_subscription"><code class="docutils literal notranslate"><span class="pre">get_subscription()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_subscriptions"><code class="docutils literal notranslate"><span class="pre">get_subscriptions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_user_from_notif"><code class="docutils literal notranslate"><span class="pre">get_user_from_notif()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.mark_all_as_read"><code class="docutils literal notranslate"><span class="pre">mark_all_as_read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.mark_as_read"><code class="docutils literal notranslate"><span class="pre">mark_as_read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.send"><code class="docutils literal notranslate"><span class="pre">send()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.try_send_webpush"><code class="docutils literal notranslate"><span class="pre">try_send_webpush()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.perms">application.db.perms module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.require"><code class="docutils literal notranslate"><span class="pre">require()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.sessions">application.db.sessions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.sessions.count_valid_sessions"><code class="docutils literal notranslate"><span class="pre">count_valid_sessions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.sessions.get_first_session_token"><code class="docutils literal notranslate"><span class="pre">get_first_session_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.sessions.revoke_sessions"><code class="docutils literal notranslate"><span class="pre">revoke_sessions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.sessions.start_session"><code class="docutils literal notranslate"><span class="pre">start_session()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.sessions.valid_session"><code class="docutils literal notranslate"><span class="pre">valid_session()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.settings">application.db.settings module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.calculate_disabled_modules"><code class="docutils literal notranslate"><span class="pre">calculate_disabled_modules()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.create_theme"><code class="docutils literal notranslate"><span class="pre">create_theme()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.delete_theme"><code class="docutils literal notranslate"><span class="pre">delete_theme()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_all_configs"><code class="docutils literal notranslate"><span class="pre">get_all_configs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_all_themes"><code class="docutils literal notranslate"><span class="pre">get_all_themes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_config"><code class="docutils literal notranslate"><span class="pre">get_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_enabled_modules"><code class="docutils literal notranslate"><span class="pre">get_enabled_modules()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_groups"><code class="docutils literal notranslate"><span class="pre">get_groups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_modules"><code class="docutils literal notranslate"><span class="pre">get_modules()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.set_config"><code class="docutils literal notranslate"><span class="pre">set_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.set_module_enabled"><code class="docutils literal notranslate"><span class="pre">set_module_enabled()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.update_groups"><code class="docutils literal notranslate"><span class="pre">update_groups()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.users">application.db.users module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.authenticate"><code class="docutils literal notranslate"><span class="pre">authenticate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.count_users"><code class="docutils literal notranslate"><span class="pre">count_users()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.delete_user"><code class="docutils literal notranslate"><span class="pre">delete_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.dump_collection"><code class="docutils literal notranslate"><span class="pre">dump_collection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.export_user_data"><code class="docutils literal notranslate"><span class="pre">export_user_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_admins"><code class="docutils literal notranslate"><span class="pre">get_admins()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_by_id"><code class="docutils literal notranslate"><span class="pre">get_user_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_data"><code class="docutils literal notranslate"><span class="pre">get_user_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_list"><code class="docutils literal notranslate"><span class="pre">get_user_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.group_filter"><code class="docutils literal notranslate"><span class="pre">group_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_display_name"><code class="docutils literal notranslate"><span class="pre">update_user_display_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_email"><code class="docutils literal notranslate"><span class="pre">update_user_email()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_groups"><code class="docutils literal notranslate"><span class="pre">update_user_groups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_module"><code class="docutils literal notranslate"><span class="pre">update_user_module()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_password"><code class="docutils literal notranslate"><span class="pre">update_user_password()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_perms"><code class="docutils literal notranslate"><span class="pre">update_user_perms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_theme"><code class="docutils literal notranslate"><span class="pre">update_user_theme()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_username"><code class="docutils literal notranslate"><span class="pre">update_username()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.userids_in_groups"><code class="docutils literal notranslate"><span class="pre">userids_in_groups()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.weather">application.db.weather module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.count_alert_history"><code class="docutils literal notranslate"><span class="pre">count_alert_history()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.delete_user"><code class="docutils literal notranslate"><span class="pre">delete_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.get_alert_history"><code class="docutils literal notranslate"><span class="pre">get_alert_history()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.get_last_exec"><code class="docutils literal notranslate"><span class="pre">get_last_exec()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.get_users"><code class="docutils literal notranslate"><span class="pre">get_users()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.get_weather_user"><code class="docutils literal notranslate"><span class="pre">get_weather_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.log_user_weather_alert"><code class="docutils literal notranslate"><span class="pre">log_user_weather_alert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.log_weather_alert"><code class="docutils literal notranslate"><span class="pre">log_weather_alert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.process_weather_user"><code class="docutils literal notranslate"><span class="pre">process_weather_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.set_user_excluded"><code class="docutils literal notranslate"><span class="pre">set_user_excluded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.weather.update_user"><code class="docutils literal notranslate"><span class="pre">update_user()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.init_db"><code class="docutils literal notranslate"><span class="pre">init_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.setup_db"><code class="docutils literal notranslate"><span class="pre">setup_db()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.exceptions.html#module-application.exceptions">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.AuthenticationError"><code class="docutils literal notranslate"><span class="pre">AuthenticationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BadUserNameError"><code class="docutils literal notranslate"><span class="pre">BadUserNameError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BlobDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BlobDoesNotExistError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BookCannotBeShared"><code class="docutils literal notranslate"><span class="pre">BookCannotBeShared</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BookTagDoesNotExistError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagExistsError"><code class="docutils literal notranslate"><span class="pre">BookTagExistsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BugReportDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BugReportDoesNotExistError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ClientError"><code class="docutils literal notranslate"><span class="pre">ClientError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.FeedDocumentDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">FeedDocumentDoesNotExistError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.FeedDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">FeedDoesNotExistError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InsufficientDiskSpace"><code class="docutils literal notranslate"><span class="pre">InsufficientDiskSpace</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidColor"><code class="docutils literal notranslate"><span class="pre">InvalidColor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidFeedKindError"><code class="docutils literal notranslate"><span class="pre">InvalidFeedKindError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidJWTError"><code class="docutils literal notranslate"><span class="pre">InvalidJWTError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidPhone"><code class="docutils literal notranslate"><span class="pre">InvalidPhone</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidSize"><code class="docutils literal notranslate"><span class="pre">InvalidSize</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidSubscriptionToken"><code class="docutils literal notranslate"><span class="pre">InvalidSubscriptionToken</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">ItemDoesNotExistError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemExistsError"><code class="docutils literal notranslate"><span class="pre">ItemExistsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.MissingConfig"><code class="docutils literal notranslate"><span class="pre">MissingConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserExistsError"><code class="docutils literal notranslate"><span class="pre">UserExistsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.WebPushException"><code class="docutils literal notranslate"><span class="pre">WebPushException</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.integrations.html">application.integrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.exceptions">application.integrations.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.ApiFailedError"><code class="docutils literal notranslate"><span class="pre">ApiFailedError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.ApiFailedError.message"><code class="docutils literal notranslate"><span class="pre">ApiFailedError.message</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.RepoFetchFailed"><code class="docutils literal notranslate"><span class="pre">RepoFetchFailed</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.RepoFetchFailed.url"><code class="docutils literal notranslate"><span class="pre">RepoFetchFailed.url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.RepoFetchFailed.text"><code class="docutils literal notranslate"><span class="pre">RepoFetchFailed.text</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.UnsupportedFileFormat"><code class="docutils literal notranslate"><span class="pre">UnsupportedFileFormat</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.UnsupportedFileFormat.filename"><code class="docutils literal notranslate"><span class="pre">UnsupportedFileFormat.filename</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.github">application.integrations.github module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.github.CurrentRepository"><code class="docutils literal notranslate"><span class="pre">CurrentRepository</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.github.CurrentRepository.repo"><code class="docutils literal notranslate"><span class="pre">CurrentRepository.repo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.github.CurrentRepository.issues_pending_resolution"><code class="docutils literal notranslate"><span class="pre">CurrentRepository.issues_pending_resolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#id0"><code class="docutils literal notranslate"><span class="pre">CurrentRepository.issues_pending_resolution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.github.Repository"><code class="docutils literal notranslate"><span class="pre">Repository</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.github.Repository.url"><code class="docutils literal notranslate"><span class="pre">Repository.url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.github.Repository.issues"><code class="docutils literal notranslate"><span class="pre">Repository.issues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#application.integrations.github.Repository.resolved_issues"><code class="docutils literal notranslate"><span class="pre">Repository.resolved_issues()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.github.gh_request"><code class="docutils literal notranslate"><span class="pre">gh_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.google_books">application.integrations.google_books module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.google_books.query"><code class="docutils literal notranslate"><span class="pre">query()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.graphql">application.integrations.graphql module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.graphql.schema"><code class="docutils literal notranslate"><span class="pre">schema()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.images">application.integrations.images module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.images.downscale"><code class="docutils literal notranslate"><span class="pre">downscale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.images.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.models">application.integrations.models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.models.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.models.to_glb"><code class="docutils literal notranslate"><span class="pre">to_glb()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.qrcode">application.integrations.qrcode module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.qrcode.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.qrcode.process"><code class="docutils literal notranslate"><span class="pre">process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.system">application.integrations.system module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.system.disk_usage"><code class="docutils literal notranslate"><span class="pre">disk_usage()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.videos">application.integrations.videos module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.videos.create_preview_from_first_frame"><code class="docutils literal notranslate"><span class="pre">create_preview_from_first_frame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.videos.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html#module-application.monkeypatch.json_encoder_patch">application.monkeypatch.json_encoder_patch module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.monkeypatch.html#application.monkeypatch.json_encoder_patch.wrapped_default"><code class="docutils literal notranslate"><span class="pre">wrapped_default()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html#module-application.monkeypatch">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-apikeys-module">application.resolvers.mutation.apikeys module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-blob-module">application.resolvers.mutation.blob module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-book-module">application.resolvers.mutation.book module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-bugs-module">application.resolvers.mutation.bugs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-datafeed-module">application.resolvers.mutation.datafeed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-inventory-module">application.resolvers.mutation.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-notification-module">application.resolvers.mutation.notification module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-sessions-module">application.resolvers.mutation.sessions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-settings-module">application.resolvers.mutation.settings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-users-module">application.resolvers.mutation.users module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-weather-module">application.resolvers.mutation.weather module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-apikeys-module">application.resolvers.query.apikeys module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-blob-module">application.resolvers.query.blob module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-book-module">application.resolvers.query.book module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-bugs-module">application.resolvers.query.bugs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-datafeed-module">application.resolvers.query.datafeed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-integrations-module">application.resolvers.query.integrations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-inventory-module">application.resolvers.query.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-last-mutation-module">application.resolvers.query.last_mutation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-notification-module">application.resolvers.query.notification module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-sessions-module">application.resolvers.query.sessions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-settings-module">application.resolvers.query.settings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-users-module">application.resolvers.query.users module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-weather-module">application.resolvers.query.weather module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#application-resolvers-decorators-module">application.resolvers.decorators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.routes.html">application.routes package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-api-module">application.routes.api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-auth-module">application.routes.auth module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-blob-module">application.routes.blob module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-files-module">application.routes.files module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-misc-module">application.routes.misc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-site-module">application.routes.site module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.scalars.html">application.scalars package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-color-module">application.scalars.color module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-date-module">application.scalars.date module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-datetime-module">application.scalars.datetime module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-long-module">application.scalars.long module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-phone-module">application.scalars.phone module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-size-module">application.scalars.size module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.types.html">application.types package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.apifailederror">application.types.apifailederror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.apifailederror.ApiFailedError"><code class="docutils literal notranslate"><span class="pre">ApiFailedError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.apifailederror.ApiFailedError.message"><code class="docutils literal notranslate"><span class="pre">ApiFailedError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.apikey">application.types.apikey module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.apikey.APIKey"><code class="docutils literal notranslate"><span class="pre">APIKey</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.apikey.APIKey.created"><code class="docutils literal notranslate"><span class="pre">APIKey.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.apikey.APIKey.description"><code class="docutils literal notranslate"><span class="pre">APIKey.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.apikey.APIKey.key"><code class="docutils literal notranslate"><span class="pre">APIKey.key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.apikey.APIKey.perms"><code class="docutils literal notranslate"><span class="pre">APIKey.perms</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.badnotification">application.types.badnotification module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.badnotification.BadNotification"><code class="docutils literal notranslate"><span class="pre">BadNotification</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.badnotification.BadNotification.message"><code class="docutils literal notranslate"><span class="pre">BadNotification.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.badtagquery">application.types.badtagquery module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.badtagquery.BadTagQuery"><code class="docutils literal notranslate"><span class="pre">BadTagQuery</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.badtagquery.BadTagQuery.message"><code class="docutils literal notranslate"><span class="pre">BadTagQuery.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.badusernameerror">application.types.badusernameerror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.badusernameerror.BadUserNameError"><code class="docutils literal notranslate"><span class="pre">BadUserNameError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.badusernameerror.BadUserNameError.message"><code class="docutils literal notranslate"><span class="pre">BadUserNameError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.blob">application.types.blob module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob.Blob"><code class="docutils literal notranslate"><span class="pre">Blob</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.created"><code class="docutils literal notranslate"><span class="pre">Blob.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.creator"><code class="docutils literal notranslate"><span class="pre">Blob.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.ephemeral"><code class="docutils literal notranslate"><span class="pre">Blob.ephemeral</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.ext"><code class="docutils literal notranslate"><span class="pre">Blob.ext</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.hidden"><code class="docutils literal notranslate"><span class="pre">Blob.hidden</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.id"><code class="docutils literal notranslate"><span class="pre">Blob.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.mimetype"><code class="docutils literal notranslate"><span class="pre">Blob.mimetype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.name"><code class="docutils literal notranslate"><span class="pre">Blob.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.preview"><code class="docutils literal notranslate"><span class="pre">Blob.preview</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.references"><code class="docutils literal notranslate"><span class="pre">Blob.references</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.size"><code class="docutils literal notranslate"><span class="pre">Blob.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.tags"><code class="docutils literal notranslate"><span class="pre">Blob.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob.Blob.thumbnail"><code class="docutils literal notranslate"><span class="pre">Blob.thumbnail</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.blob_storage">application.types.blob_storage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobPreview"><code class="docutils literal notranslate"><span class="pre">BlobPreview</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobPreview.id"><code class="docutils literal notranslate"><span class="pre">BlobPreview.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobPreview.ext"><code class="docutils literal notranslate"><span class="pre">BlobPreview.ext</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobPreview.exists"><code class="docutils literal notranslate"><span class="pre">BlobPreview.exists</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage"><code class="docutils literal notranslate"><span class="pre">BlobStorage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.id"><code class="docutils literal notranslate"><span class="pre">BlobStorage.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.ext"><code class="docutils literal notranslate"><span class="pre">BlobStorage.ext</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.exists"><code class="docutils literal notranslate"><span class="pre">BlobStorage.exists</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.basename"><code class="docutils literal notranslate"><span class="pre">BlobStorage.basename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#id0"><code class="docutils literal notranslate"><span class="pre">BlobStorage.basename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#id1"><code class="docutils literal notranslate"><span class="pre">BlobStorage.exists</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#id2"><code class="docutils literal notranslate"><span class="pre">BlobStorage.ext</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#id3"><code class="docutils literal notranslate"><span class="pre">BlobStorage.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.path"><code class="docutils literal notranslate"><span class="pre">BlobStorage.path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobThumbnail"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobThumbnail.id"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobThumbnail.ext"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.ext</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobThumbnail.exists"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.exists</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.blobcount">application.types.blobcount module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blobcount.BlobCount"><code class="docutils literal notranslate"><span class="pre">BlobCount</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobcount.BlobCount.count"><code class="docutils literal notranslate"><span class="pre">BlobCount.count</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.blobdoesnotexisterror">application.types.blobdoesnotexisterror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blobdoesnotexisterror.BlobDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BlobDoesNotExistError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobdoesnotexisterror.BlobDoesNotExistError.message"><code class="docutils literal notranslate"><span class="pre">BlobDoesNotExistError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bloblist">application.types.bloblist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bloblist.BlobList"><code class="docutils literal notranslate"><span class="pre">BlobList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bloblist.BlobList.blobs"><code class="docutils literal notranslate"><span class="pre">BlobList.blobs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.blobsearchfilter">application.types.blobsearchfilter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter"><code class="docutils literal notranslate"><span class="pre">BlobSearchFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.begin_date"><code class="docutils literal notranslate"><span class="pre">BlobSearchFilter.begin_date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.creator"><code class="docutils literal notranslate"><span class="pre">BlobSearchFilter.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.end_date"><code class="docutils literal notranslate"><span class="pre">BlobSearchFilter.end_date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.ephemeral"><code class="docutils literal notranslate"><span class="pre">BlobSearchFilter.ephemeral</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.name"><code class="docutils literal notranslate"><span class="pre">BlobSearchFilter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.tag_expr"><code class="docutils literal notranslate"><span class="pre">BlobSearchFilter.tag_expr</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.book">application.types.book module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.book.Book"><code class="docutils literal notranslate"><span class="pre">Book</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.audiobook"><code class="docutils literal notranslate"><span class="pre">Book.audiobook</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.authors"><code class="docutils literal notranslate"><span class="pre">Book.authors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.categories"><code class="docutils literal notranslate"><span class="pre">Book.categories</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.creator"><code class="docutils literal notranslate"><span class="pre">Book.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.description"><code class="docutils literal notranslate"><span class="pre">Book.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.ebooks"><code class="docutils literal notranslate"><span class="pre">Book.ebooks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.has_description"><code class="docutils literal notranslate"><span class="pre">Book.has_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.id"><code class="docutils literal notranslate"><span class="pre">Book.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.industryIdentifiers"><code class="docutils literal notranslate"><span class="pre">Book.industryIdentifiers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.language"><code class="docutils literal notranslate"><span class="pre">Book.language</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.maturityRating"><code class="docutils literal notranslate"><span class="pre">Book.maturityRating</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.owner"><code class="docutils literal notranslate"><span class="pre">Book.owner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.ownerHistory"><code class="docutils literal notranslate"><span class="pre">Book.ownerHistory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.pageCount"><code class="docutils literal notranslate"><span class="pre">Book.pageCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.publishedDate"><code class="docutils literal notranslate"><span class="pre">Book.publishedDate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.publisher"><code class="docutils literal notranslate"><span class="pre">Book.publisher</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.rfid"><code class="docutils literal notranslate"><span class="pre">Book.rfid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.shareHistory"><code class="docutils literal notranslate"><span class="pre">Book.shareHistory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.shared"><code class="docutils literal notranslate"><span class="pre">Book.shared</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.smallThumbnail"><code class="docutils literal notranslate"><span class="pre">Book.smallThumbnail</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.subtitle"><code class="docutils literal notranslate"><span class="pre">Book.subtitle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.thumbnail"><code class="docutils literal notranslate"><span class="pre">Book.thumbnail</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.book.Book.title"><code class="docutils literal notranslate"><span class="pre">Book.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bookcannotbeshared">application.types.bookcannotbeshared module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bookcannotbeshared.BookCannotBeShared"><code class="docutils literal notranslate"><span class="pre">BookCannotBeShared</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcannotbeshared.BookCannotBeShared.message"><code class="docutils literal notranslate"><span class="pre">BookCannotBeShared.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bookcreatedata">application.types.bookcreatedata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData"><code class="docutils literal notranslate"><span class="pre">BookCreateData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.authors"><code class="docutils literal notranslate"><span class="pre">BookCreateData.authors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.description"><code class="docutils literal notranslate"><span class="pre">BookCreateData.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.isbn"><code class="docutils literal notranslate"><span class="pre">BookCreateData.isbn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.pageCount"><code class="docutils literal notranslate"><span class="pre">BookCreateData.pageCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.publishedDate"><code class="docutils literal notranslate"><span class="pre">BookCreateData.publishedDate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.publisher"><code class="docutils literal notranslate"><span class="pre">BookCreateData.publisher</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.rfid"><code class="docutils literal notranslate"><span class="pre">BookCreateData.rfid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.subtitle"><code class="docutils literal notranslate"><span class="pre">BookCreateData.subtitle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.thumbnail"><code class="docutils literal notranslate"><span class="pre">BookCreateData.thumbnail</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookcreatedata.BookCreateData.title"><code class="docutils literal notranslate"><span class="pre">BookCreateData.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bookeditdata">application.types.bookeditdata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bookeditdata.BookEditData"><code class="docutils literal notranslate"><span class="pre">BookEditData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookeditdata.BookEditData.authors"><code class="docutils literal notranslate"><span class="pre">BookEditData.authors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookeditdata.BookEditData.subtitle"><code class="docutils literal notranslate"><span class="pre">BookEditData.subtitle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookeditdata.BookEditData.title"><code class="docutils literal notranslate"><span class="pre">BookEditData.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bookident">application.types.bookident module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bookident.BookIdent"><code class="docutils literal notranslate"><span class="pre">BookIdent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookident.BookIdent.identifier"><code class="docutils literal notranslate"><span class="pre">BookIdent.identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookident.BookIdent.type"><code class="docutils literal notranslate"><span class="pre">BookIdent.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.booklist">application.types.booklist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.booklist.BookList"><code class="docutils literal notranslate"><span class="pre">BookList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booklist.BookList.books"><code class="docutils literal notranslate"><span class="pre">BookList.books</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bookownerhist">application.types.bookownerhist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bookownerhist.BookOwnerHist"><code class="docutils literal notranslate"><span class="pre">BookOwnerHist</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookownerhist.BookOwnerHist.display_name"><code class="docutils literal notranslate"><span class="pre">BookOwnerHist.display_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookownerhist.BookOwnerHist.name"><code class="docutils literal notranslate"><span class="pre">BookOwnerHist.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookownerhist.BookOwnerHist.start"><code class="docutils literal notranslate"><span class="pre">BookOwnerHist.start</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookownerhist.BookOwnerHist.stop"><code class="docutils literal notranslate"><span class="pre">BookOwnerHist.stop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookownerhist.BookOwnerHist.user_id"><code class="docutils literal notranslate"><span class="pre">BookOwnerHist.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.booksearchfilter">application.types.booksearchfilter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.booksearchfilter.BookSearchFilter"><code class="docutils literal notranslate"><span class="pre">BookSearchFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booksearchfilter.BookSearchFilter.author"><code class="docutils literal notranslate"><span class="pre">BookSearchFilter.author</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booksearchfilter.BookSearchFilter.genre"><code class="docutils literal notranslate"><span class="pre">BookSearchFilter.genre</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booksearchfilter.BookSearchFilter.owner"><code class="docutils literal notranslate"><span class="pre">BookSearchFilter.owner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booksearchfilter.BookSearchFilter.shared"><code class="docutils literal notranslate"><span class="pre">BookSearchFilter.shared</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booksearchfilter.BookSearchFilter.title"><code class="docutils literal notranslate"><span class="pre">BookSearchFilter.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bookshare">application.types.bookshare module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bookshare.BookShare"><code class="docutils literal notranslate"><span class="pre">BookShare</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookshare.BookShare.display_name"><code class="docutils literal notranslate"><span class="pre">BookShare.display_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookshare.BookShare.name"><code class="docutils literal notranslate"><span class="pre">BookShare.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookshare.BookShare.start"><code class="docutils literal notranslate"><span class="pre">BookShare.start</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookshare.BookShare.stop"><code class="docutils literal notranslate"><span class="pre">BookShare.stop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bookshare.BookShare.user_id"><code class="docutils literal notranslate"><span class="pre">BookShare.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.booktag">application.types.booktag module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.booktag.BookTag"><code class="docutils literal notranslate"><span class="pre">BookTag</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booktag.BookTag.bookId"><code class="docutils literal notranslate"><span class="pre">BookTag.bookId</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booktag.BookTag.creator"><code class="docutils literal notranslate"><span class="pre">BookTag.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booktag.BookTag.rfid"><code class="docutils literal notranslate"><span class="pre">BookTag.rfid</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.booktagdoesnotexisterror">application.types.booktagdoesnotexisterror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.booktagdoesnotexisterror.BookTagDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BookTagDoesNotExistError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booktagdoesnotexisterror.BookTagDoesNotExistError.message"><code class="docutils literal notranslate"><span class="pre">BookTagDoesNotExistError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.booktagexistserror">application.types.booktagexistserror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.booktagexistserror.BookTagExistsError"><code class="docutils literal notranslate"><span class="pre">BookTagExistsError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.booktagexistserror.BookTagExistsError.message"><code class="docutils literal notranslate"><span class="pre">BookTagExistsError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bugcomment">application.types.bugcomment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bugcomment.BugComment"><code class="docutils literal notranslate"><span class="pre">BugComment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugcomment.BugComment.body"><code class="docutils literal notranslate"><span class="pre">BugComment.body</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugcomment.BugComment.body_html"><code class="docutils literal notranslate"><span class="pre">BugComment.body_html</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugcomment.BugComment.created"><code class="docutils literal notranslate"><span class="pre">BugComment.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugcomment.BugComment.creator"><code class="docutils literal notranslate"><span class="pre">BugComment.creator</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bugreport">application.types.bugreport module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport"><code class="docutils literal notranslate"><span class="pre">BugReport</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport.body"><code class="docutils literal notranslate"><span class="pre">BugReport.body</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport.body_html"><code class="docutils literal notranslate"><span class="pre">BugReport.body_html</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport.convo"><code class="docutils literal notranslate"><span class="pre">BugReport.convo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport.created"><code class="docutils literal notranslate"><span class="pre">BugReport.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport.creator"><code class="docutils literal notranslate"><span class="pre">BugReport.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport.id"><code class="docutils literal notranslate"><span class="pre">BugReport.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreport.BugReport.resolved"><code class="docutils literal notranslate"><span class="pre">BugReport.resolved</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bugreportcreationfailederror">application.types.bugreportcreationfailederror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bugreportcreationfailederror.BugReportCreationFailedError"><code class="docutils literal notranslate"><span class="pre">BugReportCreationFailedError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreportcreationfailederror.BugReportCreationFailedError.message"><code class="docutils literal notranslate"><span class="pre">BugReportCreationFailedError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.bugreportdoesnotexisterror">application.types.bugreportdoesnotexisterror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.bugreportdoesnotexisterror.BugReportDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BugReportDoesNotExistError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.bugreportdoesnotexisterror.BugReportDoesNotExistError.message"><code class="docutils literal notranslate"><span class="pre">BugReportDoesNotExistError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.config">application.types.config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.config.Config.name"><code class="docutils literal notranslate"><span class="pre">Config.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.config.Config.value"><code class="docutils literal notranslate"><span class="pre">Config.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.configlist">application.types.configlist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.configlist.ConfigList"><code class="docutils literal notranslate"><span class="pre">ConfigList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.configlist.ConfigList.configs"><code class="docutils literal notranslate"><span class="pre">ConfigList.configs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.diskusage">application.types.diskusage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.diskusage.DiskUsage"><code class="docutils literal notranslate"><span class="pre">DiskUsage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.diskusage.DiskUsage.free"><code class="docutils literal notranslate"><span class="pre">DiskUsage.free</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.diskusage.DiskUsage.name"><code class="docutils literal notranslate"><span class="pre">DiskUsage.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.diskusage.DiskUsage.total"><code class="docutils literal notranslate"><span class="pre">DiskUsage.total</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.diskusage.DiskUsage.used"><code class="docutils literal notranslate"><span class="pre">DiskUsage.used</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.ebook">application.types.ebook module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.ebook.EBook"><code class="docutils literal notranslate"><span class="pre">EBook</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.ebook.EBook.fileType"><code class="docutils literal notranslate"><span class="pre">EBook.fileType</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.ebook.EBook.url"><code class="docutils literal notranslate"><span class="pre">EBook.url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.feed">application.types.feed module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.feed.Feed"><code class="docutils literal notranslate"><span class="pre">Feed</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.created"><code class="docutils literal notranslate"><span class="pre">Feed.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.creator"><code class="docutils literal notranslate"><span class="pre">Feed.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.currentPage"><code class="docutils literal notranslate"><span class="pre">Feed.currentPage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.currentSort"><code class="docutils literal notranslate"><span class="pre">Feed.currentSort</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.id"><code class="docutils literal notranslate"><span class="pre">Feed.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.inactive"><code class="docutils literal notranslate"><span class="pre">Feed.inactive</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.kind"><code class="docutils literal notranslate"><span class="pre">Feed.kind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.name"><code class="docutils literal notranslate"><span class="pre">Feed.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.notify"><code class="docutils literal notranslate"><span class="pre">Feed.notify</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feed.Feed.url"><code class="docutils literal notranslate"><span class="pre">Feed.url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.feeddocument">application.types.feeddocument module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument"><code class="docutils literal notranslate"><span class="pre">FeedDocument</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.author"><code class="docutils literal notranslate"><span class="pre">FeedDocument.author</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.body"><code class="docutils literal notranslate"><span class="pre">FeedDocument.body</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.body_html"><code class="docutils literal notranslate"><span class="pre">FeedDocument.body_html</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.created"><code class="docutils literal notranslate"><span class="pre">FeedDocument.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.feed"><code class="docutils literal notranslate"><span class="pre">FeedDocument.feed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.id"><code class="docutils literal notranslate"><span class="pre">FeedDocument.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.posted"><code class="docutils literal notranslate"><span class="pre">FeedDocument.posted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.read"><code class="docutils literal notranslate"><span class="pre">FeedDocument.read</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.title"><code class="docutils literal notranslate"><span class="pre">FeedDocument.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.updated"><code class="docutils literal notranslate"><span class="pre">FeedDocument.updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocument.FeedDocument.url"><code class="docutils literal notranslate"><span class="pre">FeedDocument.url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.feeddocumentdoesnotexisterror">application.types.feeddocumentdoesnotexisterror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.feeddocumentdoesnotexisterror.FeedDocumentDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">FeedDocumentDoesNotExistError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddocumentdoesnotexisterror.FeedDocumentDoesNotExistError.message"><code class="docutils literal notranslate"><span class="pre">FeedDocumentDoesNotExistError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.feeddoesnotexisterror">application.types.feeddoesnotexisterror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.feeddoesnotexisterror.FeedDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">FeedDoesNotExistError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.feeddoesnotexisterror.FeedDoesNotExistError.message"><code class="docutils literal notranslate"><span class="pre">FeedDoesNotExistError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.insufficientdiskspace">application.types.insufficientdiskspace module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.insufficientdiskspace.InsufficientDiskSpace"><code class="docutils literal notranslate"><span class="pre">InsufficientDiskSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.insufficientdiskspace.InsufficientDiskSpace.message"><code class="docutils literal notranslate"><span class="pre">InsufficientDiskSpace.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.insufficientperms">application.types.insufficientperms module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.insufficientperms.InsufficientPerms"><code class="docutils literal notranslate"><span class="pre">InsufficientPerms</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.insufficientperms.InsufficientPerms.message"><code class="docutils literal notranslate"><span class="pre">InsufficientPerms.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.invalidfeedkinderror">application.types.invalidfeedkinderror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.invalidfeedkinderror.InvalidFeedKindError"><code class="docutils literal notranslate"><span class="pre">InvalidFeedKindError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.invalidfeedkinderror.InvalidFeedKindError.message"><code class="docutils literal notranslate"><span class="pre">InvalidFeedKindError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.invalidfields">application.types.invalidfields module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.invalidfields.InvalidFields"><code class="docutils literal notranslate"><span class="pre">InvalidFields</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.invalidfields.InvalidFields.fields"><code class="docutils literal notranslate"><span class="pre">InvalidFields.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.invalidfields.InvalidFields.message"><code class="docutils literal notranslate"><span class="pre">InvalidFields.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.invalidsubscriptiontoken">application.types.invalidsubscriptiontoken module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.invalidsubscriptiontoken.InvalidSubscriptionToken"><code class="docutils literal notranslate"><span class="pre">InvalidSubscriptionToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.invalidsubscriptiontoken.InvalidSubscriptionToken.message"><code class="docutils literal notranslate"><span class="pre">InvalidSubscriptionToken.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.inventorysearchfilter">application.types.inventorysearchfilter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter"><code class="docutils literal notranslate"><span class="pre">InventorySearchFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.category"><code class="docutils literal notranslate"><span class="pre">InventorySearchFilter.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.location"><code class="docutils literal notranslate"><span class="pre">InventorySearchFilter.location</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.owner"><code class="docutils literal notranslate"><span class="pre">InventorySearchFilter.owner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.inventorysearchfilter.InventorySearchFilter.type"><code class="docutils literal notranslate"><span class="pre">InventorySearchFilter.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.issuelabel">application.types.issuelabel module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.issuelabel.IssueLabel"><code class="docutils literal notranslate"><span class="pre">IssueLabel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.issuelabel.IssueLabel.color"><code class="docutils literal notranslate"><span class="pre">IssueLabel.color</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.issuelabel.IssueLabel.description"><code class="docutils literal notranslate"><span class="pre">IssueLabel.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.issuelabel.IssueLabel.name"><code class="docutils literal notranslate"><span class="pre">IssueLabel.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.issuelist">application.types.issuelist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.issuelist.IssueList"><code class="docutils literal notranslate"><span class="pre">IssueList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.issuelist.IssueList.issues"><code class="docutils literal notranslate"><span class="pre">IssueList.issues</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.item">application.types.item module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.item.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.blob"><code class="docutils literal notranslate"><span class="pre">Item.blob</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.category"><code class="docutils literal notranslate"><span class="pre">Item.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.created"><code class="docutils literal notranslate"><span class="pre">Item.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.creator"><code class="docutils literal notranslate"><span class="pre">Item.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.description"><code class="docutils literal notranslate"><span class="pre">Item.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.description_html"><code class="docutils literal notranslate"><span class="pre">Item.description_html</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.id"><code class="docutils literal notranslate"><span class="pre">Item.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.location"><code class="docutils literal notranslate"><span class="pre">Item.location</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.owner"><code class="docutils literal notranslate"><span class="pre">Item.owner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.rfid"><code class="docutils literal notranslate"><span class="pre">Item.rfid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.item.Item.type"><code class="docutils literal notranslate"><span class="pre">Item.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.itemdoesnotexisterror">application.types.itemdoesnotexisterror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.itemdoesnotexisterror.ItemDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">ItemDoesNotExistError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.itemdoesnotexisterror.ItemDoesNotExistError.message"><code class="docutils literal notranslate"><span class="pre">ItemDoesNotExistError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.itemexistserror">application.types.itemexistserror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.itemexistserror.ItemExistsError"><code class="docutils literal notranslate"><span class="pre">ItemExistsError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.itemexistserror.ItemExistsError.message"><code class="docutils literal notranslate"><span class="pre">ItemExistsError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.lastmutation">application.types.lastmutation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.lastmutation.LastMutation"><code class="docutils literal notranslate"><span class="pre">LastMutation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.lastmutation.LastMutation.request"><code class="docutils literal notranslate"><span class="pre">LastMutation.request</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.lastmutation.LastMutation.timestamp"><code class="docutils literal notranslate"><span class="pre">LastMutation.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.lastmutation.LastMutation.username"><code class="docutils literal notranslate"><span class="pre">LastMutation.username</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.logresult">application.types.logresult module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.logresult.LogResult"><code class="docutils literal notranslate"><span class="pre">LogResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.logresult.LogResult.result"><code class="docutils literal notranslate"><span class="pre">LogResult.result</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.missingconfig">application.types.missingconfig module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.missingconfig.MissingConfig"><code class="docutils literal notranslate"><span class="pre">MissingConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.missingconfig.MissingConfig.message"><code class="docutils literal notranslate"><span class="pre">MissingConfig.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.notification">application.types.notification module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.notification.Notification"><code class="docutils literal notranslate"><span class="pre">Notification</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.notification.Notification.category"><code class="docutils literal notranslate"><span class="pre">Notification.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.notification.Notification.created"><code class="docutils literal notranslate"><span class="pre">Notification.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.notification.Notification.device_count"><code class="docutils literal notranslate"><span class="pre">Notification.device_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.notification.Notification.id"><code class="docutils literal notranslate"><span class="pre">Notification.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.notification.Notification.message"><code class="docutils literal notranslate"><span class="pre">Notification.message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.notification.Notification.read"><code class="docutils literal notranslate"><span class="pre">Notification.read</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.notification.Notification.recipient"><code class="docutils literal notranslate"><span class="pre">Notification.recipient</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.qrparseresponse">application.types.qrparseresponse module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.qrparseresponse.QRParseResponse"><code class="docutils literal notranslate"><span class="pre">QRParseResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.qrparseresponse.QRParseResponse.data"><code class="docutils literal notranslate"><span class="pre">QRParseResponse.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.qrparseresponse.QRParseResponse.error"><code class="docutils literal notranslate"><span class="pre">QRParseResponse.error</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.repofetchfailed">application.types.repofetchfailed module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.repofetchfailed.RepoFetchFailed"><code class="docutils literal notranslate"><span class="pre">RepoFetchFailed</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.repofetchfailed.RepoFetchFailed.message"><code class="docutils literal notranslate"><span class="pre">RepoFetchFailed.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.repositoryissue">application.types.repositoryissue module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.repositoryissue.RepositoryIssue"><code class="docutils literal notranslate"><span class="pre">RepositoryIssue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.repositoryissue.RepositoryIssue.labels"><code class="docutils literal notranslate"><span class="pre">RepositoryIssue.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.repositoryissue.RepositoryIssue.number"><code class="docutils literal notranslate"><span class="pre">RepositoryIssue.number</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.repositoryissue.RepositoryIssue.state"><code class="docutils literal notranslate"><span class="pre">RepositoryIssue.state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.repositoryissue.RepositoryIssue.title"><code class="docutils literal notranslate"><span class="pre">RepositoryIssue.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.schema">application.types.schema module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.schema.Schema"><code class="docutils literal notranslate"><span class="pre">Schema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schema.Schema.mutations"><code class="docutils literal notranslate"><span class="pre">Schema.mutations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schema.Schema.queries"><code class="docutils literal notranslate"><span class="pre">Schema.queries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schema.Schema.types"><code class="docutils literal notranslate"><span class="pre">Schema.types</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.schemaparam">application.types.schemaparam module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.schemaparam.SchemaParam"><code class="docutils literal notranslate"><span class="pre">SchemaParam</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemaparam.SchemaParam.name"><code class="docutils literal notranslate"><span class="pre">SchemaParam.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemaparam.SchemaParam.optional"><code class="docutils literal notranslate"><span class="pre">SchemaParam.optional</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemaparam.SchemaParam.type"><code class="docutils literal notranslate"><span class="pre">SchemaParam.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.schemaquery">application.types.schemaquery module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.schemaquery.SchemaQuery"><code class="docutils literal notranslate"><span class="pre">SchemaQuery</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemaquery.SchemaQuery.name"><code class="docutils literal notranslate"><span class="pre">SchemaQuery.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemaquery.SchemaQuery.params"><code class="docutils literal notranslate"><span class="pre">SchemaQuery.params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemaquery.SchemaQuery.query"><code class="docutils literal notranslate"><span class="pre">SchemaQuery.query</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemaquery.SchemaQuery.returns"><code class="docutils literal notranslate"><span class="pre">SchemaQuery.returns</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.schemareturntype">application.types.schemareturntype module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.schemareturntype.SchemaReturnType"><code class="docutils literal notranslate"><span class="pre">SchemaReturnType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemareturntype.SchemaReturnType.array"><code class="docutils literal notranslate"><span class="pre">SchemaReturnType.array</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemareturntype.SchemaReturnType.optional"><code class="docutils literal notranslate"><span class="pre">SchemaReturnType.optional</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schemareturntype.SchemaReturnType.type"><code class="docutils literal notranslate"><span class="pre">SchemaReturnType.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.schematype">application.types.schematype module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.schematype.SchemaType"><code class="docutils literal notranslate"><span class="pre">SchemaType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schematype.SchemaType.params"><code class="docutils literal notranslate"><span class="pre">SchemaType.params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schematype.SchemaType.subtypes"><code class="docutils literal notranslate"><span class="pre">SchemaType.subtypes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schematype.SchemaType.type"><code class="docutils literal notranslate"><span class="pre">SchemaType.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.schematype.SchemaType.union"><code class="docutils literal notranslate"><span class="pre">SchemaType.union</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.sorting">application.types.sorting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.sorting.Sorting"><code class="docutils literal notranslate"><span class="pre">Sorting</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.sorting.Sorting.descending"><code class="docutils literal notranslate"><span class="pre">Sorting.descending</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.sorting.Sorting.fields"><code class="docutils literal notranslate"><span class="pre">Sorting.fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.sorting_">application.types.sorting_ module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.sorting_.Sorting_"><code class="docutils literal notranslate"><span class="pre">Sorting_</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.sorting_.Sorting_.descending"><code class="docutils literal notranslate"><span class="pre">Sorting_.descending</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.sorting_.Sorting_.fields"><code class="docutils literal notranslate"><span class="pre">Sorting_.fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subscription">application.types.subscription module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subscription.Subscription"><code class="docutils literal notranslate"><span class="pre">Subscription</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscription.Subscription.endpoint"><code class="docutils literal notranslate"><span class="pre">Subscription.endpoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscription.Subscription.expirationTime"><code class="docutils literal notranslate"><span class="pre">Subscription.expirationTime</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subscriptionkeys">application.types.subscriptionkeys module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subscriptionkeys.SubscriptionKeys"><code class="docutils literal notranslate"><span class="pre">SubscriptionKeys</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscriptionkeys.SubscriptionKeys.auth"><code class="docutils literal notranslate"><span class="pre">SubscriptionKeys.auth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscriptionkeys.SubscriptionKeys.p256dh"><code class="docutils literal notranslate"><span class="pre">SubscriptionKeys.p256dh</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subscriptionlist">application.types.subscriptionlist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subscriptionlist.SubscriptionList"><code class="docutils literal notranslate"><span class="pre">SubscriptionList</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscriptionlist.SubscriptionList.list"><code class="docutils literal notranslate"><span class="pre">SubscriptionList.list</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subscriptiontoken">application.types.subscriptiontoken module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subscriptiontoken.SubscriptionToken"><code class="docutils literal notranslate"><span class="pre">SubscriptionToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscriptiontoken.SubscriptionToken.endpoint"><code class="docutils literal notranslate"><span class="pre">SubscriptionToken.endpoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscriptiontoken.SubscriptionToken.expirationTime"><code class="docutils literal notranslate"><span class="pre">SubscriptionToken.expirationTime</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subscriptiontokenkeys">application.types.subscriptiontokenkeys module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subscriptiontokenkeys.SubscriptionTokenKeys"><code class="docutils literal notranslate"><span class="pre">SubscriptionTokenKeys</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscriptiontokenkeys.SubscriptionTokenKeys.auth"><code class="docutils literal notranslate"><span class="pre">SubscriptionTokenKeys.auth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subscriptiontokenkeys.SubscriptionTokenKeys.p256dh"><code class="docutils literal notranslate"><span class="pre">SubscriptionTokenKeys.p256dh</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subsonicalbum">application.types.subsonicalbum module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.album"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.album</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.artist"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.artist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.coverArt"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.coverArt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.created"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.genre"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.genre</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.id"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.isDir"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.isDir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.parent"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.playCount"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.playCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.title"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicalbum.SubsonicAlbum.year"><code class="docutils literal notranslate"><span class="pre">SubsonicAlbum.year</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subsonicerror">application.types.subsonicerror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subsonicerror.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicerror.SubsonicError.message"><code class="docutils literal notranslate"><span class="pre">SubsonicError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subsonicsearch">application.types.subsonicsearch module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subsonicsearch.SubsonicSearch"><code class="docutils literal notranslate"><span class="pre">SubsonicSearch</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonicsearch.SubsonicSearch.album"><code class="docutils literal notranslate"><span class="pre">SubsonicSearch.album</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.subsonictrack">application.types.subsonictrack module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.subsonictrack.SubsonicTrack"><code class="docutils literal notranslate"><span class="pre">SubsonicTrack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonictrack.SubsonicTrack.duration"><code class="docutils literal notranslate"><span class="pre">SubsonicTrack.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonictrack.SubsonicTrack.id"><code class="docutils literal notranslate"><span class="pre">SubsonicTrack.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.subsonictrack.SubsonicTrack.title"><code class="docutils literal notranslate"><span class="pre">SubsonicTrack.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.systeminfo">application.types.systeminfo module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.systeminfo.SystemInfo"><code class="docutils literal notranslate"><span class="pre">SystemInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.systeminfo.SystemInfo.storage"><code class="docutils literal notranslate"><span class="pre">SystemInfo.storage</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.theme">application.types.theme module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.theme.Theme"><code class="docutils literal notranslate"><span class="pre">Theme</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme.Theme.border"><code class="docutils literal notranslate"><span class="pre">Theme.border</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme.Theme.colors"><code class="docutils literal notranslate"><span class="pre">Theme.colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme.Theme.name"><code class="docutils literal notranslate"><span class="pre">Theme.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme.Theme.special"><code class="docutils literal notranslate"><span class="pre">Theme.special</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme.Theme.text"><code class="docutils literal notranslate"><span class="pre">Theme.text</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.theme_">application.types.theme_ module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.theme_.Theme_"><code class="docutils literal notranslate"><span class="pre">Theme_</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme_.Theme_.border"><code class="docutils literal notranslate"><span class="pre">Theme_.border</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme_.Theme_.colors"><code class="docutils literal notranslate"><span class="pre">Theme_.colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme_.Theme_.name"><code class="docutils literal notranslate"><span class="pre">Theme_.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme_.Theme_.special"><code class="docutils literal notranslate"><span class="pre">Theme_.special</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.theme_.Theme_.text"><code class="docutils literal notranslate"><span class="pre">Theme_.text</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.themecolor">application.types.themecolor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.themecolor.ThemeColor"><code class="docutils literal notranslate"><span class="pre">ThemeColor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themecolor.ThemeColor.name"><code class="docutils literal notranslate"><span class="pre">ThemeColor.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themecolor.ThemeColor.value"><code class="docutils literal notranslate"><span class="pre">ThemeColor.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.themecolor_">application.types.themecolor_ module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.themecolor_.ThemeColor_"><code class="docutils literal notranslate"><span class="pre">ThemeColor_</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themecolor_.ThemeColor_.name"><code class="docutils literal notranslate"><span class="pre">ThemeColor_.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themecolor_.ThemeColor_.value"><code class="docutils literal notranslate"><span class="pre">ThemeColor_.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.themesize">application.types.themesize module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.themesize.ThemeSize"><code class="docutils literal notranslate"><span class="pre">ThemeSize</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themesize.ThemeSize.name"><code class="docutils literal notranslate"><span class="pre">ThemeSize.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themesize.ThemeSize.value"><code class="docutils literal notranslate"><span class="pre">ThemeSize.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.themesize_">application.types.themesize_ module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.themesize_.ThemeSize_"><code class="docutils literal notranslate"><span class="pre">ThemeSize_</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themesize_.ThemeSize_.name"><code class="docutils literal notranslate"><span class="pre">ThemeSize_.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.themesize_.ThemeSize_.value"><code class="docutils literal notranslate"><span class="pre">ThemeSize_.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.userbookcount">application.types.userbookcount module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.userbookcount.UserBookCount"><code class="docutils literal notranslate"><span class="pre">UserBookCount</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userbookcount.UserBookCount.count"><code class="docutils literal notranslate"><span class="pre">UserBookCount.count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userbookcount.UserBookCount.owner"><code class="docutils literal notranslate"><span class="pre">UserBookCount.owner</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.userdata">application.types.userdata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.userdata.UserData"><code class="docutils literal notranslate"><span class="pre">UserData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.disabled_modules"><code class="docutils literal notranslate"><span class="pre">UserData.disabled_modules</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.display_name"><code class="docutils literal notranslate"><span class="pre">UserData.display_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.email"><code class="docutils literal notranslate"><span class="pre">UserData.email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.groups"><code class="docutils literal notranslate"><span class="pre">UserData.groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.last_login"><code class="docutils literal notranslate"><span class="pre">UserData.last_login</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.perms"><code class="docutils literal notranslate"><span class="pre">UserData.perms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.theme"><code class="docutils literal notranslate"><span class="pre">UserData.theme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.username"><code class="docutils literal notranslate"><span class="pre">UserData.username</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.userdoesnotexisterror">application.types.userdoesnotexisterror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.userdoesnotexisterror.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdoesnotexisterror.UserDoesNotExistError.message"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.userexistserror">application.types.userexistserror module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.userexistserror.UserExistsError"><code class="docutils literal notranslate"><span class="pre">UserExistsError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userexistserror.UserExistsError.message"><code class="docutils literal notranslate"><span class="pre">UserExistsError.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.usermindata">application.types.usermindata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.usermindata.UserMinData"><code class="docutils literal notranslate"><span class="pre">UserMinData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.usermindata.UserMinData.display_name"><code class="docutils literal notranslate"><span class="pre">UserMinData.display_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.usermindata.UserMinData.last_login"><code class="docutils literal notranslate"><span class="pre">UserMinData.last_login</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.usermindata.UserMinData.username"><code class="docutils literal notranslate"><span class="pre">UserMinData.username</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.usertheme">application.types.usertheme module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.usertheme.UserTheme"><code class="docutils literal notranslate"><span class="pre">UserTheme</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.usertheme.UserTheme.colors"><code class="docutils literal notranslate"><span class="pre">UserTheme.colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.usertheme.UserTheme.sizes"><code class="docutils literal notranslate"><span class="pre">UserTheme.sizes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.usertheme_">application.types.usertheme_ module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.usertheme_.UserTheme_"><code class="docutils literal notranslate"><span class="pre">UserTheme_</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.usertheme_.UserTheme_.colors"><code class="docutils literal notranslate"><span class="pre">UserTheme_.colors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.usertheme_.UserTheme_.sizes"><code class="docutils literal notranslate"><span class="pre">UserTheme_.sizes</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.weatheralert">application.types.weatheralert module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.weatheralert.WeatherAlert"><code class="docutils literal notranslate"><span class="pre">WeatherAlert</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheralert.WeatherAlert.message"><code class="docutils literal notranslate"><span class="pre">WeatherAlert.message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheralert.WeatherAlert.recipient"><code class="docutils literal notranslate"><span class="pre">WeatherAlert.recipient</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheralert.WeatherAlert.sent"><code class="docutils literal notranslate"><span class="pre">WeatherAlert.sent</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.weatherexecution">application.types.weatherexecution module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.weatherexecution.WeatherExecution"><code class="docutils literal notranslate"><span class="pre">WeatherExecution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatherexecution.WeatherExecution.error"><code class="docutils literal notranslate"><span class="pre">WeatherExecution.error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatherexecution.WeatherExecution.timestamp"><code class="docutils literal notranslate"><span class="pre">WeatherExecution.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatherexecution.WeatherExecution.users"><code class="docutils literal notranslate"><span class="pre">WeatherExecution.users</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.weathertemp">application.types.weathertemp module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.weathertemp.WeatherTemp"><code class="docutils literal notranslate"><span class="pre">WeatherTemp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weathertemp.WeatherTemp.default"><code class="docutils literal notranslate"><span class="pre">WeatherTemp.default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weathertemp.WeatherTemp.disable"><code class="docutils literal notranslate"><span class="pre">WeatherTemp.disable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weathertemp.WeatherTemp.value"><code class="docutils literal notranslate"><span class="pre">WeatherTemp.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.weathertemp_">application.types.weathertemp_ module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.weathertemp_.WeatherTemp_"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weathertemp_.WeatherTemp_.default"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_.default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weathertemp_.WeatherTemp_.disable"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_.disable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weathertemp_.WeatherTemp_.value"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.weatheruser">application.types.weatheruser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser"><code class="docutils literal notranslate"><span class="pre">WeatherUser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser.exclude"><code class="docutils literal notranslate"><span class="pre">WeatherUser.exclude</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser.last_sent"><code class="docutils literal notranslate"><span class="pre">WeatherUser.last_sent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser.lat"><code class="docutils literal notranslate"><span class="pre">WeatherUser.lat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser.lon"><code class="docutils literal notranslate"><span class="pre">WeatherUser.lon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser.max"><code class="docutils literal notranslate"><span class="pre">WeatherUser.max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser.min"><code class="docutils literal notranslate"><span class="pre">WeatherUser.min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruser.WeatherUser.username"><code class="docutils literal notranslate"><span class="pre">WeatherUser.username</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.weatheruserinput">application.types.weatheruserinput module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.weatheruserinput.WeatherUserInput"><code class="docutils literal notranslate"><span class="pre">WeatherUserInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruserinput.WeatherUserInput.lat"><code class="docutils literal notranslate"><span class="pre">WeatherUserInput.lat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruserinput.WeatherUserInput.lon"><code class="docutils literal notranslate"><span class="pre">WeatherUserInput.lon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruserinput.WeatherUserInput.max"><code class="docutils literal notranslate"><span class="pre">WeatherUserInput.max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruserinput.WeatherUserInput.min"><code class="docutils literal notranslate"><span class="pre">WeatherUserInput.min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.weatheruserinput.WeatherUserInput.username"><code class="docutils literal notranslate"><span class="pre">WeatherUserInput.username</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.webpushexception">application.types.webpushexception module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.webpushexception.WebPushException"><code class="docutils literal notranslate"><span class="pre">WebPushException</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.webpushexception.WebPushException.message"><code class="docutils literal notranslate"><span class="pre">WebPushException.message</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.zipprogress">application.types.zipprogress module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.zipprogress.ZipProgress"><code class="docutils literal notranslate"><span class="pre">ZipProgress</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.zipprogress.ZipProgress.finalizing"><code class="docutils literal notranslate"><span class="pre">ZipProgress.finalizing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.zipprogress.ZipProgress.item"><code class="docutils literal notranslate"><span class="pre">ZipProgress.item</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.zipprogress.ZipProgress.progress"><code class="docutils literal notranslate"><span class="pre">ZipProgress.progress</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="application-tokens-module">
+<h2>application.tokens module<a class="headerlink" href="#application-tokens-module" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="modules.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">application</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="application.db.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">application.db package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-tokens-module">application.tokens module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/application.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Zachary Westerman.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

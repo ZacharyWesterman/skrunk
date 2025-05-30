@@ -1,0 +1,741 @@
+application.types package
+=========================
+
+Submodules
+----------
+
+application.types.apifailederror module
+---------------------------------------
+
+.. automodule:: application.types.apifailederror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.apikey module
+-------------------------------
+
+.. automodule:: application.types.apikey
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.badnotification module
+----------------------------------------
+
+.. automodule:: application.types.badnotification
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.badtagquery module
+------------------------------------
+
+.. automodule:: application.types.badtagquery
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.badusernameerror module
+-----------------------------------------
+
+.. automodule:: application.types.badusernameerror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.blob module
+-----------------------------
+
+.. automodule:: application.types.blob
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.blob\_storage module
+--------------------------------------
+
+.. automodule:: application.types.blob_storage
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.blobcount module
+----------------------------------
+
+.. automodule:: application.types.blobcount
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.blobdoesnotexisterror module
+----------------------------------------------
+
+.. automodule:: application.types.blobdoesnotexisterror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bloblist module
+---------------------------------
+
+.. automodule:: application.types.bloblist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.blobsearchfilter module
+-----------------------------------------
+
+.. automodule:: application.types.blobsearchfilter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.book module
+-----------------------------
+
+.. automodule:: application.types.book
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bookcannotbeshared module
+-------------------------------------------
+
+.. automodule:: application.types.bookcannotbeshared
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bookcreatedata module
+---------------------------------------
+
+.. automodule:: application.types.bookcreatedata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bookeditdata module
+-------------------------------------
+
+.. automodule:: application.types.bookeditdata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bookident module
+----------------------------------
+
+.. automodule:: application.types.bookident
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.booklist module
+---------------------------------
+
+.. automodule:: application.types.booklist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bookownerhist module
+--------------------------------------
+
+.. automodule:: application.types.bookownerhist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.booksearchfilter module
+-----------------------------------------
+
+.. automodule:: application.types.booksearchfilter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bookshare module
+----------------------------------
+
+.. automodule:: application.types.bookshare
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.booktag module
+--------------------------------
+
+.. automodule:: application.types.booktag
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.booktagdoesnotexisterror module
+-------------------------------------------------
+
+.. automodule:: application.types.booktagdoesnotexisterror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.booktagexistserror module
+-------------------------------------------
+
+.. automodule:: application.types.booktagexistserror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bugcomment module
+-----------------------------------
+
+.. automodule:: application.types.bugcomment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bugreport module
+----------------------------------
+
+.. automodule:: application.types.bugreport
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bugreportcreationfailederror module
+-----------------------------------------------------
+
+.. automodule:: application.types.bugreportcreationfailederror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.bugreportdoesnotexisterror module
+---------------------------------------------------
+
+.. automodule:: application.types.bugreportdoesnotexisterror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.config module
+-------------------------------
+
+.. automodule:: application.types.config
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.configlist module
+-----------------------------------
+
+.. automodule:: application.types.configlist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.diskusage module
+----------------------------------
+
+.. automodule:: application.types.diskusage
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.ebook module
+------------------------------
+
+.. automodule:: application.types.ebook
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.feed module
+-----------------------------
+
+.. automodule:: application.types.feed
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.feeddocument module
+-------------------------------------
+
+.. automodule:: application.types.feeddocument
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.feeddocumentdoesnotexisterror module
+------------------------------------------------------
+
+.. automodule:: application.types.feeddocumentdoesnotexisterror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.feeddoesnotexisterror module
+----------------------------------------------
+
+.. automodule:: application.types.feeddoesnotexisterror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.insufficientdiskspace module
+----------------------------------------------
+
+.. automodule:: application.types.insufficientdiskspace
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.insufficientperms module
+------------------------------------------
+
+.. automodule:: application.types.insufficientperms
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.invalidfeedkinderror module
+---------------------------------------------
+
+.. automodule:: application.types.invalidfeedkinderror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.invalidfields module
+--------------------------------------
+
+.. automodule:: application.types.invalidfields
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.invalidsubscriptiontoken module
+-------------------------------------------------
+
+.. automodule:: application.types.invalidsubscriptiontoken
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.inventorysearchfilter module
+----------------------------------------------
+
+.. automodule:: application.types.inventorysearchfilter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.issuelabel module
+-----------------------------------
+
+.. automodule:: application.types.issuelabel
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.issuelist module
+----------------------------------
+
+.. automodule:: application.types.issuelist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.item module
+-----------------------------
+
+.. automodule:: application.types.item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.itemdoesnotexisterror module
+----------------------------------------------
+
+.. automodule:: application.types.itemdoesnotexisterror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.itemexistserror module
+----------------------------------------
+
+.. automodule:: application.types.itemexistserror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.lastmutation module
+-------------------------------------
+
+.. automodule:: application.types.lastmutation
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.logresult module
+----------------------------------
+
+.. automodule:: application.types.logresult
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.missingconfig module
+--------------------------------------
+
+.. automodule:: application.types.missingconfig
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.notification module
+-------------------------------------
+
+.. automodule:: application.types.notification
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.qrparseresponse module
+----------------------------------------
+
+.. automodule:: application.types.qrparseresponse
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.repofetchfailed module
+----------------------------------------
+
+.. automodule:: application.types.repofetchfailed
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.repositoryissue module
+----------------------------------------
+
+.. automodule:: application.types.repositoryissue
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.schema module
+-------------------------------
+
+.. automodule:: application.types.schema
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.schemaparam module
+------------------------------------
+
+.. automodule:: application.types.schemaparam
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.schemaquery module
+------------------------------------
+
+.. automodule:: application.types.schemaquery
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.schemareturntype module
+-----------------------------------------
+
+.. automodule:: application.types.schemareturntype
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.schematype module
+-----------------------------------
+
+.. automodule:: application.types.schematype
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.sorting module
+--------------------------------
+
+.. automodule:: application.types.sorting
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.sorting\_ module
+----------------------------------
+
+.. automodule:: application.types.sorting_
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subscription module
+-------------------------------------
+
+.. automodule:: application.types.subscription
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subscriptionkeys module
+-----------------------------------------
+
+.. automodule:: application.types.subscriptionkeys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subscriptionlist module
+-----------------------------------------
+
+.. automodule:: application.types.subscriptionlist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subscriptiontoken module
+------------------------------------------
+
+.. automodule:: application.types.subscriptiontoken
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subscriptiontokenkeys module
+----------------------------------------------
+
+.. automodule:: application.types.subscriptiontokenkeys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subsonicalbum module
+--------------------------------------
+
+.. automodule:: application.types.subsonicalbum
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subsonicerror module
+--------------------------------------
+
+.. automodule:: application.types.subsonicerror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subsonicsearch module
+---------------------------------------
+
+.. automodule:: application.types.subsonicsearch
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.subsonictrack module
+--------------------------------------
+
+.. automodule:: application.types.subsonictrack
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.systeminfo module
+-----------------------------------
+
+.. automodule:: application.types.systeminfo
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.theme module
+------------------------------
+
+.. automodule:: application.types.theme
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.theme\_ module
+--------------------------------
+
+.. automodule:: application.types.theme_
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.themecolor module
+-----------------------------------
+
+.. automodule:: application.types.themecolor
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.themecolor\_ module
+-------------------------------------
+
+.. automodule:: application.types.themecolor_
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.themesize module
+----------------------------------
+
+.. automodule:: application.types.themesize
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.themesize\_ module
+------------------------------------
+
+.. automodule:: application.types.themesize_
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.userbookcount module
+--------------------------------------
+
+.. automodule:: application.types.userbookcount
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.userdata module
+---------------------------------
+
+.. automodule:: application.types.userdata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.userdoesnotexisterror module
+----------------------------------------------
+
+.. automodule:: application.types.userdoesnotexisterror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.userexistserror module
+----------------------------------------
+
+.. automodule:: application.types.userexistserror
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.usermindata module
+------------------------------------
+
+.. automodule:: application.types.usermindata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.usertheme module
+----------------------------------
+
+.. automodule:: application.types.usertheme
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.usertheme\_ module
+------------------------------------
+
+.. automodule:: application.types.usertheme_
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.weatheralert module
+-------------------------------------
+
+.. automodule:: application.types.weatheralert
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.weatherexecution module
+-----------------------------------------
+
+.. automodule:: application.types.weatherexecution
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.weathertemp module
+------------------------------------
+
+.. automodule:: application.types.weathertemp
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.weathertemp\_ module
+--------------------------------------
+
+.. automodule:: application.types.weathertemp_
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.weatheruser module
+------------------------------------
+
+.. automodule:: application.types.weatheruser
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.weatheruserinput module
+-----------------------------------------
+
+.. automodule:: application.types.weatheruserinput
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.webpushexception module
+-----------------------------------------
+
+.. automodule:: application.types.webpushexception
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.zipprogress module
+------------------------------------
+
+.. automodule:: application.types.zipprogress
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.types
+   :members:
+   :show-inheritance:
+   :undoc-members:

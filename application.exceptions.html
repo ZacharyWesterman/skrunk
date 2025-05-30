@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>application.exceptions package &#8212; Skrunk Server 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'application.exceptions';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="application.integrations package" href="application.integrations.html" />
+    <link rel="prev" title="application.db package" href="application.db.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Skrunk Server 1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="application.html">application package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">application.exceptions package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html">application.integrations package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">application</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="application.html" class="nav-link">application package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">application.exceptions package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="application-exceptions-package">
+<h1>application.exceptions package<a class="headerlink" href="#application-exceptions-package" title="Link to this heading">#</a></h1>
+<section id="module-application.exceptions">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.exceptions" title="Link to this heading">#</a></h2>
+<p>application.exceptions</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.AuthenticationError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">AuthenticationError</span></span><a class="headerlink" href="#application.exceptions.AuthenticationError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when authentication fails.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.BadUserNameError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">BadUserNameError</span></span><a class="headerlink" href="#application.exceptions.BadUserNameError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a username is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.BlobDoesNotExistError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">BlobDoesNotExistError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.BlobDoesNotExistError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a blob does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.BookCannotBeShared">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">BookCannotBeShared</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.BookCannotBeShared" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a book cannot be shared.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.BookTagDoesNotExistError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">BookTagDoesNotExistError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.BookTagDoesNotExistError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a book tag does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.BookTagExistsError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">BookTagExistsError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.BookTagExistsError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a book tag already exists.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.BugReportDoesNotExistError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">BugReportDoesNotExistError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.BugReportDoesNotExistError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a bug report does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.ClientError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">ClientError</span></span><a class="headerlink" href="#application.exceptions.ClientError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Base class for errors caused by a client query.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.FeedDocumentDoesNotExistError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">FeedDocumentDoesNotExistError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.FeedDocumentDoesNotExistError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a feed document does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.FeedDoesNotExistError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">FeedDoesNotExistError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.FeedDoesNotExistError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a feed does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InsufficientDiskSpace">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InsufficientDiskSpace</span></span><a class="headerlink" href="#application.exceptions.InsufficientDiskSpace" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when there is not enough disk space.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InvalidColor">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidColor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.InvalidColor" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>Raised when a color string is not a valid 7-character hex color.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InvalidFeedKindError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidFeedKindError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kind</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.InvalidFeedKindError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a feed kind is not supported.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InvalidJWTError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidJWTError</span></span><a class="headerlink" href="#application.exceptions.InvalidJWTError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a JSON web token is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InvalidPhone">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidPhone</span></span><a class="headerlink" href="#application.exceptions.InvalidPhone" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>Raised when a phone number is not exactly 10 digits.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InvalidSize">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidSize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.InvalidSize" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>Raised when a size string is not a valid CSS size.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InvalidSubscriptionToken">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidSubscriptionToken</span></span><a class="headerlink" href="#application.exceptions.InvalidSubscriptionToken" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a notification subscription token is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.ItemDoesNotExistError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">ItemDoesNotExistError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.ItemDoesNotExistError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when an item does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.ItemExistsError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">ItemExistsError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.ItemExistsError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when an item already exists.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.MissingConfig">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">MissingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.MissingConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a required config item is missing.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.SubsonicError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">SubsonicError</span></span><a class="headerlink" href="#application.exceptions.SubsonicError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when an attempt to query Subsonic is made without being configured correctly.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.UserDoesNotExistError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">UserDoesNotExistError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.UserDoesNotExistError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a user does not exist.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.UserExistsError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">UserExistsError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.UserExistsError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a user already exists.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.WebPushException">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">WebPushException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.WebPushException" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when there is an error sending a web push notification.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="application.db.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">application.db package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="application.integrations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">application.integrations package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.exceptions">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.AuthenticationError"><code class="docutils literal notranslate"><span class="pre">AuthenticationError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.BadUserNameError"><code class="docutils literal notranslate"><span class="pre">BadUserNameError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.BlobDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BlobDoesNotExistError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.BookCannotBeShared"><code class="docutils literal notranslate"><span class="pre">BookCannotBeShared</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.BookTagDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BookTagDoesNotExistError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.BookTagExistsError"><code class="docutils literal notranslate"><span class="pre">BookTagExistsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.BugReportDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BugReportDoesNotExistError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.ClientError"><code class="docutils literal notranslate"><span class="pre">ClientError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.FeedDocumentDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">FeedDocumentDoesNotExistError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.FeedDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">FeedDoesNotExistError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InsufficientDiskSpace"><code class="docutils literal notranslate"><span class="pre">InsufficientDiskSpace</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidColor"><code class="docutils literal notranslate"><span class="pre">InvalidColor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidFeedKindError"><code class="docutils literal notranslate"><span class="pre">InvalidFeedKindError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidJWTError"><code class="docutils literal notranslate"><span class="pre">InvalidJWTError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidPhone"><code class="docutils literal notranslate"><span class="pre">InvalidPhone</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidSize"><code class="docutils literal notranslate"><span class="pre">InvalidSize</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidSubscriptionToken"><code class="docutils literal notranslate"><span class="pre">InvalidSubscriptionToken</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.ItemDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">ItemDoesNotExistError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.ItemExistsError"><code class="docutils literal notranslate"><span class="pre">ItemExistsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.MissingConfig"><code class="docutils literal notranslate"><span class="pre">MissingConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.UserExistsError"><code class="docutils literal notranslate"><span class="pre">UserExistsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.WebPushException"><code class="docutils literal notranslate"><span class="pre">WebPushException</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/application.exceptions.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Zachary Westerman.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

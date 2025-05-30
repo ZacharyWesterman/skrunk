@@ -1,0 +1,109 @@
+application.db package
+======================
+
+Submodules
+----------
+
+application.db.apikeys module
+-----------------------------
+
+.. automodule:: application.db.apikeys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.blob module
+--------------------------
+
+.. automodule:: application.db.blob
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.book module
+--------------------------
+
+.. automodule:: application.db.book
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.bugs module
+--------------------------
+
+.. automodule:: application.db.bugs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.datafeed module
+------------------------------
+
+.. automodule:: application.db.datafeed
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.inventory module
+-------------------------------
+
+.. automodule:: application.db.inventory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.notification module
+----------------------------------
+
+.. automodule:: application.db.notification
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.perms module
+---------------------------
+
+.. automodule:: application.db.perms
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.sessions module
+------------------------------
+
+.. automodule:: application.db.sessions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.settings module
+------------------------------
+
+.. automodule:: application.db.settings
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.users module
+---------------------------
+
+.. automodule:: application.db.users
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.db.weather module
+-----------------------------
+
+.. automodule:: application.db.weather
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.db
+   :members:
+   :show-inheritance:
+   :undoc-members:

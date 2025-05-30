@@ -1,0 +1,30 @@
+application.resolvers package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   application.resolvers.mutation
+   application.resolvers.query
+
+Submodules
+----------
+
+application.resolvers.decorators module
+---------------------------------------
+
+.. automodule:: application.resolvers.decorators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.resolvers
+   :members:
+   :show-inheritance:
+   :undoc-members:

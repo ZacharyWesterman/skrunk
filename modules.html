@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>application &#8212; Skrunk Server 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="application package" href="application.html" />
+    <link rel="prev" title="Skrunk Server documentation" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Skrunk Server 1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="application.html">application package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html">application.integrations package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">application</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="application">
+<h1>application<a class="headerlink" href="#application" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="application.html">application package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html">application.db package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.apikeys">application.db.apikeys module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.blob">application.db.blob module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.book">application.db.book module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.bugs">application.db.bugs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.datafeed">application.db.datafeed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.inventory">application.db.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.notification">application.db.notification module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.perms">application.db.perms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.sessions">application.db.sessions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.settings">application.db.settings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.users">application.db.users module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db.weather">application.db.weather module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.db.html#module-application.db">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.exceptions.html#module-application.exceptions">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html">application.integrations package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.exceptions">application.integrations.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.github">application.integrations.github module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.google_books">application.integrations.google_books module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.graphql">application.integrations.graphql module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.images">application.integrations.images module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.models">application.integrations.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.qrcode">application.integrations.qrcode module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.system">application.integrations.system module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations.videos">application.integrations.videos module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.html#module-application.integrations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.monkeypatch.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.monkeypatch.html#module-application.monkeypatch.json_encoder_patch">application.monkeypatch.json_encoder_patch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.monkeypatch.html#module-application.monkeypatch">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.html#application-resolvers-decorators-module">application.resolvers.decorators module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html">application.routes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#application-routes-api-module">application.routes.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#application-routes-auth-module">application.routes.auth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#application-routes-blob-module">application.routes.blob module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#application-routes-files-module">application.routes.files module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#application-routes-misc-module">application.routes.misc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#application-routes-site-module">application.routes.site module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.routes.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.scalars.html">application.scalars package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#application-scalars-color-module">application.scalars.color module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#application-scalars-date-module">application.scalars.date module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#application-scalars-datetime-module">application.scalars.datetime module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#application-scalars-long-module">application.scalars.long module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#application-scalars-phone-module">application.scalars.phone module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#application-scalars-size-module">application.scalars.size module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.scalars.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html">application.types package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.apifailederror">application.types.apifailederror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.apikey">application.types.apikey module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.badnotification">application.types.badnotification module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.badtagquery">application.types.badtagquery module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.badusernameerror">application.types.badusernameerror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.blob">application.types.blob module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.blob_storage">application.types.blob_storage module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.blobcount">application.types.blobcount module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.blobdoesnotexisterror">application.types.blobdoesnotexisterror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bloblist">application.types.bloblist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.blobsearchfilter">application.types.blobsearchfilter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.book">application.types.book module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bookcannotbeshared">application.types.bookcannotbeshared module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bookcreatedata">application.types.bookcreatedata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bookeditdata">application.types.bookeditdata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bookident">application.types.bookident module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.booklist">application.types.booklist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bookownerhist">application.types.bookownerhist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.booksearchfilter">application.types.booksearchfilter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bookshare">application.types.bookshare module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.booktag">application.types.booktag module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.booktagdoesnotexisterror">application.types.booktagdoesnotexisterror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.booktagexistserror">application.types.booktagexistserror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bugcomment">application.types.bugcomment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bugreport">application.types.bugreport module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bugreportcreationfailederror">application.types.bugreportcreationfailederror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.bugreportdoesnotexisterror">application.types.bugreportdoesnotexisterror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.config">application.types.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.configlist">application.types.configlist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.diskusage">application.types.diskusage module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.ebook">application.types.ebook module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.feed">application.types.feed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.feeddocument">application.types.feeddocument module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.feeddocumentdoesnotexisterror">application.types.feeddocumentdoesnotexisterror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.feeddoesnotexisterror">application.types.feeddoesnotexisterror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.insufficientdiskspace">application.types.insufficientdiskspace module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.insufficientperms">application.types.insufficientperms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.invalidfeedkinderror">application.types.invalidfeedkinderror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.invalidfields">application.types.invalidfields module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.invalidsubscriptiontoken">application.types.invalidsubscriptiontoken module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.inventorysearchfilter">application.types.inventorysearchfilter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.issuelabel">application.types.issuelabel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.issuelist">application.types.issuelist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.item">application.types.item module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.itemdoesnotexisterror">application.types.itemdoesnotexisterror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.itemexistserror">application.types.itemexistserror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.lastmutation">application.types.lastmutation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.logresult">application.types.logresult module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.missingconfig">application.types.missingconfig module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.notification">application.types.notification module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.qrparseresponse">application.types.qrparseresponse module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.repofetchfailed">application.types.repofetchfailed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.repositoryissue">application.types.repositoryissue module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.schema">application.types.schema module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.schemaparam">application.types.schemaparam module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.schemaquery">application.types.schemaquery module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.schemareturntype">application.types.schemareturntype module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.schematype">application.types.schematype module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.sorting">application.types.sorting module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.sorting_">application.types.sorting_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subscription">application.types.subscription module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subscriptionkeys">application.types.subscriptionkeys module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subscriptionlist">application.types.subscriptionlist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subscriptiontoken">application.types.subscriptiontoken module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subscriptiontokenkeys">application.types.subscriptiontokenkeys module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subsonicalbum">application.types.subsonicalbum module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subsonicerror">application.types.subsonicerror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subsonicsearch">application.types.subsonicsearch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.subsonictrack">application.types.subsonictrack module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.systeminfo">application.types.systeminfo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.theme">application.types.theme module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.theme_">application.types.theme_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.themecolor">application.types.themecolor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.themecolor_">application.types.themecolor_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.themesize">application.types.themesize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.themesize_">application.types.themesize_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.userbookcount">application.types.userbookcount module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.userdata">application.types.userdata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.userdoesnotexisterror">application.types.userdoesnotexisterror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.userexistserror">application.types.userexistserror module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.usermindata">application.types.usermindata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.usertheme">application.types.usertheme module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.usertheme_">application.types.usertheme_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.weatheralert">application.types.weatheralert module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.weatherexecution">application.types.weatherexecution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.weathertemp">application.types.weathertemp module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.weathertemp_">application.types.weathertemp_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.weatheruser">application.types.weatheruser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.weatheruserinput">application.types.weatheruserinput module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.webpushexception">application.types.webpushexception module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types.zipprogress">application.types.zipprogress module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#module-application.types">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#application-tokens-module">application.tokens module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Skrunk Server documentation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="application.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">application package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modules.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Zachary Westerman.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

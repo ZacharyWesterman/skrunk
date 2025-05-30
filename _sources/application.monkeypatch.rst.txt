@@ -1,0 +1,21 @@
+application.monkeypatch package
+===============================
+
+Submodules
+----------
+
+application.monkeypatch.json\_encoder\_patch module
+---------------------------------------------------
+
+.. automodule:: application.monkeypatch.json_encoder_patch
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.monkeypatch
+   :members:
+   :show-inheritance:
+   :undoc-members:
