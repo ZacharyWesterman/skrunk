@@ -7,3 +7,5 @@ data/public_key.txt
 html
 !site/html
 doxygen.log
+docs/build/
+docs/source/*.rst
