@@ -12,7 +12,12 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        submodules: 'true'
+        token : ${{ secrets.GITHUB_TOKEN }}
+
     - name: Install Dependencies
       run: sudo apt-get install -y python3-poetry python3-sphinx
     
