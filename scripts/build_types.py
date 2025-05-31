@@ -9,6 +9,7 @@ sys.path.append(os.path.abspath('.'))  # nopep8
 # pylint: disable=wrong-import-position
 from pathlib import Path
 
+from application import exceptions
 from application.integrations.graphql import schema
 
 # pylint: enable=wrong-import-position
@@ -193,6 +194,10 @@ def output_types() -> None:
 	# Build list of types
 	for t in types:
 		if t['union']:
+			continue
+
+		# Skip types that are exceptions
+		if exceptions.__dict__.get(t['name']):
 			continue
 
 		filename = f'application/types/{t["name"].lower()}.py'
