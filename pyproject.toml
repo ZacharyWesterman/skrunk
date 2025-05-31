@@ -28,9 +28,6 @@ imageio = {extras = ["ffmpeg"], version = "^2.36.0"}
 networkx = "^3.4.2"
 lxml = "^5.3.0"
 
-[tool.poetry.group.dev]
-optional = true
-
 [tool.poetry.group.dev.dependencies]
 sphinx = "^8.2.3"
 sphinx-autodoc-typehints = "^3.2.0"
