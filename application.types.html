@@ -467,45 +467,6 @@
 <dd><p>Bases: <a class="reference internal" href="#application.types.blob_storage.BlobStorage" title="application.types.blob_storage.BlobStorage"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlobStorage</span></code></a></p>
 <p>A subclass of BlobStorage that represents a preview version of a blob.
 These previews are smaller and lower quality than the original.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobPreview.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#application.types.blob_storage.BlobPreview.id" title="Link to this definition">#</a></dt>
-<dd><p>The identifier for the blob.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobPreview.ext">
-<span class="sig-name descname"><span class="pre">ext</span></span><a class="headerlink" href="#application.types.blob_storage.BlobPreview.ext" title="Link to this definition">#</a></dt>
-<dd><p>The file extension for the blob.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobPreview.exists">
-<span class="sig-name descname"><span class="pre">exists</span></span><a class="headerlink" href="#application.types.blob_storage.BlobPreview.exists" title="Link to this definition">#</a></dt>
-<dd><p>True if the preview exists, False otherwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__(id</span></span></dt>
-<dd><p>str, ext: str): Initializes a BlobPreview instance with a modified id if an extension is provided.</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -513,62 +474,9 @@ These previews are smaller and lower quality than the original.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.blob_storage.</span></span><span class="sig-name descname"><span class="pre">BlobStorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.types.blob_storage.BlobStorage" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class to represent and manage blob storage paths.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#application.types.blob_storage.BlobStorage.id" title="Link to this definition">#</a></dt>
-<dd><p>The unique identifier for the blob.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.ext">
-<span class="sig-name descname"><span class="pre">ext</span></span><a class="headerlink" href="#application.types.blob_storage.BlobStorage.ext" title="Link to this definition">#</a></dt>
-<dd><p>The file extension for the blob.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.exists">
-<span class="sig-name descname"><span class="pre">exists</span></span><a class="headerlink" href="#application.types.blob_storage.BlobStorage.exists" title="Link to this definition">#</a></dt>
-<dd><p>True if the blob exists, False otherwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__(id</span></span></dt>
-<dd><p>str, ext: str):
-Initializes a new instance of the class.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">path(create</span></span></dt>
-<dd><p>bool = False) -&gt; str:
-Returns the full path to the blob, optionally creating directories.</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.basename">
-<span class="sig-name descname"><span class="pre">basename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#application.types.blob_storage.BlobStorage.basename" title="Link to this definition">#</a></dt>
-<dd><p>Returns the base name of the blob.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">basename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">basename</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.types.blob_storage.BlobStorage.basename" title="Link to this definition">#</a></dt>
 <dd><p>Generate the base name for the blob storage object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -581,8 +489,8 @@ Returns the full path to the blob, optionally creating directories.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id1">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exists</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.exists">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exists</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#application.types.blob_storage.BlobStorage.exists" title="Link to this definition">#</a></dt>
 <dd><p>Check if the blob exists in the storage.</p>
 <p>This method constructs the full path of the blob using its ID and checks
 if a file with the blob’s basename exists at that path.</p>
@@ -597,13 +505,13 @@ if a file with the blob’s basename exists at that path.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">ext</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.ext">
+<span class="sig-name descname"><span class="pre">ext</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.blob_storage.BlobStorage.ext" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.blob_storage.BlobStorage.id" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -631,45 +539,6 @@ if a file with the blob’s basename exists at that path.</p>
 <dd><p>Bases: <a class="reference internal" href="#application.types.blob_storage.BlobStorage" title="application.types.blob_storage.BlobStorage"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlobStorage</span></code></a></p>
 <p>A subclass of BlobStorage that represents a thumbnail version of a blob.
 These thumbnails are even smaller and lower quality than previews, and thus much faster to load.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobThumbnail.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#application.types.blob_storage.BlobThumbnail.id" title="Link to this definition">#</a></dt>
-<dd><p>The identifier for the blob.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobThumbnail.ext">
-<span class="sig-name descname"><span class="pre">ext</span></span><a class="headerlink" href="#application.types.blob_storage.BlobThumbnail.ext" title="Link to this definition">#</a></dt>
-<dd><p>The file extension for the blob.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.blob_storage.BlobThumbnail.exists">
-<span class="sig-name descname"><span class="pre">exists</span></span><a class="headerlink" href="#application.types.blob_storage.BlobThumbnail.exists" title="Link to this definition">#</a></dt>
-<dd><p>True if the preview exists, False otherwise.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__(id</span></span></dt>
-<dd><p>str, ext: str): Initializes a BlobThumbnail instance with a modified id if an extension is provided.</p>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -1922,8 +1791,8 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 </section>
 <section id="module-application.types.sorting_">
-<span id="id4"></span><h2>application.types.sorting_ module<a class="headerlink" href="#module-application.types.sorting_" title="Link to this heading">#</a></h2>
-<p><a href="#id10"><span class="problematic" id="id11">application.types.sorting_</span></a></p>
+<span id="id1"></span><h2>application.types.sorting_ module<a class="headerlink" href="#module-application.types.sorting_" title="Link to this heading">#</a></h2>
+<p><a href="#id7"><span class="problematic" id="id8">application.types.sorting_</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.types.sorting_.Sorting_">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.sorting_.</span></span><span class="sig-name descname"><span class="pre">Sorting_</span></span><a class="headerlink" href="#application.types.sorting_.Sorting_" title="Link to this definition">#</a></dt>
@@ -2203,8 +2072,8 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 </section>
 <section id="module-application.types.theme_">
-<span id="id5"></span><h2>application.types.theme_ module<a class="headerlink" href="#module-application.types.theme_" title="Link to this heading">#</a></h2>
-<p><a href="#id12"><span class="problematic" id="id13">application.types.theme_</span></a></p>
+<span id="id2"></span><h2>application.types.theme_ module<a class="headerlink" href="#module-application.types.theme_" title="Link to this heading">#</a></h2>
+<p><a href="#id9"><span class="problematic" id="id10">application.types.theme_</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.types.theme_.Theme_">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.theme_.</span></span><span class="sig-name descname"><span class="pre">Theme_</span></span><a class="headerlink" href="#application.types.theme_.Theme_" title="Link to this definition">#</a></dt>
@@ -2260,8 +2129,8 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 </section>
 <section id="module-application.types.themecolor_">
-<span id="id6"></span><h2>application.types.themecolor_ module<a class="headerlink" href="#module-application.types.themecolor_" title="Link to this heading">#</a></h2>
-<p><a href="#id14"><span class="problematic" id="id15">application.types.themecolor_</span></a></p>
+<span id="id3"></span><h2>application.types.themecolor_ module<a class="headerlink" href="#module-application.types.themecolor_" title="Link to this heading">#</a></h2>
+<p><a href="#id11"><span class="problematic" id="id12">application.types.themecolor_</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.types.themecolor_.ThemeColor_">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.themecolor_.</span></span><span class="sig-name descname"><span class="pre">ThemeColor_</span></span><a class="headerlink" href="#application.types.themecolor_.ThemeColor_" title="Link to this definition">#</a></dt>
@@ -2302,8 +2171,8 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 </section>
 <section id="module-application.types.themesize_">
-<span id="id7"></span><h2>application.types.themesize_ module<a class="headerlink" href="#module-application.types.themesize_" title="Link to this heading">#</a></h2>
-<p><a href="#id16"><span class="problematic" id="id17">application.types.themesize_</span></a></p>
+<span id="id4"></span><h2>application.types.themesize_ module<a class="headerlink" href="#module-application.types.themesize_" title="Link to this heading">#</a></h2>
+<p><a href="#id13"><span class="problematic" id="id14">application.types.themesize_</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.types.themesize_.ThemeSize_">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.themesize_.</span></span><span class="sig-name descname"><span class="pre">ThemeSize_</span></span><a class="headerlink" href="#application.types.themesize_.ThemeSize_" title="Link to this definition">#</a></dt>
@@ -2442,8 +2311,8 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 </section>
 <section id="module-application.types.usertheme_">
-<span id="id8"></span><h2>application.types.usertheme_ module<a class="headerlink" href="#module-application.types.usertheme_" title="Link to this heading">#</a></h2>
-<p><a href="#id18"><span class="problematic" id="id19">application.types.usertheme_</span></a></p>
+<span id="id5"></span><h2>application.types.usertheme_ module<a class="headerlink" href="#module-application.types.usertheme_" title="Link to this heading">#</a></h2>
+<p><a href="#id15"><span class="problematic" id="id16">application.types.usertheme_</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.types.usertheme_.UserTheme_">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.usertheme_.</span></span><span class="sig-name descname"><span class="pre">UserTheme_</span></span><a class="headerlink" href="#application.types.usertheme_.UserTheme_" title="Link to this definition">#</a></dt>
@@ -2541,8 +2410,8 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 </section>
 <section id="module-application.types.weathertemp_">
-<span id="id9"></span><h2>application.types.weathertemp_ module<a class="headerlink" href="#module-application.types.weathertemp_" title="Link to this heading">#</a></h2>
-<p><a href="#id20"><span class="problematic" id="id21">application.types.weathertemp_</span></a></p>
+<span id="id6"></span><h2>application.types.weathertemp_ module<a class="headerlink" href="#module-application.types.weathertemp_" title="Link to this heading">#</a></h2>
+<p><a href="#id17"><span class="problematic" id="id18">application.types.weathertemp_</span></a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.types.weathertemp_.WeatherTemp_">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.weathertemp_.</span></span><span class="sig-name descname"><span class="pre">WeatherTemp_</span></span><a class="headerlink" href="#application.types.weathertemp_.WeatherTemp_" title="Link to this definition">#</a></dt>
@@ -2763,30 +2632,16 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.blob_storage">application.types.blob_storage module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview"><code class="docutils literal notranslate"><span class="pre">BlobPreview</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview.id"><code class="docutils literal notranslate"><span class="pre">BlobPreview.id</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview.ext"><code class="docutils literal notranslate"><span class="pre">BlobPreview.ext</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview.exists"><code class="docutils literal notranslate"><span class="pre">BlobPreview.exists</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview"><code class="docutils literal notranslate"><span class="pre">BlobPreview</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage"><code class="docutils literal notranslate"><span class="pre">BlobStorage</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.id"><code class="docutils literal notranslate"><span class="pre">BlobStorage.id</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.ext"><code class="docutils literal notranslate"><span class="pre">BlobStorage.ext</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.exists"><code class="docutils literal notranslate"><span class="pre">BlobStorage.exists</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.basename"><code class="docutils literal notranslate"><span class="pre">BlobStorage.basename()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">BlobStorage.basename()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">BlobStorage.exists</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">BlobStorage.ext</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">BlobStorage.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.exists"><code class="docutils literal notranslate"><span class="pre">BlobStorage.exists</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.ext"><code class="docutils literal notranslate"><span class="pre">BlobStorage.ext</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.id"><code class="docutils literal notranslate"><span class="pre">BlobStorage.id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.path"><code class="docutils literal notranslate"><span class="pre">BlobStorage.path()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail.id"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.id</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail.ext"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.ext</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail.exists"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.exists</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.blobcount">application.types.blobcount module</a><ul class="nav section-nav flex-column">
