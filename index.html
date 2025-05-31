@@ -292,12 +292,13 @@
 <hr class="docutils" />
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
-<p>This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python &amp;ge; 3.10, <a class="reference external" href="https://python-poetry.org/">Poetry</a>, MongoDB &amp;ge; 5, and OpenJDK &amp;ge; 8.</p>
+<p>This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python ≥ 3.11, <a class="reference external" href="https://python-poetry.org/">Poetry</a>, MongoDB ≥ 5, and OpenJDK ≥ 8.</p>
 <hr class="docutils" />
-<p>To get all set up, first download the repo, then install dependencies:</p>
+<p>To get all set up, first download the repo, then install dependencies.
+In most cases you won’t need the documentation to generate, so you can append <code class="docutils literal notranslate"><span class="pre">--without</span> <span class="pre">dev</span></code> to the install command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ZacharyWesterman/skrunk.git<span class="w"> </span>--recursive
 <span class="nb">cd</span><span class="w"> </span>skrunk
-poetry<span class="w"> </span>install
+poetry<span class="w"> </span>install<span class="w"> </span>--no-root<span class="w"> </span>--without<span class="w"> </span>dev
 </pre></div>
 </div>
 <p>If you plan to enable the file module, you’ll want to make sure you have a place to store blob data that is uploaded to the site.
