@@ -437,6 +437,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_subscription"><code class="docutils literal notranslate"><span class="pre">get_subscription()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_subscriptions"><code class="docutils literal notranslate"><span class="pre">get_subscriptions()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.get_user_from_notif"><code class="docutils literal notranslate"><span class="pre">get_user_from_notif()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.mark_all_as_read"><code class="docutils literal notranslate"><span class="pre">mark_all_as_read()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.mark_as_read"><code class="docutils literal notranslate"><span class="pre">mark_as_read()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.send"><code class="docutils literal notranslate"><span class="pre">send()</span></code></a></li>
@@ -627,7 +628,7 @@
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-apikeys-module">application.resolvers.mutation.apikeys module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.apikeys">application.resolvers.mutation.apikeys module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-blob-module">application.resolvers.mutation.blob module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-book-module">application.resolvers.mutation.book module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-bugs-module">application.resolvers.mutation.bugs module</a></li>
@@ -668,13 +669,44 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.routes.html">application.routes package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-api-module">application.routes.api module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-auth-module">application.routes.auth module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-blob-module">application.routes.blob module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-files-module">application.routes.files module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-misc-module">application.routes.misc module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.routes.html#application-routes-site-module">application.routes.site module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.api">application.routes.api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.api.graphql"><code class="docutils literal notranslate"><span class="pre">graphql()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.auth">application.routes.auth module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.auth_user"><code class="docutils literal notranslate"><span class="pre">auth_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.authorized"><code class="docutils literal notranslate"><span class="pre">authorized()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.verify_token"><code class="docutils literal notranslate"><span class="pre">verify_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.blob">application.routes.blob module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.blob.download"><code class="docutils literal notranslate"><span class="pre">download()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.blob.file_stream"><code class="docutils literal notranslate"><span class="pre">file_stream()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.blob.preview"><code class="docutils literal notranslate"><span class="pre">preview()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.blob.stream"><code class="docutils literal notranslate"><span class="pre">stream()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.blob.upload"><code class="docutils literal notranslate"><span class="pre">upload()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.files">application.routes.files module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.files.read_file_data"><code class="docutils literal notranslate"><span class="pre">read_file_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.files.sanitize_path"><code class="docutils literal notranslate"><span class="pre">sanitize_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.misc">application.routes.misc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.misc.random_xkcd"><code class="docutils literal notranslate"><span class="pre">random_xkcd()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.site">application.routes.site module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.site.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.site.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.site.get_svg"><code class="docutils literal notranslate"><span class="pre">get_svg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.site.main_page"><code class="docutils literal notranslate"><span class="pre">main_page()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.scalars.html">application.scalars package</a><ul>

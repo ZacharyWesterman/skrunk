@@ -320,26 +320,210 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="application-routes-api-module">
-<h2>application.routes.api module<a class="headerlink" href="#application-routes-api-module" title="Link to this heading">#</a></h2>
+<section id="module-application.routes.api">
+<span id="application-routes-api-module"></span><h2>application.routes.api module<a class="headerlink" href="#module-application.routes.api" title="Link to this heading">#</a></h2>
+<p>application.routes.api</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.api.graphql">
+<span class="sig-prename descclassname"><span class="pre">application.routes.api.</span></span><span class="sig-name descname"><span class="pre">graphql</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.api.graphql" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-routes-auth-module">
-<h2>application.routes.auth module<a class="headerlink" href="#application-routes-auth-module" title="Link to this heading">#</a></h2>
+<section id="module-application.routes.auth">
+<span id="application-routes-auth-module"></span><h2>application.routes.auth module<a class="headerlink" href="#module-application.routes.auth" title="Link to this heading">#</a></h2>
+<p>application.routes.auth</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.auth.auth_user">
+<span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">auth_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.auth_user" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.auth.authorized">
+<span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">authorized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.authorized" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.auth.verify_token">
+<span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">verify_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.verify_token" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-routes-blob-module">
-<h2>application.routes.blob module<a class="headerlink" href="#application-routes-blob-module" title="Link to this heading">#</a></h2>
+<section id="module-application.routes.blob">
+<span id="application-routes-blob-module"></span><h2>application.routes.blob module<a class="headerlink" href="#module-application.routes.blob" title="Link to this heading">#</a></h2>
+<p>application.routes.blob</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.blob.download">
+<span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.download" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.blob.file_stream">
+<span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">file_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_header</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.file_stream" title="Link to this definition">#</a></dt>
+<dd><p>Generator to stream file data in chunks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>full_path</strong> (<em>str</em>) – The full path to the file to be streamed.</p>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>bytes</em> – Chunks of file data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.blob.preview">
+<span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.preview" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.blob.stream">
+<span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.stream" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.blob.upload">
+<span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">upload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.upload" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-routes-files-module">
-<h2>application.routes.files module<a class="headerlink" href="#application-routes-files-module" title="Link to this heading">#</a></h2>
+<section id="module-application.routes.files">
+<span id="application-routes-files-module"></span><h2>application.routes.files module<a class="headerlink" href="#module-application.routes.files" title="Link to this heading">#</a></h2>
+<p>application.routes.files</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.files.read_file_data">
+<span class="sig-prename descclassname"><span class="pre">application.routes.files.</span></span><span class="sig-name descname"><span class="pre">read_file_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.files.read_file_data" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.files.sanitize_path">
+<span class="sig-prename descclassname"><span class="pre">application.routes.files.</span></span><span class="sig-name descname"><span class="pre">sanitize_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.files.sanitize_path" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-routes-misc-module">
-<h2>application.routes.misc module<a class="headerlink" href="#application-routes-misc-module" title="Link to this heading">#</a></h2>
+<section id="module-application.routes.misc">
+<span id="application-routes-misc-module"></span><h2>application.routes.misc module<a class="headerlink" href="#module-application.routes.misc" title="Link to this heading">#</a></h2>
+<p>application.routes.misc</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.misc.random_xkcd">
+<span class="sig-prename descclassname"><span class="pre">application.routes.misc.</span></span><span class="sig-name descname"><span class="pre">random_xkcd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.misc.random_xkcd" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-routes-site-module">
-<h2>application.routes.site module<a class="headerlink" href="#application-routes-site-module" title="Link to this heading">#</a></h2>
+<section id="module-application.routes.site">
+<span id="application-routes-site-module"></span><h2>application.routes.site module<a class="headerlink" href="#module-application.routes.site" title="Link to this heading">#</a></h2>
+<p>application.routes.site</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.site.get">
+<span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.site.get_icon">
+<span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get_icon" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.site.get_svg">
+<span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get_svg" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.site.main_page">
+<span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">main_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.main_page" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<section id="module-application.routes">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.routes" title="Link to this heading">#</a></h2>
+<p>application.routes</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.init">
+<span class="sig-prename descclassname"><span class="pre">application.routes.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.init" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -391,13 +575,44 @@
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-routes-api-module">application.routes.api module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-routes-auth-module">application.routes.auth module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-routes-blob-module">application.routes.blob module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-routes-files-module">application.routes.files module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-routes-misc-module">application.routes.misc module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-routes-site-module">application.routes.site module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.api">application.routes.api module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.api.graphql"><code class="docutils literal notranslate"><span class="pre">graphql()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.auth">application.routes.auth module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.auth_user"><code class="docutils literal notranslate"><span class="pre">auth_user()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.authorized"><code class="docutils literal notranslate"><span class="pre">authorized()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.verify_token"><code class="docutils literal notranslate"><span class="pre">verify_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.blob">application.routes.blob module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.download"><code class="docutils literal notranslate"><span class="pre">download()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.file_stream"><code class="docutils literal notranslate"><span class="pre">file_stream()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.preview"><code class="docutils literal notranslate"><span class="pre">preview()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.stream"><code class="docutils literal notranslate"><span class="pre">stream()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.upload"><code class="docutils literal notranslate"><span class="pre">upload()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.files">application.routes.files module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.files.read_file_data"><code class="docutils literal notranslate"><span class="pre">read_file_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.files.sanitize_path"><code class="docutils literal notranslate"><span class="pre">sanitize_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.misc">application.routes.misc module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.misc.random_xkcd"><code class="docutils literal notranslate"><span class="pre">random_xkcd()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.site">application.routes.site module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get_svg"><code class="docutils literal notranslate"><span class="pre">get_svg()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.main_page"><code class="docutils literal notranslate"><span class="pre">main_page()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
