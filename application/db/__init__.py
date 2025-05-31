@@ -56,10 +56,10 @@ def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> Non
 	book.db = client.skrunk.books
 
 	notification.db = client.skrunk
+	notification.init()
+
 	inventory.db = client.skrunk
-
 	weather.db = client.skrunk
-
 	datafeed.db = client.skrunk
 
 

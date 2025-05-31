@@ -6,7 +6,7 @@ import ariadne
 from ariadne.contrib.federation.schema import make_federated_schema
 from flask import Flask
 
-from . import monkeypatch, routes
+from . import monkeypatch, routes, tokens
 from .db import init_db, setup_db
 from .db.users import count_users
 from .resolvers import mutation, query
@@ -15,7 +15,7 @@ from .scalars import scalars
 
 def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
 	"""
-	Initialize the application.
+	Initialize the application and database.
 
 	Parameters:
 		no_auth (bool): Flag to disable authentication. Default is False.
@@ -25,6 +25,9 @@ def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
 	Returns:
 		Flask: The initialized Flask application instance.
 	"""
+
+	tokens.init()
+
 	init_db(data_db_url, blob_path)
 
 	application: Any = Flask(__name__)

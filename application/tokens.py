@@ -12,10 +12,22 @@ from .db.apikeys import valid_api_key
 from .db.sessions import start_session, valid_session
 from .exceptions import InvalidJWTError
 
-with open(os.environ['HOME'] + '/.ssh/id_rsa', 'r', encoding='utf8') as fp:
-	__private_key: Any = serialization.load_ssh_private_key(fp.read().encode(), password=b'')
-with open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r', encoding='utf8') as fp:
-	__public_key: Any = serialization.load_ssh_public_key(fp.read().encode())
+__private_key: Any = None
+__public_key: Any = None
+
+
+def init() -> None:
+	"""
+	Initialize the JWT token system by loading the private and public keys.
+	"""
+
+	global __private_key, __public_key
+
+	with open(os.environ['HOME'] + '/.ssh/id_rsa', 'r', encoding='utf8') as fp:
+		__private_key = serialization.load_ssh_private_key(fp.read().encode(), password=b'')
+	with open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r', encoding='utf8') as fp:
+		__public_key = serialization.load_ssh_public_key(fp.read().encode())
+
 
 __MAX_INT = 2**32 - 1
 

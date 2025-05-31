@@ -12,17 +12,29 @@ from application import exceptions
 from application.db import settings, users
 from application.db.sessions import get_first_session_token
 
-# Attempt to read the VAPID keys from the data directory.
-try:
-	## The VAPID private key used for sending notifications.
-	with open('data/private_key.txt', 'r+', encoding='utf8') as fp:
-		VAPID_PRIVATE_KEY = fp.readline().strip('\n')
+VAPID_PRIVATE_KEY: str = ''
+VAPID_PUBLIC_KEY: str = ''
 
-	## The VAPID public key used for sending notifications.
-	with open('data/public_key.txt', 'r+', encoding='utf8') as fp:
-		VAPID_PUBLIC_KEY = fp.read().strip('\n')
-except FileNotFoundError:
-	print('WARNING: No VAPID keys found!', ' ', '\n', None, True)
+
+def init() -> None:
+	"""
+	Initialize the notification module by loading VAPID keys from the data directory.
+	"""
+
+	global VAPID_PRIVATE_KEY, VAPID_PUBLIC_KEY
+
+	# Attempt to read the VAPID keys from the data directory.
+	try:
+		## The VAPID private key used for sending notifications.
+		with open('data/private_key.txt', 'r+', encoding='utf8') as fp:
+			VAPID_PRIVATE_KEY = fp.readline().strip('\n')
+
+		## The VAPID public key used for sending notifications.
+		with open('data/public_key.txt', 'r+', encoding='utf8') as fp:
+			VAPID_PUBLIC_KEY = fp.read().strip('\n')
+	except FileNotFoundError:
+		print('WARNING: No VAPID keys found!', ' ', '\n', None, True)
+
 
 ## A pointer to the database object.
 db: Database = None  # type: ignore[assignment]
