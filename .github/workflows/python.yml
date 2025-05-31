@@ -17,7 +17,7 @@ jobs:
       run: sudo apt-get install -y python3-poetry python3-sphinx
     
     - name: Poetry Install
-      run: poetry install --no-root --with dev
+      run: poetry install --no-root
 
     - name: Build Documentation
       run: poetry run ./docs.sh
