@@ -1,9 +1,9 @@
-"""application.types.themecolor_"""
+"""application.types.themecoloroutput"""
 
 from typing import TypedDict
 
 
-class ThemeColor_(TypedDict):
+class ThemeColorOutput(TypedDict):
 	"""
 	Color settings for a user theme.
 	"""

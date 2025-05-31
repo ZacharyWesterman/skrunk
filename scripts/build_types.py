@@ -251,6 +251,13 @@ def list_changed_types() -> None:
 		if t['union']:
 			continue
 
+		# Skip types that are exceptions
+		if exceptions.__dict__.get(t['name']):
+			continue
+		# Skip types that are integration exceptions
+		if integration_exceptions.__dict__.get(t['name']):
+			continue
+
 		filename = f'application/types/{t["name"].lower()}.py'
 		if not Path(filename).exists():
 			changed_types.append(t['name'])

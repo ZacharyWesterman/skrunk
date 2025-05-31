@@ -1,7 +1,7 @@
 """application.types.weatheruser"""
 
 from typing import TypedDict
-from .weathertemp_ import WeatherTemp_
+from .weathertempoutput import WeatherTempOutput
 from datetime import datetime
 
 
@@ -17,9 +17,9 @@ class WeatherUser(TypedDict):
 	## The longitude of the user's location.
 	lon: float
 	## The maximum temperature the user wants to receive alerts for.
-	max: WeatherTemp_
+	max: WeatherTempOutput
 	## The minimum temperature the user wants to receive alerts for.
-	min: WeatherTemp_
+	min: WeatherTempOutput
 	## The date and time when the user was last sent an alert.
 	last_sent: datetime | None
 	## Whether the user is enabled to receive alerts.

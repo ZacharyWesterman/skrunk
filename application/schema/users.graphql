@@ -6,7 +6,7 @@ type UserData {
 	"""The display name of the user."""
 	display_name: String!
 	"""The theme settings for the user."""
-	theme: UserTheme_!
+	theme: UserThemeOutput!
 	"""The permissions assigned to the user."""
 	perms: [String!]!
 	"""The date and time when the user last logged in, if ever."""
@@ -54,15 +54,15 @@ type InsufficientPerms {
 }
 
 """Theme settings for a user."""
-type UserTheme_ {
+type UserThemeOutput {
 	"""The colors defined in the user's theme."""
-	colors: [ThemeColor_!]
+	colors: [ThemeColorOutput!]
 	"""The sizes defined in the user's theme."""
-	sizes: [ThemeSize_!]
+	sizes: [ThemeSizeOutput!]
 }
 
 """Color settings for a user theme."""
-type ThemeColor_ {
+type ThemeColorOutput {
 	"""The name of the color setting."""
 	name: String!
 	"""The value of the color setting."""
@@ -70,7 +70,7 @@ type ThemeColor_ {
 }
 
 """Size settings for a user theme."""
-type ThemeSize_ {
+type ThemeSizeOutput {
 	"""The name of the size setting."""
 	name: String!
 	"""The value of the size setting."""

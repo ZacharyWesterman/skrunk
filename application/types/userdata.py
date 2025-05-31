@@ -1,7 +1,7 @@
 """application.types.userdata"""
 
 from typing import TypedDict
-from .usertheme_ import UserTheme_
+from .userthemeoutput import UserThemeOutput
 from datetime import datetime
 
 
@@ -15,7 +15,7 @@ class UserData(TypedDict):
 	## The display name of the user.
 	display_name: str
 	## The theme settings for the user.
-	theme: UserTheme_
+	theme: UserThemeOutput
 	## The permissions assigned to the user.
 	perms: list[str]
 	## The date and time when the user last logged in, if ever.

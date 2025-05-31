@@ -1,9 +1,9 @@
-"""application.types.theme_"""
+"""application.types.themeoutput"""
 
 from typing import TypedDict
 
 
-class Theme_(TypedDict):
+class ThemeOutput(TypedDict):
 	"""
 	Creation info for a new theme template.
 	"""

@@ -1,9 +1,9 @@
-"""application.types.weathertemp_"""
+"""application.types.weathertempoutput"""
 
 from typing import TypedDict
 
 
-class WeatherTemp_(TypedDict):
+class WeatherTempOutput(TypedDict):
 	"""
 	Temperature settings for weather alerts.
 	"""

@@ -45,7 +45,7 @@ type Feed {
 	"""The current page of the feed for navigation purposes."""
 	currentPage: Int
 	"""The current sorting method for the feed documents, for navigation purposes."""
-	currentSort: Sorting_
+	currentSort: SortingOutput
 }
 
 """An error indicating that a data feed does not exist."""

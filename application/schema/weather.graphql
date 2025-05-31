@@ -8,9 +8,9 @@ type WeatherUser {
 	"""The longitude of the user's location."""
 	lon: Float!
 	"""The maximum temperature the user wants to receive alerts for."""
-	max: WeatherTemp_!
+	max: WeatherTempOutput!
 	"""The minimum temperature the user wants to receive alerts for."""
-	min: WeatherTemp_!
+	min: WeatherTempOutput!
 	"""The date and time when the user was last sent an alert."""
 	last_sent: DateTime
 	"""Whether the user is enabled to receive alerts."""
@@ -52,7 +52,7 @@ input WeatherTemp {
 }
 
 """Temperature settings for weather alerts."""
-type WeatherTemp_ {
+type WeatherTempOutput {
 	"""Whether this temperature setting is the default value."""
 	default: Boolean!
 	"""Whether this temperature setting is disabled."""

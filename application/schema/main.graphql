@@ -18,7 +18,7 @@ input Sorting {
 }
 
 """An output type for sorting results in queries."""
-type Sorting_ {
+type SortingOutput {
 	"""The fields to sort by, in order of precedence."""
 	fields: [String!]!
 	"""Whether to sort in descending order. If false, sorting will be in ascending order."""

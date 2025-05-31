@@ -2,7 +2,7 @@
 
 from typing import TypedDict
 from datetime import datetime
-from .sorting_ import Sorting_
+from .sortingoutput import SortingOutput
 
 
 class Feed(TypedDict):
@@ -29,4 +29,4 @@ class Feed(TypedDict):
 	## The current page of the feed for navigation purposes.
 	currentPage: int | None
 	## The current sorting method for the feed documents, for navigation purposes.
-	currentSort: Sorting_ | None
+	currentSort: SortingOutput | None

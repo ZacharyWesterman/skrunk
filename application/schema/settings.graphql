@@ -14,7 +14,7 @@ type ConfigList {
 }
 
 """A site theme template."""
-type Theme {
+input Theme {
 	"""The name of the theme."""
 	name: String!
 	"""The colors defined in the theme."""
@@ -28,7 +28,7 @@ type Theme {
 }
 
 """Creation info for a new theme template."""
-input Theme_ {
+type ThemeOutput {
 	"""The name of the theme."""
 	name: String!
 	"""The colors defined in the theme."""
@@ -96,7 +96,7 @@ type Schema {
 }
 
 union ConfigsResponse = ConfigList | InsufficientPerms
-union ThemeEditResponse = Theme | MissingConfig | InsufficientPerms
+union ThemeEditResponse = ThemeOutput | MissingConfig | InsufficientPerms
 
 #Resolvers below this line
 
@@ -107,13 +107,13 @@ extend type Query {
 	getUserGroups: [String!]!
 	getConfigs: ConfigsResponse
 	getConfig(name: String!): String
-	getThemes: [Theme!]!
+	getThemes: [ThemeOutput!]!
 	getSchema: Schema!
 }
 
 extend type Mutation {
 	setModuleEnabled(module_id: String!, enabled: Boolean!, group: String): [String!]!
 	setConfig(name: String!, value: String): Boolean!
-	createTheme(theme: Theme_!): ThemeEditResponse!
+	createTheme(theme: Theme!): ThemeEditResponse!
 	deleteTheme(name: String!): ThemeEditResponse!
 }

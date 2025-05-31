@@ -1,9 +1,9 @@
-"""application.types.themesize_"""
+"""application.types.themesizeoutput"""
 
 from typing import TypedDict
 
 
-class ThemeSize_(TypedDict):
+class ThemeSizeOutput(TypedDict):
 	"""
 	Size settings for a user theme.
 	"""

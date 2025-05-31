@@ -1,9 +1,9 @@
-"""application.types.sorting_"""
+"""application.types.sortingoutput"""
 
 from typing import TypedDict
 
 
-class Sorting_(TypedDict):
+class SortingOutput(TypedDict):
 	"""
 	An output type for sorting results in queries.
 	"""
