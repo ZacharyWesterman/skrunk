@@ -415,21 +415,8 @@ either due to network issues, invalid responses, or other related errors.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__(repo</span></span></dt>
-<dd><p>str | None = None) -&gt; None:
-Initializes the CurrentRepository instance with the owner and repository name.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="application.integrations.github.CurrentRepository.issues_pending_resolution">
-<span class="sig-name descname"><span class="pre">issues_pending_resolution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#application.integrations.github.CurrentRepository.issues_pending_resolution" title="Link to this definition">#</a></dt>
-<dd><p>Returns a list of issues pending resolution since the last commit.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">issues_pending_resolution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">issues_pending_resolution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.github.CurrentRepository.issues_pending_resolution" title="Link to this definition">#</a></dt>
 <dd><p>Retrieves a list of issues that are pending resolution.</p>
 <p>This method gets the date and time of the last commit in the repository
 and uses it to fetch the list of issues that have been resolved since
@@ -460,27 +447,6 @@ that commit.</p>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__(owner</span></span></dt>
-<dd><p>str, repo: str) -&gt; None:
-Initializes the Repository instance with the given owner and repository name.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">issues(filter</span></span></dt>
-<dd><p>str = ‘state=open’) -&gt; list:
-Retrieves a list of issues from the repository based on the provided filter.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">resolved_issues(since</span></span></dt>
-<dd><p>str) -&gt; list:
-Retrieves a list of resolved (closed) issues from the repository since the given date.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -885,7 +851,6 @@ If the application and blob storage are on the same disk, they are listed togeth
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.github.CurrentRepository"><code class="docutils literal notranslate"><span class="pre">CurrentRepository</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.github.CurrentRepository.repo"><code class="docutils literal notranslate"><span class="pre">CurrentRepository.repo</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.github.CurrentRepository.issues_pending_resolution"><code class="docutils literal notranslate"><span class="pre">CurrentRepository.issues_pending_resolution()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">CurrentRepository.issues_pending_resolution()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.github.Repository"><code class="docutils literal notranslate"><span class="pre">Repository</span></code></a><ul class="nav section-nav flex-column">

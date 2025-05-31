@@ -4,14 +4,6 @@ application.types package
 Submodules
 ----------
 
-application.types.apifailederror module
----------------------------------------
-
-.. automodule:: application.types.apifailederror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.apikey module
 -------------------------------
 
@@ -296,14 +288,6 @@ application.types.qrparseresponse module
 ----------------------------------------
 
 .. automodule:: application.types.qrparseresponse
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.repofetchfailed module
-----------------------------------------
-
-.. automodule:: application.types.repofetchfailed
    :members:
    :show-inheritance:
    :undoc-members:
