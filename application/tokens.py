@@ -1,4 +1,6 @@
-"""application.tokens"""
+"""
+This module handles JWT token creation, decoding, and validation for user sessions and API keys.
+"""
 
 import os
 import random

@@ -1,4 +1,9 @@
-"""application.db.sessions"""
+"""
+This module provides user session management functionalities.
+
+A session is created when a user logs in, and a valid session token
+is required for all API requests aside from logging in.
+"""
 
 from datetime import datetime, timedelta
 

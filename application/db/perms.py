@@ -1,4 +1,16 @@
-"""application.db.perms"""
+"""
+This module provides logic for checking user permissions and ownership of data.
+Permissions are a big part of the application, allowing users to only perform actions
+they are allowed to, based on their roles and the data they are interacting with.
+
+Likewise, it provides a way to check if the user has access to specific modules (features)
+within the application. Unlike permissions which are per-user, modules can be managed
+server-wide, per group, or per user.
+
+Resolvers can use the `require` and `require_all` decorators to enforce
+permissions on the calling user before executing the resolver function,
+and the `module` decorator to check if the user has access to specific modules.
+"""
 
 __all__ = ['require']
 

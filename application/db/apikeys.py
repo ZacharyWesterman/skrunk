@@ -1,4 +1,6 @@
-"""application.db.apikeys"""
+"""
+This module allows for creating, validating, and managing API keys in the database.
+"""
 
 import random
 import string

@@ -1,4 +1,7 @@
-"""application.db"""
+"""
+This module provides direct access to the database and
+initializes various collections used by the application.
+"""
 
 from pymongo import MongoClient
 from application.exceptions import BadUserNameError, UserExistsError

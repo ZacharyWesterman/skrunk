@@ -1,4 +1,6 @@
-"""application.db.notification"""
+"""
+This module allows sending web push notifications to users.
+"""
 
 import json
 from datetime import datetime

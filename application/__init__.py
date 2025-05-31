@@ -1,4 +1,8 @@
-"""application"""
+"""
+This module initializes the Flask application and sets up the database.
+
+It includes the application configuration, schema loading, and route initialization.
+"""
 
 from typing import Any
 

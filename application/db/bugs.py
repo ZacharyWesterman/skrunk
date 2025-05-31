@@ -1,4 +1,7 @@
-"""application.db.bugs"""
+"""
+This module handles all bug report functionalities, including reporting new bugs,
+commenting on bugs, retrieving bug reports, and managing their statuses.
+"""
 
 import html
 from datetime import datetime
