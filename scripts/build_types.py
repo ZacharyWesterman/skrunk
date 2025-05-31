@@ -10,6 +10,7 @@ sys.path.append(os.path.abspath('.'))  # nopep8
 from pathlib import Path
 
 from application import exceptions
+from application.integrations import exceptions as integration_exceptions
 from application.integrations.graphql import schema
 
 # pylint: enable=wrong-import-position
@@ -198,6 +199,9 @@ def output_types() -> None:
 
 		# Skip types that are exceptions
 		if exceptions.__dict__.get(t['name']):
+			continue
+		# Skip types that are integration exceptions
+		if integration_exceptions.__dict__.get(t['name']):
 			continue
 
 		filename = f'application/types/{t["name"].lower()}.py'

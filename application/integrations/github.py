@@ -54,16 +54,6 @@ class Repository:
 
 	Attributes:
 		url (str): The URL of the GitHub repository API endpoint.
-
-	Methods:
-		__init__(owner: str, repo: str) -> None:
-			Initializes the Repository instance with the given owner and repository name.
-
-		issues(filter: str = 'state=open') -> list:
-			Retrieves a list of issues from the repository based on the provided filter.
-
-		resolved_issues(since: str) -> list:
-			Retrieves a list of resolved (closed) issues from the repository since the given date.
 	"""
 
 	def __init__(self, owner: str, repo: str) -> None:
@@ -113,13 +103,6 @@ class CurrentRepository(Repository):
 
 	Attributes:
 		repo (str | None): The name of the repository. If None, it will be derived from the remote URL.
-
-	Methods:
-		__init__(repo: str | None = None) -> None:
-			Initializes the CurrentRepository instance with the owner and repository name.
-
-		issues_pending_resolution() -> list:
-			Returns a list of issues pending resolution since the last commit.
 	"""
 
 	def __init__(self, repo: str | None = None) -> None:

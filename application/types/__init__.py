@@ -1,6 +1,5 @@
 """application.types"""
 
-from .apifailederror import ApiFailedError
 from .apikey import APIKey
 from .badnotification import BadNotification
 from .badtagquery import BadTagQuery
@@ -36,7 +35,6 @@ from .lastmutation import LastMutation
 from .logresult import LogResult
 from .notification import Notification
 from .qrparseresponse import QRParseResponse
-from .repofetchfailed import RepoFetchFailed
 from .repositoryissue import RepositoryIssue
 from .schema import Schema
 from .schemaparam import SchemaParam
