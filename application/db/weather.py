@@ -197,9 +197,9 @@ def update_user(user_data: dict) -> dict:
 			- 'lat' (float): The latitude of the user's location.
 			- 'lon' (float): The longitude of the user's location.
 			- 'max' (dict): A dictionary with keys 'disable', 'default',
-				and 'value' for the maximum temperature settings.
+			and 'value' for the maximum temperature settings.
 			- 'min' (dict): A dictionary with keys 'disable', 'default',
-				and 'value' for the minimum temperature settings.
+			and 'value' for the minimum temperature settings.
 			- '_id' (Any): The unique identifier of the user in the database.
 
 	Returns:

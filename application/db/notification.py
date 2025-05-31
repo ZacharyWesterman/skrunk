@@ -104,13 +104,13 @@ def create_subscription(username: str, subscription_token: dict) -> None:
 	Args:
 		username (str): The username of the user.
 		subscription_token (dict): A dictionary containing the subscription token details.
-			Expected keys are:
-				- 'endpoint' (str): The endpoint URL of the subscription.
-				- 'expirationTime' (str | None): The expiration time of the subscription.
-				- 'keys' (dict): A dictionary containing the keys for the subscription.
-					Expected keys are:
-						- 'p256dh' (str): The p256dh key.
-						- 'auth' (str): The auth key.
+		Expected keys are:
+			- 'endpoint' (str): The endpoint URL of the subscription.
+			- 'expirationTime' (str | None): The expiration time of the subscription.
+			- 'keys' (dict): A dictionary containing the keys for the subscription.
+				Expected keys are:
+					- 'p256dh' (str): The p256dh key.
+					- 'auth' (str): The auth key.
 
 	Raises:
 		exceptions.InvalidSubscriptionToken: If the subscription token is invalid.
