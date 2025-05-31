@@ -322,7 +322,7 @@
 </section>
 <section id="module-application.db.apikeys">
 <span id="application-db-apikeys-module"></span><h2>application.db.apikeys module<a class="headerlink" href="#module-application.db.apikeys" title="Link to this heading">#</a></h2>
-<p>application.db.apikeys</p>
+<p>This module allows for creating, validating, and managing API keys in the database.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.apikeys.delete_api_key">
 <span class="sig-prename descclassname"><span class="pre">application.db.apikeys.</span></span><span class="sig-name descname"><span class="pre">delete_api_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.apikeys.delete_api_key" title="Link to this definition">#</a></dt>
@@ -1538,7 +1538,8 @@ any reference to its thumbnail if it is a locally hosted blob.</p>
 </section>
 <section id="module-application.db.bugs">
 <span id="application-db-bugs-module"></span><h2>application.db.bugs module<a class="headerlink" href="#module-application.db.bugs" title="Link to this heading">#</a></h2>
-<p>application.db.bugs</p>
+<p>This module handles all bug report functionalities, including reporting new bugs,
+commenting on bugs, retrieving bug reports, and managing their statuses.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.bugs.comment_on_bug">
 <span class="sig-prename descclassname"><span class="pre">application.db.bugs.</span></span><span class="sig-name descname"><span class="pre">comment_on_bug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plaintext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.bugs.comment_on_bug" title="Link to this definition">#</a></dt>
@@ -2293,7 +2294,7 @@ saved back to the database.</p>
 </section>
 <section id="module-application.db.notification">
 <span id="application-db-notification-module"></span><h2>application.db.notification module<a class="headerlink" href="#module-application.db.notification" title="Link to this heading">#</a></h2>
-<p>application.db.notification</p>
+<p>This module allows sending web push notifications to users.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.notification.count_notifications">
 <span class="sig-prename descclassname"><span class="pre">application.db.notification.</span></span><span class="sig-name descname"><span class="pre">count_notifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.notification.count_notifications" title="Link to this definition">#</a></dt>
@@ -2571,7 +2572,15 @@ Expected keys are:</p>
 </section>
 <section id="module-application.db.perms">
 <span id="application-db-perms-module"></span><h2>application.db.perms module<a class="headerlink" href="#module-application.db.perms" title="Link to this heading">#</a></h2>
-<p>application.db.perms</p>
+<p>This module provides logic for checking user permissions and ownership of data.
+Permissions are a big part of the application, allowing users to only perform actions
+they are allowed to, based on their roles and the data they are interacting with.</p>
+<p>Likewise, it provides a way to check if the user has access to specific modules (features)
+within the application. Unlike permissions which are per-user, modules can be managed
+server-wide, per group, or per user.</p>
+<p>Resolvers can use the <cite>require</cite> and <cite>require_all</cite> decorators to enforce
+permissions on the calling user before executing the resolver function,
+and the <cite>module</cite> decorator to check if the user has access to specific modules.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.perms.require">
 <span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">require</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">perms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perform_on_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.require" title="Link to this definition">#</a></dt>
@@ -2603,7 +2612,9 @@ parameters are checked.</p></li>
 </section>
 <section id="module-application.db.sessions">
 <span id="application-db-sessions-module"></span><h2>application.db.sessions module<a class="headerlink" href="#module-application.db.sessions" title="Link to this heading">#</a></h2>
-<p>application.db.sessions</p>
+<p>This module provides user session management functionalities.</p>
+<p>A session is created when a user logs in, and a valid session token
+is required for all API requests aside from logging in.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.sessions.count_valid_sessions">
 <span class="sig-prename descclassname"><span class="pre">application.db.sessions.</span></span><span class="sig-name descname"><span class="pre">count_valid_sessions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.sessions.count_valid_sessions" title="Link to this definition">#</a></dt>
@@ -3680,7 +3691,8 @@ processes the ‘max’ and ‘min’ weather values.</p>
 </section>
 <section id="module-application.db">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.db" title="Link to this heading">#</a></h2>
-<p>application.db</p>
+<p>This module provides direct access to the database and
+initializes various collections used by the application.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.init_db">
 <span class="sig-prename descclassname"><span class="pre">application.db.</span></span><span class="sig-name descname"><span class="pre">init_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_db_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.init_db" title="Link to this definition">#</a></dt>
