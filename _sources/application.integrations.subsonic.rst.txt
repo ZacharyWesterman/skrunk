@@ -1,0 +1,37 @@
+application.integrations.subsonic package
+=========================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   application.integrations.subsonic.objects
+
+Submodules
+----------
+
+application.integrations.subsonic.exceptions module
+---------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.exceptions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.subsonic.subsonic\_client module
+---------------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.subsonic_client
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.integrations.subsonic
+   :members:
+   :show-inheritance:
+   :undoc-members:

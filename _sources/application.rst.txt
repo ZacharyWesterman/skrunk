@@ -14,6 +14,7 @@ Subpackages
    application.resolvers
    application.routes
    application.scalars
+   application.tags
    application.types
 
 Submodules

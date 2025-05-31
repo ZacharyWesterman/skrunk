@@ -240,7 +240,13 @@
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">application package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.integrations.html">application.integrations package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="application.integrations.html">application.integrations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="application.integrations.subsonic.html">application.integrations.subsonic package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html">application.integrations.subsonic.objects package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
@@ -249,6 +255,7 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -547,6 +554,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.integrations.html">application.integrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.html">application.integrations.subsonic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#module-application.integrations.subsonic.exceptions">application.integrations.subsonic.exceptions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#module-application.integrations.subsonic.subsonic_client">application.integrations.subsonic.subsonic_client module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#module-application.integrations.subsonic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.exceptions">application.integrations.exceptions module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.exceptions.ApiFailedError"><code class="docutils literal notranslate"><span class="pre">ApiFailedError</span></code></a><ul>
@@ -628,42 +646,45 @@
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.apikeys">application.resolvers.mutation.apikeys module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-blob-module">application.resolvers.mutation.blob module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-book-module">application.resolvers.mutation.book module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-bugs-module">application.resolvers.mutation.bugs module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-datafeed-module">application.resolvers.mutation.datafeed module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-inventory-module">application.resolvers.mutation.inventory module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-notification-module">application.resolvers.mutation.notification module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-sessions-module">application.resolvers.mutation.sessions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-settings-module">application.resolvers.mutation.settings module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-users-module">application.resolvers.mutation.users module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-weather-module">application.resolvers.mutation.weather module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-contents">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.blob">application.resolvers.mutation.blob module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.book">application.resolvers.mutation.book module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.bugs">application.resolvers.mutation.bugs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.datafeed">application.resolvers.mutation.datafeed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.inventory">application.resolvers.mutation.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.notification">application.resolvers.mutation.notification module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.sessions">application.resolvers.mutation.sessions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.settings">application.resolvers.mutation.settings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.users">application.resolvers.mutation.users module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.weather">application.resolvers.mutation.weather module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-apikeys-module">application.resolvers.query.apikeys module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-blob-module">application.resolvers.query.blob module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-book-module">application.resolvers.query.book module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-bugs-module">application.resolvers.query.bugs module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-datafeed-module">application.resolvers.query.datafeed module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-integrations-module">application.resolvers.query.integrations module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-inventory-module">application.resolvers.query.inventory module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-last-mutation-module">application.resolvers.query.last_mutation module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-notification-module">application.resolvers.query.notification module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-sessions-module">application.resolvers.query.sessions module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-settings-module">application.resolvers.query.settings module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-users-module">application.resolvers.query.users module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-weather-module">application.resolvers.query.weather module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-contents">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.apikeys">application.resolvers.query.apikeys module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.blob">application.resolvers.query.blob module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.book">application.resolvers.query.book module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.bugs">application.resolvers.query.bugs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.datafeed">application.resolvers.query.datafeed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.integrations">application.resolvers.query.integrations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.inventory">application.resolvers.query.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.last_mutation">application.resolvers.query.last_mutation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.notification">application.resolvers.query.notification module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.sessions">application.resolvers.query.sessions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.settings">application.resolvers.query.settings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.users">application.resolvers.query.users module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.weather">application.resolvers.query.weather module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#application-resolvers-decorators-module">application.resolvers.decorators module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#module-application.resolvers.decorators">application.resolvers.decorators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.html#application.resolvers.decorators.handle_client_exceptions"><code class="docutils literal notranslate"><span class="pre">handle_client_exceptions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#module-application.resolvers">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.routes.html">application.routes package</a><ul>
@@ -710,13 +731,83 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.scalars.html">application.scalars package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-color-module">application.scalars.color module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-date-module">application.scalars.date module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-datetime-module">application.scalars.datetime module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-long-module">application.scalars.long module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-phone-module">application.scalars.phone module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#application-scalars-size-module">application.scalars.size module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.color">application.scalars.color module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.date">application.scalars.date module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.datetime">application.scalars.datetime module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.long">application.scalars.long module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.phone">application.scalars.phone module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.size">application.scalars.size module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.tags.html">application.tags package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags.exceptions">application.tags.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.BadFuncParam"><code class="docutils literal notranslate"><span class="pre">BadFuncParam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.BadGlob"><code class="docutils literal notranslate"><span class="pre">BadGlob</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.BadRegex"><code class="docutils literal notranslate"><span class="pre">BadRegex</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.EmptyParens"><code class="docutils literal notranslate"><span class="pre">EmptyParens</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.InvalidSymbol"><code class="docutils literal notranslate"><span class="pre">InvalidSymbol</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingLeftParen"><code class="docutils literal notranslate"><span class="pre">MissingLeftParen</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingOperand"><code class="docutils literal notranslate"><span class="pre">MissingOperand</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingParam"><code class="docutils literal notranslate"><span class="pre">MissingParam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingRightParen"><code class="docutils literal notranslate"><span class="pre">MissingRightParen</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.ParseError"><code class="docutils literal notranslate"><span class="pre">ParseError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.SyntaxError"><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.UnterminatedString"><code class="docutils literal notranslate"><span class="pre">UnterminatedString</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags.lexer">application.tags.lexer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.lexer.parse"><code class="docutils literal notranslate"><span class="pre">parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags.tokens">application.tags.tokens module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Function"><code class="docutils literal notranslate"><span class="pre">Function</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Function.operate"><code class="docutils literal notranslate"><span class="pre">Function.operate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Function.output"><code class="docutils literal notranslate"><span class="pre">Function.output()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Glob"><code class="docutils literal notranslate"><span class="pre">Glob</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Glob.operate"><code class="docutils literal notranslate"><span class="pre">Glob.operate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.LParen"><code class="docutils literal notranslate"><span class="pre">LParen</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.LParen.operate"><code class="docutils literal notranslate"><span class="pre">LParen.operate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.NoneToken"><code class="docutils literal notranslate"><span class="pre">NoneToken</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.NoneToken.output"><code class="docutils literal notranslate"><span class="pre">NoneToken.output()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Operator"><code class="docutils literal notranslate"><span class="pre">Operator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Operator.operate"><code class="docutils literal notranslate"><span class="pre">Operator.operate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Operator.output"><code class="docutils literal notranslate"><span class="pre">Operator.output()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.RParen"><code class="docutils literal notranslate"><span class="pre">RParen</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Regex"><code class="docutils literal notranslate"><span class="pre">Regex</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Regex.output"><code class="docutils literal notranslate"><span class="pre">Regex.output()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.String"><code class="docutils literal notranslate"><span class="pre">String</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.String.operate"><code class="docutils literal notranslate"><span class="pre">String.operate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.String.output"><code class="docutils literal notranslate"><span class="pre">String.output()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.coalesce"><code class="docutils literal notranslate"><span class="pre">Token.coalesce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.operate"><code class="docutils literal notranslate"><span class="pre">Token.operate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.output"><code class="docutils literal notranslate"><span class="pre">Token.output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.type"><code class="docutils literal notranslate"><span class="pre">Token.type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.debug_print"><code class="docutils literal notranslate"><span class="pre">debug_print()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.compile_query"><code class="docutils literal notranslate"><span class="pre">compile_query()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.types.html">application.types package</a><ul>
@@ -1436,11 +1527,139 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="application-tokens-module">
-<h2>application.tokens module<a class="headerlink" href="#application-tokens-module" title="Link to this heading">#</a></h2>
+<section id="module-application.tokens">
+<span id="application-tokens-module"></span><h2>application.tokens module<a class="headerlink" href="#module-application.tokens" title="Link to this heading">#</a></h2>
+<p>This module handles JWT token creation, decoding, and validation for user sessions and API keys.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.tokens.create_user_token">
+<span class="sig-prename descclassname"><span class="pre">application.tokens.</span></span><span class="sig-name descname"><span class="pre">create_user_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.tokens.create_user_token" title="Link to this definition">#</a></dt>
+<dd><p>Generate a JWT token for a given username and start a session.</p>
+<p>This function creates a JWT token using the provided username and a randomly generated token ID.
+The token is signed using a private key and the RS256 algorithm. After generating the token,
+it starts a session with the token and username.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – The username for which the token is being created.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated JWT token.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.tokens.decode_cookies">
+<span class="sig-prename descclassname"><span class="pre">application.tokens.</span></span><span class="sig-name descname"><span class="pre">decode_cookies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cookies</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.tokens.decode_cookies" title="Link to this definition">#</a></dt>
+<dd><p>Decodes a string of cookies into a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cookies</strong> (<em>str</em>) – A string containing cookies in the format ‘key1=value1; key2=value2; …’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary where the keys are cookie names and the values are cookie values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.tokens.decode_user_token">
+<span class="sig-prename descclassname"><span class="pre">application.tokens.</span></span><span class="sig-name descname"><span class="pre">decode_user_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.tokens.decode_user_token" title="Link to this definition">#</a></dt>
+<dd><p>Decodes a JWT token using a global public key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – The JWT token to decode.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decoded token payload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidJWTError" title="application.exceptions.InvalidJWTError"><strong>InvalidJWTError</strong></a> – If the token is expired or invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.tokens.get_request_token">
+<span class="sig-prename descclassname"><span class="pre">application.tokens.</span></span><span class="sig-name descname"><span class="pre">get_request_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.tokens.get_request_token" title="Link to this definition">#</a></dt>
+<dd><p>Extracts the authorization token from the request headers.</p>
+<p>The function checks for the ‘Authorization’ header first. If not found,
+it looks for the ‘Cookie’ header and attempts to decode it to find the
+‘Authorization’ token. If neither is found, it returns None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The extracted token if present and valid, otherwise None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.tokens.init">
+<span class="sig-prename descclassname"><span class="pre">application.tokens.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.tokens.init" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the JWT token system by loading the private and public keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.tokens.token_is_valid">
+<span class="sig-prename descclassname"><span class="pre">application.tokens.</span></span><span class="sig-name descname"><span class="pre">token_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.tokens.token_is_valid" title="Link to this definition">#</a></dt>
+<dd><p>Check if the provided token is valid.</p>
+<p>This function checks the validity of a token by verifying if it is either a valid session token
+or a valid API key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – The token to be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the token is valid, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<section id="module-application">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application" title="Link to this heading">#</a></h2>
+<p>This module initializes the Flask application and sets up the database.</p>
+<p>It includes the application configuration, schema loading, and route initialization.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.init">
+<span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_db_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.init" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the application and database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no_auth</strong> (<em>bool</em>) – Flag to disable authentication. Default is False.</p></li>
+<li><p><strong>blob_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the blob storage. Default is None.</p></li>
+<li><p><strong>data_db_url</strong> (<em>str</em>) – URL to the database. Default is an empty string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The initialized Flask application instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Flask</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -1493,8 +1712,19 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-tokens-module">application.tokens module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.tokens">application.tokens module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.tokens.create_user_token"><code class="docutils literal notranslate"><span class="pre">create_user_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.tokens.decode_cookies"><code class="docutils literal notranslate"><span class="pre">decode_cookies()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.tokens.decode_user_token"><code class="docutils literal notranslate"><span class="pre">decode_user_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.tokens.get_request_token"><code class="docutils literal notranslate"><span class="pre">get_request_token()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.tokens.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.tokens.token_is_valid"><code class="docutils literal notranslate"><span class="pre">token_is_valid()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

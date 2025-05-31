@@ -1,0 +1,61 @@
+application.integrations.subsonic.objects package
+=================================================
+
+Submodules
+----------
+
+application.integrations.subsonic.objects.album module
+------------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.objects.album
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.subsonic.objects.artist module
+-------------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.objects.artist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.subsonic.objects.ping module
+-----------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.objects.ping
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.subsonic.objects.playlist module
+---------------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.objects.playlist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.subsonic.objects.search\_results module
+----------------------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.objects.search_results
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.integrations.subsonic.objects.song module
+-----------------------------------------------------
+
+.. automodule:: application.integrations.subsonic.objects.song
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.integrations.subsonic.objects
+   :members:
+   :show-inheritance:
+   :undoc-members:

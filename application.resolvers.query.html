@@ -240,7 +240,13 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="application.html">application package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.integrations.html">application.integrations package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="application.integrations.html">application.integrations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="application.integrations.subsonic.html">application.integrations.subsonic package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html">application.integrations.subsonic.objects package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
@@ -249,6 +255,7 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -323,47 +330,192 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="application-resolvers-query-apikeys-module">
-<h2>application.resolvers.query.apikeys module<a class="headerlink" href="#application-resolvers-query-apikeys-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.apikeys">
+<span id="application-resolvers-query-apikeys-module"></span><h2>application.resolvers.query.apikeys module<a class="headerlink" href="#module-application.resolvers.query.apikeys" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.apikeys</p>
 </section>
-<section id="application-resolvers-query-blob-module">
-<h2>application.resolvers.query.blob module<a class="headerlink" href="#application-resolvers-query-blob-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.blob">
+<span id="application-resolvers-query-blob-module"></span><h2>application.resolvers.query.blob module<a class="headerlink" href="#module-application.resolvers.query.blob" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.blob</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.blob.resolve_generate_uid">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.blob.</span></span><span class="sig-name descname"><span class="pre">resolve_generate_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.blob.resolve_generate_uid" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-resolvers-query-book-module">
-<h2>application.resolvers.query.book module<a class="headerlink" href="#application-resolvers-query-book-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.book">
+<span id="application-resolvers-query-book-module"></span><h2>application.resolvers.query.book module<a class="headerlink" href="#module-application.resolvers.query.book" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.book</p>
 </section>
-<section id="application-resolvers-query-bugs-module">
-<h2>application.resolvers.query.bugs module<a class="headerlink" href="#application-resolvers-query-bugs-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.bugs">
+<span id="application-resolvers-query-bugs-module"></span><h2>application.resolvers.query.bugs module<a class="headerlink" href="#module-application.resolvers.query.bugs" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.bugs</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.bugs.users_in_group">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.bugs.</span></span><span class="sig-name descname"><span class="pre">users_in_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.bugs.users_in_group" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectId</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-resolvers-query-datafeed-module">
-<h2>application.resolvers.query.datafeed module<a class="headerlink" href="#application-resolvers-query-datafeed-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.datafeed">
+<span id="application-resolvers-query-datafeed-module"></span><h2>application.resolvers.query.datafeed module<a class="headerlink" href="#module-application.resolvers.query.datafeed" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.datafeed</p>
 </section>
-<section id="application-resolvers-query-integrations-module">
-<h2>application.resolvers.query.integrations module<a class="headerlink" href="#application-resolvers-query-integrations-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.integrations">
+<span id="application-resolvers-query-integrations-module"></span><h2>application.resolvers.query.integrations module<a class="headerlink" href="#module-application.resolvers.query.integrations" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.integrations</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.integrations.init_subsonic">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.integrations.</span></span><span class="sig-name descname"><span class="pre">init_subsonic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.integrations.init_subsonic" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient" title="application.integrations.subsonic.subsonic_client.SubsonicClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubsonicClient</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-resolvers-query-inventory-module">
-<h2>application.resolvers.query.inventory module<a class="headerlink" href="#application-resolvers-query-inventory-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.inventory">
+<span id="application-resolvers-query-inventory-module"></span><h2>application.resolvers.query.inventory module<a class="headerlink" href="#module-application.resolvers.query.inventory" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.inventory</p>
 </section>
-<section id="application-resolvers-query-last-mutation-module">
-<h2>application.resolvers.query.last_mutation module<a class="headerlink" href="#application-resolvers-query-last-mutation-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.last_mutation">
+<span id="application-resolvers-query-last-mutation-module"></span><h2>application.resolvers.query.last_mutation module<a class="headerlink" href="#module-application.resolvers.query.last_mutation" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.last_mutation</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.last_mutation.resolve_get_last_mutation">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.last_mutation.</span></span><span class="sig-name descname"><span class="pre">resolve_get_last_mutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.last_mutation.resolve_get_last_mutation" title="Link to this definition">#</a></dt>
+<dd><p>Get the last mutation called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-resolvers-query-notification-module">
-<h2>application.resolvers.query.notification module<a class="headerlink" href="#application-resolvers-query-notification-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.notification">
+<span id="application-resolvers-query-notification-module"></span><h2>application.resolvers.query.notification module<a class="headerlink" href="#module-application.resolvers.query.notification" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.notification</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.notification.resolve_get_subscription">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.notification.</span></span><span class="sig-name descname"><span class="pre">resolve_get_subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.notification.resolve_get_subscription" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.notification.resolve_get_vapid_public_key">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.notification.</span></span><span class="sig-name descname"><span class="pre">resolve_get_vapid_public_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.notification.resolve_get_vapid_public_key" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-resolvers-query-sessions-module">
-<h2>application.resolvers.query.sessions module<a class="headerlink" href="#application-resolvers-query-sessions-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.sessions">
+<span id="application-resolvers-query-sessions-module"></span><h2>application.resolvers.query.sessions module<a class="headerlink" href="#module-application.resolvers.query.sessions" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.sessions</p>
 </section>
-<section id="application-resolvers-query-settings-module">
-<h2>application.resolvers.query.settings module<a class="headerlink" href="#application-resolvers-query-settings-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.settings">
+<span id="application-resolvers-query-settings-module"></span><h2>application.resolvers.query.settings module<a class="headerlink" href="#module-application.resolvers.query.settings" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.settings</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_config">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_config" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_enabled_modules">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_enabled_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_enabled_modules" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_groups">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_groups" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_modules">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_modules" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_schema">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_schema" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_server_enabled_modules">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_server_enabled_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_server_enabled_modules" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-resolvers-query-users-module">
-<h2>application.resolvers.query.users module<a class="headerlink" href="#application-resolvers-query-users-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.users">
+<span id="application-resolvers-query-users-module"></span><h2>application.resolvers.query.users module<a class="headerlink" href="#module-application.resolvers.query.users" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.users</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.users.resolve_list_users">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.users.</span></span><span class="sig-name descname"><span class="pre">resolve_list_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.users.resolve_list_users" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="application-resolvers-query-weather-module">
-<h2>application.resolvers.query.weather module<a class="headerlink" href="#application-resolvers-query-weather-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query.weather">
+<span id="application-resolvers-query-weather-module"></span><h2>application.resolvers.query.weather module<a class="headerlink" href="#module-application.resolvers.query.weather" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query.weather</p>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.query">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.resolvers.query" title="Link to this heading">#</a></h2>
+<p>application.resolvers.query</p>
 </section>
 </section>
 
@@ -415,20 +567,47 @@
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-apikeys-module">application.resolvers.query.apikeys module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-blob-module">application.resolvers.query.blob module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-book-module">application.resolvers.query.book module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-bugs-module">application.resolvers.query.bugs module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-datafeed-module">application.resolvers.query.datafeed module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-integrations-module">application.resolvers.query.integrations module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-inventory-module">application.resolvers.query.inventory module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-last-mutation-module">application.resolvers.query.last_mutation module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-notification-module">application.resolvers.query.notification module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-sessions-module">application.resolvers.query.sessions module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-settings-module">application.resolvers.query.settings module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-users-module">application.resolvers.query.users module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-query-weather-module">application.resolvers.query.weather module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.apikeys">application.resolvers.query.apikeys module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.blob">application.resolvers.query.blob module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.blob.resolve_generate_uid"><code class="docutils literal notranslate"><span class="pre">resolve_generate_uid()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.book">application.resolvers.query.book module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.bugs">application.resolvers.query.bugs module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.bugs.users_in_group"><code class="docutils literal notranslate"><span class="pre">users_in_group()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.datafeed">application.resolvers.query.datafeed module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.integrations">application.resolvers.query.integrations module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.integrations.init_subsonic"><code class="docutils literal notranslate"><span class="pre">init_subsonic()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.inventory">application.resolvers.query.inventory module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.last_mutation">application.resolvers.query.last_mutation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.last_mutation.resolve_get_last_mutation"><code class="docutils literal notranslate"><span class="pre">resolve_get_last_mutation()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.notification">application.resolvers.query.notification module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.notification.resolve_get_subscription"><code class="docutils literal notranslate"><span class="pre">resolve_get_subscription()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.notification.resolve_get_vapid_public_key"><code class="docutils literal notranslate"><span class="pre">resolve_get_vapid_public_key()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.sessions">application.resolvers.query.sessions module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.settings">application.resolvers.query.settings module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_config"><code class="docutils literal notranslate"><span class="pre">resolve_get_config()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_enabled_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_enabled_modules()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_groups"><code class="docutils literal notranslate"><span class="pre">resolve_get_groups()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_modules()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_schema"><code class="docutils literal notranslate"><span class="pre">resolve_get_schema()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_server_enabled_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_server_enabled_modules()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.users">application.resolvers.query.users module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.users.resolve_list_users"><code class="docutils literal notranslate"><span class="pre">resolve_list_users()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.weather">application.resolvers.query.weather module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query">Module contents</a></li>
 </ul>
   </nav></div>
 

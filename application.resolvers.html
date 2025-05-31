@@ -240,7 +240,13 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="application.html">application package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.integrations.html">application.integrations package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="application.integrations.html">application.integrations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="application.integrations.subsonic.html">application.integrations.subsonic package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html">application.integrations.subsonic.objects package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">application.resolvers package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
@@ -249,6 +255,7 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -324,35 +331,69 @@
 <li class="toctree-l1"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.apikeys">application.resolvers.mutation.apikeys module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-blob-module">application.resolvers.mutation.blob module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-book-module">application.resolvers.mutation.book module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-bugs-module">application.resolvers.mutation.bugs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-datafeed-module">application.resolvers.mutation.datafeed module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-inventory-module">application.resolvers.mutation.inventory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-notification-module">application.resolvers.mutation.notification module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-sessions-module">application.resolvers.mutation.sessions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-settings-module">application.resolvers.mutation.settings module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-users-module">application.resolvers.mutation.users module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#application-resolvers-mutation-weather-module">application.resolvers.mutation.weather module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.blob">application.resolvers.mutation.blob module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.book">application.resolvers.mutation.book module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.bugs">application.resolvers.mutation.bugs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.datafeed">application.resolvers.mutation.datafeed module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.inventory">application.resolvers.mutation.inventory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.notification">application.resolvers.mutation.notification module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.sessions">application.resolvers.mutation.sessions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.settings">application.resolvers.mutation.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.users">application.resolvers.mutation.users module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.weather">application.resolvers.mutation.weather module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html#application.resolvers.mutation.MutationWrapper"><code class="docutils literal notranslate"><span class="pre">MutationWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application.resolvers.mutation.MutationWrapper.create_register_resolver"><code class="docutils literal notranslate"><span class="pre">MutationWrapper.create_register_resolver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#application.resolvers.mutation.MutationWrapper.get_last_mutation"><code class="docutils literal notranslate"><span class="pre">MutationWrapper.get_last_mutation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-apikeys-module">application.resolvers.query.apikeys module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-blob-module">application.resolvers.query.blob module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-book-module">application.resolvers.query.book module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-bugs-module">application.resolvers.query.bugs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-datafeed-module">application.resolvers.query.datafeed module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-integrations-module">application.resolvers.query.integrations module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-inventory-module">application.resolvers.query.inventory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-last-mutation-module">application.resolvers.query.last_mutation module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-notification-module">application.resolvers.query.notification module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-sessions-module">application.resolvers.query.sessions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-settings-module">application.resolvers.query.settings module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-users-module">application.resolvers.query.users module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#application-resolvers-query-weather-module">application.resolvers.query.weather module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.apikeys">application.resolvers.query.apikeys module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.blob">application.resolvers.query.blob module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.blob.resolve_generate_uid"><code class="docutils literal notranslate"><span class="pre">resolve_generate_uid()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.book">application.resolvers.query.book module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.bugs">application.resolvers.query.bugs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.bugs.users_in_group"><code class="docutils literal notranslate"><span class="pre">users_in_group()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.datafeed">application.resolvers.query.datafeed module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.integrations">application.resolvers.query.integrations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.integrations.init_subsonic"><code class="docutils literal notranslate"><span class="pre">init_subsonic()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.inventory">application.resolvers.query.inventory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.last_mutation">application.resolvers.query.last_mutation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.last_mutation.resolve_get_last_mutation"><code class="docutils literal notranslate"><span class="pre">resolve_get_last_mutation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.notification">application.resolvers.query.notification module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.notification.resolve_get_subscription"><code class="docutils literal notranslate"><span class="pre">resolve_get_subscription()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.notification.resolve_get_vapid_public_key"><code class="docutils literal notranslate"><span class="pre">resolve_get_vapid_public_key()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.sessions">application.resolvers.query.sessions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.settings">application.resolvers.query.settings module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.settings.resolve_get_config"><code class="docutils literal notranslate"><span class="pre">resolve_get_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.settings.resolve_get_enabled_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_enabled_modules()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.settings.resolve_get_groups"><code class="docutils literal notranslate"><span class="pre">resolve_get_groups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.settings.resolve_get_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_modules()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.settings.resolve_get_schema"><code class="docutils literal notranslate"><span class="pre">resolve_get_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.settings.resolve_get_server_enabled_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_server_enabled_modules()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.users">application.resolvers.query.users module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.users.resolve_list_users"><code class="docutils literal notranslate"><span class="pre">resolve_list_users()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.weather">application.resolvers.query.weather module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -361,11 +402,34 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="application-resolvers-decorators-module">
-<h2>application.resolvers.decorators module<a class="headerlink" href="#application-resolvers-decorators-module" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers.decorators">
+<span id="application-resolvers-decorators-module"></span><h2>application.resolvers.decorators module<a class="headerlink" href="#module-application.resolvers.decorators" title="Link to this heading">#</a></h2>
+<p>application.resolvers.decorators</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.decorators.handle_client_exceptions">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.decorators.</span></span><span class="sig-name descname"><span class="pre">handle_client_exceptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.decorators.handle_client_exceptions" title="Link to this definition">#</a></dt>
+<dd><p>Decorator that handles client-specific exceptions and returns
+error details to the client without crashing the application.</p>
+<p>This decorator captures exceptions of type <cite>ClientError</cite> that occur
+within the decorated function and returns a structured error response
+containing the exception type and message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>Callable</em>) – The function to be wrapped by the decorator.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A wrapped function that handles <cite>ClientError</cite> exceptions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<section id="module-application.resolvers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.resolvers" title="Link to this heading">#</a></h2>
+<p>application.resolvers</p>
 </section>
 </section>
 
@@ -418,8 +482,11 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-resolvers-decorators-module">application.resolvers.decorators module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.decorators">application.resolvers.decorators module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.decorators.handle_client_exceptions"><code class="docutils literal notranslate"><span class="pre">handle_client_exceptions()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers">Module contents</a></li>
 </ul>
   </nav></div>
 

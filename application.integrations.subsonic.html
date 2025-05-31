@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>application.integrations.subsonic package &#8212; Skrunk Server 1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'application.integrations.subsonic';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="application.integrations.subsonic.objects package" href="application.integrations.subsonic.objects.html" />
+    <link rel="prev" title="application.integrations package" href="application.integrations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Skrunk Server 1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    application
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="application.html">application package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="application.integrations.html">application.integrations package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">application.integrations.subsonic package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html">application.integrations.subsonic.objects package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">application</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="application.html" class="nav-link">application package</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="application.integrations.html" class="nav-link">application.integrations package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">application.integrations.subsonic package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="application-integrations-subsonic-package">
+<h1>application.integrations.subsonic package<a class="headerlink" href="#application-integrations-subsonic-package" title="Link to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="application.integrations.subsonic.objects.html">application.integrations.subsonic.objects package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.album">application.integrations.subsonic.objects.album module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album"><code class="docutils literal notranslate"><span class="pre">Album</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.album"><code class="docutils literal notranslate"><span class="pre">Album.album</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.artist"><code class="docutils literal notranslate"><span class="pre">Album.artist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.averageRating"><code class="docutils literal notranslate"><span class="pre">Album.averageRating</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.cover"><code class="docutils literal notranslate"><span class="pre">Album.cover</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.coverArt"><code class="docutils literal notranslate"><span class="pre">Album.coverArt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.created"><code class="docutils literal notranslate"><span class="pre">Album.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.genre"><code class="docutils literal notranslate"><span class="pre">Album.genre</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.id"><code class="docutils literal notranslate"><span class="pre">Album.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.isDir"><code class="docutils literal notranslate"><span class="pre">Album.isDir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.parent"><code class="docutils literal notranslate"><span class="pre">Album.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.playCount"><code class="docutils literal notranslate"><span class="pre">Album.playCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.songs"><code class="docutils literal notranslate"><span class="pre">Album.songs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.title"><code class="docutils literal notranslate"><span class="pre">Album.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.album.Album.year"><code class="docutils literal notranslate"><span class="pre">Album.year</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.artist">application.integrations.subsonic.objects.artist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.artist.Artist"><code class="docutils literal notranslate"><span class="pre">Artist</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.artist.Artist.id"><code class="docutils literal notranslate"><span class="pre">Artist.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.artist.Artist.name"><code class="docutils literal notranslate"><span class="pre">Artist.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.ping">application.integrations.subsonic.objects.ping module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.ping.Ping"><code class="docutils literal notranslate"><span class="pre">Ping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.ping.Ping.ok"><code class="docutils literal notranslate"><span class="pre">Ping.ok</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.ping.Ping.status"><code class="docutils literal notranslate"><span class="pre">Ping.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.ping.Ping.type"><code class="docutils literal notranslate"><span class="pre">Ping.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.ping.Ping.version"><code class="docutils literal notranslate"><span class="pre">Ping.version</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.playlist">application.integrations.subsonic.objects.playlist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist"><code class="docutils literal notranslate"><span class="pre">Playlist</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.changed"><code class="docutils literal notranslate"><span class="pre">Playlist.changed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.comment"><code class="docutils literal notranslate"><span class="pre">Playlist.comment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.coverArt"><code class="docutils literal notranslate"><span class="pre">Playlist.coverArt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.created"><code class="docutils literal notranslate"><span class="pre">Playlist.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.duration"><code class="docutils literal notranslate"><span class="pre">Playlist.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.entry"><code class="docutils literal notranslate"><span class="pre">Playlist.entry</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.id"><code class="docutils literal notranslate"><span class="pre">Playlist.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.name"><code class="docutils literal notranslate"><span class="pre">Playlist.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.owner"><code class="docutils literal notranslate"><span class="pre">Playlist.owner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.public"><code class="docutils literal notranslate"><span class="pre">Playlist.public</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.songCount"><code class="docutils literal notranslate"><span class="pre">Playlist.songCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist.songs"><code class="docutils literal notranslate"><span class="pre">Playlist.songs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.search_results">application.integrations.subsonic.objects.search_results module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.search_results.SearchResults"><code class="docutils literal notranslate"><span class="pre">SearchResults</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.song">application.integrations.subsonic.objects.song module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song"><code class="docutils literal notranslate"><span class="pre">Song</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.album"><code class="docutils literal notranslate"><span class="pre">Song.album</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.albumId"><code class="docutils literal notranslate"><span class="pre">Song.albumId</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.artist"><code class="docutils literal notranslate"><span class="pre">Song.artist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.artistId"><code class="docutils literal notranslate"><span class="pre">Song.artistId</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.averageRating"><code class="docutils literal notranslate"><span class="pre">Song.averageRating</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.bitRate"><code class="docutils literal notranslate"><span class="pre">Song.bitRate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.contentType"><code class="docutils literal notranslate"><span class="pre">Song.contentType</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.coverArt"><code class="docutils literal notranslate"><span class="pre">Song.coverArt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.created"><code class="docutils literal notranslate"><span class="pre">Song.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.discNumber"><code class="docutils literal notranslate"><span class="pre">Song.discNumber</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.duration"><code class="docutils literal notranslate"><span class="pre">Song.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.genre"><code class="docutils literal notranslate"><span class="pre">Song.genre</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.id"><code class="docutils literal notranslate"><span class="pre">Song.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.isDir"><code class="docutils literal notranslate"><span class="pre">Song.isDir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.isVideo"><code class="docutils literal notranslate"><span class="pre">Song.isVideo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.parent"><code class="docutils literal notranslate"><span class="pre">Song.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.path"><code class="docutils literal notranslate"><span class="pre">Song.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.playCount"><code class="docutils literal notranslate"><span class="pre">Song.playCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.size"><code class="docutils literal notranslate"><span class="pre">Song.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.suffix"><code class="docutils literal notranslate"><span class="pre">Song.suffix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.title"><code class="docutils literal notranslate"><span class="pre">Song.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.track"><code class="docutils literal notranslate"><span class="pre">Song.track</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.transcodedContentType"><code class="docutils literal notranslate"><span class="pre">Song.transcodedContentType</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.transcodedSuffix"><code class="docutils literal notranslate"><span class="pre">Song.transcodedSuffix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.type"><code class="docutils literal notranslate"><span class="pre">Song.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.uri"><code class="docutils literal notranslate"><span class="pre">Song.uri</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song.year"><code class="docutils literal notranslate"><span class="pre">Song.year</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-application.integrations.subsonic.exceptions">
+<span id="application-integrations-subsonic-exceptions-module"></span><h2>application.integrations.subsonic.exceptions module<a class="headerlink" href="#module-application.integrations.subsonic.exceptions" title="Link to this heading">#</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.integrations.subsonic.exceptions.ConnectionError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.exceptions.</span></span><span class="sig-name descname"><span class="pre">ConnectionError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.exceptions.ConnectionError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.integrations.subsonic.exceptions.SessionError" title="application.integrations.subsonic.exceptions.SessionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.integrations.subsonic.exceptions.ResponseError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.exceptions.</span></span><span class="sig-name descname"><span class="pre">ResponseError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.exceptions.ResponseError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.integrations.subsonic.exceptions.SessionError" title="application.integrations.subsonic.exceptions.SessionError"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.integrations.subsonic.exceptions.SessionError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.exceptions.</span></span><span class="sig-name descname"><span class="pre">SessionError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.exceptions.SessionError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-application.integrations.subsonic.subsonic_client">
+<span id="application-integrations-subsonic-subsonic-client-module"></span><h2>application.integrations.subsonic.subsonic_client module<a class="headerlink" href="#module-application.integrations.subsonic.subsonic_client" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.subsonic_client.</span></span><span class="sig-name descname"><span class="pre">SubsonicClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'subsonic-py'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1.15.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.album_songs">
+<span class="sig-name descname"><span class="pre">album_songs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">album_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.album_songs" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.song.Song" title="application.integrations.subsonic.objects.song.Song"><code class="xref py py-class docutils literal notranslate"><span class="pre">Song</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.albums">
+<span class="sig-name descname"><span class="pre">albums</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.albums" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.cover_art">
+<span class="sig-name descname"><span class="pre">cover_art</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cover_art_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.cover_art" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.folders">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">folders</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.folders" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.license">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">license</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.license" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.ping">
+<span class="sig-name descname"><span class="pre">ping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.ping" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.playlist">
+<span class="sig-name descname"><span class="pre">playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.playlist" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist" title="application.integrations.subsonic.objects.playlist.Playlist"><code class="xref py py-class docutils literal notranslate"><span class="pre">Playlist</span></code></a> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.playlists">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">playlists</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.playlist.Playlist" title="application.integrations.subsonic.objects.playlist.Playlist"><span class="pre">Playlist</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.playlists" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">process</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.query" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.subsonic_client.SubsonicClient.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">album_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">album_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">song_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">song_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">music_folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.search" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="application.integrations.subsonic.objects.html#application.integrations.subsonic.objects.search_results.SearchResults" title="application.integrations.subsonic.objects.search_results.SearchResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchResults</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-application.integrations.subsonic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.integrations.subsonic" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="application.integrations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">application.integrations package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="application.integrations.subsonic.objects.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">application.integrations.subsonic.objects package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic.exceptions">application.integrations.subsonic.exceptions module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.exceptions.ConnectionError"><code class="docutils literal notranslate"><span class="pre">ConnectionError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.exceptions.ResponseError"><code class="docutils literal notranslate"><span class="pre">ResponseError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.exceptions.SessionError"><code class="docutils literal notranslate"><span class="pre">SessionError</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic.subsonic_client">application.integrations.subsonic.subsonic_client module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient"><code class="docutils literal notranslate"><span class="pre">SubsonicClient</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.album_songs"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.album_songs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.albums"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.albums()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.cover_art"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.cover_art()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.folders"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.folders</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.license"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.license</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.ping"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.ping()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.playlist"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.playlist()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.playlists"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.playlists</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.query"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.query()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.subsonic_client.SubsonicClient.search"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/application.integrations.subsonic.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Zachary Westerman.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -44,7 +44,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'application.integrations';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="application.monkeypatch package" href="application.monkeypatch.html" />
+    <link rel="next" title="application.integrations.subsonic package" href="application.integrations.subsonic.html" />
     <link rel="prev" title="application.exceptions package" href="application.exceptions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -240,7 +240,13 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="application.html">application package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="application.db.html">application.db package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.exceptions.html">application.exceptions package</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">application.integrations package</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">application.integrations package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="application.integrations.subsonic.html">application.integrations.subsonic package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html">application.integrations.subsonic.objects package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
@@ -249,6 +255,7 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -317,6 +324,54 @@
                   
   <section id="application-integrations-package">
 <h1>application.integrations package<a class="headerlink" href="#application-integrations-package" title="Link to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="application.integrations.subsonic.html">application.integrations.subsonic package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.objects.html">application.integrations.subsonic.objects package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.album">application.integrations.subsonic.objects.album module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.artist">application.integrations.subsonic.objects.artist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.ping">application.integrations.subsonic.objects.ping module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.playlist">application.integrations.subsonic.objects.playlist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.search_results">application.integrations.subsonic.objects.search_results module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects.song">application.integrations.subsonic.objects.song module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.objects.html#module-application.integrations.subsonic.objects">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.html#module-application.integrations.subsonic.exceptions">application.integrations.subsonic.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.exceptions.ConnectionError"><code class="docutils literal notranslate"><span class="pre">ConnectionError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.exceptions.ResponseError"><code class="docutils literal notranslate"><span class="pre">ResponseError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.exceptions.SessionError"><code class="docutils literal notranslate"><span class="pre">SessionError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.html#module-application.integrations.subsonic.subsonic_client">application.integrations.subsonic.subsonic_client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient"><code class="docutils literal notranslate"><span class="pre">SubsonicClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.album_songs"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.album_songs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.albums"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.albums()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.cover_art"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.cover_art()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.folders"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.folders</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.license"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.license</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.ping"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.ping()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.playlist"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.playlist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.playlists"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.playlists</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.query"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient.search"><code class="docutils literal notranslate"><span class="pre">SubsonicClient.search()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.subsonic.html#module-application.integrations.subsonic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
@@ -805,11 +860,11 @@ If the application and blob storage are on the same disk, they are listed togeth
       </div>
     </a>
     <a class="right-next"
-       href="application.monkeypatch.html"
+       href="application.integrations.subsonic.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">application.monkeypatch package</p>
+        <p class="prev-next-title">application.integrations.subsonic package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -832,6 +887,7 @@ If the application and blob storage are on the same disk, they are listed togeth
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.exceptions">application.integrations.exceptions module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.exceptions.ApiFailedError"><code class="docutils literal notranslate"><span class="pre">ApiFailedError</span></code></a><ul class="nav section-nav flex-column">

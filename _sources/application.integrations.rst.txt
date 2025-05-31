@@ -1,6 +1,14 @@
 application.integrations package
 ================================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   application.integrations.subsonic
+
 Submodules
 ----------
 
