@@ -36,14 +36,6 @@ application.types.badtagquery module
    :show-inheritance:
    :undoc-members:
 
-application.types.badusernameerror module
------------------------------------------
-
-.. automodule:: application.types.badusernameerror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.blob module
 -----------------------------
 
@@ -68,14 +60,6 @@ application.types.blobcount module
    :show-inheritance:
    :undoc-members:
 
-application.types.blobdoesnotexisterror module
-----------------------------------------------
-
-.. automodule:: application.types.blobdoesnotexisterror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.bloblist module
 ---------------------------------
 
@@ -96,14 +80,6 @@ application.types.book module
 -----------------------------
 
 .. automodule:: application.types.book
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.bookcannotbeshared module
--------------------------------------------
-
-.. automodule:: application.types.bookcannotbeshared
    :members:
    :show-inheritance:
    :undoc-members:
@@ -172,22 +148,6 @@ application.types.booktag module
    :show-inheritance:
    :undoc-members:
 
-application.types.booktagdoesnotexisterror module
--------------------------------------------------
-
-.. automodule:: application.types.booktagdoesnotexisterror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.booktagexistserror module
--------------------------------------------
-
-.. automodule:: application.types.booktagexistserror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.bugcomment module
 -----------------------------------
 
@@ -208,14 +168,6 @@ application.types.bugreportcreationfailederror module
 -----------------------------------------------------
 
 .. automodule:: application.types.bugreportcreationfailederror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.bugreportdoesnotexisterror module
----------------------------------------------------
-
-.. automodule:: application.types.bugreportdoesnotexisterror
    :members:
    :show-inheritance:
    :undoc-members:
@@ -268,30 +220,6 @@ application.types.feeddocument module
    :show-inheritance:
    :undoc-members:
 
-application.types.feeddocumentdoesnotexisterror module
-------------------------------------------------------
-
-.. automodule:: application.types.feeddocumentdoesnotexisterror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.feeddoesnotexisterror module
-----------------------------------------------
-
-.. automodule:: application.types.feeddoesnotexisterror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.insufficientdiskspace module
-----------------------------------------------
-
-.. automodule:: application.types.insufficientdiskspace
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.insufficientperms module
 ------------------------------------------
 
@@ -300,26 +228,10 @@ application.types.insufficientperms module
    :show-inheritance:
    :undoc-members:
 
-application.types.invalidfeedkinderror module
----------------------------------------------
-
-.. automodule:: application.types.invalidfeedkinderror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.invalidfields module
 --------------------------------------
 
 .. automodule:: application.types.invalidfields
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.invalidsubscriptiontoken module
--------------------------------------------------
-
-.. automodule:: application.types.invalidsubscriptiontoken
    :members:
    :show-inheritance:
    :undoc-members:
@@ -356,22 +268,6 @@ application.types.item module
    :show-inheritance:
    :undoc-members:
 
-application.types.itemdoesnotexisterror module
-----------------------------------------------
-
-.. automodule:: application.types.itemdoesnotexisterror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.itemexistserror module
-----------------------------------------
-
-.. automodule:: application.types.itemexistserror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.lastmutation module
 -------------------------------------
 
@@ -384,14 +280,6 @@ application.types.logresult module
 ----------------------------------
 
 .. automodule:: application.types.logresult
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.missingconfig module
---------------------------------------
-
-.. automodule:: application.types.missingconfig
    :members:
    :show-inheritance:
    :undoc-members:
@@ -532,14 +420,6 @@ application.types.subsonicalbum module
    :show-inheritance:
    :undoc-members:
 
-application.types.subsonicerror module
---------------------------------------
-
-.. automodule:: application.types.subsonicerror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.subsonicsearch module
 ---------------------------------------
 
@@ -628,22 +508,6 @@ application.types.userdata module
    :show-inheritance:
    :undoc-members:
 
-application.types.userdoesnotexisterror module
-----------------------------------------------
-
-.. automodule:: application.types.userdoesnotexisterror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.userexistserror module
-----------------------------------------
-
-.. automodule:: application.types.userexistserror
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.usermindata module
 ------------------------------------
 
@@ -712,14 +576,6 @@ application.types.weatheruserinput module
 -----------------------------------------
 
 .. automodule:: application.types.weatheruserinput
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-application.types.webpushexception module
------------------------------------------
-
-.. automodule:: application.types.webpushexception
    :members:
    :show-inheritance:
    :undoc-members:
