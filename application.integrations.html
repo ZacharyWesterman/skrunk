@@ -591,20 +591,22 @@ the details of each query and mutation, including their parameters and return ty
 <dt class="sig sig-object py" id="application.integrations.images.downscale">
 <span class="sig-prename descclassname"><span class="pre">application.integrations.images.</span></span><span class="sig-name descname"><span class="pre">downscale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.images.downscale" title="Link to this definition">#</a></dt>
 <dd><p>Downscale an image to a specified maximum width while maintaining aspect ratio.</p>
-<p>Parameters:
-path (str): The file path to the input image.
-max_width (int): The maximum width to downscale the image to.
-output_path (str): The file path to save the downscaled image.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – The file path to the input image.</p></li>
+<li><p><strong>max_width</strong> (<em>int</em>) – The maximum width to downscale the image to.</p></li>
+<li><p><strong>output_path</strong> (<em>str</em>) – The file path to save the downscaled image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the image was downscaled,
+False if the image width was already less than or equal to max_width.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
-<p>Returns:
-bool: True if the image was downscaled,</p>
-<blockquote>
-<div><p>False if the image width was already less than or equal to max_width.</p>
-</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
