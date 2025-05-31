@@ -348,10 +348,10 @@ application.types.sorting module
    :show-inheritance:
    :undoc-members:
 
-application.types.sorting\_ module
-----------------------------------
+application.types.sortingoutput module
+--------------------------------------
 
-.. automodule:: application.types.sorting_
+.. automodule:: application.types.sortingoutput
    :members:
    :show-inheritance:
    :undoc-members:
@@ -436,14 +436,6 @@ application.types.theme module
    :show-inheritance:
    :undoc-members:
 
-application.types.theme\_ module
---------------------------------
-
-.. automodule:: application.types.theme_
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.themecolor module
 -----------------------------------
 
@@ -452,10 +444,18 @@ application.types.themecolor module
    :show-inheritance:
    :undoc-members:
 
-application.types.themecolor\_ module
--------------------------------------
+application.types.themecoloroutput module
+-----------------------------------------
 
-.. automodule:: application.types.themecolor_
+.. automodule:: application.types.themecoloroutput
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.themeoutput module
+------------------------------------
+
+.. automodule:: application.types.themeoutput
    :members:
    :show-inheritance:
    :undoc-members:
@@ -468,10 +468,10 @@ application.types.themesize module
    :show-inheritance:
    :undoc-members:
 
-application.types.themesize\_ module
-------------------------------------
+application.types.themesizeoutput module
+----------------------------------------
 
-.. automodule:: application.types.themesize_
+.. automodule:: application.types.themesizeoutput
    :members:
    :show-inheritance:
    :undoc-members:
@@ -508,10 +508,10 @@ application.types.usertheme module
    :show-inheritance:
    :undoc-members:
 
-application.types.usertheme\_ module
-------------------------------------
+application.types.userthemeoutput module
+----------------------------------------
 
-.. automodule:: application.types.usertheme_
+.. automodule:: application.types.userthemeoutput
    :members:
    :show-inheritance:
    :undoc-members:
@@ -540,10 +540,10 @@ application.types.weathertemp module
    :show-inheritance:
    :undoc-members:
 
-application.types.weathertemp\_ module
---------------------------------------
+application.types.weathertempoutput module
+------------------------------------------
 
-.. automodule:: application.types.weathertemp_
+.. automodule:: application.types.weathertempoutput
    :members:
    :show-inheritance:
    :undoc-members:

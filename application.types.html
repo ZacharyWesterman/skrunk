@@ -1210,7 +1210,7 @@ All fields are optional, and if none are provided, all books will be returned.</
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.types.feed.Feed.currentSort">
-<span class="sig-name descname"><span class="pre">currentSort</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.sorting_.Sorting_" title="application.types.sorting_.Sorting_"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sorting_</span></code></a> <span class="pre">|</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></em><a class="headerlink" href="#application.types.feed.Feed.currentSort" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">currentSort</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.sortingoutput.SortingOutput" title="application.types.sortingoutput.SortingOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortingOutput</span></code></a> <span class="pre">|</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></em><a class="headerlink" href="#application.types.feed.Feed.currentSort" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1790,22 +1790,22 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </dd></dl>
 
 </section>
-<section id="module-application.types.sorting_">
-<span id="id1"></span><h2>application.types.sorting_ module<a class="headerlink" href="#module-application.types.sorting_" title="Link to this heading">#</a></h2>
-<p><a href="#id7"><span class="problematic" id="id8">application.types.sorting_</span></a></p>
+<section id="module-application.types.sortingoutput">
+<span id="application-types-sortingoutput-module"></span><h2>application.types.sortingoutput module<a class="headerlink" href="#module-application.types.sortingoutput" title="Link to this heading">#</a></h2>
+<p>application.types.sortingoutput</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="application.types.sorting_.Sorting_">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.sorting_.</span></span><span class="sig-name descname"><span class="pre">Sorting_</span></span><a class="headerlink" href="#application.types.sorting_.Sorting_" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.sortingoutput.SortingOutput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.sortingoutput.</span></span><span class="sig-name descname"><span class="pre">SortingOutput</span></span><a class="headerlink" href="#application.types.sortingoutput.SortingOutput" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
 <p>An output type for sorting results in queries.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.sorting_.Sorting_.descending">
-<span class="sig-name descname"><span class="pre">descending</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.types.sorting_.Sorting_.descending" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.sortingoutput.SortingOutput.descending">
+<span class="sig-name descname"><span class="pre">descending</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.types.sortingoutput.SortingOutput.descending" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.sorting_.Sorting_.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.sorting_.Sorting_.fields" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.sortingoutput.SortingOutput.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.sortingoutput.SortingOutput.fields" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2071,42 +2071,6 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </dd></dl>
 
 </section>
-<section id="module-application.types.theme_">
-<span id="id2"></span><h2>application.types.theme_ module<a class="headerlink" href="#module-application.types.theme_" title="Link to this heading">#</a></h2>
-<p><a href="#id9"><span class="problematic" id="id10">application.types.theme_</span></a></p>
-<dl class="py class">
-<dt class="sig sig-object py" id="application.types.theme_.Theme_">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.theme_.</span></span><span class="sig-name descname"><span class="pre">Theme_</span></span><a class="headerlink" href="#application.types.theme_.Theme_" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
-<p>Creation info for a new theme template.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.theme_.Theme_.border">
-<span class="sig-name descname"><span class="pre">border</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.theme_.Theme_.border" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.theme_.Theme_.colors">
-<span class="sig-name descname"><span class="pre">colors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.theme_.Theme_.colors" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.theme_.Theme_.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.theme_.Theme_.name" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.theme_.Theme_.special">
-<span class="sig-name descname"><span class="pre">special</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.theme_.Theme_.special" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.theme_.Theme_.text">
-<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.theme_.Theme_.text" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
 <section id="module-application.types.themecolor">
 <span id="application-types-themecolor-module"></span><h2>application.types.themecolor module<a class="headerlink" href="#module-application.types.themecolor" title="Link to this heading">#</a></h2>
 <p>application.types.themecolor</p>
@@ -2128,22 +2092,58 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </dd></dl>
 
 </section>
-<section id="module-application.types.themecolor_">
-<span id="id3"></span><h2>application.types.themecolor_ module<a class="headerlink" href="#module-application.types.themecolor_" title="Link to this heading">#</a></h2>
-<p><a href="#id11"><span class="problematic" id="id12">application.types.themecolor_</span></a></p>
+<section id="module-application.types.themecoloroutput">
+<span id="application-types-themecoloroutput-module"></span><h2>application.types.themecoloroutput module<a class="headerlink" href="#module-application.types.themecoloroutput" title="Link to this heading">#</a></h2>
+<p>application.types.themecoloroutput</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="application.types.themecolor_.ThemeColor_">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.themecolor_.</span></span><span class="sig-name descname"><span class="pre">ThemeColor_</span></span><a class="headerlink" href="#application.types.themecolor_.ThemeColor_" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.themecoloroutput.ThemeColorOutput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.themecoloroutput.</span></span><span class="sig-name descname"><span class="pre">ThemeColorOutput</span></span><a class="headerlink" href="#application.types.themecoloroutput.ThemeColorOutput" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
 <p>Color settings for a user theme.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.themecolor_.ThemeColor_.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themecolor_.ThemeColor_.name" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.themecoloroutput.ThemeColorOutput.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themecoloroutput.ThemeColorOutput.name" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.themecolor_.ThemeColor_.value">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themecolor_.ThemeColor_.value" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.themecoloroutput.ThemeColorOutput.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themecoloroutput.ThemeColorOutput.value" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-application.types.themeoutput">
+<span id="application-types-themeoutput-module"></span><h2>application.types.themeoutput module<a class="headerlink" href="#module-application.types.themeoutput" title="Link to this heading">#</a></h2>
+<p>application.types.themeoutput</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="application.types.themeoutput.ThemeOutput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.themeoutput.</span></span><span class="sig-name descname"><span class="pre">ThemeOutput</span></span><a class="headerlink" href="#application.types.themeoutput.ThemeOutput" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>Creation info for a new theme template.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.themeoutput.ThemeOutput.border">
+<span class="sig-name descname"><span class="pre">border</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themeoutput.ThemeOutput.border" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.themeoutput.ThemeOutput.colors">
+<span class="sig-name descname"><span class="pre">colors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.themeoutput.ThemeOutput.colors" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.themeoutput.ThemeOutput.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themeoutput.ThemeOutput.name" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.themeoutput.ThemeOutput.special">
+<span class="sig-name descname"><span class="pre">special</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.themeoutput.ThemeOutput.special" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.themeoutput.ThemeOutput.text">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.themeoutput.ThemeOutput.text" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2170,22 +2170,22 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </dd></dl>
 
 </section>
-<section id="module-application.types.themesize_">
-<span id="id4"></span><h2>application.types.themesize_ module<a class="headerlink" href="#module-application.types.themesize_" title="Link to this heading">#</a></h2>
-<p><a href="#id13"><span class="problematic" id="id14">application.types.themesize_</span></a></p>
+<section id="module-application.types.themesizeoutput">
+<span id="application-types-themesizeoutput-module"></span><h2>application.types.themesizeoutput module<a class="headerlink" href="#module-application.types.themesizeoutput" title="Link to this heading">#</a></h2>
+<p>application.types.themesizeoutput</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="application.types.themesize_.ThemeSize_">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.themesize_.</span></span><span class="sig-name descname"><span class="pre">ThemeSize_</span></span><a class="headerlink" href="#application.types.themesize_.ThemeSize_" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.themesizeoutput.ThemeSizeOutput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.themesizeoutput.</span></span><span class="sig-name descname"><span class="pre">ThemeSizeOutput</span></span><a class="headerlink" href="#application.types.themesizeoutput.ThemeSizeOutput" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
 <p>Size settings for a user theme.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.themesize_.ThemeSize_.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themesize_.ThemeSize_.name" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.themesizeoutput.ThemeSizeOutput.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themesizeoutput.ThemeSizeOutput.name" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.themesize_.ThemeSize_.value">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themesize_.ThemeSize_.value" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.themesizeoutput.ThemeSizeOutput.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.themesizeoutput.ThemeSizeOutput.value" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2252,7 +2252,7 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.types.userdata.UserData.theme">
-<span class="sig-name descname"><span class="pre">theme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.usertheme_.UserTheme_" title="application.types.usertheme_.UserTheme_"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserTheme_</span></code></a></em><a class="headerlink" href="#application.types.userdata.UserData.theme" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">theme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.userthemeoutput.UserThemeOutput" title="application.types.userthemeoutput.UserThemeOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserThemeOutput</span></code></a></em><a class="headerlink" href="#application.types.userdata.UserData.theme" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2310,22 +2310,22 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </dd></dl>
 
 </section>
-<section id="module-application.types.usertheme_">
-<span id="id5"></span><h2>application.types.usertheme_ module<a class="headerlink" href="#module-application.types.usertheme_" title="Link to this heading">#</a></h2>
-<p><a href="#id15"><span class="problematic" id="id16">application.types.usertheme_</span></a></p>
+<section id="module-application.types.userthemeoutput">
+<span id="application-types-userthemeoutput-module"></span><h2>application.types.userthemeoutput module<a class="headerlink" href="#module-application.types.userthemeoutput" title="Link to this heading">#</a></h2>
+<p>application.types.userthemeoutput</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="application.types.usertheme_.UserTheme_">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.usertheme_.</span></span><span class="sig-name descname"><span class="pre">UserTheme_</span></span><a class="headerlink" href="#application.types.usertheme_.UserTheme_" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.userthemeoutput.UserThemeOutput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.userthemeoutput.</span></span><span class="sig-name descname"><span class="pre">UserThemeOutput</span></span><a class="headerlink" href="#application.types.userthemeoutput.UserThemeOutput" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
 <p>Theme settings for a user.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.usertheme_.UserTheme_.colors">
-<span class="sig-name descname"><span class="pre">colors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><a class="reference internal" href="#application.types.themecolor_.ThemeColor_" title="application.types.themecolor_.ThemeColor_"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThemeColor_</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#application.types.usertheme_.UserTheme_.colors" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.userthemeoutput.UserThemeOutput.colors">
+<span class="sig-name descname"><span class="pre">colors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><a class="reference internal" href="#application.types.themecoloroutput.ThemeColorOutput" title="application.types.themecoloroutput.ThemeColorOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThemeColorOutput</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#application.types.userthemeoutput.UserThemeOutput.colors" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.usertheme_.UserTheme_.sizes">
-<span class="sig-name descname"><span class="pre">sizes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><a class="reference internal" href="#application.types.themesize_.ThemeSize_" title="application.types.themesize_.ThemeSize_"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThemeSize_</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#application.types.usertheme_.UserTheme_.sizes" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.userthemeoutput.UserThemeOutput.sizes">
+<span class="sig-name descname"><span class="pre">sizes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><a class="reference internal" href="#application.types.themesizeoutput.ThemeSizeOutput" title="application.types.themesizeoutput.ThemeSizeOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThemeSizeOutput</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#application.types.userthemeoutput.UserThemeOutput.sizes" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2409,27 +2409,27 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </dd></dl>
 
 </section>
-<section id="module-application.types.weathertemp_">
-<span id="id6"></span><h2>application.types.weathertemp_ module<a class="headerlink" href="#module-application.types.weathertemp_" title="Link to this heading">#</a></h2>
-<p><a href="#id17"><span class="problematic" id="id18">application.types.weathertemp_</span></a></p>
+<section id="module-application.types.weathertempoutput">
+<span id="application-types-weathertempoutput-module"></span><h2>application.types.weathertempoutput module<a class="headerlink" href="#module-application.types.weathertempoutput" title="Link to this heading">#</a></h2>
+<p>application.types.weathertempoutput</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="application.types.weathertemp_.WeatherTemp_">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.weathertemp_.</span></span><span class="sig-name descname"><span class="pre">WeatherTemp_</span></span><a class="headerlink" href="#application.types.weathertemp_.WeatherTemp_" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.weathertempoutput.WeatherTempOutput">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.weathertempoutput.</span></span><span class="sig-name descname"><span class="pre">WeatherTempOutput</span></span><a class="headerlink" href="#application.types.weathertempoutput.WeatherTempOutput" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
 <p>Temperature settings for weather alerts.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.weathertemp_.WeatherTemp_.default">
-<span class="sig-name descname"><span class="pre">default</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.types.weathertemp_.WeatherTemp_.default" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.weathertempoutput.WeatherTempOutput.default">
+<span class="sig-name descname"><span class="pre">default</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.types.weathertempoutput.WeatherTempOutput.default" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.weathertemp_.WeatherTemp_.disable">
-<span class="sig-name descname"><span class="pre">disable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.types.weathertemp_.WeatherTemp_.disable" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.weathertempoutput.WeatherTempOutput.disable">
+<span class="sig-name descname"><span class="pre">disable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.types.weathertempoutput.WeatherTempOutput.disable" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.types.weathertemp_.WeatherTemp_.value">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#application.types.weathertemp_.WeatherTemp_.value" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.types.weathertempoutput.WeatherTempOutput.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#application.types.weathertempoutput.WeatherTempOutput.value" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2465,12 +2465,12 @@ All fields are optional, and if a field is null, it will not be used in the quer
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.types.weatheruser.WeatherUser.max">
-<span class="sig-name descname"><span class="pre">max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.weathertemp_.WeatherTemp_" title="application.types.weathertemp_.WeatherTemp_"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeatherTemp_</span></code></a></em><a class="headerlink" href="#application.types.weatheruser.WeatherUser.max" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.weathertempoutput.WeatherTempOutput" title="application.types.weathertempoutput.WeatherTempOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeatherTempOutput</span></code></a></em><a class="headerlink" href="#application.types.weatheruser.WeatherUser.max" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.types.weatheruser.WeatherUser.min">
-<span class="sig-name descname"><span class="pre">min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.weathertemp_.WeatherTemp_" title="application.types.weathertemp_.WeatherTemp_"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeatherTemp_</span></code></a></em><a class="headerlink" href="#application.types.weatheruser.WeatherUser.min" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#application.types.weathertempoutput.WeatherTempOutput" title="application.types.weathertempoutput.WeatherTempOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">WeatherTempOutput</span></code></a></em><a class="headerlink" href="#application.types.weatheruser.WeatherUser.min" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3037,10 +3037,10 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.sorting_">application.types.sorting_ module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.sorting_.Sorting_"><code class="docutils literal notranslate"><span class="pre">Sorting_</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.sorting_.Sorting_.descending"><code class="docutils literal notranslate"><span class="pre">Sorting_.descending</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.sorting_.Sorting_.fields"><code class="docutils literal notranslate"><span class="pre">Sorting_.fields</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.sortingoutput">application.types.sortingoutput module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.sortingoutput.SortingOutput"><code class="docutils literal notranslate"><span class="pre">SortingOutput</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.sortingoutput.SortingOutput.descending"><code class="docutils literal notranslate"><span class="pre">SortingOutput.descending</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.sortingoutput.SortingOutput.fields"><code class="docutils literal notranslate"><span class="pre">SortingOutput.fields</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3135,17 +3135,6 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.theme_">application.types.theme_ module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.theme_.Theme_"><code class="docutils literal notranslate"><span class="pre">Theme_</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.theme_.Theme_.border"><code class="docutils literal notranslate"><span class="pre">Theme_.border</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.theme_.Theme_.colors"><code class="docutils literal notranslate"><span class="pre">Theme_.colors</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.theme_.Theme_.name"><code class="docutils literal notranslate"><span class="pre">Theme_.name</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.theme_.Theme_.special"><code class="docutils literal notranslate"><span class="pre">Theme_.special</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.theme_.Theme_.text"><code class="docutils literal notranslate"><span class="pre">Theme_.text</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.themecolor">application.types.themecolor module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecolor.ThemeColor"><code class="docutils literal notranslate"><span class="pre">ThemeColor</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecolor.ThemeColor.name"><code class="docutils literal notranslate"><span class="pre">ThemeColor.name</span></code></a></li>
@@ -3154,10 +3143,21 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.themecolor_">application.types.themecolor_ module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecolor_.ThemeColor_"><code class="docutils literal notranslate"><span class="pre">ThemeColor_</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecolor_.ThemeColor_.name"><code class="docutils literal notranslate"><span class="pre">ThemeColor_.name</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecolor_.ThemeColor_.value"><code class="docutils literal notranslate"><span class="pre">ThemeColor_.value</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.themecoloroutput">application.types.themecoloroutput module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecoloroutput.ThemeColorOutput"><code class="docutils literal notranslate"><span class="pre">ThemeColorOutput</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecoloroutput.ThemeColorOutput.name"><code class="docutils literal notranslate"><span class="pre">ThemeColorOutput.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themecoloroutput.ThemeColorOutput.value"><code class="docutils literal notranslate"><span class="pre">ThemeColorOutput.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.themeoutput">application.types.themeoutput module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themeoutput.ThemeOutput"><code class="docutils literal notranslate"><span class="pre">ThemeOutput</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themeoutput.ThemeOutput.border"><code class="docutils literal notranslate"><span class="pre">ThemeOutput.border</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themeoutput.ThemeOutput.colors"><code class="docutils literal notranslate"><span class="pre">ThemeOutput.colors</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themeoutput.ThemeOutput.name"><code class="docutils literal notranslate"><span class="pre">ThemeOutput.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themeoutput.ThemeOutput.special"><code class="docutils literal notranslate"><span class="pre">ThemeOutput.special</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themeoutput.ThemeOutput.text"><code class="docutils literal notranslate"><span class="pre">ThemeOutput.text</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3170,10 +3170,10 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.themesize_">application.types.themesize_ module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themesize_.ThemeSize_"><code class="docutils literal notranslate"><span class="pre">ThemeSize_</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themesize_.ThemeSize_.name"><code class="docutils literal notranslate"><span class="pre">ThemeSize_.name</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themesize_.ThemeSize_.value"><code class="docutils literal notranslate"><span class="pre">ThemeSize_.value</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.themesizeoutput">application.types.themesizeoutput module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themesizeoutput.ThemeSizeOutput"><code class="docutils literal notranslate"><span class="pre">ThemeSizeOutput</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themesizeoutput.ThemeSizeOutput.name"><code class="docutils literal notranslate"><span class="pre">ThemeSizeOutput.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.themesizeoutput.ThemeSizeOutput.value"><code class="docutils literal notranslate"><span class="pre">ThemeSizeOutput.value</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3217,10 +3217,10 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.usertheme_">application.types.usertheme_ module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.usertheme_.UserTheme_"><code class="docutils literal notranslate"><span class="pre">UserTheme_</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.usertheme_.UserTheme_.colors"><code class="docutils literal notranslate"><span class="pre">UserTheme_.colors</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.usertheme_.UserTheme_.sizes"><code class="docutils literal notranslate"><span class="pre">UserTheme_.sizes</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.userthemeoutput">application.types.userthemeoutput module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.userthemeoutput.UserThemeOutput"><code class="docutils literal notranslate"><span class="pre">UserThemeOutput</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.userthemeoutput.UserThemeOutput.colors"><code class="docutils literal notranslate"><span class="pre">UserThemeOutput.colors</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.userthemeoutput.UserThemeOutput.sizes"><code class="docutils literal notranslate"><span class="pre">UserThemeOutput.sizes</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3252,11 +3252,11 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.weathertemp_">application.types.weathertemp_ module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertemp_.WeatherTemp_"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertemp_.WeatherTemp_.default"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_.default</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertemp_.WeatherTemp_.disable"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_.disable</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertemp_.WeatherTemp_.value"><code class="docutils literal notranslate"><span class="pre">WeatherTemp_.value</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.weathertempoutput">application.types.weathertempoutput module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertempoutput.WeatherTempOutput"><code class="docutils literal notranslate"><span class="pre">WeatherTempOutput</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertempoutput.WeatherTempOutput.default"><code class="docutils literal notranslate"><span class="pre">WeatherTempOutput.default</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertempoutput.WeatherTempOutput.disable"><code class="docutils literal notranslate"><span class="pre">WeatherTempOutput.disable</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.weathertempoutput.WeatherTempOutput.value"><code class="docutils literal notranslate"><span class="pre">WeatherTempOutput.value</span></code></a></li>
 </ul>
 </li>
 </ul>
