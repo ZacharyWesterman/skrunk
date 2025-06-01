@@ -647,7 +647,7 @@ export async function prompt_ebooks(book_rfid) {
 	let btn_map = {}
 	for (const b of book_data.ebooks) {
 		//If the url has no slashes, it's an internal file ID.
-		url = (b.url.indexOf('/') === -1) ? `download/${b.url}` : b.url
+		const url = (b.url.indexOf('/') === -1) ? `download/${b.url}` : b.url
 		btn_map[b.fileType.toLowerCase()] = url
 	}
 
