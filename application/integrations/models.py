@@ -1,7 +1,5 @@
 """application.integrations.models"""
 
-__ALL__ = ['to_glb', 'extensions']
-
 import trimesh
 
 

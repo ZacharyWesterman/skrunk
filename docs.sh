@@ -5,7 +5,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 echo -e "\e[34mGenerating documentation...\e[0m"
 
-sphinx-apidoc -o docs/source application/ || exit 1
+sphinx-apidoc -o docs/source application application/tags || exit 1
 cd docs || exit 1
 
 if [ "$1" == "--coverage" ]; then

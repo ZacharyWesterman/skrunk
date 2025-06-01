@@ -1,7 +1,5 @@
 """application.integrations.graphql"""
 
-__all__ = ['schema']
-
 from functools import cache
 
 import ariadne

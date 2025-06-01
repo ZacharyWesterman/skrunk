@@ -9,7 +9,7 @@ from application.db.blob import (BlobStorage, cancel_zip, create_blob,
                                  set_blob_tags, zip_matching_blobs)
 from application.db.users import group_filter
 from application.integrations import qrcode
-from application.tags.exceptions import ParseError
+from application.tags import exceptions
 from application.types import BlobSearchFilter
 
 from ..decorators import handle_client_exceptions
@@ -47,7 +47,7 @@ def resolve_create_zip_archive(_, _info: GraphQLResolveInfo, filter: BlobSearchF
 		groups: BlobSearchFilter = group_filter(filter, user_data)  # type: ignore
 		blob = zip_matching_blobs(groups, user_data['_id'], uid)
 		return {'__typename': 'Blob', **blob}
-	except ParseError as e:
+	except exceptions.ParseError as e:
 		return {'__typename': 'BadTagQuery', 'message': str(e)}
 
 

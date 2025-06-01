@@ -12,8 +12,6 @@ permissions on the calling user before executing the resolver function,
 and the `module` decorator to check if the user has access to specific modules.
 """
 
-__all__ = ['require']
-
 from inspect import getfullargspec
 from typing import Any, Callable
 

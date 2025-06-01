@@ -1,7 +1,5 @@
 """application.scalars.size"""
 
-__all__ = ['scalar']
-
 import re
 
 from ariadne import ScalarType
