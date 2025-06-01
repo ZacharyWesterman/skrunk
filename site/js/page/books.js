@@ -110,8 +110,6 @@ async function confirm_unlink_book(title, rfid) {
 }
 
 async function confirm_edit_ebooks(book_data) {
-	let ebook_promises = []
-
 	const modal = await _.modal({
 		icon: 'file-pdf',
 		title: 'Add E-Books',
@@ -141,7 +139,7 @@ async function confirm_edit_ebooks(book_data) {
 			//Once files are done uploading, get the ebook links
 			for (const promise of promises) {
 				const file = (await promise)[0]
-				ebook_promises.push(mutate.books.append_ebook(book_data.id, file.id))
+				await mutate.books.append_ebook(book_data.id, file.id)
 			}
 		}
 
@@ -151,14 +149,6 @@ async function confirm_edit_ebooks(book_data) {
 	if (modal !== 'submit') {
 		if (modal === 'cancel') edit_book(book_data.rfid)
 		return
-	}
-
-	for (const promise of ebook_promises) {
-		const res = await promise
-		if (res.__typename !== 'Book') {
-			_.modal.error(res.message)
-			return
-		}
 	}
 
 	_.modal.checkmark()
