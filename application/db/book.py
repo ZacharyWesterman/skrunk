@@ -880,8 +880,15 @@ def append_ebook(book_id: str, ebook_url: str) -> dict:
 	"""
 	book_data = get_book(book_id)
 
-	pos = ebook_url.rfind('.')
-	ext = ebook_url[pos + 1::] if pos > -1 else 'unk'
+	ext = 'unk'
+
+	try:
+		blob_data = blob.get_blob_data(ebook_url)
+		blob.add_reference(ebook_url)  # If using blob id instead of file url, update the reference count.
+		ext = blob_data['ext'].strip('.')
+	except exceptions.BlobDoesNotExistError:
+		pos = ebook_url.rfind('.')
+		ext = ebook_url[pos + 1::] if pos > -1 else 'unk'
 
 	book_data['ebooks'] += [{
 		'url': ebook_url,
@@ -889,11 +896,5 @@ def append_ebook(book_id: str, ebook_url: str) -> dict:
 	}]
 
 	db.update_one({'_id': ObjectId(book_id)}, {'$set': {'ebooks': book_data['ebooks']}})
-
-	try:
-		blob.get_blob_data(ebook_url)
-		blob.add_reference(ebook_url)  # If using blob id instead of file url, update the reference count.
-	except exceptions.BlobDoesNotExistError:
-		pass
 
 	return book_data
