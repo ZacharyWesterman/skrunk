@@ -2620,7 +2620,7 @@ and the <cite>module</cite> decorator to check if the user has access to specifi
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
+<dd class="field-even"><p>dict[str, str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2635,14 +2635,14 @@ API key information from the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><dl class="simple">
-<dt>The user data associated with the username if available, otherwise the API key</dt><dd><p>information if the token is an API key. Returns None if neither is found or an
-error occurs during retrieval.</p>
+<dt>The user data associated with the username if available,</dt><dd><p>otherwise the API key information if the token is an API key.
+Returns None if neither is found or an error occurs during retrieval.</p>
 </dd>
 </dl>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd class="field-even"><p>dict[str, Any] | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2657,13 +2657,13 @@ API key information from the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><dl class="simple">
-<dt>The user data associated with the username if available, otherwise the API key</dt><dd><p>information if the token is an API key.</p>
+<dt>The user data associated with the username if available,</dt><dd><p>otherwise the API key information if the token is an API key.</p>
 </dd>
 </dl>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd class="field-even"><p>dict[str, Any]</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2768,13 +2768,16 @@ data to be checked for ownership. Otherwise, the main function’s parameters ar
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>True if the user has all required permissions, or</dt><dd><p>if perform_on_self is True AND the data being operated on belongs to the user.</p>
+<dt>True if the user has all required permissions, or if perform_on_self is True</dt><dd><p>AND the data being operated on belongs to the user.
+If the user does not have the required permissions,
+returns a dictionary representing an insufficient permissions error.
+Otherwise, returns False.</p>
 </dd>
 </dl>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p>bool | dict</p>
 </dd>
 </dl>
 </dd></dl>
