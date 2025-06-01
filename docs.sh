@@ -7,5 +7,10 @@ echo -e "\e[34mGenerating documentation...\e[0m"
 
 sphinx-apidoc -o docs/source application/ || exit 1
 cd docs || exit 1
-make html || exit 1
-echo -e "\e[32mDocumentation generated successfully!\e[0m"
+
+if [ "$1" == "--coverage" ]; then
+	SPHINXOPTS="-b coverage" make html || exit 1
+else
+	make html || exit 1
+	echo -e "\e[32mDocumentation generated successfully!\e[0m"
+fi

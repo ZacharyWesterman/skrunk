@@ -21,7 +21,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx_autodoc_typehints',
-    'sphinx_mdinclude'
+    'sphinx_mdinclude',
+   	'sphinx.ext.coverage',
 ]
 
 templates_path = ['_templates']
@@ -34,6 +35,7 @@ exclude_patterns = []
 html_theme = "pydata_sphinx_theme"
 html_static_path = ['_static']
 source_suffix = ['.rst', '.md']
+coverage_show_missing_items = True
 
 # -- Add the project directory to sys.path for module imports -----------------
 sys.path.insert(0, os.path.abspath('../..'))
