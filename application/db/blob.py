@@ -252,6 +252,7 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 		'.sh', '.bat', '.java', '.js',
 		'.css', '.md', '.glsl'
 	]
+	ebooks = ['.epub', '.mobi', '.azw3']
 
 	mime = mime.replace('application/', '')
 
@@ -269,8 +270,8 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 		mime = 'binary/database'
 	elif mime == 'octet-stream':
 		mime = 'binary/unknown'
-	elif mime == 'application/epub+zip':
-		mime = 'ebook/epub'
+	elif ext in ebooks:
+		mime = 'ebook/' + ext[1::]
 
 	return mime
 
