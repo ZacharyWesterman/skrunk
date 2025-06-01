@@ -113,7 +113,18 @@ async function confirm_edit_ebooks(book_data) {
 	const modal = await _.modal({
 		icon: 'file-pdf',
 		title: 'Add E-Books',
-		text: `Select 1 or more files to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>' + book_data.subtitle + '</i>' : ''}<br><span class="suppress">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file" multiple>`,
+		text: `
+			Select 1 or more files to add to the list of E-Books.
+			<hr>
+			<b>${book_data.title}</b>
+			${book_data.subtitle ? '<br><i>' + book_data.subtitle + '</i>' : ''}
+			<br>
+			<span class="suppress">
+				By ${book_data.authors.join(', ')}
+				<hr>
+				<input id="ebook-input" type="file" multiple>
+			</span>
+		`,
 		buttons: ['Submit', 'Cancel'],
 	}, () => { }, async choice => { //on validate
 		if (choice === 'submit') {
@@ -127,8 +138,11 @@ async function confirm_edit_ebooks(book_data) {
 			//Upload the file(s)
 			let promises = []
 			for (let i = 0; i < files.length; ++i) {
+				const elem = $('ebook-input').parentElement
 				const progress = document.createElement('progress')
-				$('ebook-input').parentElement.append(progress)
+				elem.append(document.createElement('br'))
+				elem.append(progress)
+
 				progress.value = 0
 
 				promises.push(api.upload(files[i], prog => {
