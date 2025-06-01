@@ -125,7 +125,7 @@ async function confirm_edit_ebooks(book_data) {
 				<input id="ebook-input" type="file" multiple>
 			</span>
 		`,
-		buttons: ['Submit', 'Cancel'],
+		buttons: ['Submit', 'Delete', 'Cancel'],
 	}, () => { }, async choice => { //on validate
 		if (choice === 'submit') {
 			const files = $('ebook-input').files
@@ -161,12 +161,48 @@ async function confirm_edit_ebooks(book_data) {
 	}).catch(() => 'close')
 
 	if (modal !== 'submit') {
-		if (modal === 'cancel') edit_book(book_data.rfid)
+		if (modal === 'cancel') { edit_book(book_data.rfid) }
+		if (modal === 'delete') {
+			unlink_ebooks(book_data)
+		}
+
 		return
 	}
 
 	_.modal.checkmark()
 	search_books()
+}
+
+async function unlink_ebooks(book_data) {
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Delete E-Books?',
+		text: 'Which ebook do you want to delete?',
+		buttons: [...book_data.ebooks.map(b => b.fileType.toUpperCase()), 'Cancel'],
+	}).catch(() => 'cancel')
+
+	if (choice === 'cancel') {
+		confirm_edit_ebooks(book_data)
+		return
+	}
+
+	const index = book_data.ebooks.findIndex(b => b.fileType.toLowerCase() === choice)
+	const res = await mutate.books.remove_ebook(book_data.id, index)
+
+	if (res.__typename !== 'Book') {
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => { })
+		return
+	}
+
+	book_data.ebooks = book_data.ebooks.filter(b => b.fileType.toLowerCase() !== choice)
+	_.modal.checkmark()
+	search_books()
+	unlink_ebooks(book_data)
 }
 
 export async function edit_book(rfid) {

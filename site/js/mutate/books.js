@@ -147,4 +147,18 @@ export default {
 			url: ebook_url,
 		})
 	},
+
+	remove_ebook: async (id, index) => {
+		return await api(`mutation ($id: String!, $index: Int!) {
+			removeEBook(id: $id, index: $index) {
+				__typename
+				...on BookTagDoesNotExistError { message }
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			id: id,
+			index: index,
+		})
+	},
 }

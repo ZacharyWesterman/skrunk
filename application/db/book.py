@@ -898,3 +898,37 @@ def append_ebook(book_id: str, ebook_url: str) -> dict:
 	db.update_one({'_id': ObjectId(book_id)}, {'$set': {'ebooks': book_data['ebooks']}})
 
 	return book_data
+
+
+def remove_ebook(book_id: str, index: int) -> dict:
+	"""
+	Remove an ebook from the book's ebook list and update the database.
+
+	Args:
+		book_id (str): The unique identifier of the book.
+		index (int): The URL of the ebook to be appended.
+
+	Returns:
+		dict: The updated book data.
+
+	Raises:
+		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
+	"""
+	book_data = get_book(book_id)
+	ebooks: list = book_data.get('ebooks', [])
+
+	if index < 0 or index >= len(ebooks):
+		return book_data
+
+	ebook_url: str = ebooks.pop(index).get('url', '')
+
+	try:
+		blob.get_blob_data(ebook_url)
+		blob.remove_reference(ebook_url)  # If using blob id instead of file url, update the reference count.
+	except exceptions.BlobDoesNotExistError:
+		pass
+
+	db.update_one({'_id': ObjectId(book_id)}, {'$set': {'ebooks': ebooks}})
+	book_data['ebooks'] = ebooks
+
+	return book_data

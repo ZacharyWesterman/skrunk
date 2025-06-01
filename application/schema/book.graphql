@@ -224,4 +224,5 @@ extend type Mutation {
 	createBook(owner: String!, data: BookCreateData!): BookTagCreateResponse!
 
 	appendEBook(id: String!, url: String!): BookEditResponse!
+	removeEBook(id: String!, index: Int!): BookEditResponse!
 }

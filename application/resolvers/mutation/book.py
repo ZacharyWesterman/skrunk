@@ -5,8 +5,8 @@ from graphql.type import GraphQLResolveInfo
 from application.db import notification, perms
 from application.db.book import (append_ebook, borrow_book, create_book,
                                  edit_book, get_book, get_book_tag,
-                                 link_book_tag, return_book, set_book_owner,
-                                 share_book_with_non_user,
+                                 link_book_tag, remove_ebook, return_book,
+                                 set_book_owner, share_book_with_non_user,
                                  share_book_with_user, unlink_book_tag)
 from application.db.users import get_user_by_id
 from application.integrations.exceptions import ApiFailedError
@@ -124,3 +124,11 @@ def resolve_create_book(_, _info: GraphQLResolveInfo, owner: str, data: dict) ->
 @handle_client_exceptions
 def resolve_append_ebook(_, _info: GraphQLResolveInfo, id: str, url: str) -> dict:
 	return {'__typename': 'Book', **append_ebook(id, url)}
+
+
+@mutation.field('removeEBook')
+@perms.module('books')
+@perms.require('admin')
+@handle_client_exceptions
+def resolve_remove_ebook(_, _info: GraphQLResolveInfo, id: str, index: int) -> dict:
+	return {'__typename': 'Book', **remove_ebook(id, index)}
