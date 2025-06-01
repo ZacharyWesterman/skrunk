@@ -262,6 +262,8 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 		mime = f'document/{ext[1::]}'
 	elif ext in source:
 		mime = f'text/code/{ext[1::]}'
+	elif ext in ebooks:
+		mime = 'ebook/' + ext[1::]
 	elif ext == '.msi':
 		mime = 'application/installer/msi/binary'
 	elif ext == '.exe':
@@ -270,8 +272,6 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 		mime = 'binary/database'
 	elif mime == 'octet-stream':
 		mime = 'binary/unknown'
-	elif ext in ebooks:
-		mime = 'ebook/' + ext[1::]
 
 	return mime
 
