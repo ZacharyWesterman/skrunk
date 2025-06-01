@@ -24,13 +24,13 @@ from application.db import users
 apikeydb: Collection = None  # type: ignore[assignment]
 
 
-def bad_perms() -> dict:
+def bad_perms() -> dict[str, str]:
 	"""
 	Returns a dictionary representing an insufficient permissions error.
 
 	Returns:
-		dict: A dictionary containing the error type and message indicating
-			  that the user is not allowed to perform the requested action.
+		dict[str, str]: A dictionary containing the error type and message indicating
+			that the user is not allowed to perform the requested action.
 	"""
 	return {
 		'__typename': 'InsufficientPerms',
@@ -47,9 +47,9 @@ def caller_info() -> dict[str, Any] | None:
 	API key information from the database.
 
 	Returns:
-		str: The user data associated with the username if available, otherwise the API key
-			 information if the token is an API key. Returns None if neither is found or an
-			 error occurs during retrieval.
+		dict[str, Any] | None: The user data associated with the username if available,
+			otherwise the API key information if the token is an API key.
+			Returns None if neither is found or an error occurs during retrieval.
 	"""
 	tok = tokens.get_request_token()
 	if not tok:
@@ -82,8 +82,8 @@ def caller_info_strict() -> dict[str, Any]:
 	API key information from the database.
 
 	Returns:
-		str: The user data associated with the username if available, otherwise the API key
-			 information if the token is an API key.
+		dict[str, Any]: The user data associated with the username if available,
+			otherwise the API key information if the token is an API key.
 
 	Raises:
 		exceptions.AuthenticationError: If the token is invalid or the user does not exist.
@@ -140,8 +140,11 @@ def satisfies(
 			data to be checked for ownership. Otherwise, the main function's parameters are checked.
 
 	Returns:
-		bool: True if the user has all required permissions, or
-			if perform_on_self is True AND the data being operated on belongs to the user.
+		bool | dict: True if the user has all required permissions, or if perform_on_self is True
+			AND the data being operated on belongs to the user.
+			If the user does not have the required permissions,
+			returns a dictionary representing an insufficient permissions error.
+			Otherwise, returns False.
 	"""
 
 	# Make sure the user making the request exists
