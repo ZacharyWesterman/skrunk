@@ -646,7 +646,9 @@ export async function prompt_ebooks(book_rfid) {
 	let buttons = book_data.ebooks.map(b => b.fileType.toUpperCase())
 	let btn_map = {}
 	for (const b of book_data.ebooks) {
-		btn_map[b.fileType.toLowerCase()] = b.url
+		//If the url has no slashes, it's an internal file ID.
+		url = (b.url.indexOf('/') === -1) ? `download/${b.url}` : b.url
+		btn_map[b.fileType.toLowerCase()] = url
 	}
 
 	buttons.push('Cancel')
