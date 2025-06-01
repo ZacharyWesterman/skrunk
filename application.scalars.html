@@ -44,7 +44,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'application.scalars';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="application.tags package" href="application.tags.html" />
+    <link rel="next" title="application.types package" href="application.types.html" />
     <link rel="prev" title="application.routes package" href="application.routes.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -255,7 +255,6 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">application.scalars package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -330,14 +329,71 @@
 <section id="module-application.scalars.color">
 <span id="application-scalars-color-module"></span><h2>application.scalars.color module<a class="headerlink" href="#module-application.scalars.color" title="Link to this heading">#</a></h2>
 <p>application.scalars.color</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.scalars.color.parse_color">
+<span class="sig-prename descclassname"><span class="pre">application.scalars.color.</span></span><span class="sig-name descname"><span class="pre">parse_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.scalars.color.parse_color" title="Link to this definition">#</a></dt>
+<dd><p>Parses a string to ensure it is a valid hexadecimal color code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – The string to be validated as a hexadecimal color code.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validated hexadecimal color code.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidColor" title="application.exceptions.InvalidColor"><strong>exceptions.InvalidColor</strong></a> – If the input string is not a valid hexadecimal color code.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-application.scalars.date">
 <span id="application-scalars-date-module"></span><h2>application.scalars.date module<a class="headerlink" href="#module-application.scalars.date" title="Link to this heading">#</a></h2>
 <p>application.scalars.date</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.scalars.date.parse_date_value">
+<span class="sig-prename descclassname"><span class="pre">application.scalars.date.</span></span><span class="sig-name descname"><span class="pre">parse_date_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.scalars.date.parse_date_value" title="Link to this definition">#</a></dt>
+<dd><p>Parses a date string in the format ‘YYYY-MM-DD’ and returns it in the same format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – The date string to be parsed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed date string in the format ‘YYYY-MM-DD’.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-application.scalars.datetime">
 <span id="application-scalars-datetime-module"></span><h2>application.scalars.datetime module<a class="headerlink" href="#module-application.scalars.datetime" title="Link to this heading">#</a></h2>
 <p>application.scalars.datetime</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.scalars.datetime.parse_datetime_value">
+<span class="sig-prename descclassname"><span class="pre">application.scalars.datetime.</span></span><span class="sig-name descname"><span class="pre">parse_datetime_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.scalars.datetime.parse_datetime_value" title="Link to this definition">#</a></dt>
+<dd><p>Parses a datetime string into a datetime object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – The datetime string to parse. Expected format is ‘%Y-%m-%d %H:%M:%S’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A datetime object representing the parsed date and time.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the input string does not match the expected format.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-application.scalars.long">
 <span id="application-scalars-long-module"></span><h2>application.scalars.long module<a class="headerlink" href="#module-application.scalars.long" title="Link to this heading">#</a></h2>
@@ -346,10 +402,52 @@
 <section id="module-application.scalars.phone">
 <span id="application-scalars-phone-module"></span><h2>application.scalars.phone module<a class="headerlink" href="#module-application.scalars.phone" title="Link to this heading">#</a></h2>
 <p>application.scalars.phone</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.scalars.phone.parse_phone">
+<span class="sig-prename descclassname"><span class="pre">application.scalars.phone.</span></span><span class="sig-name descname"><span class="pre">parse_phone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.scalars.phone.parse_phone" title="Link to this definition">#</a></dt>
+<dd><p>Parses a phone number string by removing all non-numeric characters and
+ensuring it is exactly 10 digits long.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – The phone number string to be parsed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The cleaned phone number string containing only digits.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidPhone" title="application.exceptions.InvalidPhone"><strong>exceptions.InvalidPhone</strong></a> – If the cleaned phone number is not exactly 10 digits long.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-application.scalars.size">
 <span id="application-scalars-size-module"></span><h2>application.scalars.size module<a class="headerlink" href="#module-application.scalars.size" title="Link to this heading">#</a></h2>
 <p>application.scalars.size</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.scalars.size.parse_size">
+<span class="sig-prename descclassname"><span class="pre">application.scalars.size.</span></span><span class="sig-name descname"><span class="pre">parse_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.scalars.size.parse_size" title="Link to this definition">#</a></dt>
+<dd><p>Parses a size string and validates its format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – The size string to be parsed. It should be a numeric value followed by a unit
+(%, px, em, rem, or in).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validated size string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidSize" title="application.exceptions.InvalidSize"><strong>exceptions.InvalidSize</strong></a> – If the size string does not match the expected format.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-application.scalars">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.scalars" title="Link to this heading">#</a></h2>
@@ -377,11 +475,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="application.tags.html"
+       href="application.types.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">application.tags package</p>
+        <p class="prev-next-title">application.types package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -405,12 +503,27 @@
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.color">application.scalars.color module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.date">application.scalars.date module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.datetime">application.scalars.datetime module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.color">application.scalars.color module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.scalars.color.parse_color"><code class="docutils literal notranslate"><span class="pre">parse_color()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.date">application.scalars.date module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.scalars.date.parse_date_value"><code class="docutils literal notranslate"><span class="pre">parse_date_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.datetime">application.scalars.datetime module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.scalars.datetime.parse_datetime_value"><code class="docutils literal notranslate"><span class="pre">parse_datetime_value()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.long">application.scalars.long module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.phone">application.scalars.phone module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.size">application.scalars.size module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.phone">application.scalars.phone module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.scalars.phone.parse_phone"><code class="docutils literal notranslate"><span class="pre">parse_phone()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars.size">application.scalars.size module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.scalars.size.parse_size"><code class="docutils literal notranslate"><span class="pre">parse_size()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.scalars">Module contents</a></li>
 </ul>
   </nav></div>

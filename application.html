@@ -255,7 +255,6 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -453,7 +452,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.perms">application.db.perms module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.bad_perms"><code class="docutils literal notranslate"><span class="pre">bad_perms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.caller_info"><code class="docutils literal notranslate"><span class="pre">caller_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.caller_info_strict"><code class="docutils literal notranslate"><span class="pre">caller_info_strict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.module"><code class="docutils literal notranslate"><span class="pre">module()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.require"><code class="docutils literal notranslate"><span class="pre">require()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.require_all"><code class="docutils literal notranslate"><span class="pre">require_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.satisfies"><code class="docutils literal notranslate"><span class="pre">satisfies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.user_has_perms"><code class="docutils literal notranslate"><span class="pre">user_has_perms()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.sessions">application.db.sessions module</a><ul>
@@ -599,11 +605,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.google_books">application.integrations.google_books module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.google_books.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.google_books.query"><code class="docutils literal notranslate"><span class="pre">query()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.graphql">application.integrations.graphql module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.graphql.get_meta_types"><code class="docutils literal notranslate"><span class="pre">get_meta_types()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.graphql.get_type"><code class="docutils literal notranslate"><span class="pre">get_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.graphql.print_field"><code class="docutils literal notranslate"><span class="pre">print_field()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.graphql.print_type_fields"><code class="docutils literal notranslate"><span class="pre">print_type_fields()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.graphql.schema"><code class="docutils literal notranslate"><span class="pre">schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.graphql.trim_type"><code class="docutils literal notranslate"><span class="pre">trim_type()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.images">application.integrations.images module</a><ul>
@@ -732,83 +744,28 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.scalars.html">application.scalars package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.color">application.scalars.color module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.date">application.scalars.date module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.datetime">application.scalars.datetime module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.color">application.scalars.color module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.scalars.html#application.scalars.color.parse_color"><code class="docutils literal notranslate"><span class="pre">parse_color()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.date">application.scalars.date module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.scalars.html#application.scalars.date.parse_date_value"><code class="docutils literal notranslate"><span class="pre">parse_date_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.datetime">application.scalars.datetime module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.scalars.html#application.scalars.datetime.parse_datetime_value"><code class="docutils literal notranslate"><span class="pre">parse_datetime_value()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.long">application.scalars.long module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.phone">application.scalars.phone module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.size">application.scalars.size module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.phone">application.scalars.phone module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.scalars.html#application.scalars.phone.parse_phone"><code class="docutils literal notranslate"><span class="pre">parse_phone()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars.size">application.scalars.size module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.scalars.html#application.scalars.size.parse_size"><code class="docutils literal notranslate"><span class="pre">parse_size()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html#module-application.scalars">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="application.tags.html">application.tags package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags.exceptions">application.tags.exceptions module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.BadFuncParam"><code class="docutils literal notranslate"><span class="pre">BadFuncParam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.BadGlob"><code class="docutils literal notranslate"><span class="pre">BadGlob</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.BadRegex"><code class="docutils literal notranslate"><span class="pre">BadRegex</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.EmptyParens"><code class="docutils literal notranslate"><span class="pre">EmptyParens</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.InvalidSymbol"><code class="docutils literal notranslate"><span class="pre">InvalidSymbol</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingLeftParen"><code class="docutils literal notranslate"><span class="pre">MissingLeftParen</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingOperand"><code class="docutils literal notranslate"><span class="pre">MissingOperand</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingParam"><code class="docutils literal notranslate"><span class="pre">MissingParam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.MissingRightParen"><code class="docutils literal notranslate"><span class="pre">MissingRightParen</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.ParseError"><code class="docutils literal notranslate"><span class="pre">ParseError</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.SyntaxError"><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.exceptions.UnterminatedString"><code class="docutils literal notranslate"><span class="pre">UnterminatedString</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags.lexer">application.tags.lexer module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.lexer.parse"><code class="docutils literal notranslate"><span class="pre">parse()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags.tokens">application.tags.tokens module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Function"><code class="docutils literal notranslate"><span class="pre">Function</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Function.operate"><code class="docutils literal notranslate"><span class="pre">Function.operate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Function.output"><code class="docutils literal notranslate"><span class="pre">Function.output()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Glob"><code class="docutils literal notranslate"><span class="pre">Glob</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Glob.operate"><code class="docutils literal notranslate"><span class="pre">Glob.operate()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.LParen"><code class="docutils literal notranslate"><span class="pre">LParen</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.LParen.operate"><code class="docutils literal notranslate"><span class="pre">LParen.operate()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.NoneToken"><code class="docutils literal notranslate"><span class="pre">NoneToken</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.NoneToken.output"><code class="docutils literal notranslate"><span class="pre">NoneToken.output()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Operator"><code class="docutils literal notranslate"><span class="pre">Operator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Operator.operate"><code class="docutils literal notranslate"><span class="pre">Operator.operate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Operator.output"><code class="docutils literal notranslate"><span class="pre">Operator.output()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.RParen"><code class="docutils literal notranslate"><span class="pre">RParen</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Regex"><code class="docutils literal notranslate"><span class="pre">Regex</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Regex.output"><code class="docutils literal notranslate"><span class="pre">Regex.output()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.String"><code class="docutils literal notranslate"><span class="pre">String</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.String.operate"><code class="docutils literal notranslate"><span class="pre">String.operate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.String.output"><code class="docutils literal notranslate"><span class="pre">String.output()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.coalesce"><code class="docutils literal notranslate"><span class="pre">Token.coalesce()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.operate"><code class="docutils literal notranslate"><span class="pre">Token.operate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.output"><code class="docutils literal notranslate"><span class="pre">Token.output()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="application.tags.html#application.tags.tokens.Token.type"><code class="docutils literal notranslate"><span class="pre">Token.type()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.tokens.debug_print"><code class="docutils literal notranslate"><span class="pre">debug_print()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html#module-application.tags">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="application.tags.html#application.tags.compile_query"><code class="docutils literal notranslate"><span class="pre">compile_query()</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="application.types.html">application.types package</a><ul>

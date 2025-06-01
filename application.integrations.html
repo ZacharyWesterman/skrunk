@@ -255,7 +255,6 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -570,6 +569,32 @@ and a RepoFetchFailed exception is raised.</p>
 <span id="application-integrations-google-books-module"></span><h2>application.integrations.google_books module<a class="headerlink" href="#module-application.integrations.google_books" title="Link to this heading">#</a></h2>
 <p>application.integrations.google_books</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.google_books.get">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.google_books.</span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.google_books.get" title="Link to this definition">#</a></dt>
+<dd><p>Fetches book information from the Google Books API using the provided book ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – The unique identifier for the book.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A dictionary containing book information such as authors, title, subtitle,</dt><dd><p>description, industry identifiers, page count, categories, maturity rating,
+language, publisher, published date, and thumbnail URL.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#application.integrations.exceptions.ApiFailedError" title="application.integrations.exceptions.ApiFailedError"><strong>exceptions.ApiFailedError</strong></a> – If the Google Books API call fails with a status code
+    outside the range of 200-299.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.integrations.google_books.query">
 <span class="sig-prename descclassname"><span class="pre">application.integrations.google_books.</span></span><span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.google_books.query" title="Link to this definition">#</a></dt>
 <dd><p>Query the Google Books API for books matching the given title and/or author.</p>
@@ -614,6 +639,102 @@ and a RepoFetchFailed exception is raised.</p>
 <span id="application-integrations-graphql-module"></span><h2>application.integrations.graphql module<a class="headerlink" href="#module-application.integrations.graphql" title="Link to this heading">#</a></h2>
 <p>application.integrations.graphql</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.graphql.get_meta_types">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.graphql.</span></span><span class="sig-name descname"><span class="pre">get_meta_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.graphql.get_meta_types" title="Link to this definition">#</a></dt>
+<dd><p>Determines the metadata types of a given GraphQL data type.</p>
+<p>This function checks if the provided GraphQL data type is optional and/or an array.
+It traverses through the type to determine if it is wrapped in GraphQLNonNull or GraphQLList.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_type</strong> – The GraphQL data type to be checked.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The first boolean indicates if the type is optional (True if optional, False if not).</p></li>
+<li><p>The second boolean indicates if the type is an array (True if it is an array, False if not).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing two boolean values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.graphql.get_type">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.graphql.</span></span><span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.graphql.get_type" title="Link to this definition">#</a></dt>
+<dd><p>Extracts and returns type information from a GraphQL type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> – The GraphQL type to extract information from.
+This can be a GraphQLUnionType, GraphQLObjectType, or GraphQLArgument.</p></li>
+<li><p><strong>param_type</strong> – An optional parameter that specifies the type of the parameter.
+This can be used to further refine the type information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A dictionary containing the following keys:</dt><dd><ul class="simple">
+<li><p>’name’: The name of the type as a string.</p></li>
+<li><p>’type’: The refined type if param_type is provided, otherwise the original type.</p></li>
+<li><p>’union’: A boolean indicating whether the type is a GraphQLUnionType.</p></li>
+<li><p>’subtypes’: A list of subtypes or fields associated with the type.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.graphql.print_field">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.graphql.</span></span><span class="sig-name descname"><span class="pre">print_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.graphql.print_field" title="Link to this definition">#</a></dt>
+<dd><p>Generates a GraphQL query string for a given field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field_type</strong> (<em>str</em>) – The type of the field (e.g., query, mutation).</p></li>
+<li><p><strong>field_name</strong> (<em>str</em>) – The name of the field.</p></li>
+<li><p><strong>field</strong> (<em>GraphQLField</em>) – The GraphQL field object containing type and arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A formatted GraphQL query string for the specified field.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.graphql.print_type_fields">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.graphql.</span></span><span class="sig-name descname"><span class="pre">print_type_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.graphql.print_type_fields" title="Link to this definition">#</a></dt>
+<dd><p>Recursively generates a string representation of GraphQL type fields with indentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fields</strong> (<em>dict</em>) – A dictionary of GraphQL fields where keys
+are field names and values are field definitions.</p></li>
+<li><p><strong>indent</strong> (<em>str</em>) – A string used for indentation to format the output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A formatted string representing the GraphQL type fields with proper indentation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.integrations.graphql.schema">
 <span class="sig-prename descclassname"><span class="pre">application.integrations.graphql.</span></span><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.graphql.schema" title="Link to this definition">#</a></dt>
 <dd><p>Generates a GraphQL schema and extracts queries, mutations, and types.</p>
@@ -634,6 +755,27 @@ the details of each query and mutation, including their parameters and return ty
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.graphql.trim_type">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.graphql.</span></span><span class="sig-name descname"><span class="pre">trim_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.graphql.trim_type" title="Link to this definition">#</a></dt>
+<dd><p>Recursively trims a GraphQL type to its core type by removing any
+GraphQLNonNull or GraphQLList wrappers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_type</strong> – The GraphQL type to be trimmed. It can be an instance of
+GraphQLNonNull, GraphQLList, GraphQLScalarType, or
+GraphQLObjectType.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphQLScalarType</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">GraphQLObjectType</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The core GraphQL type, which will be either a GraphQLScalarType or
+GraphQLObjectType.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -921,11 +1063,17 @@ If the application and blob storage are on the same disk, they are listed togeth
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.google_books">application.integrations.google_books module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.google_books.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.google_books.query"><code class="docutils literal notranslate"><span class="pre">query()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.graphql">application.integrations.graphql module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.graphql.get_meta_types"><code class="docutils literal notranslate"><span class="pre">get_meta_types()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.graphql.get_type"><code class="docutils literal notranslate"><span class="pre">get_type()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.graphql.print_field"><code class="docutils literal notranslate"><span class="pre">print_field()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.graphql.print_type_fields"><code class="docutils literal notranslate"><span class="pre">print_type_fields()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.graphql.schema"><code class="docutils literal notranslate"><span class="pre">schema()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.graphql.trim_type"><code class="docutils literal notranslate"><span class="pre">trim_type()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.images">application.integrations.images module</a><ul class="nav section-nav flex-column">

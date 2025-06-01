@@ -255,7 +255,6 @@
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="application.tags.html">application.tags package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
 </ul>
 </details></li>
@@ -2609,6 +2608,95 @@ server-wide, per group, or per user.</p>
 permissions on the calling user before executing the resolver function,
 and the <cite>module</cite> decorator to check if the user has access to specific modules.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.bad_perms">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">bad_perms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.bad_perms" title="Link to this definition">#</a></dt>
+<dd><p>Returns a dictionary representing an insufficient permissions error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A dictionary containing the error type and message indicating</dt><dd><p>that the user is not allowed to perform the requested action.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.caller_info">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">caller_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.caller_info" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves caller information based on the request token.</p>
+<p>The function attempts to decode the request token to extract the username.
+If decoding fails, it treats the token as an API key and retrieves the corresponding
+API key information from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>The user data associated with the username if available, otherwise the API key</dt><dd><p>information if the token is an API key. Returns None if neither is found or an
+error occurs during retrieval.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.caller_info_strict">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">caller_info_strict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.caller_info_strict" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves caller information based on the request token.</p>
+<p>The function attempts to decode the request token to extract the username.
+If decoding fails, it treats the token as an API key and retrieves the corresponding
+API key information from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>The user data associated with the username if available, otherwise the API key</dt><dd><p>information if the token is an API key.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.AuthenticationError" title="application.exceptions.AuthenticationError"><strong>exceptions.AuthenticationError</strong></a> – If the token is invalid or the user does not exist.</p></li>
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError" title="application.exceptions.UserDoesNotExistError"><strong>exceptions.UserDoesNotExistError</strong></a> – If the user does not exist in the database.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.module">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.module" title="Link to this definition">#</a></dt>
+<dd><p>Require the calling user to have all the specified modules enabled.</p>
+<p>This is a decorator for application resolvers,
+to avoid redundant module-checking logic all over the place.
+If the user does not have one or more of the specified modules enabled
+when the resolver is called, then the resolver will be overridden and
+will instead return a bad_perms() dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>modules</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The modules that must ALL be enabled for the user.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The resolver function, with decorator applied.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.perms.require">
 <span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">require</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">perms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perform_on_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.require" title="Link to this definition">#</a></dt>
 <dd><p>Require the calling user to have any of the specified permissions.</p>
@@ -2632,6 +2720,82 @@ parameters are checked.</p></li>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.require_all">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">require_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">perms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perform_on_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.require_all" title="Link to this definition">#</a></dt>
+<dd><p>Require the calling user to have all of the specified permissions.</p>
+<p>This is a decorator for application resolvers,
+to avoid redundant permission-checking logic all over the place.
+If the permissions are not satisfied when the resolver is called,
+then the resolver will be overridden and will instead return a bad_perms() dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*perms</strong> (<em>str</em>) – The permissions that must all be satisfied.</p></li>
+<li><p><strong>perform_on_self</strong> (<em>bool</em><em> | </em><em>tuple</em><em>[</em><em>bool</em><em>, </em><em>...</em><em>]</em>) – If True, permissions will be ignored
+when the user is editing their own data.</p></li>
+<li><p><strong>data_func</strong> (<em>Callable</em><em>|</em><em>None</em>) – If specified, this function will give
+the data to be checked for ownership. Otherwise, the main function’s
+parameters are checked.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The resolver function, with decorator applied.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.satisfies">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">satisfies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">perms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">perform_on_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.satisfies" title="Link to this definition">#</a></dt>
+<dd><p>Check if the calling user has any of the given permissions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>perms</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The permissions that must have at least 1 satisfied.</p></li>
+<li><p><strong>perform_on_self</strong> (<em>bool</em><em> | </em><em>tuple</em><em>[</em><em>bool</em><em>, </em><em>...</em><em>]</em>) – If True, permissions will be ignored when
+the user is editing their own data.</p></li>
+<li><p><strong>data_func</strong> (<em>Callable</em><em>|</em><em>None</em>) – If specified, this function will give the
+data to be checked for ownership. Otherwise, the main function’s parameters are checked.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>True if the user has all required permissions, or</dt><dd><p>if perform_on_self is True AND the data being operated on belongs to the user.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.user_has_perms">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">user_has_perms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perm_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.user_has_perms" title="Link to this definition">#</a></dt>
+<dd><p>Check if the user has any of the specified permissions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_data</strong> (<em>dict</em>) – A dictionary containing user information,
+including a ‘perms’ key with a list of permissions.</p></li>
+<li><p><strong>perm_list</strong> (<em>list</em>) – A list of permissions to check against the user’s permissions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the user has any of the specified permissions, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3927,7 +4091,14 @@ for blob storage if provided.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.perms">application.db.perms module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.bad_perms"><code class="docutils literal notranslate"><span class="pre">bad_perms()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.caller_info"><code class="docutils literal notranslate"><span class="pre">caller_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.caller_info_strict"><code class="docutils literal notranslate"><span class="pre">caller_info_strict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.module"><code class="docutils literal notranslate"><span class="pre">module()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.require"><code class="docutils literal notranslate"><span class="pre">require()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.require_all"><code class="docutils literal notranslate"><span class="pre">require_all()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.satisfies"><code class="docutils literal notranslate"><span class="pre">satisfies()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.user_has_perms"><code class="docutils literal notranslate"><span class="pre">user_has_perms()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.sessions">application.db.sessions module</a><ul class="nav section-nav flex-column">
