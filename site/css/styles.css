@@ -251,6 +251,11 @@ select.fit {
 	min-width: 190px;
 }
 
+select.big {
+	height: 3rem;
+	font-size: 120%;
+}
+
 iframe {
 	background-color: #EEEEEE;
 	width: 100%;
