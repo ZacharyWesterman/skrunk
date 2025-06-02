@@ -3,7 +3,7 @@
 import shutil
 import uuid
 from datetime import datetime
-from typing import Any
+from typing import TypeVar
 from zipfile import ZipFile
 
 import bcrypt
@@ -13,6 +13,8 @@ from pymongo.collection import Collection
 from pymongo.database import Database
 
 from ..types import BlobSearchFilter, InventorySearchFilter
+
+FILTER = TypeVar('FILTER', BlobSearchFilter, InventorySearchFilter)
 
 ## A pointer to the users collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -468,9 +470,9 @@ def authenticate(username: str, password: str) -> str:
 
 
 def group_filter(
-	filter: BlobSearchFilter | InventorySearchFilter,
+	filter: FILTER,
 	user_data: dict
-) -> Any:
+) -> FILTER:
 	"""
 	Applies group filtering to the specified filter based on the user's groups.
 
