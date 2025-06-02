@@ -28,7 +28,7 @@ def get_admins() -> list:
 	Returns:
 		list: A list of all admin users.
 	"""
-	return [i for i in db.find({'perms': 'admin'})]
+	return list(db.find({'perms': 'admin'}))
 
 
 def count_users() -> int:
@@ -112,13 +112,13 @@ def get_user_data(username: str) -> dict:
 	"""
 	userdata = db.find_one({'username': username})
 
-	if userdata:
-		userdata['disabled_modules'] = settings.calculate_disabled_modules(
-			userdata.get('disabled_modules', [])
-		)
-		return userdata
-	else:
+	if userdata is None:
 		raise exceptions.UserDoesNotExistError(username)
+
+	userdata['disabled_modules'] = settings.calculate_disabled_modules(
+		userdata.get('disabled_modules', [])
+	)
+	return userdata
 
 
 def update_user_theme(username: str, theme: dict) -> dict:
@@ -137,7 +137,7 @@ def update_user_theme(username: str, theme: dict) -> dict:
 	"""
 	userdata = db.find_one({'username': username})
 
-	if not userdata:
+	if userdata is None:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.update_one({'username': username}, {'$set': {'theme': theme}})
@@ -162,7 +162,7 @@ def update_user_perms(username: str, perms: list) -> dict:
 	"""
 	userdata = db.find_one({'username': username})
 
-	if not userdata:
+	if userdata is None:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.update_one({'username': username}, {'$set': {'perms': perms}})
