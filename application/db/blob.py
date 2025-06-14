@@ -19,7 +19,7 @@ from werkzeug.datastructures import FileStorage
 
 import application.tags as tag_parser
 from application import exceptions
-from application.integrations import images, models, videos
+from application.integrations import images, models, pdf, videos
 from application.types import BlobSearchFilter, Sorting, blob_storage
 from application.types.blob_storage import (BlobPreview, BlobStorage,
                                             BlobThumbnail)
@@ -131,6 +131,7 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 	- If the blob is an image, creates a preview (512px) and a thumbnail (128px).
 	- If the blob is a 3D model, generates a preview that can be viewed in browser.
 	- If the blob is a video, generates a preview image.
+	- If the blob is a PDF, creates a preview image of the first page.
 
 	Args:
 		uploaded_blobs (list[dict[str,str]]): A list of dictionaries containing blob IDs and extensions.
@@ -158,6 +159,16 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 		elif blob['ext'].lower() in videos.extensions():
 			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
 			create_preview_video(this_blob_path, blob['id'])
+
+		elif blob['ext'].lower() == '.pdf':
+			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
+			preview = BlobPreview(blob['id'], '.png')
+			if pdf.create_preview(this_blob_path, preview.path()):
+				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
+
+				thumbnail = BlobThumbnail(blob['id'], blob['ext'])
+				if images.downscale(preview.path(), 128, thumbnail.path()):
+					db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'thumbnail': thumbnail.basename()}})
 
 
 def save_blob_data(

@@ -46,7 +46,11 @@
 			{{? environment.mobile }}<a href="https://docs.google.com/viewerng/viewer?url={{= window.location.protocol + '//' + window.location.host + '/download/' + it.id + it.ext}}" target="_blank">{{?}}
 			<div style="text-align:center;" class="clickable" {{? !environment.mobile }}*click="view_pdf('download/{{=it.id}}{{=it.ext}}')" {{?}}>
 				<br>
-				<i class="fa-solid fa-file-pdf fa-3x"></i><br>
+				{{? it.preview }}
+					<img src="preview/{{=it.preview}}" alt="PDF preview" width="100%" height="auto" loading="lazy">
+				{{??}}
+					<i class="fa-solid fa-file-pdf fa-3x"></i><br>
+				{{?}}
 				<u>Click to view PDF</u>
 			</div>
 
