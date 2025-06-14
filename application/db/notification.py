@@ -17,14 +17,28 @@ from application.db.sessions import get_first_session_token
 VAPID_PRIVATE_KEY: str = ''
 VAPID_PUBLIC_KEY: str = ''
 
+## A pointer to the database object.
+db: Database = None  # type: ignore[assignment]
+
 
 def init() -> None:
 	"""
-	Initialize the notification module by loading VAPID keys from the data directory.
+	Initialize the notification module by loading VAPID keys from the database,
+	or generating them if they do not exist.
 	"""
 
 	global VAPID_PRIVATE_KEY, VAPID_PUBLIC_KEY
 
+	# Attempt to read the VAPID keys from the database.
+	vapid_keys = settings.db.find_one({'name': 'vapid_keys'})
+	if vapid_keys is not None:
+		VAPID_PRIVATE_KEY = vapid_keys.get('private_key', '')
+		VAPID_PUBLIC_KEY = vapid_keys.get('public_key', '')
+
+		if VAPID_PRIVATE_KEY and VAPID_PUBLIC_KEY:
+			return
+
+	# If the keys are not found in the database.
 	# Attempt to read the VAPID keys from the data directory.
 	try:
 		## The VAPID private key used for sending notifications.
@@ -36,10 +50,16 @@ def init() -> None:
 			VAPID_PUBLIC_KEY = fp.read().strip('\n')
 	except FileNotFoundError:
 		print('WARNING: No VAPID keys found!', ' ', '\n', None, True)
+		return
 
+	config = {
+		'type': 'secret',
+		'name': 'vapid_keys',
+		'private_key': VAPID_PRIVATE_KEY,
+		'public_key': VAPID_PUBLIC_KEY,
+	}
 
-## A pointer to the database object.
-db: Database = None  # type: ignore[assignment]
+	settings.db.insert_one(config)
 
 
 def get_user_from_notif(id: str) -> dict:
