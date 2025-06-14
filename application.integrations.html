@@ -862,6 +862,31 @@ False if the image width was already less than or equal to max_width.</p>
 </dd></dl>
 
 </section>
+<section id="module-application.integrations.pdf">
+<span id="application-integrations-pdf-module"></span><h2>application.integrations.pdf module<a class="headerlink" href="#module-application.integrations.pdf" title="Link to this heading">#</a></h2>
+<p>This module provides functionality for manipulating PDF documents.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.pdf.create_preview">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.pdf.</span></span><span class="sig-name descname"><span class="pre">create_preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preview_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.pdf.create_preview" title="Link to this definition">#</a></dt>
+<dd><p>Create a preview image from the first page of a PDF document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdf_path</strong> (<em>str</em>) – The path to the PDF file.</p></li>
+<li><p><strong>preview_path</strong> (<em>str</em>) – The path where the preview image will be saved.</p></li>
+<li><p><strong>page_number</strong> (<em>int</em>) – The page number to create a preview from (default is 0 for the first page).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the preview was created successfully, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-application.integrations.qrcode">
 <span id="application-integrations-qrcode-module"></span><h2>application.integrations.qrcode module<a class="headerlink" href="#module-application.integrations.qrcode" title="Link to this heading">#</a></h2>
 <p>application.integrations.qrcode</p>
@@ -1084,6 +1109,10 @@ If the application and blob storage are on the same disk, they are listed togeth
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.models">application.integrations.models module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.models.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.models.to_glb"><code class="docutils literal notranslate"><span class="pre">to_glb()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.pdf">application.integrations.pdf module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.pdf.create_preview"><code class="docutils literal notranslate"><span class="pre">create_preview()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.qrcode">application.integrations.qrcode module</a><ul class="nav section-nav flex-column">

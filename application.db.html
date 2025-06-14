@@ -544,7 +544,8 @@ and are created by any of the specified users.</p>
 <p>For each blob in the provided list:
 - If the blob is an image, creates a preview (512px) and a thumbnail (128px).
 - If the blob is a 3D model, generates a preview that can be viewed in browser.
-- If the blob is a video, generates a preview image.</p>
+- If the blob is a video, generates a preview image.
+- If the blob is a PDF, creates a preview image of the first page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>uploaded_blobs</strong> (<em>list</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>]</em>) – A list of dictionaries containing blob IDs and extensions.</p>

@@ -60,6 +60,14 @@ application.integrations.models module
    :show-inheritance:
    :undoc-members:
 
+application.integrations.pdf module
+-----------------------------------
+
+.. automodule:: application.integrations.pdf
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.integrations.qrcode module
 --------------------------------------
 
