@@ -122,9 +122,9 @@ class CurrentRepository(Repository):
 		repo_url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
 		info = repo_url.decode().strip().split(':')[1].split('/')
 
-		owner = info[0]
+		owner = info[-2]
 		if repo is None:
-			repo = info[1][:-4]
+			repo = info[-1][:-4]
 
 		super().__init__(owner, repo)
 
