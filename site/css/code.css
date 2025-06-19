@@ -43,7 +43,7 @@ div.code {
 }
 
 .code>.oper {
-	color: rgb(46, 58, 225);
+	color: #82B2ED;
 }
 
 .code>.func {
@@ -59,7 +59,7 @@ div.code {
 }
 
 .code.oper {
-	color: rgb(46, 58, 225);
+	color: #82B2ED;
 }
 
 .code.func {
