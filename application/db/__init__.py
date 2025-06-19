@@ -4,6 +4,7 @@ initializes various collections used by the application.
 """
 
 from pymongo import MongoClient
+
 from application.exceptions import BadUserNameError, UserExistsError
 from application.types import blob_storage
 
@@ -78,6 +79,15 @@ def setup_db() -> None:
 	except (BadUserNameError, UserExistsError):
 		pass
 
-	# Create all indexes that are needed for the db to function properly
+	create_indexes()
+
+
+def create_indexes() -> None:
+	"""
+	Create necessary indexes for the database collections to ensure efficient querying
+	and proper functioning of the application.
+	"""
+	users.db.create_index([('username', 1)], unique=True)
+	users.db.create_index([('groups', 1)])
 	sessions.db.create_index([('expires', 1)], expireAfterSeconds=1)
 	book.db.create_index([('title', 1)])

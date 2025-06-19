@@ -96,7 +96,7 @@ if [ ! -e data/public_key.txt ]; then
 fi
 
 #Make sure all dependencies are up to date
-poetry update --no-root --without dev
+poetry update --without dev
 
 #Start server
 poetry run python3 main.py "$@"
