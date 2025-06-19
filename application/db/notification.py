@@ -38,6 +38,10 @@ def init() -> None:
 		if VAPID_PRIVATE_KEY and VAPID_PUBLIC_KEY:
 			return
 
+		# If the keys are incomplete or missing, delete the entry.
+		print('WARNING: VAPID keys are incomplete or missing!', flush=True)
+		settings.db.delete_one({'name': 'vapid_keys'})
+
 	# If the keys are not found in the database.
 	# Attempt to read the VAPID keys from the data directory.
 	try:
