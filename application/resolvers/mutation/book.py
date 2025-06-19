@@ -5,8 +5,9 @@ from graphql.type import GraphQLResolveInfo
 from application.db import notification, perms
 from application.db.book import (append_ebook, borrow_book, create_book,
                                  edit_book, get_book, get_book_tag,
-                                 link_book_tag, remove_ebook, return_book,
-                                 set_book_owner, share_book_with_non_user,
+                                 link_book_tag, relink_book_tag, remove_ebook,
+                                 return_book, set_book_owner,
+                                 share_book_with_non_user,
                                  share_book_with_user, unlink_book_tag)
 from application.db.users import get_user_by_id
 from application.integrations.exceptions import ApiFailedError
@@ -132,3 +133,21 @@ def resolve_append_ebook(_, _info: GraphQLResolveInfo, id: str, url: str) -> dic
 @handle_client_exceptions
 def resolve_remove_ebook(_, _info: GraphQLResolveInfo, id: str, index: int) -> dict:
 	return {'__typename': 'Book', **remove_ebook(id, index)}
+
+
+@mutation.field('relinkBookTag')
+@perms.module('books')
+@perms.require('admin', perform_on_self=True, data_func=get_book)
+@handle_client_exceptions
+def resolve_relink_book_tag(_, _info: GraphQLResolveInfo, id: str, rfid: str) -> dict:
+	"""
+	Change the RFID of a book tag to a new one.
+
+	Args:
+		id (str): The ID of the book.
+		rfid (str): The new RFID for the book tag.
+
+	Returns:
+		dict: The updated book information.
+	"""
+	return {'__typename': 'Book', **relink_book_tag(id, rfid)}

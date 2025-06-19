@@ -161,4 +161,19 @@ export default {
 			index: index,
 		})
 	},
+
+	relink_tag: async (id, rfid) => {
+		return await api(`mutation ($id: String!, $rfid: String!) {
+			relinkBookTag(id: $id, rfid: $rfid) {
+				__typename
+				...on BookTagDoesNotExistError { message }
+				...on UserDoesNotExistError { message }
+				...on BookTagExistsError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			id: id,
+			rfid: rfid,
+		})
+	},
 }

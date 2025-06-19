@@ -425,6 +425,35 @@ def unlink_book_tag(rfid: str) -> dict:
 	return book_data
 
 
+def relink_book_tag(id: str, rfid: str) -> dict:
+	"""
+	Change the RFID of a book tag to a new one.
+
+	Args:
+		id (str): The ID of the book.
+		rfid (str): The new RFID for the book tag.
+
+	Returns:
+		dict: The updated book tag information.
+
+	Raises:
+		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
+		exceptions.BookTagExistsError: If the new RFID already exists in the database.
+	"""
+
+	book_data = db.find_one({'_id': ObjectId(id)})
+	if not book_data:
+		raise exceptions.BookTagDoesNotExistError(id)
+
+	if db.find_one({'rfid': rfid}):
+		raise exceptions.BookTagExistsError(rfid)
+
+	db.update_one({'_id': ObjectId(id)}, {'$set': {'rfid': rfid}})
+	book_data['rfid'] = rfid
+
+	return book_data
+
+
 def norm_query(query: dict, ownerq: dict | None) -> dict:
 	"""
 	Normalize a query by combining it with an owner query if provided.

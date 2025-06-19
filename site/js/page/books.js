@@ -236,6 +236,13 @@ export async function edit_book(rfid) {
 		$('ebook').onclick = () => {
 			_.modal.return('ebook')
 		}
+
+		$('book-button-qr').onclick = () => {
+			_.modal.cancel()
+			setTimeout(() => {
+				update_qr_code(rfid, book_data.id)
+			}, 300)
+		}
 	}, async choice => {
 		//validate input
 		if (choice !== 'update') return true
@@ -668,4 +675,46 @@ export async function prompt_ebooks(book_rfid) {
 	link.href = btn_map[res]
 	link.target = '_blank'
 	link.click()
+}
+
+export async function update_qr_code(rfid, id) {
+	const code = await _.modal.scanner()
+
+	if (code === null) {
+		edit_book(rfid)
+		return
+	}
+
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Update RFID/QR Code?',
+		text: `Are you sure you want to update the tag number for this book?
+		<table>
+			<tr><td><b>Current Value:</b></td><td>${rfid}</td></tr>
+			<tr><td><b>New Value:</b></td><td>${code}</td></tr>
+		</table>`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') {
+		edit_book(rfid)
+		return
+	}
+
+	const res = await mutate.books.relink_tag(id, code)
+	if (res.__typename !== 'Book') {
+		_.modal({
+			type: 'error',
+			title: 'Error',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => { })
+		return
+	}
+
+	_.modal.checkmark()
+	search_books()
+	setTimeout(() => {
+		edit_book(code)
+	}, 500)
 }

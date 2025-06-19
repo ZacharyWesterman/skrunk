@@ -199,6 +199,7 @@ union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientP
 union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerms
 union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError | InsufficientPerms
 union BookEditResponse = Book | BookTagDoesNotExistError | UserDoesNotExistError | InsufficientPerms
+union BookTagRelinkResponse = Book | BookTagDoesNotExistError | BookTagExistsError | UserDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:
 
@@ -214,6 +215,8 @@ extend type Query {
 extend type Mutation {
 	linkBookTag(owner: String!, rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
+	relinkBookTag(id: String!, rfid: String!): BookTagRelinkResponse!
+
 	borrowBook(id: String!): BookTagShareResponse!
 	requestToBorrowBook(id: String!): NotificationResponse!
 	shareBook(id: String!, username: String!): BookTagShareResponse!

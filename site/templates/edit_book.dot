@@ -21,4 +21,8 @@
 		<td><input id="book-author" placeholder="<No Authors>" value="{{= it.authors.join(', ') }}" *bind="$.show('button-author')"/></td>
 		<td><button id="button-author" class="reset clickable hidden" onclick="$.wipe('book-author', '{{= safe_html(it.authors.join(', ')) }}'); $.hide(this,true,false)"><i class="fa-solid fa-rotate-left fa-xl"></i></button></td>
 	</tr>
+	<tr>
+		<td>Change RFID/QR</td>
+		<td><button id="book-button-qr" class="clickable"><i class="fa-solid fa-qrcode fa-xl"></i></button></td>
+	</tr>
 </table>
