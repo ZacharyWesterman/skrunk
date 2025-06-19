@@ -67,6 +67,8 @@ type SchemaType {
 	type: String!
 	"""Whether the type is a union type."""
 	union: Boolean!
+	"""Whether the type is an input type."""
+	input: Boolean!
 	"""If the type is a union, the subtypes it can be."""
 	subtypes: [String!]!
 	"""If the type is non-scalar, the list of child parameters."""

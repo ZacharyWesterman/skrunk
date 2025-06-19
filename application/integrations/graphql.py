@@ -145,6 +145,7 @@ def get_type(type, param_type=None) -> dict:
 			- 'name': The name of the type as a string.
 			- 'type': The refined type if param_type is provided, otherwise the original type.
 			- 'union': A boolean indicating whether the type is a GraphQLUnionType.
+			- 'input': A boolean indicating whether the type is an input type.
 			- 'subtypes': A list of subtypes or fields associated with the type.
 	"""
 	_tp = trim_type(type)
@@ -175,6 +176,7 @@ def get_type(type, param_type=None) -> dict:
 		'name': str(_tp),
 		'type': trim_type(param_type) if param_type else str(_tp),
 		'union': isinstance(_tp, GraphQLUnionType),
+		'input': isinstance(_tp, GraphQLInputObjectType),
 		'subtypes': fields,
 		'params': params,
 	}
@@ -248,6 +250,7 @@ def schema():
 				'name': name,
 				'type': name,
 				'union': False,
+				'input': isinstance(obj, GraphQLInputObjectType),
 				'subtypes': [],
 				'params': [],
 				'doc': obj.description or '',

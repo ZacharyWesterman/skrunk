@@ -13,6 +13,8 @@ class SchemaType(TypedDict):
 	type: str
 	## Whether the type is a union type.
 	union: bool
+	## Whether the type is an input type.
+	input: bool
 	## If the type is a union, the subtypes it can be.
 	subtypes: list[str]
 	## If the type is non-scalar, the list of child parameters.

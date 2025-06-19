@@ -15,7 +15,7 @@
 					{{? item.union }}
 					<span class="oper">union</span> <span class="str">{{= item.type }}</span> = <span class="str">{{= item.subtypes.join('</span> | <span class="str">') }}</span>
 					{{??}}
-					<span class="oper">type</span> <span class="str">{{= item.type }}</span> {
+					<span class="oper">{{? item.input }}input{{??}}type{{?}}</span> <span class="str">{{= item.type }}</span> {
 						{{~ item.params : param }}
 							<br>&nbsp;&nbsp;{{= param.name }}: <span class="str">{{= param.type }}</span>
 						{{~}}
