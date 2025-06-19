@@ -1428,6 +1428,32 @@ in the database, it raises a BookTagDoesNotExistError.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.book.relink_book_tag">
+<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">relink_book_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rfid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.relink_book_tag" title="Link to this definition">#</a></dt>
+<dd><p>Change the RFID of a book tag to a new one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – The ID of the book.</p></li>
+<li><p><strong>rfid</strong> (<em>str</em>) – The new RFID for the book tag.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated book tag information.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagDoesNotExistError" title="application.exceptions.BookTagDoesNotExistError"><strong>exceptions.BookTagDoesNotExistError</strong></a> – If the book with the given ID does not exist.</p></li>
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagExistsError" title="application.exceptions.BookTagExistsError"><strong>exceptions.BookTagExistsError</strong></a> – If the new RFID already exists in the database.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.book.remove_ebook">
 <span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">remove_ebook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.remove_ebook" title="Link to this definition">#</a></dt>
 <dd><p>Remove an ebook from the book’s ebook list and update the database.</p>
@@ -4038,6 +4064,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.process_book_tag"><code class="docutils literal notranslate"><span class="pre">process_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.process_share_hist"><code class="docutils literal notranslate"><span class="pre">process_share_hist()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.refresh_book_data"><code class="docutils literal notranslate"><span class="pre">refresh_book_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.relink_book_tag"><code class="docutils literal notranslate"><span class="pre">relink_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.remove_ebook"><code class="docutils literal notranslate"><span class="pre">remove_ebook()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.return_book"><code class="docutils literal notranslate"><span class="pre">return_book()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.set_book_owner"><code class="docutils literal notranslate"><span class="pre">set_book_owner()</span></code></a></li>
