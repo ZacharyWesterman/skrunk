@@ -48,9 +48,26 @@ self.addEventListener('push', event => {
 	event.waitUntil(promise)
 })
 
+let mark_as_read = true
+
+// When the user clicks on the notification, open the notifications in a new tab
+self.addEventListener('notificationclick', event => {
+	mark_as_read = false
+
+	event.waitUntil(
+		clients.openWindow(`/?page=notifications`)
+	)
+})
+
+// When the user manually swipes away the notification, mark it as read
 self.addEventListener('notificationclose', event => {
+	// Don't mark as read if the user clicked on the notification
+	if (!mark_as_read) {
+		mark_as_read = true
+		return
+	}
+
 	const notif = event.notification
-	notif.close()
 
 	const promise_chain = api(notif.data, //login token
 		`mutation ($id: String!) {
