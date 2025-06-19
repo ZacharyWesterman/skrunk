@@ -3882,6 +3882,18 @@ and ‘value’ for the minimum temperature settings.
 <p>This module provides direct access to the database and
 initializes various collections used by the application.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.create_indexes">
+<span class="sig-prename descclassname"><span class="pre">application.db.</span></span><span class="sig-name descname"><span class="pre">create_indexes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.create_indexes" title="Link to this definition">#</a></dt>
+<dd><p>Create necessary indexes for the database collections to ensure efficient querying
+and proper functioning of the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.init_db">
 <span class="sig-prename descclassname"><span class="pre">application.db.</span></span><span class="sig-name descname"><span class="pre">init_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_db_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.init_db" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the database connections and set up the necessary collections.</p>
@@ -4168,6 +4180,7 @@ for blob storage if provided.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.create_indexes"><code class="docutils literal notranslate"><span class="pre">create_indexes()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.init_db"><code class="docutils literal notranslate"><span class="pre">init_db()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.setup_db"><code class="docutils literal notranslate"><span class="pre">setup_db()</span></code></a></li>
 </ul>
