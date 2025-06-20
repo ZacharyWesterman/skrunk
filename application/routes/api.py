@@ -11,6 +11,13 @@ application: Any = None
 
 
 def graphql() -> Response:
+	"""
+	Handle API requests for GraphQL queries.
+
+	Returns:
+		Response: A Flask Response object containing the result of the GraphQL query.
+	"""
+
 	if not auth.authorized():
 		return Response('Access denied.', 403)
 

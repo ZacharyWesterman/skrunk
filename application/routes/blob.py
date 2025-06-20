@@ -75,6 +75,16 @@ def file_stream(full_path: str, range_header: str | None) -> Generator[bytes, No
 
 
 def stream(path: str) -> Response:
+	"""
+	Stream a file from blob storage.
+
+	Args:
+		path (str): The path to the file in blob storage.
+
+	Returns:
+		Response: A Flask Response object containing the file data or an error message.
+	"""
+
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
@@ -107,6 +117,16 @@ def stream(path: str) -> Response:
 
 
 def download(path: str) -> Response:
+	"""
+	Download a file from blob storage.
+
+	Args:
+		path (str): The path to the file in blob storage.
+
+	Returns:
+		Response: A Flask Response object containing the file data or an error message.
+	"""
+
 	if not auth.authorized():
 		return Response('Access denied.', 403)
 
@@ -114,6 +134,16 @@ def download(path: str) -> Response:
 
 
 def preview(path: str) -> Response:
+	"""
+	Fetch a preview of a file from blob storage.
+
+	Args:
+		path (str): The path to the file in blob storage.
+
+	Returns:
+		Response: A Flask Response object containing the preview data or an error message.
+	"""
+
 	if not auth.authorized():
 		return Response('Access denied.', 403)
 
@@ -125,6 +155,14 @@ def preview(path: str) -> Response:
 
 
 def upload() -> Response:
+	"""
+	Upload a file to blob storage.
+
+	Returns:
+		Response: A Flask Response object containing the result
+			of the upload operation or an error message.
+	"""
+
 	if not auth.authorized():
 		return Response('Access denied.', 403)
 

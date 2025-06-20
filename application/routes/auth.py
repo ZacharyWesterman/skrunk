@@ -11,6 +11,13 @@ application: Any = None
 
 
 def authorized() -> bool:
+	"""
+	Check if the user is authorized to access the application.
+
+	Returns:
+		bool: True if the user is authorized, False otherwise.
+	"""
+
 	if not application.is_initialized:
 		print('INIT: No users exist, giving access for database setup!', flush=True)
 		return True
@@ -27,6 +34,13 @@ def authorized() -> bool:
 
 
 def auth_user() -> Response:
+	"""
+	Authenticate a user and return a login token.
+
+	Returns:
+		Response: A Flask Response object containing the login token or an error message.
+	"""
+
 	if not application.is_initialized:
 		return jsonify({'token': tokens.create_user_token('admin')})
 
@@ -60,6 +74,13 @@ def auth_user() -> Response:
 
 
 def verify_token() -> Response:
+	"""
+	Verify the validity of a user token.
+
+	Returns:
+		Response: A Flask Response object indicating whether the token is valid or not.
+	"""
+
 	if not application.is_initialized:
 		return jsonify({'valid': True})
 

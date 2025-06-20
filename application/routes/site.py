@@ -19,10 +19,27 @@ except FileNotFoundError:
 
 
 def main_page() -> Response:
+	"""
+	Return the main page of the application.
+
+	Returns:
+		Response: A Flask Response object containing the main page HTML.
+	"""
+
 	return files.read_file_data('site/html/index.html')
 
 
 def get(path: str) -> Response:
+	"""
+	Get a file from the site directory.
+
+	Args:
+		path (str): The path to the file to retrieve.
+
+	Returns:
+		Response: A Flask Response object containing the file data or an error message.
+	"""
+
 	path = files.sanitize_path(path)
 
 	jsfields = re.match(r'js/fields/[\w-]+\.js', path)
@@ -57,10 +74,28 @@ def get(path: str) -> Response:
 
 
 def get_icon(path: str) -> Response:
+	"""
+	Get an icon file from the site directory.
+
+	Args:
+		path (str): The path to the icon file to retrieve.
+
+	Returns:
+		Response: A Flask Response object containing the icon file data or an error message.
+	"""
 	path = files.sanitize_path(path)
 	return files.read_file_data(f'data/{path}.png')
 
 
 def get_svg(path: str) -> Response:
+	"""
+	Get an SVG file from the site directory.
+
+	Args:
+		path (str): The path to the SVG file to retrieve.
+
+	Returns:
+		Response: A Flask Response object containing the SVG file data or an error message.
+	"""
 	path = files.sanitize_path(path)
 	return files.read_file_data(f'data/{path}.svg')
