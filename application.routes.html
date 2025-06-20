@@ -332,9 +332,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.api.graphql">
 <span class="sig-prename descclassname"><span class="pre">application.routes.api.</span></span><span class="sig-name descname"><span class="pre">graphql</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.api.graphql" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd><p>Handle API requests for GraphQL queries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object containing the result of the GraphQL query.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -346,9 +350,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.auth.auth_user">
 <span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">auth_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.auth_user" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd><p>Authenticate a user and return a login token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object containing the login token or an error message.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -356,9 +364,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.auth.authorized">
 <span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">authorized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.authorized" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+<dd><p>Check if the user is authorized to access the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the user is authorized, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -366,9 +378,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.auth.verify_token">
 <span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">verify_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.verify_token" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd><p>Verify the validity of a user token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object indicating whether the token is valid or not.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -380,9 +396,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.blob.download">
 <span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.download" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Download a file from blob storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the file in blob storage.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the file data or an error message.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -407,9 +430,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.blob.preview">
 <span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">preview</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.preview" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Fetch a preview of a file from blob storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the file in blob storage.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the preview data or an error message.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -417,9 +447,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.blob.stream">
 <span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.stream" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Stream a file from blob storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the file in blob storage.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the file data or an error message.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -427,9 +464,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.blob.upload">
 <span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">upload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.upload" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd><p>Upload a file to blob storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A Flask Response object containing the result</dt><dd><p>of the upload operation or an error message.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -441,9 +486,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.files.read_file_data">
 <span class="sig-prename descclassname"><span class="pre">application.routes.files.</span></span><span class="sig-name descname"><span class="pre">read_file_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.files.read_file_data" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Read the contents of a file and return it as a Flask Response object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the file to read.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the file data, or an error message if the file is not found.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -451,9 +503,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.files.sanitize_path">
 <span class="sig-prename descclassname"><span class="pre">application.routes.files.</span></span><span class="sig-name descname"><span class="pre">sanitize_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.files.sanitize_path" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Sanitize the given path to prevent directory traversal attacks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to sanitize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The sanitized path, relative to the root directory.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -465,9 +524,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.misc.random_xkcd">
 <span class="sig-prename descclassname"><span class="pre">application.routes.misc.</span></span><span class="sig-name descname"><span class="pre">random_xkcd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.misc.random_xkcd" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd><p>Fetch a random XKCD comic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object containing the JSON data of a random XKCD comic.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -479,9 +542,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.site.get">
 <span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Get a file from the site directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the file to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the file data or an error message.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -489,9 +559,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.site.get_icon">
 <span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get_icon" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Get an icon file from the site directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the icon file to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the icon file data or an error message.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -499,9 +576,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.site.get_svg">
 <span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get_svg" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Get an SVG file from the site directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the SVG file to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the SVG file data or an error message.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -509,9 +593,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.site.main_page">
 <span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">main_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.main_page" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+<dd><p>Return the main page of the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object containing the main page HTML.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -523,9 +611,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.routes.init">
 <span class="sig-prename descclassname"><span class="pre">application.routes.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.init" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd><p>Initialize the application routes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>application</strong> – The Flask application instance to which the routes will be added.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
