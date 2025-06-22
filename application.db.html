@@ -2347,6 +2347,32 @@ saved back to the database.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.inventory.relink_inventory_item">
+<span class="sig-prename descclassname"><span class="pre">application.db.inventory.</span></span><span class="sig-name descname"><span class="pre">relink_inventory_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rfid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.inventory.relink_inventory_item" title="Link to this definition">#</a></dt>
+<dd><p>Change the RFID of an inventory item to a new one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – The ID of the inventory item.</p></li>
+<li><p><strong>rfid</strong> (<em>str</em><em> | </em><em>None</em>) – The new RFID for the inventory item, or None to unlink</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated inventory item.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemDoesNotExistError" title="application.exceptions.ItemDoesNotExistError"><strong>exceptions.ItemDoesNotExistError</strong></a> – If no item with the given ID is found.</p></li>
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemExistsError" title="application.exceptions.ItemExistsError"><strong>exceptions.ItemExistsError</strong></a> – If an item with the new RFID already exists.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-application.db.notification">
 <span id="application-db-notification-module"></span><h2>application.db.notification module<a class="headerlink" href="#module-application.db.notification" title="Link to this heading">#</a></h2>
@@ -4115,6 +4141,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.inventory.get_item_categories"><code class="docutils literal notranslate"><span class="pre">get_item_categories()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.inventory.get_item_locations"><code class="docutils literal notranslate"><span class="pre">get_item_locations()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.inventory.get_item_types"><code class="docutils literal notranslate"><span class="pre">get_item_types()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.inventory.relink_inventory_item"><code class="docutils literal notranslate"><span class="pre">relink_inventory_item()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.notification">application.db.notification module</a><ul class="nav section-nav flex-column">
