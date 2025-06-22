@@ -263,3 +263,35 @@ def count_inventory(filter: InventorySearchFilter) -> int:
 		return 0
 
 	return db.items.count_documents(query)
+
+
+def relink_inventory_item(id: str, rfid: str | None) -> dict:
+	"""
+	Change the RFID of an inventory item to a new one.
+
+	Args:
+		id (str): The ID of the inventory item.
+		rfid (str | None): The new RFID for the inventory item, or None to unlink
+
+	Returns:
+		dict: The updated inventory item.
+
+	Raises:
+		exceptions.ItemDoesNotExistError: If no item with the given ID is found.
+		exceptions.ItemExistsError: If an item with the new RFID already exists.
+	"""
+
+	item = db.items.find_one({'_id': ObjectId(id)})
+	if item is None:
+		raise exceptions.ItemDoesNotExistError(id)
+
+	if db.items.find_one({'rfid': rfid}):
+		raise exceptions.ItemExistsError(rfid)
+
+	new_rfid = [] if rfid is None else [rfid]
+	db.items.update_one(
+		{'_id': ObjectId(id)},
+		{'$set': {'rfid': new_rfid}},
+	)
+	item['rfid'] = new_rfid
+	return item

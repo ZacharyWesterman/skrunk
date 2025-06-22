@@ -373,8 +373,6 @@ window.qr = {
 
 			ctx.drawImage(image, 0, 0, image.width, image.height)
 
-			console.log(image.width, image.height, canvas.width, canvas.height)
-
 			if (startX !== undefined && startY !== undefined && endX !== undefined && endY !== undefined) {
 				if (startX > endX) endX = [startX, startX = endX][0]
 				if (startY > endY) endY = [startY, startY = endY][0]
@@ -602,7 +600,6 @@ window.qr = {
 						const bottom = (reticle.bottom) / container.height * canvas.height
 
 						qr.crop_image(canvas, file, left, top, right, bottom).then(result_file => {
-							console.log("Captured image:", result_file)
 							resolve(result_file)
 						})
 					})

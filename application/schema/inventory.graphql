@@ -62,6 +62,7 @@ input InventorySearchFilter {
 
 union ItemCreateResponse = Item | InsufficientPerms | InvalidFields | ItemExistsError | UserDoesNotExistError
 union ItemDeleteResponse = Item | InsufficientPerms | ItemDoesNotExistError
+union ItemRelinkResponse = Item | InsufficientPerms | ItemDoesNotExistError | ItemExistsError
 
 #Resolvers below this line:
 
@@ -77,4 +78,5 @@ extend type Query {
 extend type Mutation {
 	createInventoryItem(owner: String!, category: String!, type: String!, location: String!, blob_id: String!, description: String!, rfid: String) : ItemCreateResponse!
 	deleteInventoryItem(id: String!): ItemDeleteResponse!
+	relinkInventoryItem(id: String!, rfid: String): ItemRelinkResponse!
 }
