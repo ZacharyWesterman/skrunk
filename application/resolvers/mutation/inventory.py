@@ -27,6 +27,21 @@ def resolve_create_inventory_item(
     description: str,
     rfid: str | None
 ) -> dict:
+	"""
+	Create a new inventory item.
+
+	Args:
+		owner (str): The username of the owner of the inventory item.
+		category (str): The category of the inventory item.
+		type (str): The type of the inventory item.
+		location (str): The location of the inventory item.
+		blob_id (str): The ID of the blob associated with the inventory item.
+		description (str): A description of the inventory item.
+		rfid (str | None): An RFID or QR code attached to the inventory item, if any.
+
+	Returns:
+		dict: The created inventory item, or an error message if any fields are blank.
+	"""
 	if category.strip() == '' or type.strip() == '' or location.strip() == '' or blob_id.strip() == '':
 		fields = []
 		if category.strip() == '':
