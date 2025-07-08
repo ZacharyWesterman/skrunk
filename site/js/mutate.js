@@ -4,6 +4,7 @@ const Imports = {
 	blobs: import('/js/mutate/blobs.js'),
 	bugs: import('/js/mutate/bugs.js'),
 	books: import('/js/mutate/books.js'),
+	documents: import('/js/mutate/documents.js'),
 }
 
 let Mutate = {

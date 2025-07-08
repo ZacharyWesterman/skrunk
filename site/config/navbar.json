@@ -28,6 +28,13 @@
 			"module": "books"
 		},
 		{
+			"id": "wiki",
+			"text": "Wiki",
+			"icon": "file-word",
+			"action": "dashnav('wiki')",
+			"module": "documents"
+		},
+		{
 			"id": "inventory",
 			"text": "Inventory",
 			"icon": "dolly",

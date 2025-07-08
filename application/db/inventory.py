@@ -59,7 +59,7 @@ def create_inventory_item(
 		'location': location.strip(),
 		'blob': ObjectId(blob_id),
 		'description': description,
-		'description_html': markdown.markdown(description, output_format='html'),
+		'description_html': markdown.markdown(description),
 		'rfid': [] if rfid is None else [rfid],
 	}
 

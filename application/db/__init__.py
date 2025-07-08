@@ -66,6 +66,8 @@ def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> Non
 	weather.db = client.skrunk
 	datafeed.db = client.skrunk
 
+	documents.db = client.skrunk.wiki_documents
+
 
 def setup_db() -> None:
 	"""
