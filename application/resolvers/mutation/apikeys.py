@@ -1,14 +1,21 @@
 """application.resolvers.mutation.apikeys"""
 
-from ariadne.types import GraphQLResolveInfo
-from application.db.apikeys import new_api_key, delete_api_key
+from graphql.type import GraphQLResolveInfo
+
 from application.db import perms
+from application.db.apikeys import delete_api_key, new_api_key
+
 from . import mutation
 
 
 @mutation.field('createAPIKey')
 @perms.require('admin')
-def resolve_create_api_key(_, info: GraphQLResolveInfo, description: str, permissions: list[str]) -> str:
+def resolve_create_api_key(
+	_,
+    _info: GraphQLResolveInfo,
+    description: str,
+    permissions: list[str]
+) -> str:
 	"""
 	Resolver function to create a new API key.
 
@@ -26,7 +33,7 @@ def resolve_create_api_key(_, info: GraphQLResolveInfo, description: str, permis
 
 @mutation.field('deleteAPIKey')
 @perms.require('admin')
-def resolve_delete_api_key(_, info: GraphQLResolveInfo, key: str) -> bool:
+def resolve_delete_api_key(_, _info: GraphQLResolveInfo, key: str) -> bool:
 	"""
 	Resolver function to delete an API key.
 

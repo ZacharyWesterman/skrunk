@@ -1,7 +1,5 @@
 """application.types.blob_storage"""
 
-__all__ = ['BlobStorage', 'BlobPreview', 'BlobThumbnail', 'blob_path']
-
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -13,22 +11,8 @@ blob_path: str | None = None
 class BlobStorage:
 	"""
 	A class to represent and manage blob storage paths.
-
-	Attributes:
-		id (str): The unique identifier for the blob.
-		ext (str): The file extension for the blob.
-		exists (bool): True if the blob exists, False otherwise.
-
-	Methods:
-		__init__(id: str, ext: str):
-			Initializes a new instance of the class.
-
-		path(create: bool = False) -> str:
-			Returns the full path to the blob, optionally creating directories.
-
-		basename() -> str:
-			Returns the base name of the blob.
 	"""
+
 	## The unique identifier for the blob
 	id: str
 	## The file extension for the blob
@@ -91,14 +75,6 @@ class BlobPreview(BlobStorage):
 	"""
 	A subclass of BlobStorage that represents a preview version of a blob.
 	These previews are smaller and lower quality than the original.
-
-	Attributes:
-		id (str): The identifier for the blob.
-		ext (str): The file extension for the blob.
-		exists (bool): True if the preview exists, False otherwise.
-
-	Methods:
-		__init__(id: str, ext: str): Initializes a BlobPreview instance with a modified id if an extension is provided.
 	"""
 
 	def __init__(self, id: str, ext: str):
@@ -116,14 +92,6 @@ class BlobThumbnail(BlobStorage):
 	"""
 	A subclass of BlobStorage that represents a thumbnail version of a blob.
 	These thumbnails are even smaller and lower quality than previews, and thus much faster to load.
-
-	Attributes:
-		id (str): The identifier for the blob.
-		ext (str): The file extension for the blob.
-		exists (bool): True if the preview exists, False otherwise.
-
-	Methods:
-		__init__(id: str, ext: str): Initializes a BlobThumbnail instance with a modified id if an extension is provided.
 	"""
 
 	def __init__(self, id: str, ext: str):

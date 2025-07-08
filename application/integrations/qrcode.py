@@ -1,12 +1,14 @@
 """application.integrations.qrcode"""
 
-from pyzxing import BarCodeReader
-import qrcode
 import uuid
+from typing import Any
+
+import qrcode
 from PIL import Image
+from pyzxing import BarCodeReader
 
 
-def process(file_path: str) -> str:
+def process(file_path: str) -> dict:
 	"""
 	Processes a file to decode QR or barcodes.
 
@@ -21,16 +23,18 @@ def process(file_path: str) -> str:
 	reader = BarCodeReader()
 
 	for result in reader.decode(file_path):
-		if 'raw' in result:
+		if result and result.get('raw') is not None:
 			return {
 				'data': result['raw'].decode('utf-8'),
 				'error': None,
 			}
 		else:
-			return {
-				'data': None,
-				'error': 'No QR / barcode detected.',
-			}
+			break
+
+	return {
+		'data': None,
+		'error': 'No QR / barcode detected.',
+	}
 
 
 def generate(file_path: str, text: str | None, amount: int) -> None:
@@ -50,7 +54,7 @@ def generate(file_path: str, text: str | None, amount: int) -> None:
 	print(f'Generating {amount} QR codes...', flush=True)
 	for i in range(amount):
 		qr_text = str(uuid.uuid4()).replace('-', '') if text is None else text
-		image = qrcode.make(qr_text)
+		image: Any = qrcode.make(qr_text)
 
 		canvas.paste(image, ((i % 7) * 370, (i // 7) * 370))
 

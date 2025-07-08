@@ -10,12 +10,16 @@
 
 .code {
 	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-	background-color: #EEEEEE;
+	background-color: #ffffff40;
 	border-radius: var(--border-radius);
-	padding-left: 3px;
-	padding-right: 3px;
-	color: black;
-	display: inline-block;
+	color: var(--secondary-text);
+	padding-left: .5rem;
+	padding-right: .5rem;
+}
+
+div.code {
+	padding: .5rem;
+	margin: .5rem;
 }
 
 .oper {
@@ -36,6 +40,38 @@
 .wild {
 	color: #c800cc;
 	font-weight: bold;
+}
+
+.code>.oper {
+	color: #82B2ED;
+}
+
+.code>.func {
+	color: #f5a147;
+}
+
+.code>.str {
+	color: greenyellow;
+}
+
+.code>.wild {
+	color: #e861eb;
+}
+
+.code.oper {
+	color: #82B2ED;
+}
+
+.code.func {
+	color: #f5a147;
+}
+
+.code.str {
+	color: greenyellow
+}
+
+.code.wild {
+	color: #e861eb;
 }
 
 .regex-delim {

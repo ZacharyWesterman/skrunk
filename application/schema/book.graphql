@@ -1,109 +1,194 @@
+
+"""A type for information about a linked book."""
 type Book {
+	"""The unique identifier for the book."""
 	id: String!
+	"""The title of the book."""
 	title: String!
+	"""The subtitle of the book, if any."""
 	subtitle: String
+	"""The authors of the book."""
 	authors: [String!]!
+	"""The publisher of the book."""
 	publisher: String!
+	"""The date the book was published."""
 	publishedDate: Date!
+	"""Whether the book has a description. If true, the description can be fetched using the getBookDescription query, but by default it is not included in the book data, to save bandwidth."""
 	has_description: Boolean!
+	"""The description of the book, if available."""
+	description: String
+	"""A list of industry identifiers for the book, such as ISBN."""
 	industryIdentifiers: [BookIdent!]!
+	"""The page count of the book."""
 	pageCount: Int!
+	"""A list of categories the book belongs to, such as fiction, non-fiction, etc."""
 	categories: [String!]!
+	"""The maturity rating of the book, such as 'MATURE', 'NOT_MATURE', etc."""
 	maturityRating: String!
+	"""The language the book is written in, e.g., 'en' for English."""
 	language: String!
+	"""The URL to the book's cover image, if any."""
 	thumbnail: String
+	"""The URL to a smaller version of the book's cover image, if any."""
 	smallThumbnail: String
+	"""The ID of the user who created the book entry."""
 	creator: String!
+	"""Minimal user data for the owner of the book."""
 	owner: UserMinData!
+	"""Whether the book is shared with someone other than the owner."""
 	shared: Boolean!
+	"""The history of sharing the book with other users."""
 	shareHistory: [BookShare!]!
+	"""The RFID tag or QR code associated with the book."""
 	rfid: String!
+	"""The history of ownership changes for the book."""
 	ownerHistory: [BookOwnerHist!]!
+	"""A list of any eBooks associated with the book."""
 	ebooks: [EBook!]!
+	"""The ID of the audiobook associated with the book, if any."""
 	audiobook: String
 }
 
+"""A type for a tag associated with a book, typically an RFID tag or QR code."""
 type BookTag {
+	"""The RFID tag or QR code associated with the book."""
 	rfid: String!
+	"""The ID of the book this tag is linked to."""
 	bookId: String!
+	"""The ID of the user who created the tag."""
 	creator: String!
 }
 
+"""An industry identifier for a book, such as ISBN."""
 type BookIdent {
+	"""The type of identifier, e.g., ISBN_10, ISBN_13."""
 	type: String!
+	"""The identifier value."""
 	identifier: String!
 }
 
+"""A list of books."""
 type BookList {
+	"""The list of books."""
 	books: [Book!]!
 }
 
+"""Error thrown when a Google Books API request fails."""
 type ApiFailedError {
+	"""Error message from the API."""
 	message: String!
 }
 
+"""Error thrown when trying to tag a book that already exists."""
 type BookTagExistsError {
+	"""Message indicating that the book tag already exists."""
 	message: String!
 }
 
+"""Error thrown when a book does not exist."""
 type BookTagDoesNotExistError {
+	"""Message indicating that the book tag does not exist."""
 	message: String!
 }
 
+"""Error thrown when a book cannot be shared."""
 type BookCannotBeShared {
+	"""Message indicating that the book cannot be shared."""
 	message: String!
 }
 
+"""Sharing information for a book."""
 type BookShare {
+	"""The ID of the user the book is shared with, or null if shared with a non-user."""
 	user_id: String
+	"""The name of the person who the book is shared with."""
 	name: String!
+	"""The display name of the person who the book is shared with."""
 	display_name: String!
+	"""The start date and time of the sharing period."""
 	start: DateTime!
+	"""The end date and time of the sharing period, or null if the book isstill being shared."""
 	stop: DateTime
 }
 
+"""Owner history information for a book."""
 type BookOwnerHist {
+	"""The ID of the user who owned the book."""
 	user_id: String!
+	"""The name of the user who owned the book."""
 	name: String!
+	"""The display name of the user who owned the book."""
 	display_name: String!
+	"""The date and time when the book started being owned by this user."""
 	start: DateTime!
+	"""The date and time when the book stopped being owned by this user."""
 	stop: DateTime!
 }
 
+"""Book count information for a user."""
 type UserBookCount {
+	"""Minimal user data for the owner of the books."""
 	owner: UserMinData!
+	"""The total number of books owned by the user."""
 	count: Int!
 }
 
+"""eBook information for a book."""
 type EBook {
+	"""The URL to the eBook file."""
 	url: String!
+	"""The file type of the eBook, such as 'pdf', 'epub', etc."""
 	fileType: String!
 }
 
+"""
+A filter for searching books.
+All fields are optional, and if none are provided, all books will be returned.
+"""
 input BookSearchFilter {
+	"""The username of the book owner."""
 	owner: String
+	"""The title of the book."""
 	title: String
+	"""The author of the book."""
 	author: String
+	"""The genre/category of the book."""
 	genre: String
+	"""Whether the book is shared with someone other than the owner."""
 	shared: Boolean
 }
 
+"""Modified data for a book, used when editing a book entry."""
 input BookEditData {
+	"""The title of the book."""
 	title: String!
+	"""The subtitle of the book, if any."""
 	subtitle: String
+	"""The book authors."""
 	authors: [String!]!
 }
 
+"""Data for creating a new book entry."""
 input BookCreateData {
+	"""The title of the book."""
 	title: String!
+	"""The subtitle of the book, if any."""
 	subtitle: String
+	"""The book authors."""
 	authors: [String!]!
+	"""The description of the book."""
 	description: String
+	"""The page count of the book."""
 	pageCount: Int!
+	"""An industry identifier for the book, such as ISBN."""
 	isbn: String!
+	"""The publisher of the book."""
 	publisher: String!
+	"""The date the book was published."""
 	publishedDate: Date!
+	"""The RFID tag or QR code associated with the book."""
 	rfid: String!
+	"""The thumbnail image URL for the book cover, if any."""
 	thumbnail: String
 }
 
@@ -114,6 +199,7 @@ union BookTagDeleteResponse = BookTag | BookTagDoesNotExistError | InsufficientP
 union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerms
 union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError | InsufficientPerms
 union BookEditResponse = Book | BookTagDoesNotExistError | UserDoesNotExistError | InsufficientPerms
+union BookTagRelinkResponse = Book | BookTagDoesNotExistError | BookTagExistsError | UserDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:
 
@@ -129,6 +215,8 @@ extend type Query {
 extend type Mutation {
 	linkBookTag(owner: String!, rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
+	relinkBookTag(id: String!, rfid: String!): BookTagRelinkResponse!
+
 	borrowBook(id: String!): BookTagShareResponse!
 	requestToBorrowBook(id: String!): NotificationResponse!
 	shareBook(id: String!, username: String!): BookTagShareResponse!
@@ -139,4 +227,5 @@ extend type Mutation {
 	createBook(owner: String!, data: BookCreateData!): BookTagCreateResponse!
 
 	appendEBook(id: String!, url: String!): BookEditResponse!
+	removeEBook(id: String!, index: Int!): BookEditResponse!
 }

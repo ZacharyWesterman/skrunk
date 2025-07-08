@@ -1,52 +1,85 @@
+
+"""Information about a notification sent to a user."""
 type Notification {
+	"""The username of the notification recipient."""
 	recipient: String!
+	"""The date and time when the notification was created."""
 	created: DateTime!
+	"""The notification message."""
 	message: String!
+	"""The category of the notification, such as 'general', 'alert', etc."""
 	category: String!
+	"""The number of devices the notification was sent to."""
 	device_count: Int!
+	"""Whether the notification has been read by the user."""
 	read: Boolean!
+	"""The unique identifier for the notification."""
 	id: String!
 }
 
+"""An error indicating that a required config item is missing."""
 type MissingConfig {
+	"""The error message"""
 	message: String!
 }
 
+"""An error indicating that a user could not be notified because of a WebPush error."""
 type WebPushException {
+	"""The error message"""
 	message: String!
 }
 
+"""An error indicating that the user's WebPush subscription token is invalid."""
 type InvalidSubscriptionToken {
+	"""The error message"""
 	message: String!
 }
 
+"""An error indicating that a notification could not be sent due to invalid data."""
 type BadNotification {
+	"""The error message"""
 	message: String!
 }
 
+"""A WebPush subscription for a user."""
 type Subscription {
+	"""The URL endpoint for the subscription."""
 	endpoint: String!
-	expirationTime: String!
+	"""The expiration time of the token, or null if it doesn't expire."""
+	expirationTime: String
+	"""The keys used for the subscription."""
 	keys: SubscriptionKeys!
 }
 
+"""A pair of keys used for a WebPush subscription."""
 type SubscriptionKeys {
+	"""The public key used for encryption."""
 	p256dh: String!
+	"""The authentication secret used for the subscription."""
 	auth: String!
 }
 
+"""A list of WebPush subscriptions for a user."""
 type SubscriptionList {
+	"""The list of subscriptions."""
 	list: [Subscription!]!
 }
 
+"""A WebPush subscription token for a user."""
 input SubscriptionToken {
+	"""The URL endpoint for the subscription."""
 	endpoint: String!
+	"""The expiration time of the token, or null if it doesn't expire."""
 	expirationTime: String
+	"""The keys used for the subscription."""
 	keys: SubscriptionTokenKeys!
 }
 
+"""A pair of keys used for a WebPush subscription token."""
 input SubscriptionTokenKeys {
+	"""The public key used for encryption."""
 	p256dh: String!
+	"""The authentication secret used for the subscription."""
 	auth: String!
 }
 

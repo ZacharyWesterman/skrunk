@@ -1,13 +1,23 @@
 """application.routes.auth"""
 
-from flask import jsonify, request, Response
-from application import tokens, exceptions
+from typing import Any
+
+from flask import Response, jsonify, request
+
+from application import exceptions, tokens
 from application.db.users import authenticate
 
-application = None
+application: Any = None
 
 
 def authorized() -> bool:
+	"""
+	Check if the user is authorized to access the application.
+
+	Returns:
+		bool: True if the user is authorized, False otherwise.
+	"""
+
 	if not application.is_initialized:
 		print('INIT: No users exist, giving access for database setup!', flush=True)
 		return True
@@ -24,6 +34,13 @@ def authorized() -> bool:
 
 
 def auth_user() -> Response:
+	"""
+	Authenticate a user and return a login token.
+
+	Returns:
+		Response: A Flask Response object containing the login token or an error message.
+	"""
+
 	if not application.is_initialized:
 		return jsonify({'token': tokens.create_user_token('admin')})
 
@@ -38,7 +55,11 @@ def auth_user() -> Response:
 		if not tokens.token_is_valid(token[1]):
 			return Response('{"error":"Expired Token"}', 400)
 
-		username = data['username'] if 'username' in data else tokens.decode_user_token(token[1])['username']
+		username = (
+			data['username']
+			if 'username' in data
+			else tokens.decode_user_token(token[1])['username']
+		)
 		login_token = tokens.create_user_token(username)
 		return jsonify({'token': f'Bearer {login_token}'})
 
@@ -53,6 +74,13 @@ def auth_user() -> Response:
 
 
 def verify_token() -> Response:
+	"""
+	Verify the validity of a user token.
+
+	Returns:
+		Response: A Flask Response object indicating whether the token is valid or not.
+	"""
+
 	if not application.is_initialized:
 		return jsonify({'valid': True})
 

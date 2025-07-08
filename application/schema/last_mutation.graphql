@@ -1,0 +1,16 @@
+
+"""Information about the last mutation made by a user."""
+type LastMutation {
+	"""The username of the user who made the last mutation."""
+	username: String
+	"""The ID of the last mutation request."""
+	request: String!
+	"""The date and time when the last mutation was made."""
+	timestamp: DateTime!
+}
+
+#Resolvers below this line:
+
+extend type Query {
+	getLastMutation: LastMutation
+}

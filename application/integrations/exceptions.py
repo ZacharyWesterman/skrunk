@@ -13,7 +13,6 @@ class ApiFailedError(Exception):
 	Attributes:
 		message (str): Explanation of the error.
 	"""
-	pass
 
 
 class UnsupportedFileFormat(Exception):

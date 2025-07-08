@@ -3,9 +3,9 @@
  * Call the GraphQL API.
  * @param {string} query_string The appropriate query or mutation string.
  * @param {object} variables Any variables that need to be passed in for queries or mutations.
- * @returns {object} The API response per the schema.
+ * @returns {Promise<object>} The API response per the schema.
  */
-window.api = function (query_string, variables = null) {
+window.api = (query_string, variables = null) => {
 	const query_data = {
 		'query': query_string,
 		'variables': variables,
@@ -63,9 +63,9 @@ api.username = null
  * Login to the server, generating a session token on success.
  * @param {string} username The username.
  * @param {string} password The plaintext password (this gets hashed).
- * @returns {boolean} Whether the login was successful.
+ * @returns {Promise<boolean>} Whether the login was successful.
  */
-api.authenticate = async function (username, password) {
+api.authenticate = async (username, password) => {
 	const hashed_pass = await api.hash(password)
 	const auth_json = {
 		'username': username,
@@ -83,9 +83,9 @@ api.authenticate = async function (username, password) {
 /**
  * Refresh the session token, generating a new one.
  * @param {string} username The new username to use, if different from the old username.
- * @returns {boolean} Whether the token refreshed successfully.
+ * @returns {Promise<boolean>} Whether the token refreshed successfully.
  */
-api.refresh_token = async function (username) {
+api.refresh_token = async (username) => {
 	if (api.login_token === null) return false
 
 	const response = JSON.parse(await api.post_json('/auth', { token: api.login_token, username: username || api.username }))
@@ -109,7 +109,7 @@ api.__auto_refresh = false
  * Specify whether session token automatically refreshes while the page is open.
  * @param {boolean} enabled Whether to enable/disable auto-refresh.
  */
-api.auto_refresh_token = function (enabled) {
+api.auto_refresh_token = (enabled) => {
 	function do_auto_refresh() {
 		if (api.login_token === null) return
 		if (!api.__auto_refresh) return
@@ -132,9 +132,9 @@ api.auto_refresh_token = function (enabled) {
 
 /**
  * Check if the current session token is valid.
- * @returns {boolean} Whether the current session token is valid.
+ * @returns {Promise<boolean>} Whether the current session token is valid.
  */
-api.verify_token = async function () {
+api.verify_token = async () => {
 	if (api.login_token === null) return false
 	const response = JSON.parse(await api.post_json('/auth/verify', { token: api.login_token }))
 
@@ -145,9 +145,9 @@ api.verify_token = async function () {
  * Get data from the server.
  * @param {string} url The path to set GET request.
  * @param {boolean} use_cache Use cached static data if it exists.
- * @returns {Promise.<string>} The response text from the server.
+ * @returns {Promise<string>} The response text from the server.
  */
-api.get = async function (url, use_cache = true) {
+api.get = async (url, use_cache = true) => {
 	url = url.replace(/^\//, '')
 
 	//Don't re-fetch urls that are cached
@@ -192,9 +192,9 @@ api.get_json = async url => {
  * @param {string} contentType Values like "image/png,video/*" or "image/*", etc.
  * @param {boolean} multiple Allow selecting multiple files.
  * @param {string} capture If specified, can be values like "camera".
- * @returns {File} The uploaded file, if one was uploaded. An array of files if the multiple flag is true.
+ * @returns {Promise<File>} The uploaded file, if one was uploaded. An array of files if the multiple flag is true.
  */
-api.file_prompt = function (contentType = '*', multiple = false, capture = null) {
+api.file_prompt = (contentType = '*', multiple = false, capture = null) => {
 	return new Promise((resolve, reject) => {
 		let input = document.createElement('input')
 		input.type = 'file'
@@ -234,9 +234,9 @@ api.file_prompt = function (contentType = '*', multiple = false, capture = null)
  * @param {string[]} tag_list Tags to attach to the file on upload.
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
  * @param {int} max_retries If upload fails, retry the upload this many times before giving up.
- * @returns {any} The JSON response from the server.
+ * @returns {Promise<any>} The JSON response from the server.
  */
-api.upload = async function (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false, max_retries = 0) {
+api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false, max_retries = 0) => {
 	function upload_fn() {
 		return new Promise((resolve, reject) => {
 			let xhr = new XMLHttpRequest
@@ -315,9 +315,9 @@ api.upload.cancel = () => {
  *
  * @param {string} url The path to POST to.
  * @param {any} json_data Data to send.
- * @returns {string} The response text from the POST request.
+ * @returns {Promise<string>} The response text from the POST request.
  */
-api.post_json = async function (url, json_data) {
+api.post_json = async (url, json_data) => {
 	const res = await fetch(url, {
 		method: 'POST',
 		mode: 'cors',
@@ -341,7 +341,7 @@ api.post_json = async function (url, json_data) {
 /**
  * Write relevant application variables to site cookies.
  */
-api.write_cookies = function () {
+api.write_cookies = () => {
 	let cookie = {
 		'Authorization': api.login_token || null,
 		'Username': api.username,
@@ -367,7 +367,7 @@ api.write_cookies = function () {
 /**
  * Delete all cookies for this site.
  */
-api.wipe_cookies = function () {
+api.wipe_cookies = () => {
 	let cookie = {
 		'Authorization': null,
 		'Username': null,
@@ -381,7 +381,7 @@ api.wipe_cookies = function () {
 /**
  * Read site cookies and set related application variables.
  */
-api.read_cookies = function () {
+api.read_cookies = () => {
 	if (!document.cookie) return
 
 	document.cookie.split(';').forEach(cookie => {
@@ -407,9 +407,9 @@ api.read_cookies = function () {
 /**
  * Hash a password in-browser.
  * @param {string} password The plaintext password to hash.
- * @returns {string} A SHA-512 hash of the given text.
+ * @returns {Promise<string>} A SHA-512 hash of the given text.
  */
-api.hash = async function (password) {
+api.hash = async (password) => {
 	const data = new TextEncoder().encode(password)
 	const buffer = await crypto.subtle.digest('SHA-512', data)
 	const array = Array.from(new Uint8Array(buffer))
@@ -421,7 +421,7 @@ api.hash = async function (password) {
  * When a query fails, check why, and log the failure.
  * @param {object} res Result from api call.
  */
-api.handle_query_failure = async function (res) {
+api.handle_query_failure = async (res) => {
 	if (await api.verify_token()) {
 		res.errors = (await res.json()).errors
 		console.error('API ERROR:', res.errors)
@@ -436,7 +436,7 @@ api.handle_query_failure = async function (res) {
 /**
  * Log out of the application and go back to the login page.
  */
-api.logout = function () {
+api.logout = () => {
 	api.__auto_refresh = false
 	api.login_token = null
 	api.write_cookies()
@@ -447,7 +447,7 @@ api.logout = function () {
  * Helper function for easily fetching the text of an HTML snippet.
  * @param {string} name The base name of the snippet to fetch.
  * @param {boolean} url_only If true, just return the generated URL without fetching the file contents.
- * @returns {string} The text contents of the snippet.
+ * @returns {Promise<string>} The text contents of the snippet.
  */
 api.snippit = async (name, url_only = false) => {
 	if (url_only) return `/html/snippit/${name}.html`
@@ -455,7 +455,8 @@ api.snippit = async (name, url_only = false) => {
 }
 
 /**
- * Fetch all site data in the background.
+ * Asynchronously fetch all site data in the background.
+ * @returns {Promise<void>}
  */
 api.preload = async () => {
 	if (!cache.enabled) return
@@ -486,7 +487,7 @@ let cache = {
 	 * @param {string} name An ID identifying the cached data.
 	 * @param {string} data The data to cache.
 	 */
-	write: function (name, data) {
+	write: (name, data) => {
 		if (cache.enabled)
 			cache.__data[name] = data
 	},
@@ -496,7 +497,7 @@ let cache = {
 	 * @param {string} name An ID identifying the cached data.
 	 * @returns {(string|null)} The cached data for the given name, if it exists. Null otherwise.
 	 */
-	read: function (name) {
+	read: (name) => {
 		return cache.enabled ? (cache.__data[name] || null) : null
 	},
 
@@ -504,14 +505,14 @@ let cache = {
 	 * Remove data from the browser cache.
 	 * @param {string} name An ID identifying the cached data.
 	 */
-	remove: function (name) {
+	remove: (name) => {
 		delete cache.__data[name]
 	},
 
 	/**
 	 * Delete all cached data.
 	 */
-	clear: function () {
+	clear: () => {
 		cache.data = {}
 	},
 }

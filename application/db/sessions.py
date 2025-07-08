@@ -1,12 +1,18 @@
-"""application.db.sessions"""
+"""
+This module provides user session management functionalities.
+
+A session is created when a user logs in, and a valid session token
+is required for all API requests aside from logging in.
+"""
 
 from datetime import datetime, timedelta
-from application.db.users import get_user_data
 
 from pymongo.collection import Collection
 
+from application.db.users import get_user_data
+
 ## A pointer to the sessions database collection.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 
 def start_session(token: str, username: str) -> None:
@@ -28,7 +34,11 @@ def start_session(token: str, username: str) -> None:
 	userdata = get_user_data(username)
 
 	# Persistent logins last a very long time, but still get kicked eventually.
-	expiry = datetime.now() + timedelta(weeks=20) if 'persistent' in userdata['perms'] else datetime.now() + timedelta(days=7)
+	expiry = (
+		datetime.now() + timedelta(weeks=20)
+		if 'persistent' in userdata['perms']
+		else datetime.now() + timedelta(days=7)
+	)
 
 	db.insert_one({
 		'username': username,

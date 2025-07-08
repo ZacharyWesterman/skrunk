@@ -151,19 +151,44 @@ export async function navigate_to_page(page_num) {
 }
 
 export async function update_tags(id) {
-	_.modal({
-		type: 'info',
-		title: 'Not Implemented!',
-		text: "This button currently does nothing. In the future you'll be able to update an item's RFID/QR tags.",
-		buttons: ['OK'],
-	}).catch(() => { })
+	const code = await _.modal.scanner();
+	if (!code) return
+
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Update item tag?',
+		text: `Do you want to update the RFID/QR tag for this item to "${code}"?`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	const res = await api(`mutation ($id: String!, $rfid: String!) {
+		relinkInventoryItem(id: $id, rfid: $rfid) {
+			__typename
+			...on InsufficientPerms { message }
+			...on ItemDoesNotExistError { message }
+			...on ItemExistsError { message }
+		}
+	}`, {
+		id: id,
+		rfid: code,
+	})
+
+	if (res.__typename !== 'Item') {
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	navigate_to_page(CurrentPage) //Just refresh the current page.
 }
 
 export async function delete_item(id) {
 	const confirm = await _.modal({
 		type: 'question',
 		title: 'Delete this inventory item?',
-		text: 'This will permanently remove it from the list. To get it back, you will have to re-add it all over again.',
+		text: 'This will permanently remove it from the list.<br>To get it back, you will have to re-add it all over again.',
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 

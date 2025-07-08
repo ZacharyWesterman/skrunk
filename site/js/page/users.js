@@ -108,7 +108,6 @@ export async function send_test_notification(username) {
 		buttons: ['Yes', 'No'],
 	}).catch(() => 'no')
 
-	console.log(choice)
 	if (choice !== 'yes') return
 
 	await push.send('Test Notification', 'This is just a test notification. No action is required.', username)

@@ -1,21 +1,30 @@
 """application.db.inventory"""
 
-from application.tokens import decode_user_token, get_request_token
-from . import users
 from datetime import datetime
-import markdown
-from application.objects import InventorySearchFilter, Sorting
-from bson.objectid import ObjectId
-import application.exceptions as exceptions
-from . import blob
 
+import markdown
+from bson.objectid import ObjectId
 from pymongo.database import Database
 
+from application import exceptions
+from application.types import InventorySearchFilter, Sorting
+
+from . import blob, users
+from .perms import caller_info_strict
+
 ## A pointer to the database object.
-db: Database = None
+db: Database = None  # type: ignore[assignment]
 
 
-def create_inventory_item(owner: str, category: str, type: str, location: str, blob_id: str, description: str, rfid: str | None) -> dict:
+def create_inventory_item(
+    owner: str,
+    category: str,
+    type: str,
+    location: str,
+    blob_id: str,
+    description: str,
+    rfid: str | None
+) -> dict:
 	"""
 	Create a new inventory item in the database.
 
@@ -39,8 +48,7 @@ def create_inventory_item(owner: str, category: str, type: str, location: str, b
 	if db.items.find_one({'rfid': rfid}):
 		raise exceptions.ItemExistsError(rfid)
 
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 
 	item = {
 		'created': datetime.utcnow(),
@@ -140,7 +148,7 @@ def get_item_locations(owner: str) -> list[str]:
 	return [i for i in db.items.distinct('location', {'creator': user_data['_id']})]
 
 
-def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> dict:
+def build_inventory_query(filter: InventorySearchFilter) -> dict:
 	"""
 	Builds a MongoDB query dictionary for searching inventory based on the provided filter and user ID.
 
@@ -154,11 +162,11 @@ def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> d
 	query = [{}]
 
 	owner = filter.get('owner')
-	if type(owner) is str:
+	if isinstance(owner, str):
 		user_data = users.get_user_data(owner)
 		query += [{'owner': user_data['_id']}]
 
-	if type(owner) is list and len(owner):
+	if isinstance(owner, list) and len(owner):
 		query += [{'$or': [{'owner': i} for i in owner]}]
 
 	if filter.get('category') is not None:
@@ -170,10 +178,10 @@ def build_inventory_query(filter: InventorySearchFilter, user_id: ObjectId) -> d
 	if filter.get('location') is not None:
 		query += [{'location': filter.get('location')}]
 
-	return {'$and': query} if len(query) else {}
+	return {'$and': query} if len(query) > 0 else {}
 
 
-def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting: Sorting, user_id: ObjectId) -> list:
+def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	"""
 	Retrieves a list of inventory items based on the provided filter, pagination, and sorting options.
 
@@ -191,7 +199,7 @@ def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting
 		exceptions.UserDoesNotExistError: If the user specified in the filter does not exist.
 	"""
 	try:
-		query = build_inventory_query(filter, user_id)
+		query = build_inventory_query(filter)
 	except exceptions.UserDoesNotExistError:
 		return []
 
@@ -234,7 +242,7 @@ def get_inventory(filter: InventorySearchFilter, start: int, count: int, sorting
 	return items
 
 
-def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> list:
+def count_inventory(filter: InventorySearchFilter) -> int:
 	"""
 	Count the number of inventory items based on the provided filter and user ID.
 
@@ -250,8 +258,40 @@ def count_inventory(filter: InventorySearchFilter, user_id: ObjectId) -> list:
 		exceptions.UserDoesNotExistError: If the user does not exist.
 	"""
 	try:
-		query = build_inventory_query(filter, user_id)
+		query = build_inventory_query(filter)
 	except exceptions.UserDoesNotExistError:
 		return 0
 
 	return db.items.count_documents(query)
+
+
+def relink_inventory_item(id: str, rfid: str | None) -> dict:
+	"""
+	Change the RFID of an inventory item to a new one.
+
+	Args:
+		id (str): The ID of the inventory item.
+		rfid (str | None): The new RFID for the inventory item, or None to unlink
+
+	Returns:
+		dict: The updated inventory item.
+
+	Raises:
+		exceptions.ItemDoesNotExistError: If no item with the given ID is found.
+		exceptions.ItemExistsError: If an item with the new RFID already exists.
+	"""
+
+	item = db.items.find_one({'_id': ObjectId(id)})
+	if item is None:
+		raise exceptions.ItemDoesNotExistError(id)
+
+	if db.items.find_one({'rfid': rfid}):
+		raise exceptions.ItemExistsError(rfid)
+
+	new_rfid = [] if rfid is None else [rfid]
+	db.items.update_one(
+		{'_id': ObjectId(id)},
+		{'$set': {'rfid': new_rfid}},
+	)
+	item['rfid'] = new_rfid
+	return item

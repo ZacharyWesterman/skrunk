@@ -32,6 +32,14 @@ window.set_title = function () {
 	}
 }
 
+window.sleep = async (millis) => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve()
+		}, millis)
+	})
+}
+
 /*
 * Load content from URL into the given field.
 */
@@ -167,7 +175,7 @@ window.set_field_logic = async function (DOM, url, module) {
 
 	try {
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
-		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles', 'expand', 'hover']
+		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles', 'expand', 'hover', 'focus']
 		for (const attr of attrs) {
 			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
 				const key = field.getAttribute(`*${attr}`)
@@ -199,12 +207,21 @@ window.set_field_logic = async function (DOM, url, module) {
 						throw new Error(`Unknown action for *${attr} attribute: "${funcname}" export not found.`)
 
 					const scope = scoped_eval(DOM.module, key)
-					if (attr === 'bind')
-						$.bind(field, () => { scope() })
-					else if ($.on[attr])
+					if (attr === 'bind') {
+						const frequency = field.getAttribute('*bind-frequency')
+						if (/^\d+$/.test(frequency)) {
+							console.log('Binding to field at interval of', frequency)
+							//If the frequency is a number, bind to the field at that interval
+							$.bind(field, () => { scope() }, parseInt(frequency))
+						} else {
+							//Otherwise, bind to the field at the default interval
+							$.bind(field, () => { scope() })
+						}
+					} else if ($.on[attr]) {
 						$.on[attr](field, scope)
-					else
+					} else {
 						field[`on${attr}`] = () => { scope() }
+					}
 				}
 				else {
 					//If we're not running the function with params,

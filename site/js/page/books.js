@@ -110,13 +110,22 @@ async function confirm_unlink_book(title, rfid) {
 }
 
 async function confirm_edit_ebooks(book_data) {
-	let ebook_promises = []
-
 	const modal = await _.modal({
 		icon: 'file-pdf',
 		title: 'Add E-Books',
-		text: `Select 1 or more files to add to the list of E-Books.<hr><b>${book_data.title}</b>${book_data.subtitle ? '<br><i>' + book_data.subtitle + '</i>' : ''}<br><span class="suppress">By ${book_data.authors.join(', ')}<hr><input id="ebook-input" type="file" multiple>`,
-		buttons: ['Submit', 'Cancel'],
+		text: `
+			Select 1 or more files to add to the list of E-Books.
+			<hr>
+			<b>${book_data.title}</b>
+			${book_data.subtitle ? '<br><i>' + book_data.subtitle + '</i>' : ''}
+			<br>
+			<span class="suppress">
+				By ${book_data.authors.join(', ')}
+				<hr>
+				<input id="ebook-input" type="file" multiple>
+			</span>
+		`,
+		buttons: ['Submit', 'Delete', 'Cancel'],
 	}, () => { }, async choice => { //on validate
 		if (choice === 'submit') {
 			const files = $('ebook-input').files
@@ -129,8 +138,11 @@ async function confirm_edit_ebooks(book_data) {
 			//Upload the file(s)
 			let promises = []
 			for (let i = 0; i < files.length; ++i) {
+				const elem = $('ebook-input').parentElement
 				const progress = document.createElement('progress')
-				$('ebook-input').parentElement.append(progress)
+				elem.append(document.createElement('br'))
+				elem.append(progress)
+
 				progress.value = 0
 
 				promises.push(api.upload(files[i], prog => {
@@ -141,7 +153,7 @@ async function confirm_edit_ebooks(book_data) {
 			//Once files are done uploading, get the ebook links
 			for (const promise of promises) {
 				const file = (await promise)[0]
-				ebook_promises.push(mutate.books.append_ebook(book_data.id, file.id))
+				await mutate.books.append_ebook(book_data.id, file.id)
 			}
 		}
 
@@ -149,20 +161,48 @@ async function confirm_edit_ebooks(book_data) {
 	}).catch(() => 'close')
 
 	if (modal !== 'submit') {
-		if (modal === 'cancel') edit_book(book_data.rfid)
-		return
-	}
-
-	for (const promise of ebook_promises) {
-		const res = await promise
-		if (res.__typename !== 'Book') {
-			_.modal.error(res.message)
-			return
+		if (modal === 'cancel') { edit_book(book_data.rfid) }
+		if (modal === 'delete') {
+			unlink_ebooks(book_data)
 		}
+
+		return
 	}
 
 	_.modal.checkmark()
 	search_books()
+}
+
+async function unlink_ebooks(book_data) {
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Delete E-Books?',
+		text: 'Which ebook do you want to delete?',
+		buttons: [...book_data.ebooks.map(b => b.fileType.toUpperCase()), 'Cancel'],
+	}).catch(() => 'cancel')
+
+	if (choice === 'cancel') {
+		confirm_edit_ebooks(book_data)
+		return
+	}
+
+	const index = book_data.ebooks.findIndex(b => b.fileType.toLowerCase() === choice)
+	const res = await mutate.books.remove_ebook(book_data.id, index)
+
+	if (res.__typename !== 'Book') {
+		_.modal({
+			type: 'error',
+			title: 'ERROR',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => { })
+		return
+	}
+
+	book_data.ebooks = book_data.ebooks.filter(b => b.fileType.toLowerCase() !== choice)
+	_.modal.checkmark()
+	search_books()
+	unlink_ebooks(book_data)
 }
 
 export async function edit_book(rfid) {
@@ -195,6 +235,13 @@ export async function edit_book(rfid) {
 
 		$('ebook').onclick = () => {
 			_.modal.return('ebook')
+		}
+
+		$('book-button-qr').onclick = () => {
+			_.modal.cancel()
+			setTimeout(() => {
+				update_qr_code(rfid, book_data.id)
+			}, 300)
 		}
 	}, async choice => {
 		//validate input
@@ -606,7 +653,9 @@ export async function prompt_ebooks(book_rfid) {
 	let buttons = book_data.ebooks.map(b => b.fileType.toUpperCase())
 	let btn_map = {}
 	for (const b of book_data.ebooks) {
-		btn_map[b.fileType.toLowerCase()] = b.url
+		//If the url has no slashes, it's an internal file ID.
+		const url = (b.url.indexOf('/') === -1) ? `download/${b.url}.${b.fileType.toLowerCase()}` : b.url
+		btn_map[b.fileType.toLowerCase()] = url
 	}
 
 	buttons.push('Cancel')
@@ -626,4 +675,46 @@ export async function prompt_ebooks(book_rfid) {
 	link.href = btn_map[res]
 	link.target = '_blank'
 	link.click()
+}
+
+export async function update_qr_code(rfid, id) {
+	const code = await _.modal.scanner()
+
+	if (code === null) {
+		edit_book(rfid)
+		return
+	}
+
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Update RFID/QR Code?',
+		text: `Are you sure you want to update the tag number for this book?
+		<table>
+			<tr><td><b>Current Value:</b></td><td>${rfid}</td></tr>
+			<tr><td><b>New Value:</b></td><td>${code}</td></tr>
+		</table>`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') {
+		edit_book(rfid)
+		return
+	}
+
+	const res = await mutate.books.relink_tag(id, code)
+	if (res.__typename !== 'Book') {
+		_.modal({
+			type: 'error',
+			title: 'Error',
+			text: res.message,
+			buttons: ['OK'],
+		}).catch(() => { })
+		return
+	}
+
+	_.modal.checkmark()
+	search_books()
+	setTimeout(() => {
+		edit_book(code)
+	}, 500)
 }

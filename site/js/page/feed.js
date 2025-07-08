@@ -37,6 +37,7 @@ export async function init() {
 		options: [],
 		default: "Loading...",
 		append: true,
+		class: 'big',
 	})
 
 	await get_my_feeds()
@@ -91,8 +92,9 @@ async function get_my_feeds() {
 	await _('feed-choice-div', {
 		id: 'feed-choice',
 		options: dropdown,
-		default: "No Feed Selected",
+		default: 'Select a feed',
 		append: true,
+		class: 'big',
 	})
 
 	$.bind('feed-choice', async () => {
@@ -230,14 +232,18 @@ export function help() {
 	})
 }
 
-export function help_types() {
+export async function help_types(return_to_new = false) {
 	const p1 = api.get_json('config/feed_types.json')
-	_.modal({
+	await _.modal({
 		title: 'Feed types and their meaning',
 		type: 'info',
 		text: '<div name="feed_types">Loading...</div>',
 		buttons: ['OK'],
 	}, () => _('feed_types', p1))
+
+	if (return_to_new) {
+		append_modal()
+	}
 }
 
 export async function navigate_to_page(page_num, update_nav = true) {

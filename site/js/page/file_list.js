@@ -372,7 +372,7 @@ export async function download_all() {
 			const res = await api(`query ($uid: String!) {
 				pollZipProgress(uid: $uid) {
 					__typename
-					...on ZipProgress { progress item }
+					...on ZipProgress { progress item finalizing }
 					...on BlobDoesNotExistError { message }
 				}
 			}`, {
@@ -386,6 +386,11 @@ export async function download_all() {
 
 			const field = $('progress')
 			if (!field) return
+
+			if (res.finalizing) {
+				field.innerHTML = `Finalizing ZIP Archive...`
+				return
+			}
 
 			field.innerHTML = `Progress: <span class="emphasis">[${(res.progress * 100).toFixed(0)}%]</span><br>Item: <span class="suppress">${res.item}</span>`
 
@@ -420,7 +425,6 @@ export async function download_all() {
 		_.modal.error(zip.message)
 		return
 	}
-	_.modal.cancel()
 
 	//Now that ZIP has been created, download it
 	let link = document.createElement('a')
@@ -428,6 +432,13 @@ export async function download_all() {
 	link.href = `/download/${zip.id}${zip.ext}`
 	link.target = '_blank'
 	link.click()
+
+	await _.modal({
+		icon: 'circle-check',
+		title: 'ZIP Archive Created',
+		text: 'The ZIP archive has been created and will now download to your device.<hr>The archive file will be kept until the next server restart.<br>If you\'d like to download it again before then,<br>go to the <b><i class="fa-solid fa-hard-drive"></i> Files</b> page and click "Include ephemeral files".',
+		buttons: ['OK'],
+	})
 }
 
 export async function toggle_blob_hidden(blob_id) {

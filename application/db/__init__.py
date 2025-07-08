@@ -1,12 +1,30 @@
-"""application.db"""
+"""
+This module provides direct access to the database and
+initializes various collections used by the application.
+"""
 
-from . import users, perms, weather, sessions, blob, bugs, book, settings, notification, apikeys, inventory, datafeed, documents
 from pymongo import MongoClient
-from application.types import blob_storage
+
 from application.exceptions import BadUserNameError, UserExistsError
+from application.types import blob_storage
+
+from . import (
+	users,
+	perms,
+	weather,
+	sessions,
+	blob,
+	bugs,
+	book,
+	settings,
+	notification,
+	apikeys,
+	inventory,
+	datafeed
+)
 
 
-def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
+def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> None:
 	"""
 	Initialize the database connections and set up the necessary collections.
 
@@ -40,9 +58,10 @@ def init_db(data_db_url: str = 'localhost', blob_path: str = None) -> None:
 
 	bugs.db = client.skrunk.bug_reports
 	book.db = client.skrunk.books
-	book.init()
 
 	notification.db = client.skrunk
+	notification.init()
+
 	inventory.db = client.skrunk
 	weather.db = client.skrunk
 	datafeed.db = client.skrunk
@@ -55,17 +74,22 @@ def setup_db() -> None:
 	Sets up the database by performing the following actions:
 
 	1. Attempts to create a temporary admin user.
-	   If the user creation fails, the exception is caught and ignored.
-
-	2. Creates necessary indexes for the database to function properly:
-	   - An index on the 'expires' field in the sessions collection with an expiration time of 1 second.
-	   - An index on the 'title' field in the book collection.
+	2. Creates necessary indexes for the database to function properly.
 	"""
 	try:
-		users.create_user('admin', '', admin=True, ephemeral=True)
-	except BadUserNameError | UserExistsError:
+		users.create_user('admin', '', groups=[], admin=True, ephemeral=True)
+	except (BadUserNameError, UserExistsError):
 		pass
 
-	# Create all indexes that are needed for the db to function properly
+	create_indexes()
+
+
+def create_indexes() -> None:
+	"""
+	Create necessary indexes for the database collections to ensure efficient querying
+	and proper functioning of the application.
+	"""
+	users.db.create_index([('username', 1)], unique=True)
+	users.db.create_index([('groups', 1)])
 	sessions.db.create_index([('expires', 1)], expireAfterSeconds=1)
 	book.db.create_index([('title', 1)])

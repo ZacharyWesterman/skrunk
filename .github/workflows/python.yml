@@ -3,8 +3,6 @@ name: Deploy documentation
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
 jobs:
   build:
@@ -14,13 +12,23 @@ jobs:
       contents: write
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        submodules: 'true'
+        token : ${{ secrets.GITHUB_TOKEN }}
+
     - name: Install Dependencies
-      run: sudo apt-get install -y --no-install-recommends doxygen graphviz
+      run: sudo apt-get install -y python3-poetry python3-sphinx
+    
+    - name: Poetry Install
+      run: poetry install --no-root
+
     - name: Build Documentation
-      run: doxygen
+      run: poetry run ./docs.sh
+
     - name: Deploy Documentation
       uses: peaceiris/actions-gh-pages@v3.9.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./html
+        publish_dir: ./docs/build/html

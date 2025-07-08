@@ -1,20 +1,25 @@
-"""application"""
+"""
+This module initializes the Flask application and sets up the database.
+
+It includes the application configuration, schema loading, and route initialization.
+"""
+
+from typing import Any
 
 import ariadne
+from ariadne.contrib.federation.schema import make_federated_schema
 from flask import Flask
-from ariadne.contrib.federation import make_federated_schema
 
-from .resolvers import query, mutation
-from .db.users import count_users
-from .scalars import scalars
+from . import md, monkeypatch, routes, tokens
 from .db import init_db, setup_db
-from . import routes
-from . import md
+from .db.users import count_users
+from .resolvers import mutation, query
+from .scalars import scalars
 
 
 def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
 	"""
-	Initialize the application.
+	Initialize the application and database.
 
 	Parameters:
 		no_auth (bool): Flag to disable authentication. Default is False.
@@ -24,10 +29,15 @@ def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
 	Returns:
 		Flask: The initialized Flask application instance.
 	"""
+
+	tokens.init()
+
 	init_db(data_db_url, blob_path)
 
-	application = Flask(__name__)
-	application.config['MAX_CONTENT_LENGTH'] = 5 * 1000 * 1000 * 1000  # 5GB file size limit for uploads
+	application: Any = Flask(__name__)
+
+	# 5GB file size limit for uploads
+	application.config['MAX_CONTENT_LENGTH'] = 5 * 1000 * 1000 * 1000
 
 	type_defs = ariadne.load_schema_from_path('application/schema')
 	application.schema = make_federated_schema(type_defs, [query, mutation] + scalars)

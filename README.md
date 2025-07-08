@@ -20,15 +20,16 @@ Every one of the above features is fully optional, and can be disabled from the 
 ---
 ### Setup
 
-This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python &ge; 3.10, [Poetry](https://python-poetry.org/), MongoDB &ge; 5, and OpenJDK &ge; 8.
+This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python ≥ 3.11, [Poetry](https://python-poetry.org/), MongoDB ≥ 5, and OpenJDK ≥ 8.
 
 ---
 
-To get all set up, first download the repo, then install dependencies:
+To get all set up, first download the repo, then install dependencies.
+In most cases you won't need the documentation to generate, so you can append `--without dev` to the install command.
 ```bash
 git clone https://github.com/ZacharyWesterman/skrunk.git --recursive
 cd skrunk
-poetry install
+poetry install --no-root --without dev
 ```
 
 If you plan to enable the file module, you'll want to make sure you have a place to store blob data that is uploaded to the site.

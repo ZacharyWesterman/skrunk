@@ -1,11 +1,10 @@
 """application.integrations.google_books"""
 
-__all__ = ['query']
-
 import functools
-import requests
 import json
 import re
+
+import requests
 
 from . import exceptions
 
@@ -37,15 +36,15 @@ def query(*, title: str = '', author: str = '') -> list:
 			  - 'thumbnail': A URL to a thumbnail image of the book cover (if available).
 
 	Raises:
-		exceptions.ApiFailedError: If the Google Books API call fails with a status code outside the range 200-299.
+		exceptions.ApiFailedError: If the Google Books API call fails.
 	"""
 	query_fields = []
 
 	t = title.replace(':', '').strip().replace(' ', '+')
 	a = author.replace(':', '').strip().replace(' ', '+')
 
-	if len(t):
-		if len(a):
+	if len(t) > 0:
+		if len(a) > 0:
 			query_fields += ['intitle:' + t]
 		else:
 			# Check if field is an ISBN number
@@ -54,16 +53,26 @@ def query(*, title: str = '', author: str = '') -> list:
 				query_fields += ['isbn:' + isbn]
 			else:
 				query_fields += [t]
-	if len(a):
+	if len(a) > 0:
 		query_fields += ['inauthor:"' + a + '"']
 
 	text_query = '+'.join(query_fields)
-	response_fields = 'items(id,volumeInfo(authors,title,subtitle,description,industryIdentifiers,pageCount,categories,maturityRating,language,publisher,publishedDate,imageLinks))'
+	response_fields = (
+		'items(id,volumeInfo(' +
+		'authors,title,subtitle,description,industryIdentifiers,pageCount,' +
+		'categories,maturityRating,language,publisher,publishedDate,imageLinks' +
+		'))'
+	)
 
-	url = f'https://www.googleapis.com/books/v1/volumes?q={text_query}&fields={response_fields}&orderBy=relevance&maxResults=20'
-	response = requests.get(url)
+	url = (
+		'https://www.googleapis.com/books/v1/volumes' +
+		f'?q={text_query}&fields={response_fields}&orderBy=relevance&maxResults=20'
+	)
+	response = requests.get(url, timeout=10)
 	if response.status_code < 200 or response.status_code >= 300:
-		raise exceptions.ApiFailedError(f'Google Books API call failed with status code {response.status_code}: {response.text}')
+		raise exceptions.ApiFailedError(
+			f'Google Books API call failed with status code {response.status_code}: {response.text}'
+		)
 
 	books = []
 	for i in json.loads(response.text).get('items', []):
@@ -99,12 +108,19 @@ def get(*, id: str) -> dict:
 		exceptions.ApiFailedError: If the Google Books API call fails with a status code
 								   outside the range of 200-299.
 	"""
-	response_fields = 'id,volumeInfo(authors,title,subtitle,description,industryIdentifiers,pageCount,categories,maturityRating,language,publisher,publishedDate,imageLinks)'
+	response_fields = (
+		'id,volumeInfo(' +
+		'authors,title,subtitle,description,industryIdentifiers,pageCount,' +
+		'categories,maturityRating,language,publisher,publishedDate,imageLinks' +
+		')'
+	)
 
 	url = f'https://www.googleapis.com/books/v1/volumes/{id}?fields={response_fields}'
-	response = requests.get(url)
+	response = requests.get(url, timeout=10)
 	if response.status_code < 200 or response.status_code >= 300:
-		raise exceptions.ApiFailedError(f'Google Books API call failed with status code {response.status_code}: {response.text}')
+		raise exceptions.ApiFailedError(
+			f'Google Books API call failed with status code {response.status_code}: {response.text}'
+		)
 
 	book = json.loads(response.text)['volumeInfo']
 	book['id'] = id

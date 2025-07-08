@@ -1,12 +1,18 @@
 """application.routes"""
 
-from . import auth, api, misc, site, blob
+from . import api, auth, blob, misc, site
 
 
 def init(application) -> None:
+	"""
+	Initialize the application routes.
+
+	Args:
+		application: The Flask application instance to which the routes will be added.
+	"""
+
 	auth.application = application
 	api.application = application
-	misc.application = application
 	site.application = application
 	blob.application = application
 

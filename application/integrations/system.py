@@ -1,8 +1,10 @@
 """application.integrations.system"""
 
-from application.db import blob
-import psutil
 from pathlib import Path
+
+import psutil
+
+from application.db import blob
 
 
 def disk_usage() -> list[dict]:
@@ -11,7 +13,8 @@ def disk_usage() -> list[dict]:
 	If the application and blob storage are on the same disk, they are listed together.
 
 	Returns:
-		list[dict]: A list of dictionaries containing disk usage information. Each dictionary has the following keys:
+		list[dict]: A list of dictionaries containing disk usage information.
+			Each dictionary has the following keys:
 			- 'name' (str): The name of the storage (e.g., 'Application', 'Blob Storage').
 			- 'free' (int): The amount of free space in bytes.
 			- 'used' (int): The amount of used space in bytes.
@@ -37,7 +40,5 @@ def disk_usage() -> list[dict]:
 	if blob.blob_path:
 		if get_mount_point('.') == get_mount_point(blob.blob_path):
 			return [info('Application / Blob Storage', '.')]
-		else:
-			return [info('Application', '.'), info('Blob Storage', blob.blob_path)]
-	else:
-		return [info('Application', '.')]
+		return [info('Application', '.'), info('Blob Storage', blob.blob_path)]
+	return [info('Application', '.')]

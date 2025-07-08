@@ -1,6 +1,6 @@
 """application.scalars"""
 
-from . import datetime, date, phone, color, size, long
+from . import color, date, datetime, long, phone, size
 
 ## The list of all custom scalar types defined in the application
 scalars = [

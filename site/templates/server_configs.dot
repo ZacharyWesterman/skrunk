@@ -4,7 +4,13 @@
 	<tr><td>{{= config.name }}</td></tr>
 	<tr>
 		<td style="width:calc(100%-2rem);">
-			<input style="width:100%;" {{? config.type === 'password' }}type="text" autoComplete="off" class="password"{{?? config.type }}type="{{= config.type }}"{{?}} id="config-{{= config.id }}" value="{{= safe_html(config.value) }}" placeholder="<no value>" *bind="set_config('{{= config.id}}'); $.show('config-reset-{{= config.id }}')"/>
+			{{? config.type === 'code' }}
+				<textarea style="width:100%;" class="code" id="config-{{= config.id }}" placeholder="<no value>" *bind="set_config('{{= config.id}}'); $.show('config-reset-{{= config.id }}')">{{= config.value }}</textarea>
+			{{?? config.type === 'password' }}
+				<input style="width:100%;" type="password" autoComplete="off" class="password" id="config-{{= config.id }}" value="{{= safe_html(config.value) }}" placeholder="<no value>" *bind="set_config('{{= config.id}}'); $.show('config-reset-{{= config.id }}')"/>
+			{{??}}
+				<input style="width:100%;" type="{{= config.type }}" id="config-{{= config.id }}" value="{{= safe_html(config.value) }}" placeholder="<no value>" *bind="set_config('{{= config.id}}'); $.show('config-reset-{{= config.id }}')"/>
+			{{?}}
 		</td>
 		<td style="width:1rem;">
 			<i id="icon-config-{{= config.id }}" class="fa-solid fa-circle-check hidden"></i>

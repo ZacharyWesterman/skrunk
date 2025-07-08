@@ -1,7 +1,5 @@
 """application.integrations.models"""
 
-__ALL__ = ['to_glb', 'extensions']
-
 import trimesh
 
 
@@ -12,7 +10,12 @@ def extensions():
 	Returns:
 		list: A list of strings, each representing a file extension for 3D model files.
 	"""
-	return ['3ds', '.3mf', '.amf', '.ase', '.rvm', '.dae', '.drc', '.dxf', '.fbx', '.gltf', '.obj', '.ma', '.mb', '.ply', '.jt', '.stl', '.u3d', '.usd', '.usdz', '.x', '.x3d', '.xgl', '.zpr']
+	return [
+		'3ds', '.3mf', '.amf', '.ase', '.rvm', '.dae', '.drc',
+		'.dxf', '.fbx', '.gltf', '.obj', '.ma', '.mb', '.ply',
+		'.jt', '.stl', '.u3d', '.usd', '.usdz', '.x', '.x3d',
+		'.xgl', '.zpr'
+	]
 
 
 def to_glb(input_filename: str, output_filename: str) -> None:

@@ -1,46 +1,79 @@
+
+"""Information about a user in the weather alerts system."""
 type WeatherUser {
+	"""The username of the user."""
 	username: String!
+	"""The latitude of the user's location."""
 	lat: Float!
+	"""The longitude of the user's location."""
 	lon: Float!
-	max: WeatherTemp_!
-	min: WeatherTemp_!
+	"""The maximum temperature the user wants to receive alerts for."""
+	max: WeatherTempOutput!
+	"""The minimum temperature the user wants to receive alerts for."""
+	min: WeatherTempOutput!
+	"""The date and time when the user was last sent an alert."""
 	last_sent: DateTime
+	"""Whether the user is enabled to receive alerts."""
 	exclude: Boolean!
 }
 
+"""Update information for a user in the weather alerts system."""
 input WeatherUserInput {
+	"""The username of the user."""
 	username: String!
+	"""The latitude of the user's location."""
 	lat: Float!
+	"""The longitude of the user's location."""
 	lon: Float!
+	"""The maximum temperature the user wants to receive alerts for."""
 	max: WeatherTemp!
+	"""The minimum temperature the user wants to receive alerts for."""
 	min: WeatherTemp!
 }
 
+"""Information about the last weather execution."""
 type WeatherExecution {
+	"""The date and time when the last weather execution was performed."""
 	timestamp: DateTime!
+	"""A list of users who were alerted during the last weather execution."""
 	users: [String!]!
+	"""Any error message from the last weather execution."""
 	error: String
 }
 
+"""Temperature settings for weather alerts."""
 input WeatherTemp {
+	"""Whether this temperature setting is the default value."""
 	default: Boolean!
+	"""Whether this temperature setting is disabled."""
 	disable: Boolean!
+	"""The temperature value in degrees Fahrenheit."""
 	value: Float!
 }
 
-type WeatherTemp_ {
+"""Temperature settings for weather alerts."""
+type WeatherTempOutput {
+	"""Whether this temperature setting is the default value."""
 	default: Boolean!
+	"""Whether this temperature setting is disabled."""
 	disable: Boolean!
+	"""The temperature value in degrees Fahrenheit."""
 	value: Float!
 }
 
+"""A logging result of a weather alert."""
 type WeatherAlert {
+	"""The username of the user who received the alert."""
 	recipient: String!
+	"""The contents of the alert message."""
 	message: String!
+	"""The date and time when the alert was sent."""
 	sent: DateTime!
 }
 
+"""A type representing the result of a logging operation."""
 type LogResult {
+	"""Whether the logging operation was successful."""
 	result: Boolean!
 }
 

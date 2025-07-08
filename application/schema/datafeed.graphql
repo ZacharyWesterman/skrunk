@@ -1,39 +1,68 @@
+"""An individual feed document, representing an item in a feed."""
 type FeedDocument {
+	"""The unique identifier for the feed document."""
 	id: String!
-	feed: String! #Feed ID
+	"""The ID of the feed this document belongs to."""
+	feed: String!
+	"""The original author of the document, if available."""
 	author: String
+	"""The title of the document."""
 	title: String
+	"""The date and time when the document was posted."""
 	posted: DateTime
+	"""The raw text content of the document."""
 	body: String!
+	"""The HTML-rendered version of the document body."""
 	body_html: String!
+	"""The date and time when the document was first fetched."""
 	created: DateTime!
+	"""The date and time when the document was last updated."""
 	updated: DateTime
+	"""The URL from which the document was fetched."""
 	url: String!
+	"""Whether the document is marked as read."""
 	read: Boolean!
 }
 
+"""A type for storing information about a data feed."""
 type Feed {
+	"""The unique identifier for the feed."""
 	id: String!
+	"""The name of the feed."""
 	name: String!
+	"""The username of the user who created the feed."""
 	creator: String!
+	"""The date and time when the feed was created."""
 	created: DateTime!
+	"""The type of feed, such as 'rss', 'atom', etc."""
 	kind: String!
+	"""The URL from which the feed is fetched."""
 	url: String!
+	"""Whether the feed is set to notify the user of new documents."""
 	notify: Boolean!
+	"""Whether the feed is currently inactive. If true, the feed will not fetch new documents."""
 	inactive: Boolean!
+	"""The current page of the feed for navigation purposes."""
 	currentPage: Int
-	currentSort: Sorting_
+	"""The current sorting method for the feed documents, for navigation purposes."""
+	currentSort: SortingOutput
 }
 
+"""An error indicating that a data feed does not exist."""
 type FeedDoesNotExistError {
+	"""The error message."""
 	message: String!
 }
 
+"""An error indicating that the feed document does not exist."""
 type FeedDocumentDoesNotExistError {
+	"""The error message."""
 	message: String!
 }
 
+"""An error indicating that the chosen feed kind is invalid."""
 type InvalidFeedKindError {
+	"""The error message."""
 	message: String!
 }
 

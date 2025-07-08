@@ -135,6 +135,13 @@
 			"action": "dashnav('weather_log')",
 			"module": "weather",
 			"class": "alt"
+		},
+		{
+			"id": "api",
+			"text": "GraphQL API",
+			"icon": "code",
+			"action": "dashnav('graphql_api')",
+			"class": "alt"
 		}
 	],
 	"books": [

@@ -1,16 +1,21 @@
 """application.db.datafeed"""
 
-from . import users, perms
 from datetime import datetime
-from application.exceptions import InvalidFeedKindError, FeedDoesNotExistError, UserDoesNotExistError, FeedDocumentDoesNotExistError
-from bson.objectid import ObjectId
-from ..objects import Sorting
-import markdown
 
+import markdown
+from bson.objectid import ObjectId
 from pymongo.database import Database
 
+from application.exceptions import (FeedDocumentDoesNotExistError,
+                                    FeedDoesNotExistError,
+                                    InvalidFeedKindError,
+                                    UserDoesNotExistError)
+
+from ..types import Sorting
+from . import perms, users
+
 ## A pointer to the database object.
-db: Database = None
+db: Database = None  # type: ignore[assignment]
 
 
 def process_feed(feed: dict) -> dict:
@@ -105,12 +110,12 @@ def create_feed(name: str, url: str, kind: str, notify: bool) -> dict:
 	Raises:
 		InvalidFeedKindError: If the kind is not 'markdown_recursive'.
 	"""
-	user_data = perms.caller_info()
+	user_data = perms.caller_info_strict()
 
 	if kind not in ['markdown_recursive']:
 		raise InvalidFeedKindError(kind)
 
-	id = db.feeds.insert_one({
+	feed = {
 		'name': name,
 		'url': url,
 		'kind': kind,
@@ -120,9 +125,11 @@ def create_feed(name: str, url: str, kind: str, notify: bool) -> dict:
 		'inactive': False,
 		'current_page': None,
 		'current_sort': None,
-	}).inserted_id
+	}
+	id = db.feeds.insert_one(feed).inserted_id
+	feed['_id'] = id
 
-	return process_feed(db.feeds.find_one({'_id': id}))
+	return process_feed(feed)
 
 
 def delete_feed(id: str) -> dict:
@@ -154,16 +161,19 @@ def delete_feed(id: str) -> dict:
 
 def get_documents(feed: str, start: int, count: int, sorting: Sorting) -> list[dict]:
 	"""
-	Retrieve a list of documents from the database based on the specified feed, starting index, count, and sorting order.
+	Retrieve a list of documents from the database based on
+	the specified feed, starting index, count, and sorting order.
 
 	Args:
 		feed (str): The ID of the feed to retrieve documents from.
 		start (int): The starting index of the documents to retrieve.
 		count (int): The number of documents to retrieve.
-		sorting (Sorting): The sorting criteria for the documents. It should be a dictionary with 'fields' as a list of field names and 'descending' as a boolean indicating the sort order.
+		sorting (Sorting): The sorting criteria for the documents. It should be a dictionary with 'fields'
+			as a list of field names and 'descending' as a boolean indicating the sort order.
 
 	Returns:
-		list[dict]: A list of documents matching the specified criteria. Each document is represented as a dictionary.
+		list[dict]: A list of documents matching the specified criteria.
+			Each document is represented as a dictionary.
 	"""
 	if not ObjectId.is_valid(feed):
 		return []
@@ -276,7 +286,7 @@ def get_body_html(feed_kind: str, body: str) -> str:
 	if feed_kind == 'markdown_recursive':
 		body_html = markdown.markdown(body)
 	else:
-		raise InvalidFeedKindError(feed_kind)  # Should never happen, but we want the caller to know about it if it does happen!
+		raise InvalidFeedKindError(feed_kind)
 
 	return body_html
 
@@ -298,7 +308,7 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 	"""
 	feed_data = get_feed(feed)
 
-	id = db.documents.insert_one({
+	feed_document = {
 		'feed': ObjectId(feed),
 		'author': author,
 		'posted': posted,
@@ -309,9 +319,11 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 		'updated': None,
 		'url': url,
 		'read': False,
-	}).inserted_id
+	}
+	id = db.documents.insert_one(feed_document).inserted_id
+	feed_document['_id'] = id
 
-	return process_document(db.documents.find_one({'_id': id}))
+	return process_document(feed_document)
 
 
 def update_document(id: str, body: str) -> dict:

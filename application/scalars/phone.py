@@ -1,10 +1,10 @@
 """application.scalars.phone"""
 
-__all__ = ['scalar']
+import re
 
 from ariadne import ScalarType
-import re
-import application.exceptions as exceptions
+
+from application import exceptions
 
 ## Define a scalar type for phone numbers
 scalar = ScalarType('PhoneNumber')

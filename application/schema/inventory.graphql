@@ -1,40 +1,68 @@
 
+"""A type for describing an arbitrary inventory item."""
 type Item {
+	"""The unique identifier for the item."""
 	id: String!
+	"""The date and time when the item was created."""
 	created: DateTime!
+	"""Minimal user data for the creator of the item."""
 	creator: UserMinData!
+	"""Minimal user data for the owner of the item."""
 	owner: UserMinData!
+	"""The category of the item, such as 'electronics', 'furniture', etc."""
 	category: String!
+	"""The type of the item, such as 'laptop', 'chair', etc."""
 	type: String!
+	"""The location where the item is stored, such as 'office', 'warehouse', etc."""
 	location: String!
+	"""The blob associated with the item, likely restricted to just an image."""
 	blob: Blob!
+	"""The raw text description of the item."""
 	description: String!
+	"""The HTML-rendered version of the item's description."""
 	description_html: String!
+	"""A list of RFID tags or QR codes associated with the item."""
 	rfid: [String!]!
 }
 
+"""An error indicating that certain fields in the request are invalid."""
 type InvalidFields {
+	"""A message describing the error."""
 	message: String!
+	"""A list of fields that are invalid."""
 	fields: [String!]!
 }
 
+"""An error indicating that an item already exists."""
 type ItemExistsError {
+	"""The error message"""
 	message: String!
 }
 
+"""An error indicating that an item does not exist."""
 type ItemDoesNotExistError {
+	"""The error message"""
 	message: String!
 }
 
+"""
+An input type for filtering inventory items.
+All fields are optional, and if a field is null, it will not be used in the query.
+"""
 input InventorySearchFilter {
+	"""The username of the owner of the item."""
 	owner: String
+	"""The category of the item, such as 'electronics', 'furniture', etc."""
 	category: String
+	"""The type of the item, such as 'laptop', 'chair', etc."""
 	type: String
+	"""The location where the item is stored, such as 'office', 'warehouse', etc."""
 	location: String
 }
 
 union ItemCreateResponse = Item | InsufficientPerms | InvalidFields | ItemExistsError | UserDoesNotExistError
 union ItemDeleteResponse = Item | InsufficientPerms | ItemDoesNotExistError
+union ItemRelinkResponse = Item | InsufficientPerms | ItemDoesNotExistError | ItemExistsError
 
 #Resolvers below this line:
 
@@ -50,4 +78,5 @@ extend type Query {
 extend type Mutation {
 	createInventoryItem(owner: String!, category: String!, type: String!, location: String!, blob_id: String!, description: String!, rfid: String) : ItemCreateResponse!
 	deleteInventoryItem(id: String!): ItemDeleteResponse!
+	relinkInventoryItem(id: String!, rfid: String): ItemRelinkResponse!
 }

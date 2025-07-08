@@ -1,61 +1,104 @@
+
+"""A type for storing arbitrary configuration settings."""
 type Config {
+	"""The name of the configuration setting."""
 	name: String!
+	"""The value of the configuration setting."""
 	value: String
 }
 
+"""A list of configuration settings."""
 type ConfigList {
+	"""The list of configuration settings."""
 	configs: [Config!]!
 }
 
-type Theme {
+"""A site theme template."""
+input Theme {
+	"""The name of the theme."""
 	name: String!
+	"""The colors defined in the theme."""
 	colors: [String!]!
+	"""The text colors defined in the theme."""
 	text: [String!]!
+	"""The special colors defined in the theme."""
 	special: [String!]!
+	"""The border radius defined in the theme."""
 	border: String!
 }
 
-input _Theme {
+"""Creation info for a new theme template."""
+type ThemeOutput {
+	"""The name of the theme."""
 	name: String!
+	"""The colors defined in the theme."""
 	colors: [String!]!
+	"""The text colors defined in the theme."""
 	text: [String!]!
+	"""The special colors defined in the theme."""
 	special: [String!]!
+	"""The border radius defined in the theme."""
 	border: String!
 }
 
+"""A parameter in a GraphQL schema query."""
 type SchemaParam {
+	"""The name of the parameter."""
 	name: String!
+	"""The type of the parameter."""
 	type: String!
+	"""Whether the parameter is optional."""
 	optional: Boolean!
 }
 
+"""A return type in a GraphQL schema query."""
 type SchemaReturnType {
+	"""The type of the return value."""
 	type: String!
+	"""Whether the return value is nullable."""
 	optional: Boolean!
+	"""Whether the return value is an array."""
 	array: Boolean!
 }
 
+"""A type in the GraphQL schema."""
 type SchemaType {
+	"""The name of the type."""
 	type: String!
+	"""Whether the type is a union type."""
 	union: Boolean!
+	"""Whether the type is an input type."""
+	input: Boolean!
+	"""If the type is a union, the subtypes it can be."""
 	subtypes: [String!]!
+	"""If the type is non-scalar, the list of child parameters."""
+	params: [SchemaParam!]!
 }
 
+"""A query in the GraphQL schema."""
 type SchemaQuery {
+	"""The name of the query."""
 	name: String!
+	"""A list of parameters for the query."""
 	params: [SchemaParam!]!
+	"""A text representation of the query."""
 	query: String!
+	"""The return type of the query."""
 	returns: SchemaReturnType!
 }
 
+"""A type representing the complete GraphQL schema."""
 type Schema {
+	"""A list of all mutations in the schema."""
 	mutations: [SchemaQuery!]!
+	"""A list of all queries in the schema."""
 	queries: [SchemaQuery!]!
+	"""A list of all types in the schema."""
 	types: [SchemaType!]!
 }
 
 union ConfigsResponse = ConfigList | InsufficientPerms
-union ThemeEditResponse = Theme | MissingConfig | InsufficientPerms
+union ThemeEditResponse = ThemeOutput | MissingConfig | InsufficientPerms
 
 #Resolvers below this line
 
@@ -66,13 +109,13 @@ extend type Query {
 	getUserGroups: [String!]!
 	getConfigs: ConfigsResponse
 	getConfig(name: String!): String
-	getThemes: [Theme!]!
+	getThemes: [ThemeOutput!]!
 	getSchema: Schema!
 }
 
 extend type Mutation {
 	setModuleEnabled(module_id: String!, enabled: Boolean!, group: String): [String!]!
 	setConfig(name: String!, value: String): Boolean!
-	createTheme(theme: _Theme!): ThemeEditResponse!
+	createTheme(theme: Theme!): ThemeEditResponse!
 	deleteTheme(name: String!): ThemeEditResponse!
 }

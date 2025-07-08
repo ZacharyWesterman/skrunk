@@ -23,8 +23,6 @@ export async function revoke_sessions(username) {
 }
 
 export async function set_perms() {
-	console.log(UserData)
-
 	let new_perms = []
 	let perms_changed = []
 	for (const perm of Perms) {
@@ -84,7 +82,23 @@ export async function load_user_data(username, self_view = false) {
 
 	if (self_view) {
 		push.ready.then(() => {
-			$('enable-push').checked = push.subscribed
+			$('enable-push').checked = false
+			if (push.subscribed) {
+				try {
+					const auth = JSON.parse(JSON.stringify(push.subscription)).keys.auth
+					if (auth) {
+						api(`query ($auth: String!) { getSubscription(auth: $auth) { __typename } }`, {
+							auth: auth,
+						}).then(sub => {
+							if (sub && sub.__typename === 'Subscription') {
+								$('enable-push').checked = true
+							}
+						})
+					}
+				} catch (e) {
+					console.warn('Error checking push subscription:', e)
+				}
+			}
 		})
 	}
 
@@ -179,11 +193,94 @@ function sync_perm_descs() {
 	}
 }
 
+function password_strength(password) {
+	if (password.length < 8) return 0 //very weak
+	if (password.includes(api.username)) return 0 //very weak
+	if (api.username.includes(password)) return 0 //very weak
+
+	const has_upper = /[A-Z]/.test(password)
+	const has_lower = /[a-z]/.test(password)
+	const has_number = /[0-9]/.test(password)
+	const has_symbol = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+	const long_password = password.length >= 12 ? 1 : 0
+
+	const score = has_upper + has_lower + has_number + has_symbol + long_password
+	return score
+}
+
+function is_valid_password(password) {
+	if (password.length < 8) return false
+	if (password.includes(api.username)) return false
+	if (api.username.includes(password)) return false
+
+	const has_upper = /[A-Z]/.test(password)
+	const has_lower = /[a-z]/.test(password)
+	const has_number = /[0-9]/.test(password)
+	const has_symbol = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+	if (has_upper + has_lower + has_number + has_symbol < 2) return false
+
+	return true
+}
+
+export function check_password() {
+	const password = $.val('user-new-password')
+
+	const criteria = {
+		'pw1': password.length >= 8,
+		'pw2': !password.includes(api.username) && password.length > 0,
+		'pw3': !api.username.includes(password) && password.length > 0,
+		'pw5': /[A-Z]/.test(password),
+		'pw6': /[a-z]/.test(password),
+		'pw7': /[0-9]/.test(password),
+		'pw8': /[!@#$%^&*(),.?":{}|<>]/.test(password),
+	}
+	criteria.pw4 = (criteria.pw5 + criteria.pw6 + criteria.pw7 + criteria.pw8) >= 2
+
+	for (const [key, valid] of Object.entries(criteria)) {
+		$(key).style.textDecoration = valid ? 'line-through' : ''
+		$(key).classList.toggle('suppress', valid)
+	}
+
+	const score = [
+		'Very Weak',
+		'Weak',
+		'Fair',
+		'Good',
+		'Strong',
+		'Very Strong',
+	][password_strength(password)]
+	$('password-strength').innerText = score
+}
+
+export function bind_password() {
+	$.bind('user-new-password', check_password, 10)
+}
+
+export function expand_password_hints() {
+	$.toggle_expand('password-hints', true)
+	$.show('password-strength')
+}
+
+export function contract_password_hints() {
+	$.toggle_expand('password-hints', false)
+	$.hide('password-strength', true)
+}
+
 export async function update_password(password, username) {
-	if ((password.length < 8) || (password === username) || (password.includes(username) && (password.length < username.length * 2))) {
+	if (password.length === 0) {
+		//Just flash the password field
+		$.flash('user-new-password')
+		$.flash('user-new-password2')
+		return
+	}
+
+	if (!is_valid_password(password)) {
 		const criteria = [
 			'Must be at least 8 characters long',
-			'May not contain the username, unless it\'s at least 2&times; the length',
+			'Must not contain your username, nor be a subset of your username',
+			'Must contain at least 2 of the following: uppercase, lowercase, number, symbol',
 		]
 
 		_.modal({
@@ -194,6 +291,9 @@ export async function update_password(password, username) {
 		}).catch(() => { })
 		return
 	}
+
+	//Hide the password hints and score, since the password is valid
+	contract_password_hints()
 
 	if (password !== $.val('user-new-password2')) {
 		_.modal({
@@ -223,6 +323,10 @@ export async function update_password(password, username) {
 		text: 'Password has been updated.',
 		buttons: ['OK'],
 	})
+
+	//Wipe password fields
+	$('user-new-password').value = ''
+	$('user-new-password2').value = ''
 }
 
 export async function update_user_display_name(username) {
@@ -361,6 +465,12 @@ export async function export_data(username) {
 
 	if (choice !== 'yes') return
 
+	_.modal({
+		text: api.snippit('export-waiting'),
+		buttons: [],
+		no_cancel: true,
+	})
+
 	const res = await api(`mutation ($username: String!) {
 		exportUserData(username: $username) {
 			__typename
@@ -378,6 +488,8 @@ export async function export_data(username) {
 		_.modal.error(res.message)
 		return
 	}
+
+	_.modal.return()
 
 	//Download user data
 	let link = document.createElement('a')
@@ -421,7 +533,7 @@ export async function change_username(username) {
 		text: `<p>
 			If the new username is available, this will immediately update your <u>username</u> everywhere.
 			This will not affect your <u>Display Name</u>.<br>
-			<b>Changing your username will log you out of all devices.</b>
+			<b class="emphasis">Changing your username will log you out of all devices.</b>
 		</p>
 		&nbsp;<input id="username" placeholder="Username" format="id" value="${username}" />
 		&nbsp;<div id="username-message">&nbsp;</div>`,
@@ -429,9 +541,9 @@ export async function change_username(username) {
 	}, () => {
 		//When user edits username, automatically check if it's available.
 		$.bind('username', username_check)
-	}, choice => {
+	}, async choice => {
 		if (choice === 'cancel') return true
-		return username_check()
+		return await username_check()
 	},
 		choice => (choice === 'cancel') ? null : $.val('username')
 	).catch(() => null)

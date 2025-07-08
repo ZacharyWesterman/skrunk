@@ -1,11 +1,10 @@
 """application.scalars.size"""
 
-__all__ = ['scalar']
+import re
 
 from ariadne import ScalarType
-import re
-import application.exceptions as exceptions
 
+import application.exceptions as exceptions
 
 ## Define a scalar type for size values
 scalar = ScalarType('Size')

@@ -1,9 +1,10 @@
 """application.exceptions"""
 
+from typing import Any
+
 
 class ClientError(Exception):
-	"""Base class for client-related errors."""
-	pass
+	"""Base class for errors caused by a client query."""
 
 
 class UserDoesNotExistError(ClientError):
@@ -57,7 +58,8 @@ class InvalidColor(ValueError):
 
 	def __init__(self, value) -> None:
 		"""
-		Initializes the exception with a custom error message indicating that the provided string is not a valid 7-character hex color.
+		Initializes the exception with a custom error message
+		indicating that the provided string is not a valid 7-character hex color.
 
 		Args:
 			value (str): The string that is not a valid 7-character hex color.
@@ -70,7 +72,8 @@ class InvalidSize(ValueError):
 
 	def __init__(self, value) -> None:
 		"""
-		Initializes the exception with a message indicating that the provided string is not a valid CSS size.
+		Initializes the exception with a message
+		indicating that the provided string is not a valid CSS size.
 
 		Args:
 			value (str): The string that is not a valid CSS size.
@@ -188,7 +191,8 @@ class InvalidSubscriptionToken(ClientError):
 
 	def __init__(self) -> None:
 		"""
-		Initializes the exception with a default error message indicating an invalid notification subscription token.
+		Initializes the exception with a default error message
+		indicating an invalid notification subscription token.
 		"""
 		super().__init__('Invalid notification subscription token')
 
@@ -196,9 +200,10 @@ class InvalidSubscriptionToken(ClientError):
 class ItemExistsError(ClientError):
 	"""Raised when an item already exists."""
 
-	def __init__(self, id: str) -> None:
+	def __init__(self, id: Any) -> None:
 		"""
-		Initializes the exception with a message indicating that an item already exists with the given RFID.
+		Initializes the exception with a message
+		indicating that an item already exists with the given RFID.
 
 		Args:
 			id (str): The RFID of the item that already exists.
@@ -250,7 +255,8 @@ class InvalidFeedKindError(ClientError):
 
 	def __init__(self, kind: str) -> None:
 		"""
-		Initializes the exception with a message indicating that feeds of the specified kind are not supported.
+		Initializes the exception with a message indicating that
+		feeds of the specified kind are not supported.
 
 		Args:
 			kind (str): The type of feed that is not supported.
@@ -269,3 +275,33 @@ class DocumentDoesNotExistError(ClientError):
 			id (str): The ID of the document that was not found.
 		"""
 		super().__init__(f'No document found with ID "{id}"')
+
+
+class InsufficientDiskSpace(ClientError):
+	"""Raised when there is not enough disk space."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating insufficient disk space.
+		"""
+		super().__init__('Not enough disk space to complete the operation. Please contact an admin!')
+
+
+class SubsonicError(ClientError):
+	"""Raised when an attempt to query Subsonic is made without being configured correctly."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating that Subsonic is not configured.
+		"""
+		super().__init__('Subsonic integration is not configured correctly. Please contact an admin!')
+
+
+class InvalidJWTError(ClientError):
+	"""Raised when a JSON web token is invalid."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating that the JSON web token is invalid.
+		"""
+		super().__init__('Invalid JSON web token')

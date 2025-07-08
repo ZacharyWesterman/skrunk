@@ -13,7 +13,8 @@
 			<hr>
 			<div id="server-modules" class="expand-container">
 				<div>
-					Modules enabled in <span name="group" template="dropdown"></span> group
+					Modules enabled in <span name="group" template="dropdown"></span> group:
+					<i class="fa-solid fa-list-check hidden" id="group-checkmark"></i>
 					<div id="server_modules"></div>
 				</div>
 			</div>
@@ -129,7 +130,11 @@
 		}
 
 		for (const m of modules) {
-			$(`module-${m}`).checked = true
+			const modl = $(`module-${m}`)
+			if (modl)
+				modl.checked = true
+			else
+				console.warn('Module not found:', m)
 		}
 
 		//Build configs list
@@ -279,5 +284,7 @@
 			$(`module-${i}`).checked = modules.includes(i)
 			$(`module-${i}`).disabled = is_a_group && !ServerModules.includes(i)
 		})
+
+		$.blink('group-checkmark')
 	}
 </script>

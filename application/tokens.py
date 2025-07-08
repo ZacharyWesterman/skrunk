@@ -1,18 +1,37 @@
-"""application.tokens"""
+"""
+This module handles JWT token creation, decoding, and validation for user sessions and API keys.
+"""
 
-from cryptography.hazmat.primitives import serialization
-import jwt
 import os
-from flask import request
 import random
+from typing import Any
 
-from .db.sessions import start_session, valid_session
+import jwt
+from cryptography.hazmat.primitives import serialization
+from flask import request
+
 from .db.apikeys import valid_api_key
+from .db.sessions import start_session, valid_session
+from .exceptions import InvalidJWTError
 
-__private_key = serialization.load_ssh_private_key(open(os.environ['HOME'] + '/.ssh/id_rsa', 'r').read().encode(), password=b'')
-__public_key = serialization.load_ssh_public_key(open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r').read().encode())
+__private_key: Any = None
+__public_key: Any = None
 
-__max_int = 2**32 - 1
+
+def init() -> None:
+	"""
+	Initialize the JWT token system by loading the private and public keys.
+	"""
+
+	global __private_key, __public_key
+
+	with open(os.environ['HOME'] + '/.ssh/id_rsa', 'r', encoding='utf8') as fp:
+		__private_key = serialization.load_ssh_private_key(fp.read().encode(), password=b'')
+	with open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r', encoding='utf8') as fp:
+		__public_key = serialization.load_ssh_public_key(fp.read().encode())
+
+
+__MAX_INT = 2**32 - 1
 
 
 def create_user_token(username: str) -> str:
@@ -29,11 +48,10 @@ def create_user_token(username: str) -> str:
 	Returns:
 		str: The generated JWT token.
 	"""
-	global __private_key, __max_int
 	token = jwt.encode(
 		payload={
 			'username': username,
-			'token_id': random.randint(0, __max_int),
+			'token_id': random.randint(0, __MAX_INT),
 		},
 		key=__private_key,
 		algorithm='RS256'
@@ -53,15 +71,16 @@ def decode_user_token(token: str) -> dict:
 		dict: The decoded token payload.
 
 	Raises:
-		jwt.ExpiredSignatureError: If the token has expired.
-		jwt.InvalidTokenError: If the token is invalid for any reason.
+		InvalidJWTError: If the token is expired or invalid.
 	"""
-	global __public_key
-	return jwt.decode(
-		token,
-		key=__public_key,
-		algorithms=['RS256']
-	)
+	try:
+		return jwt.decode(
+			token,
+			key=__public_key,
+			algorithms=['RS256']
+		)
+	except (jwt.ExpiredSignatureError, jwt.InvalidTokenError) as e:
+		raise InvalidJWTError from e
 
 
 def token_is_valid(token: str) -> bool:
@@ -80,7 +99,7 @@ def token_is_valid(token: str) -> bool:
 	return valid_session(token) or valid_api_key(token)
 
 
-def get_request_token() -> str:
+def get_request_token() -> str | None:
 	"""
 	Extracts the authorization token from the request headers.
 

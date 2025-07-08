@@ -10,7 +10,10 @@ def extensions() -> list:
 	Returns:
 		list: A list of strings representing video file extensions.
 	"""
-	return ['.mp4', '.mkv', '.avi', '.mov', '.wmv', '.webm', '.m4v', '.3gp', '.mpg', '.mpeg', '.vob', '.ogv']
+	return [
+		'.mp4', '.mkv', '.avi', '.mov', '.wmv', '.webm',
+		'.m4v', '.3gp', '.mpg', '.mpeg', '.vob', '.ogv'
+	]
 
 
 def create_preview_from_first_frame(video_path: str, output_image: str) -> None:

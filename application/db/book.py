@@ -1,21 +1,22 @@
 """application.db.book"""
 
-from application.tokens import decode_user_token, get_request_token
-from application.db.settings import get_config, get_enabled_modules
-import application.exceptions as exceptions
-from application.objects import BookSearchFilter, Sorting
-from . import users, blob
-from application.integrations import google_books, subsonic
-from datetime import datetime
-from bson.objectid import ObjectId
 import re
-import markdown
-import warnings
+from datetime import datetime
 
+import markdown
+from bson.objectid import ObjectId
 from pymongo.collection import Collection
+from pymongo.cursor import Cursor
+
+from application import exceptions
+from application.integrations import google_books, subsonic
+from application.types import BookSearchFilter, Sorting
+
+from . import blob, users
+from .perms import caller_info_strict
 
 ## A pointer to the Book collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 ## The client object that handles all Subsonic API requests.
 SUBSONIC = None
@@ -27,57 +28,23 @@ _P = {
 }
 
 
-def init() -> None:
-	"""
-	Initialize the Subsonic session and cache data on startup.
-
-	This function retrieves the Subsonic URL, username, and password from the configuration,
-	initializes a Subsonic session, and caches album data for later use. If the Subsonic
-	module is enabled and the URL is provided, it attempts to connect to the Subsonic server
-	and cache album data. If the connection fails, an error message is printed.
-
-	Raises:
-		subsonic.SessionError: If unable to connect to the Subsonic server.
-	"""
-	warnings.warn("The 'application.db.book.init' function is deprecated and will be removed in a future version.", DeprecationWarning)
-	# global SUBSONIC
-
-	# url = get_config('subsonic:url')
-	# if url is not None and 'subsonic' in get_enabled_modules():
-	# 	username = get_config('subsonic:username')
-	# 	password = get_config('subsonic:password')
-	# 	SUBSONIC = subsonic.SubsonicClient(url, username, password)
-	# 	try:
-	# 		print('Caching Subsonic data on startup...', flush=True)
-	# 		# Get albums on startup so it's cached for later use.
-	# 		SUBSONIC. all_albums('Audiobooks')
-
-	# 		# Cache as many album IDs as possible
-	# 		for book_data in db.find({}).limit(subsonic.SUBSONIC_ALBUMID_CACHESZ):
-	# 			SUBSONIC.get_album_id(book_data['title'], 'Audiobooks')
-
-	# 		print('Finished caching Subsonic data.', flush=True)
-	# 	except subsonic.SessionError:
-	# 		print('Unable to connect to Subsonic server!', flush=True)
-	pass
-
-
 def process_share_hist(share_history: list) -> list:
 	"""
 	Processes a list of share history records and updates the display name for each record.
 
 	Args:
-		share_history (list): A list of dictionaries, where each dictionary represents a share history record.
-							  Each record must contain 'user_id' and 'name' keys.
+		share_history (list): A list of dictionaries, where each dictionary represents
+			a share history record. Each record must contain 'user_id' and 'name' keys.
 
 	Returns:
-		list: A list of dictionaries with updated 'display_name' keys. If 'user_id' is None, 'display_name' is set to 'name'.
-			  If 'user_id' is not None, 'display_name' is set to the display name of the user fetched by 'user_id'.
-			  If the user does not exist, 'display_name' is set to 'name'.
+		list: A list of dictionaries with updated 'display_name' keys.
+			If 'user_id' is None, 'display_name' is set to 'name'.
+			If 'user_id' is not None, 'display_name' is set to the display name of the user.
+			If the user does not exist, 'display_name' is set to 'name'.
 	"""
 	share_hist = []
 	for hist in share_history:
-		if hist['user_id'] == None:
+		if hist['user_id'] is None:
 			hist['display_name'] = hist['name']
 		else:
 			try:
@@ -111,9 +78,10 @@ def keyword_tokenize(text: str) -> list[str]:
 	Returns:
 		list[str]: A list of unique keywords extracted from the input text.
 	"""
-	return list(set([
-		i for i in _P['nonwd'].sub(' ', _P['tag'].sub(' ', text.replace('\'', ''))).lower().split() if len(i) > 2
-	]))
+	keywords = _P['nonwd'].sub(' ', _P['tag'].sub(' ', text.replace('\'', ''))).lower().split()
+	return list(set(
+		i for i in keywords if len(i) > 2
+	))
 
 
 def build_keywords(book_data: dict) -> list[str]:
@@ -139,7 +107,7 @@ def build_keywords(book_data: dict) -> list[str]:
 		field_data = book_data.get(field)
 		if field_data is None:
 			continue
-		if type(field_data) is list:
+		if isinstance(field_data, list):
 			for i in field_data:
 				keywords += keyword_tokenize(i)
 		else:
@@ -161,17 +129,7 @@ def process_book_tag(book_data: dict) -> dict:
 	Raises:
 		exceptions.UserDoesNotExistError: If the user does not exist.
 		exceptions.BlobDoesNotExistError: If the blob does not exist.
-
-	The function performs the following operations:
-	- Retrieves and replaces the 'owner' field with user data.
-	- Retrieves and replaces the 'thumbnail' field with blob data.
-	- Processes the 'shareHistory' field.
-	- Renames the '_id' field to 'id'.
-	- Builds and adds 'keywords' field.
-	- Adds an 'audiobook' field if SUBSONIC is enabled and the album is found.
 	"""
-	global SUBSONIC
-
 	try:
 		userdata = users.get_user_by_id(book_data['owner'])
 		book_data['owner'] = userdata
@@ -210,7 +168,8 @@ def get_book_tag(rfid: str, *, parse: bool = False) -> dict:
 
 	Args:
 		rfid (str): The RFID of the book tag to retrieve.
-		parse (bool, optional): If True, the book data will be processed before returning. Defaults to False.
+		parse (bool, optional): If True, the book data will be
+			processed before returning. Defaults to False.
 
 	Returns:
 		dict: The book tag data. If `parse` is True, the data will be processed.
@@ -232,7 +191,8 @@ def get_book(id: str, *, parse: bool = False) -> dict:
 
 	Args:
 		id (str): The ID of the book to retrieve.
-		parse (bool, optional): If True, the book data will be processed before returning. Defaults to False.
+		parse (bool, optional): If True, the book data will be
+			processed before returning. Defaults to False.
 
 	Returns:
 		dict: The book data, either raw or processed based on the `parse` parameter.
@@ -247,7 +207,7 @@ def get_book(id: str, *, parse: bool = False) -> dict:
 	return process_book_tag(book_data) if parse else book_data
 
 
-def next_out_of_date_book_rfid(before: datetime) -> str:
+def next_out_of_date_book_rfid(before: datetime) -> str | None:
 	"""
 	Retrieve the RFID of the next book that is out of date.
 
@@ -290,8 +250,12 @@ def refresh_book_data(rfid: str) -> None:
 
 	google_book_data = google_books.get(id=book_data['bookId'])
 
-	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'industryIdentifiers', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
-	updated = {'lastSync': datetime.utcnow()}
+	fields = [
+		'title', 'subtitle', 'authors', 'publisher', 'publishedDate',
+		'description', 'industryIdentifiers', 'pageCount',
+		'categories', 'maturityRating', 'language', 'thumbnail',
+	]
+	updated: dict = {'lastSync': datetime.utcnow()}
 	for i in fields:
 		if i in book_data.get('noSyncFields', []):
 			continue
@@ -326,8 +290,7 @@ def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
 	google_book_data = google_books.get(id=book_id)
 	del google_book_data['id']
 
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 	owner_data = users.get_user_data(owner)
 
 	book_data = {
@@ -343,7 +306,11 @@ def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
 		'industryIdentifiers': google_book_data.get('industryIdentifiers', []),
 		'ebooks': [],
 	}
-	fields = ['title', 'subtitle', 'authors', 'publisher', 'publishedDate', 'description', 'pageCount', 'categories', 'maturityRating', 'language', 'thumbnail']
+	fields = [
+		'title', 'subtitle', 'authors', 'publisher', 'publishedDate',
+		'description', 'pageCount', 'categories', 'maturityRating',
+		'language', 'thumbnail',
+	]
 	for i in fields:
 		book_data[i] = google_book_data.get(i)
 
@@ -378,8 +345,7 @@ def create_book(owner: str, data: dict) -> dict:
 	Returns:
 		dict: A dictionary containing the created book data.
 	"""
-	username = decode_user_token(get_request_token()).get('username')
-	user_data = users.get_user_data(username)
+	user_data = caller_info_strict()
 	owner_data = users.get_user_data(owner)
 
 	book_data = {
@@ -398,12 +364,18 @@ def create_book(owner: str, data: dict) -> dict:
 		'authors': data['authors'],
 		'publisher': data['publisher'],
 		'publishedDate': data['publishedDate'],
-		'description': None if data['description'] is None else markdown.markdown(data['description'], output_format='html'),
+		'description': (
+			None if data['description'] is None else
+			markdown.markdown(data['description'], output_format='html')
+		),
 		'pageCount': data['pageCount'],
 		'categories': [],
 		'maturityRating': 'NOT_MATURE',
 		'language': 'en',
-		'thumbnail': data['thumbnail'].replace('http://', 'https://') if data['thumbnail'] else data['thumbnail'],
+		'thumbnail': (
+			data['thumbnail'].replace('http://', 'https://')
+			if data['thumbnail'] else data['thumbnail']
+		),
 		'ebooks': [],
 	}
 
@@ -453,6 +425,35 @@ def unlink_book_tag(rfid: str) -> dict:
 	return book_data
 
 
+def relink_book_tag(id: str, rfid: str) -> dict:
+	"""
+	Change the RFID of a book tag to a new one.
+
+	Args:
+		id (str): The ID of the book.
+		rfid (str): The new RFID for the book tag.
+
+	Returns:
+		dict: The updated book tag information.
+
+	Raises:
+		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
+		exceptions.BookTagExistsError: If the new RFID already exists in the database.
+	"""
+
+	book_data = db.find_one({'_id': ObjectId(id)})
+	if not book_data:
+		raise exceptions.BookTagDoesNotExistError(id)
+
+	if db.find_one({'rfid': rfid}):
+		raise exceptions.BookTagExistsError(rfid)
+
+	db.update_one({'_id': ObjectId(id)}, {'$set': {'rfid': rfid}})
+	book_data['rfid'] = rfid
+
+	return book_data
+
+
 def norm_query(query: dict, ownerq: dict | None) -> dict:
 	"""
 	Normalize a query by combining it with an owner query if provided.
@@ -472,7 +473,7 @@ def norm_query(query: dict, ownerq: dict | None) -> dict:
 	return query
 
 
-def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
+def build_book_query(filter: BookSearchFilter, sort: list) -> tuple[list[dict] | None, dict]:
 	"""
 	Builds a MongoDB query and aggregation pipeline based on the provided filter and sort criteria.
 
@@ -491,15 +492,15 @@ def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
 			- query (dict): The MongoDB query dictionary.
 	"""
 	query = {}
-	aggregate = None
+	aggregate: list[dict] | None = None
 
-	owner = filter.get('owner')
+	owner: list[str] | str | None = filter.get('owner')
 	ownerq = None
 	if owner is not None:
-		if type(owner) is str:
+		if isinstance(owner, str):
 			user_data = users.get_user_data(owner)
 			query['owner'] = user_data['_id']
-		elif len(owner):
+		elif isinstance(owner, list) and len(owner) > 0:
 			ownerq = {'$or': [{'owner': i} for i in owner]}
 
 	if filter.get('author') is not None:
@@ -511,13 +512,14 @@ def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
 	if filter.get('shared') is not None:
 		query['shared'] = filter.get('shared')
 
-	if filter.get('title') is not None:
-		isbn = filter.get('title').strip().replace('-', '')
+	title = filter.get('title')
+	if title is not None:
+		isbn = title.strip().replace('-', '')
 		if re.match(r'^\d{9,13}$', isbn):
 			query['industryIdentifiers.identifier'] = isbn
 			query = norm_query(query, ownerq)
 		else:
-			keywords = keyword_tokenize(filter.get('title'))
+			keywords = keyword_tokenize(title)
 			query['keywords'] = {'$in': keywords}
 			query['score'] = {'$gt': (len(keywords) + 1) // 2 if len(keywords) > 1 else 0}
 			query = norm_query(query, ownerq)
@@ -541,18 +543,19 @@ def build_book_query(filter: BookSearchFilter, sort: list = []) -> dict:
 
 def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
 	"""
-	Retrieve a list of books from the database based on the given filter, pagination, and sorting criteria.
+	Retrieve a list of books from the database based on
+	the given filter, pagination, and sorting criteria.
 
 	Args:
 		filter (BookSearchFilter): The filter criteria to apply to the book search.
 		start (int): The starting index for pagination.
 		count (int): The number of books to retrieve.
-		sorting (Sorting): The sorting criteria, including fields to sort by and order (ascending/descending).
+		sorting (Sorting): The sorting criteria, including
+			fields to sort by and order (ascending/descending).
 
 	Returns:
 		list: A list of books that match the filter criteria, sorted and paginated as specified.
 	"""
-	global db
 	books = []
 
 	if 'title' not in sorting['fields']:
@@ -567,12 +570,17 @@ def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting
 	except exceptions.UserDoesNotExistError:
 		return []
 
+	selection: Cursor | None = None
+
 	if aggregate:
 		aggr_filter = [{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}}]
 		for i in db.aggregate(aggregate + aggr_filter):
 			selection = i['results']
 	else:
 		selection = db.find(query, sort=sort).limit(count).skip(start)
+
+	if selection is None:
+		return books
 
 	for i in selection:
 		i = process_book_tag(i.get('results', i))
@@ -581,7 +589,7 @@ def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting
 	return books
 
 
-def count_books(filter: BookSearchFilter) -> list:
+def count_books(filter: BookSearchFilter) -> int:
 	"""
 	Count the number of books in the database based on the provided filter.
 
@@ -589,14 +597,14 @@ def count_books(filter: BookSearchFilter) -> list:
 		filter (BookSearchFilter): The filter criteria to search for books.
 
 	Returns:
-		int: The count of books that match the filter criteria. Returns 0 if the user does not exist or no books match the criteria.
+		int: The count of books that match the filter criteria.
+			Returns 0 if the user does not exist or no books match the criteria.
 
 	Raises:
 		exceptions.UserDoesNotExistError: If the user specified in the filter does not exist.
 	"""
-	global db
 	try:
-		aggregate, query = build_book_query(filter)
+		aggregate, query = build_book_query(filter, [])
 	except exceptions.UserDoesNotExistError:
 		return 0
 
@@ -607,6 +615,9 @@ def count_books(filter: BookSearchFilter) -> list:
 			return ct[0]['count'] if len(ct) else 0
 	else:
 		return db.count_documents(query)
+
+	# Should never reach here, but just in case.
+	return 0
 
 
 def share_book_with_user(book_id: str, username: str) -> dict:
@@ -624,8 +635,8 @@ def share_book_with_user(book_id: str, username: str) -> dict:
 		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
 	"""
 
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
@@ -637,8 +648,8 @@ def share_book_with_user(book_id: str, username: str) -> dict:
 	else:
 		updates = {'shared': True}
 
-	db.update_one({'_id': book_id}, {'$set': updates})
-	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+	db.update_one({'_id': book_obj_id}, {'$set': updates})
+	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': user_data['_id'],
 		'name': username,
 		'start': datetime.utcnow(),
@@ -662,8 +673,8 @@ def share_book_with_non_user(book_id: str, name: str) -> dict:
 	Raises:
 		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
 	"""
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
@@ -673,8 +684,8 @@ def share_book_with_non_user(book_id: str, name: str) -> dict:
 	else:
 		updates = {'shared': True}
 
-	db.update_one({'_id': book_id}, {'$set': updates})
-	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+	db.update_one({'_id': book_obj_id}, {'$set': updates})
+	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': None,
 		'name': name,
 		'start': datetime.utcnow(),
@@ -701,25 +712,29 @@ def borrow_book(book_id: str, user_data: dict) -> dict:
 		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
 		exceptions.BookCannotBeShared: If the book is currently being borrowed by another user.
 	"""
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
 	if len(book_data['shareHistory']):
-		# If book is currently shared with a user OTHER THAN the one requesting to borrow, Throw an exception.
-		# In that case, someone needs to declare that it is no longer being borrowed before it can be borrowed again.
+		# If book is currently shared with a user OTHER THAN
+		# the one requesting to borrow, Throw an exception.
+		# In that case, someone needs to declare that it is
+		# no longer being borrowed before it can be borrowed again.
 		last_share = book_data['shareHistory'][-1]
 		if last_share['stop'] is None and last_share['user_id'] != user_data['_id']:
-			raise exceptions.BookCannotBeShared(f'This book is already being borrowed by {last_share["name"]}.')
+			raise exceptions.BookCannotBeShared(
+				f'This book is already being borrowed by {last_share["name"]}.'
+			)
 
 		last_share = len(book_data['shareHistory']) - 1
 		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
 	else:
 		updates = {'shared': True}
 
-	db.update_one({'_id': book_id}, {'$set': updates})
-	db.update_one({'_id': book_id}, {'$push': {'shareHistory': {
+	db.update_one({'_id': book_obj_id}, {'$set': updates})
+	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': user_data['_id'],
 		'name': user_data['username'],
 		'start': datetime.utcnow(),
@@ -744,8 +759,8 @@ def return_book(book_id: str, user_data: dict) -> dict:
 		BookTagDoesNotExistError: If the book with the given ID does not exist.
 		BookCannotBeShared: If the book is not currently shared or if the user did not borrow the book.
 	"""
-	book_id = ObjectId(book_id)
-	book_data = db.find_one({'_id': book_id})
+	book_obj_id = ObjectId(book_id)
+	book_data = db.find_one({'_id': book_obj_id})
 	if book_data is None:
 		raise exceptions.BookTagDoesNotExistError(book_id)
 
@@ -753,10 +768,15 @@ def return_book(book_id: str, user_data: dict) -> dict:
 		raise exceptions.BookCannotBeShared('Nobody is borrowing this book.')
 
 	last_share = len(book_data['shareHistory']) - 1
-	if book_data['shareHistory'][-1]['user_id'] != user_data['_id'] and book_data['owner'] != user_data['_id']:
+	if (
+		book_data['shareHistory'][-1]['user_id'] != user_data['_id']
+		and book_data['owner'] != user_data['_id']
+	):
 		raise exceptions.BookCannotBeShared('You did not borrow this book.')
 
-	db.update_one({'_id': book_id}, {'$set': {'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()}})
+	db.update_one({'_id': book_obj_id}, {'$set': {
+		'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()
+	}})
 	return book_data
 
 
@@ -807,8 +827,9 @@ def edit_book(id: str, new_data: dict) -> dict:
 	Returns:
 		dict: The updated book data.
 
-	This function retrieves the current data of the book using its ID, compares it with the new data provided,
-	and updates the fields that have changed. It also updates the 'noSyncFields' to include the changed fields.
+	This function retrieves the current data of the book using its ID,
+	compares it with the new data provided, and updates the fields that have changed.
+	It also updates the 'noSyncFields' to include the changed fields.
 	Finally, it updates the book data in the database and returns the updated book data.
 	"""
 	book_data = get_book(id, parse=True)
@@ -819,7 +840,9 @@ def edit_book(id: str, new_data: dict) -> dict:
 			changed_fields[i] = new_data[i]
 			book_data[i] = new_data[i]
 
-	changed_fields['noSyncFields'] = list(set(book_data.get('noSyncFields', []) + [i for i in changed_fields]))
+	changed_fields['noSyncFields'] = list(set(
+		book_data.get('noSyncFields', []) + [i for i in changed_fields]
+	))
 	book_data['noSyncFields'] = changed_fields['noSyncFields']
 
 	db.update_one({'_id': ObjectId(id)}, {'$set': changed_fields})
@@ -835,10 +858,12 @@ def count_all_user_books(filter_users: list | None = None) -> list:
 	It can also filter the results to include only specific users if a list of user IDs is provided.
 
 	Args:
-		filter_users (list | None): A list of user IDs to filter the results. If None, all users are included.
+		filter_users (list | None): A list of user IDs to filter the results.
+			If None, all users are included.
 
 	Returns:
-		list: A list of dictionaries, each containing the 'owner' information (username and display name) and the 'count' of books owned by that user.
+		list: A list of dictionaries, each containing the 'owner' information
+			(username and display name) and the 'count' of books owned by that user.
 	"""
 	aggregate = db.aggregate([
 		{'$group': {'_id': '$owner', 'count': {'$sum': 1}}}
@@ -848,7 +873,7 @@ def count_all_user_books(filter_users: list | None = None) -> list:
 
 	for i in aggregate:
 		# Allow user group filtering
-		if filter_users != None and i['_id'] not in filter_users:
+		if filter_users is not None and i['_id'] not in filter_users:
 			continue
 
 		try:
@@ -884,8 +909,15 @@ def append_ebook(book_id: str, ebook_url: str) -> dict:
 	"""
 	book_data = get_book(book_id)
 
-	pos = ebook_url.rfind('.')
-	ext = ebook_url[pos + 1::] if pos > -1 else 'unk'
+	ext = 'unk'
+
+	try:
+		blob_data = blob.get_blob_data(ebook_url)
+		blob.add_reference(ebook_url)  # If using blob id instead of file url, update the reference count.
+		ext = blob_data['ext'].strip('.')
+	except exceptions.BlobDoesNotExistError:
+		pos = ebook_url.rfind('.')
+		ext = ebook_url[pos + 1::] if pos > -1 else 'unk'
 
 	book_data['ebooks'] += [{
 		'url': ebook_url,
@@ -894,10 +926,38 @@ def append_ebook(book_id: str, ebook_url: str) -> dict:
 
 	db.update_one({'_id': ObjectId(book_id)}, {'$set': {'ebooks': book_data['ebooks']}})
 
+	return book_data
+
+
+def remove_ebook(book_id: str, index: int) -> dict:
+	"""
+	Remove an ebook from the book's ebook list and update the database.
+
+	Args:
+		book_id (str): The unique identifier of the book.
+		index (int): The URL of the ebook to be appended.
+
+	Returns:
+		dict: The updated book data.
+
+	Raises:
+		exceptions.BookTagDoesNotExistError: If the book with the given ID does not exist.
+	"""
+	book_data = get_book(book_id)
+	ebooks: list = book_data.get('ebooks', [])
+
+	if index < 0 or index >= len(ebooks):
+		return book_data
+
+	ebook_url: str = ebooks.pop(index).get('url', '')
+
 	try:
 		blob.get_blob_data(ebook_url)
-		blob.add_reference(ebook_url)  # If using blob id instead of file url, update the reference count.
+		blob.remove_reference(ebook_url)  # If using blob id instead of file url, update the reference count.
 	except exceptions.BlobDoesNotExistError:
 		pass
+
+	db.update_one({'_id': ObjectId(book_id)}, {'$set': {'ebooks': ebooks}})
+	book_data['ebooks'] = ebooks
 
 	return book_data

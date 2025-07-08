@@ -1,67 +1,107 @@
+
+"""Data for a user in the system."""
 type UserData {
+	"""The username of the user."""
 	username: String!
+	"""The display name of the user."""
 	display_name: String!
-	theme: UserTheme_!
+	"""The theme settings for the user."""
+	theme: UserThemeOutput!
+	"""The permissions assigned to the user."""
 	perms: [String!]!
+	"""The date and time when the user last logged in, if ever."""
 	last_login: DateTime
+	"""A list of groups the user belongs to."""
 	groups: [String!]
+	"""A list of modules the user has disabled for themselves."""
 	disabled_modules: [String!]!
+	"""The user's email address. This is currently reserved for possible future use."""
 	email: String!
 }
 
+"""Minimal data for a user, used for listing users or getting basic user information."""
 type UserMinData {
+	"""The username of the user."""
 	username: String!
+	"""The display name of the user."""
 	display_name: String!
+	"""The date and time when the user last logged in, if ever."""
 	last_login: DateTime
 }
 
+"""An error indicating that the user already exists."""
 type UserExistsError {
+	"""The error message"""
 	message: String!
 }
 
+"""An error indicating that the user does not exist."""
 type UserDoesNotExistError {
+	"""The error message"""
 	message: String!
 }
 
+"""An error indicating that the chosen username is invalid."""
 type BadUserNameError {
+	"""The error message"""
 	message: String!
 }
 
+"""An error indicating that the user does not have sufficient permissions to perform the action."""
 type InsufficientPerms {
+	"""The error message"""
 	message: String!
 }
 
-type UserTheme_ {
-	colors: [ThemeColor_!]
-	sizes: [ThemeSize_!]
+"""Theme settings for a user."""
+type UserThemeOutput {
+	"""The colors defined in the user's theme."""
+	colors: [ThemeColorOutput!]
+	"""The sizes defined in the user's theme."""
+	sizes: [ThemeSizeOutput!]
 }
 
-type ThemeColor_ {
+"""Color settings for a user theme."""
+type ThemeColorOutput {
+	"""The name of the color setting."""
 	name: String!
+	"""The value of the color setting."""
 	value: Color!
 }
 
-type ThemeSize_ {
+"""Size settings for a user theme."""
+type ThemeSizeOutput {
+	"""The name of the size setting."""
 	name: String!
+	"""The value of the size setting."""
 	value: Size!
 }
 
+"""Theme settings for a user."""
 input UserTheme {
+	"""The colors defined in the user's theme."""
 	colors: [ThemeColor!]!
+	"""The sizes defined in the user's theme."""
 	sizes: [ThemeSize!]!
 }
 
+"""Color settings for a user theme."""
 input ThemeColor {
+	"""The name of the color setting."""
 	name: String!
+	"""The value of the color setting."""
 	value: Color!
 }
 
+"""Size settings for a user theme."""
 input ThemeSize {
+	"""The name of the size setting."""
 	name: String!
+	"""The value of the size setting."""
 	value: Size!
 }
 
-union UserQueryReponse = UserData | UserDoesNotExistError | InsufficientPerms
+union UserQueryResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserCreateResponse = UserData | BadUserNameError | UserExistsError | InsufficientPerms
 union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientPerms
@@ -70,7 +110,7 @@ union UserRenameResponse = UserData | BadUserNameError | UserDoesNotExistError |
 #Resolvers below this line:
 
 extend type Query {
-	getUser(username: String!): UserQueryReponse!
+	getUser(username: String!): UserQueryResponse!
 	listUsers(restrict: Boolean!): [UserMinData!]!
 	countSessions(username: String!): Int!
 }

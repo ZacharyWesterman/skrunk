@@ -1,28 +1,69 @@
-"""application.db.notification"""
+"""
+This module allows sending web push notifications to users.
+"""
 
+import json
+from datetime import datetime
+from urllib.parse import urlsplit
+
+from bson.objectid import ObjectId
+from pymongo.database import Database
+from pywebpush import WebPushException, webpush
+
+from application import exceptions
 from application.db import settings, users
 from application.db.sessions import get_first_session_token
-from application import exceptions
-from pywebpush import webpush, WebPushException
-from urllib.parse import urlsplit
-from datetime import datetime
-from bson.objectid import ObjectId
-import json
 
-# Attempt to read the VAPID keys from the data directory.
-try:
-	## The VAPID private key used for sending notifications.
-	VAPID_PRIVATE_KEY = open('data/private_key.txt', 'r+').readline().strip('\n')
-
-	## The VAPID public key used for sending notifications.
-	VAPID_PUBLIC_KEY = open('data/public_key.txt', 'r+').read().strip('\n')
-except FileNotFoundError:
-	print('WARNING: No VAPID keys found!', ' ', '\n', None, True)
-
-from pymongo.database import Database
+VAPID_PRIVATE_KEY: str = ''
+VAPID_PUBLIC_KEY: str = ''
 
 ## A pointer to the database object.
-db: Database = None
+db: Database = None  # type: ignore[assignment]
+
+
+def init() -> None:
+	"""
+	Initialize the notification module by loading VAPID keys from the database,
+	or generating them if they do not exist.
+	"""
+
+	global VAPID_PRIVATE_KEY, VAPID_PUBLIC_KEY
+
+	# Attempt to read the VAPID keys from the database.
+	vapid_keys = settings.db.find_one({'name': 'vapid_keys'})
+	if vapid_keys is not None:
+		VAPID_PRIVATE_KEY = vapid_keys.get('private_key', '')
+		VAPID_PUBLIC_KEY = vapid_keys.get('public_key', '')
+
+		if VAPID_PRIVATE_KEY and VAPID_PUBLIC_KEY:
+			return
+
+		# If the keys are incomplete or missing, delete the entry.
+		print('WARNING: VAPID keys are incomplete or missing!', flush=True)
+		settings.db.delete_one({'name': 'vapid_keys'})
+
+	# If the keys are not found in the database.
+	# Attempt to read the VAPID keys from the data directory.
+	try:
+		## The VAPID private key used for sending notifications.
+		with open('data/private_key.txt', 'r+', encoding='utf8') as fp:
+			VAPID_PRIVATE_KEY = fp.readline().strip('\n')
+
+		## The VAPID public key used for sending notifications.
+		with open('data/public_key.txt', 'r+', encoding='utf8') as fp:
+			VAPID_PUBLIC_KEY = fp.read().strip('\n')
+	except FileNotFoundError:
+		print('WARNING: No VAPID keys found!', ' ', '\n', None, True)
+		return
+
+	config = {
+		'type': 'secret',
+		'name': 'vapid_keys',
+		'private_key': VAPID_PRIVATE_KEY,
+		'public_key': VAPID_PUBLIC_KEY,
+	}
+
+	settings.db.insert_one(config)
 
 
 def get_user_from_notif(id: str) -> dict:
@@ -87,13 +128,13 @@ def create_subscription(username: str, subscription_token: dict) -> None:
 	Args:
 		username (str): The username of the user.
 		subscription_token (dict): A dictionary containing the subscription token details.
-			Expected keys are:
-				- 'endpoint' (str): The endpoint URL of the subscription.
-				- 'expirationTime' (int or None): The expiration time of the subscription.
-				- 'keys' (dict): A dictionary containing the keys for the subscription.
-					Expected keys are:
-						- 'p256dh' (str): The p256dh key.
-						- 'auth' (str): The auth key.
+		Expected keys are:
+			- 'endpoint' (str): The endpoint URL of the subscription.
+			- 'expirationTime' (str | None): The expiration time of the subscription.
+			- 'keys' (dict): A dictionary containing the keys for the subscription.
+				Expected keys are:
+					- 'p256dh' (str): The p256dh key.
+					- 'auth' (str): The auth key.
 
 	Raises:
 		exceptions.InvalidSubscriptionToken: If the subscription token is invalid.
@@ -112,8 +153,8 @@ def create_subscription(username: str, subscription_token: dict) -> None:
 				},
 			},
 		})
-	except TypeError | KeyError:
-		raise exceptions.InvalidSubscriptionToken
+	except (TypeError, KeyError) as e:
+		raise exceptions.InvalidSubscriptionToken from e
 
 
 def delete_subscriptions(username: str) -> int:
@@ -143,17 +184,17 @@ def delete_subscription(auth: str) -> int:
 	return db.subscriptions.delete_many({'token.keys.auth': auth}).deleted_count
 
 
-def mark_as_read(id: str) -> None:
+def mark_as_read(item_id: str) -> None:
 	"""
 	Marks a notification as read in the database.
 
 	Args:
-		id (str): The unique identifier of the notification to be marked as read.
+		item_id (str): The unique identifier of the notification to be marked as read.
 
 	Returns:
 		None
 	"""
-	db.notif_log.update_one({'_id': ObjectId(id)}, {'$set': {
+	db.notif_log.update_one({'_id': ObjectId(item_id)}, {'$set': {
 		'read': True
 	}})
 
@@ -186,7 +227,10 @@ def get_notifications(username: str, read: bool, start: int, count: int) -> list
 		list: A list of notifications, each represented as a dictionary.
 	"""
 	user_data = users.get_user_data(username)
-	selection = db.notif_log.find({'recipient': user_data['_id'], 'read': read}, sort=[('created', -1)])
+	selection = db.notif_log.find({
+		'recipient': user_data['_id'],
+		'read': read,
+	}, sort=[('created', -1)])
 	result = []
 	for i in selection.limit(count).skip(start):
 		i['id'] = str(i['_id'])
@@ -210,7 +254,84 @@ def count_notifications(username: str, read: bool) -> int:
 	return db.notif_log.count_documents({'recipient': user_data['_id'], 'read': read})
 
 
-def send(title: str, body: str, username: str, *, category: str = 'general', read: bool = False) -> dict:
+def try_send_webpush(
+	username: str,
+    subscription_token: dict,
+    message: dict,
+    admin_email: str,
+    endpoint: str
+) -> bool:
+	"""
+	Attempts to send a web push notification to a user and handles exceptions.
+
+	Args:
+		username (str): The username of the notification recipient.
+		subscription_token (dict): The web push subscription information for the user.
+		message (dict): The notification message payload to send.
+		admin_email (str): The administrator's email address for VAPID claims.
+		endpoint (str): The endpoint URL for the push service.
+
+	Returns:
+		bool: True if the notification was sent successfully, False otherwise.
+	"""
+
+	try:
+		webpush(
+			subscription_info=subscription_token,
+			data=json.dumps(message),
+			vapid_private_key=VAPID_PRIVATE_KEY,
+			vapid_claims={
+				'sub': f'mailto:{admin_email}',
+				'aud': endpoint,
+			}
+		)
+	except WebPushException as e:
+		send_admin_alert = True
+
+		if e.response is None:
+			msg = (
+				'WebPushException when sending notification to ' +
+				f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
+			)
+			print(msg, flush=True)
+			return False
+
+		# If user subscription is expired, just delete the subscription and continue
+		# There's nothing else we can do in that case.
+		if e.response.status_code == 410:
+			print(f'A notification subscription for user "{username}" has expired.', flush=True)
+			delete_subscription(subscription_token.get('keys', {}).get('auth'))
+			send_admin_alert = False
+
+		# Send notification to admins if an unhandled WebPushException occurs!
+		if send_admin_alert:
+			for user in users.get_admins():
+				db.notif_log.insert_one({
+					'recipient': user['_id'],
+					'created': datetime.utcnow(),
+					'message': json.dumps({
+						'title': 'WebPushException when sending notification',
+						'body': (
+							'WebPushException when sending notification to ' +
+							f'{username}:\n\n{e}\n\nMSG:\n{message["body"]}'
+						),
+					}),
+					'device_count': 0,
+					'read': False,
+					'category': 'webpushexception',
+				})
+
+	return True
+
+
+def send(
+    title: str,
+    body: str,
+    username: str,
+    *,
+    category: str = 'general',
+    read: bool = False
+) -> dict:
 	"""
 	Send a notification to a user and log the notification in the database.
 
@@ -235,19 +356,20 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 	if admin_email is None or admin_email == '':
 		raise exceptions.MissingConfig('Admin Email')
 
-	message = {
+	message: dict = {
 		'title': title,
 		'body': body,
 	}
 
-	log_id = db.notif_log.insert_one({
+	notif_data = {
 		'recipient': user_data['_id'],
 		'created': datetime.utcnow(),
 		'message': json.dumps(message),
 		'category': category,
 		'device_count': 0,
 		'read': read,
-	}).inserted_id
+	}
+	log_id = db.notif_log.insert_one(notif_data).inserted_id
 
 	message['login_token'] = get_first_session_token(username)
 	message['notif_id'] = str(log_id)
@@ -256,44 +378,20 @@ def send(title: str, body: str, username: str, *, category: str = 'general', rea
 	for subscription_token in sub_tokens:
 		url = urlsplit(subscription_token['endpoint'])
 		endpoint = f'{url.scheme}://{url.netloc}'
-
-		try:
-			webpush(
-				subscription_info=subscription_token,
-				data=json.dumps(message),
-				vapid_private_key=VAPID_PRIVATE_KEY,
-				vapid_claims={
-					'sub': f'mailto:{admin_email}',
-					'aud': endpoint,
-				}
-			)
-		except WebPushException as e:
-			send_admin_alert = True
-
-			# If user subscription is expired, just delete the subscription and continue
-			# There's nothing else we can do in that case.
-			if e.response.status_code == 410:
-				print(f'A notification subscription for user "{username}" has expired.', flush=True)
-				delete_subscription(subscription_token.get('keys', {}).get('auth'))
-				send_admin_alert = False
-
-			# Send notification to admins if an unhandled WebPushException occurs!
-			if send_admin_alert:
-				for user in users.get_admins():
-					db.notif_log.insert_one({
-						'recipient': user['_id'],
-						'created': datetime.utcnow(),
-						'message': json.dumps({'title': 'WebPushException when sending notification', 'body': f'WebPushException when sending notification to {username}:\n\n{e}\n\nMSG:\n{message["body"]}'}),
-						'device_count': 0,
-						'read': False,
-						'category': 'webpushexception',
-					})
+		if not try_send_webpush(
+			username,
+			subscription_token,
+			message,
+			admin_email,
+			endpoint
+		):
+			continue
 
 	db.notif_log.update_one({'_id': log_id}, {'$set': {
 		'device_count': len(sub_tokens),
 	}})
 
-	notif_data = db.notif_log.find_one({'_id': log_id})
-	notif_data['id'] = notif_data['_id']
+	notif_data['device_count'] = len(sub_tokens)
+	notif_data['id'] = str(log_id)
 
 	return notif_data

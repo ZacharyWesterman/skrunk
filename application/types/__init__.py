@@ -1,27 +1,72 @@
 """application.types"""
 
-from .blob_storage import *
-import json
-
-
-def wrapped_default(self, obj):
-    """
-    Serializes an object to a dictionary representation.
-
-    If the object has a `__dict__` attribute, it returns a dictionary containing
-    the class name under the key `__typename` and the object's dictionary items.
-    Otherwise, it returns the object itself.
-
-    Args:
-        obj: The object to be serialized.
-
-    Returns:
-        dict: A dictionary representation of the object if it has a `__dict__` attribute.
-        Otherwise, returns the object itself.
-    """
-    return {'__typename': obj.__class__.__name__, **obj.__dict__} if getattr(obj, '__dict__') else obj
-
-
-## Monkey patch the default method of the JSONEncoder class to use the wrapped_default function.
-## This will allow us to serialize objects to JSON without having to write custom serialization functions for each object.
-json.JSONEncoder.default = wrapped_default
+from .apikey import APIKey
+from .badnotification import BadNotification
+from .badtagquery import BadTagQuery
+from .blob import Blob
+from .blobcount import BlobCount
+from .bloblist import BlobList
+from .blobsearchfilter import BlobSearchFilter
+from .book import Book
+from .bookcreatedata import BookCreateData
+from .bookeditdata import BookEditData
+from .bookident import BookIdent
+from .booklist import BookList
+from .bookownerhist import BookOwnerHist
+from .booksearchfilter import BookSearchFilter
+from .bookshare import BookShare
+from .booktag import BookTag
+from .bugcomment import BugComment
+from .bugreport import BugReport
+from .bugreportcreationfailederror import BugReportCreationFailedError
+from .config import Config
+from .configlist import ConfigList
+from .diskusage import DiskUsage
+from .ebook import EBook
+from .feed import Feed
+from .feeddocument import FeedDocument
+from .insufficientperms import InsufficientPerms
+from .invalidfields import InvalidFields
+from .inventorysearchfilter import InventorySearchFilter
+from .issuelabel import IssueLabel
+from .issuelist import IssueList
+from .item import Item
+from .lastmutation import LastMutation
+from .logresult import LogResult
+from .notification import Notification
+from .qrparseresponse import QRParseResponse
+from .repositoryissue import RepositoryIssue
+from .schema import Schema
+from .schemaparam import SchemaParam
+from .schemaquery import SchemaQuery
+from .schemareturntype import SchemaReturnType
+from .schematype import SchemaType
+from .sorting import Sorting
+from .sortingoutput import SortingOutput
+from .subscription import Subscription
+from .subscriptionkeys import SubscriptionKeys
+from .subscriptionlist import SubscriptionList
+from .subscriptiontoken import SubscriptionToken
+from .subscriptiontokenkeys import SubscriptionTokenKeys
+from .subsonicalbum import SubsonicAlbum
+from .subsonicsearch import SubsonicSearch
+from .subsonictrack import SubsonicTrack
+from .systeminfo import SystemInfo
+from .theme import Theme
+from .themecolor import ThemeColor
+from .themecoloroutput import ThemeColorOutput
+from .themeoutput import ThemeOutput
+from .themesize import ThemeSize
+from .themesizeoutput import ThemeSizeOutput
+from .userbookcount import UserBookCount
+from .userdata import UserData
+from .usermindata import UserMinData
+from .usertheme import UserTheme
+from .userthemeoutput import UserThemeOutput
+from .weatheralert import WeatherAlert
+from .weatherexecution import WeatherExecution
+from .weathertemp import WeatherTemp
+from .weathertempoutput import WeatherTempOutput
+from .weatheruser import WeatherUser
+from .weatheruserinput import WeatherUserInput
+from .zipprogress import ZipProgress

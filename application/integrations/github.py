@@ -1,16 +1,17 @@
 """application.integrations.github"""
 
-__ALL__ = ['Repository', 'CurrentRepository']
-
 import json
-import requests
 import subprocess
-from .exceptions import RepoFetchFailed
+from typing import Any
+
 import cachetools.func
+import requests
+
+from .exceptions import RepoFetchFailed
 
 
 @cachetools.func.ttl_cache()
-def gh_request(url: str) -> dict:
+def gh_request(url: str) -> Any:
 	"""
 	Sends a GET request to the specified GitHub API URL with authorization headers.
 
@@ -30,14 +31,14 @@ def gh_request(url: str) -> dict:
 	"""
 	headers = None
 	try:
-		with open('data/auth.json', 'r') as fp:
+		with open('data/auth.json', 'r', encoding='utf8') as fp:
 			headers = {
 				'Authorization': 'Bearer ' + json.load(fp)['github'],
 			}
-	except:
+	except OSError:
 		pass
 
-	res = requests.get(url, headers=headers)
+	res = requests.get(url, headers=headers, timeout=10)
 	if res.status_code >= 200 and res.status_code < 300:
 		return json.loads(res.text)
 	else:
@@ -51,16 +52,6 @@ class Repository:
 
 	Attributes:
 		url (str): The URL of the GitHub repository API endpoint.
-
-	Methods:
-		__init__(owner: str, repo: str) -> None:
-			Initializes the Repository instance with the given owner and repository name.
-
-		issues(filter: str = 'state=open') -> list:
-			Retrieves a list of issues from the repository based on the provided filter.
-
-		resolved_issues(since: str) -> list:
-			Retrieves a list of resolved (closed) issues from the repository since the given date.
 	"""
 
 	def __init__(self, owner: str, repo: str) -> None:
@@ -92,7 +83,8 @@ class Repository:
 		Retrieve a list of resolved (closed) issues since a given date.
 
 		Args:
-			since (str): The date in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ) from which to retrieve closed issues.
+			since (str): The date in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)
+				from which to retrieve closed issues.
 
 		Returns:
 			list: A list of issues that have been closed since the specified date.
@@ -109,13 +101,6 @@ class CurrentRepository(Repository):
 
 	Attributes:
 		repo (str | None): The name of the repository. If None, it will be derived from the remote URL.
-
-	Methods:
-		__init__(repo: str | None = None) -> None:
-			Initializes the CurrentRepository instance with the owner and repository name.
-
-		issues_pending_resolution() -> list:
-			Returns a list of issues pending resolution since the last commit.
 	"""
 
 	def __init__(self, repo: str | None = None) -> None:
@@ -137,9 +122,9 @@ class CurrentRepository(Repository):
 		repo_url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
 		info = repo_url.decode().strip().split(':')[1].split('/')
 
-		owner = info[0]
+		owner = info[-2]
 		if repo is None:
-			repo = info[1][:-4]
+			repo = info[-1][:-4]
 
 		super().__init__(owner, repo)
 
@@ -154,5 +139,7 @@ class CurrentRepository(Repository):
 		Returns:
 			list: A list of issues that are pending resolution.
 		"""
-		last_commit = subprocess.check_output(['git', 'log', '-1', '--date=format:%Y-%m-%dT%T', '--format=%ad']).decode().strip()
+		last_commit = subprocess.check_output([
+			'git', 'log', '-1', '--date=format:%Y-%m-%dT%T', '--format=%ad'
+		]).decode().strip()
 		return self.resolved_issues(last_commit)

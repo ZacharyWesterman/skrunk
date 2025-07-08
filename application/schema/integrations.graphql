@@ -1,39 +1,67 @@
+
+"""The results of a Subsonic search query."""
 type SubsonicSearch {
+	"""A list of albums matching the search query."""
 	album: [SubsonicAlbum!]!
 }
 
+"""A type representing an album in Subsonic."""
 type SubsonicAlbum {
+	"""The unique identifier for the album."""
 	id: String!
+	"""The parent directory ID of the album."""
 	parent: String!
+	"""Indicates whether the album is a directory."""
 	isDir: Boolean!
+	"""The title of the album."""
 	title: String!
+	"""The album name."""
 	album: String!
+	"""The artist of the album."""
 	artist: String!
+	"""The year the album was released, if available."""
 	year: Int
+	"""The genre of the album, if available."""
 	genre: String
+	"""The cover art URL for the album, if any."""
 	coverArt: String
+	"""The number of times the album has been played."""
 	playCount: Int!
+	"""The creation date and time of the album."""
 	created: DateTime!
 }
 
+"""A type representing a track in Subsonic."""
 type SubsonicTrack {
+	"""The unique identifier for the track."""
 	id: String!
+	"""The name of the track."""
 	title: String!
+	"""The duration of the track in seconds."""
 	duration: Int!
 }
 
+"""An error indicating an issue with the Subsonic API."""
 type SubsonicError {
+	"""The error message"""
 	message: String!
 }
 
+"""Information about disk usage on the server."""
 type DiskUsage {
+	"""A descriptive name for the disk."""
 	name: String!
+	"""The total size of the disk in bytes."""
 	total: Float!
+	"""The amount of free space on the disk in bytes."""
 	free: Float!
+	"""The amount of space used on the disk in bytes."""
 	used: Float!
 }
 
+"""System information about the server."""
 type SystemInfo {
+	"""A list usage statistics for each discrete disk on the server."""
 	storage: [DiskUsage!]!
 }
 

@@ -3,5 +3,5 @@ cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 git checkout .
 git clean -df
-git pull
+git pull --recurse-submodules
 git submodule update --remote --recursive

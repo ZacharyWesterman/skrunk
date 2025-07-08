@@ -1,8 +1,7 @@
 """application.scalars.date"""
 
-__all__ = ['scalar']
-
 from datetime import datetime
+
 from ariadne import ScalarType
 
 ## Define a scalar type for date values

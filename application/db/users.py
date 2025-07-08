@@ -1,20 +1,26 @@
 """application.db.users"""
 
+import shutil
+import uuid
 from datetime import datetime
+from typing import TypeVar
 from zipfile import ZipFile
-from bson.objectid import ObjectId
-from bson import json_util
+
 import bcrypt
-
-
+from bson import json_util
+from bson.objectid import ObjectId
 from pymongo.collection import Collection
 from pymongo.database import Database
 
+from ..types import BlobSearchFilter, InventorySearchFilter
+
+FILTER = TypeVar('FILTER', BlobSearchFilter, InventorySearchFilter)
+
 ## A pointer to the users collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 ## A pointer to the main database.
-top_level_db: Database = None
+top_level_db: Database = None  # type: ignore[assignment]
 
 
 def get_admins() -> list:
@@ -22,7 +28,7 @@ def get_admins() -> list:
 	Returns:
 		list: A list of all admin users.
 	"""
-	return [i for i in db.find({'perms': 'admin'})]
+	return list(db.find({'perms': 'admin'}))
 
 
 def count_users() -> int:
@@ -33,7 +39,7 @@ def count_users() -> int:
 	return db.count_documents({'ephemeral': {'$not': {'$eq': True}}})
 
 
-def get_user_list(groups: list = []) -> list:
+def get_user_list(groups: list[str]) -> list:
 	"""
 	Returns a list of users with their username, display name, and last login.
 
@@ -51,7 +57,7 @@ def get_user_list(groups: list = []) -> list:
 	} for data in db.find(query, sort=[('username', 1)])]
 
 
-def userids_in_groups(groups: list) -> list:
+def userids_in_groups(groups: list) -> list[ObjectId]:
 	"""
 	Returns a list of user IDs for users in the specified groups.
 
@@ -83,7 +89,9 @@ def get_user_by_id(id: ObjectId) -> dict:
 	"""
 	userdata = db.find_one({'_id': id})
 	if userdata:
-		userdata['disabled_modules'] = settings.calculate_disabled_modules(userdata.get('disabled_modules', []))
+		userdata['disabled_modules'] = settings.calculate_disabled_modules(
+			userdata.get('disabled_modules', [])
+		)
 		return userdata
 
 	raise exceptions.UserDoesNotExistError(f'ID:{id}')
@@ -104,11 +112,13 @@ def get_user_data(username: str) -> dict:
 	"""
 	userdata = db.find_one({'username': username})
 
-	if userdata:
-		userdata['disabled_modules'] = settings.calculate_disabled_modules(userdata.get('disabled_modules', []))
-		return userdata
-	else:
+	if userdata is None:
 		raise exceptions.UserDoesNotExistError(username)
+
+	userdata['disabled_modules'] = settings.calculate_disabled_modules(
+		userdata.get('disabled_modules', [])
+	)
+	return userdata
 
 
 def update_user_theme(username: str, theme: dict) -> dict:
@@ -127,7 +137,7 @@ def update_user_theme(username: str, theme: dict) -> dict:
 	"""
 	userdata = db.find_one({'username': username})
 
-	if not userdata:
+	if userdata is None:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.update_one({'username': username}, {'$set': {'theme': theme}})
@@ -152,7 +162,7 @@ def update_user_perms(username: str, perms: list) -> dict:
 	"""
 	userdata = db.find_one({'username': username})
 
-	if not userdata:
+	if userdata is None:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.update_one({'username': username}, {'$set': {'perms': perms}})
@@ -161,9 +171,17 @@ def update_user_perms(username: str, perms: list) -> dict:
 	return userdata
 
 
-def create_user(username: str, password: str, *, groups: list = [], admin: bool = False, ephemeral: bool = False) -> dict:
+def create_user(
+    username: str,
+    password: str,
+    *,
+    groups: list,
+    admin: bool = False,
+    ephemeral: bool = False
+) -> dict:
 	"""
-	Creates a new user with the specified username, password, groups, admin status, and ephemeral status.
+	Creates a new user with the specified username, password,
+	groups, admin status, and ephemeral status.
 
 	Args:
 		username (str): The username of the new user.
@@ -442,21 +460,24 @@ def authenticate(username: str, password: str) -> str:
 	"""
 	userdata = get_user_data(username)
 
-	if not bcrypt.checkpw(password.encode(), userdata.get('password')):
+	if not bcrypt.checkpw(password.encode(), userdata['password']):
 		raise exceptions.AuthenticationError
 
-	login_token = create_user_token(username)
+	login_token = tokens.create_user_token(username)
 	db.update_one({'_id': userdata['_id']}, {'$set': {'last_login': datetime.utcnow()}})
 
 	return login_token
 
 
-def group_filter(filter: dict, user_data: dict) -> dict:
+def group_filter(
+	filter: FILTER,
+	user_data: dict
+) -> FILTER:
 	"""
 	Applies group filtering to the specified filter based on the user's groups.
 
 	Args:
-		filter (dict): The filter to apply group filtering to.
+		filter (Filter): The filter to apply group filtering to.
 		user_data (dict): The user data containing the groups.
 
 	Returns:
@@ -465,9 +486,50 @@ def group_filter(filter: dict, user_data: dict) -> dict:
 	if filter.get('creator') is None:
 		groups = user_data.get('groups', [])
 		if len(groups):
-			filter['creator'] = userids_in_groups(groups)
+			filter['creator'] = userids_in_groups(groups)  # type: ignore[assignment]
 
 	return filter
+
+
+def dump_collection(collection: str, queries: list, fp: ZipFile) -> None:
+	"""
+	Exports documents from a specified MongoDB collection based on provided queries
+	and writes them to a ZipFile as JSON.
+	Any sensitive information, such as passwords, is excluded from the export.
+
+	Args:
+		collection (str): The name of the MongoDB collection to export.
+		queries (list): A list of query dictionaries to filter documents for export.
+		fp (ZipFile): An open ZipFile object to which the exported JSON will be written.
+	"""
+
+	items = []
+
+	# Get a list of documents to export
+	this_coll = top_level_db[collection]
+	for i in queries:
+		if this_coll.count_documents(i) > 0:
+			def doc_mutate(data: dict) -> dict:
+				return data
+
+			if collection == 'feeds':
+				def m2(data: dict) -> dict:
+					data['documents'] = [i for i in top_level_db.documents.find({'feed': data['_id']})]
+					return data
+				doc_mutate = m2
+			elif collection == 'users':
+				def m2(data: dict) -> dict:
+					del data['password']
+					return data
+				doc_mutate = m2
+
+			items = [doc_mutate(i) for i in this_coll.find(i)]
+
+	# Don't add to export if there are no documents
+	if len(items) == 0:
+		return
+
+	fp.writestr(f'{collection}.json', json_util.dumps(items, indent=2))
 
 
 def export_user_data(username: str) -> dict:
@@ -505,36 +567,22 @@ def export_user_data(username: str) -> dict:
 	]
 
 	# Create a ZIP file and blob entry
-	blob_storage = blob.BlobStorage(*blob.create_blob('data_export.zip', tags=['export', '__temp_file'], hidden=False, ephemeral=True))
-	fp = ZipFile(blob_storage.path(create=True), 'w')
+	blob_storage = blob.BlobStorage(*blob.create_blob(
+		'data_export.zip',
+		tags=['export', '__temp_file'],
+		hidden=False,
+		ephemeral=True
+	))
+	temp_filename = f'/tmp/{uuid.uuid4()}.zip'
+	with ZipFile(temp_filename, 'w') as fp:
+		# Iterate over all collections, and append the file to the ZIP file.
+		iter = (i for i in top_level_db.list_collection_names() if i not in exclude_collections)
+		for collection in iter:
+			dump_collection(collection, queries, fp)
 
-	# Iterate over all collections, and append the file to the ZIP file.
-	for collection in [i for i in top_level_db.list_collection_names() if i not in exclude_collections]:
-		items = []
-
-		# Get a list of documents to export
-		this_coll = top_level_db[collection]
-		for i in queries:
-			if this_coll.count_documents(i) > 0:
-				def doc_mutate(data: dict) -> dict:
-					return data
-
-				if collection == 'feeds':
-					def doc_mutate(data: dict) -> dict:
-						data['documents'] = [i for i in top_level_db.documents.find({'feed': data['_id']})]
-						return data
-				elif collection == 'users':
-					def doc_mutate(data: dict) -> dict:
-						del data['password']
-						return data
-
-				items = [doc_mutate(i) for i in this_coll.find(i)]
-
-		# Don't add to export if there are no documents
-		if len(items) == 0:
-			continue
-
-		fp.writestr(f'{collection}.json', json_util.dumps(items, indent=2))
+	# Move the ZIP file to the blob storage path
+	print('Moving ZIP file to blob storage...', flush=True)
+	shutil.move(temp_filename, blob_storage.path(create=True))
 
 	size, md5sum = blob.file_info(blob_storage.path())
 	blob.mark_as_completed(blob_storage.id, size, md5sum)
@@ -544,7 +592,12 @@ def export_user_data(username: str) -> dict:
 	return blob.get_blob_data(blob_storage.id)
 
 
-import application.exceptions as exceptions  # nopep8
-from application.db import settings  # nopep8
-from application.db import blob  # nopep8
-from application.tokens import create_user_token  # nopep8
+# These imports are needed at this location to avoid circular imports
+# pylint: disable=wrong-import-order
+# pylint: disable=wrong-import-position
+
+from application import exceptions, tokens  # nopep8
+from application.db import blob, settings  # nopep8
+
+# pylint: enable=wrong-import-position
+# pylint: enable=wrong-import-order

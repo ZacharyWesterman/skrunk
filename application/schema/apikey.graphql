@@ -1,7 +1,13 @@
+
+"""A type describing an API key."""
 type APIKey {
+	"""The unique identifier for the API key."""
 	key: String!
+	"""A description of the API key, which can be used to identify its purpose."""
 	description: String!
+	"""The date and time when the API key was created."""
 	created: DateTime!
+	"""The list of permissions granted to the API key."""
 	perms: [String!]!
 }
 

@@ -1,0 +1,134 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-code fa-xl"></i>
+		GraphQL API
+	</h1>
+
+	<!-- Queries -->
+	<div class="card alt">
+		<div class="card-inner">
+			<div class="clickable" *toggles="querylist">
+				<h2>
+					Queries
+					<i class="right fa-solid fa-angles-down"></i>
+				</h2>
+			</div>
+			<div id="querylist" class="expand-container">
+				<div id="queries" template="schema-items"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Mutations -->
+	<div class="card alt">
+		<div class="card-inner">
+			<div class="clickable" *toggles="mutationlist">
+				<h2>
+					Mutations
+					<i class="right fa-solid fa-angles-down"></i>
+				</h2>
+			</div>
+			<div id="mutationlist" class="expand-container">
+				<div id="mutations" template="schema-items"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Union Types -->
+	<div class="card alt">
+		<div class="card-inner">
+			<div class="clickable" *toggles="unionlist">
+				<h2>
+					Union Types
+					<i class="right fa-solid fa-angles-down"></i>
+				</h2>
+			</div>
+			<div id="unionlist" class="expand-container">
+				<div id="unions" template="schema-types"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Input Types -->
+	<div class="card alt">
+		<div class="card-inner">
+			<div class="clickable" *toggles="inputlist">
+				<h2>
+					Input Types
+					<i class="right fa-solid fa-angles-down"></i>
+				</h2>
+			</div>
+			<div id="inputlist" class="expand-container">
+				<div id="inputs" template="schema-types"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Types -->
+	<div class="card alt">
+		<div class="card-inner">
+			<div class="clickable" *toggles="typelist">
+				<h2>
+					Output Types
+					<i class="right fa-solid fa-angles-down"></i>
+				</h2>
+			</div>
+			<div id="typelist" class="expand-container">
+				<div id="types" template="schema-types"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	export async function init() {
+		const schema = await api(`{ getSchema {
+			queries {
+				name
+				params {
+					name
+					type
+					optional
+				}
+				query
+				returns {
+					type
+					optional
+					array
+				}
+			}
+	
+			mutations {
+				name
+				params {
+					name
+					type
+					optional
+				}
+				query
+				returns {
+					type
+					optional
+					array
+				}
+			}
+
+			types {
+				type
+				union
+				input
+				subtypes
+				params {
+					name
+					type
+				}
+			}
+		}}`)
+
+		_('queries', schema.queries)
+		_('mutations', schema.mutations)
+		_('types', schema.types.filter(t => !t.input && !t.union).sort((a, b) => a.type > b.type))
+		_('inputs', schema.types.filter(t => t.input && !t.union).sort((a, b) => a.type > b.type))
+		_('unions', schema.types.filter(t => t.union).sort((a, b) => a.type > b.type))
+	}
+</script>

@@ -1,16 +1,31 @@
 {{~ it : item }}
-<div {{? item.description_html }}class="card clickable" *toggles="desc-{{= item.id }}"{{??}}class="card"{{?}}>
+<div class="card">
 	<div class="card-inner">
 		<p>
-			Owned by {{= item.creator.display_name }}{{? item.creator.display_name.toLowerCase() !== item.creator.username }}({{= item.creator.username}}){{?}}
-			{{? item.rfid.length === 0 }}
+			<span {{? item.description_html }}class="clickable tooltip" *toggles="desc-{{= item.id }}"{{?}}>
+				{{? item.description_html }}
+				<span class="tooltiptext t-right">Show/hide description</span>
+				<button class="icon tooltip" id="btn-{{= item.id }}">
+					<i class="fa-solid fa-angles-down fa-lg"></i>
+				</button>
+				{{?}}
+				Owned by {{= item.creator.display_name }}
+				{{? item.creator.display_name.toLowerCase() !== item.creator.username }}
+					({{= item.creator.username}})
+				{{?}}
+			</span>
+			
 			<span class="tooltip right clickable" *click="update_tags('{{= item.id }}')" >
-				<i class="fa-solid fa-tag emphasis"></i>
+				<i class="fa-solid fa-tag {{? item.rfid.length === 0 }}emphasis{{?}}"></i>
 				<span class="tooltiptext t-left">
-					This item has not been&nbsp;tagged.
+					{{? item.rfid.length === 0 }}
+					Click here to assign an RFID/QR code to this item.
+					{{??}}
+					Click here to update this item's RFID/QR code.
+					{{?}}
 				</span>
 			</span>
-			{{?}}
+
 			{{? item.creator.username === api.username || has_perm('admin') }}
 			<span class="tooltip right clickable" *click="delete_item('{{= item.id }}')" >
 				<i class="fa-solid fa-trash suppress"></i>
@@ -20,22 +35,27 @@
 			</span>
 			{{?}}
 		</p>
-		{{? item.description_html }}
-		<button class="icon clickable tooltip" id="btn-{{= item.id }}">
-			<i class="fa-solid fa-angles-down fa-lg"></i>
-			<span class="tooltiptext t-left">Show/hide description</span>
-		</button>
-		{{?}}
 		<table>
 			<tr>
 				<td>
 					<img src="preview/{{= item.blob.thumbnail }}" alt="<ITEM IMAGE>" loading="lazy" onclick="_.modal.image('blob/{{= item.blob.id }}{{= item.blob.ext }}')">
 				</td>
 				<td>
-					{{= item.category }}<br>
-					{{= item.type }}<br>
-					{{= item.location }}
-				<td>
+					<table>
+						<tr>
+							<td class="suppress">Category:</td>
+							<td>{{= item.category }}</td>
+						</tr>
+						<tr>
+							<td class="suppress">Type:</td>
+							<td>{{= item.type }}</td>
+						</tr>
+						<tr>
+							<td class="suppress">Location:</td>
+							<td>{{= item.location }}</td>
+						</tr>
+					</table>
+				</td>
 			</tr>
 		</table>
 

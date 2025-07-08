@@ -3,6 +3,7 @@
 	"files.insertFinalNewline": true,
 	"python.analysis.inlayHints.variableTypes": true,
 	"python.analysis.inlayHints.functionReturnTypes": true,
+	"python.analysis.typeCheckingMode": "standard",
 	"editor.insertSpaces": false,
 	"autopep8.args": [
 		"--ignore=W191,E266",
@@ -11,5 +12,17 @@
 	],
 	"files.associations": {
 		"*.dot": "dotjs"
+	},
+	"pylint.args": [
+		"--indent-string=\t",
+		"--disable=global-statement",
+		"--disable=redefined-builtin",
+		"--disable=too-many-arguments",
+		"--disable=too-many-positional-arguments"
+	],
+	"[python]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "always"
+		}
 	}
 }
