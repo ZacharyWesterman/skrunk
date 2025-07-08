@@ -44,6 +44,14 @@ application.db.datafeed module
    :show-inheritance:
    :undoc-members:
 
+application.db.documents module
+-------------------------------
+
+.. automodule:: application.db.documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.db.inventory module
 -------------------------------
 

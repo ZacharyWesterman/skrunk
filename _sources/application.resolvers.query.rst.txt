@@ -44,6 +44,14 @@ application.resolvers.query.datafeed module
    :show-inheritance:
    :undoc-members:
 
+application.resolvers.query.documents module
+--------------------------------------------
+
+.. automodule:: application.resolvers.query.documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.resolvers.query.integrations module
 -----------------------------------------------
 

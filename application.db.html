@@ -2155,6 +2155,121 @@ saved back to the database.</p>
 </dd></dl>
 
 </section>
+<section id="module-application.db.documents">
+<span id="application-db-documents-module"></span><h2>application.db.documents module<a class="headerlink" href="#module-application.db.documents" title="Link to this heading">#</a></h2>
+<p>Allows users to create, read and edit arbitrary rich text documents.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.create_document">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">create_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.create_document" title="Link to this definition">#</a></dt>
+<dd><p>Creates a new document in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – The title of the document.</p></li>
+<li><p><strong>body</strong> (<em>str</em>) – The content of the document.</p></li>
+<li><p><strong>parent</strong> (<em>str</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – The ID of the parent document. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new document.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.delete_document">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">delete_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.delete_document" title="Link to this definition">#</a></dt>
+<dd><p>Deletes a document from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>doc_id</strong> (<em>str</em>) – The ID of the document to delete.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deleted document.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.get_child_documents">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">get_child_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.get_child_documents" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves the child documents of a document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>doc_id</strong> (<em>str</em><em> | </em><em>None</em>) – The optional ID of the document. If None, retrieves top-level documents.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The child documents.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.get_document">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">get_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.get_document" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves a document from the database by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>doc_id</strong> (<em>str</em>) – The ID of the document to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The document.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.parse_document">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">parse_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.parse_document" title="Link to this definition">#</a></dt>
+<dd><p>Parses a document from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>doc</strong> (<em>dict</em>) – The document to parse.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed document.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.update_document">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">update_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.update_document" title="Link to this definition">#</a></dt>
+<dd><p>Updates a document in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc_id</strong> (<em>str</em>) – The ID of the document to update.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em> | </em><em>None</em>) – The new title of the document. If None, the title is not updated.</p></li>
+<li><p><strong>body</strong> (<em>str</em><em> | </em><em>None</em>) – The new content of the document. If None, the body is not updated.</p></li>
+<li><p><strong>new_parent</strong> (<em>str</em><em> | </em><em>None</em>) – The ID of the new parent document. If None, the parent is not updated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated document.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-application.db.inventory">
 <span id="application-db-inventory-module"></span><h2>application.db.inventory module<a class="headerlink" href="#module-application.db.inventory" title="Link to this heading">#</a></h2>
 <p>application.db.inventory</p>
@@ -4129,6 +4244,15 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.set_feed_navigation"><code class="docutils literal notranslate"><span class="pre">set_feed_navigation()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.set_feed_notify"><code class="docutils literal notranslate"><span class="pre">set_feed_notify()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.update_document"><code class="docutils literal notranslate"><span class="pre">update_document()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.documents">application.db.documents module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.create_document"><code class="docutils literal notranslate"><span class="pre">create_document()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.delete_document"><code class="docutils literal notranslate"><span class="pre">delete_document()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.get_child_documents"><code class="docutils literal notranslate"><span class="pre">get_child_documents()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.get_document"><code class="docutils literal notranslate"><span class="pre">get_document()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.parse_document"><code class="docutils literal notranslate"><span class="pre">parse_document()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.update_document"><code class="docutils literal notranslate"><span class="pre">update_document()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.inventory">application.db.inventory module</a><ul class="nav section-nav flex-column">

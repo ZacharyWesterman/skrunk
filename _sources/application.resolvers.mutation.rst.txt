@@ -44,6 +44,14 @@ application.resolvers.mutation.datafeed module
    :show-inheritance:
    :undoc-members:
 
+application.resolvers.mutation.documents module
+-----------------------------------------------
+
+.. automodule:: application.resolvers.mutation.documents
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.resolvers.mutation.inventory module
 -----------------------------------------------
 
