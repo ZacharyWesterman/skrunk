@@ -82,7 +82,23 @@ export async function load_user_data(username, self_view = false) {
 
 	if (self_view) {
 		push.ready.then(() => {
-			$('enable-push').checked = push.subscribed
+			$('enable-push').checked = false
+			if (push.subscribed) {
+				try {
+					const auth = JSON.parse(JSON.stringify(push.subscription)).keys.auth
+					if (auth) {
+						api(`query ($auth: String!) { getSubscription(auth: $auth) { __typename } }`, {
+							auth: auth,
+						}).then(sub => {
+							if (sub && sub.__typename === 'Subscription') {
+								$('enable-push').checked = true
+							}
+						})
+					}
+				} catch (e) {
+					console.warn('Error checking push subscription:', e)
+				}
+			}
 		})
 	}
 
