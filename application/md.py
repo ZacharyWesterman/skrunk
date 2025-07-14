@@ -4,10 +4,11 @@ Adjust Markdown to handle line breaks in lists and other edge cases.
 
 __all__ = []
 
+import re
+
 import markdown
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
-import re
 
 old_markdown = markdown.markdown
 
@@ -59,7 +60,10 @@ class PreListLineBreaks(Preprocessor):
 		"""
 		# Add a line break before list items that are preceded by non-list lines
 		for i in range(len(lines) - 1):
-			if not re.match(r'^\s*(-|\*[^\*])|^\s*\d+\.', lines[i]) and re.match(r'^\s*[-*]\s|^\s*\d+\.', lines[i + 1]):
+			if (
+				not re.match(r'^\s*(-|\*[^\*])|^\s*\d+\.', lines[i])
+				and re.match(r'^\s*[-*]\s|^\s*\d+\.', lines[i + 1])
+			):
 				lines.insert(i + 1, '')
 		return lines
 
@@ -101,7 +105,12 @@ def new_markdown(text: str, **kwargs) -> str:
 	Returns:
 		str: The HTML-formatted Markdown output.
 	"""
-	return old_markdown(text, **kwargs, output_format='html', extensions=[PreListLineBreaksExtension()])
+	return old_markdown(
+		text,
+		**kwargs,
+		output_format='html',
+		extensions=[PreListLineBreaksExtension()]
+	)
 
 
 markdown.markdown = new_markdown
