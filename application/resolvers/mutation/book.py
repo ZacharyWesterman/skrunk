@@ -21,6 +21,19 @@ from . import mutation
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_link_book_tag(_, _info: GraphQLResolveInfo, owner: str, rfid: str, bookId: str) -> dict:
+	"""
+	Links a book tag to a book for a specific owner using the provided RFID and book ID.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		owner (str): The identifier of the owner performing the operation.
+		rfid (str): The RFID tag to be linked to the book.
+		bookId (str): The unique identifier of the book to link the tag to.
+
+	Returns:
+		dict: A dictionary representing the linked BookTag if successful, or a BadTagQuery if a ParseError occurs.
+	"""
 	try:
 		return {'__typename': 'BookTag', **link_book_tag(owner, rfid, bookId)}
 	except ApiFailedError as e:
@@ -33,6 +46,17 @@ def resolve_link_book_tag(_, _info: GraphQLResolveInfo, owner: str, rfid: str, b
 @perms.require('admin', perform_on_self=True, data_func=get_book_tag)
 @handle_client_exceptions
 def resolve_unlink_book_tag(_, _info: GraphQLResolveInfo, rfid: str) -> dict:
+	"""
+	Unlinks a tag from a book based on the provided RFID.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		rfid (str): The RFID of the tag to unlink from the book.
+
+	Returns:
+		dict: A dictionary representing the unlinked BookTag.
+	"""
 	return {'__typename': 'BookTag', **unlink_book_tag(rfid)}
 
 
@@ -41,6 +65,18 @@ def resolve_unlink_book_tag(_, _info: GraphQLResolveInfo, rfid: str) -> dict:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_share_book_with_user(_, _info: GraphQLResolveInfo, id: str, username: str) -> dict:
+	"""
+	Shares a book with a specified user and returns the updated book information.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book to be shared.
+		username (str): The username of the user with whom the book will be shared.
+
+	Returns:
+		dict: A dictionary representing the updated book.
+	"""
 	return {'__typename': 'Book', **share_book_with_user(id, username)}
 
 
@@ -49,6 +85,18 @@ def resolve_share_book_with_user(_, _info: GraphQLResolveInfo, id: str, username
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_share_book_with_non_user(_, _info: GraphQLResolveInfo, id: str, name: str) -> dict:
+	"""
+	Shares a book with a non-user by their name and returns the updated book information.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book to be shared.
+		name (str): The name of the non-user to share the book with.
+
+	Returns:
+		dict: A dictionary representing the updated book.
+	"""
 	return {'__typename': 'Book', **share_book_with_non_user(id, name)}
 
 
@@ -57,6 +105,17 @@ def resolve_share_book_with_non_user(_, _info: GraphQLResolveInfo, id: str, name
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_borrow_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
+	"""
+	Resolves the mutation for borrowing a book.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book to be borrowed.
+
+	Returns:
+		dict: A dictionary representing the borrowed book.
+	"""
 	user_data = perms.caller_info_strict()
 	return {'__typename': 'Book', **borrow_book(id, user_data)}
 
@@ -66,6 +125,17 @@ def resolve_borrow_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_request_borrow_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
+	"""
+	Sends a notification to the owner of a book when a user requests to borrow it.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book to be borrowed.
+
+	Returns:
+		dict: A dictionary with a message indicating the notification was sent.
+	"""
 	user_data = perms.caller_info_strict()
 	book_data = get_book(id)
 	owner_data = get_user_by_id(book_data['owner'])
@@ -76,7 +146,10 @@ def resolve_request_borrow_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
 
 	notification.send(
 		title=f'{user} wants to borrow a book!',
-		body=f'{user} would like to borrow "{title}" by {authors}. Remember to talk to them and let them know what you think!',
+		body=(
+			f'{user} would like to borrow "{title}" by {authors}. ' +
+			'Remember to talk to them and let them know what you think!'
+		),
 		username=owner_data['username'],
 		category='books',
 	)
@@ -89,6 +162,17 @@ def resolve_request_borrow_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_return_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
+	"""
+	Resolves the mutation for returning a book.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book to be returned.
+
+	Returns:
+		dict: A dictionary representing the returned Book.
+	"""
 	user_data = perms.caller_info_strict()
 	return {'__typename': 'Book', **return_book(id, user_data)}
 
@@ -99,6 +183,18 @@ def resolve_return_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
 @perms.require('admin', perform_on_self=True, data_func=get_book)
 @handle_client_exceptions
 def resolve_change_book_owner(_, _info: GraphQLResolveInfo, id: str, username: str) -> dict:
+	"""
+	Resolves the mutation to change the owner of a book.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book whose owner is to be changed.
+		username (str): The username of the new owner.
+
+	Returns:
+		dict: A dictionary representing the updated Book.
+	"""
 	return {'__typename': 'Book', **set_book_owner(id, username)}
 
 
@@ -108,6 +204,18 @@ def resolve_change_book_owner(_, _info: GraphQLResolveInfo, id: str, username: s
 @perms.require('admin', perform_on_self=True, data_func=get_book)
 @handle_client_exceptions
 def resolve_edit_book(_, _info: GraphQLResolveInfo, id: str, changes: dict) -> dict:
+	"""
+	Edits a book with the given ID using the provided changes.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book to edit.
+		changes (dict): A dictionary of fields and values to update on the book.
+
+	Returns:
+		dict: A dictionary representing the updated Book.
+	"""
 	return {'__typename': 'Book', **edit_book(id, changes)}
 
 
@@ -116,6 +224,18 @@ def resolve_edit_book(_, _info: GraphQLResolveInfo, id: str, changes: dict) -> d
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_create_book(_, _info: GraphQLResolveInfo, owner: str, data: dict) -> dict:
+	"""
+	Creates a new book entry and returns its data with a GraphQL typename.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		owner (str): The identifier of the owner creating the book.
+		data (dict): A dictionary containing the book's data fields.
+
+	Returns:
+		dict: A dictionary representing the created book.
+	"""
 	return {'__typename': 'BookTag', **create_book(owner, data)}
 
 
@@ -124,6 +244,18 @@ def resolve_create_book(_, _info: GraphQLResolveInfo, owner: str, data: dict) ->
 @perms.require('admin')
 @handle_client_exceptions
 def resolve_append_ebook(_, _info: GraphQLResolveInfo, id: str, url: str) -> dict:
+	"""
+	Appends an ebook to a book record and returns the updated book information.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book to which the ebook will be appended.
+		url (str): The URL of the ebook to append, or the Blob ID if it's uploaded to the system.
+
+	Returns:
+		dict: A dictionary representing the updated book.
+	"""
 	return {'__typename': 'Book', **append_ebook(id, url)}
 
 
@@ -132,6 +264,18 @@ def resolve_append_ebook(_, _info: GraphQLResolveInfo, id: str, url: str) -> dic
 @perms.require('admin')
 @handle_client_exceptions
 def resolve_remove_ebook(_, _info: GraphQLResolveInfo, id: str, index: int) -> dict:
+	"""
+	Removes an ebook from a book by its ID and index, and returns the updated book data.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the book.
+		index (int): The index of the ebook to remove from the book.
+
+	Returns:
+		dict: A dictionary representing the updated book.
+	"""
 	return {'__typename': 'Book', **remove_ebook(id, index)}
 
 

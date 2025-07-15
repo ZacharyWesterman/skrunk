@@ -22,6 +22,17 @@ from . import mutation
 @perms.require('admin', perform_on_self=True, data_func=get_blob_data)
 @handle_client_exceptions
 def resolve_delete_blob(_, _info: GraphQLResolveInfo, id: str) -> dict:
+	"""
+	Deletes a blob with the specified ID and returns its data.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the blob to delete.
+
+	Returns:
+		dict: A dictionary representing the deleted blob.
+	"""
 	blob_data = get_blob_data(id)
 
 	blob_data = delete_blob(id)
@@ -34,6 +45,18 @@ def resolve_delete_blob(_, _info: GraphQLResolveInfo, id: str) -> dict:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_set_blob_tags(_, _info: GraphQLResolveInfo, id: str, tags: list) -> dict:
+	"""
+	Resolves the mutation for setting tags on a blob object.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the blob to update.
+		tags (list): A list of tags to assign to the blob.
+
+	Returns:
+		dict: A dictionary representing the updated blob.
+	"""
 	return {'__typename': 'Blob', **set_blob_tags(id, tags)}
 
 
@@ -41,7 +64,25 @@ def resolve_set_blob_tags(_, _info: GraphQLResolveInfo, id: str, tags: list) -> 
 @perms.module('files')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_zip_archive(_, _info: GraphQLResolveInfo, filter: BlobSearchFilter, uid: str) -> dict:
+def resolve_create_zip_archive(
+	_,
+	_info: GraphQLResolveInfo,
+	filter: BlobSearchFilter,
+	uid: str
+) -> dict:
+	"""
+	Creates a ZIP archive of blobs matching the provided filter and user ID.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		filter (BlobSearchFilter): Filter criteria for selecting blobs to archive.
+		uid (str): Unique identifier for the ZIP archive operation.
+
+	Returns:
+		dict: A dictionary representing either the created Blob object if successful,
+			or a BadTagQuery if a ParseError occurs.
+	"""
 	try:
 		user_data = perms.caller_info_strict()
 		groups: BlobSearchFilter = group_filter(filter, user_data)  # type: ignore
@@ -56,6 +97,18 @@ def resolve_create_zip_archive(_, _info: GraphQLResolveInfo, filter: BlobSearchF
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_generate_blob_from_qr(_, _info: GraphQLResolveInfo, text: str | None, amount: int) -> dict:
+	"""
+	Generates a QR code image from the provided text and stores it as a blob.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		text (str | None): The text to encode in the QR code. If None, an empty QR code is generated.
+		amount (int): The size or scale parameter for the QR code. Clamped between 1 and 70.
+
+	Returns:
+		dict: A dictionary representing the created Blob.
+	"""
 	amount = min(70, max(1, amount))
 	id, ext = create_blob('QR.png', tags=['qr', '__temp_file'], ephemeral=True)
 	qrcode.generate(BlobStorage(id, ext).path(create=True), text, amount)
@@ -68,6 +121,18 @@ def resolve_generate_blob_from_qr(_, _info: GraphQLResolveInfo, text: str | None
 @perms.require('admin', perform_on_self=True)
 @handle_client_exceptions
 def resolve_set_blob_hidden(_, _info: GraphQLResolveInfo, id: str, hidden: bool) -> dict:
+	"""
+	Sets the hidden status of a blob object.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the blob to update.
+		hidden (bool): The new hidden status to set for the blob.
+
+	Returns:
+		dict: A dictionary representing the updated Blob.
+	"""
 	return {'__typename': 'Blob', **set_blob_hidden(id, hidden)}
 
 
@@ -77,6 +142,18 @@ def resolve_set_blob_hidden(_, _info: GraphQLResolveInfo, id: str, hidden: bool)
 @perms.require('admin', perform_on_self=True)
 @handle_client_exceptions
 def resolve_set_blob_ephemeral(_, _info: GraphQLResolveInfo, id: str, ephemeral: bool) -> dict:
+	"""
+	Sets the 'ephemeral' status of a Blob object.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the Blob to update.
+		ephemeral (bool): The new ephemeral status to set for the Blob.
+
+	Returns:
+		dict: A dictionary representing the updated Blob.
+	"""
 	return {'__typename': 'Blob', **set_blob_ephemeral(id, ephemeral)}
 
 
@@ -84,4 +161,15 @@ def resolve_set_blob_ephemeral(_, _info: GraphQLResolveInfo, id: str, ephemeral:
 @perms.module('files')
 @perms.require('edit')
 def resolve_cancel_zip_archive(_, _info: GraphQLResolveInfo, uid: str) -> dict:
+	"""
+	Cancels an ongoing zip archive operation identified by the given UID.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		uid (str): Unique identifier for the zip archive operation to cancel.
+
+	Returns:
+		dict: A dictionary representing the progress of the zip operation after cancellation.
+	"""
 	return {'__typename': 'ZipProgress', **cancel_zip(uid)}
