@@ -31,6 +31,8 @@ def resolve_create_inventory_item(
 	Create a new inventory item.
 
 	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
 		owner (str): The username of the owner of the inventory item.
 		category (str): The category of the inventory item.
 		type (str): The type of the inventory item.
@@ -71,6 +73,17 @@ def resolve_create_inventory_item(
 @perms.require('admin', perform_on_self=True, data_func=get_inventory_item)
 @handle_client_exceptions
 def resolve_delete_inventory_item(_, _info: GraphQLResolveInfo, id: str) -> dict:
+	"""
+	Deletes an inventory item by its ID and returns the result as a dictionary.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the inventory item to delete.
+
+	Returns:
+		dict: A dictionary representing the deleted item.
+	"""
 	return {'__typename': 'Item', **delete_inventory_item(id)}
 
 
@@ -84,6 +97,8 @@ def resolve_relink_inventory_item(_, _info: GraphQLResolveInfo, id: str, rfid: s
 	Change the RFID tag of an inventory item.
 
 	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
 		id (str): The ID of the inventory item.
 		rfid (str | None): The new RFID tag to link to the item, or None to unlink.
 
