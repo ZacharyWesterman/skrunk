@@ -1267,17 +1267,20 @@ fields to sort by and order (ascending/descending).</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.book.init">
+<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.init" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the application by pre-caching some data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.book.keyword_tokenize">
 <span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">keyword_tokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.keyword_tokenize" title="Link to this definition">#</a></dt>
 <dd><p>Tokenizes the input text into a list of unique keywords.</p>
-<p>This function performs the following steps:
-1. Replaces apostrophes (’) with an empty string.
-2. Applies a regex substitution to replace non-word characters with spaces.
-3. Applies another regex substitution to replace tags with spaces.
-4. Converts the text to lowercase.
-5. Splits the text into words.
-6. Filters out words with a length of 2 or less.
-7. Removes duplicate words by converting the list to a set and back to a list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The input text to be tokenized.</p>
@@ -1564,6 +1567,16 @@ in the database, it raises a BookTagDoesNotExistError.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagDoesNotExistError" title="application.exceptions.BookTagDoesNotExistError"><strong>exceptions.BookTagDoesNotExistError</strong></a> – If the book with the given ID does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.book.subsonic_init">
+<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">subsonic_init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.subsonic_init" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient" title="application.integrations.subsonic.subsonic_client.SubsonicClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubsonicClient</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -4273,6 +4286,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_book"><code class="docutils literal notranslate"><span class="pre">get_book()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_book_tag"><code class="docutils literal notranslate"><span class="pre">get_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_books"><code class="docutils literal notranslate"><span class="pre">get_books()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.keyword_tokenize"><code class="docutils literal notranslate"><span class="pre">keyword_tokenize()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.link_book_tag"><code class="docutils literal notranslate"><span class="pre">link_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.next_out_of_date_book_rfid"><code class="docutils literal notranslate"><span class="pre">next_out_of_date_book_rfid()</span></code></a></li>
@@ -4286,6 +4300,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.set_book_owner"><code class="docutils literal notranslate"><span class="pre">set_book_owner()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.share_book_with_non_user"><code class="docutils literal notranslate"><span class="pre">share_book_with_non_user()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.share_book_with_user"><code class="docutils literal notranslate"><span class="pre">share_book_with_user()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.subsonic_init"><code class="docutils literal notranslate"><span class="pre">subsonic_init()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.unlink_book_tag"><code class="docutils literal notranslate"><span class="pre">unlink_book_tag()</span></code></a></li>
 </ul>
 </li>

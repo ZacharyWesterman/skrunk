@@ -1005,6 +1005,41 @@ If the application and blob storage are on the same disk, they are listed togeth
 <section id="module-application.integrations">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.integrations" title="Link to this heading">#</a></h2>
 <p>application.integrations</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.get_subsonic">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.</span></span><span class="sig-name descname"><span class="pre">get_subsonic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.get_subsonic" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current instance of the Subsonic client if available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Subsonic client instance if initialized, otherwise None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>subsonic.SubsonicClient | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.init_subsonic">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.</span></span><span class="sig-name descname"><span class="pre">init_subsonic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.init_subsonic" title="Link to this definition">#</a></dt>
+<dd><p>Initializes the global Subsonic client with the provided credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em><em> | </em><em>None</em>) – The URL of the Subsonic server.</p></li>
+<li><p><strong>username</strong> (<em>str</em><em> | </em><em>None</em>) – The username for authentication.</p></li>
+<li><p><strong>password</strong> (<em>str</em><em> | </em><em>None</em>) – The password for authentication.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.SubsonicError" title="application.exceptions.SubsonicError"><strong>SubsonicError</strong></a> – If any of the required parameters (url, username, password) are missing or empty.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient" title="application.integrations.subsonic.subsonic_client.SubsonicClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubsonicClient</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -1130,7 +1165,11 @@ If the application and blob storage are on the same disk, they are listed togeth
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.videos.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.get_subsonic"><code class="docutils literal notranslate"><span class="pre">get_subsonic()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.init_subsonic"><code class="docutils literal notranslate"><span class="pre">init_subsonic()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
