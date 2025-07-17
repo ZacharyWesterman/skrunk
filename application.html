@@ -508,6 +508,10 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_data"><code class="docutils literal notranslate"><span class="pre">get_user_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_list"><code class="docutils literal notranslate"><span class="pre">get_user_list()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.group_filter"><code class="docutils literal notranslate"><span class="pre">group_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.is_locked"><code class="docutils literal notranslate"><span class="pre">is_locked()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.login_attempts_remaining"><code class="docutils literal notranslate"><span class="pre">login_attempts_remaining()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.process_user_data"><code class="docutils literal notranslate"><span class="pre">process_user_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.unlock_user"><code class="docutils literal notranslate"><span class="pre">unlock_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_display_name"><code class="docutils literal notranslate"><span class="pre">update_user_display_name()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_email"><code class="docutils literal notranslate"><span class="pre">update_user_email()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_groups"><code class="docutils literal notranslate"><span class="pre">update_user_groups()</span></code></a></li>
@@ -568,6 +572,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserExistsError"><code class="docutils literal notranslate"><span class="pre">UserExistsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserIsLocked"><code class="docutils literal notranslate"><span class="pre">UserIsLocked</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.WebPushException"><code class="docutils literal notranslate"><span class="pre">WebPushException</span></code></a></li>
 </ul>
 </li>
@@ -1037,6 +1042,29 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.document">application.types.document module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.document.Document"><code class="docutils literal notranslate"><span class="pre">Document</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.body"><code class="docutils literal notranslate"><span class="pre">Document.body</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.body_html"><code class="docutils literal notranslate"><span class="pre">Document.body_html</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.created"><code class="docutils literal notranslate"><span class="pre">Document.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.creator"><code class="docutils literal notranslate"><span class="pre">Document.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.id"><code class="docutils literal notranslate"><span class="pre">Document.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.title"><code class="docutils literal notranslate"><span class="pre">Document.title</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.updated"><code class="docutils literal notranslate"><span class="pre">Document.updated</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.documentmin">application.types.documentmin module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.documentmin.DocumentMin"><code class="docutils literal notranslate"><span class="pre">DocumentMin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.documentmin.DocumentMin.created"><code class="docutils literal notranslate"><span class="pre">DocumentMin.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.documentmin.DocumentMin.creator"><code class="docutils literal notranslate"><span class="pre">DocumentMin.creator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.documentmin.DocumentMin.id"><code class="docutils literal notranslate"><span class="pre">DocumentMin.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.documentmin.DocumentMin.title"><code class="docutils literal notranslate"><span class="pre">DocumentMin.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.ebook">application.types.ebook module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.ebook.EBook"><code class="docutils literal notranslate"><span class="pre">EBook</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.ebook.EBook.fileType"><code class="docutils literal notranslate"><span class="pre">EBook.fileType</span></code></a></li>
@@ -1393,7 +1421,9 @@
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.disabled_modules"><code class="docutils literal notranslate"><span class="pre">UserData.disabled_modules</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.display_name"><code class="docutils literal notranslate"><span class="pre">UserData.display_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.email"><code class="docutils literal notranslate"><span class="pre">UserData.email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.failed_logins"><code class="docutils literal notranslate"><span class="pre">UserData.failed_logins</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.groups"><code class="docutils literal notranslate"><span class="pre">UserData.groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.is_locked"><code class="docutils literal notranslate"><span class="pre">UserData.is_locked</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.last_login"><code class="docutils literal notranslate"><span class="pre">UserData.last_login</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.perms"><code class="docutils literal notranslate"><span class="pre">UserData.perms</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.userdata.UserData.theme"><code class="docutils literal notranslate"><span class="pre">UserData.theme</span></code></a></li>

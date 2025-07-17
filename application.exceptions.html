@@ -328,7 +328,7 @@
 <p>application.exceptions</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="application.exceptions.AuthenticationError">
-<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">AuthenticationError</span></span><a class="headerlink" href="#application.exceptions.AuthenticationError" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">AuthenticationError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attempts_remaining</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.AuthenticationError" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
 <p>Raised when authentication fails.</p>
 </dd></dl>
@@ -495,6 +495,13 @@
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.UserIsLocked">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">UserIsLocked</span></span><a class="headerlink" href="#application.exceptions.UserIsLocked" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a user is locked.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="application.exceptions.WebPushException">
 <em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">WebPushException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.WebPushException" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
@@ -576,6 +583,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.UserExistsError"><code class="docutils literal notranslate"><span class="pre">UserExistsError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.UserIsLocked"><code class="docutils literal notranslate"><span class="pre">UserIsLocked</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.WebPushException"><code class="docutils literal notranslate"><span class="pre">WebPushException</span></code></a></li>
 </ul>
 </li>
