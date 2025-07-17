@@ -1,6 +1,7 @@
 """application.db.book"""
 
 import re
+import string
 from datetime import datetime
 
 import markdown
@@ -9,7 +10,9 @@ from pymongo.collection import Collection
 from pymongo.cursor import Cursor
 
 from application import exceptions
-from application.integrations import google_books, subsonic
+from application.db.settings import get_config
+from application.integrations import (get_subsonic, google_books,
+                                      init_subsonic, subsonic)
 from application.types import BookSearchFilter, Sorting
 
 from . import blob, users
@@ -18,14 +21,42 @@ from .perms import caller_info_strict
 ## A pointer to the Book collection in the database.
 db: Collection = None  # type: ignore[assignment]
 
-## The client object that handles all Subsonic API requests.
-SUBSONIC = None
+subsonic_albums: list = []
+subsonic_albums_complete: bool = False
+subsonic_albums_page: int = 0
 
 ## Regular expressions used for extracting keywords from text.
 _P = {
 	'tag': re.compile(r'</?\w+>'),
 	'nonwd': re.compile(r'[^\w]+'),
 }
+
+
+def init() -> None:
+	"""
+	Initialize the application by pre-caching some data.
+	"""
+	try:
+		client = get_subsonic()
+		if client is None:
+			client = subsonic_init()
+
+		print('Pre-caching Subsonic albums... ', flush=True, end='')
+
+		# If this title is not in the album cache, then fetch more
+		global subsonic_albums_complete, subsonic_albums_page, subsonic_albums
+		while not subsonic_albums_complete:
+			albums = client.albums('Audiobooks', subsonic_albums_page, 40)
+			subsonic_albums += albums
+
+			subsonic_albums_page += 1
+			if len(albums) < 40:
+				subsonic_albums_complete = True
+
+		print('Done.', flush=True)
+
+	except (exceptions.SubsonicError, subsonic.SessionError):
+		pass
 
 
 def process_share_hist(share_history: list) -> list:
@@ -62,15 +93,6 @@ def process_share_hist(share_history: list) -> list:
 def keyword_tokenize(text: str) -> list[str]:
 	"""
 	Tokenizes the input text into a list of unique keywords.
-
-	This function performs the following steps:
-	1. Replaces apostrophes (') with an empty string.
-	2. Applies a regex substitution to replace non-word characters with spaces.
-	3. Applies another regex substitution to replace tags with spaces.
-	4. Converts the text to lowercase.
-	5. Splits the text into words.
-	6. Filters out words with a length of 2 or less.
-	7. Removes duplicate words by converting the list to a set and back to a list.
 
 	Args:
 		text (str): The input text to be tokenized.
@@ -116,6 +138,13 @@ def build_keywords(book_data: dict) -> list[str]:
 	return sorted(list(set(keywords)))
 
 
+def subsonic_init() -> subsonic.SubsonicClient:
+	url = get_config('subsonic:url')
+	username = get_config('subsonic:username')
+	password = get_config('subsonic:password')
+	return init_subsonic(url, username, password)
+
+
 def process_book_tag(book_data: dict) -> dict:
 	"""
 	Processes and enriches book data with additional information.
@@ -151,11 +180,43 @@ def process_book_tag(book_data: dict) -> dict:
 	book_data['keywords'] = build_keywords(book_data)
 	book_data['audiobook'] = None
 
-	if SUBSONIC:
-		try:
-			book_data['audiobook'] = SUBSONIC.get_album_id(book_data['title'], 'Audiobooks')
-		except subsonic.SessionError:
-			pass
+	try:
+		client = get_subsonic()
+		if client is None:
+			client = subsonic_init()
+
+		# If this title is not in the album cache, then fetch more
+		global subsonic_albums_complete, subsonic_albums_page, subsonic_albums
+		while not subsonic_albums_complete and (
+			len(subsonic_albums) == 0 or
+			subsonic_albums[-1].title <= book_data['title']
+		):
+			albums = client.albums('Audiobooks', subsonic_albums_page, 40)
+			subsonic_albums += albums
+
+			subsonic_albums_page += 1
+			if len(albums) < 40:
+				subsonic_albums_complete = True
+
+		# Check if any album is a close enough match to this book title
+		for album in subsonic_albums:
+			album_title = re.sub(
+				r'\(.*\)|[' + re.escape(string.punctuation) + r']',
+				'',
+				album.title
+			).strip().lower()
+			title: str = book_data['title'].strip().lower()
+			subtitle: str = (book_data['subtitle'] if book_data['subtitle'] else '').strip().lower()
+
+			if album_title in (
+				title,
+				f'{title} {subtitle}',
+			):
+				book_data['audiobook'] = album.id
+				break
+
+	except (exceptions.SubsonicError, subsonic.SessionError):
+		pass
 
 	book_data['has_description'] = len((book_data.get('description', '') or '').strip()) > 0
 
