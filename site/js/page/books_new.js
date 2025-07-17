@@ -111,7 +111,7 @@ export async function create_book() {
 				publisher: $.val('book-publisher').trim(),
 				publishedDate: $.val('book-published').trim(),
 				thumbnail: $('book-thumbnail').blob_id || null,
-				owner: $('book-owner') || api.username,
+				owner: $.val('book-owner') || api.username,
 			}
 
 			return true

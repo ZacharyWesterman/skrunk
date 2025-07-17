@@ -121,8 +121,11 @@ export default {
 	},
 
 	create: async book_data => {
+		const owner = book_data.owner
+		delete book_data.owner
+
 		return await api(`mutation ($owner: String!, $data: BookCreateData!) {
-			createBook (ownser: $owner, data: $data) {
+			createBook (owner: $owner, data: $data) {
 				__typename
 				...on BookTagExistsError { message }
 				...on InsufficientPerms { message }
@@ -130,7 +133,7 @@ export default {
 			}
 		}`, {
 			data: book_data,
-			owner: book_data.owner,
+			owner: owner,
 		})
 	},
 
