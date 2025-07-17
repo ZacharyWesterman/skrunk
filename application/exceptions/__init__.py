@@ -36,11 +36,24 @@ class UserExistsError(ClientError):
 class AuthenticationError(ClientError):
 	"""Raised when authentication fails."""
 
-	def __init__(self) -> None:
+	def __init__(self, attempts_remaining: int) -> None:
 		"""
 		Initializes the exception with a default message indicating authentication failure.
 		"""
-		super().__init__('Authentication failed.')
+		super().__init__(f'Authentication failed.\n{attempts_remaining} attempt{"s" if attempts_remaining != 1 else ""} remaining.')
+
+
+class UserIsLocked(ClientError):
+	"""Raised when a user is locked."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating that the specified user is locked.
+		"""
+		super().__init__(
+			'User is locked due to too many failed login attempts. ' +
+			'Please contact an admin to unlock the account.'
+		)
 
 
 class BadUserNameError(ClientError):

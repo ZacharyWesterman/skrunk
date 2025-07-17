@@ -87,6 +87,21 @@
 					{{~}}
 				</table>
 			</div>
+			<hr>
+			<div>
+				Failed Logins: {{= it.user.failed_logins }}
+				{{? it.user.is_locked }}
+				<span class="emphasis">&nbsp;<i class="fa-solid fa-lock"></i> User is locked.</span>
+				{{?}}
+
+				<span class="right">
+					{{? it.user.is_locked }}
+					<button class="border emphasis" *click="unlock_user('{{=it.user.username}}')">Unlock</button>
+					{{??}}
+					<button class="border" *click="unlock_user('{{=it.user.username}}')">Reset Attempts</button>
+					{{?}}
+				</span>
+			</div>
 		</div>
 		{{?}}
 

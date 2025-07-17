@@ -26,3 +26,7 @@ class UserData(TypedDict):
 	disabled_modules: list[str]
 	## The user's email address. This is currently reserved for possible future use.
 	email: str
+	## The number of unsuccessful login attempts for the user.
+	failed_logins: int
+	## Whether the user is currently locked out due to too many failed login attempts.
+	is_locked: bool

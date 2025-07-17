@@ -4,10 +4,11 @@ from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
 from application.db.users import (create_user, delete_user, export_user_data,
-                                  update_user_display_name, update_user_email,
-                                  update_user_groups, update_user_module,
-                                  update_user_password, update_user_perms,
-                                  update_user_theme, update_username)
+                                  unlock_user, update_user_display_name,
+                                  update_user_email, update_user_groups,
+                                  update_user_module, update_user_password,
+                                  update_user_perms, update_user_theme,
+                                  update_username)
 
 from ..decorators import handle_client_exceptions
 from . import mutation
@@ -99,3 +100,21 @@ def resolve_update_user_email(_, _info: GraphQLResolveInfo, username: str, email
 @handle_client_exceptions
 def resolve_export_user_data(_, _info: GraphQLResolveInfo, username: str) -> dict:
 	return {'__typename': 'Blob', **export_user_data(username)}
+
+
+@mutation.field('unlockUser')
+@perms.require('admin')
+@handle_client_exceptions
+def resolve_unlock_user(_, _info: GraphQLResolveInfo, username: str) -> dict:
+	"""
+	Unlocks a user account by username and returns user data.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		username (str): The username of the user to unlock.
+
+	Returns:
+		dict: A dictionary containing the unlocked user's data.
+	"""
+	return {'__typename': 'UserData', **unlock_user(username)}

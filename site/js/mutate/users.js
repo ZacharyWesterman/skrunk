@@ -142,4 +142,16 @@ export default {
 			disabled: disabled,
 		})
 	},
+
+	unlock: async (username) => {
+		return await api(`mutation ($username: String!) {
+			unlockUser(username: $username) {
+				__typename
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			username: username,
+		})
+	},
 }

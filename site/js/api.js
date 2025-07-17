@@ -63,7 +63,8 @@ api.username = null
  * Login to the server, generating a session token on success.
  * @param {string} username The username.
  * @param {string} password The plaintext password (this gets hashed).
- * @returns {Promise<boolean>} Whether the login was successful.
+ * @returns {Promise<void>} The login was successful.
+ * @raises A descriptive error message if the login fails.
  */
 api.authenticate = async (username, password) => {
 	const hashed_pass = await api.hash(password)
@@ -73,11 +74,12 @@ api.authenticate = async (username, password) => {
 	}
 
 	const response = JSON.parse(await api.post_json('/auth', auth_json))
-	if (response.error) return false
+	if (response.error) {
+		throw new Error(response.error)
+	}
 
 	api.login_token = 'Bearer ' + response.token
 	api.username = username
-	return true
 }
 
 /**

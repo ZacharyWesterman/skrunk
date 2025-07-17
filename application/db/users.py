@@ -12,7 +12,7 @@ from bson.objectid import ObjectId
 from pymongo.collection import Collection
 from pymongo.database import Database
 
-from ..types import BlobSearchFilter, InventorySearchFilter
+from ..types import BlobSearchFilter, InventorySearchFilter, UserData
 
 FILTER = TypeVar('FILTER', BlobSearchFilter, InventorySearchFilter)
 
@@ -21,6 +21,50 @@ db: Collection = None  # type: ignore[assignment]
 
 ## A pointer to the main database.
 top_level_db: Database = None  # type: ignore[assignment]
+
+
+def is_locked(failed_logins: int) -> bool:
+	"""
+	Checks if a user is locked based on the number of failed login attempts.
+
+	Args:
+		failed_logins (int): The number of failed login attempts.
+
+	Returns:
+		bool: True if the user is locked, False otherwise.
+	"""
+	return failed_logins >= 5
+
+
+def login_attempts_remaining(failed_logins: int) -> int:
+	"""
+	Calculates the number of login attempts remaining before the user is locked.
+
+	Args:
+		failed_logins (int): The number of failed login attempts.
+
+	Returns:
+		int: The number of login attempts remaining.
+	"""
+	return max(0, 5 - failed_logins)
+
+
+def process_user_data(userdata: dict) -> UserData:
+	"""
+	Process user data to ensure it has the correct structure.
+
+	Args:
+		userdata (dict): The user data to process.
+
+	Returns:
+		UserData: The processed user data.
+	"""
+	userdata['is_locked'] = is_locked(userdata.get('failed_logins', 0))
+	userdata['disabled_modules'] = settings.calculate_disabled_modules(
+		userdata.get('disabled_modules', [])
+	)
+
+	return UserData(**userdata)
 
 
 def get_admins() -> list:
@@ -74,7 +118,7 @@ def userids_in_groups(groups: list) -> list[ObjectId]:
 	return result
 
 
-def get_user_by_id(id: ObjectId) -> dict:
+def get_user_by_id(id: ObjectId) -> UserData:
 	"""
 	Returns user data for the user with the specified ID.
 
@@ -82,22 +126,19 @@ def get_user_by_id(id: ObjectId) -> dict:
 		id (ObjectId): The ID of the user.
 
 	Returns:
-		dict: The user data.
+		UserData: The user data.
 
 	Raises:
 		UserDoesNotExistError: If the user is not found.
 	"""
 	userdata = db.find_one({'_id': id})
-	if userdata:
-		userdata['disabled_modules'] = settings.calculate_disabled_modules(
-			userdata.get('disabled_modules', [])
-		)
-		return userdata
+	if userdata is None:
+		raise exceptions.UserDoesNotExistError(f'ID:{id}')
 
-	raise exceptions.UserDoesNotExistError(f'ID:{id}')
+	return process_user_data(userdata)
 
 
-def get_user_data(username: str) -> dict:
+def get_user_data(username: str) -> UserData:
 	"""
 	Returns user data for the user with the specified username.
 
@@ -115,10 +156,7 @@ def get_user_data(username: str) -> dict:
 	if userdata is None:
 		raise exceptions.UserDoesNotExistError(username)
 
-	userdata['disabled_modules'] = settings.calculate_disabled_modules(
-		userdata.get('disabled_modules', [])
-	)
-	return userdata
+	return process_user_data(userdata)
 
 
 def update_user_theme(username: str, theme: dict) -> dict:
@@ -219,6 +257,7 @@ def create_user(
 		'groups': groups,
 		'disabled_modules': [],
 		'email': '',
+		'failed_logins': 0,
 	}
 
 	db.insert_one(userdata)
@@ -456,15 +495,28 @@ def authenticate(username: str, password: str) -> str:
 		str: A login token if authentication is successful.
 
 	Raises:
+		UserDoesNotExistError: If the user does not exist.
+		UserIsLocked: If the user is locked due to too many failed login attempts.
 		AuthenticationError: If authentication fails.
 	"""
-	userdata = get_user_data(username)
+	userdata = db.find_one({'username': username})
 
+	if userdata is None:
+		raise exceptions.UserDoesNotExistError(username)
+
+	if is_locked(userdata.get('failed_logins', 0)):
+		raise exceptions.UserIsLocked
+
+	# If the password is not correct, increment the failed logins and raise an error
 	if not bcrypt.checkpw(password.encode(), userdata['password']):
-		raise exceptions.AuthenticationError
+		db.update_one({'_id': userdata['_id']}, {'$inc': {'failed_logins': 1}})
+		raise exceptions.AuthenticationError(login_attempts_remaining(userdata.get('failed_logins', 0)))
 
 	login_token = tokens.create_user_token(username)
-	db.update_one({'_id': userdata['_id']}, {'$set': {'last_login': datetime.utcnow()}})
+	db.update_one({'_id': userdata['_id']}, {'$set': {
+		'last_login': datetime.utcnow(),
+		'failed_logins': 0,  # Reset failed logins on successful authentication
+	}})
 
 	return login_token
 
@@ -590,6 +642,29 @@ def export_user_data(username: str) -> dict:
 	print(f'Finished exporting {username}\'s data.', flush=True)
 
 	return blob.get_blob_data(blob_storage.id)
+
+
+def unlock_user(username: str) -> UserData:
+	"""
+	Unlocks the user with the specified username by resetting their failed login attempts.
+
+	Args:
+		username (str): The username of the user to unlock.
+
+	Returns:
+		UserData: The updated user data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
+	"""
+	userdata = db.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	db.update_one({'username': username}, {'$set': {'failed_logins': 0}})
+
+	return process_user_data(userdata)
 
 
 # These imports are needed at this location to avoid circular imports

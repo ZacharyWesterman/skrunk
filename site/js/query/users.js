@@ -53,6 +53,8 @@ export default {
 					groups
 					disabled_modules
 					email
+					failed_logins
+					is_locked
 				}
 				...on UserDoesNotExistError {
 					message

@@ -578,3 +578,24 @@ export async function change_username(username) {
 		setTimeout(api.logout, 700)
 	}
 }
+
+export async function unlock_user(username) {
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Unlock User Account?',
+		text: `Are you sure you want to reset login attempts and enable login for <span class="emphasis">${username}</span>?`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') return
+
+	const res = await mutate.users.unlock(username)
+
+	if (res.__typename !== 'UserData') {
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	load_user_data(username, true)
+}

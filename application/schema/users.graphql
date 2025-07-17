@@ -17,6 +17,10 @@ type UserData {
 	disabled_modules: [String!]!
 	"""The user's email address. This is currently reserved for possible future use."""
 	email: String!
+	"""The number of unsuccessful login attempts for the user."""
+	failed_logins: Int!
+	"""Whether the user is currently locked out due to too many failed login attempts."""
+	is_locked: Boolean!
 }
 
 """Minimal data for a user, used for listing users or getting basic user information."""
@@ -122,6 +126,8 @@ extend type Mutation {
 	deleteUserTheme(username: String!): UserUpdateResponse!
 	updateUserPerms(username: String!, perms: [String!]!): UserUpdateResponse!
 	revokeSessions(username: String!): Int!
+	unlockUser(username: String!): UserUpdateResponse!
+
 	updateUserPassword(username: String!, password: String!): UserUpdateResponse!
 	updateUsername(username: String!, newvalue: String!): UserRenameResponse!
 	updateUserDisplayName(username: String!, display_name: String!): UserUpdateResponse!
