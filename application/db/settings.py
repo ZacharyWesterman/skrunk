@@ -68,10 +68,22 @@ def get_enabled_modules(user_data: dict | None = None, *, group: str | None = No
 
 	disabled_modules: list[str] = []
 
+	# Disabled modules are the intersection of all the modules disabled for the user's groups,
+	# plus any modules disabled for the user specifically.
 	if user_data is not None:
 		disabled_modules += user_data.get('disabled_modules', [])
-		for user_group in user_data.get('groups', []):
-			disabled_modules += groups.get(user_group, {}).get('disabled_modules', [])
+
+		user_groups = user_data.get('groups', [])
+		group_modules: set[str] = set()
+		if len(user_groups) > 0:
+			group_modules = set(groups.get(user_groups[0], {}).get('disabled_modules', []))
+			user_groups = user_groups[1:]
+
+		for user_group in user_groups:
+			mods = set(groups.get(user_group, {}).get('disabled_modules', []))
+			group_modules = group_modules.intersection(mods)
+
+		disabled_modules += list(group_modules)
 
 	if group is not None:
 		disabled_modules += groups.get(group, {}).get('disabled_modules', [])
