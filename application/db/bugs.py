@@ -38,7 +38,7 @@ def report_bug(text: str, plaintext: bool = True) -> dict:
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
 		'body': text,
-		'body_html': html.escape(text) if plaintext else markdown.markdown(text, output_format='html'),
+		'body_html': html.escape(text) if plaintext else markdown.markdown(text),
 		'convo': [],
 		'resolved': False,
 	}
@@ -75,7 +75,7 @@ def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
 		'body': text,
-		'body_html': html.escape(text) if plaintext else markdown.markdown(text, output_format='html'),
+		'body_html': html.escape(text) if plaintext else markdown.markdown(text),
 	}
 
 	db.update_one({'_id': ObjectId(id)}, {

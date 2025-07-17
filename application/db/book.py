@@ -366,7 +366,7 @@ def create_book(owner: str, data: dict) -> dict:
 		'publishedDate': data['publishedDate'],
 		'description': (
 			None if data['description'] is None else
-			markdown.markdown(data['description'], output_format='html')
+			markdown.markdown(data['description'])
 		),
 		'pageCount': data['pageCount'],
 		'categories': [],
