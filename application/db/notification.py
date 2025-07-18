@@ -13,6 +13,7 @@ from pywebpush import WebPushException, webpush
 from application import exceptions
 from application.db import settings, users
 from application.db.sessions import get_first_session_token
+from application.types import UserData
 
 VAPID_PRIVATE_KEY: str = ''
 VAPID_PUBLIC_KEY: str = ''
@@ -66,7 +67,7 @@ def init() -> None:
 	settings.db.insert_one(config)
 
 
-def get_user_from_notif(id: str) -> dict:
+def get_user_from_notif(id: str) -> UserData | dict:
 	"""
 	Retrieve user information based on a notification ID.
 
@@ -80,7 +81,7 @@ def get_user_from_notif(id: str) -> dict:
 	if notif is None:
 		return {}
 
-	return users.get_user_by_id(notif.get('recipient'))
+	return users.get_user_by_id(notif.get('recipient', ''))
 
 
 def get_public_key() -> str:

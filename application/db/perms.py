@@ -13,12 +13,13 @@ and the `module` decorator to check if the user has access to specific modules.
 """
 
 from inspect import getfullargspec
-from typing import Any, Callable
+from typing import Callable
 
 from pymongo.collection import Collection
 
 from application import exceptions, tokens
 from application.db import users
+from application.types import UserData
 
 ## A pointer to the API key database collection.
 apikeydb: Collection = None  # type: ignore[assignment]
@@ -38,7 +39,7 @@ def bad_perms() -> dict[str, str]:
 	}
 
 
-def caller_info() -> dict[str, Any] | None:
+def caller_info() -> UserData | dict | None:
 	"""
 	Retrieves caller information based on the request token.
 
@@ -73,7 +74,7 @@ def caller_info() -> dict[str, Any] | None:
 		return None
 
 
-def caller_info_strict() -> dict[str, Any]:
+def caller_info_strict() -> UserData | dict:
 	"""
 	Retrieves caller information based on the request token.
 
@@ -82,7 +83,7 @@ def caller_info_strict() -> dict[str, Any]:
 	API key information from the database.
 
 	Returns:
-		dict[str, Any]: The user data associated with the username if available,
+		UserData | dict: The user data associated with the username if available,
 			otherwise the API key information if the token is an API key.
 
 	Raises:
@@ -108,12 +109,12 @@ def caller_info_strict() -> dict[str, Any]:
 	return users.get_user_data(username)
 
 
-def user_has_perms(user_data: dict, perm_list: tuple[str, ...]) -> bool:
+def user_has_perms(user_data: UserData | dict, perm_list: tuple[str, ...]) -> bool:
 	"""
 	Check if the user has any of the specified permissions.
 
 	Args:
-		user_data (dict): A dictionary containing user information,
+		user_data (UserData | dict): A dictionary containing user information,
 			including a 'perms' key with a list of permissions.
 		perm_list (list): A list of permissions to check against the user's permissions.
 

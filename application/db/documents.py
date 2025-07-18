@@ -1,16 +1,18 @@
 """Allows users to create, read and edit arbitrary rich text documents."""
 
-from application.tokens import decode_user_token, get_request_token
-from application.exceptions import DocumentDoesNotExistError, UserDoesNotExistError
-from . import users
+from datetime import UTC, datetime
 
-from pymongo.collection import Collection
-from bson.objectid import ObjectId
 import markdown
-from datetime import datetime, UTC
+from bson.objectid import ObjectId
+from pymongo.collection import Collection
+
+from application.exceptions import (DocumentDoesNotExistError,
+                                    UserDoesNotExistError)
+
+from . import perms, users
 
 ## A pointer to the Documents collection in the database.
-db: Collection = None
+db: Collection = None  # type: ignore[assignment]
 
 
 def parse_document(doc: dict) -> dict:
@@ -86,7 +88,7 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 		'title': title,
 		'body': body,
 		'body_html': markdown.markdown(body),
-		'creator': decode_user_token(get_request_token()).get('username'),
+		'creator': perms.caller_info_strict().get('username'),
 		'created': datetime.now(UTC),
 		'updated': None,
 		'updater': None,
@@ -99,7 +101,9 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 	}
 
 	doc_id = db.insert_one(doc).inserted_id
-	return parse_document(db.find_one({'_id': doc_id}))
+	doc['_id'] = doc_id
+
+	return parse_document(doc)
 
 
 def update_document(doc_id: str, title: str | None, body: str | None, new_parent: str | None) -> dict:
@@ -121,7 +125,7 @@ def update_document(doc_id: str, title: str | None, body: str | None, new_parent
 
 	if title or body or new_parent:
 
-		username = decode_user_token(get_request_token()).get('username')
+		username: str = perms.caller_info_strict().get('username', '')
 		user_data = users.get_user_data(username)
 
 		prev_doc = {
