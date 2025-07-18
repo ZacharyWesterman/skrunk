@@ -20,7 +20,8 @@ from . import (
 	notification,
 	apikeys,
 	inventory,
-	datafeed
+	datafeed,
+	documents,
 )
 
 
