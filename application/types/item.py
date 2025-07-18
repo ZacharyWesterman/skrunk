@@ -1,6 +1,7 @@
 """application.types.item"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 from .usermindata import UserMinData
 from .blob import Blob
@@ -11,6 +12,8 @@ class Item(TypedDict):
 	A type for describing an arbitrary inventory item.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The unique identifier for the item.
 	id: str
 	## The date and time when the item was created.

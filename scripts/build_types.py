@@ -50,7 +50,8 @@ def class_text(class_data: dict) -> str:
 	"""
 
 	type_imports: dict[str, str] = {
-		'TypedDict': 'from typing import TypedDict'
+		'TypedDict': 'from typing import TypedDict',
+		'ObjectId': 'from bson.objectid import ObjectId',
 	}
 
 	text = f'class {class_data["name"]}(TypedDict):\n'
@@ -58,6 +59,10 @@ def class_text(class_data: dict) -> str:
 	docs = class_data['doc'].strip().replace("\n", "\n\t")
 	if docs:
 		text += f'\t"""\n\t{docs}\n\t"""\n\n'
+
+	# Add the _id field that all mongodb documents have
+	text += '\t## The unique identifier of the document.\n'
+	text += '\t_id: ObjectId\n'
 
 	for i in class_data['params']:
 		data_type = type_text(i["type"])

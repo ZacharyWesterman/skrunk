@@ -1,6 +1,7 @@
 """application.types.userdata"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from .userthemeoutput import UserThemeOutput
 from datetime import datetime
 
@@ -10,6 +11,8 @@ class UserData(TypedDict):
 	Data for a user in the system.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The username of the user.
 	username: str
 	## The display name of the user.

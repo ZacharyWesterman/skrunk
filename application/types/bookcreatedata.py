@@ -1,6 +1,7 @@
 """application.types.bookcreatedata"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 
 
@@ -9,6 +10,8 @@ class BookCreateData(TypedDict):
 	Data for creating a new book entry.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The title of the book.
 	title: str
 	## The subtitle of the book, if any.

@@ -1,6 +1,7 @@
 """application.types.booksearchfilter"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 
 
 class BookSearchFilter(TypedDict):
@@ -9,6 +10,8 @@ class BookSearchFilter(TypedDict):
 	All fields are optional, and if none are provided, all books will be returned.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The username of the book owner.
 	owner: str | None
 	## The title of the book.

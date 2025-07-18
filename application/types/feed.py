@@ -1,6 +1,7 @@
 """application.types.feed"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 from .sortingoutput import SortingOutput
 
@@ -10,6 +11,8 @@ class Feed(TypedDict):
 	A type for storing information about a data feed.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The unique identifier for the feed.
 	id: str
 	## The name of the feed.

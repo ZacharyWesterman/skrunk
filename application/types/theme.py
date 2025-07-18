@@ -1,6 +1,7 @@
 """application.types.theme"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 
 
 class Theme(TypedDict):
@@ -8,6 +9,8 @@ class Theme(TypedDict):
 	A site theme template.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The name of the theme.
 	name: str
 	## The colors defined in the theme.

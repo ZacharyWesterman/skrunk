@@ -1,6 +1,7 @@
 """application.types.weatheruser"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from .weathertempoutput import WeatherTempOutput
 from datetime import datetime
 
@@ -10,6 +11,8 @@ class WeatherUser(TypedDict):
 	Information about a user in the weather alerts system.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The username of the user.
 	username: str
 	## The latitude of the user's location.

@@ -1,6 +1,7 @@
 """application.types.bookownerhist"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 
 
@@ -9,6 +10,8 @@ class BookOwnerHist(TypedDict):
 	Owner history information for a book.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The ID of the user who owned the book.
 	user_id: str
 	## The name of the user who owned the book.

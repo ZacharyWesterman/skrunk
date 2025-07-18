@@ -1,6 +1,7 @@
 """application.types.inventorysearchfilter"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 
 
 class InventorySearchFilter(TypedDict):
@@ -9,6 +10,8 @@ class InventorySearchFilter(TypedDict):
 	All fields are optional, and if a field is null, it will not be used in the query.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The username of the owner of the item.
 	owner: str | None
 	## The category of the item, such as 'electronics', 'furniture', etc.

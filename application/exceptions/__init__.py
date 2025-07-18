@@ -36,11 +36,14 @@ class UserExistsError(ClientError):
 class AuthenticationError(ClientError):
 	"""Raised when authentication fails."""
 
-	def __init__(self, attempts_remaining: int) -> None:
+	def __init__(self, attempts_remaining: int | None = None) -> None:
 		"""
 		Initializes the exception with a default message indicating authentication failure.
 		"""
-		super().__init__(f'Authentication failed.\n{attempts_remaining} attempt{"s" if attempts_remaining != 1 else ""} remaining.')
+		msg = 'Authentication failed.'
+		if attempts_remaining is not None:
+			msg += f'\n{attempts_remaining} attempt{"s" if attempts_remaining != 1 else ""} remaining.'
+		super().__init__(msg)
 
 
 class UserIsLocked(ClientError):

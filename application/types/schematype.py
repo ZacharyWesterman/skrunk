@@ -1,6 +1,7 @@
 """application.types.schematype"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from .schemaparam import SchemaParam
 
 
@@ -9,6 +10,8 @@ class SchemaType(TypedDict):
 	A type in the GraphQL schema.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The name of the type.
 	type: str
 	## Whether the type is a union type.

@@ -1,6 +1,7 @@
 """application.types.feeddocument"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 
 
@@ -9,6 +10,8 @@ class FeedDocument(TypedDict):
 	An individual feed document, representing an item in a feed.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The unique identifier for the feed document.
 	id: str
 	## The ID of the feed this document belongs to.

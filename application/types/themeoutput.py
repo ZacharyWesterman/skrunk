@@ -1,6 +1,7 @@
 """application.types.themeoutput"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 
 
 class ThemeOutput(TypedDict):
@@ -8,6 +9,8 @@ class ThemeOutput(TypedDict):
 	Creation info for a new theme template.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The name of the theme.
 	name: str
 	## The colors defined in the theme.

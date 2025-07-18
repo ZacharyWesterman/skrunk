@@ -1,6 +1,7 @@
 """application.types.bugreport"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 from .bugcomment import BugComment
 
@@ -10,6 +11,8 @@ class BugReport(TypedDict):
 	Information about a bug report.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The unique identifier for the bug report.
 	id: str
 	## The creation date and time of the bug report.

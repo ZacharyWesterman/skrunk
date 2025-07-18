@@ -1,6 +1,7 @@
 """application.types.blob"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 
 
@@ -9,6 +10,8 @@ class Blob(TypedDict):
 	A type for blob data.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The ID of the blob
 	id: str
 	## The date the blob was created

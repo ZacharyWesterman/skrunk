@@ -1,6 +1,7 @@
 """application.types.notification"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 
 
@@ -9,6 +10,8 @@ class Notification(TypedDict):
 	Information about a notification sent to a user.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The username of the notification recipient.
 	recipient: str
 	## The date and time when the notification was created.

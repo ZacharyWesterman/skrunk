@@ -1,6 +1,7 @@
 """application.types.book"""
 
 from typing import TypedDict
+from bson.objectid import ObjectId
 from datetime import datetime
 from .bookident import BookIdent
 from .usermindata import UserMinData
@@ -14,6 +15,8 @@ class Book(TypedDict):
 	A type for information about a linked book.
 	"""
 
+	## The unique identifier of the document.
+	_id: ObjectId
 	## The unique identifier for the book.
 	id: str
 	## The title of the book.
