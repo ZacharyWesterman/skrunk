@@ -9,7 +9,7 @@ from application.db.blob import (count_blobs, count_tag_uses, get_blob_data,
 from application.db.users import group_filter, userids_in_groups
 from application.integrations import qrcode
 from application.tags import exceptions
-from application.types import BlobSearchFilter, Sorting
+from application.types import BlobSearchFilter, Sorting, UserData
 from application.types.blob_storage import BlobStorage
 
 from ..decorators import handle_client_exceptions
@@ -45,7 +45,13 @@ def resolve_get_blobs(
 	"""
 	try:
 		user_data = perms.caller_info_strict()
-		blobs = get_blobs(group_filter(filter, user_data), start, count, sorting, user_data['_id'])
+		blobs = get_blobs(
+			group_filter(filter, user_data),  # type: ignore[assignment]
+			start,
+			count,
+			sorting,
+			user_data['_id']
+		)
 		return {'__typename': 'BlobList', 'blobs': blobs}
 	except exceptions.ParseError as e:
 		return {'__typename': 'BadTagQuery', 'message': str(e)}
@@ -70,8 +76,8 @@ def resolve_count_blobs(_, _info: GraphQLResolveInfo, filter: BlobSearchFilter) 
 		None: All exceptions are handled internally and returned as part of the response.
 	"""
 	try:
-		user_data = perms.caller_info_strict()
-		count = count_blobs(group_filter(filter, user_data), user_data['_id'])
+		user_data: UserData = perms.caller_info_strict()  # type: ignore[assignment]
+		count = count_blobs(group_filter(filter, user_data), user_data['_id'])  # type: ignore[assignment]
 		return {'__typename': 'BlobCount', 'count': count}
 	except exceptions.ParseError as e:
 		return {'__typename': 'BadTagQuery', 'message': str(e)}
@@ -115,7 +121,10 @@ def resolve_total_blob_size(_, _info: GraphQLResolveInfo, filter: BlobSearchFilt
 	"""
 	try:
 		user_data = perms.caller_info_strict()
-		count = sum_blob_size(group_filter(filter, user_data), user_data['_id'])
+		count = sum_blob_size(
+			group_filter(filter, user_data),  # type: ignore[assignment]
+			user_data['_id']
+		)
 		return {'__typename': 'BlobCount', 'count': count}
 	except exceptions.ParseError as e:
 		return {'__typename': 'BadTagQuery', 'message': str(e)}
