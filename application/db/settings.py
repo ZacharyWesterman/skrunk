@@ -5,6 +5,7 @@ import json
 from pymongo.collection import Collection
 
 from application import exceptions
+from application.types import UserData
 
 ## A pointer to the settings database collection.
 db: Collection = None  # type: ignore[assignment]
@@ -41,13 +42,17 @@ def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 	return list(set(disabled_modules))
 
 
-def get_enabled_modules(user_data: dict | None = None, *, group: str | None = None) -> list:
+def get_enabled_modules(
+	user_data: UserData | dict | None = None,
+	*,
+	group: str | None = None
+) -> list:
 	"""
 	Retrieve a list of enabled modules, optionally
 	filtering out those disabled for a specific user or group.
 
 	Args:
-		user_data (dict | None, optional): A dictionary containing user-specific data,
+		user_data (UserData | dict | None, optional): A dictionary containing user-specific data,
 			including disabled modules and groups. Defaults to None.
 		group (str | None, optional): A specific group to consider for disabled modules. Defaults to None.
 
@@ -91,13 +96,13 @@ def get_enabled_modules(user_data: dict | None = None, *, group: str | None = No
 	return [i for i in modules if i not in calculate_disabled_modules(disabled_modules)]
 
 
-def get_modules(user_data: dict) -> list:
+def get_modules(user_data: UserData | dict) -> list:
 	"""
 	Retrieve a list of modules available to a user,
 	excluding any disabled modules based on the user's groups.
 
 	Args:
-		user_data (dict): A dictionary containing user information, including their groups.
+		user_data (UserData | dict): A dictionary containing user information, including their groups.
 
 	Returns:
 		list: A list of enabled modules for the user, excluding any disabled modules.
