@@ -367,9 +367,21 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.bugs.users_in_group">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.bugs.</span></span><span class="sig-name descname"><span class="pre">users_in_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.bugs.users_in_group" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Returns a list of user ObjectIds based on the provided username or the caller’s group memberships.</p>
+<p>If a username is provided, returns a list containing the ObjectId of that user.
+If no username is provided, retrieves the caller’s user data, extracts their groups,</p>
+<blockquote>
+<div><p>and returns ObjectIds of users in those groups.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em><em> | </em><em>None</em>) – The username to look up. If None, uses the caller’s information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of ObjectIds for the user(s) found.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectId</span></code>]</span></p>
+<dd class="field-odd"><p>list[ObjectId]</p>
 </dd>
 </dl>
 </dd></dl>
