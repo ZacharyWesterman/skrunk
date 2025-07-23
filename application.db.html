@@ -3207,7 +3207,7 @@ filtering out those disabled for a specific user or group.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>user_data</strong> (<em>dict</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – A dictionary containing user-specific data,
+<li><p><strong>user_data</strong> (<a class="reference internal" href="application.types.html#application.types.userdata.UserData" title="application.types.userdata.UserData"><em>UserData</em></a><em> | </em><em>dict</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – A dictionary containing user-specific data,
 including disabled modules and groups. Defaults to None.</p></li>
 <li><p><strong>group</strong> (<em>str</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – A specific group to consider for disabled modules. Defaults to None.</p></li>
 </ul>
@@ -3242,7 +3242,7 @@ including disabled modules and groups. Defaults to None.</p></li>
 excluding any disabled modules based on the user’s groups.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>user_data</strong> (<em>dict</em>) – A dictionary containing user information, including their groups.</p>
+<dd class="field-odd"><p><strong>user_data</strong> (<a class="reference internal" href="application.types.html#application.types.userdata.UserData" title="application.types.userdata.UserData"><em>UserData</em></a><em> | </em><em>dict</em>) – A dictionary containing user information, including their groups.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of enabled modules for the user, excluding any disabled modules.</p>

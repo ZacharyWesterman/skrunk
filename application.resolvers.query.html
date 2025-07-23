@@ -401,9 +401,18 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.integrations.subsonic_init">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.integrations.</span></span><span class="sig-name descname"><span class="pre">subsonic_init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.integrations.subsonic_init" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient" title="application.integrations.subsonic.subsonic_client.SubsonicClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubsonicClient</span></code></a></span></p>
+<dd><p>Initializes and returns a SubsonicClient instance using configuration values.</p>
+<p>Fetches the Subsonic server URL, username, and password from the configuration,
+then initializes and returns a SubsonicClient object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An initialized Subsonic client.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>subsonic.SubsonicClient</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – If any required configuration value is missing.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -419,10 +428,19 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.last_mutation.resolve_get_last_mutation">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.last_mutation.</span></span><span class="sig-name descname"><span class="pre">resolve_get_last_mutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.last_mutation.resolve_get_last_mutation" title="Link to this definition">#</a></dt>
-<dd><p>Get the last mutation called.</p>
+<dd><p>Retrieves information about the most recently called mutation.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing details of the last mutation if available, otherwise None.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p>dict | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -434,9 +452,20 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.notification.resolve_get_subscription">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.notification.</span></span><span class="sig-name descname"><span class="pre">resolve_get_subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.notification.resolve_get_subscription" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resolves the retrieval of a subscription based on the provided authentication token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+<li><p><strong>auth</strong> (<em>str</em>) – Authentication token used to identify the subscription.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The subscription data if found, otherwise None.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p>dict | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -444,9 +473,19 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.notification.resolve_get_vapid_public_key">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.notification.</span></span><span class="sig-name descname"><span class="pre">resolve_get_vapid_public_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.notification.resolve_get_vapid_public_key" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resolves the GraphQL query for retrieving the VAPID public key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The VAPID public key as a string.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -462,9 +501,20 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_config">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_config" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Retrieves the configuration value for the given name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name of the configuration setting to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The configuration value if found, otherwise None.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p>str | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -472,9 +522,19 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_enabled_modules">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_enabled_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_enabled_modules" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resolves and returns a list of enabled modules for the current caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of enabled modules accessible to the caller based on strict permissions.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -482,9 +542,19 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_groups">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_groups" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resolves the GraphQL query for retrieving a list of groups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of all user groups.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -492,9 +562,19 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_modules">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_modules" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resolves and returns a list of modules accessible to the caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of modules available to the caller based on permission checks.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -502,9 +582,19 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_schema">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_schema" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resolves and returns the current GraphQL schema as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The current GraphQL schema.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -512,9 +602,20 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_get_server_enabled_modules">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_get_server_enabled_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_get_server_enabled_modules" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Retrieves the list of enabled server modules for a specified group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+<li><p><strong>group</strong> (<em>str</em><em> | </em><em>None</em>) – The group identifier to filter enabled modules, or None for all groups.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of enabled module names for the specified group.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -526,9 +627,21 @@ If no username is provided, retrieves the caller’s user data, extracts their g
 <dl class="py function">
 <dt class="sig sig-object py" id="application.resolvers.query.users.resolve_list_users">
 <span class="sig-prename descclassname"><span class="pre">application.resolvers.query.users.</span></span><span class="sig-name descname"><span class="pre">resolve_list_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.users.resolve_list_users" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resolves and returns a list of users based on the caller’s permissions and the restrict flag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Unused positional argument, typically the parent resolver.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – GraphQL resolver info containing context and query details.</p></li>
+<li><p><strong>restrict</strong> (<em>bool</em>) – If True, restricts the user list to the caller’s groups.
+If False and caller is admin, returns all users.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of users filtered by permissions and group membership.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span></p>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
