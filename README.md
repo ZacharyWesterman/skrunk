@@ -17,7 +17,10 @@
 </g>
 <path stroke="#000" stroke-width=".362" d="m15.723 12.792-3.307-3.969h6.615l-1.191 1.323-.53-.264-.793.793.265.794z"/>
 </svg>
+
 </span>
+<!-- Alternative image for viewing in GitHub -->
+<img src="data/logo.svg" align="left" alt="" style="filter: invert(57%) sepia(33%) saturate(791%) hue-rotate(117deg) brightness(99%) contrast(86%);" />
 
 My home-built database solution for managing personal data and interacting with other projects.
 
