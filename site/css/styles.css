@@ -2,7 +2,7 @@
 @import url('/css/theme.css');
 
 /*Animated "loading" placeholder icon*/
-@import url('https://unpkg.com/css.gg@2.0.0/icons/css/spinner.css');
+@import url('/css/libs/spinner.css');
 
 @import url('/css/background.css');
 @import url('/css/modal.css');
