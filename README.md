@@ -3,7 +3,21 @@
 <table>
 <tr>
 <td>
-<img src="data/background.svg" alt="Skrunk Logo" align="left" style="filter: invert(57%) sepia(33%) saturate(791%) hue-rotate(117deg) brightness(99%) contrast(86%);">
+
+<!-- Optimized and recolored logo -->
+<span align="left" style="filter: invert(57%) sepia(33%) saturate(791%) hue-rotate(117deg) brightness(99%) contrast(86%);">
+  <svg style="float:left;" xmlns="http://www.w3.org/2000/svg" width="118" height="121.684" viewBox="0 0 31.221 32.196">
+    <g stroke="#000" stroke-width=".266">
+      <path d="M7.786 11.47H9.11v1.322H7.786zM6.463 14.115h1.323v1.323H6.463zM6.463 16.761h1.323v1.323H6.463zM23.661 11.47h-1.323v1.322h1.323zM24.984 14.115h-1.323v1.323h1.323zM24.984 16.761h-1.323v1.323h1.323z"/>
+    </g>
+    <path stroke="#000" d="m345 360-51 88h11l6-10h68l6 10h10zm-.818 20v54h-8.819v-39zm1.728 0 8.738 15v39h-8.738zM334 397v37h-8.818v-22zm22 0 8.738 15v22H356Zm-32.182 17v20H315v-5zm42.272 0 8.738 15v5h-8.738z" transform="matrix(.26458 0 0 .19665 -75.558 -58.002)"/>
+    <g stroke="#000">
+      <path stroke-width=".131" d="M2.18 2.082 14.4 4.855 5.09 9.49H4.033l6.375-3.537-4.787 1.42H3.503l5.82-1.851H2.18z"/>
+      <path stroke-width=".13" d="m29.156 2.082-12.11 2.773 9.226 4.635h1.048l-6.317-3.537 4.744 1.42h2.098l-5.768-1.851h7.079z"/>
+    </g>
+    <path stroke="#000" stroke-width=".362" d="m15.723 12.792-3.307-3.969h6.615l-1.191 1.323-.53-.264-.793.793.265.794z"/>
+  </svg>
+</span>
 
 My home-built database solution for managing personal data and interacting with other projects.
 
