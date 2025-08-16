@@ -1,4 +1,15 @@
+# Skrunk Server
+
+<table>
+<tr>
+<td>
+<img src="data/background.svg" alt="Skrunk Logo" align="left" style="filter: invert(57%) sepia(33%) saturate(791%) hue-rotate(117deg) brightness(99%) contrast(86%);">
+
 My home-built database solution for managing personal data and interacting with other projects.
+
+</td>
+</tr>
+</table>
 
 Current features include:
 - Full support for modern Android/iOS mobile as well as desktop browsers.
