@@ -22,6 +22,8 @@
 	{
 		"id": "related_sites",
 		"name": "Related Sites JSON list",
-		"type": "code"
+		"module": "related_sites",
+		"type": "code",
+		"hint": "Each line should be an array with 2 or 3 elements,\ne.g. [\"url\", \"title\", \"feature\"]"
 	}
 ]

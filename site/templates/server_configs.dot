@@ -4,6 +4,9 @@
 	<tr><td>{{= config.name }}</td></tr>
 	<tr>
 		<td style="width:calc(100%-2rem);">
+			{{? config.hint }}
+				<div class="suppress">{{= html_encode(config.hint) }}</div>
+			{{?}}
 			{{? config.type === 'code' }}
 				<textarea style="width:100%;" class="code" id="config-{{= config.id }}" placeholder="<no value>" *bind="set_config('{{= config.id}}'); $.show('config-reset-{{= config.id }}')">{{= config.value }}</textarea>
 			{{?? config.type === 'password' }}

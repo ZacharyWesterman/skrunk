@@ -57,5 +57,11 @@
 		"name": "Data Feeds",
 		"description": "Enable specifying arbitrary data feeds that automatically update.",
 		"runner": "skrunk-feeds"
+	},
+	{
+		"id": "related_sites",
+		"name": "Related Sites",
+		"description": "Enable the widget for displaying related sites.",
+		"config": true
 	}
 ]

@@ -1,7 +1,8 @@
 [
 	{
 		"id": "related_sites",
-		"title": "Related Sites"
+		"title": "Related Sites",
+		"module": "related_sites"
 	},
 	{
 		"id": "tagged_books",
