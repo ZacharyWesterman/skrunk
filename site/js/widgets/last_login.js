@@ -41,7 +41,7 @@ export default async (config, field) => {
 			if (sorting === 'last_login') {
 				if (!a[sorting]) return -1
 				if (!b[sorting]) return 1
-				return new Date(b[sorting]) - new Date(a[sorting])
+				return new Date(a[sorting]) - new Date(b[sorting])
 			}
 			return b[sorting].localeCompare(a[sorting])
 		}
