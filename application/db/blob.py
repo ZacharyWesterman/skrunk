@@ -12,12 +12,12 @@ import uuid
 from datetime import datetime, timedelta
 from zipfile import ZIP_DEFLATED, Path, ZipFile
 
+import tag_query
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 from pymongo.collection import Collection
 from werkzeug.datastructures import FileStorage
 
-import application.tags as tag_parser
 from application import exceptions
 from application.integrations import images, models, pdf, videos
 from application.types import BlobSearchFilter, Sorting, blob_storage
@@ -388,7 +388,7 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 	tag_expr = filter.get('tag_expr')
 	if tag_expr is not None:
-		tag_q = tag_parser.compile_query(tag_expr, 'tags')
+		tag_q = tag_query.compile_query(tag_expr, 'tags')
 		if tag_q:
 			query += [tag_q]
 

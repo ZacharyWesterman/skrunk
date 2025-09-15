@@ -1,6 +1,7 @@
 """application.resolvers.query.blob"""
 
 from graphql.type import GraphQLResolveInfo
+from tag_query import exceptions
 
 from application.db import perms
 from application.db.blob import (count_blobs, count_tag_uses, get_blob_data,
@@ -8,7 +9,6 @@ from application.db.blob import (count_blobs, count_tag_uses, get_blob_data,
                                  sum_blob_size)
 from application.db.users import group_filter, userids_in_groups
 from application.integrations import qrcode
-from application.tags import exceptions
 from application.types import BlobSearchFilter, Sorting, UserData
 from application.types.blob_storage import BlobStorage
 

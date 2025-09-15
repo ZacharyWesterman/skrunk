@@ -1,6 +1,7 @@
 """application.resolvers.mutation.blob"""
 
 from graphql.type import GraphQLResolveInfo
+from tag_query import exceptions
 
 from application.db import perms
 from application.db.blob import (BlobStorage, cancel_zip, create_blob,
@@ -9,7 +10,6 @@ from application.db.blob import (BlobStorage, cancel_zip, create_blob,
                                  set_blob_tags, zip_matching_blobs)
 from application.db.users import group_filter
 from application.integrations import qrcode
-from application.tags import exceptions
 from application.types import BlobSearchFilter
 
 from ..decorators import handle_client_exceptions
