@@ -8,3 +8,4 @@ js/fields.js
 js/navigate.js
 js/runtime_errors.js
 css/libs/simplemde.min.css
+css/libs/spinner.css
