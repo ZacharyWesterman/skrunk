@@ -14,7 +14,7 @@
 
 		<div class="expand-container {{? !doc.read }}expanded{{?}}" id="content-{{= doc.id }}" *expand_invert="{{= doc.id }}" >
 			<div>
-				<p>{{= doc.body_html || doc.body }}</p>
+				Loading...<i class="gg-spinner"></i>
 			</div>
 		</div>
 	</div>

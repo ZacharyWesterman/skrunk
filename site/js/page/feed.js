@@ -263,20 +263,7 @@ export async function navigate_to_page(page_num, update_nav = true) {
 		}
 	})
 
-	const items_promise = api(`query ($feed: String!, $start: Int!, $count: Int!, $sorting: Sorting!) {
-		getFeedDocuments(feed: $feed, start: $start, count: $count, sorting: $sorting) {
-			author
-			posted
-			body
-			body_html
-			created
-			updated
-			title
-			url
-			id
-			read
-		}
-	}`, {
+	const config = {
 		feed: $.val('feed-choice'),
 		start: lookup_start,
 		count: lookup_list_len,
@@ -284,13 +271,43 @@ export async function navigate_to_page(page_num, update_nav = true) {
 			fields: [$.val('sort-by')],
 			descending: $.val('sort-order') === 'descending',
 		}
-	})
+	}
+
+	//Load item info without body_html
+	//Loading these separately allows the page to load faster, and then the body_html can be filled in as it arrives.
+	const items_promise = api(`query ($feed: String!, $start: Int!, $count: Int!, $sorting: Sorting!) {
+		getFeedDocuments(feed: $feed, start: $start, count: $count, sorting: $sorting) {
+			author
+			posted
+			created
+			updated
+			title
+			url
+			id
+			read
+		}
+	}`, config)
+
+	const body_promise = api(`query ($feed: String!, $start: Int!, $count: Int!, $sorting: Sorting!) {
+		getFeedDocuments(feed: $feed, start: $start, count: $count, sorting: $sorting) {
+			body_html
+			id
+		}
+	}`, config)
 
 	_('page-list', count_promise)
 	_('lookup-results', items_promise)
 
 	if (update_nav) {
 		update_navigation(Math.floor(lookup_start / lookup_list_len))
+	}
+
+	//Once both info and body are loaded, merge them together
+	await items_promise
+	for (const item of await body_promise) {
+		const content = $('content-' + item.id)
+		if (!content) continue
+		content.children[0].innerHTML = item.body_html || '<p class="emphasis">ERROR: Unable to load content.</p>'
 	}
 }
 
