@@ -1,8 +1,8 @@
 export default {
-	report: async (text, plaintext = false) => {
+	report: async (text) => {
 		return await api(`
-		mutation ($text: String!, $plaintext: Boolean!) {
-			reportBug (text: $text, plaintext: $plaintext) {
+		mutation ($text: String!) {
+			reportBug (text: $text) {
 				__typename
 				...on InsufficientPerms {
 					message
@@ -10,7 +10,6 @@ export default {
 			}
 		}`, {
 			text: text,
-			plaintext: plaintext,
 		})
 	},
 
@@ -49,10 +48,10 @@ export default {
 		})
 	},
 
-	comment: async (id, text, plaintext = false) => {
+	comment: async (id, text) => {
 		return await api(`
-		mutation ($id: String!, $text: String!, $plaintext: Boolean!) {
-			commentOnBug (id: $id, text: $text, plaintext: $plaintext) {
+		mutation ($id: String!, $text: String!) {
+			commentOnBug (id: $id, text: $text) {
 				__typename
 				...on BugReport {
 					convo {
@@ -69,7 +68,6 @@ export default {
 		}`, {
 			id: id,
 			text: text,
-			plaintext: plaintext,
 		})
 	},
 }

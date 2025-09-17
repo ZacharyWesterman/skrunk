@@ -3,7 +3,6 @@ This module handles all bug report functionalities, including reporting new bugs
 commenting on bugs, retrieving bug reports, and managing their statuses.
 """
 
-import html
 from datetime import datetime
 
 import markdown
@@ -19,15 +18,12 @@ from .perms import caller_info_strict
 db: Collection = None  # type: ignore[assignment]
 
 
-def report_bug(text: str, plaintext: bool = True) -> dict:
+def report_bug(text: str) -> dict:
 	"""
 	Report a new bug to the database.
 
 	Args:
 		text (str): The content of the bug report.
-		plaintext (bool, optional): If True, the text is treated as plain text and escaped for HTML. 
-									If False, the text is treated as Markdown and converted to HTML. 
-									Defaults to True.
 
 	Returns:
 		dict: A dictionary containing the bug report details, including the newly assigned bug report ID.
@@ -38,7 +34,6 @@ def report_bug(text: str, plaintext: bool = True) -> dict:
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
 		'body': text,
-		'body_html': html.escape(text) if plaintext else markdown.markdown(text),
 		'convo': [],
 		'resolved': False,
 	}
@@ -49,15 +44,13 @@ def report_bug(text: str, plaintext: bool = True) -> dict:
 	return process_bug_report(bug_report)
 
 
-def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
+def comment_on_bug(id: str, text: str) -> dict:
 	"""
 	Add a comment to a bug report.
 
 	Args:
 		id (str): The unique identifier of the bug report.
 		text (str): The content of the comment.
-		plaintext (bool, optional): If True, the comment is treated as plain text. 
-									If False, the comment is treated as Markdown. Defaults to True.
 
 	Returns:
 		dict: The updated bug report.
@@ -75,7 +68,6 @@ def comment_on_bug(id: str, text: str, plaintext: bool = True) -> dict:
 		'created': datetime.utcnow(),
 		'creator': user_data['_id'],
 		'body': text,
-		'body_html': html.escape(text) if plaintext else markdown.markdown(text),
 	}
 
 	db.update_one({'_id': ObjectId(id)}, {
@@ -122,6 +114,7 @@ def process_bug_report(report: dict) -> dict:
 			  Each comment's 'creator' field is similarly updated.
 	"""
 	report['id'] = report['_id']
+	report['body_html'] = markdown.markdown(report['body'])
 
 	try:
 		user_data = users.get_user_by_id(report['creator'])
@@ -136,6 +129,7 @@ def process_bug_report(report: dict) -> dict:
 			comment['creator'] = user_data['username']
 		except exceptions.UserDoesNotExistError:
 			comment['creator'] = str(comment['creator'])
+		comment['body_html'] = markdown.markdown(comment['body'])
 
 		processed_comments += [comment]
 
