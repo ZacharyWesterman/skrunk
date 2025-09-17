@@ -13,7 +13,7 @@ type Book {
 	publisher: String!
 	"""The date the book was published."""
 	publishedDate: Date!
-	"""Whether the book has a description. If true, the description can be fetched using the getBookDescription query, but by default it is not included in the book data, to save bandwidth."""
+	"""Whether the book has a description."""
 	has_description: Boolean!
 	"""The description of the book, if available."""
 	description: String
@@ -207,9 +207,9 @@ extend type Query {
 	getBooks(filter: BookSearchFilter!, start: Int!, count: Int!, sorting: Sorting!): [Book!]!
 	countBooks(filter: BookSearchFilter!): Int!
 	searchBooks(title: String!, author: String!): BookQueryResponse!
+	getBook(id: String!): BookResponse!
 	getBookByTag(rfid: String!): BookResponse!
 	countAllUserBooks: [UserBookCount!]!
-	getBookDescription(id: String!): String
 }
 
 extend type Mutation {

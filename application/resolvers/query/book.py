@@ -6,7 +6,6 @@ from application.db import perms
 from application.db.book import (count_all_user_books, count_books, get_book,
                                  get_book_tag, get_books)
 from application.db.users import userids_in_groups
-from application.exceptions import BookTagDoesNotExistError
 from application.integrations import google_books
 from application.integrations.exceptions import ApiFailedError
 from application.types import BookSearchFilter, Sorting
@@ -132,11 +131,12 @@ def resolve_count_all_user_books(_, _info: GraphQLResolveInfo) -> list:
 	return count_all_user_books(users if len(users) else None)
 
 
-@query.field('getBookDescription')
+@query.field('getBook')
 @perms.module('books')
-def resolve_get_book_description(_, _info: GraphQLResolveInfo, id: str) -> str | None:
+@handle_client_exceptions
+def resolve_get_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	"""
-	Resolves the description of a book by its ID.
+	Resolves a query to retrieve book information by its ID.
 
 	Args:
 		_ (Any): Placeholder.
@@ -144,11 +144,6 @@ def resolve_get_book_description(_, _info: GraphQLResolveInfo, id: str) -> str |
 		id (str): The unique identifier of the book.
 
 	Returns:
-		str | None: The description of the book if found, otherwise None.
+		dict: A dictionary containing book information.
 	"""
-	try:
-		book_data = get_book(id)
-	except BookTagDoesNotExistError:
-		return None
-
-	return book_data.get('description')
+	return {'__typename': 'Book', **get_book(id, parse=True)}

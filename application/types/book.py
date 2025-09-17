@@ -29,7 +29,7 @@ class Book(TypedDict):
 	publisher: str
 	## The date the book was published.
 	publishedDate: datetime
-	## Whether the book has a description. If true, the description can be fetched using the getBookDescription query, but by default it is not included in the book data, to save bandwidth.
+	## Whether the book has a description.
 	has_description: bool
 	## The description of the book, if available.
 	description: str | None

@@ -83,12 +83,14 @@ export default {
 	},
 
 	get_description: async id => {
-		return await api(`
+		return (await api(`
 		query ($id: String!) {
-			getBookDescription(id: $id)
+			getBook(id: $id) {
+				...on Book { description }
+			}
 		}`, {
 			id: id,
-		})
+		}))?.description
 	},
 
 	count: async filter => {
