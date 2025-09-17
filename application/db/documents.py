@@ -36,6 +36,8 @@ def parse_document(doc: dict) -> dict:
 			'display_name': doc['creator'],
 		}
 
+	doc['body_html'] = markdown.markdown(doc['body'])
+
 	return doc
 
 
@@ -87,7 +89,6 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 	doc = {
 		'title': title,
 		'body': body,
-		'body_html': markdown.markdown(body),
 		'creator': perms.caller_info_strict().get('username'),
 		'created': datetime.now(UTC),
 		'updated': None,
@@ -133,7 +134,6 @@ def update_document(doc_id: str, title: str | None, body: str | None, new_parent
 			'updater': user_data['_id'],
 			'title': None,
 			'body': None,
-			'body_html': None,
 			'parent': None,
 		}
 
@@ -143,9 +143,7 @@ def update_document(doc_id: str, title: str | None, body: str | None, new_parent
 
 		if body is not None:
 			prev_doc['body'] = doc['body']
-			prev_doc['body_html'] = doc['body_html']
 			doc['body'] = body
-			doc['body_html'] = markdown.markdown(body)
 
 		if new_parent is not None:
 			prev_doc['parent'] = doc['parent']

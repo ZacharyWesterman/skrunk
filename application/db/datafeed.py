@@ -42,17 +42,19 @@ def process_feed(feed: dict) -> dict:
 	return feed
 
 
-def process_document(document: dict) -> dict:
+def process_document(document: dict, feed_kind: str) -> dict:
 	"""
 	Processes a document by copying the value of the '_id' key to a new 'id' key.
 
 	Args:
 		document (dict): The document to be processed.
+		feed_kind (str): The kind of feed the document belongs to, used to generate 'body_html'.
 
 	Returns:
 		dict: The processed document with the 'id' key added.
 	"""
 	document['id'] = document['_id']
+	document['body_html'] = get_body_html(feed_kind, document['body'])
 	return document
 
 
@@ -178,8 +180,10 @@ def get_documents(feed: str, start: int, count: int, sorting: Sorting) -> list[d
 	if not ObjectId.is_valid(feed):
 		return []
 
+	feed_data = get_feed(feed)
+
 	return [
-		process_document(i) for i in db.documents.find({'feed': ObjectId(feed)}).sort([
+		process_document(i, feed_data['kind']) for i in db.documents.find({'feed': ObjectId(feed)}).sort([
 			(s, -1 if sorting['descending'] else 1) for s in sorting['fields']
 		]).skip(start).limit(count)
 	]
@@ -206,7 +210,9 @@ def get_document(id: str) -> dict:
 	if document is None:
 		raise FeedDocumentDoesNotExistError(id)
 
-	return process_document(document)
+	feed = get_feed(document['feed'])
+
+	return process_document(document, feed['kind'])
 
 
 def count_documents(feed: str) -> int:
@@ -306,15 +312,12 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 	Returns:
 		dict: The processed document from the database.
 	"""
-	feed_data = get_feed(feed)
-
 	feed_document = {
 		'feed': ObjectId(feed),
 		'author': author,
 		'posted': posted,
 		'title': title,
 		'body': body,
-		'body_html': get_body_html(feed_data['kind'], body),
 		'created': datetime.utcnow(),
 		'updated': None,
 		'url': url,
@@ -323,16 +326,13 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 	id = db.documents.insert_one(feed_document).inserted_id
 	feed_document['_id'] = id
 
-	return process_document(feed_document)
+	feed_data = get_feed(feed)
+	return process_document(feed_document, feed_data['kind'])
 
 
 def update_document(id: str, body: str) -> dict:
 	"""
 	Update the body of a document in the database.
-
-	This function retrieves a document by its ID, updates its body and body_html fields,
-	and sets the updated timestamp to the current UTC time. The updated document is then
-	saved back to the database.
 
 	Args:
 		id (str): The ID of the document to update.
@@ -342,19 +342,16 @@ def update_document(id: str, body: str) -> dict:
 		dict: The updated document.
 	"""
 	document = get_document(id)
-
-	feed = get_feed(document['feed'])
-	body_html = get_body_html(feed['kind'], body)
 	updated = datetime.utcnow()
 
 	db.documents.update_one({'_id': ObjectId(id)}, {'$set': {
 		'body': body,
-		'body_html': body_html,
 		'updated': updated,
 	}})
 
+	feed = get_feed(document['feed'])
 	document['body'] = body
-	document['body_html'] = body_html
+	document['body_html'] = get_body_html(feed['kind'], body)
 	document['updated'] = updated
 
 	return document

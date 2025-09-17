@@ -89,8 +89,8 @@ extend type Query {
 }
 
 extend type Mutation {
-	reportBug(text: String!, plaintext: Boolean!): BugReportCreateAction!
+	reportBug(text: String!): BugReportCreateAction!
 	deleteBug(id: String!): BugReportEditAction!
 	setBugStatus(id: String!, status: Boolean!): BugReportEditAction!
-	commentOnBug(id: String!, text: String!, plaintext: Boolean!): BugReportEditAction!
+	commentOnBug(id: String!, text: String!): BugReportEditAction!
 }

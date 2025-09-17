@@ -14,7 +14,7 @@ from . import mutation
 @perms.module('bugs')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_report_bug(_, _info: GraphQLResolveInfo, text: str, plaintext: bool) -> dict:
+def resolve_report_bug(_, _info: GraphQLResolveInfo, text: str) -> dict:
 	"""
 	Reports a bug or other feedback.
 
@@ -22,13 +22,12 @@ def resolve_report_bug(_, _info: GraphQLResolveInfo, text: str, plaintext: bool)
 		_ (Any): Placeholder.
 		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
 		text (str): The bug report text submitted by the user.
-		plaintext (bool): Indicates if the bug report text is in plaintext format.
 			If False, the text is assumed to be in Markdown format.
 
 	Returns:
 		dict: A dictionary representing the created bug report.
 	"""
-	return {'__typename': 'BugReport', **report_bug(text, plaintext)}
+	return {'__typename': 'BugReport', **report_bug(text)}
 
 
 @mutation.field('deleteBug')
@@ -80,8 +79,7 @@ def resolve_comment_on_bug(
 	_,
     _info: GraphQLResolveInfo,
     id: str,
-    text: str,
-    plaintext: bool
+    text: str
 ) -> dict:
 	"""
 	Adds a comment to a bug report.
@@ -91,10 +89,8 @@ def resolve_comment_on_bug(
 		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
 		id (str): The unique identifier of the bug report to comment on.
 		text (str): The content of the comment to add.
-		plaintext (bool): Indicates whether the comment text is in plain text format.
-			If False, the text is assumed to be in Markdown format.
 
 	Returns:
 		dict: A dictionary representing the updated bug report.
 	"""
-	return {'__typename': 'BugReport', **comment_on_bug(id, text, plaintext)}
+	return {'__typename': 'BugReport', **comment_on_bug(id, text)}
