@@ -10,7 +10,7 @@ import ariadne
 from ariadne.contrib.federation.schema import make_federated_schema
 from flask import Flask
 
-from . import db, md, monkeypatch, routes, tokens
+from . import db, monkeypatch, routes, tokens
 from .db import init_db, setup_db
 from .db.users import count_users
 from .resolvers import mutation, query
