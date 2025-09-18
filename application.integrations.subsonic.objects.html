@@ -334,78 +334,245 @@
 </section>
 <section id="module-application.integrations.subsonic.objects.album">
 <span id="application-integrations-subsonic-objects-album-module"></span><h2>application.integrations.subsonic.objects.album module<a class="headerlink" href="#module-application.integrations.subsonic.objects.album" title="Link to this heading">#</a></h2>
+<p>Subsonic API Album Object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.objects.album.</span></span><span class="sig-name descname"><span class="pre">Album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">album</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverArt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averageRating</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.album">
-<span class="sig-name descname"><span class="pre">album</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.album" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.artist">
-<span class="sig-name descname"><span class="pre">artist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.artist" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.averageRating">
-<span class="sig-name descname"><span class="pre">averageRating</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.averageRating" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.cover">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cover</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.cover" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.coverArt">
-<span class="sig-name descname"><span class="pre">coverArt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.coverArt" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.created">
-<span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.created" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.genre">
-<span class="sig-name descname"><span class="pre">genre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.genre" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<p>Represents a music album with metadata and related operations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.id" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.id" title="Link to this definition">#</a></dt>
+<dd><p>Unique identifier for the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.isDir">
-<span class="sig-name descname"><span class="pre">isDir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.isDir" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.parent">
-<span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.parent" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.playCount">
-<span class="sig-name descname"><span class="pre">playCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.playCount" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.songs">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">songs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#application.integrations.subsonic.objects.song.Song" title="application.integrations.subsonic.objects.song.Song"><span class="pre">Song</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.songs" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">isDir</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.isDir" title="Link to this definition">#</a></dt>
+<dd><p>Indicates if the album is a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.title">
-<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.title" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.title" title="Link to this definition">#</a></dt>
+<dd><p>Title of the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.album">
+<span class="sig-name descname"><span class="pre">album</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.album" title="Link to this definition">#</a></dt>
+<dd><p>Album name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.playCount">
+<span class="sig-name descname"><span class="pre">playCount</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.playCount" title="Link to this definition">#</a></dt>
+<dd><p>Number of times the album has been played.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.created">
+<span class="sig-name descname"><span class="pre">created</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.created" title="Link to this definition">#</a></dt>
+<dd><p>Creation date of the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.artist">
+<span class="sig-name descname"><span class="pre">artist</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.artist" title="Link to this definition">#</a></dt>
+<dd><p>Name of the artist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.year">
-<span class="sig-name descname"><span class="pre">year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.year" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">year</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.year" title="Link to this definition">#</a></dt>
+<dd><p>Release year of the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.genre">
+<span class="sig-name descname"><span class="pre">genre</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.genre" title="Link to this definition">#</a></dt>
+<dd><p>Genre of the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.coverArt">
+<span class="sig-name descname"><span class="pre">coverArt</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.coverArt" title="Link to this definition">#</a></dt>
+<dd><p>Identifier for the album’s cover art.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.averageRating">
+<span class="sig-name descname"><span class="pre">averageRating</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.averageRating" title="Link to this definition">#</a></dt>
+<dd><p>Average user rating of the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.parent" title="Link to this definition">#</a></dt>
+<dd><p>Identifier of the parent directory or album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.songs">
+<span class="sig-name descname"><span class="pre">songs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">list[Song]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.songs" title="Link to this definition">#</a></dt>
+<dd><p>Returns a list of Song objects in the album, fetched via API.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.album.Album.cover">
+<span class="sig-name descname"><span class="pre">cover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.album.Album.cover" title="Link to this definition">#</a></dt>
+<dd><p>Returns the base64-encoded cover art for the album, caching results for efficiency.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">album</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">artist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">averageRating</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id3">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cover</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves the album cover art as a base64-encoded string.</p>
+<p>If the cover art is not already cached, it queries for the cover art data,
+encodes it in base64, and stores it in the cache. Returns the cached
+base64-encoded cover art string, or an empty string if not available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The base64-encoded cover art string, or an empty string if not found.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">coverArt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">genre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">isDir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#id8" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id9" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">playCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id10" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id11">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">songs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#application.integrations.subsonic.objects.song.Song" title="application.integrations.subsonic.objects.song.Song"><span class="pre">Song</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id11" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves a list of Song objects associated with the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of Song instances representing the songs in the album.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="#application.integrations.subsonic.objects.song.Song" title="application.integrations.subsonic.objects.song.Song">Song</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id12" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id13" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -413,18 +580,42 @@
 </section>
 <section id="module-application.integrations.subsonic.objects.artist">
 <span id="application-integrations-subsonic-objects-artist-module"></span><h2>application.integrations.subsonic.objects.artist module<a class="headerlink" href="#module-application.integrations.subsonic.objects.artist" title="Link to this heading">#</a></h2>
+<p>Subsonic API Artist Object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.artist.Artist">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.objects.artist.</span></span><span class="sig-name descname"><span class="pre">Artist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.artist.Artist" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a musical artist.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.artist.Artist.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.artist.Artist.id" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.artist.Artist.id" title="Link to this definition">#</a></dt>
+<dd><p>Unique identifier for the artist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.artist.Artist.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.artist.Artist.name" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.artist.Artist.name" title="Link to this definition">#</a></dt>
+<dd><p>Name of the artist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id14" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id15" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -432,28 +623,76 @@
 </section>
 <section id="module-application.integrations.subsonic.objects.ping">
 <span id="application-integrations-subsonic-objects-ping-module"></span><h2>application.integrations.subsonic.objects.ping module<a class="headerlink" href="#module-application.integrations.subsonic.objects.ping" title="Link to this heading">#</a></h2>
+<p>Subsonic API Ping Object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.ping.Ping">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.objects.ping.</span></span><span class="sig-name descname"><span class="pre">Ping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py property">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.ping.Ping.ok">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.ok" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<p>Represents a ping response object with status, version, and type attributes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.ping.Ping.status">
-<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.status" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.ping.Ping.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.type" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.status" title="Link to this definition">#</a></dt>
+<dd><p>The status of the ping response (e.g., ‘ok’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.ping.Ping.version">
-<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.version" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.version" title="Link to this definition">#</a></dt>
+<dd><p>The version of the ping response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.ping.Ping.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.type" title="Link to this definition">#</a></dt>
+<dd><p>The type of the ping response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="simple">
+<dt>Properties:</dt><dd><p>ok (bool): Returns True if the status is ‘ok’, otherwise False.</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.ping.Ping.ok">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.ping.Ping.ok" title="Link to this definition">#</a></dt>
+<dd><p>Check if the status of the object is ‘ok’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the status is ‘ok’, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id16" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id17" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id18">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id18" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -461,211 +700,700 @@
 </section>
 <section id="module-application.integrations.subsonic.objects.playlist">
 <span id="application-integrations-subsonic-objects-playlist-module"></span><h2>application.integrations.subsonic.objects.playlist module<a class="headerlink" href="#module-application.integrations.subsonic.objects.playlist" title="Link to this heading">#</a></h2>
+<p>Subsonic API Playlist Object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.objects.playlist.</span></span><span class="sig-name descname"><span class="pre">Playlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">songCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverArt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.changed">
-<span class="sig-name descname"><span class="pre">changed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.changed" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.comment">
-<span class="sig-name descname"><span class="pre">comment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.comment" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.coverArt">
-<span class="sig-name descname"><span class="pre">coverArt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.coverArt" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.created">
-<span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.created" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.duration">
-<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.duration" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.entry">
-<span class="sig-name descname"><span class="pre">entry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.entry" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<p>Represents a music playlist with metadata and song entries.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.id" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.id" title="Link to this definition">#</a></dt>
+<dd><p>Unique identifier for the playlist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.name" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.name" title="Link to this definition">#</a></dt>
+<dd><p>Name of the playlist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.comment">
+<span class="sig-name descname"><span class="pre">comment</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.comment" title="Link to this definition">#</a></dt>
+<dd><p>Optional comment or description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.owner">
-<span class="sig-name descname"><span class="pre">owner</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.owner" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.owner" title="Link to this definition">#</a></dt>
+<dd><p>Username of the playlist owner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.public">
-<span class="sig-name descname"><span class="pre">public</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.public" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">public</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.public" title="Link to this definition">#</a></dt>
+<dd><p>Indicates if the playlist is public.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.songCount">
-<span class="sig-name descname"><span class="pre">songCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.songCount" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">songCount</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.songCount" title="Link to this definition">#</a></dt>
+<dd><p>Number of songs in the playlist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.duration" title="Link to this definition">#</a></dt>
+<dd><p>Total duration of the playlist in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.created">
+<span class="sig-name descname"><span class="pre">created</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.created" title="Link to this definition">#</a></dt>
+<dd><p>Creation timestamp of the playlist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.coverArt">
+<span class="sig-name descname"><span class="pre">coverArt</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.coverArt" title="Link to this definition">#</a></dt>
+<dd><p>Identifier for the playlist’s cover art.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.changed">
+<span class="sig-name descname"><span class="pre">changed</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.changed" title="Link to this definition">#</a></dt>
+<dd><p>Timestamp of the last modification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.entry">
+<span class="sig-name descname"><span class="pre">entry</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.entry" title="Link to this definition">#</a></dt>
+<dd><p>Raw song entry data for the playlist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[list]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">songs</span> <span class="pre">-&gt;</span> <span class="pre">list[Song]</span></span></dt>
+<dd><p>Returns a list of Song objects in the playlist.
+If entries are not cached, fetches them using the provided query callable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id19">
+<span class="sig-name descname"><span class="pre">changed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id19" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id20">
+<span class="sig-name descname"><span class="pre">comment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id20" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id21">
+<span class="sig-name descname"><span class="pre">coverArt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id21" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id22">
+<span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id22" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id23" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id24">
+<span class="sig-name descname"><span class="pre">entry</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id24" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id25">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id25" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id26">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id26" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id27">
+<span class="sig-name descname"><span class="pre">owner</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id27" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id28">
+<span class="sig-name descname"><span class="pre">public</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#id28" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id29">
+<span class="sig-name descname"><span class="pre">songCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id29" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.playlist.Playlist.songs">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">songs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#application.integrations.subsonic.objects.song.Song" title="application.integrations.subsonic.objects.song.Song"><span class="pre">Song</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#application.integrations.subsonic.objects.playlist.Playlist.songs" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves a list of Song objects associated with the playlist.</p>
+<p>If the playlist entries are not already loaded, it queries the backend for the playlist data
+using the playlist ID and extracts the entries. Otherwise, it uses the existing entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of Song objects representing the songs in the playlist.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="#application.integrations.subsonic.objects.song.Song" title="application.integrations.subsonic.objects.song.Song">Song</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-application.integrations.subsonic.objects.search_results">
 <span id="application-integrations-subsonic-objects-search-results-module"></span><h2>application.integrations.subsonic.objects.search_results module<a class="headerlink" href="#module-application.integrations.subsonic.objects.search_results" title="Link to this heading">#</a></h2>
+<p>Subsonic API Search Results Object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.search_results.SearchResults">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.objects.search_results.</span></span><span class="sig-name descname"><span class="pre">SearchResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">album</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">song</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.search_results.SearchResults" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents the results of a search, containing lists of artists, albums, and songs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>artist</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of dictionaries representing artist data.</p></li>
+<li><p><strong>album</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of dictionaries representing album data.</p></li>
+<li><p><strong>song</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – List of dictionaries representing song data.</p></li>
+<li><p><strong>query</strong> (<em>Callable</em>) – A callable used for querying additional data (passed to Album).</p></li>
+<li><p><strong>stream</strong> (<em>Callable</em>) – A callable used for streaming data (passed to Album and Song).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.search_results.SearchResults.artists">
+<span class="sig-name descname"><span class="pre">artists</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.search_results.SearchResults.artists" title="Link to this definition">#</a></dt>
+<dd><p>List of Artist objects created from the input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#application.integrations.subsonic.objects.artist.Artist" title="application.integrations.subsonic.objects.artist.Artist">Artist</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.search_results.SearchResults.albums">
+<span class="sig-name descname"><span class="pre">albums</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.search_results.SearchResults.albums" title="Link to this definition">#</a></dt>
+<dd><p>List of Album objects created from the input data,
+with query and stream callables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#application.integrations.subsonic.objects.album.Album" title="application.integrations.subsonic.objects.album.Album">Album</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.search_results.SearchResults.songs">
+<span class="sig-name descname"><span class="pre">songs</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.search_results.SearchResults.songs" title="Link to this definition">#</a></dt>
+<dd><p>List of Song objects created from the input data, with stream callable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#application.integrations.subsonic.objects.song.Song" title="application.integrations.subsonic.objects.song.Song">Song</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.search_results.SearchResults.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.search_results.SearchResults.__repr__" title="Link to this definition">#</a></dt>
+<dd><p>Returns a string representation of the SearchResults object,
+showing counts of artists, albums, and songs.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
 <section id="module-application.integrations.subsonic.objects.song">
 <span id="application-integrations-subsonic-objects-song-module"></span><h2>application.integrations.subsonic.objects.song module<a class="headerlink" href="#module-application.integrations.subsonic.objects.song" title="Link to this heading">#</a></h2>
+<p>Subsonic API Song Object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.objects.song.</span></span><span class="sig-name descname"><span class="pre">Song</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">album</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contentType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isVideo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'music'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverArt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discNumber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transcodedContentType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transcodedSuffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averageRating</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.integrations.subsonic.objects.song.</span></span><span class="sig-name descname"><span class="pre">Song</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">album</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contentType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isVideo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albumId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'music'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverArt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artistId</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discNumber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transcodedContentType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transcodedSuffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averageRating</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.album">
-<span class="sig-name descname"><span class="pre">album</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.album" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.albumId">
-<span class="sig-name descname"><span class="pre">albumId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.albumId" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.artist">
-<span class="sig-name descname"><span class="pre">artist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.artist" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.artistId">
-<span class="sig-name descname"><span class="pre">artistId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.artistId" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.averageRating">
-<span class="sig-name descname"><span class="pre">averageRating</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.averageRating" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.bitRate">
-<span class="sig-name descname"><span class="pre">bitRate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.bitRate" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.contentType">
-<span class="sig-name descname"><span class="pre">contentType</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.contentType" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.coverArt">
-<span class="sig-name descname"><span class="pre">coverArt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.coverArt" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.created">
-<span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.created" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.discNumber">
-<span class="sig-name descname"><span class="pre">discNumber</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.discNumber" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.duration">
-<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.duration" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.genre">
-<span class="sig-name descname"><span class="pre">genre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.genre" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<p>Represents a song object with metadata and streaming capabilities.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.id" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.isDir">
-<span class="sig-name descname"><span class="pre">isDir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.isDir" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.isVideo">
-<span class="sig-name descname"><span class="pre">isVideo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.isVideo" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.id" title="Link to this definition">#</a></dt>
+<dd><p>Unique identifier for the song.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.parent">
-<span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.parent" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.parent" title="Link to this definition">#</a></dt>
+<dd><p>Identifier of the parent directory or collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.path">
-<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.path" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.playCount">
-<span class="sig-name descname"><span class="pre">playCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.playCount" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.size">
-<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.size" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.suffix">
-<span class="sig-name descname"><span class="pre">suffix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.suffix" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.isDir">
+<span class="sig-name descname"><span class="pre">isDir</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.isDir" title="Link to this definition">#</a></dt>
+<dd><p>Indicates if the object is a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.title">
-<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.title" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.title" title="Link to this definition">#</a></dt>
+<dd><p>Title of the song.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.track">
-<span class="sig-name descname"><span class="pre">track</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.track" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.album">
+<span class="sig-name descname"><span class="pre">album</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.album" title="Link to this definition">#</a></dt>
+<dd><p>Album name the song belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.transcodedContentType">
-<span class="sig-name descname"><span class="pre">transcodedContentType</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.transcodedContentType" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.playCount">
+<span class="sig-name descname"><span class="pre">playCount</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.playCount" title="Link to this definition">#</a></dt>
+<dd><p>Number of times the song has been played.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.transcodedSuffix">
-<span class="sig-name descname"><span class="pre">transcodedSuffix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.transcodedSuffix" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.created">
+<span class="sig-name descname"><span class="pre">created</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.created" title="Link to this definition">#</a></dt>
+<dd><p>Date and time when the song was created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.size" title="Link to this definition">#</a></dt>
+<dd><p>Size of the song file in bytes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.contentType">
+<span class="sig-name descname"><span class="pre">contentType</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.contentType" title="Link to this definition">#</a></dt>
+<dd><p>MIME type of the song file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.suffix">
+<span class="sig-name descname"><span class="pre">suffix</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.suffix" title="Link to this definition">#</a></dt>
+<dd><p>File extension of the song.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.duration" title="Link to this definition">#</a></dt>
+<dd><p>Duration of the song in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.bitRate">
+<span class="sig-name descname"><span class="pre">bitRate</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.bitRate" title="Link to this definition">#</a></dt>
+<dd><p>Bitrate of the song in kbps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.path">
+<span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.path" title="Link to this definition">#</a></dt>
+<dd><p>Filesystem path to the song.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.isVideo">
+<span class="sig-name descname"><span class="pre">isVideo</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.isVideo" title="Link to this definition">#</a></dt>
+<dd><p>Indicates if the file is a video.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.albumId">
+<span class="sig-name descname"><span class="pre">albumId</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.albumId" title="Link to this definition">#</a></dt>
+<dd><p>Identifier for the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'music'</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.type" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.type" title="Link to this definition">#</a></dt>
+<dd><p>Type of media (default is ‘music’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.coverArt">
+<span class="sig-name descname"><span class="pre">coverArt</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.coverArt" title="Link to this definition">#</a></dt>
+<dd><p>Identifier or path to the cover art image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.artist">
+<span class="sig-name descname"><span class="pre">artist</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.artist" title="Link to this definition">#</a></dt>
+<dd><p>Name of the artist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.artistId">
+<span class="sig-name descname"><span class="pre">artistId</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.artistId" title="Link to this definition">#</a></dt>
+<dd><p>Identifier for the artist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.track">
+<span class="sig-name descname"><span class="pre">track</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.track" title="Link to this definition">#</a></dt>
+<dd><p>Track number in the album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.year">
+<span class="sig-name descname"><span class="pre">year</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.year" title="Link to this definition">#</a></dt>
+<dd><p>Year of release.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.genre">
+<span class="sig-name descname"><span class="pre">genre</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.genre" title="Link to this definition">#</a></dt>
+<dd><p>Genre of the song.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.discNumber">
+<span class="sig-name descname"><span class="pre">discNumber</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.discNumber" title="Link to this definition">#</a></dt>
+<dd><p>Disc number in a multi-disc album.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.transcodedContentType">
+<span class="sig-name descname"><span class="pre">transcodedContentType</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.transcodedContentType" title="Link to this definition">#</a></dt>
+<dd><p>MIME type of the transcoded file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.transcodedSuffix">
+<span class="sig-name descname"><span class="pre">transcodedSuffix</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.transcodedSuffix" title="Link to this definition">#</a></dt>
+<dd><p>File extension of the transcoded file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.averageRating">
+<span class="sig-name descname"><span class="pre">averageRating</span></span><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.averageRating" title="Link to this definition">#</a></dt>
+<dd><p>Average user rating for the song.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="simple">
+<dt>Properties:</dt><dd><p>uri (str): Returns the streaming URI for the song using the provided stream function.</p>
+</dd>
+<dt>Private Attributes:</dt><dd><p>_stream (Callable[[str], str]): Function to generate a streaming URI for the song.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id30">
+<span class="sig-name descname"><span class="pre">album</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id30" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id31">
+<span class="sig-name descname"><span class="pre">albumId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'0'</span></em><a class="headerlink" href="#id31" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id32">
+<span class="sig-name descname"><span class="pre">artist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id32" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id33">
+<span class="sig-name descname"><span class="pre">artistId</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id33" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id34">
+<span class="sig-name descname"><span class="pre">averageRating</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id34" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id35">
+<span class="sig-name descname"><span class="pre">bitRate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id35" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id36">
+<span class="sig-name descname"><span class="pre">contentType</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#id36" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id37">
+<span class="sig-name descname"><span class="pre">coverArt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id37" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id38">
+<span class="sig-name descname"><span class="pre">created</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></em><a class="headerlink" href="#id38" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id39">
+<span class="sig-name descname"><span class="pre">discNumber</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id39" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id40">
+<span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id40" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id41">
+<span class="sig-name descname"><span class="pre">genre</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id41" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id42">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id42" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id43">
+<span class="sig-name descname"><span class="pre">isDir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#id43" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id44">
+<span class="sig-name descname"><span class="pre">isVideo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#id44" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id45">
+<span class="sig-name descname"><span class="pre">parent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id45" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id46">
+<span class="sig-name descname"><span class="pre">path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#id46" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id47">
+<span class="sig-name descname"><span class="pre">playCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id47" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id48">
+<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id48" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id49">
+<span class="sig-name descname"><span class="pre">suffix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#id49" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id50">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id50" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id51">
+<span class="sig-name descname"><span class="pre">track</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id51" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id52">
+<span class="sig-name descname"><span class="pre">transcodedContentType</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id52" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id53">
+<span class="sig-name descname"><span class="pre">transcodedSuffix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id53" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id54">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'music'</span></em><a class="headerlink" href="#id54" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -674,8 +1402,8 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="application.integrations.subsonic.objects.song.Song.year">
-<span class="sig-name descname"><span class="pre">year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#application.integrations.subsonic.objects.song.Song.year" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id55">
+<span class="sig-name descname"><span class="pre">year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id55" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -683,6 +1411,7 @@
 </section>
 <section id="module-application.integrations.subsonic.objects">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.integrations.subsonic.objects" title="Link to this heading">#</a></h2>
+<p>Subsonic API Objects</p>
 </section>
 </section>
 
@@ -736,20 +1465,34 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic.objects.album">application.integrations.subsonic.objects.album module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album"><code class="docutils literal notranslate"><span class="pre">Album</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.album"><code class="docutils literal notranslate"><span class="pre">Album.album</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.artist"><code class="docutils literal notranslate"><span class="pre">Album.artist</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.averageRating"><code class="docutils literal notranslate"><span class="pre">Album.averageRating</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.cover"><code class="docutils literal notranslate"><span class="pre">Album.cover</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.coverArt"><code class="docutils literal notranslate"><span class="pre">Album.coverArt</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.created"><code class="docutils literal notranslate"><span class="pre">Album.created</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.genre"><code class="docutils literal notranslate"><span class="pre">Album.genre</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.id"><code class="docutils literal notranslate"><span class="pre">Album.id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.isDir"><code class="docutils literal notranslate"><span class="pre">Album.isDir</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.parent"><code class="docutils literal notranslate"><span class="pre">Album.parent</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.playCount"><code class="docutils literal notranslate"><span class="pre">Album.playCount</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.songs"><code class="docutils literal notranslate"><span class="pre">Album.songs</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.title"><code class="docutils literal notranslate"><span class="pre">Album.title</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.album"><code class="docutils literal notranslate"><span class="pre">Album.album</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.playCount"><code class="docutils literal notranslate"><span class="pre">Album.playCount</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.created"><code class="docutils literal notranslate"><span class="pre">Album.created</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.artist"><code class="docutils literal notranslate"><span class="pre">Album.artist</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.year"><code class="docutils literal notranslate"><span class="pre">Album.year</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.genre"><code class="docutils literal notranslate"><span class="pre">Album.genre</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.coverArt"><code class="docutils literal notranslate"><span class="pre">Album.coverArt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.averageRating"><code class="docutils literal notranslate"><span class="pre">Album.averageRating</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.parent"><code class="docutils literal notranslate"><span class="pre">Album.parent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.songs"><code class="docutils literal notranslate"><span class="pre">Album.songs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.album.Album.cover"><code class="docutils literal notranslate"><span class="pre">Album.cover()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">Album.album</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">Album.artist</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">Album.averageRating</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">Album.cover</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">Album.coverArt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">Album.created</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">Album.genre</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">Album.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">Album.isDir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">Album.parent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"><code class="docutils literal notranslate"><span class="pre">Album.playCount</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><code class="docutils literal notranslate"><span class="pre">Album.songs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">Album.title</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">Album.year</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -758,71 +1501,119 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.artist.Artist"><code class="docutils literal notranslate"><span class="pre">Artist</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.artist.Artist.id"><code class="docutils literal notranslate"><span class="pre">Artist.id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.artist.Artist.name"><code class="docutils literal notranslate"><span class="pre">Artist.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14"><code class="docutils literal notranslate"><span class="pre">Artist.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15"><code class="docutils literal notranslate"><span class="pre">Artist.name</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic.objects.ping">application.integrations.subsonic.objects.ping module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.ping.Ping"><code class="docutils literal notranslate"><span class="pre">Ping</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.ping.Ping.ok"><code class="docutils literal notranslate"><span class="pre">Ping.ok</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.ping.Ping.status"><code class="docutils literal notranslate"><span class="pre">Ping.status</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.ping.Ping.type"><code class="docutils literal notranslate"><span class="pre">Ping.type</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.ping.Ping.version"><code class="docutils literal notranslate"><span class="pre">Ping.version</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.ping.Ping.type"><code class="docutils literal notranslate"><span class="pre">Ping.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.ping.Ping.ok"><code class="docutils literal notranslate"><span class="pre">Ping.ok</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16"><code class="docutils literal notranslate"><span class="pre">Ping.status</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17"><code class="docutils literal notranslate"><span class="pre">Ping.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18"><code class="docutils literal notranslate"><span class="pre">Ping.version</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic.objects.playlist">application.integrations.subsonic.objects.playlist module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist"><code class="docutils literal notranslate"><span class="pre">Playlist</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.changed"><code class="docutils literal notranslate"><span class="pre">Playlist.changed</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.comment"><code class="docutils literal notranslate"><span class="pre">Playlist.comment</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.coverArt"><code class="docutils literal notranslate"><span class="pre">Playlist.coverArt</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.created"><code class="docutils literal notranslate"><span class="pre">Playlist.created</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.duration"><code class="docutils literal notranslate"><span class="pre">Playlist.duration</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.entry"><code class="docutils literal notranslate"><span class="pre">Playlist.entry</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.id"><code class="docutils literal notranslate"><span class="pre">Playlist.id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.name"><code class="docutils literal notranslate"><span class="pre">Playlist.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.comment"><code class="docutils literal notranslate"><span class="pre">Playlist.comment</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.owner"><code class="docutils literal notranslate"><span class="pre">Playlist.owner</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.public"><code class="docutils literal notranslate"><span class="pre">Playlist.public</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.songCount"><code class="docutils literal notranslate"><span class="pre">Playlist.songCount</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.duration"><code class="docutils literal notranslate"><span class="pre">Playlist.duration</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.created"><code class="docutils literal notranslate"><span class="pre">Playlist.created</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.coverArt"><code class="docutils literal notranslate"><span class="pre">Playlist.coverArt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.changed"><code class="docutils literal notranslate"><span class="pre">Playlist.changed</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.entry"><code class="docutils literal notranslate"><span class="pre">Playlist.entry</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19"><code class="docutils literal notranslate"><span class="pre">Playlist.changed</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20"><code class="docutils literal notranslate"><span class="pre">Playlist.comment</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><code class="docutils literal notranslate"><span class="pre">Playlist.coverArt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22"><code class="docutils literal notranslate"><span class="pre">Playlist.created</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"><code class="docutils literal notranslate"><span class="pre">Playlist.duration</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id24"><code class="docutils literal notranslate"><span class="pre">Playlist.entry</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><code class="docutils literal notranslate"><span class="pre">Playlist.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id26"><code class="docutils literal notranslate"><span class="pre">Playlist.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><code class="docutils literal notranslate"><span class="pre">Playlist.owner</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id28"><code class="docutils literal notranslate"><span class="pre">Playlist.public</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id29"><code class="docutils literal notranslate"><span class="pre">Playlist.songCount</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.playlist.Playlist.songs"><code class="docutils literal notranslate"><span class="pre">Playlist.songs</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic.objects.search_results">application.integrations.subsonic.objects.search_results module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.search_results.SearchResults"><code class="docutils literal notranslate"><span class="pre">SearchResults</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.search_results.SearchResults"><code class="docutils literal notranslate"><span class="pre">SearchResults</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.search_results.SearchResults.artists"><code class="docutils literal notranslate"><span class="pre">SearchResults.artists</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.search_results.SearchResults.albums"><code class="docutils literal notranslate"><span class="pre">SearchResults.albums</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.search_results.SearchResults.songs"><code class="docutils literal notranslate"><span class="pre">SearchResults.songs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.search_results.SearchResults.__repr__"><code class="docutils literal notranslate"><span class="pre">SearchResults.__repr__()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.subsonic.objects.song">application.integrations.subsonic.objects.song module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song"><code class="docutils literal notranslate"><span class="pre">Song</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.id"><code class="docutils literal notranslate"><span class="pre">Song.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.parent"><code class="docutils literal notranslate"><span class="pre">Song.parent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.isDir"><code class="docutils literal notranslate"><span class="pre">Song.isDir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.title"><code class="docutils literal notranslate"><span class="pre">Song.title</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.album"><code class="docutils literal notranslate"><span class="pre">Song.album</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.playCount"><code class="docutils literal notranslate"><span class="pre">Song.playCount</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.created"><code class="docutils literal notranslate"><span class="pre">Song.created</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.size"><code class="docutils literal notranslate"><span class="pre">Song.size</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.contentType"><code class="docutils literal notranslate"><span class="pre">Song.contentType</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.suffix"><code class="docutils literal notranslate"><span class="pre">Song.suffix</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.duration"><code class="docutils literal notranslate"><span class="pre">Song.duration</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.bitRate"><code class="docutils literal notranslate"><span class="pre">Song.bitRate</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.path"><code class="docutils literal notranslate"><span class="pre">Song.path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.isVideo"><code class="docutils literal notranslate"><span class="pre">Song.isVideo</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.albumId"><code class="docutils literal notranslate"><span class="pre">Song.albumId</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.type"><code class="docutils literal notranslate"><span class="pre">Song.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.coverArt"><code class="docutils literal notranslate"><span class="pre">Song.coverArt</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.artist"><code class="docutils literal notranslate"><span class="pre">Song.artist</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.artistId"><code class="docutils literal notranslate"><span class="pre">Song.artistId</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.averageRating"><code class="docutils literal notranslate"><span class="pre">Song.averageRating</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.bitRate"><code class="docutils literal notranslate"><span class="pre">Song.bitRate</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.contentType"><code class="docutils literal notranslate"><span class="pre">Song.contentType</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.coverArt"><code class="docutils literal notranslate"><span class="pre">Song.coverArt</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.created"><code class="docutils literal notranslate"><span class="pre">Song.created</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.discNumber"><code class="docutils literal notranslate"><span class="pre">Song.discNumber</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.duration"><code class="docutils literal notranslate"><span class="pre">Song.duration</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.genre"><code class="docutils literal notranslate"><span class="pre">Song.genre</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.id"><code class="docutils literal notranslate"><span class="pre">Song.id</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.isDir"><code class="docutils literal notranslate"><span class="pre">Song.isDir</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.isVideo"><code class="docutils literal notranslate"><span class="pre">Song.isVideo</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.parent"><code class="docutils literal notranslate"><span class="pre">Song.parent</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.path"><code class="docutils literal notranslate"><span class="pre">Song.path</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.playCount"><code class="docutils literal notranslate"><span class="pre">Song.playCount</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.size"><code class="docutils literal notranslate"><span class="pre">Song.size</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.suffix"><code class="docutils literal notranslate"><span class="pre">Song.suffix</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.title"><code class="docutils literal notranslate"><span class="pre">Song.title</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.track"><code class="docutils literal notranslate"><span class="pre">Song.track</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.year"><code class="docutils literal notranslate"><span class="pre">Song.year</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.genre"><code class="docutils literal notranslate"><span class="pre">Song.genre</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.discNumber"><code class="docutils literal notranslate"><span class="pre">Song.discNumber</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.transcodedContentType"><code class="docutils literal notranslate"><span class="pre">Song.transcodedContentType</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.transcodedSuffix"><code class="docutils literal notranslate"><span class="pre">Song.transcodedSuffix</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.type"><code class="docutils literal notranslate"><span class="pre">Song.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.averageRating"><code class="docutils literal notranslate"><span class="pre">Song.averageRating</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30"><code class="docutils literal notranslate"><span class="pre">Song.album</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id31"><code class="docutils literal notranslate"><span class="pre">Song.albumId</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32"><code class="docutils literal notranslate"><span class="pre">Song.artist</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id33"><code class="docutils literal notranslate"><span class="pre">Song.artistId</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34"><code class="docutils literal notranslate"><span class="pre">Song.averageRating</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id35"><code class="docutils literal notranslate"><span class="pre">Song.bitRate</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id36"><code class="docutils literal notranslate"><span class="pre">Song.contentType</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id37"><code class="docutils literal notranslate"><span class="pre">Song.coverArt</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id38"><code class="docutils literal notranslate"><span class="pre">Song.created</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id39"><code class="docutils literal notranslate"><span class="pre">Song.discNumber</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40"><code class="docutils literal notranslate"><span class="pre">Song.duration</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id41"><code class="docutils literal notranslate"><span class="pre">Song.genre</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id42"><code class="docutils literal notranslate"><span class="pre">Song.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id43"><code class="docutils literal notranslate"><span class="pre">Song.isDir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id44"><code class="docutils literal notranslate"><span class="pre">Song.isVideo</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id45"><code class="docutils literal notranslate"><span class="pre">Song.parent</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id46"><code class="docutils literal notranslate"><span class="pre">Song.path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id47"><code class="docutils literal notranslate"><span class="pre">Song.playCount</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id48"><code class="docutils literal notranslate"><span class="pre">Song.size</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id49"><code class="docutils literal notranslate"><span class="pre">Song.suffix</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id50"><code class="docutils literal notranslate"><span class="pre">Song.title</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id51"><code class="docutils literal notranslate"><span class="pre">Song.track</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id52"><code class="docutils literal notranslate"><span class="pre">Song.transcodedContentType</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id53"><code class="docutils literal notranslate"><span class="pre">Song.transcodedSuffix</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id54"><code class="docutils literal notranslate"><span class="pre">Song.type</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.uri"><code class="docutils literal notranslate"><span class="pre">Song.uri</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.subsonic.objects.song.Song.year"><code class="docutils literal notranslate"><span class="pre">Song.year</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id55"><code class="docutils literal notranslate"><span class="pre">Song.year</span></code></a></li>
 </ul>
 </li>
 </ul>
