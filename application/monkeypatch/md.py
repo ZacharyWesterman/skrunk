@@ -5,10 +5,12 @@ Adjust Markdown to handle line breaks in lists and other edge cases.
 __all__ = []
 
 import re
+from xml.etree.ElementTree import Element
 
 import markdown
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
+from markdown.treeprocessors import Treeprocessor
 
 old_markdown = markdown.markdown
 
@@ -68,15 +70,61 @@ class PreListLineBreaks(Preprocessor):
 		return lines
 
 
-class PreListLineBreaksExtension(Extension):
+class ExternalLinkPreprocessor(Preprocessor):
 	"""
-	A Markdown extension that registers a custom preprocessor to handle
-	line breaks before list elements.
+	A preprocessor class that modifies lines to ensure that external links are indicated as external.
+
+	Methods:
+		run(lines: list[str]) -> list[str]:
+			Processes the input lines and modifies external links to include some extra html on the end.
+	"""
+
+	def __init__(self) -> None:
+		super().__init__()
+		self.search_pattern = re.compile(r'(\[.*?\]\(https?://[^\s)]+\))')
+
+	def run(self, lines: list[str]) -> list[str]:
+		"""
+		Processes a list of strings by modifying external links to include an indicator.
+
+		Args:
+			lines (list[str]): A list of strings representing lines of text.
+
+		Returns:
+			list[str]: The modified list of strings with external link indicators.
+		"""
+		for i, line in enumerate(lines):
+			# Check for external links in markdown format [text](http://example.com)
+			if self.search_pattern.search(line):
+				lines[i] = self.search_pattern.sub(r'\1<i class="fa-solid fa-link"></i>', line)
+		return lines
+
+
+class LinkTreeprocessor(Treeprocessor):
+	"""
+	A postprocessor class that modifies generated html links
+	to ensure that external links open in a new tab.
+	"""
+
+	def run(self, root: Element) -> None:
+		"""
+		Processes the HTML tree by modifying links to include the `target="_blank"` attribute.
+
+		Args:
+			root (Element): The root element of the HTML tree.
+		"""
+		for elem in root.iter('a'):
+			if elem.attrib.get('href', '').startswith('http'):
+				elem.attrib['target'] = '_blank'
+
+
+class CustomMarkdownExtension(Extension):
+	"""
+	A Markdown extension that registers custom preprocessors
 
 	Methods:
 		extendMarkdown(md: markdown.Markdown) -> None:
-			Registers the `PreListLineBreaks` preprocessor with the given
-			Markdown instance.
+			Registers the all custom preprocessors with the provided Markdown instance.
 	"""
 
 	def extendMarkdown(self, md: markdown.Markdown) -> None:
@@ -88,6 +136,8 @@ class PreListLineBreaksExtension(Extension):
 			md (markdown.Markdown): The Markdown instance to extend.
 		"""
 		md.preprocessors.register(PreListLineBreaks(), 'pre_list_line_breaks', 175)
+		md.preprocessors.register(ExternalLinkPreprocessor(), 'external_link_preprocessor', 176)
+		md.treeprocessors.register(LinkTreeprocessor(), 'link_tree_processor', 15)
 
 
 def new_markdown(text: str, **kwargs) -> str:
@@ -109,7 +159,7 @@ def new_markdown(text: str, **kwargs) -> str:
 		text,
 		**kwargs,
 		output_format='html',
-		extensions=[PreListLineBreaksExtension()]
+		extensions=[CustomMarkdownExtension()]
 	)
 
 
