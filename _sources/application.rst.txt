@@ -19,14 +19,6 @@ Subpackages
 Submodules
 ----------
 
-application.md module
----------------------
-
-.. automodule:: application.md
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.tokens module
 -------------------------
 

@@ -12,6 +12,14 @@ application.monkeypatch.json\_encoder\_patch module
    :show-inheritance:
    :undoc-members:
 
+application.monkeypatch.md module
+---------------------------------
+
+.. automodule:: application.monkeypatch.md
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 
