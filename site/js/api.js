@@ -83,6 +83,47 @@ api.authenticate = async (username, password) => {
 }
 
 /**
+ * Reset the password for a user, given a valid reset code.
+ * @param {string} username The username.
+ * @param {string} code The reset code.
+ * @param {string} new_password The new plaintext password (this gets hashed).
+ * @returns {Promise<object>} The result of the password reset attempt.
+ * @raises A descriptive error message if the reset fails.
+ */
+api.reset_password = async (username, code, new_password) => {
+	const hashed_pass = await api.hash(new_password)
+	const auth_json = {
+		'username': username,
+		'code': code,
+		'new_password': hashed_pass,
+	}
+
+	const response = JSON.parse(await api.post_json('/auth/reset', auth_json))
+	if (response.error) {
+		throw new Error(response.error)
+	}
+	return response
+}
+
+/**
+ * Request a password reset code for a user.
+ * @param {string} username The username.
+ * @returns {Promise<object>} The result of the request attempt.
+ * @raises A descriptive error message if the request fails.
+ */
+api.request_password_reset = async (username) => {
+	const auth_json = {
+		'username': username,
+	}
+
+	const response = JSON.parse(await api.post_json('/auth/request_reset', auth_json))
+	if (response.error) {
+		throw new Error(response.error)
+	}
+	return response
+}
+
+/**
  * Refresh the session token, generating a new one.
  * @param {string} username The new username to use, if different from the old username.
  * @returns {Promise<boolean>} Whether the token refreshed successfully.
