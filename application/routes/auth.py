@@ -127,6 +127,7 @@ def request_reset_code() -> Response:
 			),
 			username,
 			category='password-reset',
+			read=True,
 		)
 	except exceptions.ClientError as e:
 		return jsonify({'error': str(e)})
