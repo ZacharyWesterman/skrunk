@@ -501,6 +501,7 @@
 <li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.users">application.db.users module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.authenticate"><code class="docutils literal notranslate"><span class="pre">authenticate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.count_users"><code class="docutils literal notranslate"><span class="pre">count_users()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.create_reset_code"><code class="docutils literal notranslate"><span class="pre">create_reset_code()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.delete_user"><code class="docutils literal notranslate"><span class="pre">delete_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.dump_collection"><code class="docutils literal notranslate"><span class="pre">dump_collection()</span></code></a></li>
@@ -513,6 +514,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.is_locked"><code class="docutils literal notranslate"><span class="pre">is_locked()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.login_attempts_remaining"><code class="docutils literal notranslate"><span class="pre">login_attempts_remaining()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.process_user_data"><code class="docutils literal notranslate"><span class="pre">process_user_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.reset_user_password"><code class="docutils literal notranslate"><span class="pre">reset_user_password()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.unlock_user"><code class="docutils literal notranslate"><span class="pre">unlock_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_display_name"><code class="docutils literal notranslate"><span class="pre">update_user_display_name()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.update_user_email"><code class="docutils literal notranslate"><span class="pre">update_user_email()</span></code></a></li>
@@ -566,11 +568,13 @@
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidFeedKindError"><code class="docutils literal notranslate"><span class="pre">InvalidFeedKindError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidJWTError"><code class="docutils literal notranslate"><span class="pre">InvalidJWTError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidPhone"><code class="docutils literal notranslate"><span class="pre">InvalidPhone</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidResetCode"><code class="docutils literal notranslate"><span class="pre">InvalidResetCode</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidSize"><code class="docutils literal notranslate"><span class="pre">InvalidSize</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidSubscriptionToken"><code class="docutils literal notranslate"><span class="pre">InvalidSubscriptionToken</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">ItemDoesNotExistError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemExistsError"><code class="docutils literal notranslate"><span class="pre">ItemExistsError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.MissingConfig"><code class="docutils literal notranslate"><span class="pre">MissingConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.RateLimitExceeded"><code class="docutils literal notranslate"><span class="pre">RateLimitExceeded</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserExistsError"><code class="docutils literal notranslate"><span class="pre">UserExistsError</span></code></a></li>
@@ -740,6 +744,8 @@
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.auth">application.routes.auth module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.auth_user"><code class="docutils literal notranslate"><span class="pre">auth_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.authorized"><code class="docutils literal notranslate"><span class="pre">authorized()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.request_reset_code"><code class="docutils literal notranslate"><span class="pre">request_reset_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.reset_password"><code class="docutils literal notranslate"><span class="pre">reset_password()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.auth.verify_token"><code class="docutils literal notranslate"><span class="pre">verify_token()</span></code></a></li>
 </ul>
 </li>

@@ -439,6 +439,13 @@
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.InvalidResetCode">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidResetCode</span></span><a class="headerlink" href="#application.exceptions.InvalidResetCode" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a password reset code is invalid.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="application.exceptions.InvalidSize">
 <em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidSize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.InvalidSize" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
@@ -471,6 +478,13 @@
 <em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">MissingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.exceptions.MissingConfig" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
 <p>Raised when a required config item is missing.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="application.exceptions.RateLimitExceeded">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.exceptions.</span></span><span class="sig-name descname"><span class="pre">RateLimitExceeded</span></span><a class="headerlink" href="#application.exceptions.RateLimitExceeded" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#application.exceptions.ClientError" title="application.exceptions.ClientError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a></p>
+<p>Raised when a user exceeds their rate limit.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -575,11 +589,13 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidFeedKindError"><code class="docutils literal notranslate"><span class="pre">InvalidFeedKindError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidJWTError"><code class="docutils literal notranslate"><span class="pre">InvalidJWTError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidPhone"><code class="docutils literal notranslate"><span class="pre">InvalidPhone</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidResetCode"><code class="docutils literal notranslate"><span class="pre">InvalidResetCode</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidSize"><code class="docutils literal notranslate"><span class="pre">InvalidSize</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.InvalidSubscriptionToken"><code class="docutils literal notranslate"><span class="pre">InvalidSubscriptionToken</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.ItemDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">ItemDoesNotExistError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.ItemExistsError"><code class="docutils literal notranslate"><span class="pre">ItemExistsError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.MissingConfig"><code class="docutils literal notranslate"><span class="pre">MissingConfig</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.RateLimitExceeded"><code class="docutils literal notranslate"><span class="pre">RateLimitExceeded</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.exceptions.UserExistsError"><code class="docutils literal notranslate"><span class="pre">UserExistsError</span></code></a></li>

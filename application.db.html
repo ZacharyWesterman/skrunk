@@ -3359,6 +3359,29 @@ If None, the global state is updated.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.users.create_reset_code">
+<span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">create_reset_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.create_reset_code" title="Link to this definition">#</a></dt>
+<dd><p>Create a password reset code for the user with the specified username.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – The username of the user requesting the reset code.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated reset code.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError" title="application.exceptions.UserDoesNotExistError"><strong>UserDoesNotExistError</strong></a> – If the user is not found.</p></li>
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.RateLimitExceeded" title="application.exceptions.RateLimitExceeded"><strong>RateLimitExceeded</strong></a> – If the user has exceeded the rate limit for requesting reset codes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.users.create_user">
 <span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ephemeral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.create_user" title="Link to this definition">#</a></dt>
 <dd><p>Creates a new user with the specified username, password,
@@ -3585,6 +3608,30 @@ Any sensitive information, such as passwords, is excluded from the export.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.userdata.UserData" title="application.types.userdata.UserData">UserData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.users.reset_user_password">
+<span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">reset_user_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.reset_user_password" title="Link to this definition">#</a></dt>
+<dd><p>Resets the password for the user with the specified username using the provided reset code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – The username of the user.</p></li>
+<li><p><strong>code</strong> (<em>str</em>) – The reset code provided to the user.</p></li>
+<li><p><strong>new_password</strong> (<em>str</em>) – The new password to set for the user.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError" title="application.exceptions.UserDoesNotExistError"><strong>UserDoesNotExistError</strong></a> – If the user is not found.</p></li>
+<li><p><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidResetCode" title="application.exceptions.InvalidResetCode"><strong>InvalidResetCode</strong></a> – If the provided reset code is invalid or expired.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -4405,6 +4452,7 @@ for blob storage if provided.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.users">application.db.users module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.authenticate"><code class="docutils literal notranslate"><span class="pre">authenticate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.count_users"><code class="docutils literal notranslate"><span class="pre">count_users()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.create_reset_code"><code class="docutils literal notranslate"><span class="pre">create_reset_code()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.delete_user"><code class="docutils literal notranslate"><span class="pre">delete_user()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.dump_collection"><code class="docutils literal notranslate"><span class="pre">dump_collection()</span></code></a></li>
@@ -4417,6 +4465,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.is_locked"><code class="docutils literal notranslate"><span class="pre">is_locked()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.login_attempts_remaining"><code class="docutils literal notranslate"><span class="pre">login_attempts_remaining()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.process_user_data"><code class="docutils literal notranslate"><span class="pre">process_user_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.reset_user_password"><code class="docutils literal notranslate"><span class="pre">reset_user_password()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.unlock_user"><code class="docutils literal notranslate"><span class="pre">unlock_user()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.update_user_display_name"><code class="docutils literal notranslate"><span class="pre">update_user_display_name()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.update_user_email"><code class="docutils literal notranslate"><span class="pre">update_user_email()</span></code></a></li>

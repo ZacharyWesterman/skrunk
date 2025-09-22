@@ -376,6 +376,34 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.routes.auth.request_reset_code">
+<span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">request_reset_code</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.request_reset_code" title="Link to this definition">#</a></dt>
+<dd><p>Request a notification containing a password reset code be sent to the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object indicating success or failure of the request.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.auth.reset_password">
+<span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">reset_password</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.reset_password" title="Link to this definition">#</a></dt>
+<dd><p>Reset a user’s password using a reset code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object indicating success or failure of the password reset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.routes.auth.verify_token">
 <span class="sig-prename descclassname"><span class="pre">application.routes.auth.</span></span><span class="sig-name descname"><span class="pre">verify_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.auth.verify_token" title="Link to this definition">#</a></dt>
 <dd><p>Verify the validity of a user token.</p>
@@ -680,6 +708,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.auth">application.routes.auth module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.auth_user"><code class="docutils literal notranslate"><span class="pre">auth_user()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.authorized"><code class="docutils literal notranslate"><span class="pre">authorized()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.request_reset_code"><code class="docutils literal notranslate"><span class="pre">request_reset_code()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.reset_password"><code class="docutils literal notranslate"><span class="pre">reset_password()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.auth.verify_token"><code class="docutils literal notranslate"><span class="pre">verify_token()</span></code></a></li>
 </ul>
 </li>
