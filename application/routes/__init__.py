@@ -18,6 +18,9 @@ def init(application) -> None:
 
 	application.route('/auth', methods=['POST'])(auth.auth_user)
 	application.route('/auth/verify', methods=['POST'])(auth.verify_token)
+	application.route('/auth/request-reset-code', methods=['POST'])(auth.request_reset_code)
+	application.route('/auth/reset', methods=['POST'])(auth.reset_password)
+
 	application.route('/api', methods=['POST'])(api.graphql)
 	application.route('/xkcd', methods=['GET'])(misc.random_xkcd)
 

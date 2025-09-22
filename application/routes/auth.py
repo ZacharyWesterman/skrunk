@@ -5,7 +5,9 @@ from typing import Any
 from flask import Response, jsonify, request
 
 from application import exceptions, tokens
-from application.db.users import authenticate
+from application.db.notification import send
+from application.db.users import (authenticate, create_reset_code,
+                                  reset_user_password)
 
 application: Any = None
 
@@ -94,3 +96,71 @@ def verify_token() -> Response:
 		return Response('{"error":"Invalid Token"}', 400)
 
 	return jsonify({'valid': tokens.token_is_valid(token[1])})
+
+
+def request_reset_code() -> Response:
+	"""
+	Request a notification containing a password reset code be sent to the user.
+
+	Returns:
+		Response: A Flask Response object indicating success or failure of the request.
+	"""
+
+	if not application.is_initialized:
+		return Response("{'error': 'Application not initialized'}", 200)
+
+	data = request.get_json()
+
+	if 'username' not in data:
+		return Response("{'error': 'Invalid request'}", 200)
+
+	username = data['username']
+
+	try:
+		code = create_reset_code(username)
+		send(
+			f'{code} is your password reset code.',
+			(
+				'A password reset was requested for your account. ' +
+				'If you did not make this request, you can ignore this message. ' +
+				f'Otherwise, use the following code to reset your password: {code}'
+			),
+			username,
+			category='password-reset',
+			read=True,
+		)
+	except exceptions.ClientError as e:
+		return jsonify({'error': str(e)})
+
+	# DO NOT EVER RETURN THE CODE FROM HERE.
+	# It could be used by an attacker to reset the password
+	# without access to the user's account!
+	return jsonify({'success': True})
+
+
+def reset_password() -> Response:
+	"""
+	Reset a user's password using a reset code.
+
+	Returns:
+		Response: A Flask Response object indicating success or failure of the password reset.
+	"""
+
+	if not application.is_initialized:
+		return Response("{'error': 'Application not initialized'}", 200)
+
+	data = request.get_json()
+
+	if any(key not in data for key in ['username', 'code', 'new_password']):
+		return Response("{'error': 'Invalid request'}", 200)
+
+	username = data['username']
+	code = data['code']
+	new_password = data['new_password']
+
+	try:
+		reset_user_password(username, code, new_password)
+	except exceptions.ClientError as e:
+		return jsonify({'error': str(e)})
+
+	return jsonify({'success': True})
