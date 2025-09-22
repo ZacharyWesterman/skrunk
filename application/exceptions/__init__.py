@@ -331,3 +331,13 @@ class RateLimitExceeded(ClientError):
 		Initializes the exception with a message indicating that the rate limit has been exceeded.
 		"""
 		super().__init__('Rate limit exceeded. Please try again later.')
+
+
+class InvalidResetCode(ClientError):
+	"""Raised when a password reset code is invalid."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating that the password reset code is invalid.
+		"""
+		super().__init__('Invalid password reset code')

@@ -1,13 +1,13 @@
 """application.routes.auth"""
 
-import json
 from typing import Any
 
 from flask import Response, jsonify, request
 
 from application import exceptions, tokens
 from application.db.notification import send
-from application.db.users import authenticate, create_reset_code
+from application.db.users import (authenticate, create_reset_code,
+                                  reset_user_password)
 
 application: Any = None
 
@@ -129,9 +129,37 @@ def request_reset_code() -> Response:
 			category='password-reset',
 		)
 	except exceptions.ClientError as e:
-		return Response(json.dumps({'error': str(e)}), 200)
+		return jsonify({'error': str(e)})
 
 	# DO NOT EVER RETURN THE CODE FROM HERE.
 	# It could be used by an attacker to reset the password
 	# without access to the user's account!
+	return jsonify({'success': True})
+
+
+def reset_password() -> Response:
+	"""
+	Reset a user's password using a reset code.
+
+	Returns:
+		Response: A Flask Response object indicating success or failure of the password reset.
+	"""
+
+	if not application.is_initialized:
+		return Response("{'error': 'Application not initialized'}", 200)
+
+	data = request.get_json()
+
+	if any(key not in data for key in ['username', 'code', 'new_password']):
+		return Response("{'error': 'Invalid request'}", 200)
+
+	username = data['username']
+	code = data['code']
+	new_password = data['new_password']
+
+	try:
+		reset_user_password(username, code, new_password)
+	except exceptions.ClientError as e:
+		return jsonify({'error': str(e)})
+
 	return jsonify({'success': True})

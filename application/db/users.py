@@ -707,6 +707,42 @@ def create_reset_code(username: str) -> str:
 	return code
 
 
+def reset_user_password(username: str, code: str, new_password: str) -> None:
+	"""
+	Resets the password for the user with the specified username using the provided reset code.
+
+	Args:
+		username (str): The username of the user.
+		code (str): The reset code provided to the user.
+		new_password (str): The new password to set for the user.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
+		InvalidResetCode: If the provided reset code is invalid or expired.
+	"""
+	userdata = db.find_one({'username': username})
+
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	# Check if the reset code is valid and was created within the last 15 minutes
+	reset_entry = top_level_db.reset_codes.find_one({
+		'username': username,
+		'code': code,
+	})
+
+	if not reset_entry:
+		raise exceptions.InvalidResetCode()
+
+	# Update the user's password
+	db.update_one({'username': username}, {'$set': {
+		'password': bcrypt.hashpw(new_password.encode(), bcrypt.gensalt()),
+	}})
+
+	# Delete all reset codes for this user to prevent reuse
+	top_level_db.reset_codes.delete_many({'username': username})
+
+
 # These imports are needed at this location to avoid circular imports
 # pylint: disable=wrong-import-order
 # pylint: disable=wrong-import-position
