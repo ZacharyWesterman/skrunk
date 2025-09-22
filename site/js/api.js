@@ -111,12 +111,12 @@ api.reset_password = async (username, code, new_password) => {
  * @returns {Promise<object>} The result of the request attempt.
  * @raises A descriptive error message if the request fails.
  */
-api.request_password_reset = async (username) => {
+api.request_reset_code = async (username) => {
 	const auth_json = {
 		'username': username,
 	}
 
-	const response = JSON.parse(await api.post_json('/auth/request_reset', auth_json))
+	const response = JSON.parse(await api.post_json('/auth/request-reset-code', auth_json))
 	if (response.error) {
 		throw new Error(response.error)
 	}
