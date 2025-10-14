@@ -105,11 +105,17 @@ input ThemeSize {
 	value: Size!
 }
 
+type ResetCode {
+	"""The reset code string."""
+	code: String!
+}
+
 union UserQueryResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserCreateResponse = UserData | BadUserNameError | UserExistsError | InsufficientPerms
 union UserDeleteResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserUpdateResponse = UserData | UserDoesNotExistError | InsufficientPerms
 union UserRenameResponse = UserData | BadUserNameError | UserDoesNotExistError | UserExistsError | InsufficientPerms
+union ResetCodeResponse = ResetCode | UserDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:
 
@@ -136,4 +142,5 @@ extend type Mutation {
 	updateUserEmail(username: String!, email: String!): UserUpdateResponse!
 
 	exportUserData(username: String!): BlobZipResponse!
+	adminCreateResetCode(username: String!): ResetCodeResponse!
 }

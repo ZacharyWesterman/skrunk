@@ -3,12 +3,12 @@
 from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
-from application.db.users import (create_user, delete_user, export_user_data,
-                                  unlock_user, update_user_display_name,
-                                  update_user_email, update_user_groups,
-                                  update_user_module, update_user_password,
-                                  update_user_perms, update_user_theme,
-                                  update_username)
+from application.db.users import (create_reset_code, create_user, delete_user,
+                                  export_user_data, unlock_user,
+                                  update_user_display_name, update_user_email,
+                                  update_user_groups, update_user_module,
+                                  update_user_password, update_user_perms,
+                                  update_user_theme, update_username)
 
 from ..decorators import handle_client_exceptions
 from . import mutation
@@ -277,3 +277,29 @@ def resolve_unlock_user(_, _info: GraphQLResolveInfo, username: str) -> dict:
 		dict: A dictionary containing the unlocked user's data.
 	"""
 	return {'__typename': 'UserData', **unlock_user(username)}
+
+
+@mutation.field('adminCreateResetCode')
+@perms.require('admin')
+@handle_client_exceptions
+def resolve_admin_create_reset_code(_, _info: GraphQLResolveInfo, username: str) -> dict:
+	"""
+	Requests a password reset code for the specified user.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		username (str): The username of the user to request a reset code for.
+
+	Returns:
+		dict: A dictionary indicating success or failure of the request.
+	"""
+
+	# Delete any existing codes for this user, so rate limiting doesn't kick in
+	# if an admin is trying to help them.
+
+	code = create_reset_code(username, delete_existing=True)
+	return {
+		'__typename': 'ResetCode',
+		'code': code,
+	}

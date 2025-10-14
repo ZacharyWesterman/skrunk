@@ -184,10 +184,11 @@
 			<br>
 			<i>Last Login:</i> {{?it.user.last_login}}{{=date.output(it.user.last_login)}}<br><span class="suppress">{{=date.elapsed(it.user.last_login)}}</span>{{??}}Never{{?}}
 
-			{{? !it.self_view }}
-				<button class="big wide border" *click="send_test_notification('{{=it.user.username}}')" >Send Notification</button>
+			{{? !it.self_view && has_perm('admin') }}
+				<button class="big wide border" *click="generate_reset_code('{{=it.user.username}}')" >Generate Password Reset Code</button>
+				<button class="big wide border" *click="send_test_notification('{{=it.user.username}}')" >Send Test Notification</button>
 				{{? it.user.username !== api.username }}
-				<button class="big wide border emphasis" *click="confirm_delete_user('{{=it.user.username}}')" >Delete</button>
+				<button class="big wide border emphasis" *click="confirm_delete_user('{{=it.user.username}}')" >Delete User</button>
 				{{?}}
 			{{?}}
 		</div>

@@ -38,6 +38,7 @@ from .logresult import LogResult
 from .notification import Notification
 from .qrparseresponse import QRParseResponse
 from .repositoryissue import RepositoryIssue
+from .resetcode import ResetCode
 from .schema import Schema
 from .schemaparam import SchemaParam
 from .schemaquery import SchemaQuery

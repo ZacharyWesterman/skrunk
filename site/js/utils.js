@@ -44,6 +44,15 @@ window.image_restrict = text => {
 	return text.replaceAll('<img ', '<img style="width:100%; max-width: 400px;" height="auto" ')
 }
 
+window.clip_text = async (text, text_type) => {
+	await navigator.clipboard.writeText(text)
+	_.modal({
+		text: `Copied ${text_type} to clipboard!`,
+		no_cancel: true,
+	}).catch(() => { })
+	setTimeout(_.modal.cancel, 1200)
+}
+
 /**
  * Store information about the client device.
  */

@@ -667,12 +667,13 @@ def unlock_user(username: str) -> UserData:
 	return process_user_data(userdata)
 
 
-def create_reset_code(username: str) -> str:
+def create_reset_code(username: str, delete_existing: bool = False) -> str:
 	"""
 	Create a password reset code for the user with the specified username.
 
 	Args:
 		username (str): The username of the user requesting the reset code.
+		delete_existing (bool, optional): Whether to delete any existing reset codes for the user.
 
 	Returns:
 		str: The generated reset code.
@@ -686,15 +687,18 @@ def create_reset_code(username: str) -> str:
 	if not userdata:
 		raise exceptions.UserDoesNotExistError(username)
 
-	# Rate limit: Only allow 3 reset codes in the last 10 minutes.
-	# Hopefully this is sufficient to prevent abuse.
-	recent_requests = top_level_db.reset_codes.count_documents({
-		'username': username,
-		'created': {'$gte': datetime.utcnow() - timedelta(minutes=10)}
-	})
+	if delete_existing:
+		top_level_db.reset_codes.delete_many({'username': username})
+	else:
+		# Rate limit: Only allow 3 reset codes in the last 10 minutes.
+		# Hopefully this is sufficient to prevent abuse.
+		recent_requests = top_level_db.reset_codes.count_documents({
+			'username': username,
+			'created': {'$gte': datetime.utcnow() - timedelta(minutes=10)}
+		})
 
-	if recent_requests >= 3:
-		raise exceptions.RateLimitExceeded()
+		if recent_requests >= 3:
+			raise exceptions.RateLimitExceeded()
 
 	# Create 6-digit code and store it in the database
 	code = ''.join(str(uuid.uuid4())[0:6]).lower()

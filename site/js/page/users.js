@@ -117,3 +117,54 @@ export async function send_test_notification(username) {
 
 	_.modal.checkmark()
 }
+
+export async function generate_reset_code(username) {
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Generate Password Reset Code?',
+		text: `
+		This will generate a code for the user, which they can use to reset their password.
+		<br>
+		This will <b>not</b> send the code to the user,
+		nor will it generate any notification.
+		<br>
+		<u>You will need to send the code to them manually.</u>
+		`,
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+	if (choice !== 'yes') return
+
+	const res = await api(`mutation ($username: String!) {
+		adminCreateResetCode(username: $username) {
+			__typename
+			...on ResetCode { code }
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+		}
+	}`, { username })
+
+	if (res.__typename !== 'ResetCode') {
+		_.modal.error(res.message)
+		return
+	}
+
+	const choice2 = await _.modal({
+		type: 'info',
+		title: 'Reset Code Generated',
+		text: `
+		A password reset code has been generated for user <span class="emphasis">${username}</span>.
+		It will expire in <b>5 minutes</b>.
+		<br><br>
+		The code is <b>${res.code}</b>
+		<br><br>
+		<u>You will need to send this code to the user manually.</u>
+		<hr>
+		Press OK to copy the code to your clipboard.
+		`,
+		buttons: ['OK', 'Cancel'],
+	}).catch(() => 'cancel')
+
+	if (choice2 !== 'ok') return
+
+	await clip_text(res.code, 'reset code')
+}
