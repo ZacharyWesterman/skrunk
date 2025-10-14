@@ -3,7 +3,7 @@
 		{
 			"id": "logout",
 			"text": "Logout",
-			"icon": "right-from-bracket",
+			"icon": "power-off",
 			"action": "api.logout()"
 		},
 		{
