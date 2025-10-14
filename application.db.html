@@ -2676,6 +2676,23 @@ as a list of field names and ‘descending’ as a boolean indicating the sort o
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.notification.has_subscriptions">
+<span class="sig-prename descclassname"><span class="pre">application.db.notification.</span></span><span class="sig-name descname"><span class="pre">has_subscriptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.notification.has_subscriptions" title="Link to this definition">#</a></dt>
+<dd><p>Check if a user has any notification subscriptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – The username of the user to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the user has subscriptions, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.notification.init">
 <span class="sig-prename descclassname"><span class="pre">application.db.notification.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.notification.init" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the notification module by loading VAPID keys from the database,
@@ -3360,11 +3377,14 @@ If None, the global state is updated.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.users.create_reset_code">
-<span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">create_reset_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.create_reset_code" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">create_reset_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_existing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.create_reset_code" title="Link to this definition">#</a></dt>
 <dd><p>Create a password reset code for the user with the specified username.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – The username of the user requesting the reset code.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – The username of the user requesting the reset code.</p></li>
+<li><p><strong>delete_existing</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to delete any existing reset codes for the user.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The generated reset code.</p>
@@ -4408,6 +4428,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.notification.get_subscription"><code class="docutils literal notranslate"><span class="pre">get_subscription()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.notification.get_subscriptions"><code class="docutils literal notranslate"><span class="pre">get_subscriptions()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.notification.get_user_from_notif"><code class="docutils literal notranslate"><span class="pre">get_user_from_notif()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.notification.has_subscriptions"><code class="docutils literal notranslate"><span class="pre">has_subscriptions()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.notification.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.notification.mark_all_as_read"><code class="docutils literal notranslate"><span class="pre">mark_all_as_read()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.notification.mark_as_read"><code class="docutils literal notranslate"><span class="pre">mark_as_read()</span></code></a></li>

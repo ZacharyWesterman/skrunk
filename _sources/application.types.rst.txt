@@ -316,6 +316,14 @@ application.types.repositoryissue module
    :show-inheritance:
    :undoc-members:
 
+application.types.resetcode module
+----------------------------------
+
+.. automodule:: application.types.resetcode
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.types.schema module
 -------------------------------
 
