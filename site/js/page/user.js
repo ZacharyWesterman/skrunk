@@ -188,7 +188,9 @@ export async function update_groups(username) {
 
 function sync_perm_descs() {
 	for (const perm of Perms) {
-		const desc = $('perm-' + perm.name).checked ? "true" : "false"
+		const field = $('perm-' + perm.name)
+		if (!field) continue
+		const desc = field.checked ? "true" : "false"
 		$('perm-tooltip-' + perm.name).innerText = perm[desc]
 	}
 }
