@@ -5,7 +5,7 @@ from typing import Any
 from flask import Response, jsonify, request
 
 from application import exceptions, tokens
-from application.db.notification import send
+from application.db.notification import has_subscriptions, send
 from application.db.users import (authenticate, create_reset_code,
                                   reset_user_password)
 
@@ -115,6 +115,16 @@ def request_reset_code() -> Response:
 		return Response("{'error': 'Invalid request'}", 200)
 
 	username = data['username']
+
+	# If the user doesn't have any devices with notifications enabled,
+	# return an error message. Can't send them a code!
+	if not has_subscriptions(username):
+		return jsonify({
+			'error': (
+				'Notifications are not enabled for your account. ' +
+				'Please contact an admin to generate a password reset code.'
+			)
+		})
 
 	try:
 		code = create_reset_code(username)

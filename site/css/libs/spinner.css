@@ -43,3 +43,8 @@ Animated spinner icon, sourced from https://css.gg
         transform: rotate(359deg)
     }
 }
+
+.gg-spinner-side {
+    padding-left: 2rem;
+    margin-top: -1.2rem;
+}

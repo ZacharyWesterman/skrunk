@@ -94,6 +94,20 @@ def get_public_key() -> str:
 	return VAPID_PUBLIC_KEY
 
 
+def has_subscriptions(username: str) -> bool:
+	"""
+	Check if a user has any notification subscriptions.
+
+	Args:
+		username (str): The username of the user to check.
+
+	Returns:
+		bool: True if the user has subscriptions, False otherwise.
+	"""
+	user_data = users.get_user_data(username)
+	return db.subscriptions.count_documents({'creator': user_data['_id']}) > 0
+
+
 def get_subscriptions(username: str) -> list:
 	"""
 	Retrieve a list of notification subscription tokens for a given user.
