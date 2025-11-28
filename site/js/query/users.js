@@ -55,6 +55,7 @@ export default {
 					email
 					failed_logins
 					is_locked
+					disabled
 				}
 				...on UserDoesNotExistError {
 					message

@@ -188,7 +188,10 @@
 				<button class="big wide border" *click="generate_reset_code('{{=it.user.username}}')" >Generate Password Reset Code</button>
 				<button class="big wide border" *click="send_test_notification('{{=it.user.username}}')" >Send Test Notification</button>
 				{{? it.user.username !== api.username }}
-				<button class="big wide border emphasis" *click="confirm_delete_user('{{=it.user.username}}')" >Delete User</button>
+				<button class="big border emphasis" style="width: calc(100% - 4rem); display: inline;" *click="confirm_disable_user('{{=it.user.username}}', {{= !it.user.disabled}})" >{{= it.user.disabled ? 'Enable' : 'Disable'}} User</button>
+				<button class="big right" *click="confirm_delete_user('{{=it.user.username}}')">
+					<i class="fa-solid fa-trash fa-lg suppress"></i>
+				</button>
 				{{?}}
 			{{?}}
 		</div>

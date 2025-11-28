@@ -88,7 +88,7 @@ export default {
 		})
 	},
 
-	display_name: async (username, disp_name) => {
+	display_name: async (username, display_name) => {
 		return await api(`mutation ($username: String!, $display_name: String!) {
 			updateUserDisplayName (username: $username, display_name: $display_name) {
 				__typename
@@ -103,12 +103,12 @@ export default {
 				}
 			}
 		}`, {
-			'username': username,
-			'display_name': disp_name,
+			username,
+			display_name,
 		})
 	},
 
-	email: async (username, disp_name) => {
+	email: async (username, email) => {
 		return await api(`mutation ($username: String!, $email: String!) {
 			updateUserEmail (username: $username, email: $email) {
 				__typename
@@ -123,8 +123,8 @@ export default {
 				}
 			}
 		}`, {
-			'username': username,
-			'email': disp_name,
+			username,
+			email,
 		})
 	},
 
@@ -137,9 +137,9 @@ export default {
 				...on InsufficientPerms { message }
 			}
 		}`, {
-			username: username,
+			username,
 			module: module_name,
-			disabled: disabled,
+			disabled,
 		})
 	},
 
@@ -151,7 +151,20 @@ export default {
 				...on InsufficientPerms { message }
 			}
 		}`, {
-			username: username,
+			username,
+		})
+	},
+
+	disable: async (username, disabled) => {
+		return await api(`mutation ($username: String!, $disabled: Boolean!) {
+			updateUserDisabled(username: $username, disabled: $disabled) {
+				__typename
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			username,
+			disabled,
 		})
 	},
 }
