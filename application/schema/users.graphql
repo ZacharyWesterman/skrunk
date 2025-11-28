@@ -21,6 +21,8 @@ type UserData {
 	failed_logins: Int!
 	"""Whether the user is currently locked out due to too many failed login attempts."""
 	is_locked: Boolean!
+	"""If true, the user cannot login or navigate the site. Acts as a soft-delete option."""
+	disabled: Boolean!
 }
 
 """Minimal data for a user, used for listing users or getting basic user information."""
@@ -140,6 +142,7 @@ extend type Mutation {
 	updateUserGroups(username: String!, groups: [String!]!): UserUpdateResponse!
 	updateUserModule(username: String!, module: String!, disabled: Boolean!): UserUpdateResponse!
 	updateUserEmail(username: String!, email: String!): UserUpdateResponse!
+	updateUserDisabled(username: String!, disabled: Boolean!): UserUpdateResponse!
 
 	exportUserData(username: String!): BlobZipResponse!
 	adminCreateResetCode(username: String!): ResetCodeResponse!

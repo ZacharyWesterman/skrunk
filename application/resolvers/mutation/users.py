@@ -5,6 +5,7 @@ from graphql.type import GraphQLResolveInfo
 from application.db import perms
 from application.db.users import (create_reset_code, create_user, delete_user,
                                   export_user_data, unlock_user,
+                                  update_user_disabled,
                                   update_user_display_name, update_user_email,
                                   update_user_groups, update_user_module,
                                   update_user_password, update_user_perms,
@@ -303,3 +304,29 @@ def resolve_admin_create_reset_code(_, _info: GraphQLResolveInfo, username: str)
 		'__typename': 'ResetCode',
 		'code': code,
 	}
+
+
+@mutation.field('updateUserDisabled')
+@perms.require('admin')
+@handle_client_exceptions
+def resolve_update_user_disabled(
+	_,
+	_info: GraphQLResolveInfo,
+	username: str,
+	disabled: bool
+) -> dict:
+	"""
+	Updates whether the user is disabled or not. If disabled,
+	then the user cannot login or navigate around the site.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		username (str): The username of the user.
+		disabled (bool): Whether the user is disabled.
+
+	Returns:
+		dict: The updated user data.
+	"""
+
+	return {'__typename': 'UserData', **update_user_disabled(username, disabled)}

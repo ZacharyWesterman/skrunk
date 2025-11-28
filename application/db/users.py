@@ -501,7 +501,7 @@ def authenticate(username: str, password: str) -> str:
 	"""
 	userdata = db.find_one({'username': username})
 
-	if userdata is None:
+	if userdata is None or userdata.get('disabled'):
 		raise exceptions.UserDoesNotExistError(username)
 
 	if is_locked(userdata.get('failed_logins', 0)):
@@ -745,6 +745,36 @@ def reset_user_password(username: str, code: str, new_password: str) -> None:
 
 	# Delete all reset codes for this user to prevent reuse
 	top_level_db.reset_codes.delete_many({'username': username})
+
+
+def update_user_disabled(username: str, disabled: bool) -> UserData:
+	"""
+	Updates whether the user is disabled or not. If disabled,
+	then the user cannot login or navigate around the site.
+
+	Args:
+		username (str): The username of the user.
+		disabled (bool): Whether the user is disabled.
+
+	Returns:
+		UserData: The updated user data.
+
+	Raises:
+		UserDoesNotExistError: If the user is not found.
+	"""
+	if len(username) == 0:
+		raise exceptions.UserDoesNotExistError(username)
+
+	userdata = db.find_one({'username': username})
+	if not userdata:
+		raise exceptions.UserDoesNotExistError(username)
+
+	if disabled != userdata.get('disabled'):
+		db.update_one({'_id': userdata.get('_id')}, {'$set': {
+			'disabled': disabled,
+		}})
+
+	return process_user_data(userdata)
 
 
 # These imports are needed at this location to avoid circular imports
