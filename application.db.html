@@ -3677,6 +3677,30 @@ Any sensitive information, such as passwords, is excluded from the export.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.users.update_user_disabled">
+<span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">update_user_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disabled</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.update_user_disabled" title="Link to this definition">#</a></dt>
+<dd><p>Updates whether the user is disabled or not. If disabled,
+then the user cannot login or navigate around the site.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – The username of the user.</p></li>
+<li><p><strong>disabled</strong> (<em>bool</em>) – Whether the user is disabled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated user data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.userdata.UserData" title="application.types.userdata.UserData">UserData</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError" title="application.exceptions.UserDoesNotExistError"><strong>UserDoesNotExistError</strong></a> – If the user is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.users.update_user_display_name">
 <span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">update_user_display_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.update_user_display_name" title="Link to this definition">#</a></dt>
 <dd><p>Updates the display name for the user with the specified username.</p>
@@ -4488,6 +4512,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.process_user_data"><code class="docutils literal notranslate"><span class="pre">process_user_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.reset_user_password"><code class="docutils literal notranslate"><span class="pre">reset_user_password()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.unlock_user"><code class="docutils literal notranslate"><span class="pre">unlock_user()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.update_user_disabled"><code class="docutils literal notranslate"><span class="pre">update_user_disabled()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.update_user_display_name"><code class="docutils literal notranslate"><span class="pre">update_user_display_name()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.update_user_email"><code class="docutils literal notranslate"><span class="pre">update_user_email()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.update_user_groups"><code class="docutils literal notranslate"><span class="pre">update_user_groups()</span></code></a></li>
