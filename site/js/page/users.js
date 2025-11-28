@@ -8,21 +8,48 @@ export function init() {
 	$.on.enter($('password'), create_user)
 }
 
+export async function confirm_disable_user(username, disabled) {
+	if (disabled) {
+		//Only prompt if disabling the user.
+		let choice = await _.modal({
+			type: 'question',
+			title: 'Disable User?',
+			text: `Do you want to disable user "${username}"?<br>
+			They will not be able to login or interact with the site,<br>
+			but references to their data will still be viewable.<br><br>
+			They can be re-enabled at any time.`,
+			buttons: ['Yes', 'No'],
+		}).catch(() => 'no')
+
+		if (choice !== 'yes') return
+	}
+
+	const res = await mutate.users.disable(username, disabled)
+
+	if (res.__typename !== 'UserData') {
+		_.modal.error(res.message)
+		return
+	} else {
+		_.modal.checkmark()
+		load_user_data($.val('userlist')) //Refresh the user data
+	}
+}
+
 export async function confirm_delete_user(username) {
 	let choice = await _.modal({
 		type: 'question',
 		title: 'Delete User?',
-		text: 'Do you want to delete the login for user "' + username + '"?<br>This will break any info that references this user!',
-		buttons: ['Yes', 'No'],
+		text: 'Do you want to delete the login for user "' + username + '"?<div class="emphasis">This will break any info that references this user!</div>',
+		buttons: ['Continue', 'No'],
 	}).catch(() => 'no')
 
-	if (choice !== 'yes') return
+	if (choice !== 'continue') return
 
 	choice = await _.modal({
-		type: 'question',
+		type: 'warning',
 		title: 'Really Delete User?',
-		text: 'Are you sure you want to delete user "' + username + '"?<br>This action is permanent and cannot be undone!',
-		buttons: ['Yes', 'No'],
+		text: 'Are you sure you want to delete user "' + username + '"?<br><div class="emphasis">This action is permanent and cannot be undone!</div>',
+		buttons: ['Yes, I\'m sure', 'No'],
 	}).catch(() => 'no')
 
 	if (choice !== 'yes') return

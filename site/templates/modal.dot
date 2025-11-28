@@ -5,14 +5,15 @@
 			<span class="close" onclick="_.modal.cancel()">&times;</span>
 			{{?}}
 			{{?it.title}}<h4>
-				{{?it.type === 'info'}}
-					<i style="padding-right: 1rem;" class="fa-solid fa-circle-info fa-2xl"></i>
-				{{??it.type === 'error'}}
-					<i style="padding-right: 1rem;" class="fa-solid fa-triangle-exclamation fa-2xl emphasis"></i>
-				{{??it.type === 'question'}}
-					<i style="padding-right: 1rem;" class="fa-solid fa-circle-question fa-2xl"></i>
-				{{??it.icon !== undefined}}
-					<i style="padding-right: 1rem;" class="fa-solid fa-{{= it.icon }} fa-2xl"></i>
+				{{? it.type !== undefined }}
+					<i style="padding-right:1rem;" class="fa-solid fa-2xl fa-{{=
+					{
+						info: 'circle-info',
+						error: 'circle-exclamation emphasis',
+						warning: 'triangle-exclamation emphasis',
+						question: 'circle-question',
+					}[it.type] || it.type
+					}}"></i>
 				{{?}}
 				<b>{{=it.title}}</b>
 			</h4>{{?}}

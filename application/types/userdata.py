@@ -33,3 +33,5 @@ class UserData(TypedDict):
 	failed_logins: int
 	## Whether the user is currently locked out due to too many failed login attempts.
 	is_locked: bool
+	## If true, the user cannot login or navigate the site. Acts as a soft-delete option.
+	disabled: bool

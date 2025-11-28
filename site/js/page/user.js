@@ -599,5 +599,5 @@ export async function unlock_user(username) {
 	}
 
 	_.modal.checkmark()
-	load_user_data(username, true)
+	load_user_data(username)
 }
