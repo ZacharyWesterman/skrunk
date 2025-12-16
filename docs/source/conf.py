@@ -8,11 +8,18 @@
 
 import os
 import sys
+import tomllib
 
-project = 'Skrunk Server'
-copyright = '2025, Zachary Westerman'
-author = 'Zachary Westerman'
-release = '1.0'
+# Read project info from pyproject.toml
+fp = open('../../pyproject.toml', 'rb')
+config = tomllib.load(fp)
+
+info = config.get('tool', {}).get('poetry', {})
+
+project = info.get('name', 'unknown project')
+author = info.get('authors', ['unknown author'])[0].split('<')[0].strip()
+copyright = f'2025, {author}'
+release = info.get('version', 'unknown version')
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
