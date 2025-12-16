@@ -52,9 +52,10 @@ This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Pyt
 
 ---
 
-To get all set up, first download the repo, then install dependencies.
+To get all set up, first install apt dependencies, then first download the repo, and install python dependencies.
 In most cases you won't need the documentation to generate, so you can append `--without dev` to the install command.
 ```bash
+sudo apt-get install libsasl2-dev python-dev-is-python3 libldap2-dev libssl-dev
 git clone https://github.com/ZacharyWesterman/skrunk.git --recursive
 cd skrunk
 poetry install --no-root --without dev
