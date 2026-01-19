@@ -4,9 +4,9 @@ from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
 from application.db.datafeed import (count_documents, count_feeds,
-                                     get_documents, get_feed, get_feeds,
-                                     get_user_feeds)
-from application.exceptions import ClientError
+                                     get_document, get_documents, get_feed,
+                                     get_feeds, get_user_feeds)
+from application.exceptions import ClientError, FeedDocumentDoesNotExistError
 from application.types import Sorting
 
 from ..decorators import handle_client_exceptions
@@ -59,6 +59,58 @@ def resolve_get_feed_documents(
 		list[dict]: A list of document dictionaries retrieved from the feed.
 	"""
 	return get_documents(feed, start, count, sorting)
+
+
+@query.field('getFeedDocument')
+@perms.module('feed')
+@handle_client_exceptions
+def resolve_get_feed_document(
+	_,
+	_info: GraphQLResolveInfo,
+	id: str
+) -> dict:
+	"""
+	Retrieves a single feed document.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The ID of the feed document.
+
+	Returns:
+		dict: A dictionary representing the feed document.
+	"""
+	return {'__typename': 'FeedDocument', **get_document(id)}
+
+
+@query.field('getFeedDocumentBodyHtmlChunk')
+@perms.module('feed')
+def resolve_get_feed_document_chunk(
+	_,
+	_info: GraphQLResolveInfo,
+	id: str,
+	start: int,
+	count: int
+) -> str:
+	"""
+	Retrieves a chunk of text from a feed document's HTML body.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The ID of the feed document.
+		start (int): The index of the first character to fetch.
+		count (int): The maximum number of characters to fetch.
+
+	Returns:
+		str: A chunk of text at the given position and size.
+	"""
+	try:
+		doc = get_document(id)
+	except FeedDocumentDoesNotExistError:
+		return ''
+
+	return doc.get('body_html', '')[start:(start + count)]
 
 
 @query.field('countFeedDocuments')

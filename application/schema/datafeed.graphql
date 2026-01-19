@@ -22,6 +22,8 @@ type FeedDocument {
 	url: String!
 	"""Whether the document is marked as read."""
 	read: Boolean!
+	"""The length of the HTML-rendered version of the document body."""
+	html_len: Int!
 }
 
 """A type for storing information about a data feed."""
@@ -68,6 +70,7 @@ type InvalidFeedKindError {
 
 union FeedQueryResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError | InsufficientPerms
 union FeedMutateResponse = Feed | FeedDoesNotExistError | UserDoesNotExistError | InsufficientPerms | InvalidFeedKindError
+union FeedDocumentQueryResponse = FeedDocument | FeedDoesNotExistError | InsufficientPerms
 union FeedDocumentCreateResponse = FeedDocument | FeedDoesNotExistError | InsufficientPerms
 union FeedDocumentUpdateResponse = FeedDocument | FeedDocumentDoesNotExistError | InsufficientPerms
 
@@ -78,6 +81,8 @@ extend type Query {
 	getFeeds(start: Int!, count: Int!): [Feed!]!
 	countFeeds: Int!
 	getUserFeeds(username: String!): [Feed!]!
+	getFeedDocument(id: String!): FeedDocumentQueryResponse!
+	getFeedDocumentBodyHtmlChunk(id: String!, start: Int!, count: Int!): String!
 	getFeedDocuments(feed: String!, start: Int!, count: Int!, sorting: Sorting!): [FeedDocument!]!
 	countFeedDocuments(feed: String!): Int!
 }

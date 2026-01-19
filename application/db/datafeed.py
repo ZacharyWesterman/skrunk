@@ -55,6 +55,7 @@ def process_document(document: dict, feed_kind: str) -> dict:
 	"""
 	document['id'] = document['_id']
 	document['body_html'] = get_body_html(feed_kind, document['body'])
+	document['html_len'] = len(document['body_html'])
 	return document
 
 

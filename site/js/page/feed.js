@@ -285,13 +285,7 @@ export async function navigate_to_page(page_num, update_nav = true) {
 			url
 			id
 			read
-		}
-	}`, config)
-
-	const body_promise = api(`query ($feed: String!, $start: Int!, $count: Int!, $sorting: Sorting!) {
-		getFeedDocuments(feed: $feed, start: $start, count: $count, sorting: $sorting) {
-			body_html
-			id
+			html_len
 		}
 	}`, config)
 
@@ -302,12 +296,52 @@ export async function navigate_to_page(page_num, update_nav = true) {
 		update_navigation(Math.floor(lookup_start / lookup_list_len))
 	}
 
-	//Once both info and body are loaded, merge them together
-	await items_promise
-	for (const item of await body_promise) {
-		const content = $('content-' + item.id)
-		if (!content) continue
-		content.children[0].innerHTML = item.body_html || '<p class="emphasis">ERROR: Unable to load content.</p>'
+	// Poll the document text in chunks.
+	// This improves apparent performance on very slow connections.
+	// While technically slower than fetching the whole thing at once,
+	// it FEELS faster to users, and lets them actually start reading before the whole thing has loaded.
+	const body_promises = [];
+	const req = async (id, len) => {
+		const count = 1024 * 8
+		let start = 0
+		let total_text = ''
+
+		const query = async () => {
+			const text = await api(`query ($id: String!, $start: Int!, $count: Int!) {
+				getFeedDocumentBodyHtmlChunk(id: $id, start: $start, count: $count)
+				}`, { id, start, count })
+
+			const content = $('content-' + id)
+			if (!content) return
+
+			total_text += text
+			start += count
+
+			if (start < len) {
+				content.children[0].innerHTML = total_text + '<br><i class="gg-spinner"></i>'
+				await query()
+			} else {
+				content.children[0].innerHTML = total_text
+			}
+		}
+
+		await query()
+	}
+
+	// Query unread documents first
+	for (const item of await items_promise) {
+		if (!item.read) {
+			body_promises.push(req(item.id, item.html_len))
+		}
+	}
+	await count_promise
+	await Promise.all(body_promises)
+
+	// Then query read documents
+	for (const item of await items_promise) {
+		if (item.read) {
+			body_promises.push(req(item.id, item.html_len))
+		}
 	}
 }
 

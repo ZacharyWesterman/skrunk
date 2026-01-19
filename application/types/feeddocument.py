@@ -34,3 +34,5 @@ class FeedDocument(TypedDict):
 	url: str
 	## Whether the document is marked as read.
 	read: bool
+	## The length of the HTML-rendered version of the document body.
+	html_len: int
