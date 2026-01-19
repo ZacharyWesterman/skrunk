@@ -45,30 +45,23 @@ def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> Non
 
 	users.db = client.skrunk.users
 	users.top_level_db = client.skrunk
-
 	apikeys.db = client.skrunk.api_keys
-
 	perms.apikeydb = apikeys.db
-
 	settings.db = client.skrunk.settings
-
 	sessions.db = client.skrunk.user_sessions
-
 	blob.db = client.skrunk.blob
-	blob.init()
-
 	bugs.db = client.skrunk.bug_reports
 	book.db = client.skrunk.books
-	book.init()
-
 	notification.db = client.skrunk
-	notification.init()
-
 	inventory.db = client.skrunk
 	weather.db = client.skrunk
 	datafeed.db = client.skrunk
-
 	documents.db = client.skrunk.wiki_documents
+
+	blob.init()
+	book.init()
+	notification.init()
+	users.init()
 
 
 def setup_db() -> None:

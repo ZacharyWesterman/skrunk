@@ -3,7 +3,7 @@
 import shutil
 import uuid
 from datetime import datetime, timedelta
-from typing import TypeVar
+from typing import Generator, TypeVar
 from zipfile import ZipFile
 
 import bcrypt
@@ -13,6 +13,11 @@ from pymongo.collection import Collection
 from pymongo.database import Database
 
 from ..types import BlobSearchFilter, InventorySearchFilter, UserData
+
+try:
+	from application.integrations import ldap_client
+except ModuleNotFoundError:
+	ldap_client = None
 
 FILTER = TypeVar('FILTER', BlobSearchFilter, InventorySearchFilter)
 
@@ -777,9 +782,36 @@ def update_user_disabled(username: str, disabled: bool) -> UserData:
 	return process_user_data(userdata)
 
 
+def get_users_ldap() -> Generator[dict[str, str | bytes], None, None]:
+	"""
+	Get LDAP data for all active users in the database.
+
+	Returns:
+		Generator[dict[str, str | bytes], None, None]: A generator
+			that yields the bare minimum user data needed for LDAP.
+	"""
+
+	for user in db.find({'disabled': False}):
+		yield {
+			'username': user.get('username'),
+			'password': user.get('password'),
+		}
+
+
+def init() -> None:
+	"""
+	Initialize any data or configs related to users,
+	including AD functionality, if enabled.
+	"""
+
+	if ldap_client:
+		ldap_client.init()
+		ldap_client.sync_users(get_users_ldap())
+
 # These imports are needed at this location to avoid circular imports
 # pylint: disable=wrong-import-order
 # pylint: disable=wrong-import-position
+
 
 from application import exceptions, tokens  # nopep8
 from application.db import blob, settings  # nopep8
