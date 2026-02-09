@@ -738,9 +738,10 @@ def reset_user_password(username: str, code: str, new_password: str) -> None:
 	if not reset_entry:
 		raise exceptions.InvalidResetCode()
 
-	# Update the user's password
+	# Update the user's password, and reset their failed login attempts
 	db.update_one({'username': username}, {'$set': {
 		'password': bcrypt.hashpw(new_password.encode(), bcrypt.gensalt()),
+		'failed_logins': 0
 	}})
 
 	# Delete all reset codes for this user to prevent reuse
