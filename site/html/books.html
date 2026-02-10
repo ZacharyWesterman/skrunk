@@ -13,21 +13,31 @@
 				</h3>
 			</div>
 			Owned by <div class="inline" name="owner" template="dropdown" *change="reset_and_search"></div> Borrowed
-			<input type="checkbox" id="shared" *click="reset_and_search" ternary indeterminate><br>
+			<input type="checkbox" id="shared" *click="reset_and_search" ternary indeterminate>
+			<span class="right tooltip" *click="show_search_help">
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-left">Help with filtering</span>
+			</span>
+			<br>
 
-			<input id="title" placeholder="Keywords/ISBN" *bind="reset_and_search"><button class="reset clickable"
-				*click="$.wipe('title'); reset_and_search()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
+			<input id="title" placeholder="Keywords/ISBN" *bind="reset_and_search">
+			<button class="reset clickable" *click="$.wipe('title'); reset_and_search()">
+				<i class="fa-solid fa-circle-xmark fa-xl"></i>
+			</button>
 
 			<span name="qrcode-search"></span>
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
-					<input id="author" placeholder="Author (strict)" *bind="reset_and_search"><button
-						class="reset clickable" *click="$.wipe('author'); reset_and_search()"><i
-							class="fa-solid fa-circle-xmark fa-xl"></i></button><br>
-					<input id="genre" placeholder="Category" *bind="reset_and_search"><button class="reset clickable"
-						*click="$.wipe('genre'); reset_and_search()"><i
-							class="fa-solid fa-circle-xmark fa-xl"></i></button>
+					<input id="author" placeholder="Author" *bind="reset_and_search">
+					<button class="reset clickable" *click="$.wipe('author'); reset_and_search()">
+						<i class="fa-solid fa-circle-xmark fa-xl"></i>
+					</button>
+					<br>
+					<input id="genre" placeholder="Category" *bind="reset_and_search">
+					<button class="reset clickable" *click="$.wipe('genre'); reset_and_search()">
+						<i class="fa-solid fa-circle-xmark fa-xl"></i>
+					</button>
 				</div>
 			</div>
 

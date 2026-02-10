@@ -718,3 +718,12 @@ export async function update_qr_code(rfid, id) {
 		edit_book(code)
 	}, 500)
 }
+
+export async function show_search_help() {
+	const choice = await _.modal({
+		type: 'info',
+		title: 'How to effectively filter books.',
+		text: api.snippit('book-searching'),
+		buttons: ['OK'],
+	}).catch(() => { })
+}
