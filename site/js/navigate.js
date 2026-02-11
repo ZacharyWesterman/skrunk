@@ -177,11 +177,11 @@ window.set_field_logic = async function (DOM, url, module) {
 		//Custom logic for *click (onclick), *blur (onblur), and *change (onchange) methods
 		const attrs = ['click', 'blur', 'change', 'enter', 'escape', 'tab', 'bind', 'toggles', 'expand', 'hover', 'focus']
 		for (const attr of attrs) {
-			DOM.querySelectorAll(`[\\*${attr}]`).forEach(field => {
-				const key = field.getAttribute(`*${attr}`)
+			DOM.querySelectorAll(`[\\*${attr}], [__${attr}]`).forEach(field => {
+				const key = field.getAttribute(`*${attr}`) || field.getAttribute(`__${attr}`)
 
 				if (key[0] === '*') {
-					set_trigger(field, attr, key.substring(1))
+					set_trigger(field, attr, attr)
 					return
 				}
 
@@ -222,8 +222,7 @@ window.set_field_logic = async function (DOM, url, module) {
 					} else {
 						field[`on${attr}`] = () => { scope() }
 					}
-				}
-				else {
+				} else {
 					//If we're not running the function with params,
 					if (!['$', '_'].includes(key[0]) && typeof DOM.module[key] !== 'function')
 						throw new Error(`Unknown action for *${attr} attribute: "${key}" export not found.`)

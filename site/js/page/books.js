@@ -403,7 +403,7 @@ export async function search_books() {
 		genre: genre,
 		shared: shared,
 	}
-	const res = await query.books.get(filter, BookStart, BookListLen, { fields: [$.val('sort-by') || 'title'], descending: $.val('sort-order') === 'descending' })
+	const res = await query.books.get(filter, BookStart, BookListLen, { fields: $.val('sort-by'), descending: $.val('sort-order') === 'descending' })
 
 	await _('book', {
 		books: res,

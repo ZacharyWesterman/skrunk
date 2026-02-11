@@ -38,23 +38,25 @@
 					<button class="reset clickable" *click="$.wipe('genre'); reset_and_search()">
 						<i class="fa-solid fa-circle-xmark fa-xl"></i>
 					</button>
+
+					<br>
+					Sort in
+					<select id="sort-order" *bind="reset_and_search">
+						<option value="ascending">ascending</option>
+						<option value="descending">descending</option>
+					</select>
+					order:<br>
+					<ranked-choice id="sort-by" *change="reset_and_search">
+						<option value="title">Title</option>
+						<option value="authors">Author</option>
+						<option value="categories">Category</option>
+						<option value="description">Description</option>
+						<option value="publisher">Publisher</option>
+						<option value="publishedDate">Publish Date</option>
+					</ranked-choice>
 				</div>
 			</div>
 
-			Sort by
-			<select id="sort-by" *bind="reset_and_search">
-				<option value="title">Title</option>
-				<option value="authors">Author</option>
-				<option value="categories">Category</option>
-				<option value="description">Description</option>
-				<option value="publisher">Publisher</option>
-				<option value="publishedDate">Publish Date</option>
-			</select>
-			,
-			<select id="sort-order" *bind="reset_and_search">
-				<option value="ascending">ascending</option>
-				<option value="descending">descending</option>
-			</select>
 
 			<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>
 			<div id="error-message" class="emphasize hidden"></div>
