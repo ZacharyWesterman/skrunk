@@ -53,6 +53,10 @@ div .page {
 	max-width: 900px;
 }
 
+div .page.full {
+	width: 100%;
+}
+
 div .page.wide {
 	max-width: 100%;
 }
