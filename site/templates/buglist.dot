@@ -1,10 +1,10 @@
 
 <h2 {{? it.list.length }}class="clickable" *toggles="buglist-{{= it.bug_type }}"{{?}}>
 {{?it.list.length}}
-	{{= it.list.length }} {{= it.bug_type }} Bug{{? it.list.length !== 1 }}s{{?}}
+	{{= it.list.length }} {{= it.bug_type }} Issue{{? it.list.length !== 1 }}s{{?}}
 	&nbsp;<i class="fa-solid fa-angles-down"></i>
 {{??}}
-	No {{= it.bug_type }} Bugs
+	No {{= it.bug_type }} Issues
 {{?}}
 </h2>
 

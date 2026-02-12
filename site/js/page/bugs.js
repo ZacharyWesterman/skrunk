@@ -46,7 +46,7 @@ export function refresh_bug_list() {
 	_('open-bugs', {
 		list: query.bugs.list(null, 0, 100, false),
 		locked: false,
-		bug_type: 'Outstanding',
+		bug_type: 'Open',
 		expanded: true,
 	})
 	_('resolved-bugs', {

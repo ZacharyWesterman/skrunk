@@ -1,5 +1,5 @@
 {{? it.issues?.length }}
-	<h2>Open Issues</h2>
+	<h2>Pending Internal Issues</h2>
 
 	<div class="card">
 		<div class="card-inner">
