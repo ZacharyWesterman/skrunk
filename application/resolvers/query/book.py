@@ -4,7 +4,7 @@ from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
 from application.db.book import (count_all_user_books, count_books, get_book,
-                                 get_book_tag, get_books)
+                                 get_book_tag, get_books, get_user_list)
 from application.db.users import userids_in_groups
 from application.integrations import google_books
 from application.integrations.exceptions import ApiFailedError
@@ -147,3 +147,10 @@ def resolve_get_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
 		dict: A dictionary containing book information.
 	"""
 	return {'__typename': 'Book', **get_book(id, parse=True)}
+
+
+@query.field('listUsersWithBooks')
+@perms.module('books')
+def resolve_list_users_with_books(_, _info: GraphQLResolveInfo) -> list:
+	user_data = perms.caller_info_strict()
+	return get_user_list(user_data.get('groups', []))

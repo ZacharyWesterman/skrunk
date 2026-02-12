@@ -2,11 +2,12 @@ export default {
 	__user_list: {
 		all: null,
 		group: null,
+		books: null,
 	},
 
-	list: async (filter, use_cache = true, restrict = true) => {
+	list: async (filter, use_cache = true, restrict_to_group = true) => {
 		let res
-		const sublist = restrict ? 'group' : 'all'
+		const sublist = restrict_to_group ? 'group' : 'all'
 		if (query.users.__user_list[sublist] === null || !use_cache) {
 			res = await api(`query ($restrict: Boolean!) {
 				listUsers (restrict: $restrict) {
@@ -14,13 +15,26 @@ export default {
 					display_name
 				}
 			}`, {
-				restrict: restrict,
+				restrict: restrict_to_group,
 			})
 			query.users.__user_list[sublist] = res
 		}
 		else
 			res = query.users.__user_list[sublist]
 		return (filter ? res.filter(filter) : res).map(i => { return { value: i.username, display: i.display_name } })
+	},
+
+	list_with_books: async (use_cache = true) => {
+		if (query.users.__user_list.books === null || !use_cache) {
+			query.users.__user_list.books = await api(`query {
+				listUsersWithBooks {
+					username
+					display_name
+				}
+			}`)
+		}
+
+		return query.users.__user_list.books.map(i => { return { value: i.username, display: i.display_name } })
 	},
 
 	sessions: async username => {

@@ -88,7 +88,7 @@ def get_user_list(groups: list[str]) -> list:
 	Returns a list of users with their username, display name, and last login.
 
 	Args:
-		groups (list, optional): List of groups to filter users by. Defaults to [].
+		groups (list, optional): List of groups to filter users by.
 
 	Returns:
 		list: A list of users.

@@ -60,7 +60,7 @@ export async function init() {
 
 	_('owner', {
 		id: 'owner',
-		options: query.users.list(),
+		options: query.users.list_with_books(),
 		default: 'Select User',
 	})
 }

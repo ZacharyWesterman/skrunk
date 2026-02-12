@@ -1059,3 +1059,42 @@ def remove_ebook(book_id: str, index: int) -> dict:
 	book_data['ebooks'] = ebooks
 
 	return book_data
+
+
+def get_user_list(groups: list[str]) -> list:
+	"""
+	Returns a list of users with their username, display name, and last login.
+	List is limited to only those users who have books cataloged.
+
+	Args:
+		groups (list, optional): List of groups to filter users by.
+
+	Returns:
+		list: A list of users.
+	"""
+
+	query: dict = {
+		'matched': {'$ne': []}
+	}
+	if len(groups) > 0:
+		query['$or'] = [{'groups': i} for i in groups]
+
+	aggregate = [
+		{
+			'$lookup': {
+				'from': 'books',
+				'localField': '_id',
+				'foreignField': 'owner',
+				'as': 'matched',
+			}
+		},
+		{
+			'$match': query,
+		}
+	]
+
+	return [{
+		'username': data['username'],
+		'display_name': data['display_name'],
+		'last_login': data.get('last_login'),
+	} for data in users.db.aggregate(aggregate)]
