@@ -17,6 +17,7 @@ ranked-choice {
 	border-radius: var(--border-radius);
 	display: inline-block;
 	transition: all .5s ease-in-out;
+	padding-left: 2px;
 }
 
 ranked-choice>option {

@@ -33,8 +33,8 @@ class RankedChoice extends HTMLElement {
 			const downButton = document.createElement('i')
 			upButton.classList.add('fa-solid', 'fa-caret-up', 'fa-xl', 'rank-direction')
 			downButton.classList.add('fa-solid', 'fa-caret-down', 'fa-xl', 'rank-direction')
-			child.appendChild(upButton)
 			child.appendChild(downButton)
+			child.appendChild(upButton)
 
 			downButton.onclick = () => {
 				if (child.nextElementSibling) {
