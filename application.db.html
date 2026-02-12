@@ -1260,6 +1260,24 @@ fields to sort by and order (ascending/descending).</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.book.get_user_list">
+<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">get_user_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.get_user_list" title="Link to this definition">#</a></dt>
+<dd><p>Returns a list of users with their username, display name, and last login.
+List is limited to only those users who have books cataloged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>groups</strong> (<em>list</em><em>, </em><em>optional</em>) – List of groups to filter users by.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of users.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.book.init">
 <span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.init" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the application by pre-caching some data.</p>
@@ -3543,7 +3561,7 @@ Any sensitive information, such as passwords, is excluded from the export.</p>
 <dd><p>Returns a list of users with their username, display name, and last login.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>groups</strong> (<em>list</em><em>, </em><em>optional</em>) – List of groups to filter users by. Defaults to [].</p>
+<dd class="field-odd"><p><strong>groups</strong> (<em>list</em><em>, </em><em>optional</em>) – List of groups to filter users by.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of users.</p>
@@ -4363,6 +4381,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_book"><code class="docutils literal notranslate"><span class="pre">get_book()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_book_tag"><code class="docutils literal notranslate"><span class="pre">get_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_books"><code class="docutils literal notranslate"><span class="pre">get_books()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_user_list"><code class="docutils literal notranslate"><span class="pre">get_user_list()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.keyword_tokenize"><code class="docutils literal notranslate"><span class="pre">keyword_tokenize()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.link_book_tag"><code class="docutils literal notranslate"><span class="pre">link_book_tag()</span></code></a></li>
