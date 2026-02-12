@@ -534,7 +534,7 @@ def norm_query(query: dict, ownerq: dict | None) -> dict:
 	return query
 
 
-def build_book_query(filter: BookSearchFilter, sort: list) -> tuple[list[dict] | None, dict]:
+def build_book_query(filter: BookSearchFilter, sort: list) -> list[dict]:
 	"""
 	Builds a MongoDB query and aggregation pipeline based on the provided filter and sort criteria.
 
@@ -548,13 +548,12 @@ def build_book_query(filter: BookSearchFilter, sort: list) -> tuple[list[dict] |
 		sort (list, optional): A list of tuples specifying the sort order. Defaults to [].
 
 	Returns:
-		tuple: A tuple containing:
-			- aggregate (list or None): The aggregation pipeline if applicable, otherwise None.
-			- query (dict): The MongoDB query dictionary.
+		aggregate (list[dict]): The aggregation pipeline.
 	"""
 	query = {}
-	aggregate: list[dict] | None = None
+	computed_fields = {}
 
+	# Restrict to users in the same groups as caller
 	owner: list[str] | str | None = filter.get('owner')
 	ownerq = None
 	if owner is not None:
@@ -564,42 +563,91 @@ def build_book_query(filter: BookSearchFilter, sort: list) -> tuple[list[dict] |
 		elif isinstance(owner, list) and len(owner) > 0:
 			ownerq = {'$or': [{'owner': i} for i in owner]}
 
+	# Filter by author
 	if filter.get('author') is not None:
 		query['authors'] = {'$regex': filter.get('author'), '$options': 'i'}
 
+	# Filter by category
 	if filter.get('genre') is not None:
 		query['categories'] = {'$regex': filter.get('genre'), '$options': 'i'}
 
+	# Filter by shared status
 	if filter.get('shared') is not None:
 		query['shared'] = filter.get('shared')
 
 	title = filter.get('title')
 	if title is not None:
 		isbn = title.strip().replace('-', '')
-		if re.match(r'^\d{9,13}$', isbn):
+		if re.match(r'^[\dxX]{9,13}$', isbn):
+			# If searth term looks like an ISBN number, filter based on that.
 			query['industryIdentifiers.identifier'] = isbn
-			query = norm_query(query, ownerq)
 		else:
+			# Otherwise, filter based on matching keywords
 			keywords = keyword_tokenize(title)
 			query['keywords'] = {'$in': keywords}
 			query['score'] = {'$gt': (len(keywords) + 1) // 2 if len(keywords) > 1 else 0}
-			query = norm_query(query, ownerq)
 
-			aggregate = [
-				{'$addFields': {
-					'score': {
-						'$size': {
-							'$setIntersection': [keywords, '$keywords']
-						}
+			computed_fields['score'] = {
+				'$size': {
+					'$setIntersection': [keywords, '$keywords']
+				}
+			}
+
+			# Sort FIRST by how many keywords match
+			sort.insert(0, ('score', -1))
+
+	# Set default sorting if none given
+	if len(sort) == 0:
+		sort = [('title', 1), ('authors', 1)]
+
+	# Build sorting dict from list of (name, direction) tuples
+	sorting = {i[0]: i[1] for i in sort}
+
+	# Add computed fields based on requested sorting
+	if 'category' in sorting:
+		computed_fields['category'] = {'$first': '$categories'}
+	if 'author-last-name' in sorting:
+		computed_fields['author-temp-name'] = {
+			'$first': {
+				'$split': [{
+					'$replaceAll': {
+						'input': {'$first': '$authors'},
+						'find': ' (',
+						'replacement': ',',
 					}
-				}},
-				{'$match': query},
-				{'$sort': {'score': -1, **{i[0]: i[1] for i in sort}}}
+				}, ","]
+			}
+		}
+		computed_fields['author-last-name'] = {
+			'$arrayElemAt': [
+				{'$split': [{
+					'$first': {
+						'$split': [{
+							'$replaceAll': {
+								'input': {'$first': '$authors'},
+								'find': ' (',
+								'replacement': ',',
+							},
+						}, ","]
+					}
+				}, " "]}, -1
 			]
-	else:
-		query = norm_query(query, ownerq)
+		}
+	if 'author-first-name' in sorting:
+		computed_fields['author-first-name'] = {
+			'$first': {
+				'$split': [{'$first': '$authors'}, " "]
+			}
+		}
 
-	return aggregate, query
+	query = norm_query(query, ownerq)
+	aggregate: list[dict] = [
+		{'$addFields': computed_fields},
+		{'$match': norm_query(query, ownerq)},
+		{'$sort': sorting},
+	]
+
+	return aggregate
 
 
 def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting) -> list:
@@ -619,26 +667,18 @@ def get_books(filter: BookSearchFilter, start: int, count: int, sorting: Sorting
 	"""
 	books = []
 
-	if 'title' not in sorting['fields']:
-		sorting['fields'] += ['title']
-	if 'authors' not in sorting['fields'] and 'categories' not in sorting['fields']:
-		sorting['fields'] += ['authors']
-
 	sort = [(i, -1 if sorting['descending'] else 1) for i in sorting['fields']]
 
 	try:
-		aggregate, query = build_book_query(filter, sort)
+		aggregate = build_book_query(filter, sort)
 	except exceptions.UserDoesNotExistError:
 		return []
 
 	selection: Cursor | None = None
 
-	if aggregate:
-		aggr_filter = [{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}}]
-		for i in db.aggregate(aggregate + aggr_filter):
-			selection = i['results']
-	else:
-		selection = db.find(query, sort=sort).limit(count).skip(start)
+	pagination = [{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}}]
+	for i in db.aggregate(aggregate + pagination):
+		selection = i['results']
 
 	if selection is None:
 		return books
@@ -665,17 +705,14 @@ def count_books(filter: BookSearchFilter) -> int:
 		exceptions.UserDoesNotExistError: If the user specified in the filter does not exist.
 	"""
 	try:
-		aggregate, query = build_book_query(filter, [])
+		aggregate = build_book_query(filter, [])
 	except exceptions.UserDoesNotExistError:
 		return 0
 
-	if aggregate:
-		aggr_filter = [{'$facet': {'count': [{'$count': 'count'}]}}]
-		for i in db.aggregate(aggregate + aggr_filter):
-			ct = i['count']
-			return ct[0]['count'] if len(ct) else 0
-	else:
-		return db.count_documents(query)
+	pagination = [{'$facet': {'count': [{'$count': 'count'}]}}]
+	for i in db.aggregate(aggregate + pagination):
+		ct = i['count']
+		return ct[0]['count'] if len(ct) else 0
 
 	# Should never reach here, but just in case.
 	return 0

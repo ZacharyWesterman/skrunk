@@ -1,0 +1,81 @@
+There are more sorting and filtering options than just the default keyword search.<br>
+You can click the <i class="fa-solid fa-angles-down"></i> button to see more fields which can help you narrow down
+your search.
+
+<ul>
+	<li>
+		Owned by
+		<i>
+			<ul>
+				<li>
+					Select a user to filter to only books owned by them.
+				</li>
+			</ul>
+		</i>
+	</li>
+	<li>
+		Borrowed
+		<i>
+			<ul>
+				<li>
+					If checked<input type="checkbox" checked disabled />,
+					show only books that are currently borrowed.
+				</li>
+				<li>
+					If un-checked<input type="checkbox" disabled />,
+					show only books that are <b>not</b> borrowed.
+				</li>
+				<li>
+					If indeterminate<input type="checkbox" ternary indeterminate disabled />,
+					show both.
+				</li>
+			</ul>
+		</i>
+	</li>
+	<li>
+		Keywords/ISBN
+		<i>
+			<ul>
+				<li>
+					If input is a 10 or 13 digit number, it's assumed to be an ISBN.
+				</li>
+				<li>
+					Otherwise, keywords are searched for the most likely matches. These keywords may be found in any of
+					the Author, Category, Title, Sub-title, or Description fields.
+				</li>
+			</ul>
+		</i>
+	</li>
+	<li>
+		Author
+		<i>
+			<ul>
+				<li>
+					Filter by author name. If you just type something like
+					<span class="code">Lewis</span>, it will match all
+					authors whose name contains that text, however more complex queries can be made by typing in a
+					<a href="https://www.regular-expressions.info/quickstart.html" target="_blank">
+						regular expression <i class="fa-solid fa-link"></i></a>.
+					For example, to search for an author whose <i>last name</i> is "Lewis",
+					you would use <span class="code">\bLewis$</span>.
+				</li>
+			</ul>
+		</i>
+	</li>
+	<li>
+		Category
+		<i>
+			<ul>
+				<li>
+					Filter by category. If you just type something like
+					<span class="code">Fiction</span>, it will match all
+					categories containing that text, however more complex queries can be made by typing in a
+					<a href="https://www.regular-expressions.info/quickstart.html" target="_blank">
+						regular expression <i class="fa-solid fa-link"></i></a>.
+					For example, to search for a category that is fiction but <b>not</b> juvenile fiction,
+					you would use <span class="code">(?&lt;!Juvenile )Fiction</span>.
+				</li>
+			</ul>
+		</i>
+	</li>
+</ul>

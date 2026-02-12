@@ -13,38 +13,52 @@
 				</h3>
 			</div>
 			Owned by <div class="inline" name="owner" template="dropdown" *change="reset_and_search"></div> Borrowed
-			<input type="checkbox" id="shared" *click="reset_and_search" ternary indeterminate><br>
+			<input type="checkbox" id="shared" *click="reset_and_search" ternary indeterminate>
+			<span class="right tooltip" *click="show_search_help">
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-left">Help with filtering</span>
+			</span>
+			<br>
 
-			<input id="title" placeholder="Keywords/ISBN" *bind="reset_and_search"><button class="reset clickable"
-				*click="$.wipe('title'); reset_and_search()"><i class="fa-solid fa-circle-xmark fa-xl"></i></button>
+			<input id="title" placeholder="Keywords/ISBN" *bind="reset_and_search">
+			<button class="reset clickable" *click="$.wipe('title'); reset_and_search()">
+				<i class="fa-solid fa-circle-xmark fa-xl"></i>
+			</button>
 
 			<span name="qrcode-search"></span>
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
-					<input id="author" placeholder="Author (strict)" *bind="reset_and_search"><button
-						class="reset clickable" *click="$.wipe('author'); reset_and_search()"><i
-							class="fa-solid fa-circle-xmark fa-xl"></i></button><br>
-					<input id="genre" placeholder="Category" *bind="reset_and_search"><button class="reset clickable"
-						*click="$.wipe('genre'); reset_and_search()"><i
-							class="fa-solid fa-circle-xmark fa-xl"></i></button>
+					<input id="author" placeholder="Author" *bind="reset_and_search">
+					<button class="reset clickable" *click="$.wipe('author'); reset_and_search()">
+						<i class="fa-solid fa-circle-xmark fa-xl"></i>
+					</button>
+					<br>
+					<input id="genre" placeholder="Category" *bind="reset_and_search">
+					<button class="reset clickable" *click="$.wipe('genre'); reset_and_search()">
+						<i class="fa-solid fa-circle-xmark fa-xl"></i>
+					</button>
+
+					<br>
+					Sort in
+					<select id="sort-order" *bind="reset_and_search">
+						<option value="ascending">ascending</option>
+						<option value="descending">descending</option>
+					</select>
+					order:<br>
+					<ranked-choice id="sort-by" *change="reset_and_search">
+						<option value="title">Title</option>
+						<option value="author-last-name">Author (Last)</option>
+						<option value="author-first-name">Author (First)</option>
+						<option value="category">Category</option>
+						<option value="description">Description</option>
+						<option value="publisher">Publisher</option>
+						<option value="publish-date">Publish Date</option>
+						<option value="isbn">ISBN</option>
+					</ranked-choice>
 				</div>
 			</div>
 
-			Sort by
-			<select id="sort-by" *bind="reset_and_search">
-				<option value="title">Title</option>
-				<option value="authors">Author</option>
-				<option value="categories">Category</option>
-				<option value="description">Description</option>
-				<option value="publisher">Publisher</option>
-				<option value="publishedDate">Publish Date</option>
-			</select>
-			,
-			<select id="sort-order" *bind="reset_and_search">
-				<option value="ascending">ascending</option>
-				<option value="descending">descending</option>
-			</select>
 
 			<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>
 			<div id="error-message" class="emphasize hidden"></div>

@@ -403,7 +403,7 @@ export async function search_books() {
 		genre: genre,
 		shared: shared,
 	}
-	const res = await query.books.get(filter, BookStart, BookListLen, { fields: [$.val('sort-by') || 'title'], descending: $.val('sort-order') === 'descending' })
+	const res = await query.books.get(filter, BookStart, BookListLen, { fields: $.val('sort-by'), descending: $.val('sort-order') === 'descending' })
 
 	await _('book', {
 		books: res,
@@ -717,4 +717,13 @@ export async function update_qr_code(rfid, id) {
 	setTimeout(() => {
 		edit_book(code)
 	}, 500)
+}
+
+export async function show_search_help() {
+	const choice = await _.modal({
+		type: 'info',
+		title: 'How to effectively filter books.',
+		text: api.snippit('book-searching'),
+		buttons: ['OK'],
+	}).catch(() => { })
 }
