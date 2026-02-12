@@ -158,5 +158,24 @@ window.date = {
 			return 'Just now'
 		else
 			return (direction === 'ago') ? output.join(', ') + ' ' + direction : direction + ' ' + output.join(', ')
-	}
+	},
+
+	/**
+	 * Convert a time into the user's time zone, with hourly resolution.
+	 * 
+	 * For example, "11:00 CST" could be converted to "12PM" if the user is in the EST time zone.
+	 * 
+	 * @param {string|Date} date_obj The date/time to convert to the user's time zone.
+	 * @param {bool|null} ampm If true, output in 12-hour (AM/PM) time format. Otherwise output in 24-hour time.
+	 * @returns {string} The converted time.
+	 */
+	hour: function (date_obj) {
+		console.log(`01/01/01 ${date_obj}`)
+		const dt = (typeof date_obj === 'string') ? new Date(`01/01/01 ${date_obj}`) : date_obj
+
+		const hours = String(dt.getHours() % 12)
+		const suffix = dt.getHours() >= 12 ? 'PM' : 'AM'
+
+		return hours + suffix
+	},
 }

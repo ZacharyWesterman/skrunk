@@ -1,7 +1,7 @@
 <div class="card alt">
 	<div class="card-inner">
 		<h4><b>Weather API Status</b></h4>
-		<i>Routine is run once per hour from 6AM to 10PM.</i><br>
+		<i>Routine is run once per hour from {{= date.hour("6:00 CST") }} to {{= date.hour("22:00 CST") }}.</i><br>
 		Last Run: {{?it}}{{= date.output(it.timestamp) }}<br><span class="suppress">({{=date.elapsed(it.timestamp)}})</span>{{??}}Never{{?}}
 		{{?it}}{{?it.error !== null}}<span class="emphasis"><b>RUNTIME ERROR:</b> {{=it.error}}</span>{{?}}{{?}}
 	</div>
