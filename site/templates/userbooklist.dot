@@ -18,7 +18,7 @@
 			{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
 			<div class="suppress">By {{=book.authors.join(', ')}}</div>
 		</span>
-		<table class="clickable" *toggles="card-{{=book.id}}" {{?book.has_description && !environment.mobile}}*hover="load_description('{{= book.id }}')"{{?}} style="padding-left:0;">
+		<table class="clickable" *toggles="card-{{=book.id}}" {{?book.has_description && !environment.mobile}}*hover="load_description('{{= book.id }}')"{{?}} style="padding-left:0;width:100%;">
 			<tr>
 				{{?book.thumbnail}}
 					<td>
