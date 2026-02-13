@@ -1,37 +1,48 @@
 <div class="page">
 	<h1>
 		<i class="fa-solid fa-bookmark fa-xl"></i>
-		Catalog Books
+		Catalog books
 	</h1>
 	<div class="card alt">
 		<div class="card-inner">
-			<p>
-				Input the title/author/ISBN, then select a result.
-				<span class="tooltip" *click="help">
-					<i class="fa-solid fa-circle-question"></i>
-					<span class="tooltiptext t-center">How does this work?</span>
-				</span>
-			</p>
+			Input the title/author/ISBN, then select a result.
+			<hr>
 
 			<input id="new-tagid" format="hex" hidden>
-			<button class="icon clickable right alt" style="margin-top:.1rem" *click="create_book"><i class="fa-solid fa-square-plus fa-xl"></i></button>
+			<button class="icon clickable right alt" style="margin-top:.1rem" *click="create_book">
+				<i class="fa-solid fa-square-plus fa-xl"></i>
+			</button>
 
 			Owner is <span name="new-owner" template="dropdown"></span>
 
 			<table>
 				<tr>
 					<td><input id="new-title" *bind="search_books" placeholder="Search for Title, Author, etc."></td>
-					<td><div class="button clickable" *click="$.wipe('new-title'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+					<td>
+						<div class="button clickable" *click="$.wipe('new-title'); search_books()">
+							<i class="fa-solid fa-circle-xmark fa-lg"></i>
+						</div>
+					</td>
+					<td style="width: 100%;">
+						<span class="tooltip" *click="help">
+							<i class="fa-solid fa-circle-question fa-lg"></i>
+							<span class="tooltiptext t-center">How does this work?</span>
+						</span>
+					</td>
 				</tr>
 				<tr>
 					<td><input id="new-author" *bind="search_books" placeholder="Author (Strict)"></td>
-					<td><div class="button clickable" *click="$.wipe('new-author'); search_books()"><i class="fa-solid fa-circle-xmark fa-lg"></i></div></td>
+					<td>
+						<div class="button clickable" *click="$.wipe('new-author'); search_books()">
+							<i class="fa-solid fa-circle-xmark fa-lg"></i>
+						</div>
+					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
 
-	<div name="booklist"></div>
+	<!-- <div name="booklist"></div> -->
 </div>
 
 <script src="/js/page/books_new.js" async></script>
