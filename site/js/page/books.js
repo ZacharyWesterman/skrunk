@@ -46,9 +46,6 @@ export async function init() {
 
 		_.modal.checkmark()
 
-		$.hide('book-header')
-		$.hide('book-footer')
-
 		await _('book', {
 			books: [res],
 			is_admin: SelfUserData.perms.includes('admin'),
@@ -383,9 +380,6 @@ export async function reset_and_search() {
 }
 
 export async function search_books() {
-	$.show('book-header')
-	$.show('book-footer')
-
 	if (!valid_fields()) return
 
 	reload_book_count()
