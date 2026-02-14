@@ -1,4 +1,4 @@
 <span class="tooltip right">
-	<i class="clickable fa-solid fa-qrcode fa-lg" *click="search_by_qrcode"></i>
-	<span class="tooltiptext t-left">Search by QR</span>
+	<i class="clickable fa-brands fa-nfc-symbol fa-xl" *click="search_by_rfid_qr"></i>
+	<span class="tooltiptext t-left">Search by RFID/QR</span>
 </span>

@@ -630,8 +630,8 @@ async function request_book(is_shared, bookinfo, id, owner) {
 	}).catch(() => { })
 }
 
-export async function search_by_qrcode() {
-	const qrcode = await qr.load_and_process()
+export async function search_by_rfid_qr() {
+	const qrcode = await _.modal.scanner()
 	if (qrcode !== null) {
 		$('tagid').value = $.enforce.hex(qrcode)
 		manual_input()
