@@ -34,7 +34,9 @@ export default {
 			}`)
 		}
 
-		return query.users.__user_list.books.map(i => { return { value: i.username, display: i.display_name } })
+		return query.users.__user_list.books
+			.map(i => { return { value: i.username, display: i.display_name } })
+			.sort((a, b) => a.display.localeCompare(b.display))
 	},
 
 	sessions: async username => {
