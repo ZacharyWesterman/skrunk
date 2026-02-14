@@ -42,7 +42,7 @@ def get(path: str) -> Response:
 
 	path = files.sanitize_path(path)
 
-	jsfields = re.match(r'js/fields/[\w-]+\.js', path)
+	jsfields = re.match(r'js/(fields|elements)/[\w-]+\.js', path)
 	styles = re.match(r'css/[\w-]+\.css', path)
 	if not auth.authorized() and path not in __NO_AUTH_FILES and not jsfields and not styles:
 		return Response('Access denied.', 403)
