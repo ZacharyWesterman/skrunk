@@ -38,7 +38,7 @@ export async function init() {
 			_.modal({
 				type: 'error',
 				title: 'Book Not Found',
-				text: 'No book has been linked with this tag.',
+				text: `No book has been linked with this tag.<p style="font-size: 60%">${event.serialNumber}</p>`,
 				buttons: ['OK'],
 			}).catch(() => { })
 			return
