@@ -367,9 +367,11 @@ modal.scanner = async () => {
 		buttons: EnabledModules.includes('qr') ? [['Use QR', '<i class="fa-solid fa-qrcode"></i> Use QR'], 'Cancel'] : ['Cancel'],
 	}, () => {
 		const field = $('rfid_manual_input')
-		$.bind(field, () => {
+		field.onchange = () => {
+			// Make sure this doesn't get called again!
+			delete field.onchange
 			_.modal.return(field.value)
-		})
+		}
 
 		function keep_focus() {
 			if (modal.scanner._awaiting) {
