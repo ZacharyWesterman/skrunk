@@ -181,7 +181,7 @@ window.set_field_logic = async function (DOM, url, module) {
 				const key = field.getAttribute(`*${attr}`) || field.getAttribute(`__${attr}`)
 
 				if (key[0] === '*') {
-					set_trigger(field, attr, attr)
+					set_trigger(field, attr, key.substring(1))
 					return
 				}
 
