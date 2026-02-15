@@ -20,11 +20,14 @@ ranked-choice {
 	padding-left: 2px;
 }
 
-ranked-choice>option {
+ranked-choice>button {
 	height: 1.5rem;
 	position: relative;
 	height: auto;
 	transition: all .5s ease-in-out;
 	border-radius: var(--border-radius);
 	font-size: 80%;
+	display: block;
+	width: 100%;
+	text-align: left;
 }
