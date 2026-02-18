@@ -1,12 +1,6 @@
 let BlobStart = 0
 let BlobListLen = 15
 
-let Editor
-
-//Load Yace only when needed
-import Yace from '/js/libs/yace.js' //For code editing textareas
-window.Yace = Yace
-
 await mutate.require('blobs')
 await query.require('blobs')
 await query.require('users')
@@ -20,19 +14,13 @@ export async function init() {
 	})
 	$('blob-filter-creator').onchange = reset_and_search
 
-	Editor = new Yace("#tag-query", {
-		value: "",
-		lineNumbers: false,
-		highlighter: tag_highlight,
-	})
-	Editor.textarea.spellcheck = false
-
 	//Load query from urlparams (if it's there)
 	let q = {}
 	try { q = JSON.parse(environment.get_param('query')) } catch { }
 	for (const i in q) {
-		if (i === 'tag') Editor.update({ value: q[i] })
-		else {
+		if (i === 'tag') {
+			$('tag-query').value = q[i]
+		} else {
 			const f = $('blob-filter-' + i)
 			if (f.type === 'checkbox') f.checked = q[i]
 			else f.value = q[i]
@@ -40,10 +28,6 @@ export async function init() {
 			$('toggle-chevron').classList.add('inverted')
 		}
 	}
-
-	$.bind(Editor.textarea, () => {
-		reset_and_search()
-	}, 500, true)
 
 	$.bind('blob-filter-title', reset_and_search)
 
@@ -57,16 +41,18 @@ export async function init() {
 		_.modal.upload.return = old_modal_retn
 		environment.set_param('query', null)
 	})
+
+	reset_and_search()
 }
 
 export function wipe_tag_editor() {
-	Editor.update({ value: '' })
+	$('tag-query').value = ''
 	reset_and_search()
 }
 
 export function set_tag_editor_value(text) {
 	const t = text.match(/^\w+$/) ? text : ('"' + text + '"')
-	Editor.update({ value: (Editor.textarea.value === t) ? '' : t })
+	$('tag-query').value = $.val('tag-query') === t ? '' : t
 	reset_and_search()
 }
 
@@ -76,6 +62,7 @@ async function get_blobs(start, count) {
 	const date_from = date.from_field('blob-filter-from')
 	const date_to = date.from_field('blob-filter-to', 1)
 	const ephemeral = $.checked('blob-filter-ephemeral')
+	const tag_query = $.val('tag-query')
 
 	let q = {}
 	let has = false
@@ -87,8 +74,8 @@ async function get_blobs(start, count) {
 			has = true
 		}
 	}
-	if (Editor.value) {
-		q.tag = Editor.value
+	if (tag_query) {
+		q.tag = tag_query
 		has = true
 	}
 	environment.set_param('query', has && JSON.stringify(q))
@@ -97,7 +84,7 @@ async function get_blobs(start, count) {
 		creator,
 		start,
 		count,
-		Editor.value,
+		tag_query,
 		date_from,
 		date_to,
 		title,
@@ -133,7 +120,8 @@ async function reload_page_list() {
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to', 1) || null
 	const ephemeral = $.checked('blob-filter-ephemeral')
-	const res = await query.blobs.count(creator, Editor.value, date_from, date_to, title, ephemeral)
+	const tag_query = $.val('tag-query')
+	const res = await query.blobs.count(creator, tag_query, date_from, date_to, title, ephemeral)
 	if (res.__typename !== 'BlobCount') {
 		$('tag-error').innerText = res.message
 		return
@@ -332,8 +320,9 @@ export async function download_all() {
 	const date_from = date.from_field('blob-filter-from') || null
 	const date_to = date.from_field('blob-filter-to') || null
 	const ephemeral = $.checked('blob-filter-ephemeral')
+	const tag_query = $.val('tag-query')
 
-	const size = await query.blobs.size(creator, Editor.value, date_from, date_to, title, ephemeral)
+	const size = await query.blobs.size(creator, tag_query, date_from, date_to, title, ephemeral)
 
 	if (size.__typename !== 'BlobCount') {
 		_.modal({
@@ -410,7 +399,7 @@ export async function download_all() {
 		})
 	})
 
-	const zip = await mutate.blobs.create_zip(creator, Editor.value, date_from, date_to, title, ephemeral, uid)
+	const zip = await mutate.blobs.create_zip(creator, tag_query, date_from, date_to, title, ephemeral, uid)
 	do_polling = false
 
 	if (cancelled) {

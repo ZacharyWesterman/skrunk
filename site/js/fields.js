@@ -6,6 +6,7 @@ import Events from './fields/events.js'
 import Control from './fields/control.js'
 
 import './elements/ranked-choice.js'
+import './elements/code-input.js'
 
 let _ = Template
 _.modal = Modal

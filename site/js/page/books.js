@@ -359,13 +359,18 @@ export async function navigate_to_page(page_num) {
 }
 
 function valid_fields() {
+	const fields = ['author', 'title', 'genre']
+
 	$.hide('error-message')
-	for (const i of ['author', 'title', 'genre']) {
+	fields.forEach(i => $.valid(i))
+
+	for (const i of fields) {
 		try {
 			new RegExp($.val(i))
 		}
 		catch (e) {
 			$('error-message').innerText = `Invalid RegEx in "${i}" field: ${e.message}.`
+			$.invalid(i)
 			$.show('error-message', true)
 			return false
 		}

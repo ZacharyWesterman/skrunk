@@ -12,7 +12,8 @@ function lexer(src) {
 		global: [
 			[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
 			[/^(eq|lt|gt|le|ge|equals?|exact(ly)?|min(imum)?|max(imum)?|fewer|greater|below|above)\b/i, 'func'],
-			[/^"(\\"|[^"])*"/, 'str'],
+			[/^[<>=]/, 'func'],
+			[/^"(\\"|[^"])*"?/, 'str'],
 			[/^[a-zA-Z0-9_\.]+/, 'str'],
 			[/^\*/, 'wild'],
 			[/^\{/, 'regex-delim', 'regex'],
@@ -62,7 +63,7 @@ function render(tokens) {
 	}).join('')
 }
 
-window.tag_highlight = function (src) {
+export default function (src) {
 	const tokens = lexer(src)
 	return render(tokens)
 }

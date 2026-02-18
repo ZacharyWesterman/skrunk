@@ -37,16 +37,17 @@
 			</div>
 
 			<!-- Editor for tag query -->
-			Tag Query
-			<span class="tooltip" *click="show_tags_how_to">
-				<i class="fa-solid fa-circle-question"></i>
-				<span class="tooltiptext t-center">What is this?</span>
+			<code-input id="tag-query" style="width: calc(100% - 5rem);" syntax="tag-query" placeholder="Tag Query"
+				*bind="reset_and_search"></code-input>
+			<span class="right">
+				<button class="reset clickable" *click="wipe_tag_editor">
+					<i class="fa-solid fa-circle-xmark fa-xl"></i>
+				</button>
+				<span class="tooltip" *click="show_tags_how_to">
+					<i class="fa-solid fa-circle-question fa-lg"></i>
+					<span class="tooltiptext t-center">What is this?</span>
+				</span>
 			</span>
-
-			<br><span class="code-input" id="tag-query"></span>
-			<button class="reset clickable right" *click="wipe_tag_editor">
-				<i class="fa-solid fa-circle-xmark fa-xl"></i>
-			</button>
 
 			<div class="emphasize" id="tag-error"></div>
 
@@ -77,6 +78,6 @@
 			<div name="page-list"></div>
 		</div>
 	</div>
+</div>
 
-	<script src="/js/util/tag_syntax.js"></script>
-	<script src="/js/page/file_list.js"></script>
+<script src="/js/page/file_list.js"></script>
