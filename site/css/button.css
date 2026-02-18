@@ -56,7 +56,13 @@ button.icon.alt {
 button.reset {
 	background: none;
 	border: none;
-	margin-bottom: 0.3rem;
+	margin-bottom: -0.3rem;
+}
+
+button.reset.shove-up {
+	margin-bottom: 0;
+	position: relative;
+	top: -7px;
 }
 
 button.modal-button {

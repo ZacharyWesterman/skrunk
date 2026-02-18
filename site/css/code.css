@@ -1,11 +1,14 @@
 code-input {
-	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 	background-color: #EEEEEE;
 	border-radius: var(--border-radius);
 	padding: 3px;
 	color: black;
 	display: inline-block;
-	width: calc(100% - 3rem);
+	min-width: 190px;
+}
+
+code-input.monospace {
+	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 }
 
 .code {
