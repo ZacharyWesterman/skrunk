@@ -1,22 +1,24 @@
 function lexer(src) {
 	const scopes = {
-		regex: [
-			[/^\}/, 'regex-delim', true],
+		global: [
 			[/^\\./, 'regex-escape'],
+			[/^\(\?(<!?|[=!])/, 'regex-punct'],
+			[/^\(\?/, 'regex-punct'],
 			[/^[\[\]\(\)\{\}]/, 'regex-punct'],
 			[/^[$.*+^]/, 'wild'],
 			[/^.\-([^\]]|\\.)/, 'regex-range'],
-			[/^./, 'str'],
+			// [/^./, 'str'],
 		],
 
-		global: [
-			[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
-			[/^(eq|lt|gt|le|ge|equals?|exact(ly)?|min(imum)?|max(imum)?|fewer|greater|below|above)\b/i, 'func'],
-			[/^"(\\"|[^"])*"/, 'str'],
-			[/^[a-zA-Z0-9_\.]+/, 'str'],
-			[/^\*/, 'wild'],
-			[/^\{/, 'regex-delim', 'regex'],
-		]
+		// global: [
+		// 	[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
+		// 	[/^(eq|lt|gt|le|ge|equals?|exact(ly)?|min(imum)?|max(imum)?|fewer|greater|below|above)\b/i, 'func'],
+		// 	[/^[<>=]/, 'func'],
+		// 	[/^"(\\"|[^"])*"?/, 'str'],
+		// 	[/^[a-zA-Z0-9_\.]+/, 'str'],
+		// 	[/^\*/, 'wild'],
+		// 	[/^\{/, 'regex-delim', 'regex'],
+		// ]
 	}
 
 	let types = scopes.global
@@ -38,7 +40,6 @@ function lexer(src) {
 					} else {
 						scope_stack.push(types)
 						types = scopes[type[2]]
-						console.log(types)
 					}
 				}
 
@@ -58,11 +59,12 @@ function lexer(src) {
 
 function render(tokens) {
 	return tokens.map(token => {
-		return token.length > 1 ? `<span class="${token[1]}">${token[0]}</span>` : token[0]
+		const text = token[0].replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+		return token.length > 1 ? `<span class="${token[1]}">${text}</span>` : text
 	}).join('')
 }
 
-window.tag_highlight = function (src) {
+export default function (src) {
 	const tokens = lexer(src)
 	return render(tokens)
 }

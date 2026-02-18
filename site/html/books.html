@@ -29,13 +29,13 @@
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
-					<input id="author" placeholder="Author" *bind="reset_and_search">
-					<button class="reset clickable" *click="$.wipe('author'); reset_and_search()">
+					<code-input id="author" placeholder="Author" *bind="reset_and_search" syntax="regex"></code-input>
+					<button class="reset clickable shove-up" *click="$.wipe('author'); reset_and_search()">
 						<i class="fa-solid fa-circle-xmark fa-xl"></i>
 					</button>
 					<br>
-					<input id="genre" placeholder="Category" *bind="reset_and_search">
-					<button class="reset clickable" *click="$.wipe('genre'); reset_and_search()">
+					<code-input id="genre" placeholder="Category" *bind="reset_and_search" syntax="regex"></code-input>
+					<button class="reset clickable shove-up" *click="$.wipe('genre'); reset_and_search()">
 						<i class="fa-solid fa-circle-xmark fa-xl"></i>
 					</button>
 
@@ -61,7 +61,7 @@
 
 
 			<input id="tagid" format="hex" placeholder="Tag ID" *bind="manual_input" hidden>
-			<div id="error-message" class="emphasize hidden"></div>
+			<div id="error-message" class="emphasis hidden"></div>
 
 			<div name="page-list"></div>
 		</div>
