@@ -44,12 +44,6 @@ class CodeInput extends HTMLElement {
 			if (this.onchange) {
 				this.onchange()
 			}
-			if (this.onblur) {
-				this.onblur()
-			}
-			if (this.onclick) {
-				this.onclick()
-			}
 		}
 
 		const placeholder = this.getAttribute('placeholder')
