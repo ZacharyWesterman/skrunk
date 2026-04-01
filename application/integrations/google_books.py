@@ -121,6 +121,9 @@ def get(*, id: str) -> dict:
 	)
 
 	url = f'https://www.googleapis.com/books/v1/volumes/{id}?fields={response_fields}'
+	if api_key := get_config('google_books'):
+		url += f'&key={api_key}'
+
 	response = requests.get(url, timeout=10)
 	if response.status_code < 200 or response.status_code >= 300:
 		raise exceptions.ApiFailedError(
