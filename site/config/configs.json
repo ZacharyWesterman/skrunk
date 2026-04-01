@@ -4,6 +4,11 @@
 		"name": "Administrator Email"
 	},
 	{
+		"id": "google_books",
+		"name": "Google Books API Key",
+		"module": "books"
+	},
+	{
 		"id": "subsonic:url",
 		"name": "Subsonic Server URL",
 		"module": "subsonic"

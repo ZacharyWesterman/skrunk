@@ -6,6 +6,8 @@ import re
 
 import requests
 
+from application.db.settings import get_config
+
 from . import exceptions
 
 
@@ -68,6 +70,9 @@ def query(*, title: str = '', author: str = '') -> list:
 		'https://www.googleapis.com/books/v1/volumes' +
 		f'?q={text_query}&fields={response_fields}&orderBy=relevance&maxResults=20'
 	)
+	if api_key := get_config('google_books'):
+		url += f'&key={api_key}'
+
 	response = requests.get(url, timeout=10)
 	if response.status_code < 200 or response.status_code >= 300:
 		raise exceptions.ApiFailedError(
