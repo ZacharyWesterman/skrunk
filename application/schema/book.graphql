@@ -10,9 +10,9 @@ type Book {
 	"""The authors of the book."""
 	authors: [String!]!
 	"""The publisher of the book."""
-	publisher: String!
+	publisher: String
 	"""The date the book was published."""
-	publishedDate: Date!
+	publishedDate: Date
 	"""Whether the book has a description."""
 	has_description: Boolean!
 	"""The description of the book, if available."""

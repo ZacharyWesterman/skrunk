@@ -26,9 +26,9 @@ class Book(TypedDict):
 	## The authors of the book.
 	authors: list[str]
 	## The publisher of the book.
-	publisher: str
+	publisher: str | None
 	## The date the book was published.
-	publishedDate: datetime
+	publishedDate: datetime | None
 	## Whether the book has a description.
 	has_description: bool
 	## The description of the book, if available.
