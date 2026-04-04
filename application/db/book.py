@@ -425,6 +425,7 @@ def create_book(owner: str, data: dict) -> dict:
 		'owner': owner_data['_id'],
 		'shared': False,
 		'shareHistory': [],
+		'ownerHistory': [],
 		'lastSync': datetime.utcnow(),
 		'created': datetime.utcnow(),
 		'noSyncFields': [],
