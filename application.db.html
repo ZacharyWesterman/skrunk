@@ -1330,21 +1330,25 @@ List is limited to only those users who have books cataloged.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="application.db.book.next_out_of_date_book_rfid">
-<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">next_out_of_date_book_rfid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.next_out_of_date_book_rfid" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="application.db.book.list_books_not_synced">
+<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">list_books_not_synced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">since</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.list_books_not_synced" title="Link to this definition">#</a></dt>
 <dd><p>Retrieve the RFID of the next book that is out of date.</p>
 <p>This function queries the database for a book whose ‘lastSync’ field is
 earlier than the specified ‘before’ datetime. If such a book is found,
 its RFID is returned. If no such book is found, None is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>before</strong> (<em>datetime</em>) – The cutoff datetime to find books that are out of date.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>since</strong> (<em>datetime</em>) – The cutoff datetime to find books that are out of date.</p></li>
+<li><p><strong>start</strong> (<em>int</em>) – The start index, for pagination.</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – The number of items to retrieve, for pagination.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The RFID of the next out-of-date book, or None if no such book is found.</p>
+<dd class="field-even"><p>The book IDs of the any out-of-date books that were found.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
+<dd class="field-odd"><p>list[str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1416,27 +1420,6 @@ If the user does not exist, ‘display_name’ is set to ‘name’.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="application.db.book.refresh_book_data">
-<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">refresh_book_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rfid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.refresh_book_data" title="Link to this definition">#</a></dt>
-<dd><p>Refreshes the book data in the database using the provided RFID.</p>
-<p>This function retrieves the book data from the database using the RFID,
-fetches updated book information from the Google Books API, and updates
-the database with the new information. If the book data does not exist
-in the database, it raises a BookTagDoesNotExistError.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rfid</strong> (<em>str</em>) – The RFID of the book to refresh.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagDoesNotExistError" title="application.exceptions.BookTagDoesNotExistError"><strong>BookTagDoesNotExistError</strong></a> – If the book data does not exist in the database.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1588,6 +1571,30 @@ in the database, it raises a BookTagDoesNotExistError.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="application.integrations.subsonic.html#application.integrations.subsonic.subsonic_client.SubsonicClient" title="application.integrations.subsonic.subsonic_client.SubsonicClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubsonicClient</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.book.sync_book_data">
+<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">sync_book_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.sync_book_data" title="Link to this definition">#</a></dt>
+<dd><p>Refreshes the book data in the database using the provided RFID.</p>
+<p>This function retrieves the book data from the database using the RFID,
+fetches updated book information from the Google Books API, and updates
+the database with the new information. If the book data does not exist
+in the database, it raises a BookTagDoesNotExistError.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – The book ID to refresh.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the book data after refreshing.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagDoesNotExistError" title="application.exceptions.BookTagDoesNotExistError"><strong>BookTagDoesNotExistError</strong></a> – If the book data does not exist in the database.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4385,11 +4392,10 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.keyword_tokenize"><code class="docutils literal notranslate"><span class="pre">keyword_tokenize()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.link_book_tag"><code class="docutils literal notranslate"><span class="pre">link_book_tag()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.next_out_of_date_book_rfid"><code class="docutils literal notranslate"><span class="pre">next_out_of_date_book_rfid()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.list_books_not_synced"><code class="docutils literal notranslate"><span class="pre">list_books_not_synced()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.norm_query"><code class="docutils literal notranslate"><span class="pre">norm_query()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.process_book_tag"><code class="docutils literal notranslate"><span class="pre">process_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.process_share_hist"><code class="docutils literal notranslate"><span class="pre">process_share_hist()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.refresh_book_data"><code class="docutils literal notranslate"><span class="pre">refresh_book_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.relink_book_tag"><code class="docutils literal notranslate"><span class="pre">relink_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.remove_ebook"><code class="docutils literal notranslate"><span class="pre">remove_ebook()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.return_book"><code class="docutils literal notranslate"><span class="pre">return_book()</span></code></a></li>
@@ -4397,6 +4403,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.share_book_with_non_user"><code class="docutils literal notranslate"><span class="pre">share_book_with_non_user()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.share_book_with_user"><code class="docutils literal notranslate"><span class="pre">share_book_with_user()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.subsonic_init"><code class="docutils literal notranslate"><span class="pre">subsonic_init()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.sync_book_data"><code class="docutils literal notranslate"><span class="pre">sync_book_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.unlink_book_tag"><code class="docutils literal notranslate"><span class="pre">unlink_book_tag()</span></code></a></li>
 </ul>
 </li>
