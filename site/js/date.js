@@ -170,7 +170,6 @@ window.date = {
 	 * @returns {string} The converted time.
 	 */
 	hour: function (date_obj) {
-		console.log(`01/01/01 ${date_obj}`)
 		const dt = (typeof date_obj === 'string') ? new Date(`01/01/01 ${date_obj}`) : date_obj
 
 		const hours = String(dt.getHours() % 12)

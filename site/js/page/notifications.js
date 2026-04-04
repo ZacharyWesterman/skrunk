@@ -83,8 +83,7 @@ export async function mark_as_read(id) {
 	})
 
 	// Remove ONLY the notification that was marked as read.
-	await $.hide(id, true)
-	$(id).remove();
+	const hide_and_remove_old_notif = $.hide(id, true).then(() => $(id).remove())
 
 	// Fetch another notification, and add it to the list.
 	const items = await read_notifs((CurrentPage + 1) * LookupListLen - 1, 1)
@@ -100,6 +99,12 @@ export async function mark_as_read(id) {
 
 	refresh_page_list()
 	push.show_notifs()
+	await hide_and_remove_old_notif
+
+	// Show 'all done' message when last notif is removed.
+	if (!$('lookup-results').children.length) {
+		await _('lookup-results', [])
+	}
 }
 
 export async function mark_all_notifs_as_read() {

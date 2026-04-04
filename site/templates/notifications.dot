@@ -1,5 +1,5 @@
 {{? !it.length }}
-<p>Woohoo! You're all caught up!</p>
+<p style="text-align: center;">All caught up!</p>
 {{?}}
 
 {{~ it : notif }}
