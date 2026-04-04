@@ -200,6 +200,7 @@ union BookTagUpdateResponse = Book | BookTagDoesNotExistError | InsufficientPerm
 union BookTagShareResponse = Book | BookTagDoesNotExistError | BookCannotBeShared | UserDoesNotExistError | InsufficientPerms
 union BookEditResponse = Book | BookTagDoesNotExistError | UserDoesNotExistError | InsufficientPerms
 union BookTagRelinkResponse = Book | BookTagDoesNotExistError | BookTagExistsError | UserDoesNotExistError | InsufficientPerms
+union BookSyncResponse = Book | BookTagDoesNotExistError | InsufficientPerms | ApiFailedError
 
 #Resolvers below this line:
 
@@ -211,12 +212,14 @@ extend type Query {
 	getBookByTag(rfid: String!): BookResponse!
 	countAllUserBooks: [UserBookCount!]!
 	listUsersWithBooks: [UserMinData!]!
+	listBooksNotSynced(since: DateTime!, start: Int!, count: Int!): [String!]!
 }
 
 extend type Mutation {
 	linkBookTag(owner: String!, rfid: String!, bookId: String!): BookTagCreateResponse!
 	unlinkBookTag(rfid: String!): BookTagDeleteResponse!
 	relinkBookTag(id: String!, rfid: String!): BookTagRelinkResponse!
+	syncBookData(id: String!): BookSyncResponse!
 
 	borrowBook(id: String!): BookTagShareResponse!
 	requestToBorrowBook(id: String!): NotificationResponse!
