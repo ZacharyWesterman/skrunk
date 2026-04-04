@@ -1,6 +1,6 @@
 """application.db.datafeed"""
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 import markdown
 from bson.objectid import ObjectId
@@ -124,7 +124,7 @@ def create_feed(name: str, url: str, kind: str, notify: bool) -> dict:
 		'kind': kind,
 		'notify': notify,
 		'creator': user_data['_id'],
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'inactive': False,
 		'current_page': None,
 		'current_sort': None,
@@ -319,7 +319,7 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 		'posted': posted,
 		'title': title,
 		'body': body,
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'updated': None,
 		'url': url,
 		'read': False,
@@ -343,7 +343,7 @@ def update_document(id: str, body: str) -> dict:
 		dict: The updated document.
 	"""
 	document = get_document(id)
-	updated = datetime.utcnow()
+	updated = datetime.now(UTC)
 
 	db.documents.update_one({'_id': ObjectId(id)}, {'$set': {
 		'body': body,

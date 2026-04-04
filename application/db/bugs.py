@@ -3,7 +3,7 @@ This module handles all bug report functionalities, including reporting new bugs
 commenting on bugs, retrieving bug reports, and managing their statuses.
 """
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 import markdown
 from bson.objectid import ObjectId
@@ -31,7 +31,7 @@ def report_bug(text: str) -> dict:
 	user_data = caller_info_strict()
 
 	bug_report = {
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'creator': user_data['_id'],
 		'body': text,
 		'convo': [],
@@ -65,7 +65,7 @@ def comment_on_bug(id: str, text: str) -> dict:
 		raise exceptions.BugReportDoesNotExistError(id)
 
 	convo_data = {
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'creator': user_data['_id'],
 		'body': text,
 	}

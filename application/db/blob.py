@@ -9,7 +9,7 @@ import mimetypes
 import pathlib
 import shutil
 import uuid
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from zipfile import ZIP_DEFLATED, Path, ZipFile
 
 import tag_query
@@ -57,7 +57,7 @@ def init() -> None:
 	for i in db.find({
 		'ephemeral': True,
 		'references': 0,
-		'created': {'$lt': datetime.utcnow() - timedelta(hours=12)}
+		'created': {'$lt': datetime.now(UTC) - timedelta(hours=12)}
 	}):
 		delete_blob(i['_id'])
 		deleted_ct += 1
@@ -327,7 +327,7 @@ def create_blob(
 	auto_tags = get_tags_from_mime(mime)
 
 	return str(db.insert_one({
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'name': name,
 		'ext': ext,
 		'mimetype': real_mime,
