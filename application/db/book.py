@@ -268,7 +268,7 @@ def get_book(id: str, *, parse: bool = False) -> dict:
 	return process_book_tag(book_data) if parse else book_data
 
 
-def next_out_of_date_book_rfid(before: datetime) -> str | None:
+def list_books_not_synced(since: datetime, start: int, count: int) -> list[str]:
 	"""
 	Retrieve the RFID of the next book that is out of date.
 
@@ -277,19 +277,19 @@ def next_out_of_date_book_rfid(before: datetime) -> str | None:
 	its RFID is returned. If no such book is found, None is returned.
 
 	Args:
-		before (datetime): The cutoff datetime to find books that are out of date.
+		since (datetime): The cutoff datetime to find books that are out of date.
+		start (int): The start index, for pagination.
+		count (int): The number of items to retrieve, for pagination.
 
 	Returns:
-		str: The RFID of the next out-of-date book, or None if no such book is found.
+		list[str]: The book IDs of the any out-of-date books that were found.
 	"""
-	book_data = db.find_one({'lastSync': {'$lt': before}})
-	if book_data is None:
-		return None
+	selection = db.find({'lastSync': {'$lt': since}}).skip(start).limit(count)
 
-	return book_data['rfid']
+	return [i['_id'] for i in selection]
 
 
-def refresh_book_data(rfid: str) -> None:
+def sync_book_data(id: str) -> dict:
 	"""
 	Refreshes the book data in the database using the provided RFID.
 
@@ -299,15 +299,18 @@ def refresh_book_data(rfid: str) -> None:
 	in the database, it raises a BookTagDoesNotExistError.
 
 	Args:
-		rfid (str): The RFID of the book to refresh.
+		id (str): The book ID to refresh.
+
+	Returns:
+		dict: A dictionary containing the book data after refreshing.
 
 	Raises:
 		BookTagDoesNotExistError: If the book data does not exist in the database.
 	"""
-	book_data = db.find_one({'rfid': rfid})
+	book_data = db.find_one({'_id': ObjectId(id)})
 
 	if book_data is None:
-		raise exceptions.BookTagDoesNotExistError(rfid)
+		raise exceptions.BookTagDoesNotExistError(id)
 
 	google_book_data = google_books.get(id=book_data['bookId'])
 
@@ -327,7 +330,12 @@ def refresh_book_data(rfid: str) -> None:
 
 	updated['keywords'] = build_keywords({**book_data, **updated})
 
-	db.update_one({'rfid': rfid}, {'$set': updated})
+	db.update_one({'_id': ObjectId(id)}, {'$set': updated})
+
+	return {
+		**book_data,
+		**updated,
+	}
 
 
 def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:

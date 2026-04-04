@@ -7,10 +7,6 @@ from ariadne import ScalarType
 ## Define a scalar type for datetime
 scalar = ScalarType('DateTime')
 
-# @scalar.serializer
-# def serialize_datetime(value: datetime) -> str:
-# 	return value.strftime('%Y-%m-%d %H:%M:%S')
-
 
 @scalar.value_parser
 def parse_datetime_value(value: str) -> datetime:
@@ -26,4 +22,14 @@ def parse_datetime_value(value: str) -> datetime:
 	Raises:
 		ValueError: If the input string does not match the expected format.
 	"""
-	return datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
+	try:
+		return datetime.fromisoformat(value)
+	except ValueError:
+		pass
+
+	try:
+		return datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
+	except ValueError:
+		pass
+
+	raise ValueError(f'Invalid DateTime format string: {value}')

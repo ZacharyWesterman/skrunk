@@ -1,10 +1,13 @@
 """application.resolvers.query.book"""
 
+from datetime import datetime
+
 from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
 from application.db.book import (count_all_user_books, count_books, get_book,
-                                 get_book_tag, get_books, get_user_list)
+                                 get_book_tag, get_books, get_user_list,
+                                 list_books_not_synced)
 from application.db.users import userids_in_groups
 from application.integrations import google_books
 from application.integrations.exceptions import ApiFailedError
@@ -151,6 +154,37 @@ def resolve_get_book(_, _info: GraphQLResolveInfo, id: str) -> dict:
 
 @query.field('listUsersWithBooks')
 @perms.module('books')
-def resolve_list_users_with_books(_, _info: GraphQLResolveInfo) -> list:
+def resolve_list_users_with_books(_, _info: GraphQLResolveInfo) -> list[dict]:
+	"""
+	Resolves a query to list all users in the current group(s) that have cataloged books.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+
+	Returns:
+		list[dict]: A list of users who have cataloged books.
+	"""
+
 	user_data = perms.caller_info_strict()
 	return get_user_list(user_data.get('groups', []))
+
+
+@query.field('listBooksNotSynced')
+@perms.module('books')
+def resolve_list_books_not_synced(_, _info: GraphQLResolveInfo, since: datetime, start: int, count: int) -> list[str]:
+	"""
+	Resolves a query to list the IDs of books that have not been synced since the given date.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		since (datetime): The cutoff datetime to find books that are out of date.
+		start (int): The start index, for pagination.
+		count (int): The number of items to retrieve, for pagination.
+
+	Returns:
+		list[str]: The book IDs of the any out-of-date books that were found.
+	"""
+
+	return list_books_not_synced(since, start, count)
