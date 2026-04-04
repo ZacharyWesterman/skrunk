@@ -332,10 +332,10 @@ def sync_book_data(id: str) -> dict:
 
 	db.update_one({'_id': ObjectId(id)}, {'$set': updated})
 
-	return {
+	return process_book_tag({
 		**book_data,
 		**updated,
-	}
+	})
 
 
 def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
@@ -369,6 +369,7 @@ def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
 		'owner': owner_data['_id'],
 		'shared': False,
 		'shareHistory': [],
+		'ownerHistory': [],
 		'lastSync': datetime.utcnow(),
 		'created': datetime.utcnow(),
 		'noSyncFields': [],
