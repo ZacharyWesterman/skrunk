@@ -4,7 +4,7 @@ This module allows for creating, validating, and managing API keys in the databa
 
 import random
 import string
-from datetime import datetime
+from datetime import UTC, datetime
 
 from pymongo.collection import Collection
 
@@ -47,7 +47,7 @@ def new_api_key(description: str, permissions: list[str]) -> str:
 		'key': api_key,
 		'description': description,
 		'creator': user_data['_id'],
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'perms': permissions,
 	})
 

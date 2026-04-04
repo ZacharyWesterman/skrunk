@@ -1,6 +1,6 @@
 """application.db.inventory"""
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 import markdown
 from bson.objectid import ObjectId
@@ -51,7 +51,7 @@ def create_inventory_item(
 	user_data = caller_info_strict()
 
 	item = {
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'creator': user_data['_id'],
 		'owner': owner_data['_id'],
 		'category': category.strip(),

@@ -2,7 +2,7 @@
 
 import re
 import string
-from datetime import datetime
+from datetime import UTC, datetime
 
 import markdown
 from bson.objectid import ObjectId
@@ -319,7 +319,7 @@ def sync_book_data(id: str) -> dict:
 		'description', 'industryIdentifiers', 'pageCount',
 		'categories', 'maturityRating', 'language', 'thumbnail',
 	]
-	updated: dict = {'lastSync': datetime.utcnow()}
+	updated: dict = {'lastSync': datetime.now(UTC)}
 	for i in fields:
 		if i in book_data.get('noSyncFields', []):
 			continue
@@ -370,8 +370,8 @@ def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
 		'shared': False,
 		'shareHistory': [],
 		'ownerHistory': [],
-		'lastSync': datetime.utcnow(),
-		'created': datetime.utcnow(),
+		'lastSync': datetime.now(UTC),
+		'created': datetime.now(UTC),
 		'noSyncFields': [],
 		'industryIdentifiers': google_book_data.get('industryIdentifiers', []),
 		'ebooks': [],
@@ -426,8 +426,8 @@ def create_book(owner: str, data: dict) -> dict:
 		'shared': False,
 		'shareHistory': [],
 		'ownerHistory': [],
-		'lastSync': datetime.utcnow(),
-		'created': datetime.utcnow(),
+		'lastSync': datetime.now(UTC),
+		'created': datetime.now(UTC),
 		'noSyncFields': [],
 		'industryIdentifiers': [],
 		'title': data['title'],
@@ -752,7 +752,7 @@ def share_book_with_user(book_id: str, username: str) -> dict:
 
 	if len(book_data['shareHistory']):
 		last_share = len(book_data['shareHistory']) - 1
-		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
+		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.now(UTC)}
 	else:
 		updates = {'shared': True}
 
@@ -760,7 +760,7 @@ def share_book_with_user(book_id: str, username: str) -> dict:
 	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': user_data['_id'],
 		'name': username,
-		'start': datetime.utcnow(),
+		'start': datetime.now(UTC),
 		'stop': None,
 	}}})
 
@@ -788,7 +788,7 @@ def share_book_with_non_user(book_id: str, name: str) -> dict:
 
 	if len(book_data['shareHistory']):
 		last_share = len(book_data['shareHistory']) - 1
-		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
+		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.now(UTC)}
 	else:
 		updates = {'shared': True}
 
@@ -796,7 +796,7 @@ def share_book_with_non_user(book_id: str, name: str) -> dict:
 	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': None,
 		'name': name,
-		'start': datetime.utcnow(),
+		'start': datetime.now(UTC),
 		'stop': None,
 	}}})
 
@@ -837,7 +837,7 @@ def borrow_book(book_id: str, user_data: dict) -> dict:
 			)
 
 		last_share = len(book_data['shareHistory']) - 1
-		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.utcnow()}
+		updates = {'shared': True, f'shareHistory.{last_share}.stop': datetime.now(UTC)}
 	else:
 		updates = {'shared': True}
 
@@ -845,7 +845,7 @@ def borrow_book(book_id: str, user_data: dict) -> dict:
 	db.update_one({'_id': book_obj_id}, {'$push': {'shareHistory': {
 		'user_id': user_data['_id'],
 		'name': user_data['username'],
-		'start': datetime.utcnow(),
+		'start': datetime.now(UTC),
 		'stop': None,
 	}}})
 
@@ -883,7 +883,7 @@ def return_book(book_id: str, user_data: dict) -> dict:
 		raise exceptions.BookCannotBeShared('You did not borrow this book.')
 
 	db.update_one({'_id': book_obj_id}, {'$set': {
-		'shared': False, f'shareHistory.{last_share}.stop': datetime.utcnow()
+		'shared': False, f'shareHistory.{last_share}.stop': datetime.now(UTC)
 	}})
 	return book_data
 
@@ -904,16 +904,16 @@ def set_book_owner(id: str, username: str) -> dict:
 
 	owner_hist = book_data.get('ownerHistory', [])
 	if len(owner_hist):
-		owner_hist[-1]['stop'] = datetime.utcnow()
+		owner_hist[-1]['stop'] = datetime.now(UTC)
 	else:
 		owner_hist = [{
 			'user_id': book_data['owner'],
 			'start': book_data['created'],
-			'stop': datetime.utcnow(),
+			'stop': datetime.now(UTC),
 		}]
 	owner_hist += [{
 		'user_id': user_data['_id'],
-		'start': datetime.utcnow(),
+		'start': datetime.now(UTC),
 		'stop': None,
 	}]
 

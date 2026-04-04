@@ -1,6 +1,6 @@
 """application.db.weather"""
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from bson.objectid import ObjectId
 from pymongo.database import Database
@@ -293,7 +293,7 @@ def log_weather_alert(users: list[str], error: str | None) -> None:
 		None
 	"""
 	db.weather_log.insert_one({
-		'timestamp': datetime.utcnow(),
+		'timestamp': datetime.now(UTC),
 		'users': users,
 		'error': error,
 	})
@@ -315,7 +315,7 @@ def log_user_weather_alert(username: str, message: str) -> None:
 	"""
 	db_user_data = db.users.find_one({'username': username})
 	if db_user_data:
-		now = datetime.utcnow()
+		now = datetime.now(UTC)
 		db.weather_users.update_one(
 			{'_id': db_user_data['_id']},
 			{'$set': {'last_sent': now}}

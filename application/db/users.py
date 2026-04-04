@@ -2,7 +2,7 @@
 
 import shutil
 import uuid
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from typing import TypeVar
 from zipfile import ZipFile
 
@@ -514,7 +514,7 @@ def authenticate(username: str, password: str) -> str:
 
 	login_token = tokens.create_user_token(username)
 	db.update_one({'_id': userdata['_id']}, {'$set': {
-		'last_login': datetime.utcnow(),
+		'last_login': datetime.now(UTC),
 		'failed_logins': 0,  # Reset failed logins on successful authentication
 	}})
 
@@ -694,7 +694,7 @@ def create_reset_code(username: str, delete_existing: bool = False) -> str:
 		# Hopefully this is sufficient to prevent abuse.
 		recent_requests = top_level_db.reset_codes.count_documents({
 			'username': username,
-			'created': {'$gte': datetime.utcnow() - timedelta(minutes=10)}
+			'created': {'$gte': datetime.now(UTC) - timedelta(minutes=10)}
 		})
 
 		if recent_requests >= 3:
@@ -705,7 +705,7 @@ def create_reset_code(username: str, delete_existing: bool = False) -> str:
 	top_level_db.reset_codes.insert_one({
 		'username': username,
 		'code': code,
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 	})
 
 	return code

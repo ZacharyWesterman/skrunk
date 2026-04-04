@@ -3,7 +3,7 @@ This module allows sending web push notifications to users.
 """
 
 import json
-from datetime import datetime
+from datetime import UTC, datetime
 from urllib.parse import urlsplit
 
 from bson.objectid import ObjectId
@@ -323,7 +323,7 @@ def try_send_webpush(
 			for user in users.get_admins():
 				db.notif_log.insert_one({
 					'recipient': user['_id'],
-					'created': datetime.utcnow(),
+					'created': datetime.now(UTC),
 					'message': json.dumps({
 						'title': 'WebPushException when sending notification',
 						'body': (
@@ -378,7 +378,7 @@ def send(
 
 	notif_data = {
 		'recipient': user_data['_id'],
-		'created': datetime.utcnow(),
+		'created': datetime.now(UTC),
 		'message': json.dumps(message),
 		'category': category,
 		'device_count': 0,
