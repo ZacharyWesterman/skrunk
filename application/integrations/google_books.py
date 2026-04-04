@@ -3,12 +3,59 @@
 import functools
 import json
 import re
+from datetime import datetime, timedelta
 
 import requests
 
 from application.db.settings import get_config
 
 from . import exceptions
+
+## Keep track of the last time that querying with the global API failed.
+_global_query_failed: datetime | None = None
+
+
+def _raw_query(url_query: str) -> str:
+	"""
+	Query the Google Books API.
+
+	If querying without an API key fails due to an exceeded quota,
+	fallback to querying with our API key (if we have one).
+	Then if that fails, raise an error.
+
+	Args:
+		url_query (str): The raw query url, with all params except `key`.
+
+	Returns:
+		str: On success, the text response of the query.
+
+	Raises:
+		exceptions.ApiFailedError: If the Google Books API call fails.
+	"""
+
+	global _global_query_failed
+
+	api_key = get_config('google_books')
+	retry_with_api_key = True
+
+	# If we already tried using the global API and the quota was exceeded, use our api key for a bit before trying it again.
+	if api_key and _global_query_failed and (datetime.now() - _global_query_failed) < timedelta(minutes=30):
+		url_query += f'&key={api_key}'
+		retry_with_api_key = False
+
+	response = requests.get(url_query, timeout=10)
+
+	if retry_with_api_key and api_key and response.status_code == 429:
+		# Quota exceeded for global, fallback to using API key.
+		response = requests.get(f'{url_query}&key={api_key}', timeout=10)
+		_global_query_failed = datetime.now()
+
+	if response.status_code < 200 or response.status_code >= 300:
+		raise exceptions.ApiFailedError(
+			f'Google Books API call failed with status code {response.status_code}: {response.text}'
+		)
+
+	return response.text
 
 
 @functools.cache
@@ -70,17 +117,10 @@ def query(*, title: str = '', author: str = '') -> list:
 		'https://www.googleapis.com/books/v1/volumes' +
 		f'?q={text_query}&fields={response_fields}&orderBy=relevance&maxResults=20'
 	)
-	if api_key := get_config('google_books'):
-		url += f'&key={api_key}'
-
-	response = requests.get(url, timeout=10)
-	if response.status_code < 200 or response.status_code >= 300:
-		raise exceptions.ApiFailedError(
-			f'Google Books API call failed with status code {response.status_code}: {response.text}'
-		)
+	response = json.loads(_raw_query(url))
 
 	books = []
-	for i in json.loads(response.text).get('items', []):
+	for i in response.get('items', []):
 		book = i['volumeInfo']
 		book['id'] = i['id']
 		book['authors'] = book.get('authors', [])
@@ -110,8 +150,7 @@ def get(*, id: str) -> dict:
 			  language, publisher, published date, and thumbnail URL.
 
 	Raises:
-		exceptions.ApiFailedError: If the Google Books API call fails with a status code
-								   outside the range of 200-299.
+		exceptions.ApiFailedError: If the Google Books API call fails.
 	"""
 	response_fields = (
 		'id,volumeInfo(' +
@@ -121,16 +160,9 @@ def get(*, id: str) -> dict:
 	)
 
 	url = f'https://www.googleapis.com/books/v1/volumes/{id}?fields={response_fields}'
-	if api_key := get_config('google_books'):
-		url += f'&key={api_key}'
+	response = json.loads(_raw_query(url))
 
-	response = requests.get(url, timeout=10)
-	if response.status_code < 200 or response.status_code >= 300:
-		raise exceptions.ApiFailedError(
-			f'Google Books API call failed with status code {response.status_code}: {response.text}'
-		)
-
-	book = json.loads(response.text)['volumeInfo']
+	book = response['volumeInfo']
 	book['id'] = id
 	book['authors'] = book.get('authors', [])
 	book['thumbnail'] = book.get('imageLinks', {'thumbnail': None}).get('thumbnail')
