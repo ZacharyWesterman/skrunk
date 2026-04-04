@@ -103,17 +103,20 @@ export async function mark_as_read(id) {
 }
 
 export async function mark_all_notifs_as_read() {
-	const ct = await api(`query ($username: String!, $read: Boolean!) {
+	const ct_query = api(`query ($username: String!, $read: Boolean!) {
 		countNotifications (username: $username, read: $read)
 	}`, {
 		username: api.username,
 		read: false,
 	})
+
 	const res = await _.modal({
 		type: 'question',
 		title: 'Mark All as Read?',
-		text: `This will update <b>${ct}</b> notifications and hide them from view.<br>Continue?`,
+		text: `This will update <b id="live-notif-count">${$('notif-count')?.innerText ?? '...'}</b> notifications and hide them from view.<br>Continue?`,
 		buttons: ['Yes', 'No'],
+	}, async () => {
+		$('live-notif-count').innerText = await ct_query
 	})
 
 	if (res !== 'yes') return
