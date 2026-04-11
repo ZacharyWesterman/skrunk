@@ -264,6 +264,13 @@ def require_all(
 	return inner
 
 
+def module_disabled(*modules: str) -> bool:
+	user_data = caller_info()
+	if user_data is None or set(user_data.get('disabled_modules', [])).intersection(modules):
+		return True
+	return False
+
+
 def module(*modules: str) -> Callable:
 	"""Require the calling user to have all the specified modules enabled.
 
@@ -285,7 +292,7 @@ def module(*modules: str) -> Callable:
 			user_data = caller_info()
 
 			# If module(s) are disabled for the user, return error.
-			if user_data is None or set(user_data.get('disabled_modules', [])).intersection(modules):
+			if module_disabled(*modules):
 				return bad_perms()
 
 			return method(_, info, *args, **kwargs)

@@ -20,7 +20,12 @@ def init(connection_uri: str, *, username: str = 'admin', password: str, domain:
 	"""
 
 	global CONNECTION, LDAP_ADMIN_USER, LDAP_ADMIN_PASS, LDAP_DOMAIN
-	CONNECTION = ldap.initialize(connection_uri)
+	try:
+		CONNECTION = ldap.initialize(connection_uri)
+	except ldap.LDAPError as e:  # pyright: ignore[reportAttributeAccessIssue]
+		print(f'AD Error: {e}', flush=True)
+		print(f'AD Settings: user={username}, domain={domain}', flush=True)
+
 	LDAP_ADMIN_USER = username
 	LDAP_ADMIN_PASS = password
 	LDAP_DOMAIN = domain
@@ -33,20 +38,29 @@ def ldap_can_connect() -> bool:
 	try:
 		CONNECTION.simple_bind_s('', '')
 	except ldap.SERVER_DOWN:  # pyright: ignore[reportAttributeAccessIssue]
+		print('AD Server Down', flush=True)
 		return False
 	except ldap.INVALID_CREDENTIALS:  # pyright: ignore[reportAttributeAccessIssue]
+		print('Invalid AD Credentials', flush=True)
 		pass
 
 	return True
 
 
-def ldap_add_user(username: str, password: bytes) -> None:
+def ldap_try_connection() -> bool:
 	if CONNECTION is None:
-		return
+		return False
 
 	try:
 		CONNECTION.simple_bind_s(f'cn={LDAP_ADMIN_USER},dc={LDAP_DOMAIN}', LDAP_ADMIN_PASS)
 	except (ldap.SERVER_DOWN, ldap.INVALID_CREDENTIALS):  # pyright: ignore[reportAttributeAccessIssue]
+		return False
+
+	return True
+
+
+def ldap_add_user(username: str, password: bytes) -> None:
+	if CONNECTION is None or not ldap_try_connection():
 		return
 
 	entry = [
@@ -63,6 +77,31 @@ def ldap_add_user(username: str, password: bytes) -> None:
 		pass
 
 
+def ldap_update_username(username: str, new_username: str) -> None:
+	if CONNECTION is None or not ldap_try_connection():
+		return
+
+	print('Updating LDAP', flush=True)
+
+	entry = [
+		('cn', new_username.encode('utf-8')),
+		('sn', new_username.encode('utf-8')),
+	]
+
+	CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+
+
+def ldap_update_password(username: str, password: bytes) -> None:
+	if CONNECTION is None or not ldap_try_connection():
+		return
+
+	entry = [
+		('userPassword', password),
+	]
+
+	CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+
+
 def ldap_import_users(user_list: Iterable) -> None:
 
 	for user in user_list:
@@ -72,9 +111,13 @@ def ldap_import_users(user_list: Iterable) -> None:
 
 
 def sync_users(user_list: Iterable) -> bool:
+	print('Sync users...', flush=True)
+
 	# Try to connect to ldap server first
 	if not ldap_can_connect():
 		return False
+
+	print('User sync starting', flush=True)
 
 	global SYNC_THREAD
 	SYNC_THREAD = Thread(target=ldap_import_users, args=(user_list,))

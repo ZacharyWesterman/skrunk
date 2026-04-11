@@ -11,6 +11,14 @@ from application.types import UserData
 db: Collection = None  # type: ignore[assignment]
 
 
+def global_module_enabled(module: str) -> bool:
+	module_config: dict | None = db.find_one({'name': 'modules'})
+	if module_config is None:
+		return False
+
+	return module in module_config.get('enabled', [])
+
+
 def calculate_disabled_modules(disabled_modules: list[str]) -> list[str]:
 	"""
 	Calculate the complete list of disabled modules based on the provided list of disabled modules
