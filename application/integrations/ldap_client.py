@@ -84,8 +84,8 @@ def ldap_update_username(username: str, new_username: str) -> None:
 	print('Updating LDAP', flush=True)
 
 	entry = [
-		('cn', new_username.encode('utf-8')),
-		('sn', new_username.encode('utf-8')),
+		(ldap.MOD_REPLACE, 'cn', [new_username.encode('utf-8')]),  # pyright: ignore[reportAttributeAccessIssue]
+		(ldap.MOD_REPLACE, 'sn', [new_username.encode('utf-8')]),  # pyright: ignore[reportAttributeAccessIssue]
 	]
 
 	CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
@@ -96,7 +96,7 @@ def ldap_update_password(username: str, password: bytes) -> None:
 		return
 
 	entry = [
-		('userPassword', password),
+		(ldap.MOD_REPLACE, 'userPassword', [password]),  # pyright: ignore[reportAttributeAccessIssue]
 	]
 
 	CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
@@ -111,13 +111,9 @@ def ldap_import_users(user_list: Iterable) -> None:
 
 
 def sync_users(user_list: Iterable) -> bool:
-	print('Sync users...', flush=True)
-
 	# Try to connect to ldap server first
 	if not ldap_can_connect():
 		return False
-
-	print('User sync starting', flush=True)
 
 	global SYNC_THREAD
 	SYNC_THREAD = Thread(target=ldap_import_users, args=(user_list,))

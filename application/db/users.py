@@ -831,7 +831,7 @@ def init() -> None:
 	ldap_user = settings.get_config('ldap:user')
 
 	ldap_client.init(
-		ldap_url if ldap_url else '127.0.0.1',
+		ldap_url,
 		username=ldap_user if ldap_user else 'admin',
 		password=ldap_password
 	)
