@@ -1,7 +1,8 @@
 from threading import Thread
-from typing import Iterable
+from typing import Generator, Iterable
 
 import ldap
+import ldap.asyncsearch
 from ldap.ldapobject import LDAPObject
 
 SYNC_THREAD = None
@@ -88,7 +89,10 @@ def ldap_update_username(username: str, new_username: str) -> None:
 		(ldap.MOD_REPLACE, 'sn', [new_username.encode('utf-8')]),  # pyright: ignore[reportAttributeAccessIssue]
 	]
 
-	CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+	try:
+		CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+	except ldap.NO_SUCH_OBJECT:  # pyright: ignore[reportAttributeAccessIssue]
+		pass
 
 
 def ldap_update_password(username: str, password: bytes) -> None:
@@ -99,11 +103,56 @@ def ldap_update_password(username: str, password: bytes) -> None:
 		(ldap.MOD_REPLACE, 'userPassword', [password]),  # pyright: ignore[reportAttributeAccessIssue]
 	]
 
-	CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+	try:
+		CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+	except ldap.NO_SUCH_OBJECT:  # pyright: ignore[reportAttributeAccessIssue]
+		pass
+
+
+def ldap_delete_user(username: str) -> None:
+	if CONNECTION is None or not ldap_try_connection():
+		return
+
+	try:
+		CONNECTION.delete_s(f'cn={username},dc={LDAP_DOMAIN}')
+	except ldap.NO_SUCH_OBJECT:  # pyright: ignore[reportAttributeAccessIssue]
+		pass
+
+
+def ldap_list_users() -> list[dict[str, bytes]]:
+	if CONNECTION is None or not ldap_try_connection():
+		return []
+
+	search = ldap.asyncsearch.List(CONNECTION)  # pyright: ignore[reportAttributeAccessIssue]
+	search.startSearch(
+		f'dc={LDAP_DOMAIN}',
+		ldap.SCOPE_SUBTREE,  # pyright: ignore[reportAttributeAccessIssue]
+		'(objectClass=person)'
+	)
+
+	try:
+		partial = search.processResults()
+	except ldap.SIZELIMIT_EXCEEDED:  # pyright: ignore[reportAttributeAccessIssue]
+		print('WARN: AD: server-side size limit exceeded.', flush=True)
+	else:
+		if partial:
+			print('WARN: AD: Only partial results received.', flush=True)
+
+	return [
+		{
+			key: value[0] for (key, value) in entry[1][1].items()
+		}
+		for entry in search.allResults
+	]
 
 
 def ldap_import_users(user_list: Iterable) -> None:
 
+	# Delete any existing users.
+	for user in ldap_list_users():
+		ldap_delete_user(user.get('cn', b'').decode('utf-8'))
+
+	# Import the actual list of users.
 	for user in user_list:
 		ldap_add_user(**user)
 

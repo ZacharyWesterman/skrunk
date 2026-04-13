@@ -248,9 +248,11 @@ def create_user(
 	if userdata:
 		raise exceptions.UserExistsError(username)
 
+	salted_pass = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
 	userdata = {
 		'username': username,
-		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
+		'password': salted_pass,
 		'created': datetime.now(),
 		'theme': {
 			'colors': [],
@@ -267,6 +269,9 @@ def create_user(
 
 	db.insert_one(userdata)
 	settings.update_groups([], groups)
+
+	if not ephemeral and ldap_client is not None and settings.global_module_enabled('ldap'):
+		ldap_client.ldap_add_user(username, salted_pass)
 
 	return userdata
 
@@ -290,6 +295,10 @@ def delete_user(username: str) -> dict:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.delete_one({'username': username})
+
+	if ldap_client is not None and settings.global_module_enabled('ldap'):
+		ldap_client.ldap_delete_user(username)
+
 	return userdata
 
 
@@ -792,6 +801,12 @@ def update_user_disabled(username: str, disabled: bool) -> UserData:
 		db.update_one({'_id': userdata.get('_id')}, {'$set': {
 			'disabled': disabled,
 		}})
+
+		if ldap_client is not None and settings.global_module_enabled('ldap'):
+			if disabled:
+				ldap_client.ldap_delete_user(username)
+			else:
+				ldap_client.ldap_add_user(username, userdata['password'])
 
 	return process_user_data(userdata)
 
