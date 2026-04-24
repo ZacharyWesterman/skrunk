@@ -30,5 +30,21 @@
 		"module": "related_sites",
 		"type": "code",
 		"hint": "Each line should be an array with 2 or 3 elements,\ne.g. [\"url\", \"title\", \"feature\"]"
+	},
+	{
+		"id": "ldap:password",
+		"name": "LDAP Admin Password",
+		"module": "ldap",
+		"type": "password"
+	},
+	{
+		"id": "ldap:user",
+		"name": "LDAP Admin Username",
+		"module": "ldap"
+	},
+	{
+		"id": "ldap:url",
+		"name": "LDAP Server URL",
+		"module": "ldap"
 	}
 ]

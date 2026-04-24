@@ -3,7 +3,7 @@
 import shutil
 import uuid
 from datetime import UTC, datetime, timedelta
-from typing import TypeVar
+from typing import Generator, TypeVar
 from zipfile import ZipFile
 
 import bcrypt
@@ -13,6 +13,11 @@ from pymongo.collection import Collection
 from pymongo.database import Database
 
 from ..types import BlobSearchFilter, InventorySearchFilter, UserData
+
+try:
+	from application.integrations import ldap_client
+except ModuleNotFoundError:
+	ldap_client = None
 
 FILTER = TypeVar('FILTER', BlobSearchFilter, InventorySearchFilter)
 
@@ -243,9 +248,11 @@ def create_user(
 	if userdata:
 		raise exceptions.UserExistsError(username)
 
+	salted_pass = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
 	userdata = {
 		'username': username,
-		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
+		'password': salted_pass,
 		'created': datetime.now(),
 		'theme': {
 			'colors': [],
@@ -262,6 +269,9 @@ def create_user(
 
 	db.insert_one(userdata)
 	settings.update_groups([], groups)
+
+	if not ephemeral and ldap_client is not None and settings.global_module_enabled('ldap'):
+		ldap_client.ldap_add_user(username, salted_pass)
 
 	return userdata
 
@@ -285,6 +295,10 @@ def delete_user(username: str) -> dict:
 		raise exceptions.UserDoesNotExistError(username)
 
 	db.delete_one({'username': username})
+
+	if ldap_client is not None and settings.global_module_enabled('ldap'):
+		ldap_client.ldap_delete_user(username)
+
 	return userdata
 
 
@@ -311,9 +325,14 @@ def update_user_password(username: str, password: str) -> dict:
 	if not userdata:
 		raise exceptions.UserDoesNotExistError(username)
 
+	salted_pass = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
 	db.update_one({'username': username}, {'$set': {
-		'password': bcrypt.hashpw(password.encode(), bcrypt.gensalt()),
+		'password': salted_pass,
 	}})
+
+	if ldap_client is not None and settings.global_module_enabled('ldap'):
+		ldap_client.ldap_update_password(username, salted_pass)
 
 	return userdata
 
@@ -348,6 +367,9 @@ def update_username(username: str, new_username: str) -> dict:
 		'username': new_username,
 	}})
 	userdata['username'] = new_username
+
+	if ldap_client is not None and settings.global_module_enabled('ldap'):
+		ldap_client.ldap_update_username(username, new_username)
 
 	return userdata
 
@@ -738,14 +760,19 @@ def reset_user_password(username: str, code: str, new_password: str) -> None:
 	if not reset_entry:
 		raise exceptions.InvalidResetCode()
 
+	salted_pass = bcrypt.hashpw(new_password.encode(), bcrypt.gensalt())
+
 	# Update the user's password, and reset their failed login attempts
 	db.update_one({'username': username}, {'$set': {
-		'password': bcrypt.hashpw(new_password.encode(), bcrypt.gensalt()),
+		'password': salted_pass,
 		'failed_logins': 0
 	}})
 
 	# Delete all reset codes for this user to prevent reuse
 	top_level_db.reset_codes.delete_many({'username': username})
+
+	if ldap_client is not None and settings.global_module_enabled('ldap'):
+		ldap_client.ldap_update_password(username, salted_pass)
 
 
 def update_user_disabled(username: str, disabled: bool) -> UserData:
@@ -775,7 +802,55 @@ def update_user_disabled(username: str, disabled: bool) -> UserData:
 			'disabled': disabled,
 		}})
 
+		if ldap_client is not None and settings.global_module_enabled('ldap'):
+			if disabled:
+				ldap_client.ldap_delete_user(username)
+			else:
+				ldap_client.ldap_add_user(username, userdata['password'])
+
 	return process_user_data(userdata)
+
+
+def get_users_ldap() -> Generator[dict[str, str | bytes], None, None]:
+	"""
+	Get LDAP data for all active users in the database.
+	Returns:
+		Generator[dict[str, str | bytes], None, None]: A generator
+			that yields the bare minimum user data needed for LDAP.
+	"""
+
+	for user in db.find({'disabled': False}):
+		yield {
+			'username': user.get('username'),
+			'password': user.get('password'),
+		}
+
+
+def init() -> None:
+	"""
+	Initialize any data or configs related to users,
+	including AD functionality, if enabled.
+	"""
+	global ldap_client
+
+	if ldap_client is None or not settings.global_module_enabled('ldap'):
+		return
+
+	ldap_password = settings.get_config('ldap:password')
+	ldap_url = settings.get_config('ldap:url')
+
+	if not ldap_password or not ldap_url:
+		ldap_client = None
+		return
+
+	ldap_user = settings.get_config('ldap:user')
+
+	ldap_client.init(
+		ldap_url,
+		username=ldap_user if ldap_user else 'admin',
+		password=ldap_password
+	)
+	ldap_client.sync_users(get_users_ldap())
 
 
 # These imports are needed at this location to avoid circular imports

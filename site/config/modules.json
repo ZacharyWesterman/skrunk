@@ -63,5 +63,11 @@
 		"name": "Related Sites",
 		"description": "Enable the widget for displaying related sites.",
 		"config": true
+	},
+	{
+		"id": "ldap",
+		"name": "LDAP Server",
+		"description": "Manage an LDAP server to allow users to access other services. (requires restart)",
+		"config": true
 	}
 ]
