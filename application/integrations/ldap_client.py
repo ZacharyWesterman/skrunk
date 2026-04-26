@@ -9,13 +9,13 @@ SYNC_THREAD = None
 CONNECTION: LDAPObject | None = None
 LDAP_ADMIN_USER = 'admin'
 LDAP_ADMIN_PASS = 'password'
-LDAP_DOMAIN = 'nodomain'
+LDAP_DOMAIN = 'dc=nodomain'
 
 # pylint: disable=no-member
 # pylance: disable=reportAttributeAccessIssue
 
 
-def init(connection_uri: str, *, username: str = 'admin', password: str, domain: str = 'nodomain') -> None:
+def init(connection_uri: str, *, username: str = 'admin', password: str, domain: str = 'dc=nodomain') -> None:
 	"""
 	Initialize the LDAP connection
 	"""
@@ -53,7 +53,7 @@ def ldap_try_connection() -> bool:
 		return False
 
 	try:
-		CONNECTION.simple_bind_s(f'cn={LDAP_ADMIN_USER},dc={LDAP_DOMAIN}', LDAP_ADMIN_PASS)
+		CONNECTION.simple_bind_s(f'cn={LDAP_ADMIN_USER},{LDAP_DOMAIN}', LDAP_ADMIN_PASS)
 	except (ldap.SERVER_DOWN, ldap.INVALID_CREDENTIALS):  # pyright: ignore[reportAttributeAccessIssue]
 		return False
 
@@ -72,7 +72,7 @@ def ldap_add_user(username: str, password: bytes) -> None:
 	]
 
 	try:
-		CONNECTION.add_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+		CONNECTION.add_s(f'cn={username},{LDAP_DOMAIN}', entry)
 	except ldap.ALREADY_EXISTS:  # pyright: ignore[reportAttributeAccessIssue]
 		pass
 
@@ -89,7 +89,7 @@ def ldap_update_username(username: str, new_username: str) -> None:
 	]
 
 	try:
-		CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+		CONNECTION.modify_s(f'cn={username},{LDAP_DOMAIN}', entry)
 	except ldap.NO_SUCH_OBJECT:  # pyright: ignore[reportAttributeAccessIssue]
 		pass
 
@@ -103,7 +103,7 @@ def ldap_update_password(username: str, password: bytes) -> None:
 	]
 
 	try:
-		CONNECTION.modify_s(f'cn={username},dc={LDAP_DOMAIN}', entry)
+		CONNECTION.modify_s(f'cn={username},{LDAP_DOMAIN}', entry)
 	except ldap.NO_SUCH_OBJECT:  # pyright: ignore[reportAttributeAccessIssue]
 		pass
 
@@ -113,7 +113,7 @@ def ldap_delete_user(username: str) -> None:
 		return
 
 	try:
-		CONNECTION.delete_s(f'cn={username},dc={LDAP_DOMAIN}')
+		CONNECTION.delete_s(f'cn={username},{LDAP_DOMAIN}')
 	except ldap.NO_SUCH_OBJECT:  # pyright: ignore[reportAttributeAccessIssue]
 		pass
 
@@ -124,7 +124,7 @@ def ldap_list_users() -> list[dict[str, bytes]]:
 
 	search = ldap.asyncsearch.List(CONNECTION)  # pyright: ignore[reportAttributeAccessIssue]
 	search.startSearch(
-		f'dc={LDAP_DOMAIN}',
+		f'{LDAP_DOMAIN}',
 		ldap.SCOPE_SUBTREE,  # pyright: ignore[reportAttributeAccessIssue]
 		'(objectClass=person)'
 	)

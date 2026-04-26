@@ -843,12 +843,19 @@ def init() -> None:
 		ldap_client = None
 		return
 
+	ldap_domain = 'dc=nodomain'
+	pos = ldap_url.rfind('/')
+	if ldap_url[pos - 1] != '/':
+		ldap_domain = ldap_url[pos + 1:]
+		ldap_url = ldap_url[0:pos]
+
 	ldap_user = settings.get_config('ldap:user')
 
 	ldap_client.init(
 		ldap_url,
 		username=ldap_user if ldap_user else 'admin',
-		password=ldap_password
+		password=ldap_password,
+		domain=ldap_domain
 	)
 	ldap_client.sync_users(get_users_ldap())
 
