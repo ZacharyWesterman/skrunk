@@ -62,15 +62,14 @@ api.username = null
 /**
  * Login to the server, generating a session token on success.
  * @param {string} username The username.
- * @param {string} password The plaintext password (this gets hashed).
+ * @param {string} password The plaintext password.
  * @returns {Promise<void>} The login was successful.
  * @raises A descriptive error message if the login fails.
  */
 api.authenticate = async (username, password) => {
-	const hashed_pass = await api.hash(password)
 	const auth_json = {
 		'username': username,
-		'password': hashed_pass,
+		'password': password,
 	}
 
 	const response = JSON.parse(await api.post_json('/auth', auth_json))
@@ -86,16 +85,15 @@ api.authenticate = async (username, password) => {
  * Reset the password for a user, given a valid reset code.
  * @param {string} username The username.
  * @param {string} code The reset code.
- * @param {string} new_password The new plaintext password (this gets hashed).
+ * @param {string} new_password The new plaintext password.
  * @returns {Promise<object>} The result of the password reset attempt.
  * @raises A descriptive error message if the reset fails.
  */
 api.reset_password = async (username, code, new_password) => {
-	const hashed_pass = await api.hash(new_password)
 	const auth_json = {
-		'username': username,
-		'code': code,
-		'new_password': hashed_pass,
+		username,
+		code,
+		new_password,
 	}
 
 	const response = JSON.parse(await api.post_json('/auth/reset', auth_json))
@@ -445,19 +443,6 @@ api.read_cookies = () => {
 				_.css.set_var(name, value)
 		}
 	})
-}
-
-/**
- * Hash a password in-browser.
- * @param {string} password The plaintext password to hash.
- * @returns {Promise<string>} A SHA-512 hash of the given text.
- */
-api.hash = async (password) => {
-	const data = new TextEncoder().encode(password)
-	const buffer = await crypto.subtle.digest('SHA-512', data)
-	const array = Array.from(new Uint8Array(buffer))
-	const hex = array.map(b => b.toString(16).padStart(2, '0')).join('')
-	return btoa(hex)
 }
 
 /**

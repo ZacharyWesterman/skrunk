@@ -86,7 +86,7 @@ export async function create_user() {
 
 	const res = await mutate.users.create(
 		$.val('username'),
-		await api.hash($.val('password')),
+		$.val('password'),
 		groups
 	)
 	if (res.__typename !== 'UserData') {

@@ -1,5 +1,5 @@
 from threading import Thread
-from typing import Generator, Iterable
+from typing import Iterable
 
 import ldap
 import ldap.asyncsearch
@@ -66,10 +66,9 @@ def ldap_add_user(username: str, password: bytes) -> None:
 
 	entry = [
 		('objectClass', [b"person"]),
-		# ('uid', username.encode('utf-8')),
 		('cn', username.encode('utf-8')),
 		('sn', username.encode('utf-8')),
-		('userPassword', password),
+		('userPassword', b'{CRYPT}' + password),
 	]
 
 	try:
@@ -100,7 +99,7 @@ def ldap_update_password(username: str, password: bytes) -> None:
 		return
 
 	entry = [
-		(ldap.MOD_REPLACE, 'userPassword', [password]),  # pyright: ignore[reportAttributeAccessIssue]
+		(ldap.MOD_REPLACE, 'userPassword', [b'{CRYPT}' + password]),  # pyright: ignore[reportAttributeAccessIssue]
 	]
 
 	try:
