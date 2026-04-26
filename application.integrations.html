@@ -832,6 +832,110 @@ False if the image width was already less than or equal to max_width.</p>
 </dd></dl>
 
 </section>
+<section id="module-application.integrations.ldap_client">
+<span id="application-integrations-ldap-client-module"></span><h2>application.integrations.ldap_client module<a class="headerlink" href="#module-application.integrations.ldap_client" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.init">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection_uri</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'admin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dc=nodomain'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.init" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the LDAP connection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_add_user">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_add_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_add_user" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_can_connect">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_can_connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_can_connect" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_delete_user">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_delete_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_delete_user" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_import_users">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_import_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_import_users" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_list_users">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_list_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_list_users" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_try_connection">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_try_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_try_connection" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_update_password">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_update_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_update_password" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.ldap_update_username">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">ldap_update_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.ldap_update_username" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.ldap_client.sync_users">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.ldap_client.</span></span><span class="sig-name descname"><span class="pre">sync_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.ldap_client.sync_users" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-application.integrations.models">
 <span id="application-integrations-models-module"></span><h2>application.integrations.models module<a class="headerlink" href="#module-application.integrations.models" title="Link to this heading">#</a></h2>
 <p>application.integrations.models</p>
@@ -1150,6 +1254,19 @@ If the application and blob storage are on the same disk, they are listed togeth
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.images">application.integrations.images module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.images.downscale"><code class="docutils literal notranslate"><span class="pre">downscale()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.images.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.ldap_client">application.integrations.ldap_client module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_add_user"><code class="docutils literal notranslate"><span class="pre">ldap_add_user()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_can_connect"><code class="docutils literal notranslate"><span class="pre">ldap_can_connect()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_delete_user"><code class="docutils literal notranslate"><span class="pre">ldap_delete_user()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_import_users"><code class="docutils literal notranslate"><span class="pre">ldap_import_users()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_list_users"><code class="docutils literal notranslate"><span class="pre">ldap_list_users()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_try_connection"><code class="docutils literal notranslate"><span class="pre">ldap_try_connection()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_update_password"><code class="docutils literal notranslate"><span class="pre">ldap_update_password()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.ldap_update_username"><code class="docutils literal notranslate"><span class="pre">ldap_update_username()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.ldap_client.sync_users"><code class="docutils literal notranslate"><span class="pre">sync_users()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.models">application.integrations.models module</a><ul class="nav section-nav flex-column">

@@ -471,6 +471,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.caller_info"><code class="docutils literal notranslate"><span class="pre">caller_info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.caller_info_strict"><code class="docutils literal notranslate"><span class="pre">caller_info_strict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.module"><code class="docutils literal notranslate"><span class="pre">module()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.module_disabled"><code class="docutils literal notranslate"><span class="pre">module_disabled()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.require"><code class="docutils literal notranslate"><span class="pre">require()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.require_all"><code class="docutils literal notranslate"><span class="pre">require_all()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.perms.satisfies"><code class="docutils literal notranslate"><span class="pre">satisfies()</span></code></a></li>
@@ -495,6 +496,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_enabled_modules"><code class="docutils literal notranslate"><span class="pre">get_enabled_modules()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_groups"><code class="docutils literal notranslate"><span class="pre">get_groups()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.get_modules"><code class="docutils literal notranslate"><span class="pre">get_modules()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.global_module_enabled"><code class="docutils literal notranslate"><span class="pre">global_module_enabled()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.set_config"><code class="docutils literal notranslate"><span class="pre">set_config()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.set_module_enabled"><code class="docutils literal notranslate"><span class="pre">set_module_enabled()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.settings.update_groups"><code class="docutils literal notranslate"><span class="pre">update_groups()</span></code></a></li>
@@ -512,7 +514,9 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_by_id"><code class="docutils literal notranslate"><span class="pre">get_user_by_id()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_data"><code class="docutils literal notranslate"><span class="pre">get_user_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_user_list"><code class="docutils literal notranslate"><span class="pre">get_user_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.get_users_ldap"><code class="docutils literal notranslate"><span class="pre">get_users_ldap()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.group_filter"><code class="docutils literal notranslate"><span class="pre">group_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.is_locked"><code class="docutils literal notranslate"><span class="pre">is_locked()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.login_attempts_remaining"><code class="docutils literal notranslate"><span class="pre">login_attempts_remaining()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.users.process_user_data"><code class="docutils literal notranslate"><span class="pre">process_user_data()</span></code></a></li>
@@ -648,6 +652,19 @@
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.images">application.integrations.images module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.images.downscale"><code class="docutils literal notranslate"><span class="pre">downscale()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.images.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.ldap_client">application.integrations.ldap_client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_add_user"><code class="docutils literal notranslate"><span class="pre">ldap_add_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_can_connect"><code class="docutils literal notranslate"><span class="pre">ldap_can_connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_delete_user"><code class="docutils literal notranslate"><span class="pre">ldap_delete_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_import_users"><code class="docutils literal notranslate"><span class="pre">ldap_import_users()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_list_users"><code class="docutils literal notranslate"><span class="pre">ldap_list_users()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_try_connection"><code class="docutils literal notranslate"><span class="pre">ldap_try_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_update_password"><code class="docutils literal notranslate"><span class="pre">ldap_update_password()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.ldap_update_username"><code class="docutils literal notranslate"><span class="pre">ldap_update_username()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.ldap_client.sync_users"><code class="docutils literal notranslate"><span class="pre">sync_users()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.models">application.integrations.models module</a><ul>

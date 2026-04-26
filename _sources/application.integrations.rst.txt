@@ -52,6 +52,14 @@ application.integrations.images module
    :show-inheritance:
    :undoc-members:
 
+application.integrations.ldap\_client module
+--------------------------------------------
+
+.. automodule:: application.integrations.ldap_client
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.integrations.models module
 --------------------------------------
 

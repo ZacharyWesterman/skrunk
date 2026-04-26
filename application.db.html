@@ -2907,6 +2907,16 @@ will instead return a bad_perms() dict.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.perms.module_disabled">
+<span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">module_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">modules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.module_disabled" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.perms.require">
 <span class="sig-prename descclassname"><span class="pre">application.db.perms.</span></span><span class="sig-name descname"><span class="pre">require</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">perms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perform_on_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.perms.require" title="Link to this definition">#</a></dt>
 <dd><p>Require the calling user to have any of the specified permissions.</p>
@@ -3282,6 +3292,16 @@ excluding any disabled modules based on the user’s groups.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.settings.global_module_enabled">
+<span class="sig-prename descclassname"><span class="pre">application.db.settings.</span></span><span class="sig-name descname"><span class="pre">global_module_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.settings.global_module_enabled" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.settings.set_config">
 <span class="sig-prename descclassname"><span class="pre">application.db.settings.</span></span><span class="sig-name descname"><span class="pre">set_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.settings.set_config" title="Link to this definition">#</a></dt>
 <dd><p>Sets or deletes a configuration value in the database.</p>
@@ -3580,6 +3600,24 @@ Any sensitive information, such as passwords, is excluded from the export.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.users.get_users_ldap">
+<span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">get_users_ldap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.get_users_ldap" title="Link to this definition">#</a></dt>
+<dd><p>Get LDAP data for all active users in the database.
+:returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>A generator</dt><dd><p>that yields the bare minimum user data needed for LDAP.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Generator[dict[str, str | bytes], None, None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.users.group_filter">
 <span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">group_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.group_filter" title="Link to this definition">#</a></dt>
 <dd><p>Applies group filtering to the specified filter based on the user’s groups.</p>
@@ -3595,6 +3633,18 @@ Any sensitive information, such as passwords, is excluded from the export.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.users.init">
+<span class="sig-prename descclassname"><span class="pre">application.db.users.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.users.init" title="Link to this definition">#</a></dt>
+<dd><p>Initialize any data or configs related to users,
+including AD functionality, if enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -4484,6 +4534,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.caller_info"><code class="docutils literal notranslate"><span class="pre">caller_info()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.caller_info_strict"><code class="docutils literal notranslate"><span class="pre">caller_info_strict()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.module"><code class="docutils literal notranslate"><span class="pre">module()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.module_disabled"><code class="docutils literal notranslate"><span class="pre">module_disabled()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.require"><code class="docutils literal notranslate"><span class="pre">require()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.require_all"><code class="docutils literal notranslate"><span class="pre">require_all()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.perms.satisfies"><code class="docutils literal notranslate"><span class="pre">satisfies()</span></code></a></li>
@@ -4508,6 +4559,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.settings.get_enabled_modules"><code class="docutils literal notranslate"><span class="pre">get_enabled_modules()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.settings.get_groups"><code class="docutils literal notranslate"><span class="pre">get_groups()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.settings.get_modules"><code class="docutils literal notranslate"><span class="pre">get_modules()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.settings.global_module_enabled"><code class="docutils literal notranslate"><span class="pre">global_module_enabled()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.settings.set_config"><code class="docutils literal notranslate"><span class="pre">set_config()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.settings.set_module_enabled"><code class="docutils literal notranslate"><span class="pre">set_module_enabled()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.settings.update_groups"><code class="docutils literal notranslate"><span class="pre">update_groups()</span></code></a></li>
@@ -4525,7 +4577,9 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.get_user_by_id"><code class="docutils literal notranslate"><span class="pre">get_user_by_id()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.get_user_data"><code class="docutils literal notranslate"><span class="pre">get_user_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.get_user_list"><code class="docutils literal notranslate"><span class="pre">get_user_list()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.get_users_ldap"><code class="docutils literal notranslate"><span class="pre">get_users_ldap()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.group_filter"><code class="docutils literal notranslate"><span class="pre">group_filter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.is_locked"><code class="docutils literal notranslate"><span class="pre">is_locked()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.login_attempts_remaining"><code class="docutils literal notranslate"><span class="pre">login_attempts_remaining()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.users.process_user_data"><code class="docutils literal notranslate"><span class="pre">process_user_data()</span></code></a></li>
