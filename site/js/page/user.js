@@ -307,8 +307,7 @@ export async function update_password(password, username) {
 		return
 	}
 
-	const hashed_pass = await api.hash(password)
-	const res = await mutate.users.password(username, hashed_pass)
+	const res = await mutate.users.password(username, password)
 
 	if (res.__typename !== 'UserData') {
 		_.modal({

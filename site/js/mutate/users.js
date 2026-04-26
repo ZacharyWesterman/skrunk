@@ -18,7 +18,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	create: async (username, pass_hash, groups) => {
+	create: async (username, password, groups) => {
 		const query = `
 		mutation ($username: String!, $password: String!, $groups: [String!]!){
 			createUser(username: $username, password: $password, groups: $groups) {
@@ -35,9 +35,9 @@ export default {
 			}
 		}`
 		const vars = {
-			'username': username,
-			'password': pass_hash,
-			'groups': groups || [],
+			username,
+			password,
+			groups: groups || [],
 		}
 		return await api(query, vars)
 	},
@@ -71,7 +71,7 @@ export default {
 		return await api(query, vars)
 	},
 
-	password: async (username, pass_hash) => {
+	password: async (username, password) => {
 		return await api(`mutation ($username: String!, $password: String!) {
 			updateUserPassword(username: $username, password: $password) {
 				__typename
@@ -83,8 +83,8 @@ export default {
 				}
 			}
 		}`, {
-			username: username,
-			password: pass_hash,
+			username,
+			password,
 		})
 	},
 
