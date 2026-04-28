@@ -52,7 +52,7 @@ export async function confirm_delete_user(username) {
 		buttons: ['Yes, I\'m sure', 'No'],
 	}).catch(() => 'no')
 
-	if (choice !== 'yes') return
+	if (choice === 'no') return
 
 	delete_user(username)
 	$.hide('userdata', true)
