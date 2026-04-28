@@ -8,13 +8,11 @@ commit_fail() {
 
 stashed=0
 require_stash() {
-	poetry shell
 	[ $stashed -eq 0 ] && git stash -q --include-untracked --keep-index
 	stashed=1
 }
 
 unstash() {
-	deactivate
 	[ $stashed -eq 1 ] && git stash pop -q
 	stashed=0
 }

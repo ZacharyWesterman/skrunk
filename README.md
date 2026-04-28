@@ -60,6 +60,12 @@ cd skrunk
 poetry install --no-root --without dev
 ```
 
+If you wish to set it up with LDAP support, you'll need to install the appropriate headers, and adjust the poetry command:
+```bash
+sudo apt install libldap2-dev libssl-dev libsasl2-dev
+poetry install --no-root --without dev -E ldap
+```
+
 If you plan to enable the file module, you'll want to make sure you have a place to store blob data that is uploaded to the site.
 It can be any directory, but going forward we'll assume it's `/var/blob_data`.
 
