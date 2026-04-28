@@ -321,6 +321,11 @@ In most cases you won’t need the documentation to generate, so you can append 
 poetry<span class="w"> </span>install<span class="w"> </span>--no-root<span class="w"> </span>--without<span class="w"> </span>dev
 </pre></div>
 </div>
+<p>If you wish to set it up with LDAP support, you’ll need to install the appropriate headers, and adjust the poetry command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libldap2-dev<span class="w"> </span>libssl-dev<span class="w"> </span>libsasl2-dev
+poetry<span class="w"> </span>install<span class="w"> </span>--no-root<span class="w"> </span>--without<span class="w"> </span>dev<span class="w"> </span>-E<span class="w"> </span>ldap
+</pre></div>
+</div>
 <p>If you plan to enable the file module, you’ll want to make sure you have a place to store blob data that is uploaded to the site.
 It can be any directory, but going forward we’ll assume it’s <code class="docutils literal notranslate"><span class="pre">/var/blob_data</span></code>.</p>
 <p>Also, make sure you know the MongoDB URL of the database. If not specified at run-time, this will default to <code class="docutils literal notranslate"><span class="pre">localhost</span></code>.</p>
