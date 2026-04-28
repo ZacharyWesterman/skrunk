@@ -265,6 +265,7 @@ def create_user(
 		'disabled_modules': [],
 		'email': '',
 		'failed_logins': 0,
+		'disabled': False,
 	}
 
 	db.insert_one(userdata)
