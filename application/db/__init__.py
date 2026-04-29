@@ -25,22 +25,25 @@ from . import (
 )
 
 
-def init_db(data_db_url: str = 'localhost', blob_path: str | None = None) -> None:
+def init_db(database_url: str = 'localhost', blob_path: str | None = None) -> None:
 	"""
 	Initialize the database connections and set up the necessary collections.
 
-	This function connects to the MongoDB instance specified by `data_db_url` and
+	This function connects to the MongoDB instance specified by `database_url` and
 	initializes various collections used by the application. It also sets the path
 	for blob storage if provided.
 
 	Args:
-		data_db_url (str): The URL of the MongoDB instance to connect to. Defaults to 'localhost'.
+		database_url (str): The URL of the MongoDB instance to connect to. Defaults to 'localhost'.
 		blob_path (str, optional): The path for blob storage. Defaults to None.
 
 	Returns:
 		None
 	"""
-	client = MongoClient(data_db_url)
+	print('Connecting to database...', flush=True, end='')
+	client = MongoClient(database_url)
+	print(' Connected.', flush=True)
+
 	blob_storage.blob_path = blob_path
 
 	users.db = client.skrunk.users

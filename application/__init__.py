@@ -17,14 +17,14 @@ from .resolvers import mutation, query
 from .scalars import scalars
 
 
-def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
+def init(*, no_auth=False, blob_path=None, database_url='') -> Flask:
 	"""
 	Initialize the application and database.
 
 	Parameters:
 		no_auth (bool): Flag to disable authentication. Default is False.
 		blob_path (str, optional): Path to the blob storage. Default is None.
-		data_db_url (str): URL to the database. Default is an empty string.
+		database_url (str): URL to the database. Default is an empty string.
 
 	Returns:
 		Flask: The initialized Flask application instance.
@@ -32,7 +32,7 @@ def init(*, no_auth=False, blob_path=None, data_db_url='') -> Flask:
 
 	tokens.init()
 
-	init_db(data_db_url, blob_path)
+	init_db(database_url, blob_path)
 
 	application: Any = Flask(__name__)
 

@@ -20,6 +20,6 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	app = application.init(no_auth=args.no_auth, blob_path=args.blob_path, data_db_url=args.data_db)
+	app = application.init(no_auth=args.no_auth, blob_path=args.blob_path, database_url=args.data_db)
 
 	update_user_password(args.username, args.passhash)
