@@ -22,9 +22,9 @@
 			<div class="spread-out">
 				{{~it.buttons : button : i}}
 					{{?typeof button === 'object'}}
-						<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=safe_html(button[0])}}')" class="modal-button">{{=button[1]}}</button>
+						<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button[0].replaceAll('\'', '\\\'').replaceAll('"', '&quot;').replaceAll('\n', '\\n')}}')" class="modal-button">{{=button[1]}}</button>
 					{{??}}
-						<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=safe_html(button)}}')" class="modal-button">{{=button}}</button>
+						<button {{? i==0 }}id="modal-button-first"{{?}} onclick="_.modal.return('{{=button.replaceAll('\'', '\\\'').replaceAll('"', '&quot;').replaceAll('\n', '\\n')}}')" class="modal-button">{{=button}}</button>
 					{{?}}
 				{{~}}
 			</div>
