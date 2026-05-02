@@ -5,6 +5,7 @@ import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Generator, TypeVar
 from zipfile import ZipFile
+from random import randint
 
 import bcrypt
 from bson import json_util
@@ -724,7 +725,7 @@ def create_reset_code(username: str, delete_existing: bool = False) -> str:
 			raise exceptions.RateLimitExceeded()
 
 	# Create 6-digit code and store it in the database
-	code = ''.join(str(uuid.uuid4())[0:6]).lower()
+	code = f'{randint(0,999999):06d}'
 	top_level_db.reset_codes.insert_one({
 		'username': username,
 		'code': code,
