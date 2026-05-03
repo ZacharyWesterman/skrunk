@@ -1,4 +1,5 @@
 from pathlib import Path
+from jsmin import jsmin
 import re
 
 CSS_URL = re.compile(r'@import +url\( *[\'"]([^\'"]*)[\'"] *\) *;')
@@ -63,7 +64,8 @@ def bundle_js(path: str) -> None:
 			text = text[:span[0]] + imported_text + text[span[1]:]
 
 	with open('site/bundled/' + Path(path).name, 'w') as fp:
-		fp.write(text)
+		# Minify the JS before outputting
+		fp.write(jsmin(text, quote_chars='\'"`'))
 
 
 def bundle() -> None:
