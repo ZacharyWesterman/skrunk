@@ -497,7 +497,7 @@ api.preload = async () => {
 		for (const name of ['config', 'html', 'templates']) {
 			const res = await fetch(`/${name}.json`)
 			if (res.status < 200 || res.status >= 300 || !res.ok) {
-				continue;
+				throw new Error('Bundling not enabled')
 			}
 
 			const bundle = await res.json()
