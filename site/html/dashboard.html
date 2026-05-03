@@ -1,3 +1,4 @@
+<div name="image-view-modal"></div>
 <div name="upload_modal"></div>
 
 <div name="navbar"></div>
@@ -13,3 +14,16 @@
 <!-- source for rich text editors -->
 <link rel="stylesheet" href="/css/libs/simplemde.min.css">
 <script src="/js/libs/simplemde.min.js" async></script>
+
+<div class="notification clickable" id="notif-icon">
+	<div id="no-notifications" class="notif-icon hidden"><i class="fa-solid fa-bell-slash"></i></div>
+	<div id="yes-notifications" class="notif-icon hidden"><i class="fa-solid fa-bell"></i></div>
+	<div id="notif-count" class="notif-bubble hidden"></div>
+</div>
+
+<!-- Camera overlay for direct camera access, if given -->
+<div id="camera-container" class="hidden">
+	<video id="camera-video" autoplay playsinline></video>
+	<div id="camera-reticle"></div>
+	<canvas id="camera-canvas"></canvas>
+</div>
