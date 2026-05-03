@@ -538,3 +538,24 @@ th {
 	transform: translate(-50%, -50%);
 	pointer-events: none;
 }
+
+.gg-spinner.big {
+	transform: scale(5, 5);
+	left: 50%;
+	top: 50%;
+}
+
+.gg-spinner.page {
+	transform: scale(10, 10);
+	position: absolute;
+	left: calc(50% - .66rem);
+	top: 50%;
+}
+
+.page-center {
+	position: absolute;
+	left: 50%;
+	top: calc(50% - 7rem);
+	transform: translate(-50%, -50%);
+	font-size: 16pt;
+}
