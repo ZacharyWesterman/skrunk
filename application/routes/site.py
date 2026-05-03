@@ -7,6 +7,8 @@ from flask import Response
 
 from . import auth, files
 
+from application.bundler import get_bundled_path
+
 application: Any = None
 
 # Allow only specific files in site/ to be accessed without auth,
@@ -47,8 +49,13 @@ def get(path: str) -> Response:
 	if not auth.authorized() and path not in __NO_AUTH_FILES and not jsfields and not styles:
 		return Response('Access denied.', 403)
 
+	if bundled_path := get_bundled_path(path):
+		path = bundled_path
+	else:
+		path = f'site/{path}'
+
 	if not application.is_initialized and path == 'html/login.html':
-		with open(f'site/{path}', 'r', encoding='utf8') as f:
+		with open(path, 'r', encoding='utf8') as f:
 			return Response(f.read().replace(
 				'Authentication Required',
 				"""<b class="emphasis">
@@ -65,7 +72,7 @@ def get(path: str) -> Response:
 		ext = ''
 
 	if ext in ['js', 'css', 'html', 'dot', 'json', 'aff', 'dic']:
-		return files.read_file_data(f'site/{path}')
+		return files.read_file_data(path)
 	else:
 		if auth.authorized():
 			return Response('File not found.', 404)
