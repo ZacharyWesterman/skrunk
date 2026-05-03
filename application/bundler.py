@@ -106,6 +106,9 @@ def bundle() -> None:
 	"""
 
 	print('Bundling source for performance...', end='', flush=True)
+
+	# Make sure only current list of files are bundled.
+	no_bundle()
 	Path('site/bundled').mkdir(exist_ok=True)
 
 	# Bundle and minify certain files
