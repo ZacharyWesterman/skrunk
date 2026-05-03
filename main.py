@@ -23,8 +23,14 @@ if __name__ == '__main__':
 		'--database', action='store', default='mongodb://localhost:27017/', type=str,
 		help='The connection URI of the mongodb database'
 	)
+	parser.add_argument('--bundle', action='store_true', help='Bundle common files to improve performance.')
 
 	args = parser.parse_args()
+
+	if args.bundle:
+		application.bundler.bundle()
+	else:
+		application.bundler.no_bundle()
 
 	app = application.init(no_auth=args.no_auth, blob_path=args.blob_path, database_url=args.database)
 	if args.prod:

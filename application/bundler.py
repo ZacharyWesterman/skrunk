@@ -1,0 +1,93 @@
+from pathlib import Path
+import re
+
+CSS_URL = re.compile(r'@import +url\( *[\'"]([^\'"]*)[\'"] *\) *;')
+JS_IMPORT = re.compile(r'\bimport +((\w+) +from *)?[\'"]([^\'"]*)[\'"]')
+JS_EXPORT = re.compile(r'\bexport *default\b')
+JS_FUNC_IMPORT = re.compile(r'\bimport *\( *[\'"]([^\'"]*)[\'"] *\)')
+
+
+def bundle_css(path: str) -> None:
+	with open(path, 'r') as fp:
+		text = fp.read()
+
+	found = True
+	while found:
+		found = False
+		insertions = []
+		for i in CSS_URL.finditer(text):
+			span = i.span()
+			url = i.group(1)
+			insertions += [(span, url)]
+			found = True
+
+		for (span, url) in reversed(insertions):
+			with open('site/' + url, 'r') as fp:
+				text = text[:span[0]] + fp.read() + text[span[1] + 1:]
+
+	with open('site/bundled/' + Path(path).name, 'w') as fp:
+		fp.write(text)
+
+
+def bundle_js(path: str) -> None:
+	with open(path, 'r') as fp:
+		text = fp.read()
+
+	# Replace statements like `import name from url` or `import url`
+	insertions = []
+	for i in JS_IMPORT.finditer(text):
+		span = i.span()
+		name = i.group(2)
+		url = i.group(3)
+		insertions += [(span, name, url)]
+
+	for (span, name, url) in reversed(insertions):
+		with open(str(Path(path).parent / url), 'r') as fp:
+			if name is not None:
+				imported_text = 'const ' + name + ' = (() => {\n' + JS_EXPORT.sub('return ', fp.read()) + '})()\n'
+			else:
+				imported_text = fp.read()
+
+			text = text[:span[0]] + imported_text + text[span[1]:]
+
+	# Replace statements like `import(url)`
+	insertions = []
+	for i in JS_FUNC_IMPORT.finditer(text):
+		span = i.span()
+		url = i.group(1)
+		insertions += [(span, url)]
+
+	for (span, url) in reversed(insertions):
+		with open('site/' + url, 'r') as fp:
+			imported_text = '(async () => { return { default: (() => {\n' + JS_EXPORT.sub('return ', fp.read()) + '})() } })()'
+			text = text[:span[0]] + imported_text + text[span[1]:]
+
+	with open('site/bundled/' + Path(path).name, 'w') as fp:
+		fp.write(text)
+
+
+def bundle() -> None:
+	print('Bundling source for performance...', end='', flush=True)
+	Path('site/bundled').mkdir(exist_ok=True)
+	with open('data/bundle_files.txt', 'r') as fp:
+		for line in fp.readlines():
+			filename = line.strip()
+			ext = Path(filename).suffix
+			if ext == '.css':
+				bundle_css(filename)
+			elif ext == '.js':
+				bundle_js(filename)
+	print(' Done.', flush=True)
+
+
+def no_bundle() -> None:
+	bundle_dir = Path('site/bundled')
+	if bundle_dir.exists():
+		for i in bundle_dir.iterdir():
+			i.unlink()
+		bundle_dir.rmdir()
+
+
+def get_bundled_path(path: str) -> str | None:
+	bundled_path = Path('site/bundled') / Path(path).name
+	return str(bundled_path) if bundled_path.exists() else None
