@@ -19,6 +19,14 @@ Subpackages
 Submodules
 ----------
 
+application.bundler module
+--------------------------
+
+.. automodule:: application.bundler
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.tokens module
 -------------------------
 
