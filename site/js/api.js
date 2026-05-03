@@ -489,15 +489,35 @@ api.snippit = async (name, url_only = false) => {
 api.preload = async () => {
 	if (!cache.enabled) return
 
-	const resources = await api.get_json('/config/sitemap.json')
+	query.require('users').then(query.users.list)
+
 	let promises = []
+
+	try {
+		for (const name of ['config', 'html', 'templates']) {
+			const res = await fetch(`/${name}.json`)
+			if (res.status < 200 || res.status >= 300 || !res.ok) {
+				continue;
+			}
+
+			const bundle = await res.json()
+			for (const i in bundle) {
+				cache.write(i, bundle[i])
+			}
+
+			console.log(`Fetched bundle: ${name}`)
+		}
+	} catch (e) {
+		console.log('Bundling not enabled, fetching all async.')
+	}
+
+	// Resources aren't bundled, so load them all from the sitemap.
+	const resources = await api.get_json('/config/sitemap.json')
 
 	for (const i of resources.js) promises.push(import(i))
 	for (const i of resources.html) promises.push(api.get(i))
 	for (const i of resources.dot) promises.push(api.get(i))
 	for (const i of resources.json) promises.push(api.get(i))
-
-	query.require('users').then(query.users.list)
 
 	for (const i of promises) await i
 }

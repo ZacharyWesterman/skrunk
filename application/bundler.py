@@ -6,6 +6,7 @@ by decreasing the number of HTTP requests needed to load content.
 from pathlib import Path
 from jsmin import jsmin
 from rcssmin import cssmin
+import json
 import re
 
 CSS_URL = re.compile(r'@import +url\( *[\'"]([^\'"]*)[\'"] *\) *;')
@@ -106,6 +107,8 @@ def bundle() -> None:
 
 	print('Bundling source for performance...', end='', flush=True)
 	Path('site/bundled').mkdir(exist_ok=True)
+
+	# Bundle and minify certain files
 	with open('data/bundle_files.txt', 'r', encoding='utf8') as fp:
 		for line in fp.readlines():
 			filename = line.strip()
@@ -114,6 +117,31 @@ def bundle() -> None:
 				bundle_css(filename)
 			elif ext == '.js':
 				bundle_js(filename)
+
+	def flat_iter(path: Path):
+		if path.is_file():
+			yield path
+		else:
+			for i in path.iterdir():
+				yield from flat_iter(i)
+
+	# Bundle other files into packs for site pre-loading
+	for i in ['config', 'html', 'templates']:
+		data = {}
+		for file in flat_iter(Path(f'site/{i}')):
+			if i == 'config' and file.suffix != '.json':
+				continue
+
+			if not file.is_file():
+				continue
+
+			with open(str(file), 'r', encoding='utf8') as fp:
+				filename = str(file).replace('site/', '')
+				data[filename] = json.dumps(json.load(fp)) if file.suffix == '.json' else fp.read()
+
+		with open(f'site/bundled/{i}.json', 'w', encoding='utf8') as fp:
+			json.dump(data, fp)
+
 	print(' Done.', flush=True)
 
 
