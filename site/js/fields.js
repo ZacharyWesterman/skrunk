@@ -11,25 +11,19 @@ import './elements/code-input.js'
 let _ = Template
 _.modal = Modal
 
-function get_css_styles() {
-	for (const sheet of document.styleSheets) {
-		try {
-			for (const rule of sheet.cssRules) {
-				if (rule.href === '/css/theme.css') {
-					return rule.styleSheet.rules[0].style
-				}
-			}
-		}
-		catch (e) {
-			//console.warn(e)
-		}
-	}
-
-	return []
-}
 
 _.css = {
-	vars: () => get_css_styles(),
+	vars: (() => {
+		const styles = getComputedStyle(document.querySelector(':root'))
+		const varList = []
+		for (let i = 0; i < styles.length; i++) {
+			const property = styles[i];
+			if (property.startsWith('--')) {
+				varList.push(property);
+			}
+		}
+		return () => varList;
+	})(),
 	set_var: (name, value) => document.querySelector(':root').style.setProperty(name, value.trim()),
 	get_var: name => getComputedStyle(document.querySelector(':root')).getPropertyValue(name).trim(),
 	wipe: () => { for (const i of _.css.vars()) _.css.set_var(i, '') },

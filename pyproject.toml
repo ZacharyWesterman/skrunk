@@ -30,6 +30,7 @@ pdf2image = "^1.17.0"
 tag-query = "^1.0.1"
 python-ldap = {version = "^3.4.5", optional = true}
 jsmin = "^3.0.1"
+rcssmin = "^1.2.2"
 
 [tool.poetry.group.dev.dependencies]
 sphinx = "^8.2.3"
