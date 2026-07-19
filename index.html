@@ -316,7 +316,8 @@
 <hr class="docutils" />
 <p>To get all set up, first download the repo, then install dependencies.
 In most cases you won’t need the documentation to generate, so you can append <code class="docutils literal notranslate"><span class="pre">--without</span> <span class="pre">dev</span></code> to the install command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ZacharyWesterman/skrunk.git<span class="w"> </span>--recursive
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libjpeg-dev<span class="w"> </span><span class="c1"># Needed for PIL</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ZacharyWesterman/skrunk.git<span class="w"> </span>--recursive<span class="w"> </span><span class="c1"># Keep submodules</span>
 <span class="nb">cd</span><span class="w"> </span>skrunk
 poetry<span class="w"> </span>install<span class="w"> </span>--no-root<span class="w"> </span>--without<span class="w"> </span>dev
 </pre></div>
