@@ -55,7 +55,8 @@ This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Pyt
 To get all set up, first download the repo, then install dependencies.
 In most cases you won't need the documentation to generate, so you can append `--without dev` to the install command.
 ```bash
-git clone https://github.com/ZacharyWesterman/skrunk.git --recursive
+sudo apt install libjpeg-dev # Needed for PIL
+git clone https://github.com/ZacharyWesterman/skrunk.git --recursive # Keep submodules
 cd skrunk
 poetry install --no-root --without dev
 ```
