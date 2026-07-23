@@ -580,6 +580,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.InvalidSubscriptionToken"><code class="docutils literal notranslate"><span class="pre">InvalidSubscriptionToken</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">ItemDoesNotExistError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemExistsError"><code class="docutils literal notranslate"><span class="pre">ItemExistsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.JWTAuthenticationError"><code class="docutils literal notranslate"><span class="pre">JWTAuthenticationError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.MissingConfig"><code class="docutils literal notranslate"><span class="pre">MissingConfig</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.RateLimitExceeded"><code class="docutils literal notranslate"><span class="pre">RateLimitExceeded</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
@@ -1723,7 +1724,8 @@ it looks for the ‘Cookie’ header and attempts to decode it to find the
 <dl class="py function">
 <dt class="sig sig-object py" id="application.tokens.init">
 <span class="sig-prename descclassname"><span class="pre">application.tokens.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.tokens.init" title="Link to this definition">#</a></dt>
-<dd><p>Initialize the JWT token system by loading the private and public keys.</p>
+<dd><p>Initialize the JWT token system by loading the private and public keys.
+If the keys don’t exist, generate them first.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
