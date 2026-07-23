@@ -18,3 +18,5 @@ class UserMinData(TypedDict):
 	display_name: str
 	## The date and time when the user last logged in, if ever.
 	last_login: datetime | None
+	## A list of groups the user belongs to.
+	groups: list[str]

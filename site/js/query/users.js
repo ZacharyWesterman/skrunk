@@ -13,6 +13,7 @@ export default {
 				listUsers (restrict: $restrict) {
 					username
 					display_name
+					groups
 				}
 			}`, {
 				restrict: restrict_to_group,

@@ -3,9 +3,9 @@
 import shutil
 import uuid
 from datetime import UTC, datetime, timedelta
+from random import randint
 from typing import Generator, TypeVar
 from zipfile import ZipFile
-from random import randint
 
 import bcrypt
 from bson import json_util
@@ -104,6 +104,7 @@ def get_user_list(groups: list[str]) -> list:
 		'username': data['username'],
 		'display_name': data['display_name'],
 		'last_login': data.get('last_login'),
+		'groups': data.get('groups', []),
 	} for data in db.find(query, sort=[('username', 1)])]
 
 
@@ -725,7 +726,7 @@ def create_reset_code(username: str, delete_existing: bool = False) -> str:
 			raise exceptions.RateLimitExceeded()
 
 	# Create 6-digit code and store it in the database
-	code = f'{randint(0,999999):06d}'
+	code = f'{randint(0, 999999):06d}'
 	top_level_db.reset_codes.insert_one({
 		'username': username,
 		'code': code,

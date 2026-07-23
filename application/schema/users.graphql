@@ -33,6 +33,8 @@ type UserMinData {
 	display_name: String!
 	"""The date and time when the user last logged in, if ever."""
 	last_login: DateTime
+	"""A list of groups the user belongs to."""
+	groups: [String!]
 }
 
 """An error indicating that the user already exists."""

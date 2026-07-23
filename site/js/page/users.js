@@ -111,19 +111,33 @@ export async function create_user() {
 }
 
 function refresh_users() {
-	_('dropdown', {
+	const group = $.val('group')
+	const user_is_in_group = (user) => {
+		return !group || user.groups.includes(group)
+	}
+
+	_('user-dropdown', {
 		id: 'userlist',
-		options: query.users.list(null, false, false), //Don't cache user list, and don't restrict to our group.
+		options: query.users.list(user_is_in_group, false, false), //Don't cache user list, and don't restrict to our group.
 		default: 'Select User',
 		class: 'big',
 	}).then(() => {
 		$('userlist').onchange = () => {
 			const user = $.val('userlist')
-			if (user === '')
+			if (user === '') {
 				$.hide('userdata', true)
-			else
+			} else {
 				load_user_data(user)
+			}
 		}
+	})
+
+	_('group-dropdown', {
+		id: 'group',
+		options: api('{ getUserGroups }'),
+		default: 'ALL',
+	}).then(() => {
+		$.bind('group', refresh_users)
 	})
 }
 
