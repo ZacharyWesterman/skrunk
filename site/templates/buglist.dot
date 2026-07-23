@@ -1,7 +1,7 @@
 
 <h2 {{? it.list.length }}class="clickable" *toggles="buglist-{{= it.bug_type }}"{{?}}>
 {{?it.list.length}}
-	{{= it.list.length }} {{= it.bug_type }} Issue{{? it.list.length !== 1 }}s{{?}}
+	{{= it.list_length }} {{= it.bug_type }} Issue{{? it.list.length !== 1 }}s{{?}}
 	&nbsp;<i class="fa-solid fa-angles-down"></i>
 {{??}}
 	No {{= it.bug_type }} Issues
@@ -11,6 +11,12 @@
 {{? it.list.length }}
 <div class="expand-container {{? it.expanded }}expanded{{?}}" id="buglist-{{= it.bug_type }}">
 	<div>
+		{{? it.list.length < it.list_length }}
+		<div>
+			(Showing only the first {{= it.list.length }} items)
+		</div>
+		{{?}}
+
 		{{~it.list: bug}}
 		<div class="card">
 			<div class="card-inner">

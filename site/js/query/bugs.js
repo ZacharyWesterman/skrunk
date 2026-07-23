@@ -22,10 +22,26 @@ export default {
 				resolved
 			}
 		}`, {
-			username: username,
-			resolved: resolved,
-			start: start,
-			count: count,
+			username,
+			resolved,
+			start,
+			count,
 		})
 	},
+
+	/**
+	 * @brief Count the number of issues that exist.
+	 * 
+	 * @param {string|null} username The user who created the issue. If null, issues by any user are counted.
+	 * @param {boolean} resolved Whether the issue is marked as resolved. If null, issues with any resolution status are counted.
+	 * @return {Promise<int>} The number of issues matching the search criteria.
+	 */
+	count: async (username, resolved) => {
+		return await api(`query ($username: String, $resolved: Boolean!) {
+			countBugReports (username: $username, resolved: $resolved)	
+		}`, {
+			username,
+			resolved,
+		})
+	}
 }

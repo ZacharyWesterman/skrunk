@@ -45,12 +45,14 @@ export async function submit_bug_report() {
 export function refresh_bug_list() {
 	_('open-bugs', {
 		list: query.bugs.list(null, 0, 100, false),
+		list_length: query.bugs.count(null, false),
 		locked: false,
 		bug_type: 'Open',
 		expanded: true,
 	})
 	_('resolved-bugs', {
 		list: query.bugs.list(null, 0, 5, true),
+		list_length: query.bugs.count(null, true),
 		locked: true,
 		bug_type: 'Resolved',
 		expanded: false,
