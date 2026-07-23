@@ -99,7 +99,7 @@ def caller_info_strict() -> UserData | dict:
 	except exceptions.InvalidJWTError as e:
 		apikey: dict | None = apikeydb.find_one({'key': tok})
 		if apikey is None:
-			raise exceptions.AuthenticationError() from e
+			raise exceptions.JWTAuthenticationError() from e
 
 		return apikey
 

@@ -87,12 +87,20 @@ fi
 	echo '}'
 } >site/config/sitemap.json
 
-#Generate VAPIDs
-if [ ! -e data/public_key.txt ]; then
-	openssl ecparam -name prime256v1 -genkey -noout -out data/vapid_private.pem
-	openssl ec -in data/vapid_private.pem -outform DER | tail -c +8 | head -c 32 | base64 | tr -d '=' | tr '/+' '_-' >data/private_key.txt
-	openssl ec -in data/vapid_private.pem -pubout -outform DER | tail -c 65 | base64 | tr -d '=' | tr '/+' '_-' >data/public_key.txt
-	rm -f data/vapid_private.pem
+# Make secrets dir
+mkdir -p data/secrets
+
+#Generate VAPID public and private key (for notifications)
+if [ ! -e data/secrets/public_key.txt ]; then
+	openssl ecparam -name prime256v1 -genkey -noout -out data/secrets/vapid_private.pem
+	openssl ec -in data/secrets/vapid_private.pem -outform DER | tail -c +8 | head -c 32 | base64 | tr -d '=' | tr '/+' '_-' >data/secrets/private_key.txt
+	openssl ec -in data/secrets/vapid_private.pem -pubout -outform DER | tail -c 65 | base64 | tr -d '=' | tr '/+' '_-' >data/secrets/public_key.txt
+	rm -f data/secrets/vapid_private.pem
+fi
+
+#Generate RSA public and private key (for JWTs)
+if [ ! -e data/secrets/id_rsa.pub ]; then
+	ssh-keygen -t rsa -f data/secrets/id_rsa -N ''
 fi
 
 #Make sure all dependencies are up to date
