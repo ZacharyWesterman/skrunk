@@ -291,7 +291,17 @@ api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], h
 			data.append('hidden', hidden)
 			data.append('ephemeral', ephemeral)
 			data.append('tags', JSON.stringify(tag_list))
-			xhr.upload.addEventListener('progress', progress_handler, false)
+
+			const eventListener = (progress) => {
+				progress_handler(progress)
+				if (progress.loaded >= progress.total) {
+					xhr.upload.removeEventListener('progress', eventListener)
+					api.upload.xhr.splice(api.upload.xhr.indexOf(xhr), 1)
+					resolve()
+				}
+			}
+			xhr.upload.addEventListener('progress', eventListener, false)
+
 			xhr.open('POST', '/upload', true)
 			xhr.send(data)
 
