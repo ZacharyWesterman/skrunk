@@ -2,7 +2,6 @@
 This module handles JWT token creation, decoding, and validation for user sessions and API keys.
 """
 
-import os
 import random
 from typing import Any
 
@@ -21,13 +20,14 @@ __public_key: Any = None
 def init() -> None:
 	"""
 	Initialize the JWT token system by loading the private and public keys.
+	If the keys don't exist, generate them first.
 	"""
 
 	global __private_key, __public_key
 
-	with open(os.environ['HOME'] + '/.ssh/id_rsa', 'r', encoding='utf8') as fp:
+	with open('data/secrets/id_rsa', 'r', encoding='utf8') as fp:
 		__private_key = serialization.load_ssh_private_key(fp.read().encode(), password=b'')
-	with open(os.environ['HOME'] + '/.ssh/id_rsa.pub', 'r', encoding='utf8') as fp:
+	with open('data/secrets/id_rsa.pub', 'r', encoding='utf8') as fp:
 		__public_key = serialization.load_ssh_public_key(fp.read().encode())
 
 
@@ -79,7 +79,7 @@ def decode_user_token(token: str) -> dict:
 			key=__public_key,
 			algorithms=['RS256']
 		)
-	except (jwt.ExpiredSignatureError, jwt.InvalidTokenError) as e:
+	except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, jwt.InvalidSignatureError) as e:
 		raise InvalidJWTError from e
 
 

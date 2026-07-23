@@ -2,8 +2,7 @@ poetry.lock
 __pycache__
 sitemap.json
 auth.json
-data/private_key.txt
-data/public_key.txt
 docs/build/
 docs/source/*.rst
 bundled/
+data/secrets

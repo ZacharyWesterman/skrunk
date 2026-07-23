@@ -46,6 +46,16 @@ class AuthenticationError(ClientError):
 		super().__init__(msg)
 
 
+class JWTAuthenticationError(ClientError):
+	"""Raised when authentication fails due to a JSON web token being invalid."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating that auth failed due to a bad JWT.
+		"""
+		super().__init__('Invalid JWT')
+
+
 class UserIsLocked(ClientError):
 	"""Raised when a user is locked."""
 

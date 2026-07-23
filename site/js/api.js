@@ -454,6 +454,13 @@ api.handle_query_failure = async (res) => {
 		res.errors = (await res.json()).errors
 		console.error('API ERROR:', res.errors)
 		show_api_errors(res)
+
+		// If the JWT has become invalidated/corrupted/otherwise unreadable, just logout.
+		// In that case, it will just result in ALL api calls failing!
+		if (res?.errors?.[0]?.message === 'Invalid JWT') {
+			alert('Your session token is invalid, likely due to recent security updates (or possibly corrupted session data?).\n\nYou will need to log in again to generate a new (valid) token.')
+			api.logout()
+		}
 	}
 	else {
 		console.log('Token expired, logging out.')
