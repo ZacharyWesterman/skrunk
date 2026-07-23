@@ -105,6 +105,7 @@ def get_user_list(groups: list[str]) -> list:
 		'display_name': data['display_name'],
 		'last_login': data.get('last_login'),
 		'groups': data.get('groups', []),
+		'disabled': data.get('disabled', True),
 	} for data in db.find(query, sort=[('username', 1)])]
 
 

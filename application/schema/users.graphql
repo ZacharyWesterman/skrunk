@@ -35,6 +35,8 @@ type UserMinData {
 	last_login: DateTime
 	"""A list of groups the user belongs to."""
 	groups: [String!]
+	"""If true, the user cannot login or navigate the site. Acts as a soft-delete option."""
+	disabled: Boolean!
 }
 
 """An error indicating that the user already exists."""

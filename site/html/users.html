@@ -52,9 +52,15 @@
 	<div class="card">
 		<div class="card-inner">
 			<h4>Select a user to edit their data:</h4>
+			<div>
+				Enabled
+				<input type="checkbox" id="user-enabled" *click="refresh_users" ternary checked>
+			</div>
+			<div>
+				Group
+				<span template="dropdown" id="group-dropdown"></span>
+			</div>
 			<div template="dropdown" id="user-dropdown"></div>
-			Group
-			<span template="dropdown" id="group-dropdown"></span>
 		</div>
 	</div>
 

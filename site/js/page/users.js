@@ -110,15 +110,21 @@ export async function create_user() {
 	refresh_user_groups()
 }
 
-function refresh_users() {
+export function refresh_users() {
 	const group = $.val('group')
-	const user_is_in_group = (user) => {
+	const enabled = $.checked('user-enabled')
+
+	const user_filter = (user) => {
+		if (enabled !== null && user.disabled === enabled) {
+			return false;
+		}
+
 		return !group || user.groups.includes(group)
 	}
 
 	_('user-dropdown', {
 		id: 'userlist',
-		options: query.users.list(user_is_in_group, false, false), //Don't cache user list, and don't restrict to our group.
+		options: query.users.list(user_filter, false, false), //Don't cache user list, and don't restrict to our group.
 		default: 'Select User',
 		class: 'big',
 	}).then(() => {

@@ -1,7 +1,15 @@
 <div class="card">
 	<div class="card-inner">
 		<h2>
-			{{=it.user.username}}
+			{{? it.user.disabled }}
+			<span class="emphasis">{{= it.user.username }}</span>
+			<div class="emphasis" style="font-size: 80%;">
+				(login disabled)
+			</div>
+			{{??}}
+			{{= it.user.username }}
+			{{?}}
+
 			<span class="tooltip right" style="font-size: 80%;" *click="export_data('{{= it.user.username }}')">
 				<i class="fa-solid fa-cloud-arrow-down"></i>
 				<span class="tooltiptext t-float-left">Export all user data</span>

@@ -14,6 +14,7 @@ export default {
 					username
 					display_name
 					groups
+					disabled
 				}
 			}`, {
 				restrict: restrict_to_group,

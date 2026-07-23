@@ -20,3 +20,5 @@ class UserMinData(TypedDict):
 	last_login: datetime | None
 	## A list of groups the user belongs to.
 	groups: list[str]
+	## If true, the user cannot login or navigate the site. Acts as a soft-delete option.
+	disabled: bool
