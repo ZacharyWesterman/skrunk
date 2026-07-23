@@ -56,8 +56,9 @@ your search.
 					authors whose name contains that text, however more complex queries can be made by typing in a
 					<a href="https://www.regular-expressions.info/quickstart.html" target="_blank">
 						regular expression <i class="fa-solid fa-link"></i></a>.
-					For example, to search for an author whose <i>last name</i> is "Lewis",
-					you would use <span class="code">\bLewis$</span>.
+					For example, to search for an author whose <i>last name</i> is exactly "Lewis",
+					you would use <span class="code">\bLewis$</span>. Specifically, <span class="code">\b</span>
+					means "word break", and <span class="code">$</span> means "end of text".
 				</li>
 			</ul>
 		</i>
@@ -73,7 +74,7 @@ your search.
 					<a href="https://www.regular-expressions.info/quickstart.html" target="_blank">
 						regular expression <i class="fa-solid fa-link"></i></a>.
 					For example, to search for a category that is fiction but <b>not</b> juvenile fiction,
-					you would use <span class="code">(?&lt;!Juvenile )Fiction</span>.
+					you would use <span class="code">(?&lt;!juvenile )fiction</span>.
 				</li>
 			</ul>
 		</i>
