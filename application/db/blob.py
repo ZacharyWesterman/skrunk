@@ -200,7 +200,6 @@ def save_blob_data(
 		ephemeral
 	)
 	this_blob_path = BlobStorage(item_id, ext).path(create=True)
-	temp_filename = f'/tmp/{item_id}{ext}'
 
 	# Make sure that there's enough space in /tmp for the file.
 	# (5GB, the maximum size of a blob upload)
@@ -209,20 +208,16 @@ def save_blob_data(
 
 	# Stream file into temporary storage.
 	print(f'Beginning stream of file "{filename}"...', flush=True)
-	file.save(temp_filename)
+	file.save(this_blob_path)
 	print(f'Finished stream of file "{filename}".', flush=True)
 	uploaded_blobs = []
 
 	if auto_unzip and ext == '.zip':
 		uploaded_blobs = unzip_file_into_blobs(this_blob_path, tags, hidden, ephemeral)
-		pathlib.Path(temp_filename).unlink(missing_ok=True)
+		pathlib.Path(this_blob_path).unlink(missing_ok=True)
 		delete_blob(item_id)
 	else:
-		size, md5sum = file_info(temp_filename)
-
-		print(f'Moving file "{filename}" to blob storage...', flush=True)
-		shutil.move(temp_filename, this_blob_path)
-
+		size, md5sum = file_info(this_blob_path)
 		mark_as_completed(item_id, size, md5sum)
 		uploaded_blobs += [{'id': item_id, 'ext': ext}]
 

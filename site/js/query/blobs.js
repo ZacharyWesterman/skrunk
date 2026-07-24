@@ -33,6 +33,7 @@ export default {
 						hidden
 						ephemeral
 						references
+						complete
 					}
 				}
 				...on BadTagQuery {
@@ -131,6 +132,7 @@ export default {
 				thumbnail
 				hidden
 				ephemeral
+				complete
 			}
 		}`, {
 			id: blob_id,

@@ -28,6 +28,8 @@ type Blob {
 	ephemeral: Boolean!
 	"""The number of other documents that reference this blob. If ephemeral, this is used to determine if the blob can be deleted."""
 	references: Int!
+	"""Whether the blob has finished uploading and being processed."""
+	complete: Boolean!
 }
 
 """

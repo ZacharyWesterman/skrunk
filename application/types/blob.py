@@ -38,3 +38,5 @@ class Blob(TypedDict):
 	ephemeral: bool
 	## The number of other documents that reference this blob. If ephemeral, this is used to determine if the blob can be deleted.
 	references: int
+	## Whether the blob has finished uploading and being processed.
+	complete: bool
