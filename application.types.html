@@ -478,6 +478,11 @@
 <dd><p>Bases: <a class="reference internal" href="#application.types.blob_storage.BlobStorage" title="application.types.blob_storage.BlobStorage"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlobStorage</span></code></a></p>
 <p>A subclass of BlobStorage that represents a preview version of a blob.
 These previews are smaller and lower quality than the original.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="application.types.blob_storage.BlobPreview.blob_path">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">blob_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#application.types.blob_storage.BlobPreview.blob_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -498,6 +503,11 @@ These previews are smaller and lower quality than the original.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.blob_path">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">blob_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#application.types.blob_storage.BlobStorage.blob_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="application.types.blob_storage.BlobStorage.exists">
@@ -550,6 +560,11 @@ if a file with the blob’s basename exists at that path.</p>
 <dd><p>Bases: <a class="reference internal" href="#application.types.blob_storage.BlobStorage" title="application.types.blob_storage.BlobStorage"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlobStorage</span></code></a></p>
 <p>A subclass of BlobStorage that represents a thumbnail version of a blob.
 These thumbnails are even smaller and lower quality than previews, and thus much faster to load.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="application.types.blob_storage.BlobThumbnail.blob_path">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">blob_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#application.types.blob_storage.BlobThumbnail.blob_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -2769,16 +2784,23 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.blob_storage">application.types.blob_storage module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview"><code class="docutils literal notranslate"><span class="pre">BlobPreview</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview"><code class="docutils literal notranslate"><span class="pre">BlobPreview</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobPreview.blob_path"><code class="docutils literal notranslate"><span class="pre">BlobPreview.blob_path</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage"><code class="docutils literal notranslate"><span class="pre">BlobStorage</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.basename"><code class="docutils literal notranslate"><span class="pre">BlobStorage.basename()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.blob_path"><code class="docutils literal notranslate"><span class="pre">BlobStorage.blob_path</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.exists"><code class="docutils literal notranslate"><span class="pre">BlobStorage.exists</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.ext"><code class="docutils literal notranslate"><span class="pre">BlobStorage.ext</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.id"><code class="docutils literal notranslate"><span class="pre">BlobStorage.id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobStorage.path"><code class="docutils literal notranslate"><span class="pre">BlobStorage.path()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.blob_storage.BlobThumbnail.blob_path"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.blob_path</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.blobcount">application.types.blobcount module</a><ul class="nav section-nav flex-column">

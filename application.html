@@ -343,6 +343,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_blob_previews"><code class="docutils literal notranslate"><span class="pre">create_blob_previews()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_preview_model"><code class="docutils literal notranslate"><span class="pre">create_preview_model()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_preview_video"><code class="docutils literal notranslate"><span class="pre">create_preview_video()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.create_thumbnail_video"><code class="docutils literal notranslate"><span class="pre">create_thumbnail_video()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.delete_blob"><code class="docutils literal notranslate"><span class="pre">delete_blob()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.file_info"><code class="docutils literal notranslate"><span class="pre">file_info()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_blob_data"><code class="docutils literal notranslate"><span class="pre">get_blob_data()</span></code></a></li>
@@ -675,7 +676,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.integrations.html#module-application.integrations.videos">application.integrations.videos module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.videos.create_preview_from_first_frame"><code class="docutils literal notranslate"><span class="pre">create_preview_from_first_frame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.videos.create_low_res"><code class="docutils literal notranslate"><span class="pre">create_low_res()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.videos.create_thumbnail_from_first_frame"><code class="docutils literal notranslate"><span class="pre">create_thumbnail_from_first_frame()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.integrations.html#application.integrations.videos.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
 </ul>
 </li>
@@ -861,16 +863,23 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.blob_storage">application.types.blob_storage module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobPreview"><code class="docutils literal notranslate"><span class="pre">BlobPreview</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobPreview"><code class="docutils literal notranslate"><span class="pre">BlobPreview</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobPreview.blob_path"><code class="docutils literal notranslate"><span class="pre">BlobPreview.blob_path</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage"><code class="docutils literal notranslate"><span class="pre">BlobStorage</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.basename"><code class="docutils literal notranslate"><span class="pre">BlobStorage.basename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.blob_path"><code class="docutils literal notranslate"><span class="pre">BlobStorage.blob_path</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.exists"><code class="docutils literal notranslate"><span class="pre">BlobStorage.exists</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.ext"><code class="docutils literal notranslate"><span class="pre">BlobStorage.ext</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.id"><code class="docutils literal notranslate"><span class="pre">BlobStorage.id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobStorage.path"><code class="docutils literal notranslate"><span class="pre">BlobStorage.path()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobThumbnail"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobThumbnail"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.blob_storage.BlobThumbnail.blob_path"><code class="docutils literal notranslate"><span class="pre">BlobThumbnail.blob_path</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.blobcount">application.types.blobcount module</a><ul>
@@ -1762,14 +1771,16 @@ or a valid API key.</p>
 <p>It includes the application configuration, schema loading, and route initialization.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.init">
-<span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.init" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preview_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.init" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the application and database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>no_auth</strong> (<em>bool</em>) – Flag to disable authentication. Default is False.</p></li>
+<li><p><strong>no_auth</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag to disable authentication. Default is False.</p></li>
 <li><p><strong>blob_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the blob storage. Default is None.</p></li>
-<li><p><strong>database_url</strong> (<em>str</em>) – URL to the database. Default is an empty string.</p></li>
+<li><p><strong>preview_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to where blob previews are stored. If None, defaults to the same as blob_path.</p></li>
+<li><p><strong>thumbnail_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to where blob thumbnails are stored. If None, defaults to the same as preview_path.</p></li>
+<li><p><strong>database_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to the database. Default is an empty string.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
