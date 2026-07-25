@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ## The path to the directory where blobs are stored
-blob_path: str | None = None
+blob_path: str = 'blob_data_tmp'
+preview_path: str = 'blob_data_tmp'
+thumbnail_path: str = 'blob_data_tmp'
 
 
 @dataclass(init=False)
@@ -41,7 +43,7 @@ class BlobStorage:
 		Returns:
 			str: The full path to the blob.
 		"""
-		full_path = f'{blob_path}/{self.id[0:2]}/{self.id[2:4]}'
+		full_path = f'{self.blob_path}/{self.id[0:2]}/{self.id[2:4]}'
 		if create:
 			Path(full_path).mkdir(parents=True, exist_ok=True)
 
@@ -67,8 +69,12 @@ class BlobStorage:
 		Returns:
 			bool: True if the blob exists, False otherwise.
 		"""
-		full_path = f'{blob_path}/{self.id[0:2]}/{self.id[2:4]}'
+		full_path = f'{self.blob_path}/{self.id[0:2]}/{self.id[2:4]}'
 		return Path(f'{full_path}/{self.basename()}').exists()
+
+	@property
+	def blob_path(self) -> str:
+		return blob_path
 
 
 class BlobPreview(BlobStorage):
@@ -87,6 +93,10 @@ class BlobPreview(BlobStorage):
 		"""
 		super().__init__(f'{id}_p' if ext != '' else str(id), ext)
 
+	@property
+	def blob_path(self) -> str:
+		return preview_path
+
 
 class BlobThumbnail(BlobStorage):
 	"""
@@ -100,6 +110,10 @@ class BlobThumbnail(BlobStorage):
 
 		Args:
 			id (str): The identifier for the instance.
-			ext (str): The extension associated with the instance. If the extension is not an empty string, the identifier will be suffixed with '_t'.
+			ext (str): The extension to be appended to the identifier.
 		"""
 		super().__init__(f'{id}_t' if ext != '' else str(id), ext)
+
+	@property
+	def blob_path(self) -> str:
+		return thumbnail_path

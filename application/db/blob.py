@@ -807,13 +807,13 @@ def create_preview_model(path: str, preview_id: str) -> None:
 		None
 	"""
 	preview = BlobPreview(preview_id, '.glb')
-	models.to_glb(path, preview.path())
+	models.to_glb(path, preview.path(create=True))
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
 
 def create_preview_video(path: str, preview_id: str) -> None:
 	"""
-	Creates a preview video from the first frame of the given video blob
+	Creates a preview video from the given video blob (basically just a low-res version)
 	and updates the database with the preview information.
 
 	Args:
@@ -823,9 +823,31 @@ def create_preview_video(path: str, preview_id: str) -> None:
 	Returns:
 		None
 	"""
-	preview = BlobPreview(preview_id, '.png')
-	videos.create_preview_from_first_frame(path, preview.path())
+	preview = BlobPreview(preview_id, '.mp4')
+	videos.create_low_res(path, preview.path(create=True))
 	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
+
+	# Create a thumbnail from the preview, not the full video.
+	create_thumbnail_video(preview.path(), preview_id)
+
+
+def create_thumbnail_video(path: str, thumbnail_id: str) -> None:
+	"""
+	Creates a thumbnail image from the first frame of the given video blob
+	and updates the database with the preview information.
+
+	Args:
+		path (str): The file path to the video blob.
+		thumbnail_id (str): The unique identifier for the thumbnail.
+
+	Returns:
+		None
+	"""
+
+	# Create a thumbnail.
+	thumb = BlobThumbnail(thumbnail_id, '.png')
+	videos.create_thumbnail_from_first_frame(path, thumb.path(create=True))
+	db.update_one({'_id': ObjectId(thumbnail_id)}, {'$set': {'thumbnail': thumb.basename()}})
 
 
 def set_blob_hidden(blob_id: str, hidden: bool) -> dict:

@@ -25,7 +25,12 @@ from . import (
 )
 
 
-def init_db(database_url: str = 'localhost', blob_path: str | None = None) -> None:
+def init_db(
+	database_url: str = 'localhost',
+	blob_path: str | None = None,
+	preview_path: str | None = None,
+	thumbnail_path: str | None = None
+) -> None:
 	"""
 	Initialize the database connections and set up the necessary collections.
 
@@ -36,6 +41,8 @@ def init_db(database_url: str = 'localhost', blob_path: str | None = None) -> No
 	Args:
 		database_url (str): The URL of the MongoDB instance to connect to. Defaults to 'localhost'.
 		blob_path (str, optional): The path for blob storage. Defaults to None.
+		preview_path (str, optional): Path to where blob previews are stored. Defaults to None.
+		thumbnail_path (str, optional): Path to where blob thumbnails are stored. Defaults to None.
 
 	Returns:
 		None
@@ -45,6 +52,8 @@ def init_db(database_url: str = 'localhost', blob_path: str | None = None) -> No
 	print(' Connected.', flush=True)
 
 	blob_storage.blob_path = blob_path
+	blob_storage.preview_path = preview_path
+	blob_storage.thumbnail_path = thumbnail_path
 
 	users.db = client.skrunk.users
 	users.top_level_db = client.skrunk

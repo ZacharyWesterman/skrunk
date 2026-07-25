@@ -35,8 +35,12 @@
 		</div>
 
 		{{?it.mimetype.split('/')[0] === 'video'}}
-			<video width="100%" height="auto" poster="preview/{{=it.preview}}" preload="none" controls>
-				<source type="{{=it.mimetype}}" src="blob/{{=it.id}}{{=it.ext}}">
+			<video width="100%" height="auto" poster="preview/{{=it.thumbnail}}" preload="none" controls>
+				{{? it.preview }}
+					<source type="video/mp4" src="preview/{{=it.preview}}">
+				{{??}}
+					<source type="{{=it.mimetype}}" src="blob/{{=it.id}}{{=it.ext}}">
+				{{?}}
 			</video>
 		{{??it.mimetype.split('/')[0] === 'image'}}
 			<img class="clickable" width="100%" height="auto" src="{{? it.preview }}preview/{{=it.preview}}{{??}}blob/{{=it.id}}{{=it.ext}}{{?}}" alt="<IMAGE PREVIEW>" loading="lazy" onclick="_.modal.image('blob/{{= it.id }}{{= it.ext }}')"/>
