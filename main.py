@@ -1,6 +1,7 @@
 """Skrunk Server Main Entry Point"""
 
 import argparse
+from pathlib import Path
 
 import application
 
@@ -23,7 +24,10 @@ if __name__ == '__main__':
 		'--database', action='store', default='mongodb://localhost:27017/', type=str,
 		help='The connection URI of the mongodb database'
 	)
-	parser.add_argument('--bundle', action='store_true', help='Bundle common files to improve performance.')
+	parser.add_argument(
+		'--bundle', action='store_true',
+		help='Bundle common files to improve performance.'
+	)
 
 	args = parser.parse_args()
 
@@ -37,4 +41,10 @@ if __name__ == '__main__':
 		from waitress import serve
 		serve(app, host=args.ip, port=args.port, threads=32, max_request_body_size=5 * 1024 * 1024 * 1024)
 	else:
-		app.run(args.ip, args.port, threaded=True, debug=True)
+		# Debug build will restart when files change.
+		# Make sure schema files are included here.
+		extra_files = [
+			str(i) for i in Path('application/schema').iterdir()
+		]
+
+		app.run(args.ip, args.port, threaded=True, debug=True, extra_files=extra_files)
