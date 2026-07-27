@@ -10,6 +10,7 @@ import pathlib
 import shutil
 import uuid
 from datetime import UTC, datetime, timedelta
+from typing import Generator
 from zipfile import ZIP_DEFLATED, Path, ZipFile
 
 import tag_query
@@ -130,7 +131,7 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 	For each blob in the provided list:
 	- If the blob is an image, creates a preview (512px) and a thumbnail (128px).
 	- If the blob is a 3D model, generates a preview that can be viewed in browser.
-	- If the blob is a video, generates a preview image.
+	- If the blob is a video, generates a low-res version and a thumbnail image.
 	- If the blob is a PDF, creates a preview image of the first page.
 
 	Args:
@@ -169,6 +170,29 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 				thumbnail = BlobThumbnail(blob['id'], blob['ext'])
 				if images.downscale(preview.path(), 128, thumbnail.path()):
 					db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'thumbnail': thumbnail.basename()}})
+
+
+def find_blobs_without_previews() -> Generator[dict[str, str], None, None]:
+	"""
+	Finds all blobs that should have a preview/thumbnail but don't, and
+	yields a dict containing the id and file extension for each of them,
+	in the format `{'id': '123', 'ext': '.png'}`.
+
+	Returns:
+		Generator[dict[str, str], None, None]: A generator that yields blobs matching the search criteria.
+	"""
+
+	extensions = images.extensions() + models.extensions() + videos.extensions() + ['.pdf']
+
+	query = {
+		'preview': None,
+		'$or': [
+			{'ext': i} for i in extensions
+		]
+	}
+
+	for i in db.find(query):
+		yield {'id': str(i['_id']), 'ext': i['ext']}
 
 
 def save_blob_data(

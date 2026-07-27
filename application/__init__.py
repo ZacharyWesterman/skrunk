@@ -4,6 +4,7 @@ This module initializes the Flask application and sets up the database.
 It includes the application configuration, schema loading, and route initialization.
 """
 
+import argparse
 from typing import Any
 
 import ariadne
@@ -64,3 +65,53 @@ def init(*, no_auth: bool = False, blob_path: str | None = None, preview_path: s
 	print('Application has finished initializing.', flush=True)
 
 	return application
+
+
+def new(name: str) -> tuple[argparse.Namespace, Flask]:
+	parser = argparse.ArgumentParser(
+		prog=name,
+	)
+
+	parser.add_argument(
+		'--blob-path', action='store', default=None, type=str, help='The blob data storage location'
+	)
+	parser.add_argument(
+		'--preview-path', action='store', default=None, type=str,
+		help='The storage location for blob previews, if different from main blob storage'
+	)
+
+	parser.add_argument('--prod', action='store_true', help='Run in production mode')
+	parser.add_argument('--no-auth', action='store_true', help='Disable authentication')
+	parser.add_argument(
+		'--ip', action='store', default='0.0.0.0', type=str, help='The IP address to bind to'
+	)
+	parser.add_argument('--port', action='store', default=5000, type=int, help='The port to bind to')
+	parser.add_argument('--https', action='store_true', help='Enable HTTPS')
+	parser.add_argument(
+		'--database', action='store', default='mongodb://localhost:27017/', type=str,
+		help='The connection URI of the mongodb database'
+	)
+	parser.add_argument(
+		'--bundle', action='store_true',
+		help='Bundle common files to improve performance.'
+	)
+
+	args = parser.parse_args()
+
+	if args.blob_path is None and args.preview_path is not None:
+		print('ERROR: `--preview-path` flag used but `--blob-path` not specified!')
+		exit(1)
+
+	if args.bundle:
+		bundler.bundle()
+	else:
+		bundler.no_bundle()
+
+	app = init(
+		no_auth=args.no_auth,
+		blob_path=args.blob_path,
+		database_url=args.database,
+		preview_path=args.preview_path,
+	)
+
+	return args, app
