@@ -23,7 +23,7 @@
 				{{?book.thumbnail}}
 					<td>
 						<div class="book-icon">
-							<img src="{{=book.thumbnail}}" alt="<BOOK COVER>" loading="lazy">
+							<img src="thumb/{{=book.thumbnail}}" alt="<BOOK COVER>" loading="lazy">
 							{{? book.audiobook }}
 								<div class="audiobook-icon"><i class="fa-solid fa-headphones fa-xl"></i></div>
 							{{?}}

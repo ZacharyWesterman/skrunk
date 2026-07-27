@@ -32,6 +32,7 @@ def init(application) -> None:
 	application.route('/blob/<path:path>', methods=['GET'])(blob.stream)
 	application.route('/download/<path:path>', methods=['GET'])(blob.download)
 	application.route('/preview/<path:path>', methods=['GET'])(blob.preview)
+	application.route('/thumb/<path:path>', methods=['GET'])(blob.thumbnail)
 	application.route('/upload', methods=['POST'])(blob.upload)
 
 	@application.after_request

@@ -384,7 +384,7 @@ window.set_field_logic = async function (DOM, url, module) {
 
 				const res = image.id ? (await query.blobs.single(image.id)) : {}
 
-				img.src = `preview/${res.thumbnail}`
+				img.src = `thumb/${res.thumbnail}`
 				img.alt = 'FAILED TO UPLOAD IMAGE'
 				img.blob_id = image.id
 				img.classList.add('clickable')

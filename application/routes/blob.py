@@ -143,7 +143,7 @@ def preview(path: str) -> Response:
 		path (str): The path to the file in blob storage.
 
 	Returns:
-		Response: A Flask Response object containing the preview data or an error message.
+		Response: A Flask Response object containing the (chunked) preview data or an error message.
 	"""
 
 	if not auth.authorized():
@@ -153,6 +153,27 @@ def preview(path: str) -> Response:
 		return Response('No blob data path specified in server setup.', 404)
 
 	blob_obj = blob.BlobPreview(files.sanitize_path(path), '')
+	return stream(blob_obj)
+
+
+def thumbnail(path: str) -> Response:
+	"""
+	Fetch a thumbnail of a file from blob storage.
+
+	Args:
+		path (str): The path the file in blob storage.
+
+	Returns:
+		Response: A Flask Response object containing the (chunked) thumbnail data or an error message.
+	"""
+
+	if not auth.authorized():
+		return Response('Access denied.', 403)
+
+	if application.blob_path is None:
+		return Response('No blob data path specified in server setup.', 404)
+
+	blob_obj = blob.BlobThumbnail(files.sanitize_path(path), '')
 	return stream(blob_obj)
 
 

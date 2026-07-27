@@ -35,7 +35,7 @@
 		</div>
 
 		{{?it.mimetype.split('/')[0] === 'video'}}
-			<video width="100%" height="auto" poster="preview/{{=it.thumbnail}}" preload="none" controls>
+			<video width="100%" height="auto" poster="thumb/{{=it.thumbnail}}" preload="none" controls>
 				{{? it.preview }}
 					<source type="video/mp4" src="preview/{{=it.preview}}">
 				{{??}}
