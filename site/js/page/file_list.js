@@ -106,7 +106,7 @@ export async function navigate_to_page(page_num) {
 }
 
 export async function copy_to_clipboard(id) {
-	await navigator.clipboard.writeText(`${window.location.href.split('?')[0]}${id}`)
+	await navigator.clipboard.writeText(`${id}`)
 	_.modal({
 		text: 'Copied URL to clipboard!',
 		no_cancel: true,
