@@ -544,7 +544,7 @@ and are created by any of the specified users.</p>
 <p>For each blob in the provided list:
 - If the blob is an image, creates a preview (512px) and a thumbnail (128px).
 - If the blob is a 3D model, generates a preview that can be viewed in browser.
-- If the blob is a video, generates a preview image.
+- If the blob is a video, generates a low-res version and a thumbnail image.
 - If the blob is a PDF, creates a preview image of the first page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -654,6 +654,22 @@ and updates the database with the preview information.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.find_blobs_without_previews">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">find_blobs_without_previews</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.find_blobs_without_previews" title="Link to this definition">#</a></dt>
+<dd><p>Finds all blobs that should have a preview/thumbnail but don’t, and
+yields a dict containing the id and file extension for each of them,
+in the format <cite>{‘id’: ‘123’, ‘ext’: ‘.png’}</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A generator that yields blobs matching the search criteria.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator[dict[str, str], None, None]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4432,6 +4448,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.create_thumbnail_video"><code class="docutils literal notranslate"><span class="pre">create_thumbnail_video()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.delete_blob"><code class="docutils literal notranslate"><span class="pre">delete_blob()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.file_info"><code class="docutils literal notranslate"><span class="pre">file_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.find_blobs_without_previews"><code class="docutils literal notranslate"><span class="pre">find_blobs_without_previews()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blob_data"><code class="docutils literal notranslate"><span class="pre">get_blob_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blobs"><code class="docutils literal notranslate"><span class="pre">get_blobs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_tags_from_mime"><code class="docutils literal notranslate"><span class="pre">get_tags_from_mime()</span></code></a></li>
