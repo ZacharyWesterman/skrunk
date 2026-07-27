@@ -44,9 +44,12 @@ def create_low_res(video_path: str, output_video: str) -> None:
 	Returns:
 		None
 	"""
-	subprocess.run([
-		'ffmpeg', '-v', 'quiet', '-stats',
-		'-i', video_path,
-		'-vf', 'scale=480:-2,setsar=1:1', '-c:v', 'libx264',
-		'-crf', '23', '-c:a', 'copy', output_video,
-	])
+	subprocess.run(
+		[
+			'ffmpeg', '-v', 'quiet', '-stats',
+			'-i', video_path,
+			'-vf', 'scale=480:-2,setsar=1:1', '-c:v', 'libx264',
+			'-crf', '23', '-c:a', 'copy', output_video,
+		],
+		check=False
+	)
