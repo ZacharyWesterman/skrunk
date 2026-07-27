@@ -74,7 +74,7 @@ def file_stream(full_path: str, range_header: str | None) -> Generator[bytes, No
 	fp.close()
 
 
-def stream(path: str) -> Response:
+def stream(path: str | blob.BlobStorage) -> Response:
 	"""
 	Stream a file from blob storage.
 
@@ -88,16 +88,18 @@ def stream(path: str) -> Response:
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
-	path = files.sanitize_path(path)
+	if isinstance(path, str):
+		full_path = blob.BlobStorage(files.sanitize_path(path), '').path()
+	else:
+		full_path = path.path()
 
-	full_path = blob.BlobStorage(path, '').path()
 	try:
 		with open(full_path, 'rb'):
 			pass
 	except FileNotFoundError:
 		return Response('File not found.', 404)
 
-	mime = mimetypes.guess_type(path)
+	mime = mimetypes.guess_type(full_path)
 	file_size = os.stat(full_path).st_size
 
 	range_header = request.headers.get('Range')
@@ -150,8 +152,8 @@ def preview(path: str) -> Response:
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
-	full_path = blob.BlobPreview(files.sanitize_path(path), '').path()
-	return files.read_file_data(full_path)
+	blob_obj = blob.BlobPreview(files.sanitize_path(path), '')
+	return stream(blob_obj)
 
 
 def upload() -> Response:
