@@ -221,6 +221,7 @@ def save_blob_data(
 		mark_as_completed(item_id, size, md5sum)
 		uploaded_blobs += [{'id': item_id, 'ext': ext}]
 
+	print(f'Creating previews for file "{filename}"...', flush=True)
 	create_blob_previews(uploaded_blobs)
 	print(f'Finished upload of "{filename}".', flush=True)
 
