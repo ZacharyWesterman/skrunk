@@ -48,17 +48,30 @@ Every one of the above features is fully optional, and can be disabled from the 
 ---
 ### Setup
 
-This application requires some flavor of Linux (tested on Ubuntu 22 and 24), Python ≥ 3.11, [Poetry](https://python-poetry.org/), MongoDB ≥ 5, and OpenJDK ≥ 8.
+This application is only *officially* supported on Ubuntu Linux (22.xx or greater!), but will likely work on other distros (though the installation steps may differ).
+If you can get it working on other OSes, power to you! I have not tried :P
+
+There are also some packages that must be installed on the host machine in order for this application to work:
+- Python ≥ 3.11
+- [Poetry](https://python-poetry.org/) for the python virtual environment and dependency management
+- OpenJDK ≥ 8 for QR/bar code processing
+- ffmpeg for video processing
+- libjpeg for image processing
+
+The actual DBMS can be installed either on the host machine, or some other machine.
+- MongoDB ≥ 5
 
 ---
 
 To get all set up, first download the repo, then install dependencies.
 In most cases you won't need the documentation to generate, so you can append `--without dev` to the install command.
 ```bash
-sudo apt install libjpeg-dev # Needed for PIL
 git clone https://github.com/ZacharyWesterman/skrunk.git --recursive # Keep submodules
 cd skrunk
+sudo apt install libjpeg-dev ffmpeg python3 python3-poetry openjdk-25-jre
 poetry install --no-root --without dev
+# If you plan to generate docs, then instead run:
+# poetry install --no-root
 ```
 
 If you wish to set it up with LDAP support, you'll need to install the appropriate headers, and adjust the poetry command:
