@@ -585,6 +585,20 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.routes.site.get_favicon">
+<span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get_favicon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get_favicon" title="Link to this definition">#</a></dt>
+<dd><p>Get the default favicon.ico from the site directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A Flask Response object containing the icon file data or an error message.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.routes.site.get_icon">
 <span class="sig-prename descclassname"><span class="pre">application.routes.site.</span></span><span class="sig-name descname"><span class="pre">get_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.site.get_icon" title="Link to this definition">#</a></dt>
 <dd><p>Get an icon file from the site directory.</p>
@@ -648,6 +662,14 @@
 <dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.tq">
+<span class="sig-prename descclassname"><span class="pre">application.routes.</span></span><span class="sig-name descname"><span class="pre">tq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.tq" title="Link to this definition">#</a></dt>
+<dd><p>A decorator to track the last time a route was called, and how many responses are in-progress.</p>
+<p>This decorator exists purely to know when it’s safe to shut down/restart the server.
+It doesn’t track ANYTHING other than the quiescence of the back end.</p>
 </dd></dl>
 
 </section>
@@ -732,6 +754,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.site">application.routes.site module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get_favicon"><code class="docutils literal notranslate"><span class="pre">get_favicon()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get_svg"><code class="docutils literal notranslate"><span class="pre">get_svg()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.main_page"><code class="docutils literal notranslate"><span class="pre">main_page()</span></code></a></li>
@@ -739,6 +762,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes">Module contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.tq"><code class="docutils literal notranslate"><span class="pre">tq()</span></code></a></li>
 </ul>
 </li>
 </ul>
