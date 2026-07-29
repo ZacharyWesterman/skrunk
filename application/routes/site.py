@@ -5,9 +5,9 @@ from typing import Any
 
 from flask import Response
 
-from . import auth, files
-
 from application.bundler import get_bundled_path
+
+from . import auth, files
 
 application: Any = None
 
@@ -78,6 +78,16 @@ def get(path: str) -> Response:
 			return Response('File not found.', 404)
 		else:
 			return Response('Access denied.', 403)
+
+
+def get_favicon() -> Response:
+	"""
+	Get the default favicon.ico from the site directory.
+
+	Returns:
+		Response: A Flask Response object containing the icon file data or an error message.
+	"""
+	return files.read_file_data('data/favicon.ico')
 
 
 def get_icon(path: str) -> Response:

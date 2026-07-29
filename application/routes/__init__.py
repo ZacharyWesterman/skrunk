@@ -53,6 +53,7 @@ def init(application) -> None:
 
 	application.route('/', methods=['GET'])(tq(site.main_page))
 	application.route('/<path:path>', methods=['GET'])(tq(site.get))
+	application.route('/favicon.ico', methods=['GET'])(tq(site.get_favicon))
 	application.route('/<path:path>.png', methods=['GET'])(tq(site.get_icon))
 	application.route('/<path:path>.svg', methods=['GET'])(tq(site.get_svg))
 
