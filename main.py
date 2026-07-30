@@ -1,11 +1,28 @@
 """Skrunk Server Main Entry Point"""
 
+import time
+from datetime import datetime
 from pathlib import Path
 
 import application
 
 if __name__ == '__main__':
 	args, app = application.new('Skrunk Server')
+
+	if not args.wait_for_port:
+		if application.port_in_use(args.port):
+			application.error(f'Cannot bind port {args.port}: port is already in use!')
+			exit(1)
+	else:
+		if application.port_in_use(args.port):
+			print(f'Port {args.port} is already in use. Waiting for it to be available...', flush=True)
+
+			# Wait for port to be available
+			begin = datetime.now()
+			while application.port_in_use(args.port):
+				time.sleep(0.1)
+			end = datetime.now()
+			print(f'Grabbed port {args.port} after {end - begin}.', flush=True)
 
 	if args.prod:
 		from waitress import serve
