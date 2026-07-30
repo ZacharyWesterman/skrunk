@@ -1773,6 +1773,20 @@ or a valid API key.</p>
 <p>This module initializes the Flask application and sets up the database.</p>
 <p>It includes the application configuration, schema loading, and route initialization.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="application.error">
+<span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.error" title="Link to this definition">#</a></dt>
+<dd><p>Print an error message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – The message text.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.init">
 <span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preview_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumbnail_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.init" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the application and database.</p>
@@ -1781,8 +1795,10 @@ or a valid API key.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>no_auth</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag to disable authentication. Default is False.</p></li>
 <li><p><strong>blob_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the blob storage. Default is None.</p></li>
-<li><p><strong>preview_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to where blob previews are stored. If None, defaults to the same as blob_path.</p></li>
-<li><p><strong>thumbnail_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to where blob thumbnails are stored. If None, defaults to the same as preview_path.</p></li>
+<li><p><strong>preview_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to where blob previews are stored.
+If None, defaults to the same as blob_path.</p></li>
+<li><p><strong>thumbnail_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to where blob thumbnails are stored.
+If None, defaults to the same as preview_path.</p></li>
 <li><p><strong>database_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to the database. Default is an empty string.</p></li>
 </ul>
 </dd>
@@ -1798,9 +1814,37 @@ or a valid API key.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="application.new">
 <span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.new" title="Link to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Parses all runtime arguments, then initializes the application and database connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – A descriptive name for the program.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The parsed arguments,</dt><dd><p>and the initialized Flask application instance.</p>
+</dd>
+</dl>
+</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Flask</span></code>]</span></p>
+<dd class="field-odd"><p>tuple[argparse.Namespace, Flask]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.port_in_use">
+<span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">port_in_use</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.port_in_use" title="Link to this definition">#</a></dt>
+<dd><p>Check if the given port is already in use by another process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>int</em>) – The port number.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the port is already in use, False if it’s available.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1875,8 +1919,10 @@ or a valid API key.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.error"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.new"><code class="docutils literal notranslate"><span class="pre">new()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.port_in_use"><code class="docutils literal notranslate"><span class="pre">port_in_use()</span></code></a></li>
 </ul>
 </li>
 </ul>
