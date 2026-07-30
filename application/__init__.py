@@ -5,9 +5,12 @@ It includes the application configuration, schema loading, and route initializat
 """
 
 import argparse
+import os
+import sys
 from typing import Any
 
 import ariadne
+import psutil
 from ariadne.contrib.federation.schema import make_federated_schema
 from flask import Flask
 
@@ -18,15 +21,24 @@ from .resolvers import mutation, query
 from .scalars import scalars
 
 
-def init(*, no_auth: bool = False, blob_path: str | None = None, preview_path: str | None = None, thumbnail_path: str | None = None, database_url: str = '') -> Flask:
+def init(
+    *,
+    no_auth: bool = False,
+	blob_path: str | None = None,
+	preview_path: str | None = None,
+	thumbnail_path: str | None = None,
+	database_url: str = ''
+) -> Flask:
 	"""
 	Initialize the application and database.
 
 	Parameters:
 		no_auth (bool, optional): Flag to disable authentication. Default is False.
 		blob_path (str, optional): Path to the blob storage. Default is None.
-		preview_path (str, optional): Path to where blob previews are stored. If None, defaults to the same as blob_path.
-		thumbnail_path (str, optional): Path to where blob thumbnails are stored. If None, defaults to the same as preview_path.
+		preview_path (str, optional): Path to where blob previews are stored.
+			If None, defaults to the same as blob_path.
+		thumbnail_path (str, optional): Path to where blob thumbnails are stored.
+			If None, defaults to the same as preview_path.
 		database_url (str, optional): URL to the database. Default is an empty string.
 
 	Returns:
@@ -68,6 +80,17 @@ def init(*, no_auth: bool = False, blob_path: str | None = None, preview_path: s
 
 
 def new(name: str) -> tuple[argparse.Namespace, Flask]:
+	"""
+	Parses all runtime arguments, then initializes the application and database connection.
+
+	Parameters:
+		name (str): A descriptive name for the program.
+
+	Returns:
+		tuple[argparse.Namespace, Flask]: The parsed arguments,
+			and the initialized Flask application instance.
+	"""
+
 	parser = argparse.ArgumentParser(
 		prog=name,
 	)
@@ -82,10 +105,16 @@ def new(name: str) -> tuple[argparse.Namespace, Flask]:
 
 	parser.add_argument('--prod', action='store_true', help='Run in production mode')
 	parser.add_argument('--no-auth', action='store_true', help='Disable authentication')
+
 	parser.add_argument(
 		'--ip', action='store', default='0.0.0.0', type=str, help='The IP address to bind to'
 	)
 	parser.add_argument('--port', action='store', default=5000, type=int, help='The port to bind to')
+	parser.add_argument(
+		'--wait-for-port', action='store_true',
+		help='If the chosen port is unavailable, wait for it to become available'
+	)
+
 	parser.add_argument('--https', action='store_true', help='Enable HTTPS')
 	parser.add_argument(
 		'--database', action='store', default='mongodb://localhost:27017/', type=str,
@@ -99,7 +128,7 @@ def new(name: str) -> tuple[argparse.Namespace, Flask]:
 	args = parser.parse_args()
 
 	if args.blob_path is None and args.preview_path is not None:
-		print('ERROR: `--preview-path` flag used but `--blob-path` not specified!')
+		error('`--preview-path` flag used but `--blob-path` not specified!')
 		exit(1)
 
 	if args.bundle:
@@ -115,3 +144,33 @@ def new(name: str) -> tuple[argparse.Namespace, Flask]:
 	)
 
 	return args, app
+
+
+def port_in_use(port: int) -> bool:
+	"""
+	Check if the given port is already in use by another process.
+
+	Args:
+		port (int): The port number.
+
+	Returns:
+		bool: True if the port is already in use, False if it's available.
+	"""
+
+	pid = os.getpid()
+	for conn in psutil.net_connections():
+		if conn.laddr.port == port and conn.pid != pid:  # type: ignore
+			return True
+
+	return False
+
+
+def error(msg: str) -> None:
+	"""
+	Print an error message.
+
+	Args:
+		msg (str): The message text.
+	"""
+
+	print(f'\033[91mERROR: {msg}\033[0m', file=sys.stderr)
