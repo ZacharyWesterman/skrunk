@@ -719,7 +719,7 @@ export async function update_qr_code(rfid, id) {
 }
 
 export async function show_search_help() {
-	const choice = await _.modal({
+	await _.modal({
 		type: 'info',
 		title: 'How to Effectively Filter Books',
 		text: api.snippit('book-searching'),
@@ -728,7 +728,7 @@ export async function show_search_help() {
 }
 
 export async function show_keyword_search_help() {
-	const choice = await _.modal({
+	await _.modal({
 		type: 'info',
 		title: 'Searching by ISBN or Keywords',
 		text: api.snippit('book_search_keyword'),
