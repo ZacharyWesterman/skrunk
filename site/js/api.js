@@ -22,7 +22,8 @@ window.api = (query_string, variables = null) => {
 			credentials: 'same-origin',
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': api.login_token,
+				// Don't need auth here since it gets sent with cookie.
+				// 'Authorization': api.login_token,
 			},
 			body: JSON.stringify(query_data),
 		}).then(res => {
@@ -376,7 +377,8 @@ api.post_json = async (url, json_data) => {
 		credentials: 'same-origin',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': api.login_token,
+			// Don't need auth here since it gets sent with cookie.
+			// 'Authorization': api.login_token,
 		},
 		body: JSON.stringify(json_data),
 	})
