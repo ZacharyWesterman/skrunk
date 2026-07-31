@@ -25,12 +25,6 @@ subsonic_albums: list = []
 subsonic_albums_complete: bool = False
 subsonic_albums_page: int = 0
 
-## Regular expressions used for extracting keywords from text.
-_P = {
-	'tag': re.compile(r'</?\w+>'),
-	'nonwd': re.compile(r'[^\w]+'),
-}
-
 
 def init() -> None:
 	"""
@@ -90,54 +84,6 @@ def process_share_hist(share_history: list) -> list:
 	return share_hist
 
 
-def keyword_tokenize(text: str) -> list[str]:
-	"""
-	Tokenizes the input text into a list of unique keywords.
-
-	Args:
-		text (str): The input text to be tokenized.
-
-	Returns:
-		list[str]: A list of unique keywords extracted from the input text.
-	"""
-	keywords = _P['nonwd'].sub(' ', _P['tag'].sub(' ', text.replace('\'', ''))).lower().split()
-	return list(set(
-		i for i in keywords if len(i) > 2
-	))
-
-
-def build_keywords(book_data: dict) -> list[str]:
-	"""
-	Extracts and builds a list of unique keywords from the given book data.
-
-	This function processes specific fields ('title', 'subtitle', 'description', 'authors')
-	from the provided book data dictionary. It tokenizes the content of these fields into
-	keywords and returns a sorted list of unique keywords.
-
-	Args:
-		book_data (dict): A dictionary containing book information. Expected keys are
-						  'title', 'subtitle', 'description', and 'authors'. The value
-						  for 'authors' can be a list of strings, while the other fields
-						  are expected to be strings.
-
-	Returns:
-		list[str]: A sorted list of unique keywords extracted from the specified fields
-				   in the book data.
-	"""
-	keywords = []
-	for field in ['title', 'subtitle', 'description', 'authors']:
-		field_data = book_data.get(field)
-		if field_data is None:
-			continue
-		if isinstance(field_data, list):
-			for i in field_data:
-				keywords += keyword_tokenize(i)
-		else:
-			keywords += keyword_tokenize(field_data)
-
-	return sorted(list(set(keywords)))
-
-
 def subsonic_init() -> subsonic.SubsonicClient:
 	url = get_config('subsonic:url')
 	username = get_config('subsonic:username')
@@ -177,7 +123,6 @@ def process_book_tag(book_data: dict) -> dict:
 
 	book_data['shareHistory'] = process_share_hist(book_data['shareHistory'])
 	book_data['id'] = book_data['_id']
-	book_data['keywords'] = build_keywords(book_data)
 	book_data['audiobook'] = None
 
 	try:
@@ -328,8 +273,6 @@ def sync_book_data(id: str) -> dict:
 		if new_val is not None and new_val != book_data[i]:
 			updated[i] = new_val
 
-	updated['keywords'] = build_keywords({**book_data, **updated})
-
 	db.update_one({'_id': ObjectId(id)}, {'$set': updated})
 
 	return process_book_tag({
@@ -383,8 +326,6 @@ def link_book_tag(owner: str, rfid: str, book_id: str) -> dict:
 	]
 	for i in fields:
 		book_data[i] = google_book_data.get(i)
-
-	book_data['keywords'] = build_keywords(book_data)
 
 	db.insert_one(book_data)
 
@@ -455,8 +396,6 @@ def create_book(owner: str, data: dict) -> dict:
 			'type': 'ISBN_' + str(len(data['isbn'])),
 			'identifier': data['isbn'],
 		}]
-
-	book_data['keywords'] = build_keywords(book_data)
 
 	db.insert_one(book_data)
 
@@ -586,25 +525,18 @@ def build_book_query(filter: BookSearchFilter, sort: list) -> list[dict]:
 		query['shared'] = filter.get('shared')
 
 	title = filter.get('title')
+	title_query = None
 	if title is not None:
 		isbn = title.strip().replace('-', '')
 		if re.match(r'^[\dxX]{9,13}$', isbn):
 			# If searth term looks like an ISBN number, filter based on that.
 			query['industryIdentifiers.identifier'] = isbn
 		else:
-			# Otherwise, filter based on matching keywords
-			keywords = keyword_tokenize(title)
-			query['keywords'] = {'$in': keywords}
-			query['score'] = {'$gt': (len(keywords) + 1) // 2 if len(keywords) > 1 else 0}
+			# Otherwise, filter based on matching text.
+			title_query = {'$text': {'$search': title}}
 
-			computed_fields['score'] = {
-				'$size': {
-					'$setIntersection': [keywords, '$keywords']
-				}
-			}
-
-			# Sort FIRST by how many keywords match
-			sort.insert(0, ('score', -1))
+			# Sort FIRST by how closely the text search matched
+			sort.insert(0, ('score', {'$meta': 'textScore'}))
 
 	# Set default sorting if none given
 	if len(sort) == 0:
@@ -651,8 +583,12 @@ def build_book_query(filter: BookSearchFilter, sort: list) -> list[dict]:
 		}
 
 	query = norm_query(query, ownerq)
-	aggregate: list[dict] = [
-		{'$addFields': computed_fields},
+	aggregate: list[dict] = []
+
+	if title_query is not None:
+		aggregate += [{'$match': title_query}]
+
+	aggregate += [
 		{'$match': norm_query(query, ownerq)},
 		{'$sort': sorting},
 	]

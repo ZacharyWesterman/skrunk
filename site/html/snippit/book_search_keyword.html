@@ -1,0 +1,20 @@
+If the input to this field is a 10 or 13 digit number, then it's assumed to be an ISBN.
+10-digit ISBNs may also end with an X instead of a number.
+<hr>
+Otherwise, keywords are searched for the most likely matches. These keywords may be found in any of the Author, Title,
+Sub-title, Category, or Description fields.
+<br>
+<b>Note that:</b>
+<ul>
+	<li>
+		When searching by keyword, books are <b>always</b> sorted by
+		<i>best keyword match</i> first, regardless of any other sorting!
+	</li>
+	<li>
+		By default, keywords search is fuzzy, that is, it will also return <i>close matches</i> to the search term. E.g.
+		searching for <span class="code">examples</span> may also return items that just contain the text
+		<span class="code">example</span>.
+		If you want to search for books that <i>only contain the exact search term</i>, you can enclose the search term
+		in quotes, e.g. <span class="code">"examples"</span>.
+	</li>
+</ul>

@@ -24,6 +24,10 @@
 			<button class="reset clickable" *click="$.wipe('title'); reset_and_search()">
 				<i class="fa-solid fa-circle-xmark fa-xl"></i>
 			</button>
+			<span class="tooltip" *click="show_keyword_search_help">
+				<i class="fa-solid fa-circle-question"></i>
+				<span class="tooltiptext t-right">What is this?</span>
+			</span>
 
 			<span name="qrcode-search"></span>
 

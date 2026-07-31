@@ -99,7 +99,15 @@ def create_indexes() -> None:
 	users.db.create_index([('username', 1)], unique=True)
 	users.db.create_index([('groups', 1)])
 	sessions.db.create_index([('expires', 1)], expireAfterSeconds=1)
-	book.db.create_index([('title', 1)])
 
 	users.top_level_db.reset_codes.create_index([('created', 1)], expireAfterSeconds=10 * 60)
 	users.top_level_db.reset_codes.create_index([('username', 1)])
+
+	book.db.create_index([('title', 1)])
+	book.db.create_index({
+		'authors': 'text',
+		'title': 'text',
+		'subtitle': 'text',
+		'categories': 'text',
+		'description': 'text',
+	})
