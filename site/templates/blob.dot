@@ -15,7 +15,7 @@
 			</button>
 
 			<span class="suppress">{{=it.size}}</span>
-			{{? !it.complete }}
+			{{? !it.complete || (it.mimetype.split('/')[0] === 'video' && !it.preview) }}
 			<span class="emphasis">&nbsp;(processing)</span>
 			{{?}}
 

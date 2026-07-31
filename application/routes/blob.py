@@ -106,7 +106,7 @@ def stream(path: str | blob.BlobStorage) -> Response:
 
 	resp = Response(
 		file_stream(full_path, range_header),
-		200,
+		206,
 		mimetype=mime[0],
 		content_type=mime[0],
 		direct_passthrough=True,
