@@ -393,66 +393,47 @@ api.post_json = async (url, json_data) => {
  * Write relevant application variables to site cookies.
  */
 api.write_cookies = () => {
-	let cookie = {
+	const cookie = {
 		'Authorization': api.login_token || null,
 		'Username': api.username,
 	}
 
-	for (const i of _.css.vars()) {
-		cookie[i] = _.css.get_var(i)
-	}
-
 	for (const i in cookie) {
-		if (cookie[i] === null || cookie[i] === '')
-			document.cookie = i + '=; SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-		else {
-			//All cookies expire after 6 months, regardless of when the server invalidates tokens.
-			let expires = new Date()
-			expires.setMonth(expires.getMonth() + 6)
+		//All cookies expire after 6 months, regardless of when the server invalidates tokens.
+		let expires = new Date()
+		expires.setMonth(expires.getMonth() + 6)
 
-			document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Strict; Expires=' + expires
-		}
+		document.cookie = i + '=' + ((cookie[i] !== null) ? cookie[i] : '') + '; SameSite=Strict; Expires=' + expires
 	}
+
+	localStorage.setItem('theme', JSON.stringify(_.css.vars_object()))
 }
 
 /**
  * Delete all cookies for this site.
  */
-api.wipe_cookies = () => {
-	let cookie = {
-		'Authorization': null,
-		'Username': null,
-	}
-	for (const i of _.css.vars()) cookie[i] = null
-	for (const i in cookie) {
-		document.cookie = i + '=; SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+api.wipe_cookies = async () => {
+	for (const i of await cookieStore.getAll()) {
+		cookieStore.delete(i.name)
 	}
 }
 
 /**
  * Read site cookies and set related application variables.
  */
-api.read_cookies = () => {
-	if (!document.cookie) return
+api.read_cookies = async () => {
+	const login_token = (await cookieStore.get('Authorization'))?.value
+	const username = (await cookieStore.get('Username'))?.value
 
-	document.cookie.split(';').forEach(cookie => {
-		const parts = cookie.split('=', 2)
-		const name = parts[0].trim()
-		const value = parts[1].trim()
+	if (login_token && username) {
+		api.login_token = login_token
+		api.username = username
+	}
 
-		switch (name) {
-			case 'Authorization':
-				api.login_token = (value === '') ? null : value
-				break
-			case 'Username':
-				api.username = (value === '') ? null : value
-				break;
-			case 'SameSite':
-				break
-			default: //assume everything else is a css var
-				_.css.set_var(name, value)
-		}
-	})
+	const theme = JSON.parse(localStorage.getItem('theme') ?? '{}')
+	for (const key in theme) {
+		_.css.set_var(key, theme[key])
+	}
 }
 
 /**
@@ -484,7 +465,7 @@ api.handle_query_failure = async (res) => {
 api.logout = () => {
 	api.__auto_refresh = false
 	api.login_token = null
-	api.write_cookies()
+	api.wipe_cookies()
 	window.location.href = '/'
 }
 

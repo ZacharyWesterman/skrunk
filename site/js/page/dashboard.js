@@ -168,6 +168,9 @@ async function init() {
 			_.css.set_var(i.name, i.value)
 		}
 
+		//Save theme to local storage
+		api.write_cookies()
+
 		ModuleConfig = await promise2
 		promise.then(reset_modules)
 	})

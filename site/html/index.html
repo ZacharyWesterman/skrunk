@@ -49,14 +49,15 @@
 </body>
 
 <script defer>
-	function auto_login() {
+	async function auto_login() {
 		//If required JS hasn't loaded yet, wait until it does.
 		if (top.api === undefined || top._ === undefined || top.navigate === undefined) {
 			setTimeout(auto_login, 50)
 			return
 		}
 
-		api.read_cookies()
+		await api.read_cookies()
+
 		//If not already logged in, go to login page
 		if (api.login_token === null) {
 			navigate('html/login.html')
