@@ -3,18 +3,18 @@ This module handles JWT token creation, decoding, and validation for user sessio
 """
 
 import random
-from typing import Any
+import secrets
+from pathlib import Path
 
 import jwt
-from cryptography.hazmat.primitives import serialization
 from flask import request
 
 from .db.apikeys import valid_api_key
 from .db.sessions import start_session, valid_session
 from .exceptions import InvalidJWTError
 
-__private_key: Any = None
-__public_key: Any = None
+__JWT_KEY: bytes = b''
+__MAX_INT = 2**32 - 1
 
 
 def init() -> None:
@@ -22,16 +22,17 @@ def init() -> None:
 	Initialize the JWT token system by loading the private and public keys.
 	If the keys don't exist, generate them first.
 	"""
+	global __JWT_KEY
 
-	global __private_key, __public_key
+	key_file = 'data/secrets/hs256'
 
-	with open('data/secrets/id_rsa', 'r', encoding='utf8') as fp:
-		__private_key = serialization.load_ssh_private_key(fp.read().encode(), password=b'')
-	with open('data/secrets/id_rsa.pub', 'r', encoding='utf8') as fp:
-		__public_key = serialization.load_ssh_public_key(fp.read().encode())
+	if not Path(key_file).exists():
+		# Generate a new HS256 key
+		with open(key_file, 'wb') as fp:
+			fp.write(secrets.token_bytes(32))
 
-
-__MAX_INT = 2**32 - 1
+	with open(key_file, 'rb') as fp:
+		__JWT_KEY = fp.read()
 
 
 def create_user_token(username: str) -> str:
@@ -53,8 +54,8 @@ def create_user_token(username: str) -> str:
 			'username': username,
 			'token_id': random.randint(0, __MAX_INT),
 		},
-		key=__private_key,
-		algorithm='RS256'
+		key=__JWT_KEY,
+		algorithm='HS256'
 	)
 	start_session(token, username)
 	return token
@@ -76,8 +77,8 @@ def decode_user_token(token: str) -> dict:
 	try:
 		return jwt.decode(
 			token,
-			key=__public_key,
-			algorithms=['RS256']
+			key=__JWT_KEY,
+			algorithms='HS256'
 		)
 	except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, jwt.InvalidSignatureError) as e:
 		raise InvalidJWTError from e

@@ -98,11 +98,6 @@ if [ ! -e data/secrets/public_key.txt ]; then
 	rm -f data/secrets/vapid_private.pem
 fi
 
-#Generate RSA public and private key (for JWTs)
-if [ ! -e data/secrets/id_rsa.pub ]; then
-	ssh-keygen -t rsa -f data/secrets/id_rsa -N ''
-fi
-
 #Make sure all dependencies are up to date
 poetry update --without dev
 
