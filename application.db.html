@@ -1096,33 +1096,6 @@ it raises a BlobDoesNotExistError. The tags are converted to lowercase and dupli
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="application.db.book.build_keywords">
-<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">build_keywords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.build_keywords" title="Link to this definition">#</a></dt>
-<dd><p>Extracts and builds a list of unique keywords from the given book data.</p>
-<p>This function processes specific fields (‘title’, ‘subtitle’, ‘description’, ‘authors’)
-from the provided book data dictionary. It tokenizes the content of these fields into
-keywords and returns a sorted list of unique keywords.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>book_data</strong> (<em>dict</em>) – A dictionary containing book information. Expected keys are
-‘title’, ‘subtitle’, ‘description’, and ‘authors’. The value
-for ‘authors’ can be a list of strings, while the other fields
-are expected to be strings.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>A sorted list of unique keywords extracted from the specified fields</dt><dd><p>in the book data.</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="application.db.book.count_all_user_books">
 <span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">count_all_user_books</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_users</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.count_all_user_books" title="Link to this definition">#</a></dt>
 <dd><p>Count the number of books owned by each user.</p>
@@ -1321,23 +1294,6 @@ List is limited to only those users who have books cataloged.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="application.db.book.keyword_tokenize">
-<span class="sig-prename descclassname"><span class="pre">application.db.book.</span></span><span class="sig-name descname"><span class="pre">keyword_tokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.book.keyword_tokenize" title="Link to this definition">#</a></dt>
-<dd><p>Tokenizes the input text into a list of unique keywords.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The input text to be tokenized.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of unique keywords extracted from the input text.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4471,7 +4427,6 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.append_ebook"><code class="docutils literal notranslate"><span class="pre">append_ebook()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.borrow_book"><code class="docutils literal notranslate"><span class="pre">borrow_book()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.build_book_query"><code class="docutils literal notranslate"><span class="pre">build_book_query()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.build_keywords"><code class="docutils literal notranslate"><span class="pre">build_keywords()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.count_all_user_books"><code class="docutils literal notranslate"><span class="pre">count_all_user_books()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.count_books"><code class="docutils literal notranslate"><span class="pre">count_books()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.create_book"><code class="docutils literal notranslate"><span class="pre">create_book()</span></code></a></li>
@@ -4481,7 +4436,6 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_books"><code class="docutils literal notranslate"><span class="pre">get_books()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.get_user_list"><code class="docutils literal notranslate"><span class="pre">get_user_list()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.keyword_tokenize"><code class="docutils literal notranslate"><span class="pre">keyword_tokenize()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.link_book_tag"><code class="docutils literal notranslate"><span class="pre">link_book_tag()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.list_books_not_synced"><code class="docutils literal notranslate"><span class="pre">list_books_not_synced()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.book.norm_query"><code class="docutils literal notranslate"><span class="pre">norm_query()</span></code></a></li>
