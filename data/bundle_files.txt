@@ -3,3 +3,6 @@ site/js/fields.js
 site/js/mutate.js
 site/js/query.js
 site/js/api.js
+site/js/date.js
+site/js/runtime_errors.js
+site/js/utils.js
