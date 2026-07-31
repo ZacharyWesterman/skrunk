@@ -7,7 +7,8 @@
  */
 window.api = (query_string, variables = null) => {
 	const query_data = {
-		'query': query_string,
+		// Strip out extra whitespace from graphql queries.
+		'query': query_string.replaceAll(/\s+/g, ' '),
 		'variables': variables,
 	}
 
