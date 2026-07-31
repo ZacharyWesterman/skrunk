@@ -6,3 +6,6 @@ docs/build/
 docs/source/*.rst
 bundled/
 data/secrets
+_blobs/
+_thumbs/
+_previews/
