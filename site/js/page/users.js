@@ -59,9 +59,19 @@ export async function confirm_delete_user(username) {
 }
 
 function refresh_user_groups() {
+	const groups = api('{ getUserGroups }')
+
 	_('user_group_list', {
 		id: 'user-group-list',
-		items: api('{ getUserGroups }'),
+		items: groups,
+	})
+
+	_('group-dropdown', {
+		id: 'group',
+		options: groups,
+		default: 'ALL',
+	}).then(() => {
+		$.bind('group', refresh_users)
 	})
 }
 
@@ -136,14 +146,6 @@ export function refresh_users() {
 				load_user_data(user)
 			}
 		}
-	})
-
-	_('group-dropdown', {
-		id: 'group',
-		options: api('{ getUserGroups }'),
-		default: 'ALL',
-	}).then(() => {
-		$.bind('group', refresh_users)
 	})
 }
 
