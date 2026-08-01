@@ -207,7 +207,7 @@
 		if (res === null) return
 
 		//Save the current theme
-		const result = await api(`mutation ($theme: Theme_!) {
+		const result = await api(`mutation ($theme: Theme!) {
 			createTheme (theme: $theme) {
 				__typename
 				...on MissingConfig { message }
