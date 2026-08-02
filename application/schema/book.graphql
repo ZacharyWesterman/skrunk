@@ -183,9 +183,9 @@ input BookCreateData {
 	"""An industry identifier for the book, such as ISBN."""
 	isbn: String!
 	"""The publisher of the book."""
-	publisher: String!
+	publisher: String
 	"""The date the book was published."""
-	publishedDate: Date!
+	publishedDate: Date
 	"""The RFID tag or QR code associated with the book."""
 	rfid: String!
 	"""The thumbnail image URL for the book cover, if any."""

@@ -25,9 +25,9 @@ class BookCreateData(TypedDict):
 	## An industry identifier for the book, such as ISBN.
 	isbn: str
 	## The publisher of the book.
-	publisher: str
+	publisher: str | None
 	## The date the book was published.
-	publishedDate: datetime
+	publishedDate: datetime | None
 	## The RFID tag or QR code associated with the book.
 	rfid: str
 	## The thumbnail image URL for the book cover, if any.

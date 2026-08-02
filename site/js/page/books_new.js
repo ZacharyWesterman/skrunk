@@ -76,7 +76,7 @@ export async function create_book() {
 				return true
 			}
 
-			const req_fields = ['book-title', 'book-author', 'book-owner']
+			const req_fields = ['book-title', 'book-author', 'book-owner', 'book-pages']
 			let valid = true
 			for (const i of req_fields) {
 				if ($.val(i) === '') {
@@ -93,8 +93,7 @@ export async function create_book() {
 				valid = false
 			}
 
-			const page_ct = $.val('book-pages')
-			if (page_ct !== '' && !page_ct.match(/^\d+$/)) {
+			if (!$.val('book-pages').match(/^\d+$/)) {
 				$.flash('book-pages')
 				if (valid) $('book-pages').focus()
 				valid = false
@@ -109,8 +108,8 @@ export async function create_book() {
 				description: $.val('book-description').trim() || null,
 				pageCount: parseInt($.val('book-pages').trim()),
 				isbn: isbn,
-				publisher: $.val('book-publisher').trim(),
-				publishedDate: $.val('book-published').trim(),
+				publisher: $.val('book-publisher').trim() || null,
+				publishedDate: $.val('book-published').trim() || null,
 				thumbnail: $('book-thumbnail').blob_id || null,
 				owner: $.val('book-owner') || api.username,
 			}
