@@ -434,7 +434,7 @@ api.read_cookies = async () => {
 		const [name, value] = i.split('=', 2)
 
 		if (name === 'Authorization') {
-			login_token = value.split(' ', 2)[1]
+			login_token = value
 		}
 		else if (name === 'Username') {
 			username = value
