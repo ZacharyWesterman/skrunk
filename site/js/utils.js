@@ -715,7 +715,7 @@ window.qr = {
 			const upload_res = await api.upload(blob_upload, progress => {
 				const percent = progress.loaded / progress.total
 				$('upload-progressbar-qr').value = percent
-			}, false, [], false, true)
+			}, false, [], false, true, 5, true)
 
 			$.hide('upload-progressbar-qr', true)
 			$('qr-title').innerText = 'Processing QR Code...'

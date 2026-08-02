@@ -257,7 +257,7 @@ api.file_prompt = (contentType = '*', multiple = false, capture = null) => {
 			setTimeout(() => {
 				if (!resolved) reject()
 				document.removeEventListener('focus', callback, true)
-			}, 100)
+			}, 500)
 		}
 
 		input.click()
@@ -277,9 +277,10 @@ api.file_prompt = (contentType = '*', multiple = false, capture = null) => {
  * @param {string[]} tag_list Tags to attach to the file on upload.
  * @param {boolean} hidden Keep uploaded file hidden from all users except the uploader.
  * @param {int} max_retries If upload fails, retry the upload this many times before giving up.
+ * @param {boolean} await_processing If true, wait for the blob to finish processing, otherwise return the moment upload finishes.
  * @returns {Promise<any>} The JSON response from the server.
  */
-api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false, max_retries = 0) => {
+api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false, max_retries = 0, await_processing = false) => {
 	function upload_fn() {
 		return new Promise((resolve, reject) => {
 			let xhr = new XMLHttpRequest
@@ -296,7 +297,7 @@ api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], h
 
 			const eventListener = (progress) => {
 				progress_handler(progress)
-				if (progress.loaded >= progress.total) {
+				if (!await_processing && progress.loaded >= progress.total) {
 					xhr.upload.removeEventListener('progress', eventListener)
 					api.upload.xhr.splice(api.upload.xhr.indexOf(xhr), 1)
 					resolve()

@@ -76,7 +76,7 @@ export async function create_book() {
 				return true
 			}
 
-			const req_fields = ['book-title', 'book-author', 'book-isbn', 'book-publisher', 'book-published', 'book-pages', 'book-owner']
+			const req_fields = ['book-title', 'book-author', 'book-owner']
 			let valid = true
 			for (const i of req_fields) {
 				if ($.val(i) === '') {
@@ -87,13 +87,14 @@ export async function create_book() {
 			}
 
 			const isbn = $.val('book-isbn').replaceAll('-', '')
-			if (!isbn.match(/^\d{10}(\d{3})?$/)) {
+			if (isbn !== '' && !isbn.match(/^(\d{9}[\dxX]|\d{13})$/)) {
 				$.flash('book-isbn')
 				if (valid) $('book-isbn').focus()
 				valid = false
 			}
 
-			if (!$.val('book-pages').match(/^\d+$/)) {
+			const page_ct = $.val('book-pages')
+			if (page_ct !== '' && !page_ct.match(/^\d+$/)) {
 				$.flash('book-pages')
 				if (valid) $('book-pages').focus()
 				valid = false

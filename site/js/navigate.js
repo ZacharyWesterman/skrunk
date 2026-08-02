@@ -378,7 +378,7 @@ window.set_field_logic = async function (DOM, url, module) {
 
 				const image = (await api.upload(file, ({ loaded, total }) => {
 					progressbar.value = loaded / total
-				}, false, img.tags, false, true, 5).catch(() => [{ id: null }]))[0]
+				}, false, img.tags, false, true, 5, true).catch(() => [{ id: null }]))[0]
 
 				progressbar.removeAttribute('value')
 
