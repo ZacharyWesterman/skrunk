@@ -417,8 +417,9 @@ api.write_cookies = () => {
  * Delete all cookies for this site.
  */
 api.wipe_cookies = async () => {
-	for (const i of await cookieStore.getAll()) {
-		cookieStore.delete(i.name)
+	for (const i of document.cookie.split('; ')) {
+		const [name, value] = i.split('=', 2)
+		document.cookie = name + '=; SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 	}
 }
 
@@ -426,8 +427,19 @@ api.wipe_cookies = async () => {
  * Read site cookies and set related application variables.
  */
 api.read_cookies = async () => {
-	const login_token = (await cookieStore.get('Authorization'))?.value
-	const username = (await cookieStore.get('Username'))?.value
+	let login_token = null
+	let username = null
+
+	for (const i of document.cookie.split('; ')) {
+		const [name, value] = i.split('=', 2)
+
+		if (name === 'Authorization') {
+			login_token = value.split(' ', 2)[1]
+		}
+		else if (name === 'Username') {
+			username = value
+		}
+	}
 
 	if (login_token && username) {
 		api.login_token = login_token
