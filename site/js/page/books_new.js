@@ -123,6 +123,7 @@ export async function create_book() {
 	if (res !== 'ok') return
 
 	//Now that book data is entered, wait for rfid to be scanned.
+	AWAITING_SCAN = true
 	const p1 = _.modal.scanner()
 
 	let blob_data = {}
@@ -132,6 +133,8 @@ export async function create_book() {
 	}
 
 	const rfid = await p1
+	AWAITING_SCAN = false
+
 	if (rfid === null) return
 	book_data.rfid = rfid
 
