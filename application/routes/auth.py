@@ -86,16 +86,15 @@ def verify_token() -> Response:
 	if not application.is_initialized:
 		return jsonify({'valid': True})
 
-	data = request.get_json()
+	token = tokens.get_request_token()
 
-	if 'token' not in data:
+	if token is None:
 		return Response('{"valid":false}', 200)
 
-	token = data['token'].split(' ')
-	if len(token) < 2:
+	if not tokens.token_is_valid(token):
 		return Response('{"error":"Invalid Token"}', 400)
 
-	return jsonify({'valid': tokens.token_is_valid(token[1])})
+	return jsonify({'valid': True})
 
 
 def request_reset_code() -> Response:
