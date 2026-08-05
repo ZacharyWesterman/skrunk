@@ -157,7 +157,6 @@ window.lookups = {
 	prev_pages: (index, total) => {
 		const page_ct = lookups.max_displayed_pages
 
-		console.log(index + page_ct, total, index + page_ct >= total)
 		if (index + page_ct >= total) {
 			return total - Math.floor(page_ct) - 1
 		}
