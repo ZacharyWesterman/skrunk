@@ -3,6 +3,8 @@ This module provides direct access to the database and
 initializes various collections used by the application.
 """
 
+import sys
+
 from pymongo import MongoClient
 
 from application.exceptions import BadUserNameError, UserExistsError
@@ -47,8 +49,19 @@ def init_db(
 	Returns:
 		None
 	"""
-	print('Connecting to database...', flush=True, end='')
-	client = MongoClient(database_url)
+	print('Connecting to database... ', flush=True, end='')
+	client = MongoClient(
+		database_url,
+		serverSelectionTimeoutMS=10_000,
+	)
+	# pylint: disable=broad-except
+	try:
+		client.server_info() # Force connection to be established
+	except Exception as e: #
+		print(f'\033[91mERROR: Failed to connect to database!\033[0m\n{e}', file=sys.stderr)
+		exit(1)
+	# pylint: enable=broad-except
+
 	print(' Connected.', flush=True)
 
 	blob_storage.blob_path = blob_path
