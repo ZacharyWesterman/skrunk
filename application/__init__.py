@@ -159,7 +159,11 @@ def port_in_use(port: int) -> bool:
 
 	pid = os.getpid()
 	for conn in psutil.net_connections():
-		if conn.laddr.port == port and conn.pid != pid:  # type: ignore
+		if (
+			conn.laddr.port == port and  # type: ignore
+			conn.pid != pid and  # type: ignore
+			conn.status == 'LISTEN'
+		):
 			return True
 
 	return False
