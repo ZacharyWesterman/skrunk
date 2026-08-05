@@ -9,7 +9,7 @@ license = "GPL 3"
 ariadne = "0.15.1"
 bcrypt = "3.2.2"
 cachetools = "5.5.2"
-cryptography = "49.0.0"
+cryptography = "50.0.0"
 flask = "2.3.3"
 imageio = { extras = ["ffmpeg"], version = "2.37.4" }
 jsmin = "3.0.1"
