@@ -83,8 +83,8 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 	jobid = uuid.uuid4()
 	from_ext = video_path.split('.')[-1]
 	to_ext = output_video.split('.')[-1]
-	from_file = f'/tmp/skrunk-conv-input-{jobid}.{from_ext}'
-	to_file = f'/tmp/skrunk-conv-output-{jobid}.{to_ext}'
+	from_file = f'/var/tmp/skrunk-conv-input-{jobid}.{from_ext}'
+	to_file = f'/var/tmp/skrunk-conv-output-{jobid}.{to_ext}'
 
 	print(f'Sending blob to {host} for remote processing...', flush=True)
 

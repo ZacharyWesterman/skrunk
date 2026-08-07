@@ -228,9 +228,10 @@ def save_blob_data(
 	)
 	this_blob_path = BlobStorage(item_id, ext).path(create=True)
 
-	# Make sure that there's enough space in /tmp for the file.
+	# Make sure that there's enough space for the file in the target location.
 	# (5GB, the maximum size of a blob upload)
-	if (5 * 1024 * 1024 * 1024) > shutil.disk_usage('/tmp').free:
+	dir_path = str(pathlib.Path(this_blob_path).parent)
+	if (5 * 1024 * 1024 * 1024) > shutil.disk_usage(dir_path).free:
 		raise exceptions.InsufficientDiskSpace()
 
 	# Stream file into temporary storage.
@@ -575,9 +576,10 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	filename = f'ARCHIVE-{blob_zip_id[-8::]}.zip'
 
-	# Make sure that there's enough space in /tmp for the zip file (+1MB for safety)
+	# Make sure that there's enough space for the zip file in the target location (+1MB for safety)
 	total_size = sum_blob_size(filter, user_id)
-	if (total_size + 1024 * 1024) > shutil.disk_usage('/tmp').free:
+	dir_path = str(pathlib.Path(BlobStorage('', '').blob_path))
+	if (total_size + 1024 * 1024) > shutil.disk_usage(dir_path).free:
 		raise exceptions.InsufficientDiskSpace()
 
 	# Create the blob entry for the zip file.

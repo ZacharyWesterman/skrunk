@@ -651,16 +651,11 @@ def export_user_data(username: str) -> dict:
 		hidden=False,
 		ephemeral=True
 	))
-	temp_filename = f'/tmp/{uuid.uuid4()}.zip'
-	with ZipFile(temp_filename, 'w') as fp:
+	with ZipFile(blob_storage.path(create=True), 'w') as fp:
 		# Iterate over all collections, and append the file to the ZIP file.
 		iter = (i for i in top_level_db.list_collection_names() if i not in exclude_collections)
 		for collection in iter:
 			dump_collection(collection, queries, fp)
-
-	# Move the ZIP file to the blob storage path
-	print('Moving ZIP file to blob storage...', flush=True)
-	shutil.move(temp_filename, blob_storage.path(create=True))
 
 	size, md5sum = blob.file_info(blob_storage.path())
 	blob.mark_as_completed(blob_storage.id, size, md5sum)
