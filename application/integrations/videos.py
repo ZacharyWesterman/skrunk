@@ -73,8 +73,8 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 		run_local()
 		return
 
-	# If local load is 1/3rd or less, and the best host has a HIGHER load than 1/3rd, just run locally.
-	if localhost_load <= 0.3 and ideal_host[1] > 0.3:
+	# If local load is 1/3rd or less, and the best host has VERY high percent load, just run locally.
+	if localhost_load < 0.3 and ideal_host[1] > 0.8:
 		run_local()
 		return
 
@@ -85,6 +85,8 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 	to_ext = output_video.split('.')[-1]
 	from_file = f'/tmp/skrunk-conv-input-{jobid}.{from_ext}'
 	to_file = f'/tmp/skrunk-conv-output-{jobid}.{to_ext}'
+
+	print(f'Sending blob to {host} for remote processing...', flush=True)
 
 	# Transfer file up to host
 	subprocess.run([

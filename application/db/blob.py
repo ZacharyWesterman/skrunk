@@ -231,9 +231,9 @@ def save_blob_data(
 		raise exceptions.InsufficientDiskSpace()
 
 	# Stream file into temporary storage.
-	print(f'Beginning stream of file "{filename}"...', flush=True)
+	print(f'Beginning save of file "{filename}"...', flush=True)
 	file.save(this_blob_path)
-	print(f'Finished stream of file "{filename}".', flush=True)
+	print(f'Finished save of file "{filename}".', flush=True)
 	uploaded_blobs = []
 
 	if auto_unzip and ext == '.zip':
@@ -857,8 +857,8 @@ def create_preview_video(path: str, preview_id: str) -> None:
 		videos.create_low_res(path, preview.path(create=True), hosts)
 		db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
-	# Create a thumbnail from the preview, not the full video.
-	create_thumbnail_video(preview.path(), preview_id)
+	# Create a thumbnail from the preview, not the full video (if possible).
+	create_thumbnail_video(preview.path() if preview.exists else path, preview_id)
 
 
 def create_thumbnail_video(path: str, thumbnail_id: str) -> None:
