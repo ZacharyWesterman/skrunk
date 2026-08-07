@@ -981,14 +981,32 @@ If the application and blob storage are on the same disk, they are listed togeth
 <span id="application-integrations-videos-module"></span><h2>application.integrations.videos module<a class="headerlink" href="#module-application.integrations.videos" title="Link to this heading">#</a></h2>
 <p>application.integrations.videos</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.videos.can_create_previews">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.videos.</span></span><span class="sig-name descname"><span class="pre">can_create_previews</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.videos.can_create_previews" title="Link to this definition">#</a></dt>
+<dd><p>Check if either the local machine or any remote hosts can create video previews with ffmpeg.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hosts</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The list of remote hosts to process on rather than locally.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if any hosts have ffmpeg, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.integrations.videos.create_low_res">
-<span class="sig-prename descclassname"><span class="pre">application.integrations.videos.</span></span><span class="sig-name descname"><span class="pre">create_low_res</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_video</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.videos.create_low_res" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">application.integrations.videos.</span></span><span class="sig-name descname"><span class="pre">create_low_res</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_video</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hosts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.videos.create_low_res" title="Link to this definition">#</a></dt>
 <dd><p>Creates a low-res version of the given video.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>video_path</strong> (<em>str</em>) – The path to the video file.</p></li>
 <li><p><strong>output_video</strong> (<em>str</em>) – The path where the output video will be saved.</p></li>
+<li><p><strong>hosts</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The list of remote hosts to process on rather than locally.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1030,6 +1048,44 @@ If the application and blob storage are on the same disk, they are listed togeth
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.videos.get_normalized_load">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.videos.</span></span><span class="sig-name descname"><span class="pre">get_normalized_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.videos.get_normalized_load" title="Link to this definition">#</a></dt>
+<dd><p>Get a number from 0.0 to 1.0 indicating the percent load on the given host.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>host</strong> (<em>str</em>) – The SSH name of the machine, or <cite>localhost</cite> to check locally.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt><cite>9999</cite> if unable to calculate the load,</dt><dd><p>otherwise a number indicating the load if successfully calculated.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.integrations.videos.has_ffmpeg">
+<span class="sig-prename descclassname"><span class="pre">application.integrations.videos.</span></span><span class="sig-name descname"><span class="pre">has_ffmpeg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.integrations.videos.has_ffmpeg" title="Link to this definition">#</a></dt>
+<dd><p>Check if the local machine or a given remote host is accessible and has ffmpeg.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>host</strong> (<em>str</em>) – The SSH name of the machine, or <cite>localhost</cite> to check locally.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the given machine has ffmpeg, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1195,9 +1251,12 @@ If the application and blob storage are on the same disk, they are listed togeth
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations.videos">application.integrations.videos module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.videos.can_create_previews"><code class="docutils literal notranslate"><span class="pre">can_create_previews()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.videos.create_low_res"><code class="docutils literal notranslate"><span class="pre">create_low_res()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.videos.create_thumbnail_from_first_frame"><code class="docutils literal notranslate"><span class="pre">create_thumbnail_from_first_frame()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.videos.extensions"><code class="docutils literal notranslate"><span class="pre">extensions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.videos.get_normalized_load"><code class="docutils literal notranslate"><span class="pre">get_normalized_load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.integrations.videos.has_ffmpeg"><code class="docutils literal notranslate"><span class="pre">has_ffmpeg()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.integrations">Module contents</a><ul class="nav section-nav flex-column">

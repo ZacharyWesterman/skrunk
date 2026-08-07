@@ -490,6 +490,23 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.routes.blob.thumbnail">
+<span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.thumbnail" title="Link to this definition">#</a></dt>
+<dd><p>Fetch a thumbnail of a file from blob storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the file in blob storage.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Flask Response object containing the thumbnail data or an error message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.routes.blob.upload">
 <span class="sig-prename descclassname"><span class="pre">application.routes.blob.</span></span><span class="sig-name descname"><span class="pre">upload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.blob.upload" title="Link to this definition">#</a></dt>
 <dd><p>Upload a file to blob storage.</p>
@@ -740,6 +757,7 @@ It doesn’t track ANYTHING other than the quiescence of the back end.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.file_stream"><code class="docutils literal notranslate"><span class="pre">file_stream()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.preview"><code class="docutils literal notranslate"><span class="pre">preview()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.stream"><code class="docutils literal notranslate"><span class="pre">stream()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.thumbnail"><code class="docutils literal notranslate"><span class="pre">thumbnail()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.blob.upload"><code class="docutils literal notranslate"><span class="pre">upload()</span></code></a></li>
 </ul>
 </li>
