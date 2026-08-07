@@ -46,5 +46,11 @@
 		"id": "ldap:url",
 		"name": "LDAP Server URL",
 		"module": "ldap"
+	},
+	{
+		"id": "ffmpeg:hosts",
+		"name": "Video processing hosts",
+		"hint": "A comma-separated list of SSH destinations with FFMPEG installed",
+		"module": "files"
 	}
 ]
