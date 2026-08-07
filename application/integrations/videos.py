@@ -133,11 +133,11 @@ def get_normalized_load(host: str = 'localhost') -> float:
 
 	try:
 		if host in ['', 'localhost']:
-			text = subprocess.check_output(['top', '-n', '1'])
+			text = subprocess.check_output(['top', '-n', '1', '-b'])
 			nproc = subprocess.check_output(['nproc'])
 		else:
 			proc = subprocess.Popen(
-				['ssh', '-tt', host, '-oConnectTimeout=10', 'nproc; top -n 1'],
+				['ssh', '-tt', host, '-oConnectTimeout=10', 'nproc; top -n 1 -b'],
 				stdout=subprocess.PIPE,
 				stderr=subprocess.PIPE,
 			)
@@ -146,7 +146,7 @@ def get_normalized_load(host: str = 'localhost') -> float:
 			if stdout is None:
 				return 9999
 
-			nproc, text = stdout.split(b'\n', 1)
+			nproc, text = stdout.replace(b'\r', b'').split(b'\n', 1)
 	except subprocess.CalledProcessError:
 		return 9999
 
