@@ -137,7 +137,7 @@ def get_normalized_load(host: str = 'localhost') -> float:
 			nproc = subprocess.check_output(['nproc'])
 		else:
 			proc = subprocess.Popen(
-				['ssh', '-tt', host, '-oConnectTimeout=10', 'nproc; top -n 1 -b'],
+				['ssh', '-tt', host, '-oConnectTimeout=120', 'nproc; top -n 1 -b'],
 				stdout=subprocess.PIPE,
 				stderr=subprocess.PIPE,
 			)
@@ -177,7 +177,7 @@ def has_ffmpeg(host: str = 'localhost') -> bool:
 		return which('ffmpeg') is not None
 
 	proc = subprocess.Popen(
-		['ssh', '-tt', host, '-oConnectTimeout=10', 'which ffmpeg'],
+		['ssh', '-tt', host, '-oConnectTimeout=120', 'which ffmpeg'],
 		stdout=subprocess.PIPE,
 		stderr=subprocess.PIPE,
 	)
