@@ -188,9 +188,14 @@ def find_blobs_without_previews() -> Generator[dict[str, str], None, None]:
 	extensions = images.extensions() + models.extensions() + videos.extensions() + ['.pdf']
 
 	query = {
-		'preview': None,
-		'$or': [
-			{'ext': i} for i in extensions
+		'$and': [
+			{'$or': [
+				{'thumbnail': None},
+				{'preview': None},
+			]},
+			{'$or': [
+				{'ext': i} for i in extensions
+			]}
 		]
 	}
 
