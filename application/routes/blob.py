@@ -156,6 +156,27 @@ def preview(path: str) -> Response:
 	return stream(blob_obj)
 
 
+def thumbnail(path: str) -> Response:
+	"""
+	Fetch a thumbnail of a file from blob storage.
+
+	Args:
+		path (str): The path to the file in blob storage.
+
+	Returns:
+		Response: A Flask Response object containing the thumbnail data or an error message.
+	"""
+
+	if not auth.authorized():
+		return Response('Access denied.', 403)
+
+	if application.blob_path is None:
+		return Response('No blob data path specified in server setup.', 404)
+
+	blob_obj = blob.BlobThumbnail(files.sanitize_path(path), '')
+	return files.read_file_data(blob_obj.path())
+
+
 def upload() -> Response:
 	"""
 	Upload a file to blob storage.

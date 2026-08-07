@@ -60,6 +60,7 @@ def init(application) -> None:
 	application.route('/blob/<path:path>', methods=['GET'])(tq(blob.stream))
 	application.route('/download/<path:path>', methods=['GET'])(tq(blob.download))
 	application.route('/preview/<path:path>', methods=['GET'])(tq(blob.preview))
+	application.route('/thumb/<path:path>', methods=['GET'])(tq(blob.thumbnail))
 	application.route('/upload', methods=['POST'])(tq(blob.upload))
 
 	@application.after_request

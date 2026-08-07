@@ -25,7 +25,7 @@ from application.types import BlobSearchFilter, Sorting, blob_storage
 from application.types.blob_storage import (BlobPreview, BlobStorage,
                                             BlobThumbnail)
 
-from . import users
+from . import settings, users
 from .perms import caller_info
 
 ## A pointer to the Blob collection in the database.
@@ -849,8 +849,13 @@ def create_preview_video(path: str, preview_id: str) -> None:
 		None
 	"""
 	preview = BlobPreview(preview_id, '.mp4')
-	videos.create_low_res(path, preview.path(create=True))
-	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
+
+	hosts = settings.get_config('ffmpeg:hosts')
+	hosts = [] if (hosts is None or hosts == '') else hosts.replace(' ', '').split(',')
+
+	if videos.can_create_previews(hosts):
+		videos.create_low_res(path, preview.path(create=True), hosts)
+		db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
 
 	# Create a thumbnail from the preview, not the full video.
 	create_thumbnail_video(preview.path(), preview_id)
