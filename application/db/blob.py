@@ -71,6 +71,9 @@ def file_info(filename: str) -> tuple[int, str]:
 	"""
 	Calculate the MD5 checksum and size of a file.
 
+	Note: The checksum only considers the first 128MiB of the file.
+	Any remaining data is ignored.
+
 	Args:
 		filename (str): The path to the file.
 
@@ -78,7 +81,7 @@ def file_info(filename: str) -> tuple[int, str]:
 		tuple: A tuple containing the size of the file in bytes (int) and the MD5 checksum (str).
 	"""
 	with open(filename, 'rb') as fp:
-		md5sum = hashlib.md5(fp.read()).hexdigest()
+		md5sum = hashlib.md5(fp.read(128 * 1024 * 1024)).hexdigest()
 	size = pathlib.Path(filename).stat().st_size
 
 	return size, md5sum
