@@ -102,6 +102,10 @@ def new(name: str) -> tuple[argparse.Namespace, Flask]:
 		'--preview-path', action='store', default=None, type=str,
 		help='The storage location for blob previews, if different from main blob storage'
 	)
+	parser.add_argument(
+		'--thumb-path', action='store', default=None, type=str,
+		help='The storage location for blob thumbnails, if different from preview blob storage'
+	)
 
 	parser.add_argument('--prod', action='store_true', help='Run in production mode')
 	parser.add_argument('--no-auth', action='store_true', help='Disable authentication')
@@ -131,6 +135,10 @@ def new(name: str) -> tuple[argparse.Namespace, Flask]:
 		error('`--preview-path` flag used but `--blob-path` not specified!')
 		exit(1)
 
+	if args.thumb_path is None and args.preview_path is not None:
+		error('`--thumb-path` flag used but `--blob-path` not specified!')
+		exit(1)
+
 	if args.bundle:
 		bundler.bundle()
 	else:
@@ -139,6 +147,7 @@ def new(name: str) -> tuple[argparse.Namespace, Flask]:
 	app = init(
 		no_auth=args.no_auth,
 		blob_path=args.blob_path,
+		thumbnail_path=args.thumb_path,
 		database_url=args.database,
 		preview_path=args.preview_path,
 	)
