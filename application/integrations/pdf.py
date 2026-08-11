@@ -20,7 +20,7 @@ def create_preview(pdf_path: str, preview_path: str, page_number: int = 0) -> bo
 	"""
 
 	images = convert_from_path(pdf_path, first_page=page_number + 1, last_page=page_number + 1)
-	print(images)
+
 	if images:
 		images[0].thumbnail((1024, 1024), Image.Resampling.LANCZOS)
 		images[0].save(preview_path)
