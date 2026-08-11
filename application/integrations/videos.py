@@ -90,7 +90,7 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 
 	# Transfer file up to host
 	subprocess.run([
-		'scp',
+		'rsync',
 		video_path,
 		f'{host}:{from_file}',
 	], check=False)
@@ -105,7 +105,7 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 
 	# Transfer file down from host
 	subprocess.run([
-		'scp',
+		'rsync',
 		f'{host}:{to_file}',
 		output_video,
 	], check=False)
