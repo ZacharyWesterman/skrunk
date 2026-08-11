@@ -153,7 +153,7 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
 
 			thumbnail = BlobThumbnail(blob['id'], blob['ext'])
-			if images.downscale(this_blob_path, 128, thumbnail.path()):
+			if images.downscale(this_blob_path, 128, thumbnail.path(create=True)):
 				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'thumbnail': thumbnail.basename()}})
 
 		elif blob['ext'].lower() in models.extensions():
@@ -170,7 +170,7 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 			if pdf.create_preview(this_blob_path, preview.path(create=True)):
 				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
 
-				thumbnail = BlobThumbnail(blob['id'], blob['ext'])
+				thumbnail = BlobThumbnail(blob['id'], '.png')
 				if images.downscale(preview.path(create=True), 128, thumbnail.path(create=True)):
 					db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'thumbnail': thumbnail.basename()}})
 
