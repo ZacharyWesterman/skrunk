@@ -23,5 +23,5 @@ if __name__ == '__main__':
 	                                 find_blobs_without_previews)
 
 	for i in find_blobs_without_previews():
-		print(f'Creating missing preview for `{i["id"]}`...', flush=True)
+		print(f'Creating missing preview for `{i["id"]}{i.get('ext', '')}`...', flush=True)
 		create_blob_previews([i])
