@@ -31,7 +31,7 @@
 					<span class="tooltiptext t-left">{{? it.hidden }}File is only visible to you{{??}}File is visible to everyone{{?}}</span>
 				</button>
 			{{?}}
-			<div class="truncate">{{=it.name}}{{=it.ext}}</div>
+			<div class="truncate {{? it.hidden }}emphasis{{?}}" id="title-{{=it.id}}">{{=it.name}}{{=it.ext}}</div>
 		</div>
 
 		{{?it.mimetype.split('/')[0] === 'video'}}

@@ -458,11 +458,16 @@ export async function toggle_blob_hidden(blob_id) {
 	icon.classList.remove(old_icon)
 	icon.classList.add(new_icon)
 
+	const title = $(`title-${blob_id}`)
+
 	//Make icon pop a bit if hidden
-	if (res.hidden)
+	if (res.hidden) {
 		icon.classList.add('emphasis')
-	else
+		title.classList.add('emphasis')
+	} else {
 		icon.classList.remove('emphasis')
+		title.classList.remove('emphasis')
+	}
 }
 
 export function view_pdf(url) {
