@@ -188,19 +188,19 @@ def find_blobs_without_previews() -> Generator[dict[str, str], None, None]:
 	extensions = images.extensions() + models.extensions() + videos.extensions() + ['.pdf']
 
 	query = {
-		'$and': [
-			{'$or': [
-				{'thumbnail': None},
-				{'preview': None},
-			]},
-			{'$or': [
-				{'ext': i} for i in extensions
-			]}
+		'$or': [
+			{'ext': i} for i in extensions
 		]
 	}
 
 	for i in db.find(query):
-		yield {'id': str(i['_id']), 'ext': i['ext']}
+		if (
+			not i.get('preview') or
+			not i.get('thumbnail') or
+			(i.get('preview') and not BlobPreview(i.get('_id'), i.get('ext')).exists) or
+			(i.get('thumbnail') and not BlobThumbnail(i.get('_id'), i.get('ext')).exists)
+		):
+			yield {'id': str(i['_id']), 'ext': i['ext']}
 
 
 def save_blob_data(
