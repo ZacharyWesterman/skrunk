@@ -53,8 +53,10 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 		subprocess.run(
 			[
 				'ffmpeg', '-v', 'quiet', '-stats',
+				'-hwaccel', 'auto',
 				'-i', video_path,
 				'-vf', 'scale=480:-2,setsar=1:1',
+				'-movflags', 'faststart',
 				output_video,
 			],
 			check=False
@@ -97,7 +99,7 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 
 	# Process the file
 	proc = subprocess.Popen(
-		['ssh', '-tt', host, f'ffmpeg -v quiet -stats -i {from_file} -vf scale=480:-2,setsar=1:1 {to_file}'],
+		['ssh', '-tt', host, f'ffmpeg -v quiet -stats -hwaccel auto -i {from_file} -vf scale=480:-2,setsar=1:1 -movflags faststart {to_file}'],
 		stdout=subprocess.PIPE,
 		stderr=subprocess.PIPE,
 	)
