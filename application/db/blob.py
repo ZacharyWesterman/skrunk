@@ -149,7 +149,7 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 		if blob['ext'].lower() in images.extensions():
 			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
 			preview = BlobPreview(blob['id'], blob['ext'])
-			if images.downscale(this_blob_path, 512, preview.path()):
+			if images.downscale(this_blob_path, 512, preview.path(create=True)):
 				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
 
 			thumbnail = BlobThumbnail(blob['id'], blob['ext'])
@@ -157,21 +157,21 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'thumbnail': thumbnail.basename()}})
 
 		elif blob['ext'].lower() in models.extensions():
-			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
+			this_blob_path = BlobStorage(blob['id'], blob['ext']).path(create=True)
 			create_preview_model(this_blob_path, blob['id'])
 
 		elif blob['ext'].lower() in videos.extensions():
-			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
+			this_blob_path = BlobStorage(blob['id'], blob['ext']).path(create=True)
 			create_preview_video(this_blob_path, blob['id'])
 
 		elif blob['ext'].lower() == '.pdf':
-			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
+			this_blob_path = BlobStorage(blob['id'], blob['ext']).path(create=True)
 			preview = BlobPreview(blob['id'], '.png')
 			if pdf.create_preview(this_blob_path, preview.path()):
 				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
 
 				thumbnail = BlobThumbnail(blob['id'], blob['ext'])
-				if images.downscale(preview.path(), 128, thumbnail.path()):
+				if images.downscale(preview.path(create=True), 128, thumbnail.path(create=True)):
 					db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'thumbnail': thumbnail.basename()}})
 
 
