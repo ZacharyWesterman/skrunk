@@ -60,7 +60,7 @@
 				{{??}}
 					<i class="fa-solid fa-file-pdf fa-3x"></i><br>
 				{{?}}
-				<u>Click to view PDF</u>
+				<div><u>Click to view PDF</u></div>
 			</div>
 
 			{{? environment.mobile }}</a>{{?}}
