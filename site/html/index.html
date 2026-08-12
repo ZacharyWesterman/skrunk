@@ -70,6 +70,8 @@
 				else {
 					api.logout()
 				}
+			}).catch(() => {
+				api.logout()
 			})
 		}
 	}
