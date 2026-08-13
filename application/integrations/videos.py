@@ -99,7 +99,7 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 
 	# Process the file
 	proc = subprocess.Popen(
-		['ssh', '-tt', host, f'ffmpeg -v quiet -stats -hwaccel auto -i {from_file} -vf scale=480:-2,setsar=1:1 -movflags faststart {to_file}'],
+		['ssh', '-tt', '-oBatchMode=yes', host, f'ffmpeg -v quiet -stats -hwaccel auto -i {from_file} -vf scale=480:-2,setsar=1:1 -movflags faststart {to_file}'],
 		stdout=subprocess.PIPE,
 		stderr=subprocess.PIPE,
 	)
@@ -114,7 +114,7 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 
 	# Clean up old files on host
 	proc = subprocess.Popen(
-		['ssh', '-tt', host, f'rm -f {from_file} {to_file}'],
+		['ssh', '-tt', '-oBatchMode=yes', host, f'rm -f {from_file} {to_file}'],
 		stdout=subprocess.PIPE,
 		stderr=subprocess.PIPE,
 	)
@@ -139,7 +139,7 @@ def get_normalized_load(host: str = 'localhost') -> float:
 			nproc = subprocess.check_output(['nproc'])
 		else:
 			proc = subprocess.Popen(
-				['ssh', '-tt', host, '-oConnectTimeout=120', 'nproc; top -n 1 -b'],
+				['ssh', '-tt', '-oBatchMode=yes', host, '-oConnectTimeout=120', 'nproc; top -n 1 -b'],
 				stdout=subprocess.PIPE,
 				stderr=subprocess.PIPE,
 			)
@@ -179,7 +179,7 @@ def has_ffmpeg(host: str = 'localhost') -> bool:
 		return which('ffmpeg') is not None
 
 	proc = subprocess.Popen(
-		['ssh', '-tt', host, '-oConnectTimeout=120', 'which ffmpeg'],
+		['ssh', '-tt', '-oBatchMode=yes', host, '-oConnectTimeout=120', 'which ffmpeg'],
 		stdout=subprocess.PIPE,
 		stderr=subprocess.PIPE,
 	)
