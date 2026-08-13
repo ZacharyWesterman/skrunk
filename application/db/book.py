@@ -590,6 +590,7 @@ def build_book_query(filter: BookSearchFilter, sort: list) -> list[dict]:
 
 	aggregate += [
 		{'$match': norm_query(query, ownerq)},
+		{'$addFields': computed_fields},
 		{'$sort': sorting},
 	]
 
