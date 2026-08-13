@@ -52,7 +52,7 @@ def create_low_res(video_path: str, output_video: str, hosts: list[str]) -> None
 	def run_local():
 		subprocess.run(
 			[
-				'ffmpeg', '-v', 'quiet', '-stats',
+				'ffmpeg', '-y', '-v', 'quiet', '-stats',
 				'-hwaccel', 'auto',
 				'-i', video_path,
 				'-vf', 'scale=480:-2,setsar=1:1',
