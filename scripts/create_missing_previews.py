@@ -22,6 +22,6 @@ if __name__ == '__main__':
 	from application.db.blob import (create_blob_previews,
 	                                 find_blobs_without_previews)
 
-	for i in find_blobs_without_previews():
+	for i in list(find_blobs_without_previews()):
 		print(f'Creating missing preview for `{i["id"]}{i.get('ext', '')}`...', flush=True)
 		create_blob_previews([i])
