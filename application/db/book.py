@@ -117,7 +117,7 @@ def process_book_tag(book_data: dict) -> dict:
 	try:
 		blobdata = blob.get_blob_data(book_data['thumbnail'])
 		if blobdata:
-			book_data['thumbnail'] = f'preview/{blobdata["thumbnail"]}'
+			book_data['thumbnail'] = f'thumb/{blobdata["thumbnail"]}'
 	except exceptions.BlobDoesNotExistError:
 		pass
 
