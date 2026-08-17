@@ -161,15 +161,23 @@ def delete_document(doc_id: str) -> dict:
 	"""
 	Deletes a document from the database.
 
+	Any child documents get moved up one level.
+
 	Args:
 		doc_id (str): The ID of the document to delete.
 
 	Returns:
-		dict: The deleted document.
+		dict: The deleted document, if successful.
 	"""
 
-	if doc := db.find_one({'_id': ObjectId(doc_id)}):
-		db.delete_one({'_id': ObjectId(doc_id)})
-		return parse_document(doc)
+	id = ObjectId(doc_id)
 
-	raise DocumentDoesNotExistError(doc_id)
+	doc = db.find_one({'_id': id})
+	if doc is None:
+		raise DocumentDoesNotExistError(doc_id)
+
+	parent_id = doc.get('parent')
+	db.update_many({'parent': id}, {'$set': {'parent': parent_id}})
+	db.delete_one({'_id': id})
+
+	return parse_document(doc)

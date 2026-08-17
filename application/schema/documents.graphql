@@ -21,8 +21,6 @@ type DocumentDoesNotExistError {
 
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
-union DocumentCreateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
-union DocumentDeleteResponse = DocumentDoesNotExistError | InsufficientPerms
 
 #Resolvers below this line:
 
@@ -32,7 +30,7 @@ extend type Query {
 }
 
 extend type Mutation {
-	createDocument(title: String!, body: String!, parent: String): DocumentCreateResponse!
+	createDocument(title: String!, body: String!, parent: String): DocumentUpdateResponse!
 	updateDocument(id: String!, title: String, body: String, parent: String): DocumentUpdateResponse!
-	deleteDocument(id: String!): DocumentDeleteResponse!
+	deleteDocument(id: String!): DocumentUpdateResponse!
 }

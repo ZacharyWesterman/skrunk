@@ -7,19 +7,17 @@ export default {
 	 * @returns {Promise<object>} The new document.
 	 */
 	create: async (title, body, parent_id = null) => {
-		return await api(`mutation ($title: String!, $body: String!, $parent_id: String){
-			createDocument (title: $title, body: $body, parent_id: $parent_id){
-				id
-				created
-				creator
-				title
-				body
-				body_html
+		return await api(`mutation ($title: String!, $body: String!, $parent: String){
+			createDocument (title: $title, body: $body, parent: $parent){
+				__typename
+				...on Document { id }
+				...on InsufficientPerms { message }
+				...on DocumentDoesNotExistError { message }
 			}
 		}`, {
-			title: title,
-			body: body,
-			parent_id: parent_id
+			title,
+			body,
+			parent: parent_id
 		})
 	},
 
@@ -34,17 +32,14 @@ export default {
 	update: async (id, title, body, parent_id) => {
 		return await api(`mutation ($id: String!, $title: String, $body: String, $parent: String){
 			updateDocument (id: $id, title: $title, body: $body, parent: $parent){
-				id
-				created
-				creator
-				title
-				body
-				body_html
+				__typename
+				...on InsufficientPerms { message }
+				...on DocumentDoesNotExistError { message }
 			}
 		}`, {
-			id: id,
-			title: title,
-			body: body,
+			id,
+			title,
+			body,
 			parent: parent_id,
 		})
 	},
@@ -56,9 +51,13 @@ export default {
 	 */
 	delete: async (id) => {
 		return await api(`mutation ($id: String!){
-			deleteDocument (id: $id)
+			deleteDocument (id: $id) {
+				__typename
+				...on InsufficientPerms { message }
+				...on DocumentDoesNotExistError { message }
+			}
 		}`, {
-			id: id
+			id
 		})
 	},
 }

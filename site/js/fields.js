@@ -94,6 +94,12 @@ $.toggle_expand = (id, expand) => {
 $.sync_invert_to_expand = (field1, field2) => {
 	const f = $(field1)
 	if (!f) return
+
+	if (f.classList.contains('fa-angles-down')) {
+		f.classList.toggle('inverted', $(field2).classList.contains('expanded'))
+		return
+	}
+
 	for (const i of f.getElementsByClassName('fa-angles-down')) {
 		i.classList.toggle('inverted', $(field2).classList.contains('expanded'))
 	}

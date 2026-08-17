@@ -1,3 +1,5 @@
+await mutate.require()
+
 export async function init() {
 	await load_documents()
 
@@ -35,17 +37,7 @@ export async function new_document(parent_id) {
 
 	if (!data) return
 
-	const res = await api(`mutation ($title: String!, $body: String!, $parent: String) {
-		createDocument (title: $title, body: $body, parent: $parent) {
-			__typename
-			...on InsufficientPerms { message }
-			...on DocumentDoesNotExistError { message }
-		}
-	}`, {
-		title: data.title,
-		body: data.body,
-		parent: parent_id || null,
-	})
+	const res = await mutate.documents.create(data.title, data.body, parent_id || null)
 
 	if (res.__typename !== 'Document') {
 		_.modal.error(res.message)
@@ -110,4 +102,27 @@ export async function load_doc_body(id) {
 
 	//Load child documents
 	load_documents(id)
+}
+
+export async function delete_document(id, parent_id) {
+	const choice = await _.modal({
+		title: 'Delete Document?',
+		type: 'question',
+		text: "Are you sure you want to delete this document? Any child documents will be moved to this document's parent.<div class=\"emphasis\">This is permanent and cannot be undone!</div>",
+		buttons: ['Yes', 'No'],
+	})
+
+	if (choice !== 'yes') {
+		return
+	}
+
+	const res = await mutate.documents.delete(id)
+
+	if (res.__typename !== 'Document') {
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	load_documents(parent_id)
 }
