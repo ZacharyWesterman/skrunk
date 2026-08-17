@@ -4,7 +4,7 @@ from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
 from application.db.documents import (create_document, delete_document,
-                                      update_document)
+                                      get_document, update_document)
 
 from ..decorators import handle_client_exceptions
 from . import mutation
@@ -12,6 +12,7 @@ from . import mutation
 
 @mutation.field('createDocument')
 @perms.module('documents')
+@perms.require('edit')
 @handle_client_exceptions
 def resolve_create_document(
 	_,
@@ -37,6 +38,8 @@ def resolve_create_document(
 
 @mutation.field('updateDocument')
 @perms.module('documents')
+@perms.require('edit')
+@perms.require('admin', perform_on_self=True, data_func=get_document)
 @handle_client_exceptions
 def resolve_update_document(
 	_,
@@ -63,6 +66,8 @@ def resolve_update_document(
 
 @mutation.field('deleteDocument')
 @perms.module('documents')
+@perms.require('edit')
+@perms.require('admin', perform_on_self=True, data_func=get_document)
 @handle_client_exceptions
 def resolve_delete_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	"""

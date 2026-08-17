@@ -36,25 +36,34 @@ def parse_document(doc: dict) -> dict:
 			'display_name': doc['creator'],
 		}
 
+	if doc['updater'] is not None:
+		try:
+			doc['updater'] = users.get_user_by_id(doc['updater'])
+		except UserDoesNotExistError:
+			doc['updater'] = {
+				'username': doc['updater'],
+				'display_name': doc['updater'],
+			}
+
 	doc['body_html'] = markdown.markdown(doc['body'])
 
 	return doc
 
 
-def get_document(doc_id: str) -> dict:
+def get_document(id: str, format: bool = False) -> dict:
 	"""
 	Retrieves a document from the database by its ID.
 
 	Args:
-		doc_id (str): The ID of the document to retrieve.
+		id (str): The ID of the document to retrieve.
 
 	Returns:
 		dict: The document.
 	"""
-	if doc := db.find_one({'_id': ObjectId(doc_id)}):
-		return parse_document(doc)
+	if doc := db.find_one({'_id': ObjectId(id)}):
+		return parse_document(doc) if format else doc
 
-	raise DocumentDoesNotExistError(doc_id)
+	raise DocumentDoesNotExistError(id)
 
 
 def get_documents(start: int, count: int) -> list:
@@ -69,7 +78,7 @@ def get_documents(start: int, count: int) -> list:
 		list: A list of documents.
 	"""
 
-	selection = db.find({'history': False}).skip(start).limit(count).sort('created', -1)
+	selection = db.find({'history': False}).skip(start).limit(count).sort((('updated', -1), ('created', -1)))
 
 	return [parse_document(doc) for doc in selection]
 

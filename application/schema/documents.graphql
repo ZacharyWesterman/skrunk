@@ -4,8 +4,9 @@ type Document {
 	body: String!
 	body_html: String!
 	created: DateTime!
-	updated: DateTime
 	creator: UserMinData!
+	updated: DateTime
+	updater: UserMinData
 }
 
 type DocumentDoesNotExistError {

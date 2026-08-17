@@ -24,7 +24,7 @@ def resolve_get_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	Returns:
 		dict: A dictionary representing the document with an added '__typename' key.
 	"""
-	return {'__typename': 'Document', **get_document(id)}
+	return {'__typename': 'Document', **get_document(id, True)}
 
 
 @query.field('getDocuments')

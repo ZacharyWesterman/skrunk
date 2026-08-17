@@ -128,6 +128,7 @@ def create_indexes() -> None:
 
 	documents.db.create_index([('created', -1)])
 	documents.db.create_index([('creator', 1)])
+	documents.db.create_index([('updated', -1)])
 	documents.db.create_index([('hidden', 1)])
 	documents.db.create_index([('previous', 1)])
 	documents.db.create_index([('parent', 1)])

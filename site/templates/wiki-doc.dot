@@ -24,7 +24,12 @@
 		</div>
 
 		<span class="suppress clickable" *toggles="expand-{{= it.id }}" *chevron="chevron-{{= it.id }}">
-			Created by {{= it.creator.username }} on {{= date.output(it.created) }}
+			{{? it.updated }}
+				Edited by {{= it.updater.username }} on {{= date.output(it.updated) }}
+			{{?}}
+			{{? it.updater?.username !== it.creator.username }}
+				Created by {{= it.creator.username }} on {{= date.output(it.created) }}
+			{{?}}
 		</span>
 	</div>
 </div>

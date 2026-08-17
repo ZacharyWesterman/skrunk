@@ -16,6 +16,11 @@ export default {
 						display_name
 					}
 					created
+					updater {
+						username
+						display_name
+					}
+					updated
 				}
 				...on InsufficientPerms { message }
 				...on DocumentDoesNotExistError { message }
@@ -61,6 +66,11 @@ export default {
 					display_name
 				}
 				created
+				updater {
+					username
+					display_name
+				}
+				updated
 			}
 		}`, {
 			start,

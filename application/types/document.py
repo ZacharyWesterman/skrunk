@@ -14,5 +14,6 @@ class Document(TypedDict):
 	body: str
 	body_html: str
 	created: datetime
-	updated: datetime | None
 	creator: UserMinData
+	updated: datetime | None
+	updater: UserMinData | None
