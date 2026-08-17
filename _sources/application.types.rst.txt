@@ -196,14 +196,6 @@ application.types.document module
    :show-inheritance:
    :undoc-members:
 
-application.types.documentmin module
-------------------------------------
-
-.. automodule:: application.types.documentmin
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 application.types.ebook module
 ------------------------------
 
