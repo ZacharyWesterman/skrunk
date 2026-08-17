@@ -186,18 +186,20 @@ window.set_field_logic = async function (DOM, url, module) {
 				}
 
 				if (attr === 'toggles') {
+					const chevron = field.getAttribute('*chevron')
 					field.addEventListener('click', () => {
 						$.toggle_expand(key)
 						//Automatically flip any "expand" arrows to reflect whether content is expanded
 						$.sync_invert_to_expand(field, key)
+						if (chevron) {
+							$.sync_invert_to_expand(chevron, key)
+						}
 					})
 
 					//Automatically flip any "expand" arrows to reflect whether content is expanded
 					$.sync_invert_to_expand(field, key)
 					return
 				}
-
-				if (attr === 'expand_invert') return
 
 				const split_point = key.indexOf('(')
 				if (split_point > -1) {

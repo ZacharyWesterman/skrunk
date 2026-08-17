@@ -1,16 +1,14 @@
+await mutate.require('documents')
+await query.require('documents')
+
 export async function init() {
 	await load_documents()
-
-	//Load content of top-level documents
-	for (const elem of document.getElementsByName('document-body')) {
-		load_doc_body(elem.id)
-	}
 }
 
-export async function new_document(parent_id) {
+export async function new_document() {
 	const data = await _.modal({
 		title: "New Document",
-		text: api.snippit("wiki_new_document"),
+		text: api.snippit("wiki_edit_document"),
 		buttons: ["OK", "Cancel"],
 	}, () => {
 		//On load
@@ -35,17 +33,7 @@ export async function new_document(parent_id) {
 
 	if (!data) return
 
-	const res = await api(`mutation ($title: String!, $body: String!, $parent: String) {
-		createDocument (title: $title, body: $body, parent: $parent) {
-			__typename
-			...on InsufficientPerms { message }
-			...on DocumentDoesNotExistError { message }
-		}
-	}`, {
-		title: data.title,
-		body: data.body,
-		parent: parent_id || null,
-	})
+	const res = await mutate.documents.create(data.title, data.body)
 
 	if (res.__typename !== 'Document') {
 		_.modal.error(res.message)
@@ -54,46 +42,14 @@ export async function new_document(parent_id) {
 
 	_.modal.checkmark()
 
-	await load_documents(parent_id)
-
-	if (!parent_id) {
-		//Load content of top-level documents
-		for (const elem of document.getElementsByName('document-body')) {
-			load_doc_body(elem.id)
-		}
-	}
+	load_documents()
 }
 
-export async function load_documents(parent_id) {
-	const docs = await api(`query ($parent: String) {
-		getChildDocuments (id: $parent) {
-			id
-			title
-			creator {
-				username
-				display_name
-			}
-			created
-		}
-	}`, {
-		parent: parent_id || null,
-	})
-
-	const element = parent_id ? `child-docs-${parent_id}` : 'top-level-docs'
-	await _(element, {
-		docs: docs,
-		toplevel: !parent_id,
-	})
-}
-
-export async function load_doc_body(id) {
-	if ($(id).loaded) return
-	$(id).loaded = true
-
-	const doc = await api(`query ($id: String!) {
+export async function edit_document(id) {
+	const data_promise = api(`query ($id: String!) {
 		getDocument (id: $id) {
 			__typename
-			...on Document { body_html }
+			...on Document { title body }
 			...on InsufficientPerms { message }
 			...on DocumentDoesNotExistError { message }
 		}
@@ -101,13 +57,129 @@ export async function load_doc_body(id) {
 		id: id,
 	})
 
+	const data = await _.modal({
+		title: "Edit Document",
+		text: api.snippit("wiki_edit_document"),
+		buttons: ["OK", "Cancel"],
+	}, async () => {
+		// Pull in data on load
+
+		const title = $('title')
+		const body = $('body')
+
+		title.disabled = true
+		body.disabled = true
+
+		const old_data = await data_promise
+		if (old_data.__typename === 'Document') {
+			title.value = old_data.title
+			body.value = old_data.body
+		}
+
+		title.disabled = false
+		body.disabled = false
+	}, choice => {
+		//Validate input
+
+		if (choice === 'ok' && !$.val('title')) {
+			$.flash('title')
+			return false
+		}
+
+		return true
+	}, choice => {
+		//Transform input
+		if (choice === 'cancel') return null
+
+		return {
+			title: $.val('title'),
+			body: $.val('body'),
+		}
+	}).catch(() => null)
+
+	if (!data) return
+
+	const new_data = await mutate.documents.update(id, data.title, data.body)
+
+	if (new_data.__typename !== 'Document') {
+		_.modal.error(new_data.message)
+		return
+	}
+
+	_.modal.checkmark()
+
+	_(id, new_data)
+}
+
+export async function view_document(id) {
+	await _.modal({
+		text: `<br><div id="body-${id}">Loading...</div>`,
+		buttons: ['OK'],
+	}, () => load_doc_body(id)).catch(() => { })
+}
+
+
+export async function load_documents() {
+	const docs = await query.documents.list(0, 100)
+
+	const text = docs.map(doc => `<div id="${doc.id}" template="wiki-doc"></div>`).join('')
+	$('document-list').innerHTML = text
+
+	for (const doc of docs) {
+		_(doc.id, doc)
+	}
+}
+
+export async function load_doc_body(id) {
+	const field = $(`body-${id}`)
+
+	if (field.loaded) return
+	field.loaded = true
+
+	const doc = await query.documents.get_body(id)
+
 	if (doc.__typename !== 'Document') {
 		_.modal.error(doc.message)
 		return
 	}
 
-	$(id).innerHTML = doc.body_html
+	field.innerHTML = doc.body_html
+}
 
-	//Load child documents
-	load_documents(id)
+export async function delete_document(id) {
+	const choice = await _.modal({
+		title: 'Delete Document?',
+		type: 'question',
+		text: "Are you sure you want to delete this document?",
+		buttons: ['Yes', 'No'],
+	}).catch(() => 'no')
+
+	if (choice !== 'yes') {
+		return
+	}
+
+	const choice2 = await _.modal({
+		title: 'Really Delete Document?',
+		type: 'warning',
+		text: `
+			Are you <b>really</b> sure you want to delete this document?
+			<div class="emphasis">Deletion is permanent and cannot be undone!</div>
+			If you just want to prevent others from seeing the document, you may hide it instead.
+		`,
+		buttons: ['Cancel', 'Yes, Delete'],
+	}).catch(() => 'cancel')
+
+	if (choice2 !== 'yes, delete') {
+		return
+	}
+
+	const res = await mutate.documents.delete(id)
+
+	if (res.__typename !== 'Document') {
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	load_documents()
 }

@@ -3,7 +3,7 @@
 from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
-from application.db.documents import get_child_documents, get_document
+from application.db.documents import get_document, get_documents
 
 from ..decorators import handle_client_exceptions
 from . import query
@@ -24,22 +24,22 @@ def resolve_get_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	Returns:
 		dict: A dictionary representing the document with an added '__typename' key.
 	"""
-	return {'__typename': 'Document', **get_document(id)}
+	return {'__typename': 'Document', **get_document(id, True)}
 
 
-@query.field('getChildDocuments')
+@query.field('getDocuments')
 @perms.module('documents')
-def resolve_get_child_documents(_, _info: GraphQLResolveInfo, id: str | None) -> list[dict]:
+def resolve_get_child_documents(_, _info: GraphQLResolveInfo, start: int, count: int) -> list[dict]:
 	"""
-	Resolver function to get child documents for a given document ID.
+	Resolves the retrieval of documents based on pagination.
 
 	Args:
 		_ (Any): Placeholder.
 		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
-		id (str | None): The ID of the parent document for which to retrieve child documents.
-			If None, retrieves top-level documents.
+		start (int): The starting index for pagination.
+		count (int): The number of books to retrieve.
 
 	Returns:
-		list[dict]: A list of dictionaries representing the child documents.
+		list[dict]: A list of documents.
 	"""
-	return get_child_documents(id)
+	return get_documents(start, count)
