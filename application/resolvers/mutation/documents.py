@@ -17,8 +17,7 @@ def resolve_create_document(
 	_,
     _info: GraphQLResolveInfo,
     title: str,
-    body: str,
-    parent: str | None
+    body: str
 ) -> dict:
 	"""
 	Resolver function to create a new document.
@@ -33,7 +32,7 @@ def resolve_create_document(
 	Returns:
 		dict: A dictionary representing the created document with a '__typename' key.
 	"""
-	return {'__typename': 'Document', **create_document(title, body, parent)}
+	return {'__typename': 'Document', **create_document(title, body)}
 
 
 @mutation.field('updateDocument')
@@ -44,8 +43,7 @@ def resolve_update_document(
 	_info: GraphQLResolveInfo,
     id: str,
     title: str | None,
-    body: str | None,
-    parent: str | None
+    body: str | None
 ) -> dict:
 	"""
 	Resolver function to update a document.
@@ -56,12 +54,11 @@ def resolve_update_document(
 		id (str): The unique identifier of the document to be updated.
 		title (str | None): The new title of the document. If None, the title will not be updated.
 		body (str | None): The new body content of the document. If None, the body will not be updated.
-		parent (str | None): The parent document ID. If None, the parent will not be updated.
 
 	Returns:
 		dict: A dictionary representing the updated document with a '__typename' key.
 	"""
-	return {'__typename': 'Document', **update_document(id, title, body, parent)}
+	return {'__typename': 'Document', **update_document(id, title, body)}
 
 
 @mutation.field('deleteDocument')

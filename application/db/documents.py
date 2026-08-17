@@ -57,23 +57,24 @@ def get_document(doc_id: str) -> dict:
 	raise DocumentDoesNotExistError(doc_id)
 
 
-def get_child_documents(doc_id: str | None) -> list:
+def get_documents(start: int, count: int) -> list:
 	"""
-	Retrieves the child documents of a document.
+	Retrieves a list of documents.
 
 	Args:
-		doc_id (str | None): The optional ID of the document. If None, retrieves top-level documents.
+		start (int): The starting index for pagination.
+		count (int): The number of books to retrieve.
 
 	Returns:
-		list: The child documents.
+		list: A list of documents.
 	"""
 
-	selection = db.find({'parent': ObjectId(doc_id)}) if doc_id else db.find({'parent': None})
+	selection = db.find({'history': False}).skip(start).limit(count).sort('created', -1)
 
 	return [parse_document(doc) for doc in selection]
 
 
-def create_document(title: str, body: str, parent: str | None = None) -> dict:
+def create_document(title: str, body: str) -> dict:
 	"""
 	Creates a new document in the database.
 
@@ -93,12 +94,12 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 		'created': datetime.now(UTC),
 		'updated': None,
 		'updater': None,
-		'parent': ObjectId(parent) if parent else None,
+		'parent': None,
 		'hidden': False,
 		'draft': False,
+		'history': False,
+		'previous': None,
 		'tags': [],
-		'keywords': [],
-		'history': [],
 	}
 
 	doc_id = db.insert_one(doc).inserted_id
@@ -107,7 +108,7 @@ def create_document(title: str, body: str, parent: str | None = None) -> dict:
 	return parse_document(doc)
 
 
-def update_document(doc_id: str, title: str | None, body: str | None, new_parent: str | None) -> dict:
+def update_document(doc_id: str, title: str | None, body: str | None) -> dict:
 	"""
 	Updates a document in the database.
 
@@ -115,7 +116,6 @@ def update_document(doc_id: str, title: str | None, body: str | None, new_parent
 		doc_id (str): The ID of the document to update.
 		title (str | None): The new title of the document. If None, the title is not updated.
 		body (str | None): The new content of the document. If None, the body is not updated.
-		new_parent (str | None): The ID of the new parent document. If None, the parent is not updated.
 
 	Returns:
 		dict: The updated document.
@@ -124,35 +124,36 @@ def update_document(doc_id: str, title: str | None, body: str | None, new_parent
 	if (doc := db.find_one({'_id': ObjectId(doc_id)})) is None:
 		raise DocumentDoesNotExistError(doc_id)
 
-	if title or body or new_parent:
+	if title is None and body is None:
+		# No change
+		return parse_document(doc)
 
-		username: str = perms.caller_info_strict().get('username', '')
-		user_data = users.get_user_data(username)
+	if title == doc['title'] and body == doc['body']:
+		# No change
+		return parse_document(doc)
 
-		prev_doc = {
-			'updated': doc['updated'],
-			'updater': user_data['_id'],
-			'title': None,
-			'body': None,
-			'parent': None,
-		}
+	username: str = perms.caller_info_strict().get('username', '')
+	user_data = users.get_user_data(username)
 
-		if title is not None:
-			prev_doc['title'] = doc['title']
-			doc['title'] = title
+	prev_doc = {
+		**doc,
+		'history': True,
+		'parent': ObjectId(doc_id),
+	}
+	del prev_doc['_id']
+	prev_id = db.insert_one(prev_doc).inserted_id
 
-		if body is not None:
-			prev_doc['body'] = doc['body']
-			doc['body'] = body
+	doc['previous'] = prev_id
 
-		if new_parent is not None:
-			prev_doc['parent'] = doc['parent']
-			doc['parent'] = ObjectId(new_parent)
+	doc['updated'] = datetime.now(UTC)
+	doc['updater'] = user_data['_id']
 
-		doc['updated'] = datetime.now(UTC)
-		doc['history'].append(prev_doc)
+	if title is not None:
+		doc['title'] = title
+	if body is not None:
+		doc['body'] = body
 
-		db.update_one({'_id': ObjectId(doc_id)}, {'$set': doc})
+	db.update_one({'_id': ObjectId(doc_id)}, {'$set': doc})
 
 	return parse_document(doc)
 
@@ -161,7 +162,7 @@ def delete_document(doc_id: str) -> dict:
 	"""
 	Deletes a document from the database.
 
-	Any child documents get moved up one level.
+	Any history items get deleted.
 
 	Args:
 		doc_id (str): The ID of the document to delete.
@@ -176,8 +177,7 @@ def delete_document(doc_id: str) -> dict:
 	if doc is None:
 		raise DocumentDoesNotExistError(doc_id)
 
-	parent_id = doc.get('parent')
-	db.update_many({'parent': id}, {'$set': {'parent': parent_id}})
+	db.delete_many({'parent': id})
 	db.delete_one({'_id': id})
 
 	return parse_document(doc)

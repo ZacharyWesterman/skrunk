@@ -88,6 +88,8 @@ def init_db(
 	book.init()
 	users.init()
 
+	create_indexes()
+
 
 def setup_db() -> None:
 	"""
@@ -101,7 +103,6 @@ def setup_db() -> None:
 	except (BadUserNameError, UserExistsError):
 		pass
 
-	create_indexes()
 
 
 def create_indexes() -> None:
@@ -124,3 +125,9 @@ def create_indexes() -> None:
 		'categories': 'text',
 		'description': 'text',
 	})
+
+	documents.db.create_index([('created', -1)])
+	documents.db.create_index([('creator', 1)])
+	documents.db.create_index([('hidden', 1)])
+	documents.db.create_index([('previous', 1)])
+	documents.db.create_index([('parent', 1)])

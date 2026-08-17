@@ -7,12 +7,18 @@ export default {
 	get: async (id) => {
 		return await api(`query ($id: String!){
 			getDocument (id: $id){
-				id
-				created
-				creator
-				title
-				body
-				body_html
+				__typename
+				...on Document {
+					id
+					title
+					creator {
+						username
+						display_name
+					}
+					created
+				}
+				...on InsufficientPerms { message }
+				...on DocumentDoesNotExistError { message }
 			}
 		}`, {
 			id: id
@@ -20,19 +26,45 @@ export default {
 	},
 
 	/**
-	 * Retrieve child documents of a parent document. If parent_id is null, retrieve top-level documents.
+	 * Get a document's body text by its ID.
 	 * 
-	 * @param {string?} parent_id The parent document ID, or null.
-	 * @returns {Promise<object[]>} Array of minimal document objects.
+	 * @param {string} id The document ID.
+	 * @returns {Promise<object>} The document with the body html (if successful).
 	 */
-	list: async (parent_id = null) => {
-		return await api(`query ($id: String){
-			getChildDocuments (id: $id){
-				id
-				title
+	get_body: async (id) => {
+		const result = await api(`query ($id: String!){
+			getDocument (id: $id){
+				__typename
+				...on Document { body_html }
+				...on InsufficientPerms { message }
+				...on DocumentDoesNotExistError { message }
 			}
 		}`, {
-			id: parent_id
+			id: id
+		})
+
+		return result
+	},
+
+	/**
+	 * Retrieve all documents.
+	 * 
+	 * @returns {Promise<object[]>} Array of minimal document objects.
+	 */
+	list: async (start, count) => {
+		return await api(`query ($start: Int!, $count: Int!) {
+			getDocuments (start: $start, count: $count) {
+				id
+				title
+				creator {
+					username
+					display_name
+				}
+				created
+			}
+		}`, {
+			start,
+			count,
 		})
 	},
 }

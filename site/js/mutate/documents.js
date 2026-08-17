@@ -3,12 +3,11 @@ export default {
 	 * Create a new document.
 	 * @param {string} title The document title.
 	 * @param {string} body The document body.
-	 * @param {string?} parent_id The parent document ID, or null.
 	 * @returns {Promise<object>} The new document.
 	 */
-	create: async (title, body, parent_id = null) => {
-		return await api(`mutation ($title: String!, $body: String!, $parent: String){
-			createDocument (title: $title, body: $body, parent: $parent){
+	create: async (title, body) => {
+		return await api(`mutation ($title: String!, $body: String!){
+			createDocument (title: $title, body: $body){
 				__typename
 				...on Document { id }
 				...on InsufficientPerms { message }
@@ -17,7 +16,6 @@ export default {
 		}`, {
 			title,
 			body,
-			parent: parent_id
 		})
 	},
 
@@ -26,13 +24,21 @@ export default {
 	 * @param {string} id The document ID.
 	 * @param {string?} title The new document title, or null if no change.
 	 * @param {string?} body The new document body, or null if no change.
-	 * @param {string?} parent_id The new parent document ID, or null if no change.
 	 * @returns {Promise<object>} The updated document.
 	 */
-	update: async (id, title, body, parent_id) => {
-		return await api(`mutation ($id: String!, $title: String, $body: String, $parent: String){
-			updateDocument (id: $id, title: $title, body: $body, parent: $parent){
+	update: async (id, title, body) => {
+		return await api(`mutation ($id: String!, $title: String, $body: String){
+			updateDocument (id: $id, title: $title, body: $body){
 				__typename
+				...on Document {
+					id
+					title
+					creator {
+						username
+						display_name
+					}
+					created
+				}
 				...on InsufficientPerms { message }
 				...on DocumentDoesNotExistError { message }
 			}
@@ -40,7 +46,6 @@ export default {
 			id,
 			title,
 			body,
-			parent: parent_id,
 		})
 	},
 
