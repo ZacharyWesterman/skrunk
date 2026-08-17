@@ -111,6 +111,13 @@ export async function edit_document(id) {
 	_(id, new_data)
 }
 
+export async function view_document(id) {
+	await _.modal({
+		text: `<br><div id="body-${id}">Loading...</div>`,
+		buttons: ['OK'],
+	}, () => load_doc_body(id)).catch(() => { })
+}
+
 
 export async function load_documents() {
 	const docs = await query.documents.list(0, 100)
@@ -145,7 +152,7 @@ export async function delete_document(id) {
 		type: 'question',
 		text: "Are you sure you want to delete this document?",
 		buttons: ['Yes', 'No'],
-	})
+	}).catch(() => 'no')
 
 	if (choice !== 'yes') {
 		return
@@ -160,7 +167,7 @@ export async function delete_document(id) {
 			If you just want to prevent others from seeing the document, you may hide it instead.
 		`,
 		buttons: ['Cancel', 'Yes, Delete'],
-	})
+	}).catch(() => 'cancel')
 
 	if (choice2 !== 'yes, delete') {
 		return

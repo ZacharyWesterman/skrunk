@@ -1,4 +1,4 @@
-<div class="card expand" *hover="load_doc_body('{{= it.id }}')">
+<div class="card expand">
 	<div class="card-inner">
 		<div class="actions">
 			<button class="icon clickable" *click="delete_document('{{= it.id }}')">
@@ -10,26 +10,17 @@
 			</button>
 		</div>
 
-		<span class="clickable" *toggles="expand-{{= it.id }}">
-			<i class="fa-solid fa-angles-down fa-lg" id="chevron-{{= it.id }}"></i>
-			&nbsp;
+		<div class="clickable" *click="view_document('{{= it.id }}')">
 			<b>{{= it.title }}</b>
-		</span>
-
-		<div class="expand-container" id="expand-{{= it.id }}">
-			<div>
-				<div name="document-body" id="body-{{= it.id }}"></div>
-				<div id="child-docs-{{= it.id }}" template="wiki-docs"></div>
-			</div>
+			<br>
+			<span class="suppress">
+				{{? it.updated }}
+					Edited by {{= it.updater.username }} on {{= date.output(it.updated) }}
+				{{?}}
+				{{? it.updater?.username !== it.creator.username }}
+					Created by {{= it.creator.username }} on {{= date.output(it.created) }}
+				{{?}}
+			</span>
 		</div>
-
-		<span class="suppress clickable" *toggles="expand-{{= it.id }}" *chevron="chevron-{{= it.id }}">
-			{{? it.updated }}
-				Edited by {{= it.updater.username }} on {{= date.output(it.updated) }}
-			{{?}}
-			{{? it.updater?.username !== it.creator.username }}
-				Created by {{= it.creator.username }} on {{= date.output(it.created) }}
-			{{?}}
-		</span>
 	</div>
 </div>
