@@ -1,12 +1,13 @@
-<div class="card expand">
-	<div class="card-inner">
+<div class="card">
+	<div>
+		{{? it.creator.username === api.username || has_perm('admin') }}
 		<div class="actions">
 			<button class="icon clickable" *click="delete_document('{{= it.id }}')">
-				<i class="fa-solid fa-trash fa-lg"></i>
+				<i class="fa-solid fa-trash fa-lg {{? it.creator.username !== api.username }}suppress{{?}}"></i>
 			</button>
 
 			<button class="icon clickable right" *click="edit_document('{{= it.id }}')">
-				<i class="fa-solid fa-pencil fa-lg"></i>
+				<i class="fa-solid fa-pencil fa-lg {{? it.creator.username !== api.username }}suppress{{?}}"></i>
 			</button>
 		</div>
 
@@ -22,5 +23,6 @@
 				{{?}}
 			</span>
 		</div>
+		{{?}}
 	</div>
 </div>

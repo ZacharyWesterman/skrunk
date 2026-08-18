@@ -122,7 +122,7 @@ export async function view_document(id) {
 export async function load_documents() {
 	const docs = await query.documents.list(0, 100)
 
-	const text = docs.map(doc => `<div id="${doc.id}" template="wiki-doc"></div>`).join('')
+	const text = docs.map(doc => `<div id="${doc.id}" template="document-stub"></div>`).join('')
 	$('document-list').innerHTML = text
 
 	for (const doc of docs) {
