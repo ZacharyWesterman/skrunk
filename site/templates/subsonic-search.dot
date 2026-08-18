@@ -1,6 +1,6 @@
 {{~ it.album : album }}
 <div class="card">
-	<div class="card-inner">
+	<div>
 
 		<div class="clickable" *toggles="track-list-{{= album.id }}">
 			<b>{{= album.album || album.title }}</b><br>

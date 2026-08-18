@@ -1,6 +1,6 @@
 {{~ it : item }}
 <div class="card">
-	<div class="card-inner">
+	<div>
 		<p>
 			<span {{? item.description_html }}class="clickable tooltip" *toggles="desc-{{= item.id }}"{{?}}>
 				{{? item.description_html }}

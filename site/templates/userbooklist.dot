@@ -1,6 +1,6 @@
 {{~ it.books : book}}
 <div class="card" {{?book.has_description && environment.mobile}}*load="load_description('{{= book.id }}')"{{?}}>
-	<div class="card-inner">
+	<div>
 		<div class="actions right">
 			<button class="icon clickable tooltip" *click="share_book('{{= book.shared ? book.shareHistory[book.shareHistory.length - 1].name : ''}}', '{{=safe_html(book.title)}}', '{{=safe_html(book.subtitle)}}', '{{=safe_html(book.authors.join(', '))}}', '{{=book.id}}', '{{=book.owner.username}}')">
 				<i class="fa-solid fa-handshake fa-lg"></i>

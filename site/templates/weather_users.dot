@@ -1,6 +1,6 @@
 {{~it:user}}
 	<div class="card clickable {{?user.exclude}}suppress{{?}}">
-		<div class="card-inner">
+		<div>
 			<div *toggles="card-{{=user.username}}">
 				<h4>
 					<b>{{=user.username}}</b>{{?user.exclude}}<i> (disabled)</i>{{?}}

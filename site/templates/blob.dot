@@ -1,5 +1,5 @@
 <div class="card" style="padding-left:0;width:100%;">
-	<div class="card-inner">
+	<div>
 		<div>
 			<button class="icon tooltip" *click="copy_to_clipboard('blob/{{=it.id}}{{=it.ext}}')">
 				<i class="fa-solid fa-copy fa-lg"></i>

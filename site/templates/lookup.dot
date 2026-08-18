@@ -1,5 +1,5 @@
 <div class="card alt" id="lookup-header">
-	<div class="card-inner">
+	<div>
 		<div {{? it.has_hidden_fields }}class="clickable" *toggles="extra-search-fields"{{?}}>
 			{{? it.header }}
 			<h3>
@@ -18,7 +18,7 @@
 <div id="lookup-results" template="{{= it.template }}"></div>
 
 <div class="card alt" id="lookup-footer">
-	<div class="card-inner">
+	<div>
 		<div name="page-list"></div>
 	</div>
 </div>

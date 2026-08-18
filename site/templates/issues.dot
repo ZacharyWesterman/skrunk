@@ -2,7 +2,7 @@
 	<h2>Pending Internal Issues</h2>
 
 	<div class="card">
-		<div class="card-inner">
+		<div>
 			<h3 class="clickable" *toggles="issue-list">
 				{{= it.issues.length}} Planned Features/Bugfixes
 				<i class="right fa-solid fa-angles-down"></i>
@@ -31,7 +31,7 @@
 
 {{? it.__typename !== 'IssueList' }}
 	<div class="card clickable" *toggles="issue-list" >
-		<div class="card-inner">
+		<div>
 			<h4>
 				<span class="emphasis">Error Loading issues</span>
 				<i class="right fa-solid fa-angles-down fa-lg"></i>

@@ -1,5 +1,5 @@
 <div class="card">
-	<div class="card-inner">
+	<div>
 		<h2>
 			{{? it.user.disabled }}
 			<span class="emphasis">{{= it.user.username }}</span>

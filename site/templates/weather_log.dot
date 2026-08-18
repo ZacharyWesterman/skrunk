@@ -1,5 +1,5 @@
 <div class="card">
-	<div class="card-inner">
+	<div>
 		<div>Showing the first {{= it.length }} messages.</div>
 		{{~ it : item }}
 		<hr>

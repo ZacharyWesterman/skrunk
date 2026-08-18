@@ -1,6 +1,6 @@
 {{~ it : item }}
 <div class="card" style="width: 100%;">
-	<div class="card-inner">
+	<div>
 		<div class="clickable" *toggles="desc-type-{{= item.type }}">
 			<h3>
 				{{= item.type }}

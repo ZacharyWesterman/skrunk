@@ -1,6 +1,6 @@
 {{~ it : book}}
 <div class="card clickable" *click="select_book('{{=book.id}}', '{{=safe_html(book.title)}}')">
-	<div class="card-inner">
+	<div>
 		<b>{{=book.title}}</b><br>
 		{{?book.subtitle}}<i>{{=book.subtitle}}</i>{{?}}
 		<div class="suppress">By {{=book.authors.join(', ')}}</div>
