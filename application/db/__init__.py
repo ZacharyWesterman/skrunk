@@ -81,7 +81,7 @@ def init_db(
 	inventory.db = client.skrunk
 	weather.db = client.skrunk
 	datafeed.db = client.skrunk
-	documents.db = client.skrunk.wiki_documents
+	documents.db = client.skrunk.documents
 
 	blob.init()
 	notification.init()

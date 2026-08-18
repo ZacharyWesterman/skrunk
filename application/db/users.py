@@ -592,7 +592,7 @@ def dump_collection(collection: str, queries: list, fp: ZipFile) -> None:
 
 			if collection == 'feeds':
 				def m2(data: dict) -> dict:
-					data['documents'] = [i for i in top_level_db.documents.find({'feed': data['_id']})]
+					data['documents'] = list(top_level_db.feed_documents.find({'feed': data['_id']}))
 					return data
 				doc_mutate = m2
 			elif collection == 'users':

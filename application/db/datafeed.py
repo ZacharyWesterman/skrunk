@@ -157,7 +157,7 @@ def delete_feed(id: str) -> dict:
 
 	# Delete the feed and any associated documents.
 	db.feeds.delete_one({'_id': ObjectId(id)})
-	db.documents.delete_many({'feed': ObjectId(id)})
+	db.feed_documents.delete_many({'feed': ObjectId(id)})
 
 	return process_feed(feed)
 
@@ -184,7 +184,7 @@ def get_documents(feed: str, start: int, count: int, sorting: Sorting) -> list[d
 	feed_data = get_feed(feed)
 
 	return [
-		process_document(i, feed_data['kind']) for i in db.documents.find({'feed': ObjectId(feed)}).sort([
+		process_document(i, feed_data['kind']) for i in db.feed_documents.find({'feed': ObjectId(feed)}).sort([
 			(s, -1 if sorting['descending'] else 1) for s in sorting['fields']
 		]).skip(start).limit(count)
 	]
@@ -206,7 +206,7 @@ def get_document(id: str) -> dict:
 	if not ObjectId.is_valid(id):
 		raise FeedDocumentDoesNotExistError(id)
 
-	document = db.documents.find_one({'_id': ObjectId(id)})
+	document = db.feed_documents.find_one({'_id': ObjectId(id)})
 
 	if document is None:
 		raise FeedDocumentDoesNotExistError(id)
@@ -230,7 +230,7 @@ def count_documents(feed: str) -> int:
 	if not ObjectId.is_valid(feed):
 		return 0
 
-	return db.documents.count_documents({'feed': ObjectId(feed)})
+	return db.feed_documents.count_documents({'feed': ObjectId(feed)})
 
 
 def set_feed_notify(id: str, notify: bool) -> dict:
@@ -324,7 +324,7 @@ def create_document(feed: str, author: str | None, posted: datetime | None, body
 		'url': url,
 		'read': False,
 	}
-	id = db.documents.insert_one(feed_document).inserted_id
+	id = db.feed_documents.insert_one(feed_document).inserted_id
 	feed_document['_id'] = id
 
 	feed_data = get_feed(feed)
@@ -345,7 +345,7 @@ def update_document(id: str, body: str) -> dict:
 	document = get_document(id)
 	updated = datetime.now(UTC)
 
-	db.documents.update_one({'_id': ObjectId(id)}, {'$set': {
+	db.feed_documents.update_one({'_id': ObjectId(id)}, {'$set': {
 		'body': body,
 		'updated': updated,
 	}})
@@ -371,7 +371,7 @@ def set_document_read(id: str, read: bool) -> dict:
 	"""
 	document = get_document(id)
 
-	db.documents.update_one({'_id': ObjectId(id)}, {'$set': {'read': read}})
+	db.feed_documents.update_one({'_id': ObjectId(id)}, {'$set': {'read': read}})
 	document['read'] = read
 
 	return document
