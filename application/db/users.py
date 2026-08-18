@@ -1,7 +1,5 @@
 """application.db.users"""
 
-import shutil
-import uuid
 from datetime import UTC, datetime, timedelta
 from random import randint
 from typing import Generator, TypeVar
