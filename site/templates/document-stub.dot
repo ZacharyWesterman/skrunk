@@ -1,7 +1,7 @@
 <div class="card">
 	<div>
-		{{? it.creator.username === api.username || has_perm('admin') }}
 		<div class="actions">
+			{{? it.creator.username === api.username }}
 			<button class="icon clickable" *click="delete_document('{{= it.id }}')">
 				<i class="fa-solid fa-trash fa-lg {{? it.creator.username !== api.username }}suppress{{?}}"></i>
 			</button>
@@ -9,6 +9,13 @@
 			{{? !window.wopi.supported }}
 			<button class="icon clickable right" *click="edit_document('{{= it.id }}')">
 				<i class="fa-solid fa-pencil fa-lg {{? it.creator.username !== api.username }}suppress{{?}}"></i>
+			</button>
+			{{?}}
+			{{?}}
+
+			{{? window.wopi.supported && it.creator.username !== api.username }}
+			<button class="icon clickable" *click="view_document('{{= it.id }}')">
+				<i class="fa-solid fa-eye fa-lg"></i>
 			</button>
 			{{?}}
 		</div>
@@ -21,10 +28,10 @@
 					Edited by {{= it.updater.display_name }}{{? (it.updater.display_name.toLowerCase() !== it.updater.username.toLowerCase()) }} ({{= it.updater.username }}){{?}} on {{= date.output(it.updated) }}
 				{{?}}
 				{{? it.updater?.username !== it.creator.username }}
+					{{? it.updater?.username }}<br>{{?}}
 					Created by {{= it.creator.display_name }}{{? (it.creator.display_name.toLowerCase() !== it.creator.username.toLowerCase()) }} ({{= it.creator.username }}){{?}} on {{= date.output(it.created) }}
 				{{?}}
 			</span>
 		</div>
-		{{?}}
 	</div>
 </div>

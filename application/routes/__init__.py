@@ -64,7 +64,7 @@ def init(application) -> None:
 	application.route('/upload', methods=['POST'])(tq(blob.upload))
 
 	application.route('/<path:jwt>/wopi/files/<path:id>/contents', methods=['GET'])(wopi.get_document_contents)
-	application.route('/<path:jwt>/wopi/files/<path:id>/contents', methods=['POST'])(wopi.get_document_contents)
+	application.route('/<path:jwt>/wopi/files/<path:id>/contents', methods=['POST'])(wopi.put_document_contents)
 	application.route('/<path:jwt>/wopi/files/<path:id>', methods=['GET'])(wopi.get_document_info)
 
 	@application.after_request

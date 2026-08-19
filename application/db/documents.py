@@ -101,9 +101,15 @@ def create_document(title: str, body: str) -> dict:
 
 	caller = perms.caller_info_strict()
 
+	body_text: str | bytes = body
+
+	if body == '' and settings.get_config('wopi:url'):
+		with open('data/empty.odt', 'rb') as fp:
+			body_text = fp.read()
+
 	doc = {
 		'title': title,
-		'body': body,
+		'body': body_text,
 		'creator': caller.get('_id'),
 		'created': datetime.now(UTC),
 		'updated': None,
@@ -125,7 +131,7 @@ def create_document(title: str, body: str) -> dict:
 	return parse_document(doc)
 
 
-def update_document(doc_id: str, title: str | None, body: str | None) -> dict:
+def update_document(doc_id: str, title: str | None, body: str | bytes | None, *, user_data: dict | None = None) -> dict:
 	"""
 	Updates a document in the database.
 
@@ -149,21 +155,20 @@ def update_document(doc_id: str, title: str | None, body: str | None) -> dict:
 		# No change
 		return parse_document(doc)
 
-	username: str = perms.caller_info_strict().get('username', '')
-	user_data = users.get_user_data(username)
+	user_id: ObjectId = (perms.caller_info_strict() if user_data is None else user_data).get('_id')  # type: ignore
 
-	prev_doc = {
-		**doc,
-		'history': True,
-		'parent': ObjectId(doc_id),
-	}
-	del prev_doc['_id']
-	prev_id = db.insert_one(prev_doc).inserted_id
+	# prev_doc = {
+	# 	**doc,
+	# 	'history': True,
+	# 	'parent': ObjectId(doc_id),
+	# }
+	# del prev_doc['_id']
+	# prev_id = db.insert_one(prev_doc).inserted_id
 
-	doc['previous'] = prev_id
+	# doc['previous'] = prev_id
 
 	doc['updated'] = datetime.now(UTC)
-	doc['updater'] = user_data['_id']
+	doc['updater'] = user_id
 
 	if title is not None:
 		doc['title'] = title
