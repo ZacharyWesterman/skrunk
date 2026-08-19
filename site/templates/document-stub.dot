@@ -18,10 +18,10 @@
 			<br>
 			<span class="suppress">
 				{{? it.updated }}
-					Edited by {{= it.updater.username }} on {{= date.output(it.updated) }}
+					Edited by {{= it.updater.display_name }}{{? (it.updater.display_name.toLowerCase() !== it.updater.username.toLowerCase()) }} ({{= it.updater.username }}){{?}} on {{= date.output(it.updated) }}
 				{{?}}
 				{{? it.updater?.username !== it.creator.username }}
-					Created by {{= it.creator.username }} on {{= date.output(it.created) }}
+					Created by {{= it.creator.display_name }}{{? (it.creator.display_name.toLowerCase() !== it.creator.username.toLowerCase()) }} ({{= it.creator.username }}){{?}} on {{= date.output(it.created) }}
 				{{?}}
 			</span>
 		</div>

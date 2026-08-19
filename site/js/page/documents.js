@@ -179,6 +179,8 @@ export async function load_documents() {
 	for (const doc of docs) {
 		_(doc.id, doc)
 	}
+
+	console.log(docs)
 }
 
 export async function load_doc_body(id) {

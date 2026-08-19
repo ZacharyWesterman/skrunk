@@ -9,7 +9,7 @@ from pymongo.collection import Collection
 from application.exceptions import (DocumentDoesNotExistError,
                                     UserDoesNotExistError)
 
-from . import perms, users
+from . import perms, settings, users
 
 ## A pointer to the Documents collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -45,12 +45,15 @@ def parse_document(doc: dict) -> dict:
 				'display_name': doc['updater'],
 			}
 
-	doc['body_html'] = markdown.markdown(doc['body'])
+	if settings.get_config('wopi:url'):
+		doc['body_html'] = ''
+	else:
+		doc['body_html'] = markdown.markdown(doc['body'])
 
 	return doc
 
 
-def get_document(id: str, format: bool = False) -> dict:
+def get_document(id: str) -> dict:
 	"""
 	Retrieves a document from the database by its ID.
 
@@ -61,7 +64,7 @@ def get_document(id: str, format: bool = False) -> dict:
 		dict: The document.
 	"""
 	if doc := db.find_one({'_id': ObjectId(id)}):
-		return parse_document(doc) if format else doc
+		return parse_document(doc)
 
 	raise DocumentDoesNotExistError(id)
 
@@ -96,10 +99,12 @@ def create_document(title: str, body: str) -> dict:
 		dict: The new document.
 	"""
 
+	caller = perms.caller_info_strict()
+
 	doc = {
 		'title': title,
 		'body': body,
-		'creator': perms.caller_info_strict().get('username'),
+		'creator': caller.get('_id'),
 		'created': datetime.now(UTC),
 		'updated': None,
 		'updater': None,
@@ -110,6 +115,9 @@ def create_document(title: str, body: str) -> dict:
 		'previous': None,
 		'tags': [],
 	}
+
+	if doc['creator'] is None:
+		doc['creator'] = caller.get('username')
 
 	doc_id = db.insert_one(doc).inserted_id
 	doc['_id'] = doc_id

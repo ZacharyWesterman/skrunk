@@ -10,7 +10,7 @@ def get_document_contents(jwt: str, id: str) -> Response:
 		return Response('Access denied.', 403)
 
 	try:
-		doc = get_document(id, False)
+		doc = get_document(id)
 	except DocumentDoesNotExistError:
 		return Response('File not found', 404)
 
@@ -29,7 +29,7 @@ def get_document_info(jwt: str, id: str):
 		return Response('Access denied.', 403)
 
 	try:
-		doc = get_document(id, False)
+		doc = get_document(id)
 	except DocumentDoesNotExistError:
 		return Response('File not found', 404)
 
