@@ -17,26 +17,26 @@ function generate_id() {
 	});
 }
 
-
-const wopi = {
+window.wopi = {
 	url: api(`{ getConfig(name: "wopi:url") }`),
 	reverse: api(`{ getConfig(name: "wopi:reverse_url") }`),
 	id: generate_id(),
+	supported: false,
 }
 
 export async function init() {
-	await load_documents()
-
 	for (const i in wopi) {
 		wopi[i] = await wopi[i]
 	}
 	wopi.supported = wopi.url !== '' && wopi.reverse !== ''
+
+	await load_documents()
 }
 
 export async function new_document() {
 	const data = await _.modal({
 		title: "New Document",
-		text: api.snippit("wiki_edit_document"),
+		text: wopi.supported ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("wiki_edit_document"),
 		buttons: ["OK", "Cancel"],
 	}, () => {
 		//On load
@@ -55,7 +55,7 @@ export async function new_document() {
 
 		return {
 			title: $.val('title'),
-			body: $.val('body'),
+			body: $.val('body') ?? '',
 		}
 	}).catch(() => null)
 
@@ -69,11 +69,42 @@ export async function new_document() {
 	}
 
 	_.modal.checkmark()
-
 	load_documents()
+
+	if (wopi.supported) {
+		edit_document(res.id)
+	}
 }
 
 export async function edit_document(id) {
+	if (wopi.supported) {
+		const jwt = api.login_token.split(' ')[1]
+		const url = `${wopi.url}/browser/${wopi.id}/cool.html?WOPISrc=${wopi.reverse}/${jwt}/wopi/files/${id}`
+
+		//On desktop, open view in-browser.
+		const elem = $('pdf-viewer')
+		elem.innerHTML = `
+		<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}" allow="clipboard-read *; clipboard-write *; fullscreen *"></iframe>
+		<div class="clickable close-pdf-viewer">
+			<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
+		</div>
+		`
+
+		const exit_pdf_viewer = async () => {
+			$.on.detach.escape(window)
+			await $.hide('pdf-viewer', true)
+			$('pdf-viewer').innerHTML = ''
+		}
+
+		$.on.escape(window, exit_pdf_viewer)
+		elem.children[1].onclick = exit_pdf_viewer
+
+		$.show(elem)
+		elem.style.display = 'block'
+
+		return
+	}
+
 	const data_promise = api(`query ($id: String!) {
 		getDocument (id: $id) {
 			__typename
@@ -220,7 +251,7 @@ export async function view_document(id) {
 	//On desktop, open view in-browser.
 	const elem = $('pdf-viewer')
 	elem.innerHTML = `
-	<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}"></iframe>
+	<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}" allow="fullscreen *"></iframe>
 	<div class="clickable close-pdf-viewer">
 		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
 	</div>
