@@ -4,7 +4,7 @@ from datetime import UTC, datetime
 
 from flask import Response, jsonify
 
-from . import api, auth, blob, misc, site
+from . import api, auth, blob, misc, site, wopi
 
 __last_query_at: datetime | None = None
 __running_query_ct: int = 0
@@ -62,6 +62,10 @@ def init(application) -> None:
 	application.route('/preview/<path:path>', methods=['GET'])(tq(blob.preview))
 	application.route('/thumb/<path:path>', methods=['GET'])(tq(blob.thumbnail))
 	application.route('/upload', methods=['POST'])(tq(blob.upload))
+
+	application.route('/<path:jwt>/wopi/files/<path:id>/contents', methods=['GET'])(wopi.get_document_contents)
+	application.route('/<path:jwt>/wopi/files/<path:id>/contents', methods=['POST'])(wopi.get_document_contents)
+	application.route('/<path:jwt>/wopi/files/<path:id>', methods=['GET'])(wopi.get_document_info)
 
 	@application.after_request
 	def after_request(response):

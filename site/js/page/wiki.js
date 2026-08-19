@@ -1,8 +1,36 @@
 await mutate.require('documents')
 await query.require('documents')
 
+function generate_id() {
+	var d = new Date().getTime();
+	var d2 = (performance !== undefined && performance.now && (performance.now() * 1000)) || 0;
+	return 'xxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		var r = Math.random() * 10;//random number between 0 and 10
+		if (d > 0) {//Use timestamp until depleted
+			r = (d + r) % 10 | 0;
+			d = Math.floor(d / 10);
+		} else {//Use microseconds since page-load if supported
+			r = (d2 + r) % 10 | 0;
+			d2 = Math.floor(d2 / 10);
+		}
+		return r;
+	});
+}
+
+
+const wopi = {
+	url: api(`{ getConfig(name: "wopi:url") }`),
+	reverse: api(`{ getConfig(name: "wopi:reverse_url") }`),
+	id: generate_id(),
+}
+
 export async function init() {
 	await load_documents()
+
+	for (const i in wopi) {
+		wopi[i] = await wopi[i]
+	}
+	wopi.supported = wopi.url !== '' && wopi.reverse !== ''
 }
 
 export async function new_document() {
@@ -111,14 +139,6 @@ export async function edit_document(id) {
 	_(id, new_data)
 }
 
-export async function view_document(id) {
-	await _.modal({
-		text: `<br><div id="body-${id}">Loading...</div>`,
-		buttons: ['OK'],
-	}, () => load_doc_body(id)).catch(() => { })
-}
-
-
 export async function load_documents() {
 	const docs = await query.documents.list(0, 100)
 
@@ -182,4 +202,39 @@ export async function delete_document(id) {
 
 	_.modal.checkmark()
 	load_documents()
+}
+
+
+export async function view_document(id) {
+	if (!wopi.supported) {
+		await _.modal({
+			text: `<br><div id="body-${id}">Loading...</div>`,
+			buttons: ['OK'],
+		}, () => load_doc_body(id)).catch(() => { })
+		return
+	}
+
+	const jwt = api.login_token.split(' ')[1]
+	const url = `${wopi.url}/browser/${wopi.id}/cool.html?WOPISrc=${wopi.reverse}/${jwt}/wopi/files/${id}`
+
+	//On desktop, open view in-browser.
+	const elem = $('pdf-viewer')
+	elem.innerHTML = `
+	<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}"></iframe>
+	<div class="clickable close-pdf-viewer">
+		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
+	</div>
+	`
+
+	const exit_pdf_viewer = async () => {
+		$.on.detach.escape(window)
+		await $.hide('pdf-viewer', true)
+		$('pdf-viewer').innerHTML = ''
+	}
+
+	$.on.escape(window, exit_pdf_viewer)
+	elem.children[1].onclick = exit_pdf_viewer
+
+	$.show(elem)
+	elem.style.display = 'block'
 }
