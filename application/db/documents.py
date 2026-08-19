@@ -81,9 +81,18 @@ def get_documents(start: int, count: int) -> list:
 		list: A list of documents.
 	"""
 
-	selection = db.find({'history': False}).skip(start).limit(count).sort((('updated', -1), ('created', -1)))
+	aggregate = db.aggregate([
+		{'$match': {'history': False}},
+		{
+			'$addFields': {
+				'modified': {'$ifNull': ['$updated', '$created']},
+			}
+		},
+		{'$sort': {'modified': -1}},
+		{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}},
+	])
 
-	return [parse_document(doc) for doc in selection]
+	return [parse_document(doc) for doc in next(aggregate).get('results', [])]
 
 
 def create_document(title: str, body: str) -> dict:
