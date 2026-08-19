@@ -36,7 +36,7 @@ export async function init() {
 export async function new_document() {
 	const data = await _.modal({
 		title: "New Document",
-		text: wopi.supported ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("wiki_edit_document"),
+		text: wopi.supported ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("edit-document"),
 		buttons: ["OK", "Cancel"],
 	}, () => {
 		//On load
@@ -118,7 +118,7 @@ export async function edit_document(id) {
 
 	const data = await _.modal({
 		title: "Edit Document",
-		text: api.snippit("wiki_edit_document"),
+		text: api.snippit("edit-document"),
 		buttons: ["OK", "Cancel"],
 	}, async () => {
 		// Pull in data on load
