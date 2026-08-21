@@ -13,14 +13,25 @@ type DocumentDoesNotExistError {
 	message: String!
 }
 
+"""
+A type for getting the number of documents that match a query.
+This type is used so that if the query fails, we can return an error message instead of zero.
+"""
+type DocumentCount {
+	"""The number of documents that match the query"""
+	count: Long!
+}
+
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
+union DocumentCountResponse = DocumentCount | InsufficientPerms
 
 #Resolvers below this line:
 
 extend type Query {
 	getDocument(id: String!): DocumentQueryResponse!
 	getDocuments(start: Int!, count: Int!): [Document!]!
+	countDocuments: DocumentCount!
 }
 
 extend type Mutation {

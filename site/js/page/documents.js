@@ -1,6 +1,9 @@
 await mutate.require('documents')
 await query.require('documents')
 
+let DocStart = 0
+let DocListLen = 15
+
 function generate_id() {
 	var d = new Date().getTime();
 	var d2 = (performance !== undefined && performance.now && (performance.now() * 1000)) || 0;
@@ -30,7 +33,7 @@ export async function init() {
 	}
 	wopi.supported = wopi.url !== '' && wopi.reverse !== ''
 
-	await load_documents()
+	await navigate_to_page(0)
 }
 
 export async function new_document() {
@@ -69,11 +72,13 @@ export async function new_document() {
 	}
 
 	_.modal.checkmark()
-	load_documents()
 
 	if (wopi.supported) {
 		edit_document(res.id)
 	}
+
+	await load_documents()
+	await reload_page_list()
 }
 
 export async function edit_document(id) {
@@ -171,7 +176,7 @@ export async function edit_document(id) {
 }
 
 export async function load_documents() {
-	const docs = await query.documents.list(0, 100)
+	const docs = await query.documents.list(DocStart, DocListLen)
 
 	const text = docs.map(doc => `<div id="${doc.id}" template="document-stub"></div>`).join('')
 	$('document-list').innerHTML = text
@@ -234,6 +239,7 @@ export async function delete_document(id) {
 	}
 
 	_.modal.checkmark()
+	reload_page_list()
 	load_documents()
 }
 
@@ -270,4 +276,34 @@ export async function view_document(id) {
 
 	$.show(elem)
 	elem.style.display = 'block'
+}
+
+
+export async function navigate_to_page(page_num) {
+	DocStart = page_num * DocListLen
+	reload_page_list()
+	await load_documents()
+}
+
+export async function reload_page_list() {
+	const count = (await query.documents.count()).count || 0
+
+	const page_ct = Math.ceil(count / DocListLen)
+	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
+	let this_page = Math.floor(DocStart / DocListLen)
+	if (page_ct === 0) {
+		this_page = DocStart = 0
+	}
+	else if (this_page >= page_ct) {
+		this_page = page_ct - 1
+		DocStart = this_page * DocListLen
+	}
+
+	await _('page-list', {
+		pages: pages,
+		count: page_ct,
+		current: this_page,
+		total: count,
+		no_results_msg: 'No documents found matching the search criteria.',
+	}, true)
 }

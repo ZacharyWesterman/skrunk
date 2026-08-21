@@ -52,8 +52,10 @@ export default {
 	},
 
 	/**
-	 * Retrieve all documents.
+	 * Retrieve a list of documents.
 	 * 
+	 * @param {int} start The starting point for pagination.
+	 * @param {int} count The max number of documents to return.
 	 * @returns {Promise<object[]>} Array of minimal document objects.
 	 */
 	list: async (start, count) => {
@@ -76,5 +78,17 @@ export default {
 			start,
 			count,
 		})
+	},
+
+	/**
+	 * Count the total number of documents visible to this user.
+	 * 
+	 * @returns {Promise<int>} The total number of documents visible to this user.
+	 */
+	count: async () => {
+		return await api(`{ countDocuments {
+			__typename
+			...on DocumentCount { count }
+		} }`)
 	},
 }

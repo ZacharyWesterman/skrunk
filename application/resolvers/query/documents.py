@@ -3,7 +3,8 @@
 from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
-from application.db.documents import get_document, get_documents
+from application.db.documents import (count_documents, get_document,
+                                      get_documents)
 
 from ..decorators import handle_client_exceptions
 from . import query
@@ -29,7 +30,7 @@ def resolve_get_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 
 @query.field('getDocuments')
 @perms.module('documents')
-def resolve_get_child_documents(_, _info: GraphQLResolveInfo, start: int, count: int) -> list[dict]:
+def resolve_get_documents(_, _info: GraphQLResolveInfo, start: int, count: int) -> list[dict]:
 	"""
 	Resolves the retrieval of documents based on pagination.
 
@@ -43,3 +44,9 @@ def resolve_get_child_documents(_, _info: GraphQLResolveInfo, start: int, count:
 		list[dict]: A list of documents.
 	"""
 	return get_documents(start, count)
+
+
+@query.field('countDocuments')
+@perms.module('documents')
+def resolve_count_documents(_, _info: GraphQLResolveInfo) -> dict:
+	return {'__typename': 'DocumentCount', 'count': count_documents()}

@@ -95,6 +95,16 @@ def get_documents(start: int, count: int) -> list:
 	return [parse_document(doc) for doc in next(aggregate).get('results', [])]
 
 
+def count_documents() -> int:
+	"""
+	Count the total number of documents.
+
+	Returns:
+		int: The total number of documents.
+	"""
+	return db.count_documents({'history': False})
+
+
 def create_document(title: str, body: str) -> dict:
 	"""
 	Creates a new document in the database.

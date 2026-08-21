@@ -2,13 +2,26 @@
 	<h1>
 		<i class="fa-solid fa-file-lines fa-xl"></i>
 		Documents
-		<button class="alt icon tooltip" *click="new_document()">
-			<i class="fa-solid fa-plus"></i>
-			<span class="tooltiptext t-float-left">Create new document</span>
-		</button>
 	</h1>
 
+	<div class="card alt">
+		<div>
+			<button class="alt icon tooltip border" *click="new_document()">
+				<i class="fa-solid fa-plus fa-xl"></i>
+				<span class="tooltiptext t-float-right">Create new document</span>
+			</button>
+
+			<div style="display: inline;" name="page-list"></div>
+		</div>
+	</div>
+
 	<div id="document-list"></div>
+
+	<div class="card alt">
+		<div class="card-inner">
+			<div name="page-list"></div>
+		</div>
+	</div>
 </div>
 
 <script src="js/page/documents.js"></script>
