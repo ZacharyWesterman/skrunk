@@ -1,4 +1,4 @@
-
+"""application.routes.wopi"""
 from flask import Response, jsonify, request
 
 from application.db import users
@@ -8,6 +8,17 @@ from application.tokens import decode_user_token, token_is_valid
 
 
 def get_document_contents(jwt: str, id: str) -> Response:
+	"""
+	Get the contents of a document via WOPI endpoint.
+
+	Args:
+		jwt (str): A valid JSON web token string.
+		id (str): The ID of the document.
+
+	Returns:
+		Response: A response containing either the body of the document or an error, as appropriate.
+	"""
+
 	if not token_is_valid(jwt):
 		return Response('Access denied.', 403)
 
@@ -20,6 +31,17 @@ def get_document_contents(jwt: str, id: str) -> Response:
 
 
 def put_document_contents(jwt: str, id: str) -> Response:
+	"""
+	Update the contents of a document via WOPI endpoint.
+
+	Args:
+		jwt (str): A valid JSON web token string.
+		id (str): The ID of the document.
+
+	Returns:
+		Response: A response containing 'OK' on success, or an error as appropriate.
+	"""
+
 	if not token_is_valid(jwt):
 		return Response('Access denied.', 403)
 
@@ -33,7 +55,26 @@ def put_document_contents(jwt: str, id: str) -> Response:
 	return Response('OK')
 
 
-def get_document_info(jwt: str, id: str):
+def get_document_info(jwt: str, id: str) -> Response:
+	"""
+	Get info about a document via WOPI endpoint.
+
+	```json
+	{
+		"BaseFileName": (str) the title of the document,
+		"Size": (int) the document size in bytes,
+		"UserCanWrite": (bool) true if the user owns this document, false otherwise
+	}
+	```
+
+	Args:
+		jwt (str): A valid JSON web token string.
+		id (str): The ID of the document.
+
+	Returns:
+		Response: A response containing either JSON info about the document, or an error as appropriate.
+	"""
+
 	if not token_is_valid(jwt):
 		return Response('Access denied.', 403)
 
