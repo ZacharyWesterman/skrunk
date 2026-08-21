@@ -206,17 +206,6 @@ export async function load_doc_body(id) {
 
 export async function delete_document(id) {
 	const choice = await _.modal({
-		title: 'Delete Document?',
-		type: 'question',
-		text: "Are you sure you want to delete this document?",
-		buttons: ['Yes', 'No'],
-	}).catch(() => 'no')
-
-	if (choice !== 'yes') {
-		return
-	}
-
-	const choice2 = await _.modal({
 		title: 'Really Delete Document?',
 		type: 'warning',
 		text: `
@@ -227,7 +216,7 @@ export async function delete_document(id) {
 		buttons: ['Cancel', 'Yes, Delete'],
 	}).catch(() => 'cancel')
 
-	if (choice2 !== 'yes, delete') {
+	if (choice !== 'yes, delete') {
 		return
 	}
 
