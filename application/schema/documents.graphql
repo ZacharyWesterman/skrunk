@@ -31,6 +31,7 @@ union DocumentQueryResponse = Document | DocumentDoesNotExistError | Insufficien
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentCountResponse = DocumentCount | InsufficientPerms
 union CreateBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported
+union LinkBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported | BlobDoesNotExistError
 
 #Resolvers below this line:
 
@@ -43,6 +44,7 @@ extend type Query {
 extend type Mutation {
 	createDocument(title: String!, body: String!): DocumentUpdateResponse!
 	createBlobDocument(title: String!): CreateBlobDocumentResponse!
+	linkBlobDocument(title: String!, blob_id: String!): LinkBlobDocumentResponse!
 	updateDocument(id: String!, title: String, body: String): DocumentUpdateResponse!
 	deleteDocument(id: String!): DocumentUpdateResponse!
 }

@@ -20,7 +20,9 @@ export default {
 	},
 
 	/**
-	 * Create a new (empty) blob document
+	 * Create a new (empty) blob document.
+	 * @param {string} title The document title.
+	 * @returns {Promise<object>} The new document.
 	 */
 	create_blob: async (title) => {
 		return await api(`mutation ($title: String!){
@@ -32,6 +34,26 @@ export default {
 			}
 		}`, {
 			title,
+		})
+	},
+
+	/**
+	 * Create a new blob document linked to an existing blob.
+	 * @param {string} title The document title.
+	 * @param {string} blob_id The ID of the blob.
+	 * @returns {Promise<object>} The new document.
+	 */
+	link_blob: async (title, blob_id) => {
+		return await api(`mutation ($title: String!, $blob_id: String!){
+			linkBlobDocument (title: $title, blob_id: $blob_id){
+				__typename
+				...on Document { id }
+				...on InsufficientPerms { message }
+				...on BlobDocumentsNotSupported { message }
+			}
+		}`, {
+			title,
+			blob_id,
 		})
 	},
 

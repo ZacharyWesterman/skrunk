@@ -152,8 +152,6 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 		'updated': None,
 		'updater': None,
 		'parent': None,
-		'hidden': False,
-		'draft': False,
 		'history': False,
 		'previous': None,
 		'blob_id': blob_id,
@@ -169,7 +167,40 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 	return parse_document(doc)
 
 
-def update_document(doc_id: str, title: str | None, body: str | bytes | None, *, user_data: dict | None = None) -> dict:
+def link_document(title: str, blob_id: str) -> dict:
+	if not settings.get_config('wopi:url'):
+		raise BlobDocumentsNotSupported()
+
+	caller = perms.caller_info_strict()
+	blob.add_reference(blob_id)
+
+	doc = {
+		'title': title,
+		'body': '',
+		'creator': caller.get('_id', caller.get('username')),
+		'created': datetime.now(UTC),
+		'updated': None,
+		'updater': None,
+		'parent': None,
+		'history': False,
+		'previous': None,
+		'blob_id': blob_id,
+		'tags': [],
+	}
+
+	doc_id = db.insert_one(doc).inserted_id
+	doc['_id'] = doc_id
+
+	return parse_document(doc)
+
+
+def update_document(
+	doc_id: str,
+	title: str | None,
+	body: str | bytes | None,
+	*,
+	user_data: dict | None = None
+) -> dict:
 	"""
 	Updates a document in the database.
 
@@ -196,13 +227,17 @@ def update_document(doc_id: str, title: str | None, body: str | bytes | None, *,
 	else:
 		body_md5_old = hashlib.md5(doc['body']).digest()
 	body_text = '' if body is None else body
-	body_md5_new = hashlib.md5(body_text.encode('utf8') if isinstance(body_text, str) else body_text).digest()  # type: ignore
+	body_md5_new = hashlib.md5(
+		body_text.encode('utf8') if isinstance(body_text, str) else body_text
+	).digest()  # type: ignore
 
 	if title == doc['title'] and body_md5_old == body_md5_new:
 		# No change
 		return parse_document(doc)
 
-	user_id: ObjectId = (perms.caller_info_strict() if user_data is None else user_data).get('_id')  # type: ignore
+	user_id: ObjectId = (
+		perms.caller_info_strict() if user_data is None else user_data
+	).get('_id')  # type: ignore
 
 	doc['updated'] = datetime.now(UTC)
 	doc['updater'] = user_id

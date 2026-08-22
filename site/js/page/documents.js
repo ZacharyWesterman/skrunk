@@ -289,7 +289,41 @@ export async function reload_page_list() {
 
 
 export async function import_document() {
+	const doc_types = ['.txt', '.md', '.doc', '.docx', '.rtf', '.odf', '.odt']
+	const file = await api.file_prompt(doc_types.join(',')).catch(() => null)
 
+	if (file === null) {
+		return
+	}
+
+	let title = file.name
+	let valid_type = false
+	for (const i of doc_types) {
+		if (title.endsWith(i)) {
+			title = title.substring(0, title.length - i.length)
+			valid_type = true
+			break
+		}
+	}
+	if (!valid_type) {
+		_.modal.error(`
+			The chosen file is not a supported document type. Valid types are:<br>
+			${doc_types.map(i => `<span class="code">${i}</span>`).join('&nbsp;')}
+		`)
+		return
+	}
+
+	const blob_id = (await api.upload(file, () => { }, false, ['__docs'], true, true, 5, true))[0].id
+
+	const res = await mutate.documents.link_blob(title, blob_id)
+	if (res.__typename !== 'Document') {
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	await load_documents()
+	reload_page_list()
 }
 
 
