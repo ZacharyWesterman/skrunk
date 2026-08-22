@@ -21,17 +21,15 @@ function generate_id() {
 }
 
 window.wopi = {
-	url: api(`{ getConfig(name: "wopi:url") }`).then(i => i.replace('{}', window.location.href.split(/(?<!\/)[\/:](?!\/)/, 1))),
-	reverse: api(`{ getConfig(name: "wopi:reverse_url") }`).then(i => i.replace('{}', window.location.href.split(/(?<!\/)[\/:](?!\/)/, 1))),
+	url: null,
+	reverse: null,
 	id: generate_id(),
 	supported: false,
 }
 
-
 export async function init() {
-	for (const i in wopi) {
-		wopi[i] = await wopi[i]
-	}
+	wopi.url = await api(`{ getConfig(name: "wopi:url") }`).then(i => i ? i.replace('{}', window.location.href.split(/(?<!\/)[\/:](?!\/)/, 1)) : null)
+	wopi.reverse = await api(`{ getConfig(name: "wopi:reverse_url") }`).then(i => i ? i.replace('{}', window.location.href.split(/(?<!\/)[\/:](?!\/)/, 1)) : null)
 	wopi.supported = (wopi.url ?? '') !== '' && (wopi.reverse ?? '') !== ''
 
 	if (wopi.supported) {
