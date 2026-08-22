@@ -94,11 +94,11 @@ export async function wopi_edit_document(id) {
 	//On desktop, open view in-browser.
 	const elem = $('pdf-viewer')
 	elem.innerHTML = `
-		<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}" allow="clipboard-read *; clipboard-write *; fullscreen *"></iframe>
-		<div class="clickable close-pdf-viewer">
-			<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
-		</div>
-		`
+	<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}" allow="fullscreen *"></iframe>
+	<div class="clickable close-pdf-viewer">
+		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
+	</div>
+	`
 
 	const exit_pdf_viewer = async () => {
 		$.on.detach.escape(window)

@@ -71,6 +71,29 @@ def get_document(id: str) -> dict:
 	raise DocumentDoesNotExistError(id)
 
 
+def build_doc_query() -> dict:
+	"""
+	Builds a MongoDB query for searching documents based on
+	who created them and who they're shared with.
+
+	Returns:
+		dict: A MongoDB query dictionary.
+	"""
+
+	user_data = perms.caller_info_strict()
+
+	query = {
+		'history': False,
+		'$or': [
+			{'creator': user_data['_id']},
+			{'shared_users': user_data['_id']},
+			*[{'shared_groups': i} for i in user_data['groups']],
+		]
+	}
+
+	return query
+
+
 def get_documents(start: int, count: int) -> list:
 	"""
 	Retrieves a list of documents.
@@ -84,7 +107,7 @@ def get_documents(start: int, count: int) -> list:
 	"""
 
 	aggregate = db.aggregate([
-		{'$match': {'history': False}},
+		{'$match': build_doc_query()},
 		{
 			'$addFields': {
 				'modified': {'$ifNull': ['$updated', '$created']},
@@ -104,7 +127,7 @@ def count_documents() -> int:
 	Returns:
 		int: The total number of documents.
 	"""
-	return db.count_documents({'history': False})
+	return db.count_documents(build_doc_query())
 
 
 def create_document(title: str, body: str, is_blob: bool = False) -> dict:
@@ -114,7 +137,7 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 	Args:
 		title (str): The title of the document.
 		body (str): The content of the document.
-		parent (str | None, optional): The ID of the parent document. Defaults to None.
+		is_blob (bool): If true, create a blank blob document.
 
 	Returns:
 		dict: The new document.
@@ -170,6 +193,17 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 
 
 def link_document(title: str, blob_id: str) -> dict:
+	"""
+	Creates a new blob document linked to an already existing blob.
+
+	Args:
+		title (str): The title of the document.
+		blob_id (str): The ID of the blob.
+
+	Returns:
+		dict: The new document.
+	"""
+
 	if not settings.get_config('wopi:url'):
 		raise BlobDocumentsNotSupported()
 

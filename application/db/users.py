@@ -639,7 +639,7 @@ def export_user_data(username: str) -> dict:
 	]
 
 	exclude_collections = [
-		'api_keys', 'subscriptions',
+		'api_keys', 'subscriptions', 'reset_codes',
 	]
 
 	# Create a ZIP file and blob entry

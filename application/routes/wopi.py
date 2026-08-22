@@ -30,6 +30,15 @@ def get_document_contents(jwt: str, id: str) -> Response:
 	except DocumentDoesNotExistError:
 		return Response('File not found', 404)
 
+	user_data = users.get_user_data(decode_user_token(jwt).get('username', ''))
+
+	if (
+		doc['creator'].get('_id') != user_data.get('_id') and
+		user_data.get('_id') not in doc['shared_users'] and
+		not any(group in doc['shared_groups'] for group in user_data['groups'])
+	):
+		return Response('Access denied.', 403)
+
 	if doc['blob_id'] is None:
 		return doc['body']
 
@@ -53,7 +62,19 @@ def put_document_contents(jwt: str, id: str) -> Response:
 	if not token_is_valid(jwt):
 		return Response('Access denied.', 403)
 
+	try:
+		doc = get_document(id)
+	except DocumentDoesNotExistError:
+		return Response('File not found', 404)
+
 	user_data: dict = users.get_user_data(decode_user_token(jwt).get('username', ''))  # type: ignore
+
+	if (
+		doc['creator'].get('_id') != user_data.get('_id') and
+		user_data.get('_id') not in doc['shared_users'] and
+		not any(group in doc['shared_groups'] for group in user_data['groups'])
+	):
+		return Response('Access denied.', 403)
 
 	try:
 		update_document(id, None, request.data, user_data=user_data)
@@ -104,5 +125,7 @@ def get_document_info(jwt: str, id: str) -> Response:
 	return jsonify({
 		'BaseFileName': doc.get('title', 'Untitled Document'),
 		'Size': doc_size,
+		'OwnerId': str(doc['creator']),
+		'UserId': str(user_data.get('_id')),
 		'UserCanWrite': user_data['_id'] == doc['creator'].get('_id'),
 	})
