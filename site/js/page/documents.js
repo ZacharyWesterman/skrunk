@@ -328,7 +328,7 @@ export async function import_documents() {
 	if (failed_files.length) {
 		_.modal.error(`
 			Failed to upload ${failed_files.length === 1 ? 'a document' : 'documents'} due to unsupported document type. Valid types are:<br>
-			${doc_types.map(i => `<span class="code">${i}</span>`).join('&nbsp;')}
+			${doc_types.map(i => `<span class="code">${i}</span>`).join(' ')}
 			<br>
 			Unsupported document${failed_files.length === 1 ? ' is' : 's are'}:<br>
 			<ul>
