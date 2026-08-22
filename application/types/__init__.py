@@ -23,6 +23,7 @@ from .config import Config
 from .configlist import ConfigList
 from .diskusage import DiskUsage
 from .document import Document
+from .documentcount import DocumentCount
 from .ebook import EBook
 from .feed import Feed
 from .feeddocument import FeedDocument

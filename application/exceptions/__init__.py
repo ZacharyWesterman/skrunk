@@ -351,3 +351,13 @@ class InvalidResetCode(ClientError):
 		Initializes the exception with a message indicating that the password reset code is invalid.
 		"""
 		super().__init__('Invalid password reset code')
+
+
+class BlobDocumentsNotSupported(ClientError):
+	"""Raised when blob document operations are attempted but not supported."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating that blob documents aren't supported.
+		"""
+		super().__init__('Blob documents are not supported.')

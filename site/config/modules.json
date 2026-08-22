@@ -6,8 +6,8 @@
 	},
 	{
 		"id": "documents",
-		"name": "Wiki",
-		"description": "Enable a wiki for documentation and other information."
+		"name": "Documents",
+		"description": "Enable document editing functionality."
 	},
 	{
 		"id": "inventory",

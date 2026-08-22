@@ -7,24 +7,44 @@ type Document {
 	creator: UserMinData!
 	updated: DateTime
 	updater: UserMinData
+	blob_id: String
 }
 
 type DocumentDoesNotExistError {
 	message: String!
 }
 
+type BlobDocumentsNotSupported {
+	message: String!
+}
+
+"""
+A type for getting the number of documents that match a query.
+This type is used so that if the query fails, we can return an error message instead of zero.
+"""
+type DocumentCount {
+	"""The number of documents that match the query"""
+	count: Long!
+}
+
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
+union DocumentCountResponse = DocumentCount | InsufficientPerms
+union CreateBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported
+union LinkBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported | BlobDoesNotExistError
 
 #Resolvers below this line:
 
 extend type Query {
 	getDocument(id: String!): DocumentQueryResponse!
 	getDocuments(start: Int!, count: Int!): [Document!]!
+	countDocuments: DocumentCount!
 }
 
 extend type Mutation {
 	createDocument(title: String!, body: String!): DocumentUpdateResponse!
+	createBlobDocument(title: String!): CreateBlobDocumentResponse!
+	linkBlobDocument(title: String!, blob_id: String!): LinkBlobDocumentResponse!
 	updateDocument(id: String!, title: String, body: String): DocumentUpdateResponse!
 	deleteDocument(id: String!): DocumentUpdateResponse!
 }

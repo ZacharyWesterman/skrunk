@@ -28,10 +28,10 @@
 			"module": "books"
 		},
 		{
-			"id": "wiki",
-			"text": "Wiki",
-			"icon": "file-word",
-			"action": "dashnav('wiki')",
+			"id": "documents",
+			"text": "Documents",
+			"icon": "file-lines",
+			"action": "dashnav('documents')",
 			"module": "documents"
 		},
 		{

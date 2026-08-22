@@ -91,7 +91,7 @@
 
 .close-pdf-viewer {
 	position: fixed;
-	bottom: .5rem;
+	bottom: 2rem;
 	left: .5rem;
 	z-index: 8998;
 	color: white;

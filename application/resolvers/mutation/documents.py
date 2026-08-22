@@ -4,7 +4,8 @@ from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
 from application.db.documents import (create_document, delete_document,
-                                      get_document, update_document)
+                                      get_document, link_document,
+                                      update_document)
 
 from ..decorators import handle_client_exceptions
 from . import mutation
@@ -28,12 +29,58 @@ def resolve_create_document(
 		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
 		title (str): The title of the document.
 		body (str): The body content of the document.
-		parent (str | None): The parent document ID. If None, the document will be a top-level document.
 
 	Returns:
 		dict: A dictionary representing the created document with a '__typename' key.
 	"""
-	return {'__typename': 'Document', **create_document(title, body)}
+	return {'__typename': 'Document', **create_document(title, body, False)}
+
+
+@mutation.field('createBlobDocument')
+@perms.module('documents')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_create_blob_document(
+	_,
+	_info: GraphQLResolveInfo,
+	title: str
+) -> dict:
+	"""
+	Resolver function to create a new blob document.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		title (str): The title of the document.
+
+	Returns:
+		dict: A dictionary representing the created document with a '__typename' key.
+	"""
+	return {'__typename': 'Document', **create_document(title, '', True)}
+
+
+@mutation.field('linkBlobDocument')
+@perms.module('documents')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_link_blob_document(
+	_,
+	_info: GraphQLResolveInfo,
+	title: str,
+	blob_id: str,
+) -> dict:
+	"""
+	Resolver function to create a new blob document and link it to an existing blob.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		title (str): The title of the document.
+
+	Returns:
+		dict: A dictionary representing the created document with a '__typename' key.
+	"""
+	return {'__typename': 'Document', **link_document(title, blob_id)}
 
 
 @mutation.field('updateDocument')

@@ -1,15 +1,17 @@
 """Allows users to create, read and edit arbitrary rich text documents."""
 
+import hashlib
 from datetime import UTC, datetime
 
 import markdown
 from bson.objectid import ObjectId
 from pymongo.collection import Collection
 
-from application.exceptions import (DocumentDoesNotExistError,
+from application.exceptions import (BlobDocumentsNotSupported,
+                                    DocumentDoesNotExistError,
                                     UserDoesNotExistError)
 
-from . import perms, users
+from . import blob, perms, settings, users
 
 ## A pointer to the Documents collection in the database.
 db: Collection = None  # type: ignore[assignment]
@@ -45,12 +47,15 @@ def parse_document(doc: dict) -> dict:
 				'display_name': doc['updater'],
 			}
 
-	doc['body_html'] = markdown.markdown(doc['body'])
+	if doc['blob_id'] is not None:
+		doc['body_html'] = ''
+	else:
+		doc['body_html'] = markdown.markdown(doc['body'])
 
 	return doc
 
 
-def get_document(id: str, format: bool = False) -> dict:
+def get_document(id: str) -> dict:
 	"""
 	Retrieves a document from the database by its ID.
 
@@ -61,9 +66,32 @@ def get_document(id: str, format: bool = False) -> dict:
 		dict: The document.
 	"""
 	if doc := db.find_one({'_id': ObjectId(id)}):
-		return parse_document(doc) if format else doc
+		return parse_document(doc)
 
 	raise DocumentDoesNotExistError(id)
+
+
+def build_doc_query() -> dict:
+	"""
+	Builds a MongoDB query for searching documents based on
+	who created them and who they're shared with.
+
+	Returns:
+		dict: A MongoDB query dictionary.
+	"""
+
+	user_data = perms.caller_info_strict()
+
+	query = {
+		'history': False,
+		'$or': [
+			{'creator': user_data['_id']},
+			{'shared_users': user_data['_id']},
+			*[{'shared_groups': i} for i in user_data['groups']],
+		]
+	}
+
+	return query
 
 
 def get_documents(start: int, count: int) -> list:
@@ -78,37 +106,124 @@ def get_documents(start: int, count: int) -> list:
 		list: A list of documents.
 	"""
 
-	selection = db.find({'history': False}).skip(start).limit(count).sort((('updated', -1), ('created', -1)))
+	aggregate = db.aggregate([
+		{'$match': build_doc_query()},
+		{
+			'$addFields': {
+				'modified': {'$ifNull': ['$updated', '$created']},
+			}
+		},
+		{'$sort': {'modified': -1}},
+		{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}},
+	])
 
-	return [parse_document(doc) for doc in selection]
+	return [parse_document(doc) for doc in next(aggregate).get('results', [])]
 
 
-def create_document(title: str, body: str) -> dict:
+def count_documents() -> int:
+	"""
+	Count the total number of documents.
+
+	Returns:
+		int: The total number of documents.
+	"""
+	return db.count_documents(build_doc_query())
+
+
+def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 	"""
 	Creates a new document in the database.
 
 	Args:
 		title (str): The title of the document.
 		body (str): The content of the document.
-		parent (str | None, optional): The ID of the parent document. Defaults to None.
+		is_blob (bool): If true, create a blank blob document.
 
 	Returns:
 		dict: The new document.
 	"""
 
+	caller = perms.caller_info_strict()
+
+	body_text: str | bytes = body
+	blob_id = None
+
+	if is_blob:
+		if not settings.get_config('wopi:url'):
+			raise BlobDocumentsNotSupported()
+
+		# Create a blob and save it to the database.
+		blob_id, ext = blob.create_blob(
+			title + '.odt',
+			['__docs'],
+			True,
+			True,
+		)
+		this_blob_path = blob.BlobStorage(blob_id, ext).path(create=True)
+		with open('data/empty.odt', 'rb') as fp_from:
+			with open(this_blob_path, 'wb') as fp_to:
+				fp_to.write(fp_from.read())
+		blob.add_reference(blob_id)
+		size, md5sum = blob.file_info(this_blob_path)
+		blob.mark_as_completed(blob_id, size, md5sum)
+
 	doc = {
 		'title': title,
-		'body': body,
-		'creator': perms.caller_info_strict().get('username'),
+		'body': body_text,
+		'creator': caller.get('_id'),
 		'created': datetime.now(UTC),
 		'updated': None,
 		'updater': None,
 		'parent': None,
-		'hidden': False,
-		'draft': False,
 		'history': False,
 		'previous': None,
+		'blob_id': blob_id,
 		'tags': [],
+		'shared_users': [],
+		'shared_groups': [],
+	}
+
+	if doc['creator'] is None:
+		doc['creator'] = caller.get('username')
+
+	doc_id = db.insert_one(doc).inserted_id
+	doc['_id'] = doc_id
+
+	return parse_document(doc)
+
+
+def link_document(title: str, blob_id: str) -> dict:
+	"""
+	Creates a new blob document linked to an already existing blob.
+
+	Args:
+		title (str): The title of the document.
+		blob_id (str): The ID of the blob.
+
+	Returns:
+		dict: The new document.
+	"""
+
+	if not settings.get_config('wopi:url'):
+		raise BlobDocumentsNotSupported()
+
+	caller = perms.caller_info_strict()
+	blob.add_reference(blob_id)
+
+	doc = {
+		'title': title,
+		'body': '',
+		'creator': caller.get('_id', caller.get('username')),
+		'created': datetime.now(UTC),
+		'updated': None,
+		'updater': None,
+		'parent': None,
+		'history': False,
+		'previous': None,
+		'blob_id': blob_id,
+		'tags': [],
+		'shared_users': [],
+		'shared_groups': [],
 	}
 
 	doc_id = db.insert_one(doc).inserted_id
@@ -117,7 +232,13 @@ def create_document(title: str, body: str) -> dict:
 	return parse_document(doc)
 
 
-def update_document(doc_id: str, title: str | None, body: str | None) -> dict:
+def update_document(
+	doc_id: str,
+	title: str | None,
+	body: str | bytes | None,
+	*,
+	user_data: dict | None = None
+) -> dict:
 	"""
 	Updates a document in the database.
 
@@ -137,30 +258,36 @@ def update_document(doc_id: str, title: str | None, body: str | None) -> dict:
 		# No change
 		return parse_document(doc)
 
-	if title == doc['title'] and body == doc['body']:
+	blob_data = {}
+	if doc['blob_id'] is not None:
+		blob_data = blob.get_blob_data(doc['blob_id'])
+		body_md5_old = blob_data['md5sum']
+	else:
+		body_md5_old = hashlib.md5(doc['body']).digest()
+	body_text = '' if body is None else body
+	body_md5_new = hashlib.md5(
+		body_text.encode('utf8') if isinstance(body_text, str) else body_text
+	).digest()  # type: ignore
+
+	if title == doc['title'] and body_md5_old == body_md5_new:
 		# No change
 		return parse_document(doc)
 
-	username: str = perms.caller_info_strict().get('username', '')
-	user_data = users.get_user_data(username)
-
-	prev_doc = {
-		**doc,
-		'history': True,
-		'parent': ObjectId(doc_id),
-	}
-	del prev_doc['_id']
-	prev_id = db.insert_one(prev_doc).inserted_id
-
-	doc['previous'] = prev_id
+	user_id: ObjectId = (
+		perms.caller_info_strict() if user_data is None else user_data
+	).get('_id')  # type: ignore
 
 	doc['updated'] = datetime.now(UTC)
-	doc['updater'] = user_data['_id']
+	doc['updater'] = user_id
 
 	if title is not None:
 		doc['title'] = title
 	if body is not None:
-		doc['body'] = body
+		if doc['blob_id'] is None:
+			doc['body'] = body
+		else:
+			with open(blob.BlobStorage(doc['blob_id'], blob_data['ext']).path(), 'wb') as fp:
+				fp.write(body)  # type: ignore
 
 	db.update_one({'_id': ObjectId(doc_id)}, {'$set': doc})
 
@@ -185,6 +312,9 @@ def delete_document(doc_id: str) -> dict:
 	doc = db.find_one({'_id': id})
 	if doc is None:
 		raise DocumentDoesNotExistError(doc_id)
+
+	if doc['blob_id'] is not None:
+		blob.remove_reference(doc['blob_id'])
 
 	db.delete_many({'parent': id})
 	db.delete_one({'_id': id})

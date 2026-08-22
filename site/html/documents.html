@@ -1,0 +1,45 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-file-lines fa-xl"></i>
+		Documents
+	</h1>
+
+	<div class="card alt">
+		<div>
+			<button class="alt icon tooltip" *click="new_document()">
+				<i class="fa-solid fa-square-plus fa-xl"></i>
+				<span class="tooltiptext t-float-right">Create new document</span>
+			</button>
+
+			<button class="alt icon tooltip right" *click="import_documents()">
+				<i class="fa-solid fa-file-import fa-xl"></i>
+				<span class="tooltiptext t-float-left">Import documents</span>
+			</button>
+
+			<div style="display: inline;" name="page-list"></div>
+
+			<div id="delete-helper" class="expand-container clickable emphasis" *click="help_recover_docs">
+				<div>
+					<div>
+						<br>
+						<i class="fa-solid fa-circle-info"></i>
+						<i>
+							Accidentally deleted a document? <u>Click Here</u>.
+						</i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="document-list"></div>
+
+	<div class="card alt">
+		<div class="card-inner">
+			<div name="page-list"></div>
+		</div>
+	</div>
+</div>
+
+<script src="js/page/documents.js"></script>

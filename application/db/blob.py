@@ -285,7 +285,7 @@ def set_mime_from_ext(mime: str, ext: str) -> str:
 	Returns:
 		str: The updated MIME type based on the file extension.
 	"""
-	documents = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.rtf', '.odf']
+	documents = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.rtf', '.odf', '.odt']
 	source = [
 		'.c', '.cpp', '.h', '.hpp', '.py',
 		'.html', '.xml', '.xhtml', '.htm',

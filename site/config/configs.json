@@ -52,5 +52,17 @@
 		"name": "Video processing hosts",
 		"hint": "A comma-separated list of SSH destinations with FFMPEG installed",
 		"module": "files"
+	},
+	{
+		"id": "wopi:url",
+		"name": "The base WOPI URL for documents",
+		"hint": "E.g. http://example.com:1234. End users must be able to access this.",
+		"module": "documents"
+	},
+	{
+		"id": "wopi:reverse_url",
+		"name": "The base Skrunk URL for the WOPI server",
+		"hint": "E.g. http://localhost:5000",
+		"module": "documents"
 	}
 ]
