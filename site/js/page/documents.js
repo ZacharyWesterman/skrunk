@@ -88,15 +88,17 @@ export async function new_document() {
 	await reload_page_list()
 }
 
-
-export async function wopi_edit_document(id) {
+function get_wopi_url(id) {
 	const jwt = api.login_token.split(' ')[1]
 	const url = `${wopi.url}/browser/${wopi.id}/cool.html?WOPISrc=${wopi.reverse}/${jwt}/wopi/files/${id}`
+	return url
+}
 
+export async function wopi_edit_document(id) {
 	//On desktop, open view in-browser.
 	const elem = $('pdf-viewer')
 	elem.innerHTML = `
-	<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}" allow="fullscreen *"></iframe>
+	<iframe frameborder="0" style="width: 100%; height: 100%;" src="${get_wopi_url(id)}" allow="fullscreen *"></iframe>
 	<div class="clickable close-pdf-viewer">
 		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
 	</div>
@@ -113,6 +115,10 @@ export async function wopi_edit_document(id) {
 
 	$.show(elem)
 	elem.style.display = 'block'
+}
+
+export async function view_document_new_tab(id) {
+	open(get_wopi_url(id), '_blank')
 }
 
 

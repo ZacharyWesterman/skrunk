@@ -2,17 +2,32 @@
 	<div>
 		<div class="actions">
 			{{? it.creator.username === api.username }}
-			<button class="icon clickable" *click="delete_document('{{= it.id }}')">
-				<i class="fa-solid fa-trash fa-lg {{? it.creator.username !== api.username }}suppress{{?}}"></i>
+			<button class="icon clickable tooltip" *click="delete_document('{{= it.id }}')">
+				<i class="fa-solid fa-trash fa-lg"></i>
+				<span class="tooltiptext t-float-right">Delete document</span>
 			</button>
 
-			<button class="icon clickable right" *click="edit_document('{{= it.id }}')">
-				<i class="fa-solid fa-pencil fa-lg {{? it.creator.username !== api.username }}suppress{{?}}"></i>
-			</button>
+			{{? window.wopi.supported }}
+			<span class="tooltip right">
+				<span class="tooltiptext t-float-left">Open in new tab</span>
+				<button class="icon clickable" *click="view_document_new_tab('{{= it.id }}')">
+					<i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i>
+				</button>
+			</span>
+			{{?}}
+
+			<span class="tooltip right">
+				<span class="tooltiptext t-float-left">Edit title</span>
+				<button class="icon clickable" *click="edit_document('{{= it.id }}')">
+					<i class="fa-solid fa-pencil fa-lg"></i>
+				</button>
+			</span>
+
 			{{?}}
 
 			{{? window.wopi.supported && it.creator.username !== api.username }}
-			<button class="icon clickable" *click="view_document('{{= it.id }}')">
+			<button class="icon clickable tooltip" *click="view_document('{{= it.id }}')">
+				<span class="tooltiptext t-float-left">View document</span>
 				<i class="fa-solid fa-eye fa-lg"></i>
 			</button>
 			{{?}}
