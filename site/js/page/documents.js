@@ -64,7 +64,10 @@ export async function new_document() {
 
 	if (!data) return
 
-	const res = await mutate.documents.create(data.title, data.body)
+	const res = await (wopi.supported ?
+		mutate.documents.create_blob(data.title) :
+		mutate.documents.create(data.title, data.body)
+	)
 
 	if (res.__typename !== 'Document') {
 		_.modal.error(res.message)

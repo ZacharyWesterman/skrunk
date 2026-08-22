@@ -28,12 +28,34 @@ def resolve_create_document(
 		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
 		title (str): The title of the document.
 		body (str): The body content of the document.
-		parent (str | None): The parent document ID. If None, the document will be a top-level document.
 
 	Returns:
 		dict: A dictionary representing the created document with a '__typename' key.
 	"""
-	return {'__typename': 'Document', **create_document(title, body)}
+	return {'__typename': 'Document', **create_document(title, body, False)}
+
+
+@mutation.field('createBlobDocument')
+@perms.module('documents')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_create_blob_document(
+	_,
+	_info: GraphQLResolveInfo,
+	title: str
+) -> dict:
+	"""
+	Resolver function to create a new blob document.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		title (str): The title of the document.
+
+	Returns:
+		dict: A dictionary representing the created document with a '__typename' key.
+	"""
+	return {'__typename': 'Document', **create_document(title, '', True)}
 
 
 @mutation.field('updateDocument')

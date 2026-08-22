@@ -20,6 +20,22 @@ export default {
 	},
 
 	/**
+	 * Create a new (empty) blob document
+	 */
+	create_blob: async (title) => {
+		return await api(`mutation ($title: String!){
+			createBlobDocument (title: $title){
+				__typename
+				...on Document { id }
+				...on InsufficientPerms { message }
+				...on BlobDocumentsNotSupported { message }
+			}
+		}`, {
+			title,
+		})
+	},
+
+	/**
 	 * Update a document.
 	 * @param {string} id The document ID.
 	 * @param {string?} title The new document title, or null if no change.

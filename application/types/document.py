@@ -17,3 +17,4 @@ class Document(TypedDict):
 	creator: UserMinData
 	updated: datetime | None
 	updater: UserMinData | None
+	blob_id: str | None

@@ -7,9 +7,14 @@ type Document {
 	creator: UserMinData!
 	updated: DateTime
 	updater: UserMinData
+	blob_id: String
 }
 
 type DocumentDoesNotExistError {
+	message: String!
+}
+
+type BlobDocumentsNotSupported {
 	message: String!
 }
 
@@ -25,6 +30,7 @@ type DocumentCount {
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentCountResponse = DocumentCount | InsufficientPerms
+union CreateBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported
 
 #Resolvers below this line:
 
@@ -36,6 +42,7 @@ extend type Query {
 
 extend type Mutation {
 	createDocument(title: String!, body: String!): DocumentUpdateResponse!
+	createBlobDocument(title: String!): CreateBlobDocumentResponse!
 	updateDocument(id: String!, title: String, body: String): DocumentUpdateResponse!
 	deleteDocument(id: String!): DocumentUpdateResponse!
 }
