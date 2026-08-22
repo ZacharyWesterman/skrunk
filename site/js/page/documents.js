@@ -225,7 +225,6 @@ export async function delete_document(id) {
 		text: `
 			Are you <b>really</b> sure you want to delete this document?
 			<div class="emphasis">Deletion is permanent and cannot be undone!</div>
-			If you just want to prevent others from seeing the document, you may hide it instead.
 		`,
 		buttons: ['Cancel', 'Yes, Delete'],
 	}).catch(() => 'cancel')
