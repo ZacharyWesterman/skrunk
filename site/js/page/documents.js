@@ -27,6 +27,7 @@ window.wopi = {
 	supported: false,
 }
 
+
 export async function init() {
 	for (const i in wopi) {
 		wopi[i] = await wopi[i]
@@ -35,6 +36,7 @@ export async function init() {
 
 	await navigate_to_page(0)
 }
+
 
 export async function new_document() {
 	const data = await _.modal({
@@ -77,42 +79,42 @@ export async function new_document() {
 	_.modal.checkmark()
 
 	if (wopi.supported) {
-		edit_document(res.id)
+		wopi_edit_document(res.id)
 	}
 
 	await load_documents()
 	await reload_page_list()
 }
 
-export async function edit_document(id) {
-	if (wopi.supported) {
-		const jwt = api.login_token.split(' ')[1]
-		const url = `${wopi.url}/browser/${wopi.id}/cool.html?WOPISrc=${wopi.reverse}/${jwt}/wopi/files/${id}`
 
-		//On desktop, open view in-browser.
-		const elem = $('pdf-viewer')
-		elem.innerHTML = `
+export async function wopi_edit_document(id) {
+	const jwt = api.login_token.split(' ')[1]
+	const url = `${wopi.url}/browser/${wopi.id}/cool.html?WOPISrc=${wopi.reverse}/${jwt}/wopi/files/${id}`
+
+	//On desktop, open view in-browser.
+	const elem = $('pdf-viewer')
+	elem.innerHTML = `
 		<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}" allow="clipboard-read *; clipboard-write *; fullscreen *"></iframe>
 		<div class="clickable close-pdf-viewer">
 			<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
 		</div>
 		`
 
-		const exit_pdf_viewer = async () => {
-			$.on.detach.escape(window)
-			await $.hide('pdf-viewer', true)
-			$('pdf-viewer').innerHTML = ''
-		}
-
-		$.on.escape(window, exit_pdf_viewer)
-		elem.children[1].onclick = exit_pdf_viewer
-
-		$.show(elem)
-		elem.style.display = 'block'
-
-		return
+	const exit_pdf_viewer = async () => {
+		$.on.detach.escape(window)
+		await $.hide('pdf-viewer', true)
+		$('pdf-viewer').innerHTML = ''
 	}
 
+	$.on.escape(window, exit_pdf_viewer)
+	elem.children[1].onclick = exit_pdf_viewer
+
+	$.show(elem)
+	elem.style.display = 'block'
+}
+
+
+export async function edit_document(id) {
 	const data_promise = api(`query ($id: String!) {
 		getDocument (id: $id) {
 			__typename
@@ -125,8 +127,8 @@ export async function edit_document(id) {
 	})
 
 	const data = await _.modal({
-		title: "Edit Document",
-		text: api.snippit("edit-document"),
+		title: "Edit Document" + (wopi.supported ? ' Title' : ''),
+		text: wopi.supported ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("edit-document"),
 		buttons: ["OK", "Cancel"],
 	}, async () => {
 		// Pull in data on load
@@ -160,7 +162,7 @@ export async function edit_document(id) {
 
 		return {
 			title: $.val('title'),
-			body: $.val('body'),
+			body: wopi.supported ? null : $.val('body'),
 		}
 	}).catch(() => null)
 
@@ -178,6 +180,7 @@ export async function edit_document(id) {
 	_(id, new_data)
 }
 
+
 export async function load_documents() {
 	const docs = await query.documents.list(DocStart, DocListLen)
 
@@ -187,9 +190,8 @@ export async function load_documents() {
 	for (const doc of docs) {
 		_(doc.id, doc)
 	}
-
-	console.log(docs)
 }
+
 
 export async function load_doc_body(id) {
 	const field = $(`body-${id}`)
@@ -206,6 +208,7 @@ export async function load_doc_body(id) {
 
 	field.innerHTML = doc.body_html
 }
+
 
 export async function delete_document(id) {
 	const choice = await _.modal({
@@ -233,41 +236,24 @@ export async function delete_document(id) {
 	_.modal.checkmark()
 	reload_page_list()
 	load_documents()
+
+	if (wopi.supported) {
+		$.toggle_expand('delete-helper', true)
+	}
 }
 
 
 export async function view_document(id) {
-	if (!wopi.supported) {
-		await _.modal({
-			text: `<br><div id="body-${id}">Loading...</div>`,
-			buttons: ['OK'],
-		}, () => load_doc_body(id)).catch(() => { })
+	if (wopi.supported) {
+		wopi_edit_document(id)
 		return
 	}
 
-	const jwt = api.login_token.split(' ')[1]
-	const url = `${wopi.url}/browser/${wopi.id}/cool.html?WOPISrc=${wopi.reverse}/${jwt}/wopi/files/${id}`
-
-	//On desktop, open view in-browser.
-	const elem = $('pdf-viewer')
-	elem.innerHTML = `
-	<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}" allow="fullscreen *"></iframe>
-	<div class="clickable close-pdf-viewer">
-		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
-	</div>
-	`
-
-	const exit_pdf_viewer = async () => {
-		$.on.detach.escape(window)
-		await $.hide('pdf-viewer', true)
-		$('pdf-viewer').innerHTML = ''
-	}
-
-	$.on.escape(window, exit_pdf_viewer)
-	elem.children[1].onclick = exit_pdf_viewer
-
-	$.show(elem)
-	elem.style.display = 'block'
+	await _.modal({
+		text: `<br><div id="body-${id}">Loading...</div>`,
+		buttons: ['OK'],
+	}, () => load_doc_body(id)).catch(() => { })
+	return
 }
 
 
@@ -276,6 +262,7 @@ export async function navigate_to_page(page_num) {
 	reload_page_list()
 	await load_documents()
 }
+
 
 export async function reload_page_list() {
 	const count = (await query.documents.count()).count || 0
@@ -298,4 +285,19 @@ export async function reload_page_list() {
 		total: count,
 		no_results_msg: 'No documents found matching the search criteria.',
 	}, true)
+}
+
+
+export async function import_document() {
+
+}
+
+
+export function help_recover_docs() {
+	_.modal({
+		type: 'info',
+		title: 'How to recover a deleted document',
+		text: api.snippit('recover-deleted-document'),
+		buttons: ['OK'],
+	}).catch(() => { })
 }

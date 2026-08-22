@@ -195,7 +195,8 @@ def update_document(doc_id: str, title: str | None, body: str | bytes | None, *,
 		body_md5_old = blob_data['md5sum']
 	else:
 		body_md5_old = hashlib.md5(doc['body']).digest()
-	body_md5_new = hashlib.md5('' if body is None else body).digest()  # type: ignore
+	body_text = '' if body is None else body
+	body_md5_new = hashlib.md5(body_text.encode('utf8') if isinstance(body_text, str) else body_text).digest()  # type: ignore
 
 	if title == doc['title'] and body_md5_old == body_md5_new:
 		# No change
