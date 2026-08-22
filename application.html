@@ -427,10 +427,13 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.documents">application.db.documents module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.build_doc_query"><code class="docutils literal notranslate"><span class="pre">build_doc_query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.count_documents"><code class="docutils literal notranslate"><span class="pre">count_documents()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.create_document"><code class="docutils literal notranslate"><span class="pre">create_document()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.delete_document"><code class="docutils literal notranslate"><span class="pre">delete_document()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.get_document"><code class="docutils literal notranslate"><span class="pre">get_document()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.get_documents"><code class="docutils literal notranslate"><span class="pre">get_documents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.link_document"><code class="docutils literal notranslate"><span class="pre">link_document()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.parse_document"><code class="docutils literal notranslate"><span class="pre">parse_document()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.documents.update_document"><code class="docutils literal notranslate"><span class="pre">update_document()</span></code></a></li>
 </ul>
@@ -561,6 +564,7 @@
 <li class="toctree-l2"><a class="reference internal" href="application.exceptions.html#module-application.exceptions">Module contents</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.AuthenticationError"><code class="docutils literal notranslate"><span class="pre">AuthenticationError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BadUserNameError"><code class="docutils literal notranslate"><span class="pre">BadUserNameError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BlobDocumentsNotSupported"><code class="docutils literal notranslate"><span class="pre">BlobDocumentsNotSupported</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BlobDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BlobDoesNotExistError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BookCannotBeShared"><code class="docutils literal notranslate"><span class="pre">BookCannotBeShared</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.BookTagDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">BookTagDoesNotExistError</span></code></a></li>
@@ -786,6 +790,12 @@
 <li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.site.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.site.get_svg"><code class="docutils literal notranslate"><span class="pre">get_svg()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.site.main_page"><code class="docutils literal notranslate"><span class="pre">main_page()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes.wopi">application.routes.wopi module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.wopi.get_document_contents"><code class="docutils literal notranslate"><span class="pre">get_document_contents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.wopi.get_document_info"><code class="docutils literal notranslate"><span class="pre">get_document_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.routes.html#application.routes.wopi.put_document_contents"><code class="docutils literal notranslate"><span class="pre">put_document_contents()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html#module-application.routes">Module contents</a><ul>
@@ -1081,6 +1091,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.document">application.types.document module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.document.Document"><code class="docutils literal notranslate"><span class="pre">Document</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.blob_id"><code class="docutils literal notranslate"><span class="pre">Document.blob_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.body"><code class="docutils literal notranslate"><span class="pre">Document.body</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.body_html"><code class="docutils literal notranslate"><span class="pre">Document.body_html</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.created"><code class="docutils literal notranslate"><span class="pre">Document.created</span></code></a></li>
@@ -1089,6 +1100,13 @@
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.title"><code class="docutils literal notranslate"><span class="pre">Document.title</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.updated"><code class="docutils literal notranslate"><span class="pre">Document.updated</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.document.Document.updater"><code class="docutils literal notranslate"><span class="pre">Document.updater</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.documentcount">application.types.documentcount module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.documentcount.DocumentCount"><code class="docutils literal notranslate"><span class="pre">DocumentCount</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.documentcount.DocumentCount.count"><code class="docutils literal notranslate"><span class="pre">DocumentCount.count</span></code></a></li>
 </ul>
 </li>
 </ul>

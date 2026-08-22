@@ -52,6 +52,14 @@ application.routes.site module
    :show-inheritance:
    :undoc-members:
 
+application.routes.wopi module
+------------------------------
+
+.. automodule:: application.routes.wopi
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 

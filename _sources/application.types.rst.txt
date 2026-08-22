@@ -196,6 +196,14 @@ application.types.document module
    :show-inheritance:
    :undoc-members:
 
+application.types.documentcount module
+--------------------------------------
+
+.. automodule:: application.types.documentcount
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.types.ebook module
 ------------------------------
 

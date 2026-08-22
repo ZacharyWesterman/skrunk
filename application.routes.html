@@ -664,6 +664,92 @@
 </dd></dl>
 
 </section>
+<section id="module-application.routes.wopi">
+<span id="application-routes-wopi-module"></span><h2>application.routes.wopi module<a class="headerlink" href="#module-application.routes.wopi" title="Link to this heading">#</a></h2>
+<p>application.routes.wopi</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.wopi.get_document_contents">
+<span class="sig-prename descclassname"><span class="pre">application.routes.wopi.</span></span><span class="sig-name descname"><span class="pre">get_document_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jwt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.wopi.get_document_contents" title="Link to this definition">#</a></dt>
+<dd><p>Get the contents of a document via WOPI endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jwt</strong> (<em>str</em>) – A valid JSON web token string.</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – The ID of the document.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A response containing either the body of the document or an error, as appropriate.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.wopi.get_document_info">
+<span class="sig-prename descclassname"><span class="pre">application.routes.wopi.</span></span><span class="sig-name descname"><span class="pre">get_document_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jwt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.wopi.get_document_info" title="Link to this definition">#</a></dt>
+<dd><p>Get info about a document via WOPI endpoint.</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>json
+{</p>
+<blockquote>
+<div><p>“BaseFileName”: (str) the title of the document,
+“Size”: (int) the document size in bytes,
+“UserCanWrite”: (bool) true if the user owns this document, false otherwise</p>
+</div></blockquote>
+<section id="id5">
+<h3>}<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">type jwt<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-even">param jwt<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid JSON web token string.</p>
+</dd>
+<dt class="field-odd">type jwt<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">type id<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-odd">param id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the document.</p>
+</dd>
+<dt class="field-even">type id<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response containing either JSON info about the document, or an error as appropriate.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.routes.wopi.put_document_contents">
+<span class="sig-prename descclassname"><span class="pre">application.routes.wopi.</span></span><span class="sig-name descname"><span class="pre">put_document_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jwt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.routes.wopi.put_document_contents" title="Link to this definition">#</a></dt>
+<dd><p>Update the contents of a document via WOPI endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jwt</strong> (<em>str</em>) – A valid JSON web token string.</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – The ID of the document.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A response containing ‘OK’ on success, or an error as appropriate.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-application.routes">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.routes" title="Link to this heading">#</a></h2>
 <p>application.routes</p>
@@ -776,6 +862,12 @@ It doesn’t track ANYTHING other than the quiescence of the back end.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get_icon"><code class="docutils literal notranslate"><span class="pre">get_icon()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.get_svg"><code class="docutils literal notranslate"><span class="pre">get_svg()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.site.main_page"><code class="docutils literal notranslate"><span class="pre">main_page()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes.wopi">application.routes.wopi module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.wopi.get_document_contents"><code class="docutils literal notranslate"><span class="pre">get_document_contents()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.wopi.get_document_info"><code class="docutils literal notranslate"><span class="pre">get_document_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.routes.wopi.put_document_contents"><code class="docutils literal notranslate"><span class="pre">put_document_contents()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.routes">Module contents</a><ul class="nav section-nav flex-column">
