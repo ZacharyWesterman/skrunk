@@ -21,7 +21,7 @@ function generate_id() {
 }
 
 window.wopi = {
-	url: api(`{ getConfig(name: "wopi:url") }`),
+	url: api(`{ getConfig(name: "wopi:url") }`).then(i => i.replace('{}', window.location.href.split(/(?<!\/)\/(?!\/)/, 1))),
 	reverse: api(`{ getConfig(name: "wopi:reverse_url") }`),
 	id: generate_id(),
 	supported: false,

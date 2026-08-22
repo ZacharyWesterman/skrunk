@@ -56,7 +56,7 @@
 	{
 		"id": "wopi:url",
 		"name": "The base WOPI URL for documents",
-		"hint": "E.g. http://example.com:1234. End users must be able to access this.",
+		"hint": "E.g. http://example.com:9980 (or {}:9980 to inject the current domain). End users must be able to access this.",
 		"module": "documents"
 	},
 	{
