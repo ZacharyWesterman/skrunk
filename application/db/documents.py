@@ -156,6 +156,8 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 		'previous': None,
 		'blob_id': blob_id,
 		'tags': [],
+		'shared_users': [],
+		'shared_groups': [],
 	}
 
 	if doc['creator'] is None:
@@ -186,6 +188,8 @@ def link_document(title: str, blob_id: str) -> dict:
 		'previous': None,
 		'blob_id': blob_id,
 		'tags': [],
+		'shared_users': [],
+		'shared_groups': [],
 	}
 
 	doc_id = db.insert_one(doc).inserted_id
