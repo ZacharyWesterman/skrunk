@@ -32,7 +32,7 @@ export async function init() {
 	for (const i in wopi) {
 		wopi[i] = await wopi[i]
 	}
-	wopi.supported = wopi.url !== '' && wopi.reverse !== ''
+	wopi.supported = (wopi.url ?? '') !== '' && (wopi.reverse ?? '') !== ''
 
 	await navigate_to_page(0)
 }
