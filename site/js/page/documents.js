@@ -34,6 +34,10 @@ export async function init() {
 	}
 	wopi.supported = (wopi.url ?? '') !== '' && (wopi.reverse ?? '') !== ''
 
+	if (wopi.supported) {
+		$.show('import-button', false)
+	}
+
 	await navigate_to_page(0)
 }
 
