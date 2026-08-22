@@ -22,7 +22,7 @@ function generate_id() {
 
 window.wopi = {
 	url: api(`{ getConfig(name: "wopi:url") }`).then(i => i.replace('{}', window.location.href.split(/(?<!\/)[\/:](?!\/)/, 1))),
-	reverse: api(`{ getConfig(name: "wopi:reverse_url") }`),
+	reverse: api(`{ getConfig(name: "wopi:reverse_url") }`).then(i => i.replace('{}', window.location.href.split(/(?<!\/)[\/:](?!\/)/, 1))),
 	id: generate_id(),
 	supported: false,
 }
