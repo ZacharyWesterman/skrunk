@@ -155,7 +155,7 @@ def resolve_process_qr_from_blob(_, _info: GraphQLResolveInfo, id: str) -> dict 
 	# pylint: enable=broad-except
 
 
-@query.field('countTagUses')
+@query.field('countBlobTagUses')
 @perms.module('files')
 def resolve_count_tag_uses(_, _info: GraphQLResolveInfo, tag: str) -> int:
 	"""

@@ -130,6 +130,24 @@ def count_documents() -> int:
 	return db.count_documents(build_doc_query())
 
 
+def count_tag_uses(tag: str) -> int:
+	"""
+	Count the number of documents that contain a specific tag
+	and are available for the current user to view.
+
+	Args:
+		tag (str): The tag to search for in the documents.
+
+	Returns:
+		int: The count of documents that match the specified tag and creators.
+	"""
+	query = {
+		'tags': tag,
+		**build_doc_query(),
+	}
+	return db.count_documents(query)
+
+
 def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 	"""
 	Creates a new document in the database.
@@ -320,3 +338,29 @@ def delete_document(doc_id: str) -> dict:
 	db.delete_one({'_id': id})
 
 	return parse_document(doc)
+
+
+def set_document_tags(doc_id: str, tags: list[str]) -> dict:
+	"""
+	Set tags for a document in the database.
+
+	This function updates the tags for a document identified by its ID. If the document does not exist,
+	it raises a BlobDoesNotExistError. The tags are converted to lowercase and duplicates are removed.
+
+	Args:
+		doc_id (str): The ID of the document to update.
+		tags (list): A list of tags to set for the document.
+
+	Returns:
+		dict: The updated document data with the new tags.
+
+	Raises:
+		DocumentDoesNotExistError: If the document with the specified ID does not exist.
+	"""
+	if (doc := db.find_one({'_id': ObjectId(doc_id)})) is None:
+		raise DocumentDoesNotExistError(doc_id)
+
+	doc['tags'] = tags
+	db.update_one({'_id': ObjectId(doc_id)}, {'$set': {'tags': tags}})
+
+	return doc

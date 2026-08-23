@@ -3,8 +3,8 @@
 from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
-from application.db.documents import (count_documents, get_document,
-                                      get_documents)
+from application.db.documents import (count_documents, count_tag_uses,
+                                      get_document, get_documents)
 
 from ..decorators import handle_client_exceptions
 from . import query
@@ -76,3 +76,20 @@ def resolve_count_documents(_, _info: GraphQLResolveInfo) -> dict:
 		dict: A dictionary containing just the document count.
 	"""
 	return {'__typename': 'DocumentCount', 'count': count_documents()}
+
+
+@query.field('countDocumentTagUses')
+@perms.module('documents')
+def resolve_count_tag_uses(_, _info: GraphQLResolveInfo, tag: str) -> int:
+	"""
+	Resolves the number of times a specific tag has been used in documents available to the caller.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		tag (str): The tag to count usages for.
+
+	Returns:
+		int: The number of times the specified tag has been used.
+	"""
+	return count_tag_uses(tag)

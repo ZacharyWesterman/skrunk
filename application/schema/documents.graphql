@@ -8,6 +8,7 @@ type Document {
 	updated: DateTime
 	updater: UserMinData
 	blob_id: String
+	tags: [String!]!
 }
 
 type DocumentDoesNotExistError {
@@ -39,6 +40,7 @@ extend type Query {
 	getDocument(id: String!): DocumentQueryResponse!
 	getDocuments(start: Int!, count: Int!): [Document!]!
 	countDocuments: DocumentCount!
+	countDocumentTagUses(tag: String!): Int!
 }
 
 extend type Mutation {
@@ -47,4 +49,5 @@ extend type Mutation {
 	linkBlobDocument(title: String!, blob_id: String!): LinkBlobDocumentResponse!
 	updateDocument(id: String!, title: String, body: String): DocumentUpdateResponse!
 	deleteDocument(id: String!): DocumentUpdateResponse!
+	setDocumentTags(id: String!, tags: [String!]!): DocumentUpdateResponse!
 }

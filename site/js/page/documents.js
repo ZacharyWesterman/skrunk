@@ -355,3 +355,30 @@ export function help_recover_docs() {
 		buttons: ['OK'],
 	}).catch(() => { })
 }
+
+
+export function wipe_tag_editor() {
+	$('tag-query').value = ''
+	navigate_to_page(0)
+}
+
+
+export function set_tag_editor_value(text) {
+	const t = text.match(/^\w+$/) ? text : ('"' + text + '"')
+	$('tag-query').value = $.val('tag-query') === t ? '' : t
+	navigate_to_page(0)
+}
+
+
+export async function set_document_tags(id) {
+	const doc_data = await query.documents.get(id)
+
+	_.modal.tags(doc_data.tags, 'countDocumentTagUses').then(async tags => {
+		const doc = await mutate.documents.tags(id, tags)
+		if (doc.__typename !== 'Document') {
+			_.modal.error(doc.message)
+			return
+		}
+		await load_documents()
+	})
+}

@@ -103,4 +103,24 @@ export default {
 			id
 		})
 	},
+
+	/**
+	 * Update tags on a document.
+	 * @param {string} id The document ID.
+	 * @param {array[string]} tag_list A list of tags to assign to this document.
+	 * @returns {Promise<object>} The updated document.
+	 */
+	tags: async (id, tag_list) => {
+		return await api(`
+		mutation ($id: String!, $tags: [String!]!) {
+			setDocumentTags (id: $id, tags: $tags) {
+				__typename
+				...on DocumentDoesNotExistError { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			id,
+			tags: tag_list,
+		})
+	},
 }

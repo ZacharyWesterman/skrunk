@@ -21,6 +21,7 @@ export default {
 						display_name
 					}
 					updated
+					tags
 				}
 				...on InsufficientPerms { message }
 				...on DocumentDoesNotExistError { message }
@@ -74,6 +75,7 @@ export default {
 				}
 				updated
 				blob_id
+				tags
 			}
 		}`, {
 			start,
