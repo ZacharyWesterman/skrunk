@@ -6,6 +6,34 @@
 
 	<div class="card alt">
 		<div>
+			<h3>
+				Filter documents by:
+			</h3>
+
+			<!-- Editor for tag query -->
+			<code-input id="tag-query" class="monospace" style="width: calc(100% - 5rem);" syntax="tag-query"
+				placeholder="Tag Query" *bind="navigate_to_page(0)"></code-input>
+			<span class="right">
+				<button class="reset clickable" *click="wipe_tag_editor">
+					<i class="fa-solid fa-circle-xmark fa-xl"></i>
+				</button>
+				<span class="tooltip" *click="show_tags_how_to">
+					<i class="fa-solid fa-circle-question fa-lg"></i>
+					<span class="tooltiptext t-left">What is this?</span>
+				</span>
+			</span>
+			<br>
+
+			<!-- Input for document title -->
+			<input id="filter-title" placeholder="Title" *bind="navigate_to_page(0)" />
+			<span class="button clickable" *click="$.wipe('filter-title'); navigate_to_page(0)">
+				<i class="fa-solid fa-circle-xmark fa-lg"></i>
+			</span>
+			<br>
+			<div class="emphasis" id="tag-error"></div>
+
+			<hr>
+
 			<button class="alt icon tooltip" *click="new_document()">
 				<i class="fa-solid fa-square-plus fa-xl"></i>
 				<span class="tooltiptext t-float-right">Create new document</span>

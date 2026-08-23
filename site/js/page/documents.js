@@ -190,8 +190,19 @@ export async function edit_document(id) {
 
 
 export async function load_documents() {
-	const docs = await query.documents.list(DocStart, DocListLen)
+	const filter = {
+		tag_expr: $.val('tag-query') || null,
+		title: $.val('filter-title') || null,
+	}
 
+	const res = await query.documents.list(filter, DocStart, DocListLen)
+
+	$('tag-error').innerText = res.message || ''
+	if (res.__typename !== 'DocumentList') {
+		return
+	}
+
+	const docs = res.documents
 	const text = docs.map(doc => `<div id="${doc.id}" template="document-stub"></div>`).join('')
 	$('document-list').innerHTML = text
 
@@ -272,7 +283,16 @@ export async function navigate_to_page(page_num) {
 
 
 export async function reload_page_list() {
-	const count = (await query.documents.count()).count || 0
+	const filter = {
+		tag_expr: $.val('tag-query') || null,
+		title: $.val('filter-title') || null,
+	}
+
+	const res = await query.documents.count(filter)
+	if (res.__typename !== 'DocumentCount') {
+		return
+	}
+	const count = res.count
 
 	const page_ct = Math.ceil(count / DocListLen)
 	const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
@@ -381,4 +401,18 @@ export async function set_document_tags(id) {
 		}
 		await load_documents()
 	})
+}
+
+
+export async function show_tags_how_to() {
+	const res = await _.modal({
+		type: 'info',
+		title: 'What is a tag query?',
+		text: await api.get('/html/snippit/tag_query.html'),
+		buttons: ['OK', 'More Info'],
+	}).catch(() => 'ok')
+
+	if (res === 'ok') return
+
+	dashnav('help/tag_query')
 }
