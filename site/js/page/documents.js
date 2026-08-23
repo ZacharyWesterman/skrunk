@@ -418,3 +418,17 @@ export async function show_tags_how_to() {
 
 	dashnav('help/tag_query')
 }
+
+
+export async function download_all() {
+	const filter = {
+		tag_expr: $.val('tag-query') || null,
+		title: $.val('filter-title') || null,
+		shared: $.val('filter-shared'),
+	}
+
+	await _.modal.download_zip(
+		() => query.documents.size(filter),
+		(uid) => query.documents.create_zip(filter, uid),
+	)
+}

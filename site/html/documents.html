@@ -47,15 +47,24 @@
 
 			<hr>
 
-			<button class="alt icon tooltip" *click="new_document()">
-				<i class="fa-solid fa-square-plus fa-xl"></i>
-				<span class="tooltiptext t-float-right">Create new document</span>
+			<button class="alt icon tooltip" *click="download_all">
+				<i class="fa-solid fa-file-arrow-down fa-xl"></i>
+				<span class="tooltiptext t-float-right">Download selection</span>
 			</button>
 
-			<button id="import-button" class="alt icon tooltip right hidden" *click="import_documents()">
-				<i class="fa-solid fa-file-import fa-xl"></i>
+			<span class="tooltip right">
 				<span class="tooltiptext t-float-left">Import documents</span>
-			</button>
+				<button id="import-button" class="alt icon hidden" *click="import_documents()">
+					<i class="fa-solid fa-file-import fa-xl"></i>
+				</button>
+			</span>
+
+			<span class="tooltip right">
+				<span class="tooltiptext t-float-left">Create new document</span>
+				<button class="alt icon" *click="new_document()">
+					<i class="fa-solid fa-square-plus fa-xl"></i>
+				</button>
+			</span>
 
 			<div style="display: inline;" name="page-list"></div>
 

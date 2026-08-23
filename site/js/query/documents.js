@@ -108,4 +108,22 @@ export default {
 			filter,
 		})
 	},
+
+	/**
+	 * Get the total size of all documents matching the given criteria.
+	 * @param {object} filter The filtering inputs.
+	 * @returns {Promise<object>} The sum total size of all documents that match the criteria, in bytes.
+	 */
+	size: async (filter) => {
+		return await api(`query ($filter: DocumentSearchFilter!){
+			totalDocumentSize(filter: $filter) {
+				__typename
+				...on BlobCount { count }
+				...on BadTagQuery { message }
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			filter,
+		})
+	},
 }
