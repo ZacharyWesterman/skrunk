@@ -6,9 +6,12 @@
 
 	<div class="card alt">
 		<div>
-			<h3>
-				Filter documents by:
-			</h3>
+			<div class="clickable" *toggles="extra-search-fields">
+				<h3>
+					Filter documents by:
+					<i class="right fa-solid fa-angles-down"></i>
+				</h3>
+			</div>
 
 			<!-- Editor for tag query -->
 			<code-input id="tag-query" class="monospace" style="width: calc(100% - 5rem);" syntax="tag-query"
@@ -31,6 +34,16 @@
 			</span>
 			<br>
 			<div class="emphasis" id="tag-error"></div>
+
+			<div class="expand-container" id="extra-search-fields">
+				<div>
+					<!-- Shared with me? -->
+					<span>
+						Shared with me?
+						<input type="checkbox" id="filter-shared" *click="navigate_to_page(0)" ternary indeterminate />
+					</span>
+				</div>
+			</div>
 
 			<hr>
 

@@ -88,12 +88,12 @@ def build_doc_query(filter: DocumentSearchFilter | None = None) -> dict:
 	user_data = perms.caller_info_strict()
 
 	query = [
-		{'history': False},
-		{'$or': [
-			{'creator': user_data['_id']},
-			{'shared_users': user_data['_id']},
-			*[{'shared_groups': i} for i in user_data['groups']],
-		]}
+		{'history': False}
+	]
+	query_or = [
+		{'creator': user_data['_id']},
+		{'shared_users': user_data['_id']},
+		*[{'shared_groups': i} for i in user_data['groups']],
 	]
 
 	if filter is not None:
@@ -107,6 +107,19 @@ def build_doc_query(filter: DocumentSearchFilter | None = None) -> dict:
 			tag_q = tag_query.compile_query(tag_expr, 'tags')
 			if tag_q:
 				query += [tag_q]
+
+		shared = filter.get('shared')
+		if shared is True:
+			query_or = [
+				{'shared_users': user_data['_id']},
+				*[{'shared_groups': i} for i in user_data['groups']],
+			]
+		elif shared is False:
+			query_or = []
+			query += [{'creator': user_data['_id']}]
+
+	if query_or:
+		query += [{'$or': query_or}]
 
 	return {'$and': query}
 

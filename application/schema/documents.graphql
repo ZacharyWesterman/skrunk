@@ -41,6 +41,8 @@ input DocumentSearchFilter {
 	title: String
 	"""The tag query to filter documents by."""
 	tag_expr: String
+	"""Whether documents are shared with the current user."""
+	shared: Boolean
 }
 
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms

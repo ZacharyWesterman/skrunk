@@ -16,3 +16,5 @@ class DocumentSearchFilter(TypedDict):
 	title: str | None
 	## The tag query to filter documents by.
 	tag_expr: str | None
+	## Whether documents are shared with the current user.
+	shared: bool | None

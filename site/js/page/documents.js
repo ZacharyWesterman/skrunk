@@ -193,6 +193,7 @@ export async function load_documents() {
 	const filter = {
 		tag_expr: $.val('tag-query') || null,
 		title: $.val('filter-title') || null,
+		shared: $.val('filter-shared'),
 	}
 
 	const res = await query.documents.list(filter, DocStart, DocListLen)
@@ -286,6 +287,7 @@ export async function reload_page_list() {
 	const filter = {
 		tag_expr: $.val('tag-query') || null,
 		title: $.val('filter-title') || null,
+		shared: $.val('filter-shared'),
 	}
 
 	const res = await query.documents.count(filter)
