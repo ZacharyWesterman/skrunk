@@ -906,8 +906,6 @@
         <li><a href="application.scalars.html#module-application.scalars.datetime">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     application.scalars.long
 
@@ -915,6 +913,8 @@
         <li><a href="application.scalars.html#module-application.scalars.long">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     application.scalars.phone
 
@@ -1116,6 +1116,20 @@
 
       <ul>
         <li><a href="application.types.html#module-application.types.documentcount">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.documentlist
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.documentlist">module</a>
+</li>
+      </ul></li>
+      <li>
+    application.types.documentsearchfilter
+
+      <ul>
+        <li><a href="application.types.html#module-application.types.documentsearchfilter">module</a>
 </li>
       </ul></li>
       <li>
@@ -1740,7 +1754,11 @@
       <li><a href="application.db.html#application.db.notification.count_notifications">count_notifications() (in module application.db.notification)</a>
 </li>
       <li><a href="application.db.html#application.db.blob.count_tag_uses">count_tag_uses() (in module application.db.blob)</a>
+
+      <ul>
+        <li><a href="application.db.html#application.db.documents.count_tag_uses">(in module application.db.documents)</a>
 </li>
+      </ul></li>
       <li><a href="application.db.html#application.db.users.count_users">count_users() (in module application.db.users)</a>
 </li>
       <li><a href="application.db.html#application.db.sessions.count_valid_sessions">count_valid_sessions() (in module application.db.sessions)</a>
@@ -1923,10 +1941,10 @@
         <li><a href="application.types.html#application.types.item.Item.description">(application.types.item.Item attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="application.types.html#application.types.item.Item.description_html">description_html (application.types.item.Item attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="application.types.html#application.types.notification.Notification.device_count">device_count (application.types.notification.Notification attribute)</a>
 </li>
       <li><a href="application.types.html#application.types.weathertemp.WeatherTemp.disable">disable (application.types.weathertemp.WeatherTemp attribute)</a>
@@ -1964,6 +1982,12 @@
       <li><a href="application.types.html#application.types.documentcount.DocumentCount">DocumentCount (class in application.types.documentcount)</a>
 </li>
       <li><a href="application.exceptions.html#application.exceptions.DocumentDoesNotExistError">DocumentDoesNotExistError</a>
+</li>
+      <li><a href="application.types.html#application.types.documentlist.DocumentList">DocumentList (class in application.types.documentlist)</a>
+</li>
+      <li><a href="application.types.html#application.types.documentlist.DocumentList.documents">documents (application.types.documentlist.DocumentList attribute)</a>
+</li>
+      <li><a href="application.types.html#application.types.documentsearchfilter.DocumentSearchFilter">DocumentSearchFilter (class in application.types.documentsearchfilter)</a>
 </li>
       <li><a href="application.routes.html#application.routes.blob.download">download() (in module application.routes.blob)</a>
 </li>
@@ -2753,6 +2777,10 @@
 </li>
         <li><a href="application.types.html#module-application.types.documentcount">application.types.documentcount</a>
 </li>
+        <li><a href="application.types.html#module-application.types.documentlist">application.types.documentlist</a>
+</li>
+        <li><a href="application.types.html#module-application.types.documentsearchfilter">application.types.documentsearchfilter</a>
+</li>
         <li><a href="application.types.html#module-application.types.ebook">application.types.ebook</a>
 </li>
         <li><a href="application.types.html#module-application.types.feed">application.types.feed</a>
@@ -3252,6 +3280,8 @@
 </li>
       <li><a href="application.db.html#application.db.datafeed.set_document_read">set_document_read() (in module application.db.datafeed)</a>
 </li>
+      <li><a href="application.db.html#application.db.documents.set_document_tags">set_document_tags() (in module application.db.documents)</a>
+</li>
       <li><a href="application.db.html#application.db.datafeed.set_feed_inactive">set_feed_inactive() (in module application.db.datafeed)</a>
 </li>
       <li><a href="application.db.html#application.db.datafeed.set_feed_navigation">set_feed_navigation() (in module application.db.datafeed)</a>
@@ -3391,9 +3421,17 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter.tag_expr">tag_expr (application.types.blobsearchfilter.BlobSearchFilter attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.documentsearchfilter.DocumentSearchFilter.tag_expr">(application.types.documentsearchfilter.DocumentSearchFilter attribute)</a>
 </li>
+      </ul></li>
       <li><a href="application.types.html#application.types.blob.Blob.tags">tags (application.types.blob.Blob attribute)</a>
+
+      <ul>
+        <li><a href="application.types.html#application.types.document.Document.tags">(application.types.document.Document attribute)</a>
 </li>
+      </ul></li>
       <li><a href="application.integrations.html#application.integrations.exceptions.RepoFetchFailed.text">text (application.integrations.exceptions.RepoFetchFailed attribute)</a>
 
       <ul>
@@ -3446,6 +3484,8 @@
         <li><a href="application.types.html#application.types.booksearchfilter.BookSearchFilter.title">(application.types.booksearchfilter.BookSearchFilter attribute)</a>
 </li>
         <li><a href="application.types.html#application.types.document.Document.title">(application.types.document.Document attribute)</a>
+</li>
+        <li><a href="application.types.html#application.types.documentsearchfilter.DocumentSearchFilter.title">(application.types.documentsearchfilter.DocumentSearchFilter attribute)</a>
 </li>
         <li><a href="application.types.html#application.types.feeddocument.FeedDocument.title">(application.types.feeddocument.FeedDocument attribute)</a>
 </li>

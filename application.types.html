@@ -1228,6 +1228,11 @@ All fields are optional, and if none are provided, all books will be returned.</
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.document.Document.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#application.types.document.Document.tags" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="application.types.document.Document.title">
 <span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#application.types.document.Document.title" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
@@ -1257,6 +1262,43 @@ This type is used so that if the query fails, we can return an error message ins
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.types.documentcount.DocumentCount.count">
 <span class="sig-name descname"><span class="pre">count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#application.types.documentcount.DocumentCount.count" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-application.types.documentlist">
+<span id="application-types-documentlist-module"></span><h2>application.types.documentlist module<a class="headerlink" href="#module-application.types.documentlist" title="Link to this heading">#</a></h2>
+<p>application.types.documentlist</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="application.types.documentlist.DocumentList">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.documentlist.</span></span><span class="sig-name descname"><span class="pre">DocumentList</span></span><a class="headerlink" href="#application.types.documentlist.DocumentList" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.documentlist.DocumentList.documents">
+<span class="sig-name descname"><span class="pre">documents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><a class="reference internal" href="#application.types.document.Document" title="application.types.document.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#application.types.documentlist.DocumentList.documents" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-application.types.documentsearchfilter">
+<span id="application-types-documentsearchfilter-module"></span><h2>application.types.documentsearchfilter module<a class="headerlink" href="#module-application.types.documentsearchfilter" title="Link to this heading">#</a></h2>
+<p>application.types.documentsearchfilter</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="application.types.documentsearchfilter.DocumentSearchFilter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.documentsearchfilter.</span></span><span class="sig-name descname"><span class="pre">DocumentSearchFilter</span></span><a class="headerlink" href="#application.types.documentsearchfilter.DocumentSearchFilter" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>An input type for filtering documents.
+All fields are optional, and if a field is null, it will not be used in the query.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.documentsearchfilter.DocumentSearchFilter.tag_expr">
+<span class="sig-name descname"><span class="pre">tag_expr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> <span class="pre">|</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></em><a class="headerlink" href="#application.types.documentsearchfilter.DocumentSearchFilter.tag_expr" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.documentsearchfilter.DocumentSearchFilter.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> <span class="pre">|</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></em><a class="headerlink" href="#application.types.documentsearchfilter.DocumentSearchFilter.title" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -3000,6 +3042,7 @@ All fields are optional, and if a field is null, it will not be used in the quer
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.created"><code class="docutils literal notranslate"><span class="pre">Document.created</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.creator"><code class="docutils literal notranslate"><span class="pre">Document.creator</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.id"><code class="docutils literal notranslate"><span class="pre">Document.id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.tags"><code class="docutils literal notranslate"><span class="pre">Document.tags</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.title"><code class="docutils literal notranslate"><span class="pre">Document.title</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.updated"><code class="docutils literal notranslate"><span class="pre">Document.updated</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.updater"><code class="docutils literal notranslate"><span class="pre">Document.updater</span></code></a></li>
@@ -3010,6 +3053,21 @@ All fields are optional, and if a field is null, it will not be used in the quer
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.documentcount">application.types.documentcount module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.documentcount.DocumentCount"><code class="docutils literal notranslate"><span class="pre">DocumentCount</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.documentcount.DocumentCount.count"><code class="docutils literal notranslate"><span class="pre">DocumentCount.count</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.documentlist">application.types.documentlist module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.documentlist.DocumentList"><code class="docutils literal notranslate"><span class="pre">DocumentList</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.documentlist.DocumentList.documents"><code class="docutils literal notranslate"><span class="pre">DocumentList.documents</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.documentsearchfilter">application.types.documentsearchfilter module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.documentsearchfilter.DocumentSearchFilter"><code class="docutils literal notranslate"><span class="pre">DocumentSearchFilter</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.documentsearchfilter.DocumentSearchFilter.tag_expr"><code class="docutils literal notranslate"><span class="pre">DocumentSearchFilter.tag_expr</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.documentsearchfilter.DocumentSearchFilter.title"><code class="docutils literal notranslate"><span class="pre">DocumentSearchFilter.title</span></code></a></li>
 </ul>
 </li>
 </ul>

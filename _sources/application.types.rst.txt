@@ -204,6 +204,22 @@ application.types.documentcount module
    :show-inheritance:
    :undoc-members:
 
+application.types.documentlist module
+-------------------------------------
+
+.. automodule:: application.types.documentlist
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.types.documentsearchfilter module
+---------------------------------------------
+
+.. automodule:: application.types.documentsearchfilter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.types.ebook module
 ------------------------------
 
