@@ -74,6 +74,10 @@ let $ = (field, include_all = false) => {
 
 $.val = id => {
 	const f = $(id)
+	if (!f) {
+		return null
+	}
+
 	if (f.type === 'checkbox') {
 		return f.indeterminate ? null : f.checked
 	}
