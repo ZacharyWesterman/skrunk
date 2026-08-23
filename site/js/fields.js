@@ -72,7 +72,13 @@ let $ = (field, include_all = false) => {
 	return include_all ? fields : fields[0]
 }
 
-$.val = id => $(id)?.value
+$.val = id => {
+	const f = $(id)
+	if (f.type === 'checkbox') {
+		return f.indeterminate ? null : f.checked
+	}
+	return f.value
+}
 $.set = (id, value) => {
 	$(id).value = value
 	$(id).prevValue = value

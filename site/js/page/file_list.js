@@ -22,8 +22,16 @@ export async function init() {
 			$('tag-query').value = q[i]
 		} else {
 			const f = $('blob-filter-' + i)
-			if (f.type === 'checkbox') f.checked = q[i]
-			else f.value = q[i]
+			if (f.type === 'checkbox') {
+				if (q[i] === null) {
+					f.indeterminate = true
+				} else {
+					f.checked = q[i]
+				}
+			}
+			else {
+				f.value = q[i]
+			}
 			$.toggle_expand('extra-search-fields', true)
 			$('toggle-chevron').classList.add('inverted')
 		}
@@ -67,9 +75,8 @@ async function get_blobs(start, count) {
 	let q = {}
 	let has = false
 	for (const i of ['title', 'creator', 'from', 'to', 'ephemeral']) {
-		const f = $('blob-filter-' + i)
-		const v = f.type === 'checkbox' ? f.checked : f.value
-		if (v) {
+		const v = $.val('blob-filter-' + i)
+		if (v !== '' && v !== false) {
 			q[i] = v
 			has = true
 		}
