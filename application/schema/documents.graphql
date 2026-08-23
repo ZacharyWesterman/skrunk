@@ -8,6 +8,7 @@ type Document {
 	updated: DateTime
 	updater: UserMinData
 	blob_id: String
+	tags: [String!]!
 }
 
 type DocumentDoesNotExistError {
@@ -27,18 +28,35 @@ type DocumentCount {
 	count: Long!
 }
 
+type DocumentList {
+	documents: [Document!]!
+}
+
+"""
+An input type for filtering documents.
+All fields are optional, and if a field is null, it will not be used in the query.
+"""
+input DocumentSearchFilter {
+	"""The title of the document."""
+	title: String
+	"""The tag query to filter documents by."""
+	tag_expr: String
+}
+
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
-union DocumentCountResponse = DocumentCount | InsufficientPerms
+union DocumentCountResponse = DocumentCount | InsufficientPerms | BadTagQuery
 union CreateBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported
 union LinkBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported | BlobDoesNotExistError
+union DocumentListResponse = DocumentList | BadTagQuery
 
 #Resolvers below this line:
 
 extend type Query {
 	getDocument(id: String!): DocumentQueryResponse!
-	getDocuments(start: Int!, count: Int!): [Document!]!
-	countDocuments: DocumentCount!
+	getDocuments(filter: DocumentSearchFilter!, start: Int!, count: Int!): DocumentListResponse!
+	countDocuments(filter: DocumentSearchFilter!): DocumentCountResponse!
+	countDocumentTagUses(tag: String!): Int!
 }
 
 extend type Mutation {
@@ -47,4 +65,5 @@ extend type Mutation {
 	linkBlobDocument(title: String!, blob_id: String!): LinkBlobDocumentResponse!
 	updateDocument(id: String!, title: String, body: String): DocumentUpdateResponse!
 	deleteDocument(id: String!): DocumentUpdateResponse!
+	setDocumentTags(id: String!, tags: [String!]!): DocumentUpdateResponse!
 }

@@ -130,7 +130,7 @@ extend type Query {
 	getBlob(id: String!): Blob
 	totalBlobSize(filter: BlobSearchFilter!): BlobCountResponse!
 	getQRFromBlob(id: String!): QRParseResponse!
-	countTagUses(tag: String!): Int!
+	countBlobTagUses(tag: String!): Int!
 	generateUID: String!
 	pollZipProgress(uid: String!): ZipProgressResponse!
 }

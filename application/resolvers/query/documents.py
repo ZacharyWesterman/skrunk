@@ -1,10 +1,12 @@
 """Resolvers for querying Documents."""
 
 from graphql.type import GraphQLResolveInfo
+from tag_query import exceptions
 
 from application.db import perms
-from application.db.documents import (count_documents, get_document,
-                                      get_documents)
+from application.db.documents import (count_documents, count_tag_uses,
+                                      get_document, get_documents)
+from application.types import DocumentSearchFilter
 
 from ..decorators import handle_client_exceptions
 from . import query
@@ -46,33 +48,67 @@ def resolve_get_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 
 @query.field('getDocuments')
 @perms.module('documents')
-def resolve_get_documents(_, _info: GraphQLResolveInfo, start: int, count: int) -> list[dict]:
+@handle_client_exceptions
+def resolve_get_documents(
+	_,
+	_info: GraphQLResolveInfo,
+	filter: DocumentSearchFilter,
+	start: int,
+	count: int
+) -> dict:
 	"""
 	Resolves the retrieval of documents based on pagination.
 
 	Args:
 		_ (Any): Placeholder.
 		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		filter (DocumentSearchFilter): A TypedDict containing filtering options.
 		start (int): The starting index for pagination.
 		count (int): The number of books to retrieve.
 
 	Returns:
-		list[dict]: A list of documents.
+		dict: A list of documents.
 	"""
-	return get_documents(start, count)
+
+	try:
+		return {'__typename': 'DocumentList', 'documents': get_documents(filter, start, count)}
+	except exceptions.ParseError as e:
+		return {'__typename': 'BadTagQuery', 'message': str(e)}
 
 
 @query.field('countDocuments')
 @perms.module('documents')
-def resolve_count_documents(_, _info: GraphQLResolveInfo) -> dict:
+@handle_client_exceptions
+def resolve_count_documents(_, _info: GraphQLResolveInfo, filter: DocumentSearchFilter) -> dict:
 	"""
 	Resolves the retrieval of the total number of documents.
 
 	Args:
 		_ (Any): Placeholder.
 		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		filter (DocumentSearchFilter): A TypedDict containing filtering options.
 
 	Returns:
 		dict: A dictionary containing just the document count.
 	"""
-	return {'__typename': 'DocumentCount', 'count': count_documents()}
+	try:
+		return {'__typename': 'DocumentCount', 'count': count_documents(filter)}
+	except exceptions.ParseError as e:
+		return {'__typename': 'BadTagQuery', 'message': str(e)}
+
+
+@query.field('countDocumentTagUses')
+@perms.module('documents')
+def resolve_count_tag_uses(_, _info: GraphQLResolveInfo, tag: str) -> int:
+	"""
+	Resolves the number of times a specific tag has been used in documents available to the caller.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		tag (str): The tag to count usages for.
+
+	Returns:
+		int: The number of times the specified tag has been used.
+	"""
+	return count_tag_uses(tag)

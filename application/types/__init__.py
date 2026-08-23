@@ -24,6 +24,8 @@ from .configlist import ConfigList
 from .diskusage import DiskUsage
 from .document import Document
 from .documentcount import DocumentCount
+from .documentlist import DocumentList
+from .documentsearchfilter import DocumentSearchFilter
 from .ebook import EBook
 from .feed import Feed
 from .feeddocument import FeedDocument

@@ -18,3 +18,4 @@ class Document(TypedDict):
 	updated: datetime | None
 	updater: UserMinData | None
 	blob_id: str | None
+	tags: list[str]

@@ -21,6 +21,7 @@ export default {
 						display_name
 					}
 					updated
+					tags
 				}
 				...on InsufficientPerms { message }
 				...on DocumentDoesNotExistError { message }
@@ -54,28 +55,37 @@ export default {
 	/**
 	 * Retrieve a list of documents.
 	 * 
+	 * @param {object} filter The filtering inputs.
 	 * @param {int} start The starting point for pagination.
 	 * @param {int} count The max number of documents to return.
-	 * @returns {Promise<object[]>} Array of minimal document objects.
+	 * @returns {Promise<object>} Array of document objects.
 	 */
-	list: async (start, count) => {
-		return await api(`query ($start: Int!, $count: Int!) {
-			getDocuments (start: $start, count: $count) {
-				id
-				title
-				creator {
-					username
-					display_name
+	list: async (filter, start, count) => {
+		return await api(`query ($filter: DocumentSearchFilter!, $start: Int!, $count: Int!) {
+			getDocuments (filter: $filter, start: $start, count: $count) {
+				__typename
+				...on DocumentList {
+					documents {
+						id
+						title
+						creator {
+							username
+							display_name
+						}
+						created
+						updater {
+							username
+							display_name
+						}
+						updated
+						blob_id
+						tags
+					}
 				}
-				created
-				updater {
-					username
-					display_name
-				}
-				updated
-				blob_id
+				...on BadTagQuery { message }
 			}
 		}`, {
+			filter,
 			start,
 			count,
 		})
@@ -84,12 +94,18 @@ export default {
 	/**
 	 * Count the total number of documents visible to this user.
 	 * 
+	 * @param {object} filter The filtering inputs.
 	 * @returns {Promise<int>} The total number of documents visible to this user.
 	 */
-	count: async () => {
-		return await api(`{ countDocuments {
-			__typename
-			...on DocumentCount { count }
-		} }`)
+	count: async (filter) => {
+		return await api(`query ($filter: DocumentSearchFilter!) {
+			countDocuments (filter: $filter) {
+				__typename
+				...on DocumentCount { count }
+				...on BadTagQuery { message }
+			}
+		}`, {
+			filter,
+		})
 	},
 }

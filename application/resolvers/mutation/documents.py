@@ -5,7 +5,7 @@ from graphql.type import GraphQLResolveInfo
 from application.db import perms
 from application.db.documents import (create_document, delete_document,
                                       get_document, link_document,
-                                      update_document)
+                                      set_document_tags, update_document)
 
 from ..decorators import handle_client_exceptions
 from . import mutation
@@ -109,6 +109,26 @@ def resolve_update_document(
 		dict: A dictionary representing the updated document with a '__typename' key.
 	"""
 	return {'__typename': 'Document', **update_document(id, title, body)}
+
+
+@mutation.field('setDocumentTags')
+@perms.module('documents')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_set_document_tags(_, _info: GraphQLResolveInfo, id: str, tags: list[str]) -> dict:
+	"""
+	Resolves the mutation for setting tags on a document object.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the document to update.
+		tags (list[str]): A list of tags to assign to the document.
+
+	Returns:
+		dict: A dictionary representing the updated document.
+	"""
+	return {'__typename': 'Document', **set_document_tags(id, tags)}
 
 
 @mutation.field('deleteDocument')

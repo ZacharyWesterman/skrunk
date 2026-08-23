@@ -46,5 +46,13 @@
 				{{?}}
 			</span>
 		</div>
+
+		<button class="icon tooltip" *click="set_document_tags('{{=it.id}}')">
+			<i class="fa-solid fa-tag fa-lg"></i>
+			<span class="tooltiptext t-float-right">Edit tags</span>
+		</button>
+		{{~it.tags : tag}}
+			<div class="tag clickable" *click="set_tag_editor_value('{{=tag}}')" >{{=tag}}</div>
+		{{~}}
 	</div>
 </div>

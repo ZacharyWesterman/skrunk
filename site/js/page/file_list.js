@@ -253,72 +253,16 @@ export async function show_ephemeral_info() {
 }
 
 export async function set_blob_tags(id) {
-	async function tagHTML(tag) {
-		const ct = await api(`query ($tag: String!) { countTagUses (tag: $tag) }`, { tag: tag })
-		return `<div class="tag clickable ${ct ? '' : 'emphasis'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
-	}
-
 	const blob_data = await get_blob(id)
-	//Query tags all async, then wait for them all to return.
-	let promises = []
-	for (const tag of blob_data.tags) {
-		promises.push(tagHTML(tag))
-	}
-	for (const p of promises) { await p }
 
-	const res = await _.modal({
-		title: 'Update Tags',
-		text: await api.snippit('blob_tag_modal'),
-		buttons: ['OK', 'Cancel'],
-	}, async () => {
-		//Once modal has loaded, inject list of tags.
-		let tagList = $('modal-tag-list')
-		let innerHTML = ''
-		for (const p of promises) { innerHTML += await p }
-
-		tagList.innerHTML = innerHTML
-
-		function tagClicks(tagList) {
-			const kids = tagList.children
-			for (let i = 0; i < kids.length; ++i) {
-				const child = kids[i]
-				const ix = i
-				child.onclick = () => {
-					blob_data.tags.splice(ix, 1)
-					tagList.removeChild(child)
-					tagClicks(tagList)
-				}
-			}
+	_.modal.tags(blob_data.tags, 'countBlobTagUses').then(async tags => {
+		const blob = await mutate.blobs.tags(id, tags)
+		if (blob.__typename !== 'Blob') {
+			_.modal.error(blob.message)
+			return
 		}
-		tagClicks(tagList)
-
-		//when submitting a tag
-		const tagSubmit = async field => {
-			const tag = field.value.trim()
-			if (tag.length === 0) return
-
-			if (!blob_data.tags.includes(tag)) {
-				blob_data.tags.push(tag)
-				tagList.innerHTML += await tagHTML(tag)
-			}
-
-			field.value = ''
-			tagClicks(tagList)
-		}
-
-		$('modal-tag-input').nextElementSibling.onclick = () => tagSubmit($('modal-tag-input'))
-		$.on.enter($('modal-tag-input'), tagSubmit)
-	}).catch(() => 'cancel')
-
-	if (res !== 'ok') return
-
-	const blob = await mutate.blobs.tags(id, blob_data.tags)
-	if (blob.__typename !== 'Blob') {
-		_.modal.error(blob.message)
-		return
-	}
-
-	await reload_blobs()
+		await reload_blobs()
+	}).catch(() => { })
 }
 
 export async function download_all() {

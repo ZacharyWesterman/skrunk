@@ -4,12 +4,14 @@ import hashlib
 from datetime import UTC, datetime
 
 import markdown
+import tag_query
 from bson.objectid import ObjectId
 from pymongo.collection import Collection
 
 from application.exceptions import (BlobDocumentsNotSupported,
                                     DocumentDoesNotExistError,
                                     UserDoesNotExistError)
+from application.types import DocumentSearchFilter
 
 from . import blob, perms, settings, users
 
@@ -71,10 +73,13 @@ def get_document(id: str) -> dict:
 	raise DocumentDoesNotExistError(id)
 
 
-def build_doc_query() -> dict:
+def build_doc_query(filter: DocumentSearchFilter | None = None) -> dict:
 	"""
 	Builds a MongoDB query for searching documents based on
 	who created them and who they're shared with.
+
+	Args:
+		filter (DocumentSearchFilter | None): Options for filtering documents.
 
 	Returns:
 		dict: A MongoDB query dictionary.
@@ -82,23 +87,36 @@ def build_doc_query() -> dict:
 
 	user_data = perms.caller_info_strict()
 
-	query = {
-		'history': False,
-		'$or': [
+	query = [
+		{'history': False},
+		{'$or': [
 			{'creator': user_data['_id']},
 			{'shared_users': user_data['_id']},
 			*[{'shared_groups': i} for i in user_data['groups']],
-		]
-	}
+		]}
+	]
 
-	return query
+	if filter is not None:
+		title = filter.get('title')
+		tag_expr = filter.get('tag_expr')
+
+		if title is not None:
+			query += [{'title': {'$regex': title, '$options': 'i'}}]
+
+		if tag_expr is not None:
+			tag_q = tag_query.compile_query(tag_expr, 'tags')
+			if tag_q:
+				query += [tag_q]
+
+	return {'$and': query}
 
 
-def get_documents(start: int, count: int) -> list:
+def get_documents(filter: DocumentSearchFilter, start: int, count: int) -> list:
 	"""
 	Retrieves a list of documents.
 
 	Args:
+		filter (DocumentSearchFilter): Options for filtering documents.
 		start (int): The starting index for pagination.
 		count (int): The number of books to retrieve.
 
@@ -107,7 +125,7 @@ def get_documents(start: int, count: int) -> list:
 	"""
 
 	aggregate = db.aggregate([
-		{'$match': build_doc_query()},
+		{'$match': build_doc_query(filter)},
 		{
 			'$addFields': {
 				'modified': {'$ifNull': ['$updated', '$created']},
@@ -120,14 +138,35 @@ def get_documents(start: int, count: int) -> list:
 	return [parse_document(doc) for doc in next(aggregate).get('results', [])]
 
 
-def count_documents() -> int:
+def count_documents(filter: DocumentSearchFilter) -> int:
 	"""
 	Count the total number of documents.
+
+	Args:
+		filter (DocumentSearchFilter): Options for filtering documents.
 
 	Returns:
 		int: The total number of documents.
 	"""
-	return db.count_documents(build_doc_query())
+	return db.count_documents(build_doc_query(filter))
+
+
+def count_tag_uses(tag: str) -> int:
+	"""
+	Count the number of documents that contain a specific tag
+	and are available for the current user to view.
+
+	Args:
+		tag (str): The tag to search for in the documents.
+
+	Returns:
+		int: The count of documents that match the specified tag and creators.
+	"""
+	query = {
+		'tags': tag,
+		**build_doc_query(),
+	}
+	return db.count_documents(query)
 
 
 def create_document(title: str, body: str, is_blob: bool = False) -> dict:
@@ -320,3 +359,29 @@ def delete_document(doc_id: str) -> dict:
 	db.delete_one({'_id': id})
 
 	return parse_document(doc)
+
+
+def set_document_tags(doc_id: str, tags: list[str]) -> dict:
+	"""
+	Set tags for a document in the database.
+
+	This function updates the tags for a document identified by its ID. If the document does not exist,
+	it raises a BlobDoesNotExistError. The tags are converted to lowercase and duplicates are removed.
+
+	Args:
+		doc_id (str): The ID of the document to update.
+		tags (list): A list of tags to set for the document.
+
+	Returns:
+		dict: The updated document data with the new tags.
+
+	Raises:
+		DocumentDoesNotExistError: If the document with the specified ID does not exist.
+	"""
+	if (doc := db.find_one({'_id': ObjectId(doc_id)})) is None:
+		raise DocumentDoesNotExistError(doc_id)
+
+	doc['tags'] = tags
+	db.update_one({'_id': ObjectId(doc_id)}, {'$set': {'tags': tags}})
+
+	return doc
