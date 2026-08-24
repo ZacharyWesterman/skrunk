@@ -1,7 +1,10 @@
 """Allows users to create, read and edit arbitrary rich text documents."""
 
 import hashlib
+import pathlib
+import shutil
 from datetime import UTC, datetime
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import markdown
 import tag_query
@@ -9,9 +12,12 @@ from bson.objectid import ObjectId
 from pymongo.collection import Collection
 
 from application.exceptions import (BlobDocumentsNotSupported,
+                                    BlobDoesNotExistError,
                                     DocumentDoesNotExistError,
+                                    InsufficientDiskSpace,
                                     UserDoesNotExistError)
 from application.types import DocumentSearchFilter
+from application.types.blob_storage import BlobStorage
 
 from . import blob, perms, settings, users
 
@@ -88,12 +94,12 @@ def build_doc_query(filter: DocumentSearchFilter | None = None) -> dict:
 	user_data = perms.caller_info_strict()
 
 	query = [
-		{'history': False},
-		{'$or': [
-			{'creator': user_data['_id']},
-			{'shared_users': user_data['_id']},
-			*[{'shared_groups': i} for i in user_data['groups']],
-		]}
+		{'history': False}
+	]
+	query_or = [
+		{'creator': user_data['_id']},
+		{'shared_users': user_data['_id']},
+		*[{'shared_groups': i} for i in user_data['groups']],
 	]
 
 	if filter is not None:
@@ -107,6 +113,19 @@ def build_doc_query(filter: DocumentSearchFilter | None = None) -> dict:
 			tag_q = tag_query.compile_query(tag_expr, 'tags')
 			if tag_q:
 				query += [tag_q]
+
+		shared = filter.get('shared')
+		if shared is True:
+			query_or = [
+				{'shared_users': user_data['_id']},
+				*[{'shared_groups': i} for i in user_data['groups']],
+			]
+		elif shared is False:
+			query_or = []
+			query += [{'creator': user_data['_id']}]
+
+	if query_or:
+		query += [{'$or': query_or}]
 
 	return {'$and': query}
 
@@ -216,7 +235,7 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 		'parent': None,
 		'history': False,
 		'previous': None,
-		'blob_id': blob_id,
+		'blob_id': ObjectId(blob_id),
 		'tags': [],
 		'shared_users': [],
 		'shared_groups': [],
@@ -259,7 +278,7 @@ def link_document(title: str, blob_id: str) -> dict:
 		'parent': None,
 		'history': False,
 		'previous': None,
-		'blob_id': blob_id,
+		'blob_id': ObjectId(blob_id),
 		'tags': [],
 		'shared_users': [],
 		'shared_groups': [],
@@ -385,3 +404,186 @@ def set_document_tags(doc_id: str, tags: list[str]) -> dict:
 	db.update_one({'_id': ObjectId(doc_id)}, {'$set': {'tags': tags}})
 
 	return doc
+
+
+def sum_document_size(filter: DocumentSearchFilter) -> int:
+	"""
+	Count the total size of all documents matching the filter.
+
+	Args:
+		filter (DocumentSearchFilter): Options for filtering documents.
+
+	Returns:
+		int: The total number of bytes the documents take up.
+	"""
+	total = 0
+
+	# Count the text size in non-blob documents
+	query_text = {
+		'blob_id': None,
+		**build_doc_query(filter),
+	}
+	aggregate_text = db.aggregate([
+		{'$match': query_text},
+		{
+			'$group': {
+				'_id': None,
+				'total': {
+					'$sum': '$size'
+				}
+			}
+		}
+	])
+	for result in aggregate_text:
+		total += result['total']
+
+	# Count the blob size in blob documents
+	query_blob = {
+		'blob_id': {'$ne': None},
+		**build_doc_query(filter),
+	}
+	aggregate_blob = db.aggregate([
+		{'$match': query_blob},
+		{
+			'$lookup': {
+				'from': 'blob',
+				'localField': 'blob_id',
+				'foreignField': '_id',
+				'as': 'blob',
+			}
+		},
+		{'$unwind': '$blob'},
+		{
+			'$group': {
+				'_id': None,
+				'total': {
+					'$sum': '$blob.size'
+				}
+			}
+		},
+	])
+	for result in aggregate_blob:
+		total += result['total']
+
+	return total
+
+
+def zip_matching_documents(
+	filter: DocumentSearchFilter,
+	blob_zip_id: str
+) -> dict:
+	"""
+	Create a ZIP archive of documents that match the given filter.
+
+	Args:
+		filter (BlobSearchFilter): The filter criteria to match blobs.
+		blob_zip_id (str): A unique identifier for the ZIP archive.
+
+	Returns:
+		dict: Information about the created ZIP blob, including its ID.
+
+	Raises:
+		exceptions.BlobDoesNotExistError: If the created ZIP blob does not exist in the database.
+	"""
+
+	query = build_doc_query(filter)
+	aggregate = db.aggregate([
+		{'$match': query},
+		{
+			'$addFields': {
+				'modified': {'$ifNull': ['$updated', '$created']},
+			}
+		},
+		{'$sort': {'modified': 1}},
+		{
+			'$lookup': {
+				'from': 'blob',
+				'localField': 'blob_id',
+				'foreignField': '_id',
+				'as': 'blob',
+			}
+		},
+	])
+
+	filename = f'ARCHIVE-{blob_zip_id[-8::]}.zip'
+
+	# Make sure that there's enough space for the zip file in the target location (+1MB for safety)
+	total_size = sum_document_size(filter)
+	dir_path = str(pathlib.Path(BlobStorage('', '').blob_path))
+	if (total_size + 1024 * 1024) > shutil.disk_usage(dir_path).free:
+		raise InsufficientDiskSpace()
+
+	# Create the blob entry for the zip file.
+	blob_zip_id = blob_zip_id.replace("/", "").replace("\\", "")
+	id, ext = blob.create_blob(filename, [], hidden=True, ephemeral=True)
+	this_blob_path = BlobStorage(id, ext).path(create=True)
+
+	# Update DB to allow polling progress.
+	blob.ZIP_PROGRESS[blob_zip_id] = [0, '', False, False]
+	cancelled = False
+
+	file_names = {}
+
+	print('Creating ZIP archive of blob files.', flush=True)
+
+	# Create a temp zip file
+	with ZipFile(this_blob_path, 'w', compression=ZIP_DEFLATED, compresslevel=9) as fp:
+		total = db.count_documents(query)
+		item = 0
+
+		for document in aggregate:
+			item += 1
+
+			if document.get('blob'):
+				blob_data = document.get('blob')[0]
+			else:
+				blob_data = {
+					'_id': document['_id'],
+					'ext': '.md',
+				}
+
+			sub_blob = BlobStorage(blob_data['_id'], blob_data['ext'])
+
+			file_name = document['title'] + blob_data['ext']
+			if file_name in file_names:
+				file_names[file_name] += 1
+				file_name = f'{document["title"]} ({file_names[file_name]}){blob_data["ext"]}'
+			else:
+				file_names[file_name] = 0
+
+			# If this zip action was cancelled, quit.
+			if blob.ZIP_PROGRESS[blob_zip_id][2]:
+				cancelled = True
+				break
+
+			# Update db to allow polling progress.
+			blob.ZIP_PROGRESS[blob_zip_id] = [item / total, file_name, False, False]
+
+			if not document.get('blob'):
+				print(f'[{100 * item / total:.1f}%] Adding "{file_name}"...', flush=True)
+				fp.writestr(file_name, document.get('body', ''))
+			elif sub_blob.exists:
+				print(f'[{100 * item / total:.1f}%] Adding "{file_name}"...', flush=True)
+				fp.write(sub_blob.path(), file_name)
+			else:
+				msg = f'[{100 * item / total:.1f}%] ERROR: Blob {blob_data["_id"]}{blob_data["ext"]} does not exist!'
+				print(msg, flush=True)
+
+	print('ZIP archive was cancelled.' if cancelled else 'Finished ZIP archive.', flush=True)
+
+	if cancelled:
+		blob.delete_blob(id)
+	else:
+		size, md5sum = blob.file_info(this_blob_path)
+		blob.mark_as_completed(id, size, md5sum)
+
+	blob_data = blob.db.find_one({'_id': ObjectId(id)})
+	if blob_data is None:
+		print(f'ERROR: Blob {id} does not exist in the database after zipping!', flush=True)
+		raise BlobDoesNotExistError(id)
+
+	blob_data['id'] = blob_data['_id']
+
+	blob.ZIP_PROGRESS[blob_zip_id][3] = True
+
+	return blob_data

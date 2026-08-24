@@ -123,4 +123,32 @@ export default {
 			tags: tag_list,
 		})
 	},
+
+	/**
+	 * Get the total size of all documents matching the given criteria.
+	 * @param {object} filter The filtering inputs.
+	 * @param {string} uid The ID of the ZIP file.
+	 * @returns {Promise<object>} The sum total size of all documents that match the criteria, in bytes.
+	 */
+	create_zip: async (filter, uid) => {
+		return await api(`mutation ($filter: DocumentSearchFilter!, $uid: String!) {
+			createDocumentZipArchive(filter: $filter, uid: $uid) {
+				__typename
+				...on Blob {
+					id
+					ext
+					name
+					size
+				}
+				...on BadTagQuery { message }
+				...on UserDoesNotExistError { message }
+				...on InsufficientPerms { message }
+				...on InsufficientDiskSpace { message }
+				...on BlobDoesNotExistError { message }
+			}
+		}`, {
+			filter,
+			uid,
+		})
+	},
 }

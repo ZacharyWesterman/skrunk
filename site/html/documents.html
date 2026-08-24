@@ -6,9 +6,12 @@
 
 	<div class="card alt">
 		<div>
-			<h3>
-				Filter documents by:
-			</h3>
+			<div class="clickable" *toggles="extra-search-fields">
+				<h3>
+					Filter documents by:
+					<i class="right fa-solid fa-angles-down"></i>
+				</h3>
+			</div>
 
 			<!-- Editor for tag query -->
 			<code-input id="tag-query" class="monospace" style="width: calc(100% - 5rem);" syntax="tag-query"
@@ -32,17 +35,36 @@
 			<br>
 			<div class="emphasis" id="tag-error"></div>
 
+			<div class="expand-container" id="extra-search-fields">
+				<div>
+					<!-- Shared with me? -->
+					<span>
+						Shared with me?
+						<input type="checkbox" id="filter-shared" *click="navigate_to_page(0)" ternary indeterminate />
+					</span>
+				</div>
+			</div>
+
 			<hr>
 
-			<button class="alt icon tooltip" *click="new_document()">
-				<i class="fa-solid fa-square-plus fa-xl"></i>
-				<span class="tooltiptext t-float-right">Create new document</span>
+			<button class="alt icon tooltip" *click="download_all">
+				<i class="fa-solid fa-file-arrow-down fa-xl"></i>
+				<span class="tooltiptext t-float-right">Download selection</span>
 			</button>
 
-			<button id="import-button" class="alt icon tooltip right hidden" *click="import_documents()">
-				<i class="fa-solid fa-file-import fa-xl"></i>
+			<span class="tooltip right">
 				<span class="tooltiptext t-float-left">Import documents</span>
-			</button>
+				<button id="import-button" class="alt icon hidden" *click="import_documents()">
+					<i class="fa-solid fa-file-import fa-xl"></i>
+				</button>
+			</span>
+
+			<span class="tooltip right">
+				<span class="tooltiptext t-float-left">Create new document</span>
+				<button class="alt icon" *click="new_document()">
+					<i class="fa-solid fa-square-plus fa-xl"></i>
+				</button>
+			</span>
 
 			<div style="display: inline;" name="page-list"></div>
 

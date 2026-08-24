@@ -41,6 +41,8 @@ input DocumentSearchFilter {
 	title: String
 	"""The tag query to filter documents by."""
 	tag_expr: String
+	"""Whether documents are shared with the current user."""
+	shared: Boolean
 }
 
 union DocumentQueryResponse = Document | DocumentDoesNotExistError | InsufficientPerms
@@ -57,6 +59,7 @@ extend type Query {
 	getDocuments(filter: DocumentSearchFilter!, start: Int!, count: Int!): DocumentListResponse!
 	countDocuments(filter: DocumentSearchFilter!): DocumentCountResponse!
 	countDocumentTagUses(tag: String!): Int!
+	totalDocumentSize(filter: DocumentSearchFilter!): BlobCountResponse!
 }
 
 extend type Mutation {
@@ -66,4 +69,5 @@ extend type Mutation {
 	updateDocument(id: String!, title: String, body: String): DocumentUpdateResponse!
 	deleteDocument(id: String!): DocumentUpdateResponse!
 	setDocumentTags(id: String!, tags: [String!]!): DocumentUpdateResponse!
+	createDocumentZipArchive(filter: DocumentSearchFilter!, uid: String!): BlobZipResponse!
 }

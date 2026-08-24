@@ -193,6 +193,7 @@ export async function load_documents() {
 	const filter = {
 		tag_expr: $.val('tag-query') || null,
 		title: $.val('filter-title') || null,
+		shared: $.val('filter-shared'),
 	}
 
 	const res = await query.documents.list(filter, DocStart, DocListLen)
@@ -286,6 +287,7 @@ export async function reload_page_list() {
 	const filter = {
 		tag_expr: $.val('tag-query') || null,
 		title: $.val('filter-title') || null,
+		shared: $.val('filter-shared'),
 	}
 
 	const res = await query.documents.count(filter)
@@ -415,4 +417,18 @@ export async function show_tags_how_to() {
 	if (res === 'ok') return
 
 	dashnav('help/tag_query')
+}
+
+
+export async function download_all() {
+	const filter = {
+		tag_expr: $.val('tag-query') || null,
+		title: $.val('filter-title') || null,
+		shared: $.val('filter-shared'),
+	}
+
+	await _.modal.download_zip(
+		() => query.documents.size(filter),
+		(uid) => mutate.documents.create_zip(filter, uid),
+	)
 }
