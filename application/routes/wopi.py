@@ -122,10 +122,23 @@ def get_document_info(jwt: str, id: str) -> Response:
 		except BlobDoesNotExistError:
 			pass
 
+	username = user_data['username']
+	display_name: str = user_data.get('display_name', '')
+	if display_name == '':
+		display_name = username
+	if display_name.lower() != username:
+		display_name += f' ({username})'
+
+	last_modified = doc['updated']
+	if last_modified is None:
+		last_modified = doc['created']
+
 	return jsonify({
 		'BaseFileName': doc.get('title', 'Untitled Document'),
 		'Size': doc_size,
 		'OwnerId': str(doc['creator']),
 		'UserId': str(user_data.get('_id')),
+		'UserFriendlyName': display_name,
 		'UserCanWrite': user_data['_id'] == doc['creator'].get('_id'),
+		'LastModifiedTime': last_modified,
 	})
