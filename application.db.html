@@ -463,7 +463,7 @@ packing and unpacking of ZIP files, and generating previews for various file typ
 <dd class="field-odd"><p><strong>blob_zip_id</strong> (<em>str</em>) – The ID of the blob zip operation to cancel.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BlobDoesNotExistError" title="application.exceptions.BlobDoesNotExistError"><strong>BlobDoesNotExistError</strong></a> – If the blob_zip_id does not exist in the _zip_progress.</p>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BlobDoesNotExistError" title="application.exceptions.BlobDoesNotExistError"><strong>BlobDoesNotExistError</strong></a> – If the blob_zip_id does not exist in ZIP_PROGRESS.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A dictionary containing the progress and item of the zip operation.</p>
@@ -2370,6 +2370,23 @@ it raises a BlobDoesNotExistError. The tags are converted to lowercase and dupli
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.sum_document_size">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">sum_document_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.sum_document_size" title="Link to this definition">#</a></dt>
+<dd><p>Count the total size of all documents matching the filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter</strong> (<a class="reference internal" href="application.types.html#application.types.documentsearchfilter.DocumentSearchFilter" title="application.types.documentsearchfilter.DocumentSearchFilter"><em>DocumentSearchFilter</em></a>) – Options for filtering documents.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The total number of bytes the documents take up.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.documents.update_document">
 <span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">update_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.update_document" title="Link to this definition">#</a></dt>
 <dd><p>Updates a document in the database.</p>
@@ -2386,6 +2403,29 @@ it raises a BlobDoesNotExistError. The tags are converted to lowercase and dupli
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.zip_matching_documents">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">zip_matching_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_zip_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.zip_matching_documents" title="Link to this definition">#</a></dt>
+<dd><p>Create a ZIP archive of documents that match the given filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter</strong> (<a class="reference internal" href="application.types.html#application.types.blobsearchfilter.BlobSearchFilter" title="application.types.blobsearchfilter.BlobSearchFilter"><em>BlobSearchFilter</em></a>) – The filter criteria to match blobs.</p></li>
+<li><p><strong>blob_zip_id</strong> (<em>str</em>) – A unique identifier for the ZIP archive.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Information about the created ZIP blob, including its ID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.BlobDoesNotExistError" title="application.exceptions.BlobDoesNotExistError"><strong>exceptions.BlobDoesNotExistError</strong></a> – If the created ZIP blob does not exist in the database.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4599,7 +4639,9 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.link_document"><code class="docutils literal notranslate"><span class="pre">link_document()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.parse_document"><code class="docutils literal notranslate"><span class="pre">parse_document()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.set_document_tags"><code class="docutils literal notranslate"><span class="pre">set_document_tags()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.sum_document_size"><code class="docutils literal notranslate"><span class="pre">sum_document_size()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.update_document"><code class="docutils literal notranslate"><span class="pre">update_document()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.zip_matching_documents"><code class="docutils literal notranslate"><span class="pre">zip_matching_documents()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.inventory">application.db.inventory module</a><ul class="nav section-nav flex-column">
