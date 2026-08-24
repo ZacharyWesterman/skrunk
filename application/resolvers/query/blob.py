@@ -39,9 +39,6 @@ def resolve_get_blobs(
 
 	Returns:
 		dict: A dictionary representing a BlobList if successful, or a BadTagQuery if a ParseError occurs.
-
-	Raises:
-		None: All exceptions are handled internally and returned as part of the response.
 	"""
 	try:
 		user_data = perms.caller_info_strict()
@@ -71,9 +68,6 @@ def resolve_count_blobs(_, _info: GraphQLResolveInfo, filter: BlobSearchFilter) 
 	Returns:
 		dict: A dictionary representing a BlobCount if successful,
 			or a BadTagQuery if a ParseError occurs.
-
-	Raises:
-		None: All exceptions are handled internally and returned as part of the response.
 	"""
 	try:
 		user_data: UserData = perms.caller_info_strict()  # type: ignore[assignment]
@@ -115,9 +109,6 @@ def resolve_total_blob_size(_, _info: GraphQLResolveInfo, filter: BlobSearchFilt
 	Returns:
 		dict: A dictionary representing the total size of all blobs matching the filter,
 			or a BadTagQuery if a ParseError occurs.
-
-	Raises:
-		None: All exceptions are handled internally and returned as part of the response.
 	"""
 	try:
 		user_data = perms.caller_info_strict()

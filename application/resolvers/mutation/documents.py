@@ -1,11 +1,13 @@
 """Resolvers for mutating Documents."""
 
 from graphql.type import GraphQLResolveInfo
+from tag_query import exceptions
 
 from application.db import perms
 from application.db.documents import (create_document, delete_document,
                                       get_document, link_document,
-                                      set_document_tags, update_document)
+                                      set_document_tags, update_document,
+                                      zip_matching_documents)
 from application.types import DocumentSearchFilter
 
 from ..decorators import handle_client_exceptions
@@ -157,4 +159,8 @@ def resolve_delete_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 @perms.require('edit')
 @handle_client_exceptions
 def resolve_create_document_zip_archive(_, _info: GraphQLResolveInfo, filter: DocumentSearchFilter, uid: str) -> dict:
-	return {'__typename': 'Blob', }
+	try:
+		blob = zip_matching_documents(filter, uid)
+		return {'__typename': 'Blob', **blob}
+	except exceptions.ParseError as e:
+		return {'__typename': 'BadTagQuery', 'message': str(e)}

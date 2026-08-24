@@ -118,4 +118,19 @@ def resolve_count_tag_uses(_, _info: GraphQLResolveInfo, tag: str) -> int:
 @query.field('totalDocumentSize')
 @perms.module('documents')
 def resolve_total_document_size(_, _info: GraphQLResolveInfo, filter: DocumentSearchFilter) -> dict:
-	return {'__typename': 'BlobCount', 'count': sum_document_size(filter)}
+	"""
+	Resolves the total size of documents matching the given filter.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		filter (DocumentSearchFilter): Filter criteria for searching documents.
+
+	Returns:
+		dict: A dictionary representing the total size of all documents matching the filter,
+			or a BadTagQuery if a ParseError occurs.
+	"""
+	try:
+		return {'__typename': 'BlobCount', 'count': sum_document_size(filter)}
+	except exceptions.ParseError as e:
+		return {'__typename': 'BadTagQuery', 'message': str(e)}

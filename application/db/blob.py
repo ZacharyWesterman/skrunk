@@ -35,7 +35,7 @@ db: Collection = None  # type: ignore[assignment]
 blob_path: str | None = None
 
 ## A dictionary to store the progress of ZIP operations.
-_zip_progress = {}
+ZIP_PROGRESS = {}
 
 
 def init() -> None:
@@ -589,11 +589,11 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	# Create the blob entry for the zip file.
 	blob_zip_id = blob_zip_id.replace("/", "").replace("\\", "")
-	id, ext = create_blob(filename, [], ephemeral=True)
+	id, ext = create_blob(filename, [], hidden=True, ephemeral=True)
 	this_blob_path = BlobStorage(id, ext).path(create=True)
 
 	# Update DB to allow polling progress.
-	_zip_progress[blob_zip_id] = [0, '', False, False]
+	ZIP_PROGRESS[blob_zip_id] = [0, '', False, False]
 	cancelled = False
 
 	file_names = {}
@@ -618,12 +618,12 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 				file_names[file_name] = 0
 
 			# If this zip action was cancelled, quit.
-			if _zip_progress[blob_zip_id][2]:
+			if ZIP_PROGRESS[blob_zip_id][2]:
 				cancelled = True
 				break
 
 			# Update db to allow polling progress.
-			_zip_progress[blob_zip_id] = [item / total, file_name, False, False]
+			ZIP_PROGRESS[blob_zip_id] = [item / total, file_name, False, False]
 
 			if sub_blob.exists:
 				print(f'[{100 * item / total:.1f}%] Adding "{file_name}"...', flush=True)
@@ -647,7 +647,7 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	blob['id'] = blob['_id']
 
-	_zip_progress[blob_zip_id][3] = True
+	ZIP_PROGRESS[blob_zip_id][3] = True
 
 	return blob
 
@@ -660,17 +660,17 @@ def cancel_zip(blob_zip_id: str) -> dict:
 		blob_zip_id (str): The ID of the blob zip operation to cancel.
 
 	Raises:
-		BlobDoesNotExistError: If the blob_zip_id does not exist in the _zip_progress.
+		BlobDoesNotExistError: If the blob_zip_id does not exist in ZIP_PROGRESS.
 
 	Returns:
 		dict: A dictionary containing the progress and item of the zip operation.
 	"""
 
-	if blob_zip_id not in _zip_progress:
+	if blob_zip_id not in ZIP_PROGRESS:
 		raise exceptions.BlobDoesNotExistError(blob_zip_id)
 
-	_zip_progress[blob_zip_id][2] = True
-	progress = _zip_progress[blob_zip_id]
+	ZIP_PROGRESS[blob_zip_id][2] = True
+	progress = ZIP_PROGRESS[blob_zip_id]
 
 	return {
 		'progress': progress[0],
@@ -691,10 +691,10 @@ def get_zip_progress(blob_zip_id: str) -> dict:
 	Raises:
 		BlobDoesNotExistError: If the provided blob_zip_id does not exist in the progress tracking.
 	"""
-	if blob_zip_id not in _zip_progress:
+	if blob_zip_id not in ZIP_PROGRESS:
 		raise exceptions.BlobDoesNotExistError(blob_zip_id)
 
-	progress = _zip_progress[blob_zip_id]
+	progress = ZIP_PROGRESS[blob_zip_id]
 
 	return {
 		'progress': progress[0],
