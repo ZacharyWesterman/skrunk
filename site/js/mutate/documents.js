@@ -151,4 +151,27 @@ export default {
 			uid,
 		})
 	},
+
+	/**
+	 * Change who the document is shared with.
+	 * @param {string} id The document ID.
+	 * @param {boolean} my_groups Whether to share with everyone in this user's group(s).
+	 * @param {array[string]} user_list An explicit list of users to share with.
+	 * @returns {Promise<object>} The updated document.
+	 */
+	share: async (id, my_groups, user_list) => {
+		return await api(`
+		mutation ($id: String!, $group: Boolean!, $usernames: [String!]!) {
+			setDocumentShare (id: $id, group: $group, usernames: $usernames) {
+				__typename
+				...on DocumentDoesNotExistError { message }
+				...on InsufficientPerms { message }
+				...on UserDoesNotExistError { message }
+			}
+		}`, {
+			id,
+			group: my_groups,
+			usernames: user_list,
+		})
+	},
 }

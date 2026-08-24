@@ -23,6 +23,8 @@ export default {
 					updated
 					tags
 					blob_id
+					shared_users { username }
+					shared_groups
 				}
 				...on InsufficientPerms { message }
 				...on DocumentDoesNotExistError { message }

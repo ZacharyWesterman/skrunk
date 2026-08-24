@@ -2,34 +2,42 @@
 	<div>
 		<div class="actions">
 			{{? it.creator.username === api.username }}
-			<button class="icon clickable tooltip" *click="delete_document('{{= it.id }}')">
-				<i class="fa-solid fa-trash fa-lg"></i>
-				<span class="tooltiptext t-float-right">Delete document</span>
-			</button>
-
-			{{? window.wopi.supported && it.blob_id !== null }}
-			<span class="tooltip right">
-				<span class="tooltiptext t-float-left">Open in new tab</span>
-				<button class="icon clickable" *click="view_document_new_tab('{{= it.id }}')">
-					<i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i>
+				<button class="icon clickable tooltip" *click="delete_document('{{= it.id }}')">
+					<i class="fa-solid fa-trash fa-lg"></i>
+					<span class="tooltiptext t-float-right">Delete document</span>
 				</button>
-			</span>
-			{{?}}
 
-			<span class="tooltip right">
-				<span class="tooltiptext t-float-left">Edit {{? it.blob_id !== null }}title{{??}}document{{?}}</span>
-				<button class="icon clickable" *click="edit_document('{{= it.id }}')">
-					<i class="fa-solid fa-pencil fa-lg"></i>
-				</button>
-			</span>
+				{{? window.wopi.supported && it.blob_id !== null }}
+				<span class="tooltip right">
+					<span class="tooltiptext t-float-left">Open in new tab</span>
+					<button class="icon clickable" *click="view_document_new_tab('{{= it.id }}')">
+						<i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i>
+					</button>
+				</span>
+				{{?}}
 
+				<span class="tooltip right">
+					<span class="tooltiptext t-float-left">Edit {{? it.blob_id !== null }}title{{??}}document{{?}}</span>
+					<button class="icon clickable" *click="edit_document('{{= it.id }}')">
+						<i class="fa-solid fa-pencil fa-lg"></i>
+					</button>
+				</span>
+
+				{{? it.creator.username === api.username }}
+					<span class="tooltip right">
+						<span class="tooltiptext t-float-left">Share</span>
+						<button class="icon clickable" *click="share_document('{{= it.id }}')">
+							<i class="fa-solid fa-share-nodes fa-lg"></i>
+						</button>
+					</span>
+				{{?}}
 			{{?}}
 
 			{{? window.wopi.supported && it.creator.username !== api.username && it.blob_id !== null }}
-			<button class="icon clickable tooltip" *click="view_document('{{= it.id }}')">
-				<span class="tooltiptext t-float-left">View document</span>
-				<i class="fa-solid fa-eye fa-lg"></i>
-			</button>
+				<button class="icon clickable tooltip" *click="view_document('{{= it.id }}')">
+					<span class="tooltiptext t-float-left">View document</span>
+					<i class="fa-solid fa-eye fa-lg"></i>
+				</button>
 			{{?}}
 		</div>
 
@@ -45,17 +53,27 @@
 				{{?}}
 			</div>
 
-			{{? it.creator.username === api.username }}
+			{{? it.creator.username !== api.username }}
 			<div class="emphasis">Shared with you.</div>
 			{{?}}
 		</div>
 
-		<button class="icon tooltip" *click="set_document_tags('{{=it.id}}')">
+		<button class="icon tooltip" {{? it.creator.username === api.username }}*click="set_document_tags('{{=it.id}}')"{{?}}>
 			<i class="fa-solid fa-tag fa-lg"></i>
-			<span class="tooltiptext t-float-right">Edit tags</span>
+			<span class="tooltiptext t-float-right">
+				{{? it.creator.username === api.username }}
+					Edit tags
+				{{??}}
+					Document tags
+				{{?}}
+			</span>
 		</button>
 		{{~it.tags : tag}}
-			<div class="tag clickable" *click="set_tag_editor_value('{{=tag}}')" >{{=tag}}</div>
+			{{? it.creator.username === api.username }}
+				<div class="tag clickable" *click="set_tag_editor_value('{{=tag}}')" >{{= tag }}</div>
+			{{??}}
+				<div class="tag">{{= tag }}</div>
+			{{?}}
 		{{~}}
 
 		<span class="right suppress tooltip">

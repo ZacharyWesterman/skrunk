@@ -6,8 +6,8 @@ from tag_query import exceptions
 from application.db import perms
 from application.db.documents import (create_document, delete_document,
                                       get_document, link_document,
-                                      set_document_tags, update_document,
-                                      zip_matching_documents)
+                                      set_document_tags, share_with,
+                                      update_document, zip_matching_documents)
 from application.types import DocumentSearchFilter
 
 from ..decorators import handle_client_exceptions
@@ -182,3 +182,31 @@ def resolve_create_document_zip_archive(
 		return {'__typename': 'Blob', **blob}
 	except exceptions.ParseError as e:
 		return {'__typename': 'BadTagQuery', 'message': str(e)}
+
+
+@mutation.field('setDocumentShare')
+@perms.module('documents')
+@perms.require('edit')
+@perms.require('admin', perform_on_self=True, data_func=get_document)
+@handle_client_exceptions
+def resolve_set_document_share(
+	_,
+	_info: GraphQLResolveInfo,
+	id: str,
+	group: bool,
+	usernames: list[str]
+) -> dict:
+	"""
+	Share a document with specific users or the current user's group(s).
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The ID of the document to update.
+		group (bool): Whether to share with all of this user's groups.
+		usernames (list[str]): The usernames of all users to explicitly share with.
+
+	Returns:
+		dict: The updated document.
+	"""
+	return {'__typename': 'Document', **share_with(id, group, usernames)}
