@@ -429,6 +429,6 @@ export async function download_all() {
 
 	await _.modal.download_zip(
 		() => query.documents.size(filter),
-		(uid) => query.documents.create_zip(filter, uid),
+		(uid) => mutate.documents.create_zip(filter, uid),
 	)
 }

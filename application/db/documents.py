@@ -229,7 +229,7 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 		'parent': None,
 		'history': False,
 		'previous': None,
-		'blob_id': blob_id,
+		'blob_id': ObjectId(blob_id),
 		'tags': [],
 		'shared_users': [],
 		'shared_groups': [],
@@ -272,7 +272,7 @@ def link_document(title: str, blob_id: str) -> dict:
 		'parent': None,
 		'history': False,
 		'previous': None,
-		'blob_id': blob_id,
+		'blob_id': ObjectId(blob_id),
 		'tags': [],
 		'shared_users': [],
 		'shared_groups': [],
@@ -398,3 +398,65 @@ def set_document_tags(doc_id: str, tags: list[str]) -> dict:
 	db.update_one({'_id': ObjectId(doc_id)}, {'$set': {'tags': tags}})
 
 	return doc
+
+
+def sum_document_size(filter: DocumentSearchFilter) -> int:
+	"""
+	Count the total size of all documents matching the filter.
+
+	Args:
+		filter (DocumentSearchFilter): Options for filtering documents.
+
+	Returns:
+		int: The total number of bytes the documents take up.
+	"""
+	total = 0
+
+	# Count the text size in non-blob documents
+	query_text = {
+		'blob_id': None,
+		**build_doc_query(filter),
+	}
+	aggregate_text = db.aggregate([
+		{'$match': query_text},
+		{
+			'$group': {
+				'_id': None,
+				'total': {
+					'$sum': '$size'
+				}
+			}
+		}
+	])
+	for result in aggregate_text:
+		total += result['total']
+
+	# Count the blob size in blob documents
+	query_blob = {
+		'blob_id': {'$ne': None},
+		**build_doc_query(filter),
+	}
+	aggregate_blob = db.aggregate([
+		{'$match': query_blob},
+		{
+			'$lookup': {
+				'from': 'blob',
+				'localField': 'blob_id',
+				'foreignField': '_id',
+				'as': 'blob',
+			}
+		},
+		{'$unwind': '$blob'},
+		{
+			'$group': {
+				'_id': None,
+				'total': {
+					'$sum': '$blob.size'
+				}
+			}
+		},
+	])
+	for result in aggregate_blob:
+		total += result['total']
+
+	return total
