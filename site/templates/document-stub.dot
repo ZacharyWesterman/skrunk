@@ -35,8 +35,7 @@
 
 		<div class="clickable" *click="view_document('{{= it.id }}')">
 			<b>{{= it.title }}</b>
-			<br>
-			<span class="suppress">
+			<div class="suppress">
 				{{? it.updated }}
 					Edited by {{= it.updater.display_name }}{{? (it.updater.display_name.toLowerCase() !== it.updater.username.toLowerCase()) }} ({{= it.updater.username }}){{?}} on {{= date.output(it.updated) }}
 				{{?}}
@@ -44,7 +43,11 @@
 					{{? it.updater?.username }}<br>{{?}}
 					Created by {{= it.creator.display_name }}{{? (it.creator.display_name.toLowerCase() !== it.creator.username.toLowerCase()) }} ({{= it.creator.username }}){{?}} on {{= date.output(it.created) }}
 				{{?}}
-			</span>
+			</div>
+
+			{{? it.creator.username === api.username }}
+			<div class="emphasis">Shared with you.</div>
+			{{?}}
 		</div>
 
 		<button class="icon tooltip" *click="set_document_tags('{{=it.id}}')">
