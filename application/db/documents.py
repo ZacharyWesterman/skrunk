@@ -60,6 +60,10 @@ def parse_document(doc: dict) -> dict:
 	else:
 		doc['body_html'] = markdown.markdown(doc['body'])
 
+	doc['shared_users'] = [
+		users.get_user_by_id(i) for i in doc.get('shared_users', [])
+	]
+
 	return doc
 
 
@@ -587,3 +591,42 @@ def zip_matching_documents(
 	blob.ZIP_PROGRESS[blob_zip_id][3] = True
 
 	return blob_data
+
+
+def share_with(id: str, my_groups: bool, specific_users: list[str]) -> dict:
+	"""
+	Share a document with specific users or the current user's group(s).
+
+	Args:
+		id (str): The ID of the document to update.
+		my_groups (bool): Whether to share with all of this user's groups.
+		specific_users (list[str]): The usernames of all users to explicitly share with.
+
+	Returns:
+		dict: The updated document.
+	"""
+
+	user_data = perms.caller_info_strict()
+
+	doc = db.find_one({'_id': ObjectId(id)})
+	if doc is None:
+		raise DocumentDoesNotExistError(id)
+
+	shared_users = []
+	if len(specific_users) > 0:
+		selection = users.db.find({
+			'$or': [{'username': i} for i in specific_users]
+		})
+		shared_users = [i['_id'] for i in selection]
+
+	update_doc = {
+		'shared_groups': user_data.get('groups', []) if my_groups else [],
+		'shared_users': shared_users,
+	}
+
+	db.update_one({'_id': ObjectId(id)}, {'$set': update_doc})
+
+	return parse_document({
+		**doc,
+		**update_doc,
+	})

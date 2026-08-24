@@ -19,3 +19,5 @@ class Document(TypedDict):
 	updater: UserMinData | None
 	blob_id: str | None
 	tags: list[str]
+	shared_users: list[UserMinData]
+	shared_groups: list[str]

@@ -39,7 +39,7 @@ def resolve_get_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 
 	if (
 		doc['creator'].get('_id') != user_data.get('_id') and
-		user_data.get('_id') not in doc['shared_users'] and
+		user_data.get('_id') not in [i['_id'] for i in doc['shared_users']] and
 		not any(group in doc['shared_groups'] for group in user_data['groups'])
 	):
 		return perms.bad_perms()

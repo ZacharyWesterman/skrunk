@@ -9,6 +9,8 @@ type Document {
 	updater: UserMinData
 	blob_id: String
 	tags: [String!]!
+	shared_users: [UserMinData!]!
+	shared_groups: [String!]!
 }
 
 type DocumentDoesNotExistError {
@@ -51,6 +53,7 @@ union DocumentCountResponse = DocumentCount | InsufficientPerms | BadTagQuery
 union CreateBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported
 union LinkBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported | BlobDoesNotExistError
 union DocumentListResponse = DocumentList | BadTagQuery
+union DocumentShareResponse = Document | DocumentDoesNotExistError | InsufficientPerms | UserDoesNotExistError
 
 #Resolvers below this line:
 
@@ -70,4 +73,5 @@ extend type Mutation {
 	deleteDocument(id: String!): DocumentUpdateResponse!
 	setDocumentTags(id: String!, tags: [String!]!): DocumentUpdateResponse!
 	createDocumentZipArchive(filter: DocumentSearchFilter!, uid: String!): BlobZipResponse!
+	setDocumentShare(id: String!, group: Boolean!, usernames: [String!]!): DocumentShareResponse!
 }

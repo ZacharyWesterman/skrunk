@@ -68,6 +68,12 @@ modal.return = value => {
 		}, 200)
 	}
 
+	if (!modal.awaiting.validate) {
+		// No validator function.
+		retn()
+		return
+	}
+
 	//Don't close the modal if any fields in it were invalid.
 	if (modal.awaiting.validate?.constructor?.name === 'AsyncFunction' || typeof modal.awaiting.validate.then === 'function') {
 		modal.awaiting.validate(value).then(res => {

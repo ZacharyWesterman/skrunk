@@ -264,10 +264,16 @@ export async function delete_document(id) {
 
 
 export async function view_document(id) {
-	console.log((await query.documents.get(id))?.blob_id)
-	if (wopi.supported && (await query.documents.get(id))?.blob_id !== null) {
-		wopi_edit_document(id)
-		return
+	if (wopi.supported) {
+		const doc = await query.documents.get(id)
+		if (doc.__typename !== 'Document') {
+			_.modal.error(doc.message)
+			return
+		}
+		if (doc.blob_id !== null) {
+			wopi_edit_document(id)
+			return
+		}
 	}
 
 	await _.modal({
@@ -433,4 +439,103 @@ export async function download_all() {
 		() => query.documents.size(filter),
 		(uid) => mutate.documents.create_zip(filter, uid),
 	)
+}
+
+
+export async function share_document(id) {
+	const user_list = query.users.list(i => i.username !== api.username)
+	const document_promise = query.documents.get(id)
+
+	const shared_users = []
+
+	const res = await _.modal({
+		type: 'share-nodes',
+		title: 'Sharing Options',
+		text: api.snippit('share-document'),
+		buttons: ['OK', 'Cancel'],
+	}, async () => {
+		//On load
+		function build_userlist() {
+			const userlist = $('userlist')
+			userlist.innerHTML = ''
+			for (const i of shared_users.sort()) {
+				const elem = document.createElement('div')
+				elem.classList.add('tag', 'clickable')
+				elem.innerHTML = `${safe_html(i)}&nbsp;<b>&times;</b>`
+				userlist.appendChild(elem)
+
+				elem.onclick = () => {
+					shared_users.splice(shared_users.indexOf(i), 1)
+					userlist.removeChild(elem)
+				}
+			}
+		}
+
+		const everyone = $('everyone')
+		everyone.onclick = () => {
+			const userlist = $('users')
+			userlist.disabled = everyone.checked
+			$('shareinfo').style.textDecoration = everyone.checked ? 'line-through' : ''
+			if (everyone.checked) {
+				userlist.value = ''
+			}
+			shared_users.splice(0, shared_users.length)
+			build_userlist()
+		}
+
+		await _('user-dropdown', {
+			id: 'users',
+			options: user_list,
+			default: 'Select User',
+		})
+
+		const users = $('users')
+		users.onchange = () => {
+			if (users.value) {
+				if (!shared_users.includes(users.value)) {
+					shared_users.push(users.value)
+				}
+				build_userlist()
+			}
+		}
+
+		const doc = await document_promise
+		if (doc.__typename !== 'Document') {
+			_.modal.error(doc.message)
+			return
+		}
+
+		shared_users.push(...doc.shared_users.map(i => i.username))
+
+		if (doc.shared_groups.length > 0) {
+			// Shared with everyone, so don't allow sharing with individuals.
+			$('users').disabled = everyone.checked = true
+			$('shareinfo').style.textDecoration = everyone.checked ? 'line-through' : ''
+		}
+
+		// Not shared with everyone, so list shared individuals
+		build_userlist()
+	}, null, choice => {
+		// On submit (no invalid choices possible)
+
+		if (choice !== 'ok') {
+			return null
+		}
+
+		return {
+			group: $.val('everyone'),
+			users: shared_users,
+		}
+	}).catch(() => null)
+
+	if (res === null) {
+		return
+	}
+
+	const res2 = await mutate.documents.share(id, res.group, res.users)
+	if (res2.__typename !== 'Document') {
+		_.modal.error(res2.message)
+		return
+	}
+	_.modal.checkmark()
 }
