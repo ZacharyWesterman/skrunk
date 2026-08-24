@@ -180,7 +180,13 @@ def satisfies(
 					return bad_perms()
 
 				fields = [i for i in ['owner', 'creator', 'username'] if i in self_data]
-				other_user = str(self_data.get(fields[0])) if len(fields) else None
+				other_user = self_data.get(fields[0]) if len(fields) else None
+
+				if isinstance(other_user, dict) and any(i in other_user for i in ['username', '_id']):
+					other_user = other_user.get('_id' if '_id' in user_data else 'username')
+
+				if other_user is not None:
+					other_user = str(other_user)
 
 				if other_user is not None and (
 					other_user == user_data.get('username') or
