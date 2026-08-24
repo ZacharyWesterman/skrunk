@@ -158,7 +158,25 @@ def resolve_delete_document(_, _info: GraphQLResolveInfo, id: str) -> dict:
 @perms.module('documents', 'files')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_document_zip_archive(_, _info: GraphQLResolveInfo, filter: DocumentSearchFilter, uid: str) -> dict:
+def resolve_create_document_zip_archive(
+	_,
+	_info: GraphQLResolveInfo,
+	filter: DocumentSearchFilter,
+	uid: str
+) -> dict:
+	"""
+	Creates a ZIP archive of documents matching the provided filter.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		filter (DocumentSearchFilter): Filter criteria for selecting documents to archive.
+		uid (str): Unique identifier for the ZIP archive operation.
+
+	Returns:
+		dict: A dictionary representing either the created Blob object if successful,
+			or a BadTagQuery if a ParseError occurs.
+	"""
 	try:
 		blob = zip_matching_documents(filter, uid)
 		return {'__typename': 'Blob', **blob}
