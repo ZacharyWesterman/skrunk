@@ -7,7 +7,7 @@
 				<span class="tooltiptext t-float-right">Delete document</span>
 			</button>
 
-			{{? window.wopi.supported }}
+			{{? window.wopi.supported && it.blob_id !== null }}
 			<span class="tooltip right">
 				<span class="tooltiptext t-float-left">Open in new tab</span>
 				<button class="icon clickable" *click="view_document_new_tab('{{= it.id }}')">
@@ -17,7 +17,7 @@
 			{{?}}
 
 			<span class="tooltip right">
-				<span class="tooltiptext t-float-left">Edit title</span>
+				<span class="tooltiptext t-float-left">Edit {{? it.blob_id !== null }}title{{??}}document{{?}}</span>
 				<button class="icon clickable" *click="edit_document('{{= it.id }}')">
 					<i class="fa-solid fa-pencil fa-lg"></i>
 				</button>
@@ -25,7 +25,7 @@
 
 			{{?}}
 
-			{{? window.wopi.supported && it.creator.username !== api.username }}
+			{{? window.wopi.supported && it.creator.username !== api.username && it.blob_id !== null }}
 			<button class="icon clickable tooltip" *click="view_document('{{= it.id }}')">
 				<span class="tooltiptext t-float-left">View document</span>
 				<i class="fa-solid fa-eye fa-lg"></i>
@@ -54,5 +54,12 @@
 		{{~it.tags : tag}}
 			<div class="tag clickable" *click="set_tag_editor_value('{{=tag}}')" >{{=tag}}</div>
 		{{~}}
+
+		<span class="right suppress tooltip">
+			<span class="tooltiptext t-float-left">
+				{{? it.blob_id !== null }}Rich text{{??}}Markdown{{?}} document
+			</span>
+			<i class="fa-solid {{? it.blob_id !== null }}fa-file-word{{??}}fa-brands fa-markdown{{?}}"></i>
+		</span>
 	</div>
 </div>

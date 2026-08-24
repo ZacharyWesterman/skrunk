@@ -22,6 +22,7 @@ export default {
 					}
 					updated
 					tags
+					blob_id
 				}
 				...on InsufficientPerms { message }
 				...on DocumentDoesNotExistError { message }
@@ -80,6 +81,7 @@ export default {
 						updated
 						blob_id
 						tags
+						blob_id
 					}
 				}
 				...on BadTagQuery { message }

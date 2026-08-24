@@ -235,7 +235,7 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 		'parent': None,
 		'history': False,
 		'previous': None,
-		'blob_id': ObjectId(blob_id),
+		'blob_id': ObjectId(blob_id) if blob_id is not None else None,
 		'tags': [],
 		'shared_users': [],
 		'shared_groups': [],

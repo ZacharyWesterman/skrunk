@@ -123,10 +123,10 @@ export async function view_document_new_tab(id) {
 
 
 export async function edit_document(id) {
-	const data_promise = api(`query ($id: String!) {
+	const old_data = await api(`query ($id: String!) {
 		getDocument (id: $id) {
 			__typename
-			...on Document { title body }
+			...on Document { title body blob_id }
 			...on InsufficientPerms { message }
 			...on DocumentDoesNotExistError { message }
 		}
@@ -134,9 +134,11 @@ export async function edit_document(id) {
 		id: id,
 	})
 
+	const wopi_doc = wopi.supported && old_data.blob_id !== null
+
 	const data = await _.modal({
-		title: "Edit Document" + (wopi.supported ? ' Title' : ''),
-		text: wopi.supported ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("edit-document"),
+		title: "Edit Document" + (wopi_doc ? ' Title' : ''),
+		text: wopi_doc ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("edit-document"),
 		buttons: ["OK", "Cancel"],
 	}, async () => {
 		// Pull in data on load
@@ -147,7 +149,6 @@ export async function edit_document(id) {
 		title.disabled = true
 		body.disabled = true
 
-		const old_data = await data_promise
 		if (old_data.__typename === 'Document') {
 			title.value = old_data.title
 			body.value = old_data.body
@@ -170,7 +171,7 @@ export async function edit_document(id) {
 
 		return {
 			title: $.val('title'),
-			body: wopi.supported ? null : $.val('body'),
+			body: wopi_doc ? null : $.val('body'),
 		}
 	}).catch(() => null)
 
@@ -263,7 +264,8 @@ export async function delete_document(id) {
 
 
 export async function view_document(id) {
-	if (wopi.supported) {
+	console.log((await query.documents.get(id))?.blob_id)
+	if (wopi.supported && (await query.documents.get(id))?.blob_id !== null) {
 		wopi_edit_document(id)
 		return
 	}
