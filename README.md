@@ -28,11 +28,22 @@ My home-built database solution for managing personal data and interacting with 
 </tr>
 </table>
 
+Goals:
+
+1. Secure:
+    1. Every request requires authentication (except the login page). On top of that, every authenticated request checks user permissions.
+    2. The front-end has *exactly one* external dependency, various icons come from [font awesome](https://fontawesome.com). All other utilities/libraries are either custom-built, or bundled in with this application (and always modified to remove any extra dependencies!).
+    3. The back-end's dependencies are frozen at known safe versions, and get updated when security concerns come about.
+2. Performant: The front-end is designed to be light-weight while still being modern.
+3. Easy to use: Help text and tooltips for virtually everything. Out of the way, but still accessible when you need it.
+
 Current features include:
+
 - Full support for modern Android/iOS mobile as well as desktop browsers.
 - A fully featured library/book cataloging system: type the name of a book, click the correct match, then scan a QR code, barcode, or RFID tag. Bam, it's now cataloged under your name, and you can easily find it later, specify if someone's borrowing it, transfer ownership, etc.
 - Arbitrary item inventory system: similar to books, but meant for catalogging stuff like tools, furniture, etc.
 - File storage with advanced tagging functionality and minimal limitations. Want to upload 75 photos of your dog? Can do, just select them all and add the "dog" and "my-dog's-name" tags when uploading. Has it been 10 years and you can't find those images? Just search for your dog's name. Want to download all the results from that search? Just click the "download all" button. Don't want anyone else to see that video of you in a tutu? Just mark the file as "only visible to me".
+- Document storage and editing, with support for true word processor editing via a locally-hosted [collabora](https://www.collaboraonline.com/code/) instance. Private by default, documents can be shared with individual users, or entire groups. Like with files, documents are organized with tags.
 - Allow users to report bugs, request new features, and see what features are planned or in progress.
 - [Weather Alerts](https://github.com/ZacharyWesterman/weather-alerts) integration: if you moved, changed your phone number, want to change the default temperature thresholds, or just disable your alerts altogether, you can do so in the user settings page.
 - Subsonic Music Server Integration: Search albums, and interact with the Library to show what books also have an audiobook version.
@@ -41,7 +52,7 @@ Current features include:
 - Fine-grained user control:
   - User Isolation: Sometimes you don't want certain groups of users to interact (e.g. in-laws, different friend groups, etc). If that's the case, admins can assign a "group" to users. Any users not in the same group will not be able to see or interact with each other's data.
   - User Permissions: Control what type of actions users are allowed to do, and what they're allowed to see.
-- Bot friendly: admins can generate API tokens to allow bots or other services to securely make requests. These tokens can have the same permissions restrictions applied to them as users! Check out the [Python API repo](https://github.com/ZacharyWesterman/skrunk_api) for a fast way to get started.
+- Support for authorized bots **only**: Admins can generate API tokens to allow bots or other services to securely make requests. These tokens can have the same permissions restrictions applied to them as users! Check out the [Python API repo](https://github.com/ZacharyWesterman/skrunk_api) for a fast way to get started.
 
 Every one of the above features is fully optional, and can be disabled from the admin options, on a per-group basis, and individually by each user.
 
