@@ -56,6 +56,13 @@
 			{{? it.creator.username !== api.username }}
 			<div class="emphasis">Shared with you.</div>
 			{{?}}
+
+			<span class="right suppress tooltip">
+				<span class="tooltiptext t-float-left">
+					{{? it.blob_id !== null }}Rich text{{??}}Markdown{{?}} document
+				</span>
+				<i class="fa-solid {{? it.blob_id !== null }}fa-file-word{{??}}fa-brands fa-markdown{{?}}"></i>
+			</span>
 		</div>
 
 		<button class="icon tooltip" {{? it.creator.username === api.username }}*click="set_document_tags('{{=it.id}}')"{{?}}>
@@ -75,12 +82,5 @@
 				<div class="tag">{{= tag }}</div>
 			{{?}}
 		{{~}}
-
-		<span class="right suppress tooltip">
-			<span class="tooltiptext t-float-left">
-				{{? it.blob_id !== null }}Rich text{{??}}Markdown{{?}} document
-			</span>
-			<i class="fa-solid {{? it.blob_id !== null }}fa-file-word{{??}}fa-brands fa-markdown{{?}}"></i>
-		</span>
 	</div>
 </div>
