@@ -28,7 +28,7 @@ def get_document_contents(jwt: str, id: str) -> Response:
 	try:
 		doc = get_document(id)
 	except DocumentDoesNotExistError:
-		return Response('File not found', 404)
+		return Response('File not found.', 404)
 
 	user_data = users.get_user_data(decode_user_token(jwt).get('username', ''))
 
@@ -42,7 +42,11 @@ def get_document_contents(jwt: str, id: str) -> Response:
 	if doc['blob_id'] is None:
 		return doc['body']
 
-	blob = get_blob_data(doc['blob_id'])
+	try:
+		blob = get_blob_data(doc['blob_id'])
+	except BlobDoesNotExistError:
+		return Response('Blob data not found.', 404)
+
 	with open(BlobStorage(doc['blob_id'], blob['ext']).path(), 'rb') as fp:
 		return Response(fp.read())
 
