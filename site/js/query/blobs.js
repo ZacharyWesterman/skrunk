@@ -13,7 +13,7 @@ export default {
 	* date_from: Date or null
 	* date_to: Date or null
 	*/
-	get: async (username, start, count, tag_query, date_from, date_to, name, ephemeral, sorting) => {
+	list: async (username, start, count, tag_query, date_from, date_to, name, ephemeral, sorting) => {
 		let res = await api(`
 		query ($filter: BlobSearchFilter!, $start: Int!, $count: Int!, $sorting: Sorting!){
 			getBlobs(filter: $filter, start: $start, count: $count, sorting: $sorting) {
@@ -116,23 +116,28 @@ export default {
 		})
 	},
 
-	single: async blob_id => {
+	get: async blob_id => {
 		const blob = await api(`
 		query ($id: String!){
 			getBlob (id: $id) {
-				id
-				ext
-				mimetype
-				name
-				size
-				creator
-				created
-				tags
-				preview
-				thumbnail
-				hidden
-				ephemeral
-				complete
+				__typename
+				...on Blob {
+					id
+					ext
+					mimetype
+					name
+					size
+					creator
+					created
+					tags
+					preview
+					thumbnail
+					hidden
+					ephemeral
+					complete
+				}
+				...on InsufficientPerms { message }
+				...on BlobDoesNotExistError { message }
 			}
 		}`, {
 			id: blob_id,

@@ -128,7 +128,7 @@ export async function create_book() {
 
 	let blob_data = {}
 	if (book_data.thumbnail) {
-		blob_data = await query.blobs.single(book_data.thumbnail)
+		blob_data = await query.blobs.get(book_data.thumbnail)
 		book_data.thumbnail = blob_data.id
 	}
 

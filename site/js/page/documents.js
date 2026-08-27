@@ -428,6 +428,48 @@ export async function show_tags_how_to() {
 }
 
 
+export async function download_document(id) {
+	const promise = query.documents.get(id).then(async doc => {
+		let blob = null
+		if (doc.blob_id !== null) {
+			blob = await query.blobs.get(doc.blob_id)
+		}
+
+		return {
+			doc,
+			blob,
+		}
+	})
+
+	await _.modal({
+		title: 'Downloading...',
+		text: 'Your document should download automatically.<div id="extra-info"></div>',
+		buttons: ['OK'],
+	}, async () => {
+		//On load
+		const { doc, blob } = await promise
+		if (doc.__typename !== 'Document') {
+			_.modal.error(doc.message)
+			return
+		}
+
+		if (blob?.__typename !== 'Blob') {
+			_.modal.error('Document is not attached to a blob. Contact an admin if you think this is an error.')
+			return
+		}
+
+		const link = document.createElement('a')
+		link.href = `download/${blob.id}${blob.ext}`
+		link.download = `${doc.title}${blob.ext}`
+		link.target = '_blank'
+		link.innerText = 'Click here if it does not.'
+		$('extra-info').appendChild(link)
+
+		link.click()
+	})
+}
+
+
 export async function download_all() {
 	const filter = {
 		tag_expr: $.val('tag-query') || null,

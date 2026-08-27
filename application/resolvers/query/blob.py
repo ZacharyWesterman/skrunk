@@ -92,7 +92,7 @@ def resolve_get_blob(_, _info: GraphQLResolveInfo, id: str) -> dict:
 	Returns:
 		dict: The data associated with the specified blob.
 	"""
-	return get_blob_data(id)
+	return {'__typename': 'Blob', **get_blob_data(id)}
 
 
 @query.field('totalBlobSize')

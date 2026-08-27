@@ -384,7 +384,7 @@ window.set_field_logic = async function (DOM, url, module) {
 
 				progressbar.removeAttribute('value')
 
-				const res = image.id ? (await query.blobs.single(image.id)) : {}
+				const res = image.id ? (await query.blobs.get(image.id)) : {}
 
 				img.src = `thumb/${res.thumbnail}`
 				img.alt = 'FAILED TO UPLOAD IMAGE'

@@ -87,7 +87,7 @@ async function get_blobs(start, count) {
 	}
 	environment.set_param('query', has && JSON.stringify(q))
 
-	return await query.blobs.get(
+	return await query.blobs.list(
 		creator,
 		start,
 		count,
@@ -104,7 +104,7 @@ async function get_blobs(start, count) {
 }
 
 async function get_blob(blob_id) {
-	return await query.blobs.single(blob_id)
+	return await query.blobs.get(blob_id)
 }
 
 export async function navigate_to_page(page_num) {

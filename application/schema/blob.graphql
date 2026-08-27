@@ -121,13 +121,14 @@ union BlobUpdateResponse = Blob | BlobDoesNotExistError | InsufficientPerms
 union BlobZipResponse = Blob | BadTagQuery | UserDoesNotExistError | InsufficientDiskSpace | InsufficientPerms | BlobDoesNotExistError
 union BlobCreateResponse = Blob | InsufficientPerms
 union ZipProgressResponse = ZipProgress | BlobDoesNotExistError | InsufficientPerms
+union BlobResponse = Blob | InsufficientPerms | BlobDoesNotExistError
 
 #Resolvers below this line:
 
 extend type Query {
 	getBlobs(filter: BlobSearchFilter!, start: Int!, count: Int!, sorting: Sorting!): BlobQueryResponse!
 	countBlobs(filter: BlobSearchFilter!): BlobCountResponse!
-	getBlob(id: String!): Blob
+	getBlob(id: String!): BlobResponse!
 	totalBlobSize(filter: BlobSearchFilter!): BlobCountResponse!
 	getQRFromBlob(id: String!): QRParseResponse!
 	countBlobTagUses(tag: String!): Int!
