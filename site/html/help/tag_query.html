@@ -36,7 +36,7 @@
 				<li>Tags will never begin or end with spaces, but they may contain spaces.</li>
 				<li>Tags and tag queries are <i>case-insensitive</i>, i.e. the tag <span class="code str">TAG</span> is
 					the same as <span class="code str">tag</span>.</li>
-				<li>Files will never have duplicate tags.</li>
+				<li>Duplicated tags are not possible.</li>
 			</ul>
 		</div>
 	</div>
@@ -143,6 +143,10 @@
 				<span class="oper">and</span>
 				<span class="str">B</span>)
 			</span>. Both are equivalent.
+
+			<br><br>
+			Do note that the <span class="code oper">or</span> operator is not exclusive. It behaves more like "and/or"
+			in common vernacular, that is, it returns all items where one <i>or both</i> of its operands are true.
 		</div>
 	</div>
 
@@ -189,6 +193,34 @@
 			<span class="code func">le</span>,
 			<span class="code func">gt</span>
 			and <span class="code func">ge</span> respectively.
+		</div>
+	</div>
+
+	<!-- Info about extra fields -->
+	<div class="card">
+		<div class="card-inner">
+			<h2>Extra Fields</h2>
+			Some pages may have additional (non-tag) fields that can be queried. When this is the case, you can query
+			the field in question by using the colon <span class="code">:</span> operator between values. For example,
+			<span class="code str"><span class="regex-delim">title</span><span class="oper">:</span>123</span> would
+			select all items where the "title"
+			field is "123". These extra fields will differ based on the page, but usually directly correspond to other
+			filtering options present in other fields on the screen.
+			Some example extra field queries could be as follows:
+			<ul>
+				<li>
+					<span class="code"><span class="regex-delim">title</span><span class="oper">:</span> <span
+							class="str">an exact title</span></span> - Matches items that have the title "an exact
+					title".
+				</li>
+				<li>
+					<span class="code"><span class="regex-delim">title</span><span class="oper">:</span> <span
+							class="wild">*</span><span class="str">title</span><span class="wild">*</span></span> -
+					Matches items whose title contains the text "title".
+				</li>
+			</ul>
+
+			It's important to note that, like the rest of the tag query, these extra fields are <i>case-insensitive</i>.
 		</div>
 	</div>
 </div>

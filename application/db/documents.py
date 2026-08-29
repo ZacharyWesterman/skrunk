@@ -151,8 +151,6 @@ def get_documents(filter: DocumentSearchFilter, start: int, count: int) -> list:
 		list: A list of documents.
 	"""
 
-	print(build_doc_query(filter))
-
 	aggregate = db.aggregate([
 		{
 			'$addFields': {
