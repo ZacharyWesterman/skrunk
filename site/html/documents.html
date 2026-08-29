@@ -27,16 +27,18 @@
 			</span>
 			<br>
 
-			<!-- Input for document title -->
-			<input id="filter-title" placeholder="Title" *bind="navigate_to_page(0)" />
-			<span class="button clickable" *click="$.wipe('filter-title'); navigate_to_page(0)">
-				<i class="fa-solid fa-circle-xmark fa-lg"></i>
-			</span>
-			<br>
 			<div class="emphasis" id="tag-error"></div>
 
 			<div class="expand-container" id="extra-search-fields">
 				<div>
+
+					<!-- Input for document title -->
+					<input id="filter-title" placeholder="Title" *bind="navigate_to_page(0)" />
+					<span class="button clickable" *click="$.wipe('filter-title'); navigate_to_page(0)">
+						<i class="fa-solid fa-circle-xmark fa-lg"></i>
+					</span>
+					<br>
+
 					<!-- Shared with me? -->
 					<span>
 						Shared with me?

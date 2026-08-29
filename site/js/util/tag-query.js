@@ -10,9 +10,10 @@ function lexer(src) {
 		],
 
 		global: [
-			[/^(and\b|or\b|not\b|\+|\/|-)/i, 'oper'],
+			[/^(and\b|or\b|not\b|[-+/:])/i, 'oper'],
 			[/^(eq|lt|gt|le|ge|equals?|exact(ly)?|min(imum)?|max(imum)?|fewer|greater|below|above)\b/i, 'func'],
 			[/^[<>=]/, 'func'],
+			[/^("(\\"|[^"])*"|[\w\.]+)\s*(?=:)/, 'regex-delim'],
 			[/^"(\\"|[^"])*"?/, 'str'],
 			[/^[a-zA-Z0-9_\.]+/, 'str'],
 			[/^\*/, 'wild'],

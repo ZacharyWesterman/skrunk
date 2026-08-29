@@ -20,7 +20,7 @@ from pymongo.collection import Collection
 from werkzeug.datastructures import FileStorage
 
 from application import exceptions
-from application.integrations import images, models, pdf, videos
+from application.integrations import images, models, pdf, tqfilter, videos
 from application.types import BlobSearchFilter, Sorting, blob_storage
 from application.types.blob_storage import (BlobPreview, BlobStorage,
                                             BlobThumbnail)
@@ -417,7 +417,13 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 
 	tag_expr = filter.get('tag_expr')
 	if tag_expr is not None:
-		tag_q = tag_query.compile_query(tag_expr, 'tags')
+		tag_q = tag_query.compile_query(
+			tag_expr,
+			'tags',
+			name=None,
+			ext=None,
+			ephemeral=tqfilter.boolean
+		)
 		if tag_q:
 			query += [tag_q]
 

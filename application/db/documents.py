@@ -114,7 +114,11 @@ def build_doc_query(filter: DocumentSearchFilter | None = None) -> dict:
 			query += [{'title': {'$regex': title, '$options': 'i'}}]
 
 		if tag_expr is not None:
-			tag_q = tag_query.compile_query(tag_expr, 'tags')
+			tag_q = tag_query.compile_query(
+				tag_expr,
+				'tags',
+				title=None
+			)
 			if tag_q:
 				query += [tag_q]
 

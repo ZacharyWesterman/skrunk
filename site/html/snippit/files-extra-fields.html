@@ -1,0 +1,28 @@
+Extra (non-tag) fields can also be queried by using a colon <span class="code">:</span> operator between values.
+
+On this screen, you may use the following fields:
+<ul>
+	<li>
+		<span class="code regex-delim">name</span> - searches the file name, <i>not including</i> the file extension.
+		So for example, <span class="code str"><span class="regex-delim">name</span><span class="oper">:</span>
+			image</span>
+		would match all files whose name is "image", that is, files like <span class="code">image.jpg</span>
+		would be selected by this.
+	</li>
+	<li>
+		<span class="code regex-delim">ext</span> - searches the file extension. So for example,
+		<span class="code str"><span class="regex-delim">ext</span><span class="oper">:</span> .jpg</span> would match
+		all files with the
+		".jpg" extension, that is, files like <span class="code">image.jpg</span>
+		would be selected by this.
+	</li>
+	<li>
+		<span class="code regex-delim">ephemeral</span> - searches by ephemeral status. This field only supports the
+		values
+		<span class="code">true</span>, <span class="code">false</span>, <span class="code">1</span>, or
+		<span class="code">0</span>; no complex filtering is allowed. So for example,
+		<span class="code str"><span class="regex-delim">ephemeral</span><span class="oper">:</span> true</span> would
+		match only files that are
+		ephemeral.
+	</li>
+</ul>

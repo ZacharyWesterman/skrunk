@@ -418,11 +418,21 @@ export async function show_tags_how_to() {
 	const res = await _.modal({
 		type: 'info',
 		title: 'What is a tag query?',
-		text: await api.get('/html/snippit/tag_query.html'),
-		buttons: ['OK', 'More Info'],
+		text: await api.snippit('tag_query'),
+		buttons: ['OK', 'Extra Fields', 'More Info'],
 	}).catch(() => 'ok')
 
 	if (res === 'ok') return
+
+	if (res === 'extra fields') {
+		_.modal({
+			type: 'info',
+			title: 'Extra fields on this screen.',
+			text: api.snippit('documents-extra-fields'),
+			buttons: ['OK'],
+		})
+		return
+	}
 
 	dashnav('help/tag_query')
 }

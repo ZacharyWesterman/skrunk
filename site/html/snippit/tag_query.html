@@ -1,4 +1,4 @@
-The tag query is a powerful option that lets you filter files by the state of their tags. There are a few operations you
+The tag query is a powerful option that lets you filter items by the state of their tags. There are a few operations you
 can use:
 <ul>
 	<li><b>Tags:</b>
@@ -24,4 +24,10 @@ can use:
 				class="oper">and</span> <span class="str">B</span></span>, but you might want <span class="code"><span
 				class="str">"AB"</span> <span class="oper">or</span> (<span class="str">A</span> <span
 				class="oper">and</span> <span class="str">B</span>)</span>.
+	</li>
+	<li><b>Extra Fields:</b>
+		Extra (non-tag) fields can also be queried by using a colon <span class="code">:</span> operator between
+		values. For example, <span class="code str">title<span class="oper">:</span>123</span> would select all items
+		where the "title" field is "123". These extra fields will differ based on the screen.
+	</li>
 </ul>
