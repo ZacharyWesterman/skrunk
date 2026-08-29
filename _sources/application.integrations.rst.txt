@@ -92,6 +92,14 @@ application.integrations.system module
    :show-inheritance:
    :undoc-members:
 
+application.integrations.tqfilter module
+----------------------------------------
+
+.. automodule:: application.integrations.tqfilter
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.integrations.videos module
 --------------------------------------
 
