@@ -420,8 +420,8 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 		tag_q = tag_query.compile_query(
 			tag_expr,
 			'tags',
-			name=None,
-			ext=None,
+			name=tag_query.Alias('name_lower', None),
+			ext=tag_query.Alias('ext_lower', None),
 			ephemeral=tqfilter.boolean
 		)
 		if tag_q:
@@ -482,17 +482,29 @@ def get_blobs(
 	if 'created' not in sorting['fields']:
 		sorting['fields'] += ['created']
 
-	sort = [(i, -1 if sorting['descending'] else 1) for i in sorting['fields']]
+	sort = dict([(i, -1 if sorting['descending'] else 1) for i in sorting['fields']])
 
-	selection = db.find(query, sort=sort)
-	for i in selection.limit(count).skip(start):
-		i['id'] = i['_id']
-		try:
-			user_data = users.get_user_by_id(i['creator'])
-			i['creator'] = user_data['username']
-		except exceptions.UserDoesNotExistError:
-			i['creator'] = str(i['creator'])
-		blobs += [i]
+	aggregate = db.aggregate([
+		{
+			'$addFields': {
+				'name_lower': {'$toLower': '$name'},
+				'ext_lower': {'$toLower': '$ext'},
+			}
+		},
+		{'$match': query},
+		{'$sort': sort},
+		{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}},
+	])
+
+	for selection in aggregate:
+		for i in selection.get('results', []):
+			i['id'] = i['_id']
+			try:
+				user_data = users.get_user_by_id(i['creator'])
+				i['creator'] = user_data['username']
+			except exceptions.UserDoesNotExistError:
+				i['creator'] = str(i['creator'])
+			blobs += [i]
 
 	return blobs
 
@@ -513,7 +525,20 @@ def count_blobs(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 	except exceptions.UserDoesNotExistError:
 		return 0
 
-	return db.count_documents(query)
+	aggregate = db.aggregate([
+		{
+			'$addFields': {
+				'name_lower': {'$toLower': '$name'},
+				'ext_lower': {'$toLower': '$ext'},
+			}
+		},
+		{'$match': query},
+		{'$count': 'count'},
+	])
+
+	for i in aggregate:
+		return i.get('count', 0)
+	return 0
 
 
 def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
@@ -533,16 +558,24 @@ def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 	except exceptions.UserDoesNotExistError:
 		return 0
 
-	aggregate = db.aggregate([{
-		'$match': query
-	}, {
-		'$group': {
-			'_id': None,
-			'total': {
-				'$sum': '$size'
+	aggregate = db.aggregate([
+		{
+			'$addFields': {
+				'name_lower': {'$toLower': '$name'},
+				'ext_lower': {'$toLower': '$ext'},
+			}
+		},
+		{
+			'$match': query
+		}, {
+			'$group': {
+				'_id': None,
+				'total': {
+					'$sum': '$size'
+				}
 			}
 		}
-	}], collation={'locale': 'en', 'strength': 2})
+	])
 
 	for result in aggregate:
 		return result['total']
@@ -608,10 +641,20 @@ def zip_matching_blobs(filter: BlobSearchFilter, user_id: ObjectId, blob_zip_id:
 
 	# Create a temp zip file
 	with ZipFile(this_blob_path, 'w', compression=ZIP_DEFLATED, compresslevel=9) as fp:
-		total = db.count_documents(query)
+		total = count_blobs(filter, user_id)
 		item = 0
 
-		for blob in db.find(query):
+		aggregate = db.aggregate([
+			{
+				'$addFields': {
+					'name_lower': {'$toLower': '$name'},
+					'ext_lower': {'$toLower': '$ext'},
+				}
+			},
+			{'$match': query},
+		])
+
+		for blob in aggregate:
 			item += 1
 
 			sub_blob = BlobStorage(blob['_id'], blob['ext'])

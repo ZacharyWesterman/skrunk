@@ -117,7 +117,7 @@ def build_doc_query(filter: DocumentSearchFilter | None = None) -> dict:
 			tag_q = tag_query.compile_query(
 				tag_expr,
 				'tags',
-				title=None
+				title=tag_query.Alias('title_lower', None)
 			)
 			if tag_q:
 				query += [tag_q]
@@ -151,18 +151,23 @@ def get_documents(filter: DocumentSearchFilter, start: int, count: int) -> list:
 		list: A list of documents.
 	"""
 
+	print(build_doc_query(filter))
+
 	aggregate = db.aggregate([
-		{'$match': build_doc_query(filter)},
 		{
 			'$addFields': {
 				'modified': {'$ifNull': ['$updated', '$created']},
+				'title_lower': {'$toLower': '$title'},
 			}
 		},
+		{'$match': build_doc_query(filter)},
 		{'$sort': {'modified': -1}},
 		{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}},
-	], collation={'locale': 'en', 'strength': 2})
+	])
 
-	return [parse_document(doc) for doc in next(aggregate).get('results', [])]
+	for selection in aggregate:
+		return [parse_document(doc) for doc in selection.get('results', [])]
+	return []
 
 
 def count_documents(filter: DocumentSearchFilter) -> int:
