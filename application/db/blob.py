@@ -442,7 +442,18 @@ def build_blob_query(filter: BlobSearchFilter, user_id: ObjectId) -> dict:
 		query += [{'name': {'$regex': filter.get('name'), '$options': 'i'}}]
 
 	if filter.get('ephemeral') is not None:
-		query += [{'ephemeral': filter.get('ephemeral')}]
+		# Defer to any 'ephemeral' setting specified in tag query
+		def srch(elem) -> bool:
+			if isinstance(elem, dict):
+				if 'ephemeral' in elem:
+					return True
+				return any(srch(i) for i in elem.values())
+			if isinstance(elem, list):
+				return any(srch(i) for i in elem)
+			return False
+
+		if not srch(query):
+			query += [{'ephemeral': filter.get('ephemeral')}]
 
 	creator = filter.get('creator')
 	if isinstance(creator, list) and len(creator):
