@@ -132,3 +132,27 @@ def create_indexes() -> None:
 	documents.db.create_index([('hidden', 1)])
 	documents.db.create_index([('previous', 1)])
 	documents.db.create_index([('parent', 1)])
+	documents.db.create_index({
+		'title': 1,
+	}, collation={
+		'locale': 'en',
+		'strength': 2
+	})
+
+	blob.db.create_index([('tags', 1)])
+	blob.db.create_index([('hidden', 1)])
+	blob.db.create_index([('ephemeral', 1)])
+	blob.db.create_index([('created', 1)])
+	blob.db.create_index([('size', 1)])
+	blob.db.create_index({
+		'ext': 1,
+	}, collation={
+		'locale': 'en',
+		'strength': 2
+	})
+	blob.db.create_index({
+		'name': 1,
+	}, collation={
+		'locale': 'en',
+		'strength': 2
+	})

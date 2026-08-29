@@ -542,7 +542,7 @@ def sum_blob_size(filter: BlobSearchFilter, user_id: ObjectId) -> int:
 				'$sum': '$size'
 			}
 		}
-	}])
+	}], collation={'locale': 'en', 'strength': 2})
 
 	for result in aggregate:
 		return result['total']

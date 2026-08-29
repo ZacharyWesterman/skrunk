@@ -160,7 +160,7 @@ def get_documents(filter: DocumentSearchFilter, start: int, count: int) -> list:
 		},
 		{'$sort': {'modified': -1}},
 		{'$facet': {'results': [{'$skip': start}, {'$limit': count}]}},
-	])
+	], collation={'locale': 'en', 'strength': 2})
 
 	return [parse_document(doc) for doc in next(aggregate).get('results', [])]
 
