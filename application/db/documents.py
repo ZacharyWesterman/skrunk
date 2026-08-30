@@ -178,7 +178,21 @@ def count_documents(filter: DocumentSearchFilter) -> int:
 	Returns:
 		int: The total number of documents.
 	"""
-	return db.count_documents(build_doc_query(filter))
+
+	aggregate = db.aggregate([
+		{
+			'$addFields': {
+				'modified': {'$ifNull': ['$updated', '$created']},
+				'title_lower': {'$toLower': '$title'},
+			}
+		},
+		{'$match': build_doc_query(filter)},
+		{'$count': 'count'},
+	])
+
+	for i in aggregate:
+		return i.get('count', 0)
+	return 0
 
 
 def count_tag_uses(tag: str) -> int:
