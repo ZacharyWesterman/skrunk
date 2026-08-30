@@ -399,6 +399,9 @@ export async function toggle_read(id) {
 	const field = $('content-' + id)
 	const unread = !field.classList.contains('expanded')
 	$.toggle_expand(field, unread)
+	if (!unread) {
+		setTimeout(() => field.scrollIntoView({ behavior: 'smooth' }), 300)
+	}
 
 	const res = await api(`mutation ($id: String!, $read: Boolean!) {
 		markDocumentRead (id: $id, read: $read) {
