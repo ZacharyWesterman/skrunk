@@ -38,6 +38,10 @@ _.css = {
 
 //Field control and validation
 let $ = (field, include_all = false) => {
+	if (!field) {
+		return null
+	}
+
 	let fields = []
 
 	//Handle rich text editors

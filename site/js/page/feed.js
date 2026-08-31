@@ -398,10 +398,10 @@ export async function update_inactive(id) {
 export async function toggle_read(id) {
 	const field = $('content-' + id)
 	const unread = !field.classList.contains('expanded')
-	$.toggle_expand(field, unread)
 	if (!unread) {
-		setTimeout(() => field.scrollIntoView({ behavior: 'smooth' }), 300)
+		field.scrollIntoView()
 	}
+	$.toggle_expand(field, unread)
 
 	const res = await api(`mutation ($id: String!, $read: Boolean!) {
 		markDocumentRead (id: $id, read: $read) {
