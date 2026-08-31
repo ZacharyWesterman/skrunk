@@ -331,7 +331,7 @@ export async function navigate_to_page(page_num, update_nav = true) {
 	// Query unread documents first
 	for (const item of await items_promise) {
 		if (!item.read) {
-			body_promises.push(req(item.id, item.html_len))
+			await req(item.id, item.html_len)
 		}
 	}
 	await count_promise
@@ -340,7 +340,7 @@ export async function navigate_to_page(page_num, update_nav = true) {
 	// Then query read documents
 	for (const item of await items_promise) {
 		if (item.read) {
-			body_promises.push(req(item.id, item.html_len))
+			await req(item.id, item.html_len)
 		}
 	}
 }
