@@ -18,6 +18,9 @@ jobs:
         submodules: 'true'
         token : ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Update Apt Repositories
+      run: sudo apt-get update
+
     - name: Install Dependencies
       run: sudo apt-get install -y python3-poetry python3-sphinx libldap2-dev libssl-dev libsasl2-dev
     
