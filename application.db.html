@@ -994,6 +994,23 @@ it raises a BlobDoesNotExistError. The tags are converted to lowercase and dupli
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.video_preview_formats">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">video_preview_formats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.video_preview_formats" title="Link to this definition">#</a></dt>
+<dd><p>Get a list of all the formats we want to output for video previews.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exclude</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>) – A list of formats to exclude, if any.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All formats, minus any that were excluded.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.blob.zip_matching_blobs">
 <span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">zip_matching_blobs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_zip_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.zip_matching_blobs" title="Link to this definition">#</a></dt>
 <dd><p>Create a ZIP archive of blobs that match the given filter and user ID.</p>
@@ -4585,6 +4602,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.set_mime_from_ext"><code class="docutils literal notranslate"><span class="pre">set_mime_from_ext()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.sum_blob_size"><code class="docutils literal notranslate"><span class="pre">sum_blob_size()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.unzip_file_into_blobs"><code class="docutils literal notranslate"><span class="pre">unzip_file_into_blobs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.video_preview_formats"><code class="docutils literal notranslate"><span class="pre">video_preview_formats()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.zip_matching_blobs"><code class="docutils literal notranslate"><span class="pre">zip_matching_blobs()</span></code></a></li>
 </ul>
 </li>
