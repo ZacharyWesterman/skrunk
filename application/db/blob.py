@@ -150,7 +150,7 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 			this_blob_path = BlobStorage(blob['id'], blob['ext']).path()
 			preview = BlobPreview(blob['id'], blob['ext'])
 			if images.downscale(this_blob_path, 512, preview.path(create=True)):
-				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
+				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'previews': [preview.basename()]}})
 
 			thumbnail = BlobThumbnail(blob['id'], blob['ext'])
 			if images.downscale(this_blob_path, 128, thumbnail.path(create=True)):
@@ -168,7 +168,7 @@ def create_blob_previews(uploaded_blobs: list[dict[str, str]]) -> None:
 			this_blob_path = BlobStorage(blob['id'], blob['ext']).path(create=True)
 			preview = BlobPreview(blob['id'], '.png')
 			if pdf.create_preview(this_blob_path, preview.path(create=True)):
-				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'preview': preview.basename()}})
+				db.update_one({'_id': ObjectId(blob['id'])}, {'$set': {'previews': [preview.basename()]}})
 
 				thumbnail = BlobThumbnail(blob['id'], '.png')
 				if images.downscale(preview.path(create=True), 128, thumbnail.path(create=True)):
@@ -195,9 +195,9 @@ def find_blobs_without_previews() -> Generator[dict[str, str], None, None]:
 
 	for i in db.find(query):
 		if (
-			not i.get('preview') or
+			len(i.get('previews', [])) == 0 or
 			not i.get('thumbnail') or
-			(i.get('preview') and not BlobPreview(i.get('_id'), i.get('ext')).exists) or
+			(len(i.get('previews')) > 0 and not BlobPreview(i.get('_id'), i.get('ext')).exists) or
 			(i.get('thumbnail') and not BlobThumbnail(i.get('_id'), i.get('ext')).exists)
 		):
 			yield {'id': str(i['_id']), 'ext': i['ext']}
@@ -364,7 +364,7 @@ def create_blob(
 		'tags': list(set(tags + auto_tags)),
 		'creator': user_data['_id'],
 		'complete': False,
-		'preview': None,
+		'previews': [],
 		'thumbnail': None,
 		'hidden': hidden,
 		'ephemeral': ephemeral,
@@ -812,9 +812,9 @@ def delete_blob(blob_id: str) -> dict:
 	blob_data: dict | None = db.find_one({'_id': ObjectId(blob_id)})
 	if blob_data is not None:
 		# Delete the preview file if it exists
-		if blob_data.get('preview') is not None:
+		for preview in blob_data.get('previews', []):
 			try:
-				prevw = pathlib.Path(BlobPreview(blob_data['preview'], '').path(), '')
+				prevw = pathlib.Path(BlobPreview(preview, '').path(), '')
 				prevw.unlink()
 			except FileNotFoundError:
 				pass
@@ -903,7 +903,7 @@ def create_preview_model(path: str, preview_id: str) -> None:
 	"""
 	preview = BlobPreview(preview_id, '.glb')
 	models.to_glb(path, preview.path(create=True))
-	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
+	db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'previews': [preview.basename()]}})
 
 
 def create_preview_video(path: str, preview_id: str) -> None:
@@ -925,7 +925,7 @@ def create_preview_video(path: str, preview_id: str) -> None:
 
 	if videos.can_create_previews(hosts):
 		videos.create_low_res(path, preview.path(create=True), hosts)
-		db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'preview': preview.basename()}})
+		db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'previews': [preview.basename()]}})
 
 	# Create a thumbnail from the preview, not the full video (if possible).
 	create_thumbnail_video(preview.path() if preview.exists else path, preview_id)

@@ -28,9 +28,9 @@ class Blob(TypedDict):
 	size: int
 	## A list of tags associated with the blob
 	tags: list[str]
-	## A preview URL or ID for the blob. For images, this is a smaller version of the image. For videos, it's the first frame. For 3d models, it's a version that can be easily rendered in a browser.
-	preview: str | None
-	## The thumbnail for the blob. This is a smaller version of the preview, used for displaying in lists, and is always an image.
+	## A list of preview URLs (or IDs if hosted in-situ) for the blob. - For images, this will contain a smaller, compressed version of the image. - For videos, this will contain a low-res copy of the video in one or more formats. - For 3d models, it's a version that can be easily rendered in a browser.
+	previews: list[str]
+	## The thumbnail URL (or ID if hosted in-situ) for the blob. This is always a very small preview image.
 	thumbnail: str | None
 	## Whether the blob is restricted to only the user who created it.
 	hidden: bool

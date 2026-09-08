@@ -28,7 +28,7 @@ export default {
 						creator
 						created
 						tags
-						preview
+						previews
 						thumbnail
 						hidden
 						ephemeral
@@ -130,7 +130,7 @@ export default {
 					creator
 					created
 					tags
-					preview
+					previews
 					thumbnail
 					hidden
 					ephemeral
