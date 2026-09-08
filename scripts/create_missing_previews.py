@@ -20,8 +20,7 @@ if __name__ == '__main__':
 		exit(1)
 
 	from application.db.blob import (create_blob_previews,
-	                                 find_blobs_without_previews,
-	                                 video_preview_formats)
+	                                 find_blobs_without_previews)
 
 	for i in list(find_blobs_without_previews()):
 		print(f'Creating missing preview for `{i["id"]}{i.get('ext', '')}`...', flush=True)
