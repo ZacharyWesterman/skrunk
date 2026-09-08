@@ -195,12 +195,19 @@ def find_blobs_without_previews() -> Generator[dict[str, str], None, None]:
 
 	for i in db.find(query):
 		if (
-			len(i.get('previews', [])) == 0 or
 			not i.get('thumbnail') or
-			(len(i.get('previews')) > 0 and not BlobPreview(i.get('_id'), i.get('ext')).exists) or
-			(i.get('thumbnail') and not BlobThumbnail(i.get('_id'), i.get('ext')).exists)
+			(i.get('thumbnail') and not BlobThumbnail(i.get('thumbnail'), '').exists)
 		):
 			yield {'id': str(i['_id']), 'ext': i['ext']}
+			continue
+
+		if (
+			len(i.get('previews', [])) == 0 or
+			any(not BlobPreview(p, '').exists for p in i.get('previews', [])) or
+			(i.get('ext') in videos.extensions() and len(i.get('previews', [])) < len(video_preview_formats()))
+		):
+			yield {'id': str(i['_id']), 'ext': i['ext']}
+			continue
 
 
 def save_blob_data(
@@ -927,6 +934,13 @@ def create_preview_video(path: str, preview_id: str) -> None:
 		videos.create_low_res(path, preview.path(create=True), hosts)
 		db.update_one({'_id': ObjectId(preview_id)}, {'$set': {'previews': [preview.basename()]}})
 
+		# Once MP4 preview has been created, make some other options.
+		# Just copy them from the MP4 rather than parsing a potentially massive video all over again.
+		for fmt in video_preview_formats(exclude=['.mp4']):
+			new_preview = BlobPreview(preview_id, fmt)
+			videos.create_low_res(preview.path(), new_preview.path(create=True), hosts)
+			db.update_one({'_id': ObjectId(preview_id)}, {'$push': {'previews': new_preview.basename()}})
+
 	# Create a thumbnail from the preview, not the full video (if possible).
 	create_thumbnail_video(preview.path() if preview.exists else path, preview_id)
 
@@ -1022,3 +1036,19 @@ def remove_reference(id: str) -> None:
 
 	db.update_one({'_id': ObjectId(id)}, {'$inc': {'references': -1}})
 	db.update_one({'_id': ObjectId(id)}, {'$min': {'references': 0}})
+
+
+def video_preview_formats(*, exclude: list[str] | None = None) -> list[str]:
+	"""
+	Get a list of all the formats we want to output for video previews.
+
+	Args:
+		exclude (list[str] | None): A list of formats to exclude, if any.
+
+	Returns:
+		list[str]: All formats, minus any that were excluded.
+	"""
+
+	fmt_list = ['.mp4', '.webm']
+	excl = [] if exclude is None else exclude
+	return [i for i in fmt_list if i not in excl]
