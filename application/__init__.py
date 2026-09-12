@@ -14,7 +14,7 @@ import psutil
 from ariadne.contrib.federation.schema import make_federated_schema
 from flask import Flask
 
-from . import bundler, db, monkeypatch, routes, tokens
+from . import bundler, db, monkeypatch, routes, tokens, workers
 from .db import init_db, setup_db
 from .db.users import count_users
 from .resolvers import mutation, query
@@ -79,12 +79,13 @@ def init(
 	return application
 
 
-def new(name: str) -> tuple[argparse.Namespace, Flask]:
+def new(name: str, *, enable_workers: bool = False) -> tuple[argparse.Namespace, Flask]:
 	"""
 	Parses all runtime arguments, then initializes the application and database connection.
 
 	Parameters:
 		name (str): A descriptive name for the program.
+		enable_workers (bool): If True, enable background worker processes.
 
 	Returns:
 		tuple[argparse.Namespace, Flask]: The parsed arguments,
@@ -151,6 +152,9 @@ def new(name: str) -> tuple[argparse.Namespace, Flask]:
 		database_url=args.database,
 		preview_path=args.preview_path,
 	)
+
+	if enable_workers:
+		workers.begin()
 
 	return args, app
 

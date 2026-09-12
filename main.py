@@ -7,7 +7,7 @@ from pathlib import Path
 import application
 
 if __name__ == '__main__':
-	args, app = application.new('Skrunk Server')
+	args, app = application.new('Skrunk Server', enable_workers=True)
 
 	if args.wait_for_port:
 		if application.port_in_use(args.port):

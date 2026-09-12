@@ -51,21 +51,19 @@ def init() -> None:
 	global blob_path
 	blob_path = blob_storage.blob_path
 
-	# On startup, delete all ephemeral files which aren't referred to by any data,
-	# and which are older than 12 hours.
-	# Restart should be scheduled regularly for this to apply.
-	deleted_ct = 0
+
+def get_old_ephemeral_blobs() -> Generator[ObjectId, None, None]:
+	"""
+	List all ephemeral files which aren't referred to by any data,
+	and which are older than 24 hours.
+	"""
 
 	for i in db.find({
 		'ephemeral': True,
 		'references': 0,
-		'created': {'$lt': datetime.now(UTC) - timedelta(hours=12)}
+		'created': {'$lt': datetime.now(UTC) - timedelta(hours=24)}
 	}):
-		delete_blob(i['_id'])
-		deleted_ct += 1
-
-	if deleted_ct:
-		print(f'Deleted {deleted_ct} ephemeral blob entries.', flush=True)
+		yield i['_id']
 
 
 def file_info(filename: str) -> tuple[int, str]:
