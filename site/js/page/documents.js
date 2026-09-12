@@ -39,11 +39,30 @@ export async function init() {
 	await navigate_to_page(0)
 }
 
+async function create_doc(title, body, doctype) {
+	if (!wopi.supported) {
+		return await mutate.documents.create(title, body)
+	}
+
+	const query = {
+		'rich-text': mutate.documents.create_rich_text,
+		'spreadsheet': mutate.documents.create_spreadsheet,
+	}[doctype]
+
+	if (!query) {
+		return {
+			message: 'Invalid document type `' + doctype + '`!!'
+		}
+	}
+
+	return await query(title)
+}
+
 
 export async function new_document() {
 	const data = await _.modal({
 		title: "New Document",
-		text: wopi.supported ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("edit-document"),
+		text: api.snippit(wopi.supported ? 'edit-document-wopi' : 'edit-document'),
 		buttons: ["OK", "Cancel"],
 	}, () => {
 		//On load
@@ -63,16 +82,13 @@ export async function new_document() {
 		return {
 			title: $.val('title'),
 			body: $.val('body') ?? '',
+			doctype: $.val('doctype') || 'rich-text',
 		}
 	}).catch(() => null)
 
 	if (!data) return
 
-	const res = await (wopi.supported ?
-		mutate.documents.create_blob(data.title) :
-		mutate.documents.create(data.title, data.body)
-	)
-
+	const res = await create_doc(data.title, data.body, data.doctype)
 	if (res.__typename !== 'Document') {
 		_.modal.error(res.message)
 		return
@@ -126,7 +142,7 @@ export async function edit_document(id) {
 	const old_data = await api(`query ($id: String!) {
 		getDocument (id: $id) {
 			__typename
-			...on Document { title body blob_id }
+			...on Document { title body blob_id blob_type }
 			...on InsufficientPerms { message }
 			...on DocumentDoesNotExistError { message }
 		}
@@ -138,7 +154,7 @@ export async function edit_document(id) {
 
 	const data = await _.modal({
 		title: "Edit Document" + (wopi_doc ? ' Title' : ''),
-		text: wopi_doc ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit("edit-document"),
+		text: wopi_doc ? '<input type="text" id="title" placeholder="Document Title" />' : api.snippit('edit-document'),
 		buttons: ["OK", "Cancel"],
 	}, async () => {
 		// Pull in data on load
@@ -151,7 +167,9 @@ export async function edit_document(id) {
 
 		if (old_data.__typename === 'Document') {
 			title.value = old_data.title
-			body.value = old_data.body
+			if (body) {
+				body.value = old_data.body
+			}
 		}
 
 		title.disabled = false
@@ -205,6 +223,8 @@ export async function load_documents() {
 	}
 
 	const docs = res.documents
+	console.log(docs)
+
 	const text = docs.map(doc => `<div id="${doc.id}" template="document-stub"></div>`).join('')
 	$('document-list').innerHTML = text
 
@@ -326,7 +346,7 @@ export async function reload_page_list() {
 
 
 export async function import_documents() {
-	const doc_types = ['.txt', '.md', '.doc', '.docx', '.rtf', '.odf', '.odt']
+	const doc_types = ['.txt', '.md', '.doc', '.docx', '.rtf', '.odf', '.odt', '.ods', '.xls', '.xlsx', '.csv']
 	const files = await api.file_prompt(doc_types.join(','), true).catch(() => null)
 
 	if (files === null) {

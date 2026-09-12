@@ -361,3 +361,13 @@ class BlobDocumentsNotSupported(ClientError):
 		Initializes the exception with a message indicating that blob documents aren't supported.
 		"""
 		super().__init__('Blob documents are not supported.')
+
+
+class InvalidBlobType(ClientError):
+	"""Raised when the user tries to link a document to a blob that is not a valid document type."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a message indicating that the blob is the wrong type.
+		"""
+		super().__init__('Chosen blob is not a valid document.')

@@ -16,9 +16,9 @@ from pymongo.collection import Collection
 from application.exceptions import (BlobDocumentsNotSupported,
                                     BlobDoesNotExistError,
                                     DocumentDoesNotExistError,
-                                    InsufficientDiskSpace,
+                                    InsufficientDiskSpace, InvalidBlobType,
                                     UserDoesNotExistError)
-from application.types import DocumentSearchFilter, Tag
+from application.types import Doctype, DocumentSearchFilter, Tag
 from application.types.blob_storage import BlobStorage
 
 from . import blob, perms, settings, users
@@ -59,8 +59,14 @@ def parse_document(doc: dict) -> dict:
 
 	if doc['blob_id'] is not None:
 		doc['body_html'] = ''
+		blob_data = blob.get_blob_data(doc['blob_id'])
+		if blob_data['ext'] in Doctype.sheet_types:
+			doc['blob_type'] = 'spreadsheet'
+		else:
+			doc['blob_type'] = 'rich-text'
 	else:
 		doc['body_html'] = markdown.markdown(doc['body'])
+		doc['blob_type'] = None
 
 	doc['shared_users'] = [
 		users.get_user_by_id(i) for i in doc.get('shared_users', [])
@@ -215,14 +221,14 @@ def count_tag_uses(tag: str) -> int:
 	return db.count_documents(query)
 
 
-def create_document(title: str, body: str, is_blob: bool = False) -> dict:
+def create_document(title: str, body: str, blob_ext: str | None = None) -> dict:
 	"""
 	Creates a new document in the database.
 
 	Args:
 		title (str): The title of the document.
 		body (str): The content of the document.
-		is_blob (bool): If true, create a blank blob document.
+		blob_ext (str | None): If set, create a blank blob document of the given type.
 
 	Returns:
 		dict: The new document.
@@ -233,19 +239,19 @@ def create_document(title: str, body: str, is_blob: bool = False) -> dict:
 	body_text: str | bytes = body
 	blob_id = None
 
-	if is_blob:
+	if blob_ext is not None:
 		if not settings.get_config('wopi:url'):
 			raise BlobDocumentsNotSupported()
 
 		# Create a blob and save it to the database.
 		blob_id, ext = blob.create_blob(
-			title + '.odt',
+			title + '.' + blob_ext,
 			['__docs'],
 			True,
 			True,
 		)
 		this_blob_path = blob.BlobStorage(blob_id, ext).path(create=True)
-		with open('data/empty.odt', 'rb') as fp_from:
+		with open('data/empty.' + blob_ext, 'rb') as fp_from:
 			with open(this_blob_path, 'wb') as fp_to:
 				fp_to.write(fp_from.read())
 		blob.add_reference(blob_id)
@@ -293,6 +299,10 @@ def link_document(title: str, blob_id: str) -> dict:
 		raise BlobDocumentsNotSupported()
 
 	caller = perms.caller_info_strict()
+	blob_data = blob.get_blob_data(blob_id)
+	if blob_data['ext'] not in Doctype.supported:
+		raise InvalidBlobType()
+
 	blob.add_reference(blob_id)
 
 	doc = {
