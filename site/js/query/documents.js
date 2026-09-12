@@ -85,6 +85,8 @@ export default {
 						blob_id
 						blob_type
 						tags
+						shared_users { username }
+						shared_groups
 					}
 				}
 				...on BadTagQuery { message }

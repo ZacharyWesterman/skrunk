@@ -223,7 +223,6 @@ export async function load_documents() {
 	}
 
 	const docs = res.documents
-	console.log(docs)
 
 	const text = docs.map(doc => `<div id="${doc.id}" template="document-stub"></div>`).join('')
 	$('document-list').innerHTML = text

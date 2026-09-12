@@ -53,7 +53,7 @@
 		</div>
 
 		<div class="clickable" *click="view_document('{{= it.id }}')">
-			<span class="tooltip">
+			<span class="tooltip nomargin">
 				<span class="tooltiptext t-float-right">
 					{{? it.blob_id !== null }}
 						{{? it.blob_type === 'rich-text'}}Rich Text Document{{??}}Spreadsheet{{?}}
@@ -63,6 +63,17 @@
 				</span>
 				<i class="fa-solid {{? it.blob_id !== null }}{{? it.blob_type === 'rich-text'}}fa-file-lines{{??}}fa-table{{?}}{{??}}fa-brands fa-markdown{{?}}"></i>
 			</span>
+
+			{{? it.shared_users.length || it.shared_groups.length }}
+			<span class="tooltip emphasis">
+				<span class="tooltiptext t-float-right">
+					Shared with {{? it.shared_groups.length }}everyone{{??}}
+						{{= it.shared_users.map(i => i.username).join(', ')}}
+					{{?}}
+				</span>
+				<i class="fa-solid fa-eye"></i>
+			</span>
+			{{?}}
 
 			&nbsp;
 			<b>{{= it.title }}</b>
