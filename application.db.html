@@ -2285,14 +2285,14 @@ and are available for the current user to view.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.documents.create_document">
-<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">create_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_blob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.create_document" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">create_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.create_document" title="Link to this definition">#</a></dt>
 <dd><p>Creates a new document in the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>title</strong> (<em>str</em>) – The title of the document.</p></li>
 <li><p><strong>body</strong> (<em>str</em>) – The content of the document.</p></li>
-<li><p><strong>is_blob</strong> (<em>bool</em>) – If true, create a blank blob document.</p></li>
+<li><p><strong>blob_ext</strong> (<em>str</em><em> | </em><em>None</em>) – If set, create a blank blob document of the given type.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

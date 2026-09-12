@@ -1192,6 +1192,37 @@ All fields are optional, and if none are provided, all books will be returned.</
 </dd></dl>
 
 </section>
+<section id="module-application.types.doctype">
+<span id="application-types-doctype-module"></span><h2>application.types.doctype module<a class="headerlink" href="#module-application.types.doctype" title="Link to this heading">#</a></h2>
+<p>application.types.doctype</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="application.types.doctype.Doctype">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.types.doctype.</span></span><span class="sig-name descname"><span class="pre">Doctype</span></span><a class="headerlink" href="#application.types.doctype.Doctype" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to represent supported blob document types.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.doctype.Doctype.RICHTEXT">
+<span class="sig-name descname"><span class="pre">RICHTEXT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'odt'</span></em><a class="headerlink" href="#application.types.doctype.Doctype.RICHTEXT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.doctype.Doctype.SPREADSHEET">
+<span class="sig-name descname"><span class="pre">SPREADSHEET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ods'</span></em><a class="headerlink" href="#application.types.doctype.Doctype.SPREADSHEET" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.doctype.Doctype.sheet_types">
+<span class="sig-name descname"><span class="pre">sheet_types</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.ods',</span> <span class="pre">'.xls',</span> <span class="pre">'.xlsx',</span> <span class="pre">'.csv']</span></em><a class="headerlink" href="#application.types.doctype.Doctype.sheet_types" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.doctype.Doctype.supported">
+<span class="sig-name descname"><span class="pre">supported</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.txt',</span> <span class="pre">'.md',</span> <span class="pre">'.doc',</span> <span class="pre">'.docx',</span> <span class="pre">'.rtf',</span> <span class="pre">'.odf',</span> <span class="pre">'.odt',</span> <span class="pre">'.ods',</span> <span class="pre">'.xls',</span> <span class="pre">'.xlsx',</span> <span class="pre">'.csv']</span></em><a class="headerlink" href="#application.types.doctype.Doctype.supported" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-application.types.document">
 <span id="application-types-document-module"></span><h2>application.types.document module<a class="headerlink" href="#module-application.types.document" title="Link to this heading">#</a></h2>
 <p>application.types.document</p>
@@ -1202,6 +1233,11 @@ All fields are optional, and if none are provided, all books will be returned.</
 <dl class="py attribute">
 <dt class="sig sig-object py" id="application.types.document.Document.blob_id">
 <span class="sig-name descname"><span class="pre">blob_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> <span class="pre">|</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></em><a class="headerlink" href="#application.types.document.Document.blob_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.types.document.Document.blob_type">
+<span class="sig-name descname"><span class="pre">blob_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> <span class="pre">|</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></em><a class="headerlink" href="#application.types.document.Document.blob_type" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3081,9 +3117,20 @@ All fields are optional, and if a field is null, it will not be used in the quer
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.doctype">application.types.doctype module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.doctype.Doctype"><code class="docutils literal notranslate"><span class="pre">Doctype</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.doctype.Doctype.RICHTEXT"><code class="docutils literal notranslate"><span class="pre">Doctype.RICHTEXT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.doctype.Doctype.SPREADSHEET"><code class="docutils literal notranslate"><span class="pre">Doctype.SPREADSHEET</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.doctype.Doctype.sheet_types"><code class="docutils literal notranslate"><span class="pre">Doctype.sheet_types</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.doctype.Doctype.supported"><code class="docutils literal notranslate"><span class="pre">Doctype.supported</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.types.document">application.types.document module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document"><code class="docutils literal notranslate"><span class="pre">Document</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.blob_id"><code class="docutils literal notranslate"><span class="pre">Document.blob_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.blob_type"><code class="docutils literal notranslate"><span class="pre">Document.blob_type</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.body"><code class="docutils literal notranslate"><span class="pre">Document.body</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.body_html"><code class="docutils literal notranslate"><span class="pre">Document.body_html</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.types.document.Document.created"><code class="docutils literal notranslate"><span class="pre">Document.created</span></code></a></li>

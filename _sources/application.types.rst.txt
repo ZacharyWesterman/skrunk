@@ -188,6 +188,14 @@ application.types.diskusage module
    :show-inheritance:
    :undoc-members:
 
+application.types.doctype module
+--------------------------------
+
+.. automodule:: application.types.doctype
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.types.document module
 ---------------------------------
 
