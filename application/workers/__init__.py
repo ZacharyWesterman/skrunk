@@ -1,23 +1,27 @@
 """Module for background worker process management."""
 
-import time
-from threading import Thread
+from os import environ
+
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from application.db.blob import delete_blob, get_old_ephemeral_blobs
 
-_THREAD: Thread | None = None
+_SCHEDULER = None
 
 
 def begin() -> None:
 	"""
 	Launch background worker processes.
 	"""
-	global _THREAD
-	if _THREAD is not None:
+
+	# In dev mode, this prevents workers from getting spawned twice.
+	if environ.get("WERKZEUG_RUN_MAIN") == "true":
 		return
 
-	_THREAD = Thread(target=blob_cleanup)
-	_THREAD.start()
+	global _SCHEDULER
+	_SCHEDULER = BackgroundScheduler(daemon=True)
+	_SCHEDULER.add_job(blob_cleanup, 'interval', seconds=3600)
+	_SCHEDULER.start()
 
 
 def blob_cleanup() -> None:
@@ -25,13 +29,9 @@ def blob_cleanup() -> None:
 	Periodically scan for orphan blobs and clean them up.
 	"""
 
-	while True:
-		deleted_ct = 0
-		for blob_id in get_old_ephemeral_blobs():
-			delete_blob(str(blob_id))
+	deleted_ct = 0
+	for blob_id in get_old_ephemeral_blobs():
+		delete_blob(str(blob_id))
 
-		if deleted_ct:
-			print(f'Deleted {deleted_ct} orphan (ephemeral) blob entries.', flush=True)
-
-		# Only check for orphan blobs once per hour
-		time.sleep(3600)
+	if deleted_ct:
+		print(f'Deleted {deleted_ct} orphan (ephemeral) blob entries.', flush=True)
