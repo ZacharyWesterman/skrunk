@@ -59,6 +59,7 @@ export async function init() {
 		id: 'owner',
 		options: query.users.list_with_books(),
 		default: 'Anyone',
+		selected: api.username,
 	})
 }
 
