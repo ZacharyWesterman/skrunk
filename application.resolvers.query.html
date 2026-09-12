@@ -621,6 +621,26 @@ then initializes and returns a SubsonicClient object.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.query.settings.resolve_is_bundled">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.query.settings.</span></span><span class="sig-name descname"><span class="pre">resolve_is_bundled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.query.settings.resolve_is_bundled" title="Link to this definition">#</a></dt>
+<dd><p>Resolves whether the application is set to bundle files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_</strong> (<em>Any</em>) – Placeholder.</p></li>
+<li><p><strong>_info</strong> (<em>GraphQLResolveInfo</em>) – Information about the GraphQL execution state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if bundled, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-application.resolvers.query.users">
 <span id="application-resolvers-query-users-module"></span><h2>application.resolvers.query.users module<a class="headerlink" href="#module-application.resolvers.query.users" title="Link to this heading">#</a></h2>
@@ -740,6 +760,7 @@ If False and caller is admin, returns all users.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_modules()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_schema"><code class="docutils literal notranslate"><span class="pre">resolve_get_schema()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_get_server_enabled_modules"><code class="docutils literal notranslate"><span class="pre">resolve_get_server_enabled_modules()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.query.settings.resolve_is_bundled"><code class="docutils literal notranslate"><span class="pre">resolve_is_bundled()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.query.users">application.resolvers.query.users module</a><ul class="nav section-nav flex-column">
