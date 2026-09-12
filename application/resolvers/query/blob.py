@@ -5,11 +5,11 @@ from tag_query import exceptions
 
 from application.db import perms
 from application.db.blob import (count_blobs, count_tag_uses, get_blob_data,
-                                 get_blobs, get_uid, get_zip_progress,
-                                 sum_blob_size)
+                                 get_blobs, get_similar_tags, get_uid,
+                                 get_zip_progress, sum_blob_size)
 from application.db.users import group_filter, userids_in_groups
 from application.integrations import qrcode
-from application.types import BlobSearchFilter, Sorting, UserData
+from application.types import BlobSearchFilter, Sorting, Tag, UserData
 from application.types.blob_storage import BlobStorage
 
 from ..decorators import handle_client_exceptions
@@ -195,3 +195,26 @@ def resolve_poll_zip_progress(_, _info: GraphQLResolveInfo, uid: str) -> dict:
 		dict: A dictionary representing the progress of the zip operation.
 	"""
 	return {'__typename': 'ZipProgress', **get_zip_progress(uid)}
+
+
+@query.field('suggestBlobTags')
+@perms.module('files')
+@handle_client_exceptions
+def resolve_suggest_blob_tags(_, _info: GraphQLResolveInfo, text: str) -> list[Tag]:
+	"""
+	Resolves a list of tags that are similar to the given text.
+	Only searches through tags on blobs that are visible to the current user.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		text (str): The text to search for in the tags.
+
+	Returns:
+		list[Tag]: A list of tag metadata objects.
+	"""
+
+	user_data = perms.caller_info_strict()
+	user_id = user_data['_id']
+	group = userids_in_groups(user_data.get('groups', []))
+	return list(get_similar_tags(text, user_id, group))

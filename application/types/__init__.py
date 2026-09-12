@@ -57,6 +57,7 @@ from .subsonicalbum import SubsonicAlbum
 from .subsonicsearch import SubsonicSearch
 from .subsonictrack import SubsonicTrack
 from .systeminfo import SystemInfo
+from .tag import Tag
 from .theme import Theme
 from .themecolor import ThemeColor
 from .themecoloroutput import ThemeColorOutput

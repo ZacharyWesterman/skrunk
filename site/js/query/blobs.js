@@ -145,4 +145,12 @@ export default {
 
 		return (blob.__typename === 'Blob') ? prettify(blob) : blob
 	},
+
+	suggest_tags: async text => {
+		return await api(`query ($text: String!) {
+			suggestBlobTags (text: $text) { name count }
+		}`, {
+			text,
+		})
+	},
 }
