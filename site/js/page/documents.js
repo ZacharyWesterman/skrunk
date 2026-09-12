@@ -203,8 +203,7 @@ export async function edit_document(id) {
 	}
 
 	_.modal.checkmark()
-
-	_(id, new_data)
+	await reload_document(id)
 }
 
 
@@ -230,6 +229,24 @@ export async function load_documents() {
 	for (const doc of docs) {
 		_(doc.id, doc)
 	}
+}
+
+
+export async function reload_document(id) {
+	const field = $(id)
+	if (!field) {
+		console.error(`Document ${id} does not exist on the screen!`)
+		return
+	}
+
+	const res = await query.documents.get(id)
+
+	if (res.__typename !== 'Document') {
+		console.error(`When reloading document ${id}: ${res.message}`)
+		return
+	}
+
+	await _(id, res)
 }
 
 
@@ -428,7 +445,7 @@ export async function set_document_tags(id) {
 			_.modal.error(doc.message)
 			return
 		}
-		await load_documents()
+		await reload_document(id)
 	})
 }
 
@@ -608,5 +625,7 @@ export async function share_document(id) {
 		_.modal.error(res2.message)
 		return
 	}
+
 	_.modal.checkmark()
+	await reload_document(id)
 }
