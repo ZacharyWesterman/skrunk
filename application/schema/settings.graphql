@@ -111,6 +111,7 @@ extend type Query {
 	getConfig(name: String!): String
 	getThemes: [ThemeOutput!]!
 	getSchema: Schema!
+	isBundled: Boolean!
 }
 
 extend type Mutation {

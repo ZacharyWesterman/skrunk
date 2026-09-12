@@ -505,24 +505,31 @@ api.preload = async () => {
 
 	query.require('users').then(query.users.list)
 
+	const is_bundled = await api('{isBundled}')
+
 	let promises = []
+	let exclude_json = []
 
-	try {
-		for (const name of ['config', 'html', 'templates']) {
-			const res = await fetch(`/${name}.json`)
-			if (res.status < 200 || res.status >= 300 || !res.ok) {
-				throw new Error('Bundling not enabled')
+	if (is_bundled) {
+		try {
+			for (const name of ['config', 'html', 'templates']) {
+				const res = await fetch(`/${name}.json`)
+				if (res.status < 200 || res.status >= 300 || !res.ok) {
+					throw new Error('Bundling not enabled')
+				}
+
+				const bundle = await res.json()
+				for (const i in bundle) {
+					cache.write(i, bundle[i])
+				}
+
+				console.log(`Fetched bundle: ${name}`)
+				exclude_json.push(`/${name}.json`)
 			}
-
-			const bundle = await res.json()
-			for (const i in bundle) {
-				cache.write(i, bundle[i])
-			}
-
-			console.log(`Fetched bundle: ${name}`)
+			console.log('Continuing to fetch remaining files (async).')
+		} catch (e) {
+			console.warn('Bundling enabled but files are missing! Fetching all files (async).')
 		}
-	} catch (e) {
-		console.log('Bundling not enabled, fetching all async.')
 	}
 
 	// Resources aren't bundled, so load them all from the sitemap.
@@ -531,7 +538,12 @@ api.preload = async () => {
 	for (const i of resources.js) promises.push(import(i))
 	for (const i of resources.html) promises.push(api.get(i))
 	for (const i of resources.dot) promises.push(api.get(i))
-	for (const i of resources.json) promises.push(api.get(i))
+	for (const i of resources.json) {
+		console.log(i)
+		if (!exclude_json.includes(i)) {
+			promises.push(api.get(i))
+		}
+	}
 
 	for (const i of promises) await i
 }

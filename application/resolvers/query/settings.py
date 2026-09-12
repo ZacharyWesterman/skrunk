@@ -2,6 +2,7 @@
 
 from graphql.type import GraphQLResolveInfo
 
+from application.bundler import is_bundled
 from application.db import perms
 from application.db.settings import (get_all_configs, get_all_themes,
                                      get_config, get_enabled_modules,
@@ -133,3 +134,18 @@ def resolve_get_schema(_, _info: GraphQLResolveInfo) -> dict:
 		dict: The current GraphQL schema.
 	"""
 	return graphql.schema()
+
+
+@query.field('isBundled')
+def resolve_is_bundled(_, _info: GraphQLResolveInfo) -> bool:
+	"""
+	Resolves whether the application is set to bundle files.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+
+	Returns:
+		bool: True if bundled, False otherwise.
+	"""
+	return is_bundled()

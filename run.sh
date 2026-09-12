@@ -79,7 +79,9 @@ fi
 		c=$((c + 1))
 		[ "$c" == "${#items[@]}" ] && is_last=1
 		echo -n "  \"$i\":"
-		[ "$i" == js ] && find="site/js/util site/js/page" || find=site
+		find=site
+		[ "$i" == js ] && find="site/js/util site/js/page"
+		[ "$i" == json ] && find=site/config
 
 		#Don't include files that should not be cached on page load.
 		json_array $(find $find -name "*.$i" -type f | filter $(cat data/no_auth_files.txt) $(cat data/no_prefetch_files.txt))

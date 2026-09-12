@@ -3,16 +3,18 @@ This module handles the (optional) bundling of site files, which can improve per
 by decreasing the number of HTTP requests needed to load content.
 """
 
-from pathlib import Path
-from jsmin import jsmin
-from rcssmin import cssmin
 import json
 import re
+from pathlib import Path
+
+from jsmin import jsmin
+from rcssmin import cssmin
 
 CSS_URL = re.compile(r'@import +url\( *[\'"]([^\'"]*)[\'"] *\) *;')
 JS_IMPORT = re.compile(r'\bimport +((\w+) +from *)?[\'"]([^\'"]*)[\'"]')
 JS_EXPORT = re.compile(r'\bexport *default\b')
 JS_FUNC_IMPORT = re.compile(r'\bimport *\( *[\'"]([^\'"]*)[\'"] *\)')
+_IS_BUNDLED: bool = False
 
 
 def bundle_css(path: str) -> None:
@@ -104,6 +106,8 @@ def bundle() -> None:
 	"""
 	Bundle all relevant site files.
 	"""
+	global _IS_BUNDLED
+	_IS_BUNDLED = True
 
 	print('Bundling source for performance...', end='', flush=True)
 
@@ -174,3 +178,13 @@ def get_bundled_path(path: str) -> str | None:
 
 	bundled_path = Path('site/bundled') / Path(path).name
 	return str(bundled_path) if bundled_path.exists() else None
+
+
+def is_bundled() -> bool:
+	"""
+	Get whether the current source has been bundled.
+
+	Returns:
+		bool: True if bundling is enabled, False otherwise.
+	"""
+	return _IS_BUNDLED
