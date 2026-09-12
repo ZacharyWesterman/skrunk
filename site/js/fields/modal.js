@@ -460,7 +460,10 @@ modal.tags = async (tag_list, tag_query_name, tag_suggest_query_callback) => {
 					return
 				}
 
-				const suggestions = await tag_suggest_query_callback(input.value)
+				const suggestions = (
+					await tag_suggest_query_callback(input.value)
+				).sort((a, b) => a.name.localeCompare(b.name))
+
 				for (const { name, count } of suggestions) {
 					const elem = document.createElement('option')
 					elem.value = name
