@@ -453,8 +453,8 @@ modal.tags = async (tag_list, tag_query_name, tag_suggest_query_callback) => {
 		if (tag_suggest_query_callback) {
 			const input = $('modal-tag-input')
 			$.bind(input, async () => {
-				for (const child of datalist.children) {
-					child.remove()
+				for (let i = datalist.children.length - 1; i >= 0; i--) {
+					datalist.children[i].remove()
 				}
 				if (input.value === '') {
 					return
@@ -496,8 +496,8 @@ modal.tags = async (tag_list, tag_query_name, tag_suggest_query_callback) => {
 
 		//when submitting a tag
 		const tagSubmit = async field => {
-			for (const child of datalist.children) {
-				child.remove()
+			for (let i = datalist.children.length - 1; i >= 0; i--) {
+				datalist.children[i].remove()
 			}
 
 			const tag = field.value.trim()
