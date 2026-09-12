@@ -256,6 +256,7 @@
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.workers.html">application.workers package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -722,6 +723,18 @@ the provided filter, pagination, and sorting options.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.get_old_ephemeral_blobs">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">get_old_ephemeral_blobs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.get_old_ephemeral_blobs" title="Link to this definition">#</a></dt>
+<dd><p>List all ephemeral files which aren’t referred to by any data,
+and which are older than 24 hours.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectId</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -4634,6 +4647,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.find_blobs_without_previews"><code class="docutils literal notranslate"><span class="pre">find_blobs_without_previews()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blob_data"><code class="docutils literal notranslate"><span class="pre">get_blob_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blobs"><code class="docutils literal notranslate"><span class="pre">get_blobs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_old_ephemeral_blobs"><code class="docutils literal notranslate"><span class="pre">get_old_ephemeral_blobs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_similar_tags"><code class="docutils literal notranslate"><span class="pre">get_similar_tags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_tags_from_mime"><code class="docutils literal notranslate"><span class="pre">get_tags_from_mime()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_uid"><code class="docutils literal notranslate"><span class="pre">get_uid()</span></code></a></li>

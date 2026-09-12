@@ -256,6 +256,7 @@
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.workers.html">application.workers package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -349,6 +350,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.find_blobs_without_previews"><code class="docutils literal notranslate"><span class="pre">find_blobs_without_previews()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_blob_data"><code class="docutils literal notranslate"><span class="pre">get_blob_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_blobs"><code class="docutils literal notranslate"><span class="pre">get_blobs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_old_ephemeral_blobs"><code class="docutils literal notranslate"><span class="pre">get_old_ephemeral_blobs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_similar_tags"><code class="docutils literal notranslate"><span class="pre">get_similar_tags()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_tags_from_mime"><code class="docutils literal notranslate"><span class="pre">get_tags_from_mime()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.blob.get_uid"><code class="docutils literal notranslate"><span class="pre">get_uid()</span></code></a></li>
@@ -1625,6 +1627,14 @@
 <li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="application.workers.html">application.workers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.workers.html#module-application.workers">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.workers.html#application.workers.begin"><code class="docutils literal notranslate"><span class="pre">begin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.workers.html#application.workers.blob_cleanup"><code class="docutils literal notranslate"><span class="pre">blob_cleanup()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -1863,11 +1873,14 @@ If None, defaults to the same as preview_path.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="application.new">
-<span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.new" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">application.</span></span><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.new" title="Link to this definition">#</a></dt>
 <dd><p>Parses all runtime arguments, then initializes the application and database connection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – A descriptive name for the program.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – A descriptive name for the program.</p></li>
+<li><p><strong>enable_workers</strong> (<em>bool</em>) – If True, enable background worker processes.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">

@@ -15,6 +15,7 @@ Subpackages
    application.routes
    application.scalars
    application.types
+   application.workers
 
 Submodules
 ----------
