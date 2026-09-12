@@ -98,8 +98,5 @@ if [ ! -e data/secrets/public_key.txt ]; then
 	rm -f data/secrets/vapid_private.pem
 fi
 
-#Make sure all dependencies are up to date
-poetry update --without dev
-
 #Start server
 poetry run python3 main.py "$@"
