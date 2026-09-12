@@ -22,6 +22,7 @@ from .bugreportcreationfailederror import BugReportCreationFailedError
 from .config import Config
 from .configlist import ConfigList
 from .diskusage import DiskUsage
+from .doctype import Doctype
 from .document import Document
 from .documentcount import DocumentCount
 from .documentlist import DocumentList

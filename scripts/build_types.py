@@ -184,7 +184,9 @@ def create_init_py(init_py_files: list[str]) -> None:
 def output_types() -> None:
 	"""Build all GraphQL types into TypedDict classes for use in the application."""
 
-	init_py_files: list[str] = []
+	init_py_files: list[str] = [
+		'Doctype'
+	]
 
 	types = schema()['types']
 
@@ -195,7 +197,7 @@ def output_types() -> None:
 
 		unions[t['name']] = t['subtypes']
 
-	file_list = ['__init__', 'blob_storage']
+	file_list = ['__init__', 'blob_storage', 'doctype']
 
 	# Build list of types
 	for t in types:

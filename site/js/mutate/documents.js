@@ -20,13 +20,31 @@ export default {
 	},
 
 	/**
-	 * Create a new (empty) blob document.
+	 * Create a new (empty) rich text blob document.
 	 * @param {string} title The document title.
 	 * @returns {Promise<object>} The new document.
 	 */
-	create_blob: async (title) => {
+	create_rich_text: async (title) => {
 		return await api(`mutation ($title: String!){
-			createBlobDocument (title: $title){
+			createRichTextBlobDocument (title: $title){
+				__typename
+				...on Document { id }
+				...on InsufficientPerms { message }
+				...on BlobDocumentsNotSupported { message }
+			}
+		}`, {
+			title,
+		})
+	},
+
+	/**
+	 * Create a new (empty) rich text blob document.
+	 * @param {string} title The document title.
+	 * @returns {Promise<object>} The new document.
+	 */
+	create_spreadsheet: async (title) => {
+		return await api(`mutation ($title: String!){
+			createSpreadsheetBlobDocument (title: $title){
 				__typename
 				...on Document { id }
 				...on InsufficientPerms { message }

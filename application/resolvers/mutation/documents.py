@@ -8,7 +8,7 @@ from application.db.documents import (create_document, delete_document,
                                       get_document, link_document,
                                       set_document_tags, share_with,
                                       update_document, zip_matching_documents)
-from application.types import DocumentSearchFilter
+from application.types import Doctype, DocumentSearchFilter
 
 from ..decorators import handle_client_exceptions
 from . import mutation
@@ -36,20 +36,20 @@ def resolve_create_document(
 	Returns:
 		dict: A dictionary representing the created document with a '__typename' key.
 	"""
-	return {'__typename': 'Document', **create_document(title, body, False)}
+	return {'__typename': 'Document', **create_document(title, body, None)}
 
 
-@mutation.field('createBlobDocument')
+@mutation.field('createRichTextBlobDocument')
 @perms.module('documents')
 @perms.require('edit')
 @handle_client_exceptions
-def resolve_create_blob_document(
+def resolve_create_blob_rich_text_document(
 	_,
 	_info: GraphQLResolveInfo,
 	title: str
 ) -> dict:
 	"""
-	Resolver function to create a new blob document.
+	Resolver function to create a new "rich text" blob document.
 
 	Args:
 		_ (Any): Placeholder.
@@ -59,7 +59,30 @@ def resolve_create_blob_document(
 	Returns:
 		dict: A dictionary representing the created document with a '__typename' key.
 	"""
-	return {'__typename': 'Document', **create_document(title, '', True)}
+	return {'__typename': 'Document', **create_document(title, '', Doctype.RICHTEXT)}
+
+
+@mutation.field('createSpreadsheetBlobDocument')
+@perms.module('documents')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_create_blob_spreadsheet_document(
+	_,
+	_info: GraphQLResolveInfo,
+	title: str
+) -> dict:
+	"""
+	Resolver function to create a new "spreadsheet" blob document.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		title (str): The title of the document.
+
+	Returns:
+		dict: A dictionary representing the created document with a '__typename' key.
+	"""
+	return {'__typename': 'Document', **create_document(title, '', Doctype.SPREADSHEET)}
 
 
 @mutation.field('linkBlobDocument')

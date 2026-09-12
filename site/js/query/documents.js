@@ -23,6 +23,7 @@ export default {
 					updated
 					tags
 					blob_id
+					blob_type
 					shared_users { username }
 					shared_groups
 				}
@@ -82,8 +83,8 @@ export default {
 						}
 						updated
 						blob_id
+						blob_type
 						tags
-						blob_id
 					}
 				}
 				...on BadTagQuery { message }

@@ -8,6 +8,7 @@ type Document {
 	updated: DateTime
 	updater: UserMinData
 	blob_id: String
+	blob_type: String
 	tags: [String!]!
 	shared_users: [UserMinData!]!
 	shared_groups: [String!]!
@@ -18,6 +19,10 @@ type DocumentDoesNotExistError {
 }
 
 type BlobDocumentsNotSupported {
+	message: String!
+}
+
+type InvalidBlobType {
 	message: String!
 }
 
@@ -51,7 +56,7 @@ union DocumentQueryResponse = Document | DocumentDoesNotExistError | Insufficien
 union DocumentUpdateResponse = Document | DocumentDoesNotExistError | InsufficientPerms
 union DocumentCountResponse = DocumentCount | InsufficientPerms | BadTagQuery
 union CreateBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported
-union LinkBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported | BlobDoesNotExistError
+union LinkBlobDocumentResponse = Document | InsufficientPerms | BlobDocumentsNotSupported | InvalidBlobType | BlobDoesNotExistError
 union DocumentListResponse = DocumentList | BadTagQuery
 union DocumentShareResponse = Document | DocumentDoesNotExistError | InsufficientPerms | UserDoesNotExistError
 
@@ -68,7 +73,8 @@ extend type Query {
 
 extend type Mutation {
 	createDocument(title: String!, body: String!): DocumentUpdateResponse!
-	createBlobDocument(title: String!): CreateBlobDocumentResponse!
+	createRichTextBlobDocument(title: String!): CreateBlobDocumentResponse!
+	createSpreadsheetBlobDocument(title: String!): CreateBlobDocumentResponse!
 	linkBlobDocument(title: String!, blob_id: String!): LinkBlobDocumentResponse!
 	updateDocument(id: String!, title: String, body: String): DocumentUpdateResponse!
 	deleteDocument(id: String!): DocumentUpdateResponse!

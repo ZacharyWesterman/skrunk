@@ -18,6 +18,7 @@ class Document(TypedDict):
 	updated: datetime | None
 	updater: UserMinData | None
 	blob_id: str | None
+	blob_type: str | None
 	tags: list[str]
 	shared_users: list[UserMinData]
 	shared_groups: list[str]
