@@ -72,6 +72,11 @@
 					{{?}}
 				</span>
 				<i class="fa-solid fa-eye"></i>
+				{{? it.shared_groups.length }}
+					<span style="font-weight: bolder;">&plus;</span>
+				{{??}}
+					<span style="font-weight: bolder; font-size: 80%;">{{= it.shared_users.length }}</span>
+				{{?}}
 			</span>
 			{{?}}
 
