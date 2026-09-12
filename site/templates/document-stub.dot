@@ -2,10 +2,12 @@
 	<div>
 		<div class="actions">
 			{{? it.creator.username === api.username }}
-				<button class="icon clickable tooltip" *click="delete_document('{{= it.id }}')">
-					<i class="fa-solid fa-trash fa-lg"></i>
+				<span class="tooltip nomargin">
 					<span class="tooltiptext t-float-right">Delete document</span>
-				</button>
+					<button class="icon clickable tooltip" *click="delete_document('{{= it.id }}')">
+						<i class="fa-solid fa-trash fa-lg"></i>
+					</button>
+				</span>
 
 				{{? it.blob_id !== null }}
 				<span class="tooltip right">
@@ -51,7 +53,20 @@
 		</div>
 
 		<div class="clickable" *click="view_document('{{= it.id }}')">
+			<span class="tooltip">
+				<span class="tooltiptext t-float-right">
+					{{? it.blob_id !== null }}
+						{{? it.blob_type === 'rich-text'}}Rich Text Document{{??}}Spreadsheet{{?}}
+					{{??}}
+						Markdown Document
+					{{?}}
+				</span>
+				<i class="fa-solid {{? it.blob_id !== null }}{{? it.blob_type === 'rich-text'}}fa-file-lines{{??}}fa-table{{?}}{{??}}fa-brands fa-markdown{{?}}"></i>
+			</span>
+
+			&nbsp;
 			<b>{{= it.title }}</b>
+
 			<div class="suppress">
 				{{? it.updated }}
 					Edited by {{= it.updater.display_name }}{{? (it.updater.display_name.toLowerCase() !== it.updater.username.toLowerCase()) }} ({{= it.updater.username }}){{?}} on {{= date.output(it.updated) }}
@@ -65,17 +80,6 @@
 			{{? it.creator.username !== api.username }}
 			<div class="emphasis">Shared with you.</div>
 			{{?}}
-
-			<span class="right suppress tooltip">
-				<span class="tooltiptext t-float-left">
-					{{? it.blob_id !== null }}
-						{{? it.blob_type === 'rich-text'}}Rich Text{{??}}Spreadsheet{{?}}
-					{{??}}
-						Markdown
-					{{?}} Document
-				</span>
-				<i class="fa-solid {{? it.blob_id !== null }}fa-file-{{? it.blob_type === 'rich-text'}}word{{??}}excel{{?}}{{??}}fa-brands fa-markdown{{?}}"></i>
-			</span>
 		</div>
 
 		<button class="icon tooltip" {{? it.creator.username === api.username }}*click="set_document_tags('{{=it.id}}')"{{?}}>

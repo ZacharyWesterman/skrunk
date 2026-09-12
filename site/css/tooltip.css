@@ -42,6 +42,11 @@
 	font-family: 'Lexend Giga', sans-serif;
 }
 
+.tooltip.nomargin {
+	margin-left: 0;
+	padding: 0;
+}
+
 .tooltip .alt {
 	background-color: var(--tertiary);
 }
