@@ -496,14 +496,15 @@ packing and unpacking of ZIP files, and generating previews for various file typ
 
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.blob.count_tag_uses">
-<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">count_tag_uses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.count_tag_uses" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">count_tag_uses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.count_tag_uses" title="Link to this definition">#</a></dt>
 <dd><p>Count the number of documents in the database that contain a specific tag
 and are created by any of the specified users.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tag</strong> (<em>str</em>) – The tag to search for in the documents.</p></li>
-<li><p><strong>user_ids</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – A list of user identifiers to filter the documents by their creators.</p></li>
+<li><p><strong>user_id</strong> (<em>ObjectId</em>) – The ID of the current user.</p></li>
+<li><p><strong>user_ids</strong> (<em>list</em><em>[</em><em>ObjectId</em><em>]</em>) – The IDs of all users in the current group.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -721,6 +722,28 @@ the provided filter, pagination, and sorting options.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.get_similar_tags">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">get_similar_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.get_similar_tags" title="Link to this definition">#</a></dt>
+<dd><p>Get a list of tags that are similar to the given text.
+Only searches through tags on blobs that are visible to the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The text to search for in the tags.</p></li>
+<li><p><strong>user_id</strong> (<em>ObjectId</em>) – The ID of the current user.</p></li>
+<li><p><strong>user_ids</strong> (<em>list</em><em>[</em><em>ObjectId</em><em>]</em>) – The IDs of all users in the current group.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A series of tag metadata objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Generator[<a class="reference internal" href="application.types.html#application.types.tag.Tag" title="application.types.tag.Tag">Tag</a>, None, None]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2320,6 +2343,28 @@ and are available for the current user to view.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.documents.get_similar_tags">
+<span class="sig-prename descclassname"><span class="pre">application.db.documents.</span></span><span class="sig-name descname"><span class="pre">get_similar_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_groups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.documents.get_similar_tags" title="Link to this definition">#</a></dt>
+<dd><p>Get a list of tags that are similar to the given text.
+Only searches through tags on documents that are visible to the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The text to search for in the tags.</p></li>
+<li><p><strong>user_id</strong> (<em>ObjectId</em>) – The ID of the current user.</p></li>
+<li><p><strong>user_groups</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The groups that the current user is in.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A series of tag metadata objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Generator[<a class="reference internal" href="application.types.html#application.types.tag.Tag" title="application.types.tag.Tag">Tag</a>, None, None]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4589,6 +4634,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.find_blobs_without_previews"><code class="docutils literal notranslate"><span class="pre">find_blobs_without_previews()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blob_data"><code class="docutils literal notranslate"><span class="pre">get_blob_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blobs"><code class="docutils literal notranslate"><span class="pre">get_blobs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_similar_tags"><code class="docutils literal notranslate"><span class="pre">get_similar_tags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_tags_from_mime"><code class="docutils literal notranslate"><span class="pre">get_tags_from_mime()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_uid"><code class="docutils literal notranslate"><span class="pre">get_uid()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_zip_progress"><code class="docutils literal notranslate"><span class="pre">get_zip_progress()</span></code></a></li>
@@ -4675,6 +4721,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.delete_document"><code class="docutils literal notranslate"><span class="pre">delete_document()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.get_document"><code class="docutils literal notranslate"><span class="pre">get_document()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.get_documents"><code class="docutils literal notranslate"><span class="pre">get_documents()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.get_similar_tags"><code class="docutils literal notranslate"><span class="pre">get_similar_tags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.link_document"><code class="docutils literal notranslate"><span class="pre">link_document()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.parse_document"><code class="docutils literal notranslate"><span class="pre">parse_document()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.documents.set_document_tags"><code class="docutils literal notranslate"><span class="pre">set_document_tags()</span></code></a></li>

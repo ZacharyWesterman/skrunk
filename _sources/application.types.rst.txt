@@ -468,6 +468,14 @@ application.types.systeminfo module
    :show-inheritance:
    :undoc-members:
 
+application.types.tag module
+----------------------------
+
+.. automodule:: application.types.tag
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.types.theme module
 ------------------------------
 
