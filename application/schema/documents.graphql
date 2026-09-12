@@ -63,6 +63,7 @@ extend type Query {
 	countDocuments(filter: DocumentSearchFilter!): DocumentCountResponse!
 	countDocumentTagUses(tag: String!): Int!
 	totalDocumentSize(filter: DocumentSearchFilter!): BlobCountResponse!
+	suggestDocumentTags(text: String!): [Tag!]!
 }
 
 extend type Mutation {

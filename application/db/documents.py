@@ -2,8 +2,10 @@
 
 import hashlib
 import pathlib
+import re
 import shutil
 from datetime import UTC, datetime
+from typing import Generator
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import markdown
@@ -16,7 +18,7 @@ from application.exceptions import (BlobDocumentsNotSupported,
                                     DocumentDoesNotExistError,
                                     InsufficientDiskSpace,
                                     UserDoesNotExistError)
-from application.types import DocumentSearchFilter
+from application.types import DocumentSearchFilter, Tag
 from application.types.blob_storage import BlobStorage
 
 from . import blob, perms, settings, users
@@ -651,3 +653,46 @@ def share_with(id: str, my_groups: bool, specific_users: list[str]) -> dict:
 		**doc,
 		**update_doc,
 	})
+
+
+def get_similar_tags(
+	text: str,
+	user_id: ObjectId,
+	user_groups: list[str]
+) -> Generator[Tag, None, None]:
+	"""
+	Get a list of tags that are similar to the given text.
+	Only searches through tags on documents that are visible to the current user.
+
+	Args:
+		text (str): The text to search for in the tags.
+		user_id (ObjectId): The ID of the current user.
+		user_groups (list[str]): The groups that the current user is in.
+
+	Returns:
+		Generator[Tag, None, None]: A series of tag metadata objects.
+	"""
+
+	text_search = re.compile('^' + re.escape(text))
+
+	aggregate = db.aggregate([
+		{'$match': {
+			'$or': [
+				{'creator': user_id},
+				{'shared_users': user_id},
+				*[{'shared_groups': i} for i in user_groups],
+			],
+		}},
+		{'$unwind': '$tags'},
+		{'$group': {
+			'_id': '$tags',
+			'count': {'$sum': 1},
+		}},
+		{'$match': {
+			'_id': text_search,
+		}},
+		{'$limit': 10},
+	])
+
+	for tag in aggregate:
+		yield Tag(_id=ObjectId(), name=tag['_id'], count=tag['count'])
