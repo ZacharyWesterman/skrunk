@@ -130,4 +130,17 @@ export default {
 			filter,
 		})
 	},
+
+	/**
+	 * Get a list of similar tags compared to the given text.
+	 * @param {string} text The tag text to search for.
+	 * @returns {Promise<Array.<Object>>} A list of suggested tags.
+	 */
+	suggest_tags: async text => {
+		return await api(`query ($text: String!) {
+			suggestDocumentTags (text: $text) { name count }
+		}`, {
+			text,
+		})
+	}
 }

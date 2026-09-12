@@ -7,6 +7,7 @@ packing and unpacking of ZIP files, and generating previews for various file typ
 import hashlib
 import mimetypes
 import pathlib
+import re
 import shutil
 import uuid
 from datetime import UTC, datetime, timedelta
@@ -21,7 +22,7 @@ from werkzeug.datastructures import FileStorage
 
 from application import exceptions
 from application.integrations import images, models, pdf, tqfilter, videos
-from application.types import BlobSearchFilter, Sorting, blob_storage
+from application.types import BlobSearchFilter, Sorting, Tag, blob_storage
 from application.types.blob_storage import (BlobPreview, BlobStorage,
                                             BlobThumbnail)
 
@@ -988,19 +989,40 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 	return blob_data
 
 
-def count_tag_uses(tag: str, user_ids: list[ObjectId]) -> int:
+def count_tag_uses(tag: str, user_id: ObjectId, user_ids: list[ObjectId]) -> int:
 	"""
 	Count the number of documents in the database that contain a specific tag
 	and are created by any of the specified users.
 
 	Args:
 		tag (str): The tag to search for in the documents.
-		user_ids (list[str]): A list of user identifiers to filter the documents by their creators.
+		user_id (ObjectId): The ID of the current user.
+		user_ids (list[ObjectId]): The IDs of all users in the current group.
 
 	Returns:
 		int: The count of documents that match the specified tag and creators.
 	"""
-	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in user_ids]}]})
+
+	aggregate = db.aggregate([
+		{'$match': {
+			'$and': [
+				{'$or': [{'hidden': False}, {'creator': user_id}]},
+				{'$or': [{'creator': i} for i in user_ids]},
+			],
+			'tags': tag,
+		}},
+		{'$unwind': '$tags'},
+		{'$group': {
+			'_id': '$tags',
+			'count': {'$sum': 1},
+		}},
+		{'$match': {'_id': tag}},
+	])
+
+	for item in aggregate:
+		return item.get('count', 0)
+
+	return 0
 
 
 def add_reference(id: str) -> None:
@@ -1052,3 +1074,45 @@ def video_preview_formats(*, exclude: list[str] | None = None) -> list[str]:
 	fmt_list = ['.mp4', '.webm']
 	excl = [] if exclude is None else exclude
 	return [i for i in fmt_list if i not in excl]
+
+
+def get_similar_tags(
+	text: str,
+	user_id: ObjectId,
+	user_ids: list[ObjectId]
+) -> Generator[Tag, None, None]:
+	"""
+	Get a list of tags that are similar to the given text.
+	Only searches through tags on blobs that are visible to the current user.
+
+	Args:
+		text (str): The text to search for in the tags.
+		user_id (ObjectId): The ID of the current user.
+		user_ids (list[ObjectId]): The IDs of all users in the current group.
+
+	Returns:
+		Generator[Tag, None, None]: A series of tag metadata objects.
+	"""
+
+	text_search = re.compile('^' + re.escape(text))
+
+	aggregate = db.aggregate([
+		{'$match': {
+			'$and': [
+				{'$or': [{'hidden': False}, {'creator': user_id}]},
+				{'$or': [{'creator': i} for i in user_ids]},
+			],
+		}},
+		{'$unwind': '$tags'},
+		{'$group': {
+			'_id': '$tags',
+			'count': {'$sum': 1},
+		}},
+		{'$match': {
+			'_id': text_search,
+		}},
+		{'$limit': 10},
+	])
+
+	for tag in aggregate:
+		yield Tag(_id=ObjectId(), name=tag['_id'], count=tag['count'])

@@ -403,7 +403,7 @@ export function set_tag_editor_value(text) {
 export async function set_document_tags(id) {
 	const doc_data = await query.documents.get(id)
 
-	_.modal.tags(doc_data.tags, 'countDocumentTagUses').then(async tags => {
+	_.modal.tags(doc_data.tags, 'countDocumentTagUses', query.documents.suggest_tags).then(async tags => {
 		const doc = await mutate.documents.tags(id, tags)
 		if (doc.__typename !== 'Document') {
 			_.modal.error(doc.message)

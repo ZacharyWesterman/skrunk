@@ -145,4 +145,18 @@ export default {
 
 		return (blob.__typename === 'Blob') ? prettify(blob) : blob
 	},
+
+
+	/**
+	 * Get a list of similar tags compared to the given text.
+	 * @param {string} text The tag text to search for.
+	 * @returns {Promise<object[]>} A list of suggested tags.
+	 */
+	suggest_tags: async text => {
+		return await api(`query ($text: String!) {
+			suggestBlobTags (text: $text) { name count }
+		}`, {
+			text,
+		})
+	},
 }

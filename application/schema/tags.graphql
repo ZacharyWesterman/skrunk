@@ -1,0 +1,10 @@
+"""
+A type for tag metadata.
+"""
+type Tag {
+	"""The text of the tag"""
+	name: String!
+	
+	"""The number of items that have this tag"""
+	count: Int!
+}

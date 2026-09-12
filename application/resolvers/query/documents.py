@@ -6,8 +6,8 @@ from tag_query import exceptions
 from application.db import perms
 from application.db.documents import (count_documents, count_tag_uses,
                                       get_document, get_documents,
-                                      sum_document_size)
-from application.types import DocumentSearchFilter
+                                      get_similar_tags, sum_document_size)
+from application.types import DocumentSearchFilter, Tag
 
 from ..decorators import handle_client_exceptions
 from . import query
@@ -134,3 +134,26 @@ def resolve_total_document_size(_, _info: GraphQLResolveInfo, filter: DocumentSe
 		return {'__typename': 'BlobCount', 'count': sum_document_size(filter)}
 	except exceptions.ParseError as e:
 		return {'__typename': 'BadTagQuery', 'message': str(e)}
+
+
+@query.field('suggestDocumentTags')
+@perms.module('files')
+@handle_client_exceptions
+def resolve_suggest_blob_tags(_, _info: GraphQLResolveInfo, text: str) -> list[Tag]:
+	"""
+	Resolves a list of tags that are similar to the given text.
+	Only searches through tags on documents that are visible to the current user.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		text (str): The text to search for in the tags.
+
+	Returns:
+		list[Tag]: A list of tag metadata objects.
+	"""
+
+	user_data = perms.caller_info_strict()
+	user_id = user_data['_id']
+	user_groups = user_data.get('groups', [])
+	return list(get_similar_tags(text, user_id, user_groups))

@@ -139,6 +139,7 @@ extend type Query {
 	countBlobTagUses(tag: String!): Int!
 	generateUID: String!
 	pollZipProgress(uid: String!): ZipProgressResponse!
+	suggestBlobTags(text: String!): [Tag!]!
 }
 
 extend type Mutation {

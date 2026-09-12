@@ -428,9 +428,9 @@ modal.model3d = async (url) => {
 	await modal.image(url, true)
 }
 
-modal.tags = async (tag_list, tagQueryName) => {
+modal.tags = async (tag_list, tag_query_name, tag_suggest_query_callback) => {
 	async function tagHTML(tag) {
-		const ct = await api(`query ($tag: String!) { ${tagQueryName} (tag: $tag) }`, { tag: tag })
+		const ct = await api(`query ($tag: String!) { ${tag_query_name} (tag: $tag) }`, { tag: tag })
 		return `<div class="tag clickable ${ct ? '' : 'emphasis'}">${tag} (${ct})\&nbsp;<b>\&times;</b></div>`
 	}
 
@@ -446,7 +446,31 @@ modal.tags = async (tag_list, tagQueryName) => {
 		text: await api.snippit('tag-modal'),
 		buttons: ['OK', 'Cancel'],
 	}, async () => {
-		//Once modal has loaded, inject list of tags.
+		//Once modal has loaded:
+
+		// Bind input field to query suggested tags
+		const datalist = $('modal-tag-datalist')
+		if (tag_suggest_query_callback) {
+			const input = $('modal-tag-input')
+			$.bind(input, async () => {
+				for (const child of datalist.children) {
+					child.remove()
+				}
+				if (input.value === '') {
+					return
+				}
+
+				const suggestions = await tag_suggest_query_callback(input.value)
+				for (const { name, count } of suggestions) {
+					const elem = document.createElement('option')
+					elem.value = name
+					elem.innerText = `${name} (${count})`
+					datalist.appendChild(elem)
+				}
+			})
+		}
+
+		// Inject list of existing tags
 		let tagList = $('modal-tag-list')
 		let innerHTML = ''
 		for (const p of promises) { innerHTML += await p }
@@ -469,6 +493,10 @@ modal.tags = async (tag_list, tagQueryName) => {
 
 		//when submitting a tag
 		const tagSubmit = async field => {
+			for (const child of datalist.children) {
+				child.remove()
+			}
+
 			const tag = field.value.trim()
 			if (tag.length === 0) return
 
@@ -481,7 +509,7 @@ modal.tags = async (tag_list, tagQueryName) => {
 			tagClicks(tagList)
 		}
 
-		$('modal-tag-input').nextElementSibling.onclick = () => tagSubmit($('modal-tag-input'))
+		$('modal-tag-select').onclick = () => tagSubmit($('modal-tag-input'))
 		$.on.enter($('modal-tag-input'), tagSubmit)
 	}).catch(() => 'cancel')
 

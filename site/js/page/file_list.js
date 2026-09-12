@@ -265,7 +265,7 @@ export async function show_ephemeral_info() {
 export async function set_blob_tags(id) {
 	const blob_data = await get_blob(id)
 
-	_.modal.tags(blob_data.tags, 'countBlobTagUses').then(async tags => {
+	_.modal.tags(blob_data.tags, 'countBlobTagUses', query.blobs.suggest_tags).then(async tags => {
 		const blob = await mutate.blobs.tags(id, tags)
 		if (blob.__typename !== 'Blob') {
 			_.modal.error(blob.message)
