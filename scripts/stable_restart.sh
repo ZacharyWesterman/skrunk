@@ -5,7 +5,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"/.. || exit 1
 
 echo -n >&2 "Checking for update..."
-if ! scripts/needs_update.sh &>/dev/null; then
+if ! scripts/needs_update.sh; then
 	exit 0
 fi
 
