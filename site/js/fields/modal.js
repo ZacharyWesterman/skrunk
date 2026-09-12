@@ -459,8 +459,8 @@ modal.tags = async (tag_list, tag_query_name, tag_suggest_query_callback) => {
 				if (input.value === '') {
 					return
 				}
+
 				const suggestions = await tag_suggest_query_callback(input.value)
-				console.log(suggestions)
 				for (const { name, count } of suggestions) {
 					const elem = document.createElement('option')
 					elem.value = name

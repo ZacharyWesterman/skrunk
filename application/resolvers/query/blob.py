@@ -160,8 +160,9 @@ def resolve_count_tag_uses(_, _info: GraphQLResolveInfo, tag: str) -> int:
 	Returns:
 		int: The number of times the specified tag has been used by users in the caller's groups.
 	"""
-	group = userids_in_groups(perms.caller_info_strict().get('groups', []))
-	return count_tag_uses(tag, group)
+	user_data = perms.caller_info_strict()
+	group = userids_in_groups(user_data.get('groups', []))
+	return count_tag_uses(tag, user_data['_id'], group)
 
 
 @query.field('generateUID')

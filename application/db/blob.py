@@ -989,19 +989,40 @@ def set_blob_hidden(blob_id: str, hidden: bool) -> dict:
 	return blob_data
 
 
-def count_tag_uses(tag: str, user_ids: list[ObjectId]) -> int:
+def count_tag_uses(tag: str, user_id: ObjectId, user_ids: list[ObjectId]) -> int:
 	"""
 	Count the number of documents in the database that contain a specific tag
 	and are created by any of the specified users.
 
 	Args:
 		tag (str): The tag to search for in the documents.
-		user_ids (list[str]): A list of user identifiers to filter the documents by their creators.
+		user_id (ObjectId): The ID of the current user.
+		user_ids (list[ObjectId]): The IDs of all users in the current group.
 
 	Returns:
 		int: The count of documents that match the specified tag and creators.
 	"""
-	return db.count_documents({'$and': [{'tags': tag}, {'$or': [{'creator': i} for i in user_ids]}]})
+
+	aggregate = db.aggregate([
+		{'$match': {
+			'$and': [
+				{'$or': [{'hidden': False}, {'creator': user_id}]},
+				{'$or': [{'creator': i} for i in user_ids]},
+			],
+			'tags': tag,
+		}},
+		{'$unwind': '$tags'},
+		{'$group': {
+			'_id': '$tags',
+			'count': {'$sum': 1},
+		}},
+		{'$match': {'_id': tag}},
+	])
+
+	for item in aggregate:
+		return item.get('count', 0)
+
+	return 0
 
 
 def add_reference(id: str) -> None:
