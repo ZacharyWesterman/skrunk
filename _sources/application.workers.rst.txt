@@ -1,6 +1,25 @@
 application.workers package
 ===========================
 
+Submodules
+----------
+
+application.workers.blob\_cleanup module
+----------------------------------------
+
+.. automodule:: application.workers.blob_cleanup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.workers.fetch\_book\_covers module
+----------------------------------------------
+
+.. automodule:: application.workers.fetch_book_covers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 

@@ -323,13 +323,16 @@
                   
   <section id="application-workers-package">
 <h1>application.workers package<a class="headerlink" href="#application-workers-package" title="Link to this heading">#</a></h1>
-<section id="module-application.workers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.workers" title="Link to this heading">#</a></h2>
-<p>Module for background worker process management.</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-application.workers.blob_cleanup">
+<span id="application-workers-blob-cleanup-module"></span><h2>application.workers.blob_cleanup module<a class="headerlink" href="#module-application.workers.blob_cleanup" title="Link to this heading">#</a></h2>
+<p>Periodically scan for orphan blobs and clean them up.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="application.workers.begin">
-<span class="sig-prename descclassname"><span class="pre">application.workers.</span></span><span class="sig-name descname"><span class="pre">begin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.begin" title="Link to this definition">#</a></dt>
-<dd><p>Launch background worker processes.</p>
+<dt class="sig sig-object py" id="application.workers.blob_cleanup.blob_cleanup">
+<span class="sig-prename descclassname"><span class="pre">application.workers.blob_cleanup.</span></span><span class="sig-name descname"><span class="pre">blob_cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.blob_cleanup.blob_cleanup" title="Link to this definition">#</a></dt>
+<dd><p>Periodically scan for orphan blobs and clean them up.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
@@ -337,10 +340,31 @@
 </dl>
 </dd></dl>
 
+</section>
+<section id="module-application.workers.fetch_book_covers">
+<span id="application-workers-fetch-book-covers-module"></span><h2>application.workers.fetch_book_covers module<a class="headerlink" href="#module-application.workers.fetch_book_covers" title="Link to this heading">#</a></h2>
+<p>Periodically scan for linked books with remote thumbnails and pull the thumbnails locally.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="application.workers.blob_cleanup">
-<span class="sig-prename descclassname"><span class="pre">application.workers.</span></span><span class="sig-name descname"><span class="pre">blob_cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.blob_cleanup" title="Link to this definition">#</a></dt>
-<dd><p>Periodically scan for orphan blobs and clean them up.</p>
+<dt class="sig sig-object py" id="application.workers.fetch_book_covers.fetch_book_covers">
+<span class="sig-prename descclassname"><span class="pre">application.workers.fetch_book_covers.</span></span><span class="sig-name descname"><span class="pre">fetch_book_covers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.fetch_book_covers.fetch_book_covers" title="Link to this definition">#</a></dt>
+<dd><p>If both books and blobs are enabled,
+scan for books with a remote thumbnail,
+and download it to blob storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-application.workers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.workers" title="Link to this heading">#</a></h2>
+<p>Module for background worker process management.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.workers.begin">
+<span class="sig-prename descclassname"><span class="pre">application.workers.</span></span><span class="sig-name descname"><span class="pre">begin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.begin" title="Link to this definition">#</a></dt>
+<dd><p>Launch background worker processes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
@@ -389,9 +413,17 @@
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.blob_cleanup">application.workers.blob_cleanup module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.blob_cleanup.blob_cleanup"><code class="docutils literal notranslate"><span class="pre">blob_cleanup()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.fetch_book_covers">application.workers.fetch_book_covers module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.fetch_book_covers.fetch_book_covers"><code class="docutils literal notranslate"><span class="pre">fetch_book_covers()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers">Module contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.begin"><code class="docutils literal notranslate"><span class="pre">begin()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.blob_cleanup"><code class="docutils literal notranslate"><span class="pre">blob_cleanup()</span></code></a></li>
 </ul>
 </li>
 </ul>
