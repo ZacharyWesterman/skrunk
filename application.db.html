@@ -2166,6 +2166,26 @@ as a list of field names and ‘descending’ as a boolean indicating the sort o
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.datafeed.set_feed_name">
+<span class="sig-prename descclassname"><span class="pre">application.db.datafeed.</span></span><span class="sig-name descname"><span class="pre">set_feed_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.datafeed.set_feed_name" title="Link to this definition">#</a></dt>
+<dd><p>Update the name of a data feed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – The unique identifier of the feed.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The new name of the data feed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated feed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.datafeed.set_feed_navigation">
 <span class="sig-prename descclassname"><span class="pre">application.db.datafeed.</span></span><span class="sig-name descname"><span class="pre">set_feed_navigation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sorting</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.datafeed.set_feed_navigation" title="Link to this definition">#</a></dt>
 <dd><p>Updates the navigation settings for a specific feed in the database.</p>
@@ -4722,6 +4742,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.process_feed"><code class="docutils literal notranslate"><span class="pre">process_feed()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.set_document_read"><code class="docutils literal notranslate"><span class="pre">set_document_read()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.set_feed_inactive"><code class="docutils literal notranslate"><span class="pre">set_feed_inactive()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.set_feed_name"><code class="docutils literal notranslate"><span class="pre">set_feed_name()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.set_feed_navigation"><code class="docutils literal notranslate"><span class="pre">set_feed_navigation()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.set_feed_notify"><code class="docutils literal notranslate"><span class="pre">set_feed_notify()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.datafeed.update_document"><code class="docutils literal notranslate"><span class="pre">update_document()</span></code></a></li>
