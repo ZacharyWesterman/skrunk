@@ -25,6 +25,8 @@ subsonic_albums: list = []
 subsonic_albums_complete: bool = False
 subsonic_albums_page: int = 0
 
+_REMOTE_THUMB_SIGNATURE = re.compile('^https://books.google.com/')
+
 
 def init() -> None:
 	"""
@@ -1045,3 +1047,30 @@ def get_user_list(groups: list[str]) -> list:
 		'display_name': data['display_name'],
 		'last_login': data.get('last_login'),
 	} for data in users.db.aggregate(aggregate)]
+
+
+def get_remote_thumbs(count: int) -> list[dict]:
+	"""
+	Get a quick list of any books with remote thumbnails.
+
+	Args:
+		count (int): The maximum number 
+	"""
+
+	selection = db.find({'thumbnail': _REMOTE_THUMB_SIGNATURE}).limit(count)
+	return list(selection)
+
+
+def set_thumbnail(book_id: str, new_thumbnail: str) -> bool:
+	"""
+	Update the thumbnail of a book to a new value.
+
+	Args:
+		book_id (str): The unique identifier of the book.
+		new_thumbnail (str): The URL or blob ID of the thumbnail image.
+
+	Returns:
+		bool: True if successful, False otherwise.
+	"""
+
+	return db.update_one({'_id': ObjectId(book_id)}, {'$set': {'thumbnail': new_thumbnail}}).modified_count > 0

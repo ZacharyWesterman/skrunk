@@ -29,23 +29,21 @@ def downscale(path: str, max_width: int, output_path: str) -> bool:
 	image = Image.open(path)
 	width = image.size[0]
 
-	if width <= max_width:
-		return False  # No need to downscale
+	if width > max_width:
+		# JPEGs can have metadata indicating their rotation. Account for that
+		o = [i[0] for i in ExifTags.TAGS.items() if i[1] == 'Orientation']
+		if len(o):
+			exif = dict(image.getexif().items())
+			if exif in [3, 6, 8]:
+				orientation = {
+					3: 180,
+					6: 270,
+					8: 90,
+				}.get(exif[o[0]])
+				if orientation is not None:
+					image = image.rotate(orientation, expand=True)
 
-	# JPEGs can have metadata indicating their rotation. Account for that
-	o = [i[0] for i in ExifTags.TAGS.items() if i[1] == 'Orientation']
-	if len(o):
-		exif = dict(image.getexif().items())
-		if exif in [3, 6, 8]:
-			orientation = {
-				3: 180,
-				6: 270,
-				8: 90,
-			}.get(exif[o[0]])
-			if orientation is not None:
-				image = image.rotate(orientation, expand=True)
-
-	image.thumbnail((max_width, max_width), Image.Resampling.LANCZOS)
+		image.thumbnail((max_width, max_width), Image.Resampling.LANCZOS)
 
 	if path[-5::].lower() == '.jpeg':
 		image.save(output_path, 'JPEG')

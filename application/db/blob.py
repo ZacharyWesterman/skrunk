@@ -326,7 +326,9 @@ def create_blob(
     name: str,
     tags: list[str],
     hidden: bool = False,
-    ephemeral: bool = False
+    ephemeral: bool = False,
+	*,
+	owner: ObjectId | None = None
 ) -> tuple[str, str]:
 	"""
 	Creates a new blob entry in the database.
@@ -355,9 +357,12 @@ def create_blob(
 	real_mime = mime
 	mime = set_mime_from_ext(mime, ext.lower()).lower()
 
-	user_data = caller_info()
-	if user_data is None:
-		raise exceptions.AuthenticationError()
+	if owner is None:
+		user_data = caller_info()
+		if user_data is None:
+			raise exceptions.AuthenticationError()
+	else:
+		user_data = users.get_user_by_id(owner)
 
 	auto_tags = get_tags_from_mime(mime)
 
