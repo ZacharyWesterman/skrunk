@@ -59,14 +59,19 @@ def parse_document(doc: dict) -> dict:
 
 	if doc['blob_id'] is not None:
 		doc['body_html'] = ''
-		blob_data = blob.get_blob_data(doc['blob_id'])
-		ext = blob_data.get('ext', '').lower()
-		if ext == '.pdf':
-			doc['blob_type'] = 'pdf'
-		elif ext in Doctype.sheet_types:
-			doc['blob_type'] = 'spreadsheet'
-		else:
-			doc['blob_type'] = 'rich-text'
+		doc['blob_type'] = ''
+
+		try:
+			blob_data = blob.get_blob_data(doc['blob_id'])
+			ext = blob_data.get('ext', '').lower()
+			if ext == '.pdf':
+				doc['blob_type'] = 'pdf'
+			elif ext in Doctype.sheet_types:
+				doc['blob_type'] = 'spreadsheet'
+			else:
+				doc['blob_type'] = 'rich-text'
+		except BlobDoesNotExistError:
+			pass
 	else:
 		doc['body_html'] = markdown.markdown(doc['body'])
 		doc['blob_type'] = None
