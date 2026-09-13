@@ -416,3 +416,22 @@ def set_feed_navigation(id: str, page: int | None, sorting: Sorting | None) -> d
 	feed['currentPage'] = page
 	feed['currentSort'] = sorting
 	return feed
+
+
+def set_feed_name(id: str, name: str) -> dict:
+	"""
+	Update the name of a data feed.
+
+	Args:
+		id (str): The unique identifier of the feed.
+		name (str): The new name of the data feed.
+
+	Returns:
+		dict: The updated feed.
+	"""
+	feed = get_feed(id)
+	db.feeds.update_one({'_id': ObjectId(id)}, {'$set': {
+		'name': name,
+	}})
+	feed['name'] = name
+	return feed

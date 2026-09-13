@@ -7,8 +7,9 @@ from graphql.type import GraphQLResolveInfo
 from application.db import perms
 from application.db.datafeed import (create_document, create_feed, delete_feed,
                                      get_feed, set_document_read,
-                                     set_feed_inactive, set_feed_navigation,
-                                     set_feed_notify, update_document)
+                                     set_feed_inactive, set_feed_name,
+                                     set_feed_navigation, set_feed_notify,
+                                     update_document)
 from application.types import Sorting
 
 from ..decorators import handle_client_exceptions
@@ -192,3 +193,29 @@ def resolve_set_feed_navigation(
 		dict: A dictionary representing the updated feed navigation state.
 	"""
 	return {'__typename': 'Feed', **set_feed_navigation(id, page, sorting)}
+
+
+@mutation.field('renameFeed')
+@perms.module('feed')
+@perms.require('edit')
+@handle_client_exceptions
+def resolve_rename_feed(
+	_,
+	_info: GraphQLResolveInfo,
+	id: str,
+	name: str,
+) -> dict:
+	"""
+	Update the name of a data feed.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The unique identifier of the feed.
+		name (str): The new name of the data feed.
+
+	Returns:
+		dict: A dictionary representing the updated feed.
+	"""
+
+	return {'__typename': 'Feed', **set_feed_name(id, name)}

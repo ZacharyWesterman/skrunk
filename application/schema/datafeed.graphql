@@ -96,4 +96,5 @@ extend type Mutation {
 	markDocumentRead(id: String!, read: Boolean!): FeedDocumentUpdateResponse!
 	setFeedInactive(id: String!, inactive: Boolean!): FeedMutateResponse!
 	setFeedNavigation(id: String!, page: Int, sorting: Sorting): FeedMutateResponse!
+	renameFeed(id: String!, name: String!): FeedMutateResponse!
 }

@@ -33,12 +33,17 @@
 			</span>
 		</td>
 		<td>
-			{{= feed.name }}
-			<br>
+			<div id="feed-name-{{= feed.id }}">{{= feed.name }}</div>
 			{{= feed.kind.display || feed.kind.value }}
 		</td>
 		<td>
-			<button class="icon clickable tooltip alt right" *click="delete_feed('{{= feed.id }}')">
+			<div>
+				<button class="icon clickable tooltip alt" *click="edit_feed('{{= feed.id }}')">
+					<i class="fa-solid fa-pencil fa-lg"></i>
+					<span class="tooltiptext t-float-left">Edit feed name</span>
+				</button>
+			</div>
+			<button class="icon clickable tooltip alt" *click="delete_feed('{{= feed.id }}')">
 				<i class="fa-solid fa-trash fa-lg suppress"></i>
 				<span class="tooltiptext t-float-left">Delete this feed</span>
 			</button>

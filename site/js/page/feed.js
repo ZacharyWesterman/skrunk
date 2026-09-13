@@ -444,3 +444,74 @@ export async function update_navigation(page) {
 		_.modal.error(res.message)
 	}
 }
+
+export async function edit_feed(id) {
+	const feed_promise = api(`query ($id: String!) {
+		getFeed(id: $id) {
+			__typename
+			...on Feed { name }
+			...on FeedDoesNotExistError { message }
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+		}
+	}`, {
+		id,
+	})
+
+	const new_name = await _.modal({
+		title: 'Edit Feed Name',
+		text: '<input id="name" disabled />',
+		buttons: ['Submit', 'Cancel'],
+	}, () => {
+		// On load
+		feed_promise.then(feed => {
+			const field = $('name')
+			field.disabled = false
+			field.value = feed.name
+		})
+	}, choice => {
+		// Validate
+		if (!$('name')) {
+			$.flash('name')
+			return false
+		}
+		return true
+	}, choice => {
+		// Output
+		if (choice !== 'submit') {
+			return null
+		}
+
+		return $.val('name')
+	}).catch(() => null)
+
+	if (new_name === null) {
+		return
+	}
+
+	// Set the title pre-emptively (will most likely succeed)
+	const field = $(`feed-name-${id}`)
+	const old_name = field.innerText
+	field.innerText = new_name
+
+	const res = await api(`mutation ($id: String!, $name: String!) {
+		renameFeed (id: $id, name: $name) {
+			__typename
+			...on FeedDoesNotExistError { message }
+			...on UserDoesNotExistError { message }
+			...on InsufficientPerms { message }
+			...on InvalidFeedKindError { message }
+		}	
+	}`, {
+		id,
+		name: new_name,
+	})
+	if (res.__typename !== 'Feed') {
+		field.innerText = old_name
+		_.modal.error(res.message)
+		return
+	}
+
+	_.modal.checkmark()
+	await get_my_feeds()
+}
