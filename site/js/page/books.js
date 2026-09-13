@@ -55,7 +55,7 @@ export async function init() {
 
 	search_books()
 
-	_('owner', {
+	_('owner-div', {
 		id: 'owner',
 		options: query.users.list_with_books(),
 		default: 'Anyone',
@@ -390,7 +390,7 @@ export async function search_books() {
 
 	reload_book_count()
 
-	const owner = $.val('owner') || null
+	const owner = ($('owner') ? $.val('owner') : api.username) || null
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
@@ -424,7 +424,7 @@ export async function load_description(id) {
 async function reload_book_count() {
 	$.on.detach.resize()
 
-	const owner = $.val('owner') || null
+	const owner = ($('owner') ? $.val('owner') : api.username) || null
 	const title = $.val('title') || null
 	const author = $.val('author') || null
 	const genre = $.val('genre') || null
