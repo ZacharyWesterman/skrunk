@@ -18,7 +18,7 @@
 				</span>
 				{{?}}
 
-				{{? window.wopi.supported && it.blob_id !== null }}
+				{{? window.wopi.supported && it.blob_id !== null && it.blob_type !== 'pdf' }}
 				<span class="tooltip right">
 					<span class="tooltiptext t-float-left">Open in new tab</span>
 					<button class="icon clickable" *click="view_document_new_tab('{{= it.id }}')">
@@ -45,23 +45,31 @@
 			{{?}}
 
 			{{? window.wopi.supported && it.creator.username !== api.username && it.blob_id !== null }}
-				<button class="icon clickable tooltip" *click="view_document('{{= it.id }}')">
+				<button class="icon clickable tooltip" *click="view_document('{{= it.id }}', '{{= it.blob_id }}', '{{= it.blob_type }}')">
 					<span class="tooltiptext t-float-left">View document</span>
 					<i class="fa-solid fa-eye fa-lg"></i>
 				</button>
 			{{?}}
 		</div>
 
-		<div class="clickable" *click="view_document('{{= it.id }}')">
+		<div class="clickable" *click="view_document('{{= it.id }}', '{{= it.blob_id }}', '{{= it.blob_type }}')">
 			<span class="tooltip nomargin">
 				<span class="tooltiptext t-float-right">
 					{{? it.blob_id !== null }}
-						{{? it.blob_type === 'rich-text'}}Rich Text Document{{??}}Spreadsheet{{?}}
+						{{? it.blob_type === 'rich-text'}}
+							Rich Text Document
+						{{?? it.blob_type === 'spreadsheet'}}
+							Spreadsheet
+						{{?? it.blob_type === 'pdf'}}
+							PDF
+						{{??}}
+							Unknown Format!!
+						{{?}}
 					{{??}}
 						Markdown Document
 					{{?}}
 				</span>
-				<i class="fa-solid {{? it.blob_id !== null }}{{? it.blob_type === 'rich-text'}}fa-file-lines{{??}}fa-table{{?}}{{??}}fa-brands fa-markdown{{?}}"></i>
+				<i class="fa-solid {{? it.blob_id !== null }}{{? it.blob_type === 'rich-text'}}fa-file-lines{{?? it.blob_type === 'spreadsheet'}}fa-table{{?? it.blob_type === 'pdf'}}fa-file-pdf{{??}}fa-file-circle-question{{?}}{{??}}fa-brands fa-markdown{{?}}"></i>
 			</span>
 
 			{{? it.shared_users.length || it.shared_groups.length }}

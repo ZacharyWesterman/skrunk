@@ -12,6 +12,7 @@ class Doctype:
 	supported = [
 		'.txt', '.md', '.doc', '.docx', '.rtf',
 		'.odf', '.odt', '.ods', '.xls', '.xlsx', '.csv',
+		'.pdf',
 	]
 
 	sheet_types = ['.ods', '.xls', '.xlsx', '.csv']

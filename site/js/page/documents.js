@@ -299,7 +299,18 @@ export async function delete_document(id) {
 }
 
 
-export async function view_document(id) {
+export async function view_document(id, blob_id, blob_type) {
+	if (blob_type === 'pdf') {
+		const blob = await query.blobs.get(blob_id)
+		if (blob.__typename !== 'Blob') {
+			_.modal.error(blob.message)
+			return
+		}
+
+		$.view_pdf(`download/${blob.id}${blob.ext}`)
+		return
+	}
+
 	if (wopi.supported) {
 		const doc = await query.documents.get(id)
 		if (doc.__typename !== 'Document') {
@@ -362,7 +373,7 @@ export async function reload_page_list() {
 
 
 export async function import_documents() {
-	const doc_types = ['.txt', '.md', '.doc', '.docx', '.rtf', '.odf', '.odt', '.ods', '.xls', '.xlsx', '.csv']
+	const doc_types = ['.txt', '.md', '.doc', '.docx', '.rtf', '.odf', '.odt', '.ods', '.xls', '.xlsx', '.csv', '.pdf']
 	const files = await api.file_prompt(doc_types.join(','), true).catch(() => null)
 
 	if (files === null) {

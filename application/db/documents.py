@@ -60,7 +60,10 @@ def parse_document(doc: dict) -> dict:
 	if doc['blob_id'] is not None:
 		doc['body_html'] = ''
 		blob_data = blob.get_blob_data(doc['blob_id'])
-		if blob_data['ext'] in Doctype.sheet_types:
+		ext = blob_data.get('ext', '').lower()
+		if ext == '.pdf':
+			doc['blob_type'] = 'pdf'
+		elif ext in Doctype.sheet_types:
 			doc['blob_type'] = 'spreadsheet'
 		else:
 			doc['blob_type'] = 'rich-text'

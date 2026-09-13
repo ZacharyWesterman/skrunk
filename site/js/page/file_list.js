@@ -328,24 +328,3 @@ export async function toggle_blob_hidden(blob_id) {
 		title.classList.remove('emphasis')
 	}
 }
-
-export function view_pdf(url) {
-	//On desktop, open view in-browser.
-	const elem = $('pdf-viewer')
-	elem.innerHTML = `<iframe frameborder="0" style="width: 100%; height: 100%;" src="/pdf.js/web/viewer.html?file=/${url}"></iframe>
-	<div class="clickable close-pdf-viewer">
-		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
-	</div>`
-
-	const exit_pdf_viewer = async () => {
-		$.on.detach.escape(window)
-		await $.hide('pdf-viewer', true)
-		$('pdf-viewer').innerHTML = ''
-	}
-
-	$.on.escape(window, exit_pdf_viewer)
-	elem.children[1].onclick = exit_pdf_viewer
-
-	$.show(elem)
-	elem.style.display = 'block'
-}

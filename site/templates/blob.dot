@@ -53,7 +53,7 @@
 		{{??it.mimetype.split('/')[0] === 'text'}}
 			<textarea id="ta-{{=it.id}}" *load="api.get('blob/{{=it.id}}{{=it.ext}}').then(res => $('ta-{{=it.id}}').value = res)" disabled></textarea>
 		{{??it.mimetype.split('/')[1] === 'pdf'}}
-			<div style="text-align:center;" class="clickable" *click="view_pdf('download/{{=it.id}}{{=it.ext}}')">
+			<div style="text-align:center;" class="clickable" *click="$.view_pdf('download/{{=it.id}}{{=it.ext}}')">
 				<br>
 				{{? it.previews.length }}
 					<img src="preview/{{=it.previews[0]}}" alt="PDF preview" width="100%" height="auto" loading="lazy">
