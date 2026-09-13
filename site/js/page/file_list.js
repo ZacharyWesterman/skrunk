@@ -332,7 +332,7 @@ export async function toggle_blob_hidden(blob_id) {
 export function view_pdf(url) {
 	//On desktop, open view in-browser.
 	const elem = $('pdf-viewer')
-	elem.innerHTML = `<iframe frameborder="0" style="width: 100%; height: 100%;" src="${url}"></iframe>
+	elem.innerHTML = `<iframe frameborder="0" style="width: 100%; height: 100%;" src="/pdf.js/web/viewer.html?file=/${url}"></iframe>
 	<div class="clickable close-pdf-viewer">
 		<i style="position: relative; top:15%;" class="fa-solid fa-times fa-lg"></i>
 	</div>`

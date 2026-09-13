@@ -84,7 +84,7 @@ fi
 		[ "$i" == json ] && find=site/config
 
 		#Don't include files that should not be cached on page load.
-		json_array $(find $find -name "*.$i" -type f | filter $(cat data/no_auth_files.txt) $(cat data/no_prefetch_files.txt))
+		json_array $(find $find -name "*.$i" -type f -not -path '**/pdf.js/**' | filter $(cat data/no_auth_files.txt) $(cat data/no_prefetch_files.txt))
 	done
 	echo '}'
 } >site/config/sitemap.json
