@@ -2,9 +2,9 @@
 
 import requests
 
-from application.db.blob import (BlobStorage, add_reference, create_blob,
-                                 create_blob_previews, delete_blob, file_info,
-                                 mark_as_completed)
+from application.db.blob import (BlobStorage, add_reference, blobs_enabled,
+                                 create_blob, create_blob_previews,
+                                 delete_blob, file_info, mark_as_completed)
 from application.db.book import get_remote_thumbs, set_thumbnail
 from application.db.settings import global_module_enabled
 
@@ -16,7 +16,7 @@ def fetch_book_covers() -> None:
 	and download it to blob storage.
 	"""
 
-	if not global_module_enabled('books') or not global_module_enabled('files'):
+	if not blobs_enabled() or not global_module_enabled('books') or not global_module_enabled('files'):
 		return
 
 	for book in get_remote_thumbs(50):

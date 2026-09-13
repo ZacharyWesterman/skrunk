@@ -52,6 +52,16 @@ def init() -> None:
 	blob_path = blob_storage.blob_path
 
 
+def blobs_enabled() -> bool:
+	"""
+	Checks whether the blob path is set.
+
+	Returns:
+		bool: True if blob path is set, False otherwise.
+	"""
+	return blob_path is not None
+
+
 def get_old_ephemeral_blobs() -> Generator[ObjectId, None, None]:
 	"""
 	List all ephemeral files which aren't referred to by any data,
