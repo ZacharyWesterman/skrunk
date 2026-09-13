@@ -80,6 +80,24 @@ def get(path: str) -> Response:
 			return Response('Access denied.', 403)
 
 
+def get_pdf_js(path: str) -> Response:
+	"""
+	Get a file from the pdf.js 3rd party library.
+
+	Args:
+		path (str): The path to the file to retrieve.
+
+	Returns:
+		Response: A Flask Response object containing the file data or an error message.
+	"""
+
+	# No strict verification needed other than sanitization and authorization.
+	path = 'site/js/libs/pdf.js/' + files.sanitize_path(path)
+	if not auth.authorized():
+		return Response('Access denied.', 403)
+	return files.read_file_data(path)
+
+
 def get_favicon() -> Response:
 	"""
 	Get the default favicon.ico from the site directory.

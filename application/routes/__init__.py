@@ -52,6 +52,7 @@ def init(application) -> None:
 	application.route('/xkcd', methods=['GET'])(tq(misc.random_xkcd))
 
 	application.route('/', methods=['GET'])(tq(site.main_page))
+	application.route('/pdf.js/<path:path>', methods=['GET'])(tq(site.get_pdf_js))
 	application.route('/<path:path>', methods=['GET'])(tq(site.get))
 	application.route('/favicon.ico', methods=['GET'])(tq(site.get_favicon))
 	application.route('/<path:path>.png', methods=['GET'])(tq(site.get_icon))
