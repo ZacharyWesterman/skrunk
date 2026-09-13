@@ -34,7 +34,7 @@ def get_document_contents(jwt: str, id: str) -> Response:
 
 	if (
 		doc['creator'].get('_id') != user_data.get('_id') and
-		user_data.get('_id') not in doc['shared_users'] and
+		not any(user_data.get('_id') == i.get('_id') for i in doc['shared_users']) and
 		not any(group in doc['shared_groups'] for group in user_data['groups'])
 	):
 		return Response('Access denied.', 403)
