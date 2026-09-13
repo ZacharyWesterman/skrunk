@@ -46,7 +46,7 @@
 
 			{{? window.wopi.supported && it.creator.username !== api.username && it.blob_id !== null }}
 				<button class="icon clickable tooltip" *click="view_document('{{= it.id }}', '{{= it.blob_id }}', '{{= it.blob_type }}')">
-					<span class="tooltiptext t-float-left">View document</span>
+					<span class="tooltiptext t-float-right">View document</span>
 					<i class="fa-solid fa-eye fa-lg"></i>
 				</button>
 			{{?}}
@@ -72,7 +72,7 @@
 				<i class="fa-solid {{? it.blob_id !== null }}{{? it.blob_type === 'rich-text'}}fa-file-lines{{?? it.blob_type === 'spreadsheet'}}fa-table{{?? it.blob_type === 'pdf'}}fa-file-pdf{{??}}fa-file-circle-question{{?}}{{??}}fa-brands fa-markdown{{?}}"></i>
 			</span>
 
-			{{? it.shared_users.length || it.shared_groups.length }}
+			{{? (it.shared_users.length || it.shared_groups.length) && it.creator.username === api.username }}
 			<span class="tooltip emphasis">
 				<span class="tooltiptext t-float-right">
 					Shared with {{? it.shared_groups.length }}everyone{{??}}
