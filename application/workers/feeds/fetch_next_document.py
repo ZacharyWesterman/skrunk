@@ -95,9 +95,9 @@ def fetch_next_document(feed: Feed) -> bool:
 	}
 
 	if feed_origin == 'reddit':
-		print('FEED: Reaching out to Reddit API... ', end='', flush=True)
+		# print('FEED: Reaching out to Reddit API... ', end='', flush=True)
 		post = API.reddit.submission(url=next_url)
-		print('Fetched post data.', flush=True)
+		# print('Fetched post data.', flush=True)
 
 		document['title'] = post.title
 		document['body'] = post.selftext
