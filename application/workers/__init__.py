@@ -25,6 +25,6 @@ def begin() -> None:
 
 	_SCHEDULER.add_job(blob_cleanup, 'interval', hours=1)
 	_SCHEDULER.add_job(fetch_book_covers, 'interval', hours=1)
-	_SCHEDULER.add_job(sync_google_books, minutes=20)
+	_SCHEDULER.add_job(sync_google_books, 'interval', seconds=20)
 
 	_SCHEDULER.start()
