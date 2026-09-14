@@ -1,0 +1,37 @@
+application.workers.feeds package
+=================================
+
+Submodules
+----------
+
+application.workers.feeds.api module
+------------------------------------
+
+.. automodule:: application.workers.feeds.api
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.workers.feeds.fetch\_next\_document module
+------------------------------------------------------
+
+.. automodule:: application.workers.feeds.fetch_next_document
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+application.workers.feeds.get\_feeds module
+-------------------------------------------
+
+.. automodule:: application.workers.feeds.get_feeds
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: application.workers.feeds
+   :members:
+   :show-inheritance:
+   :undoc-members:

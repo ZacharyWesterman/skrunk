@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>application.monkeypatch package &#8212; Skrunk Server 1.0.0 documentation</title>
+    <title>application.workers.feeds package &#8212; Skrunk Server 1.0.0 documentation</title>
   
   
   
@@ -41,11 +41,10 @@
     <script src="_static/documentation_options.js?v=8d563738"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'application.monkeypatch';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'application.workers.feeds';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="application.resolvers package" href="application.resolvers.html" />
-    <link rel="prev" title="application.integrations.subsonic.objects package" href="application.integrations.subsonic.objects.html" />
+    <link rel="prev" title="application.workers package" href="application.workers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -247,7 +246,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">application.monkeypatch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.monkeypatch.html">application.monkeypatch package</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="application.resolvers.html">application.resolvers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.mutation.html">application.resolvers.mutation package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html">application.resolvers.query package</a></li>
@@ -256,8 +255,8 @@
 <li class="toctree-l2"><a class="reference internal" href="application.routes.html">application.routes package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.scalars.html">application.scalars package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.types.html">application.types package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="application.workers.html">application.workers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="application.workers.feeds.html">application.workers.feeds package</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="application.workers.html">application.workers package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">application.workers.feeds package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -308,7 +307,10 @@
     
     <li class="breadcrumb-item"><a href="application.html" class="nav-link">application package</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">application.monkeypatch package</span></li>
+    
+    <li class="breadcrumb-item"><a href="application.workers.html" class="nav-link">application.workers package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">application.workers.feeds package</span></li>
   </ul>
 </nav>
 </div>
@@ -325,43 +327,103 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="application-monkeypatch-package">
-<h1>application.monkeypatch package<a class="headerlink" href="#application-monkeypatch-package" title="Link to this heading">#</a></h1>
+  <section id="application-workers-feeds-package">
+<h1>application.workers.feeds package<a class="headerlink" href="#application-workers-feeds-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-application.monkeypatch.json_encoder_patch">
-<span id="application-monkeypatch-json-encoder-patch-module"></span><h2>application.monkeypatch.json_encoder_patch module<a class="headerlink" href="#module-application.monkeypatch.json_encoder_patch" title="Link to this heading">#</a></h2>
-<p>application.types.json_encoder_patch</p>
+<section id="module-application.workers.feeds.api">
+<span id="application-workers-feeds-api-module"></span><h2>application.workers.feeds.api module<a class="headerlink" href="#module-application.workers.feeds.api" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="application.workers.feeds.api.API">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">application.workers.feeds.api.</span></span><span class="sig-name descname"><span class="pre">API</span></span><a class="headerlink" href="#application.workers.feeds.api.API" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>API class that encapsulates a various API clients.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="application.workers.feeds.api.API.reddit">
+<span class="sig-name descname"><span class="pre">reddit</span></span><a class="headerlink" href="#application.workers.feeds.api.API.reddit" title="Link to this definition">#</a></dt>
+<dd><p>An instance of the PRAW Reddit client
+used to interact with the Reddit API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>praw.Reddit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">reddit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Reddit</span></code></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-application.workers.feeds.fetch_next_document">
+<span id="application-workers-feeds-fetch-next-document-module"></span><h2>application.workers.feeds.fetch_next_document module<a class="headerlink" href="#module-application.workers.feeds.fetch_next_document" title="Link to this heading">#</a></h2>
+<p>Attempt to fetch a new document for feeds.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="application.monkeypatch.json_encoder_patch.wrapped_default">
-<span class="sig-prename descclassname"><span class="pre">application.monkeypatch.json_encoder_patch.</span></span><span class="sig-name descname"><span class="pre">wrapped_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.monkeypatch.json_encoder_patch.wrapped_default" title="Link to this definition">#</a></dt>
-<dd><p>Serializes an object to a dictionary representation.</p>
-<p>If the object has a <cite>__dict__</cite> attribute, it returns a dictionary containing
-the class name under the key <cite>__typename</cite> and the object’s dictionary items.
-Otherwise, it returns the object itself.</p>
+<dt class="sig sig-object py" id="application.workers.feeds.fetch_next_document.fetch_next_document">
+<span class="sig-prename descclassname"><span class="pre">application.workers.feeds.fetch_next_document.</span></span><span class="sig-name descname"><span class="pre">fetch_next_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.feeds.fetch_next_document.fetch_next_document" title="Link to this definition">#</a></dt>
+<dd><p>Fetches the next document for a given feed and updates or creates a feed document accordingly.</p>
+<p>If a new document is created and notifications are enabled,
+it sends a notification to the feed creator.</p>
+<p>Any errors encountered during the process are logged.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>obj</strong> – The object to be serialized.</p>
+<dd class="field-odd"><p><strong>feed</strong> (<a class="reference internal" href="application.types.html#application.types.feed.Feed" title="application.types.feed.Feed"><em>Feed</em></a>) – The feed dictionary containing feed metadata and configuration.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary representation of the object if it has a <cite>__dict__</cite> attribute.
-Otherwise, returns the object itself.</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>True if a new document was created or an existing document was updated,</dt><dd><p>False otherwise.</p>
+</dd>
+</dl>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
-<section id="module-application.monkeypatch.md">
-<span id="application-monkeypatch-md-module"></span><h2>application.monkeypatch.md module<a class="headerlink" href="#module-application.monkeypatch.md" title="Link to this heading">#</a></h2>
-<p>Adjust Markdown to handle line breaks in lists and other edge cases.</p>
+<section id="module-application.workers.feeds.get_feeds">
+<span id="application-workers-feeds-get-feeds-module"></span><h2>application.workers.feeds.get_feeds module<a class="headerlink" href="#module-application.workers.feeds.get_feeds" title="Link to this heading">#</a></h2>
+<p>Fetch a list of data feeds.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.workers.feeds.get_feeds.get_feeds">
+<span class="sig-prename descclassname"><span class="pre">application.workers.feeds.get_feeds.</span></span><span class="sig-name descname"><span class="pre">get_feeds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.feeds.get_feeds.get_feeds" title="Link to this definition">#</a></dt>
+<dd><p>Retrieves active feeds from the given API session in batches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Feed</em> – An active feed object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="application.types.html#application.types.feed.Feed" title="application.types.feed.Feed"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feed</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="module-application.monkeypatch">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.monkeypatch" title="Link to this heading">#</a></h2>
-<p>application.monkeypatch</p>
+<section id="module-application.workers.feeds">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-application.workers.feeds" title="Link to this heading">#</a></h2>
+<p>Automatically fetch and update data feeds.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.workers.feeds.fetch_feeds">
+<span class="sig-prename descclassname"><span class="pre">application.workers.feeds.</span></span><span class="sig-name descname"><span class="pre">fetch_feeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.feeds.fetch_feeds" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Automatically fetch and update data feeds.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The max number of time that this process should run.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -376,22 +438,13 @@ Otherwise, returns the object itself.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="application.integrations.subsonic.objects.html"
+       href="application.workers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">application.integrations.subsonic.objects package</p>
+        <p class="prev-next-title">application.workers package</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="application.resolvers.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">application.resolvers package</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -413,12 +466,26 @@ Otherwise, returns the object itself.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.monkeypatch.json_encoder_patch">application.monkeypatch.json_encoder_patch module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.monkeypatch.json_encoder_patch.wrapped_default"><code class="docutils literal notranslate"><span class="pre">wrapped_default()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.feeds.api">application.workers.feeds.api module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.feeds.api.API"><code class="docutils literal notranslate"><span class="pre">API</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.feeds.api.API.reddit"><code class="docutils literal notranslate"><span class="pre">API.reddit</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">API.reddit</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.monkeypatch.md">application.monkeypatch.md module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.monkeypatch">Module contents</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.feeds.fetch_next_document">application.workers.feeds.fetch_next_document module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.feeds.fetch_next_document.fetch_next_document"><code class="docutils literal notranslate"><span class="pre">fetch_next_document()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.feeds.get_feeds">application.workers.feeds.get_feeds module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.feeds.get_feeds.get_feeds"><code class="docutils literal notranslate"><span class="pre">get_feeds()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.feeds">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.feeds.fetch_feeds"><code class="docutils literal notranslate"><span class="pre">fetch_feeds()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -426,7 +493,7 @@ Otherwise, returns the object itself.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/application.monkeypatch.rst.txt"
+      <li><a href="_sources/application.workers.feeds.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div></div>
