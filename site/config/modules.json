@@ -56,7 +56,7 @@
 		"id": "feed",
 		"name": "Data Feeds",
 		"description": "Enable specifying arbitrary data feeds that automatically update.",
-		"runner": "skrunk-feeds"
+		"config": true
 	},
 	{
 		"id": "related_sites",

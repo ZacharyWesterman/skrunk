@@ -22,7 +22,11 @@ def fetch_book_covers() -> None:
 	for book in get_remote_thumbs(50):
 		thumb_url = book['thumbnail']
 
-		response = requests.get(thumb_url, timeout=10)
+		try:
+			response = requests.get(thumb_url, timeout=10)
+		except requests.ReadTimeout:
+			continue
+
 		if response.status_code < 200 or response.status_code >= 300:
 			print(f'WARN: Failed to download thumbnail for {book["_id"]}', flush=True)
 			continue

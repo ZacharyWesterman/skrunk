@@ -64,5 +64,16 @@
 		"name": "The base Skrunk URL for the WOPI server",
 		"hint": "E.g. http://localhost:5000",
 		"module": "documents"
+	},
+	{
+		"id": "feed:reddit:username",
+		"name": "The username for fetching data feeds from Reddit",
+		"module": "feed"
+	},
+	{
+		"id": "feed:reddit:praw.ini",
+		"name": "The `praw.ini` config file for fetching data feeds from Reddit",
+		"module": "feed",
+		"type": "code"
 	}
 ]
