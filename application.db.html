@@ -424,6 +424,20 @@ packing and unpacking of ZIP files, and generating previews for various file typ
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.blobs_enabled">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">blobs_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.blobs_enabled" title="Link to this definition">#</a></dt>
+<dd><p>Checks whether the blob path is set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if blob path is set, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.blob.build_blob_query">
 <span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">build_blob_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.build_blob_query" title="Link to this definition">#</a></dt>
 <dd><p>Builds a MongoDB query for searching blobs based on the provided filter and user ID.</p>
@@ -4687,6 +4701,7 @@ for blob storage if provided.</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.blob">application.db.blob module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.add_reference"><code class="docutils literal notranslate"><span class="pre">add_reference()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.blobs_enabled"><code class="docutils literal notranslate"><span class="pre">blobs_enabled()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.build_blob_query"><code class="docutils literal notranslate"><span class="pre">build_blob_query()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.cancel_zip"><code class="docutils literal notranslate"><span class="pre">cancel_zip()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.count_blobs"><code class="docutils literal notranslate"><span class="pre">count_blobs()</span></code></a></li>
