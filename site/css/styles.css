@@ -495,11 +495,6 @@ th {
 	color: var(--emphasis-text);
 }
 
-.password {
-	-webkit-text-security: disc;
-}
-
-
 #camera-container {
 	position: fixed;
 	top: 0;
@@ -558,4 +553,16 @@ th {
 	top: calc(50% - 7rem);
 	transform: translate(-50%, -50%);
 	font-size: 16pt;
+}
+
+.input-icon {
+	position: relative;
+	right: 1.6rem;
+	width: 0;
+	color: black;
+	transition: none;
+}
+
+.input-icon.fa-eye {
+	right: calc(1.6rem - 1px);
 }

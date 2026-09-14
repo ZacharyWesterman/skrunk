@@ -405,6 +405,29 @@ window.set_field_logic = async function (DOM, url, module) {
 			field.replaceWith(new_field)
 		})
 
+		// Add "view" button to password fields
+		DOM.querySelectorAll('input[type="password"]').forEach(field => {
+			const elem = document.createElement('span')
+			const icon = document.createElement('i')
+
+			icon.classList.add('fa-solid', 'fa-eye', 'input-icon', 'clickable')
+			icon.onclick = () => {
+				if (field.type === 'password') {
+					field.type = 'text'
+					icon.classList.remove('fa-eye')
+					icon.classList.add('fa-eye-slash')
+				} else {
+					field.type = 'password'
+					icon.classList.remove('fa-eye-slash')
+					icon.classList.add('fa-eye')
+				}
+			}
+
+			field.parentElement.replaceChild(elem, field)
+			elem.appendChild(field)
+			elem.appendChild(icon)
+		})
+
 		//At the very end, run all *load (onload) selectors
 		DOM.querySelectorAll(`[\\*load]`).forEach(field => {
 			const key = field.getAttribute('*load')

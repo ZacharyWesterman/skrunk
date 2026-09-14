@@ -6,7 +6,8 @@
 	{
 		"id": "google_books",
 		"name": "Google Books API Key",
-		"module": "books"
+		"module": "books",
+		"type": "password"
 	},
 	{
 		"id": "subsonic:url",
