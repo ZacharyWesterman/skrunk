@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
-import ariadne
-from graphql import GraphQLField, GraphQLNonNull, GraphQLList, GraphQLScalarType, GraphQLObjectType, GraphQLUnionType
 import subprocess
+from pathlib import Path
+
+import ariadne
+from graphql import (GraphQLField, GraphQLList, GraphQLNonNull,
+                     GraphQLObjectType, GraphQLScalarType, GraphQLUnionType)
 
 
 def trim_type(data_type) -> GraphQLScalarType | GraphQLObjectType:
@@ -89,6 +92,9 @@ def main():
 	mutations = schema.mutation_type.fields
 
 	subprocess.run(['git', 'clone', 'git@github.com:ZacharyWesterman/skrunk_api.git'])
+
+	for i in Path('skrunk_api/queries').iterdir():
+		i.unlink()
 
 	for i in queries:
 		if i[0] == '_':
