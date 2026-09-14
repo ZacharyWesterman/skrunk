@@ -20,6 +20,14 @@ application.workers.fetch\_book\_covers module
    :show-inheritance:
    :undoc-members:
 
+application.workers.sync\_google\_books module
+----------------------------------------------
+
+.. automodule:: application.workers.sync_google_books
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 
