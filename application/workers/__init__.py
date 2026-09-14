@@ -6,6 +6,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from .blob_cleanup import blob_cleanup
 from .fetch_book_covers import fetch_book_covers
+from .sync_google_books import sync_google_books
 
 _SCHEDULER = None
 
@@ -22,7 +23,8 @@ def begin() -> None:
 	global _SCHEDULER
 	_SCHEDULER = BackgroundScheduler(daemon=True)
 
-	_SCHEDULER.add_job(blob_cleanup, 'interval', seconds=3600)
-	_SCHEDULER.add_job(fetch_book_covers, 'interval', seconds=3600)
+	_SCHEDULER.add_job(blob_cleanup, 'interval', hours=1)
+	_SCHEDULER.add_job(fetch_book_covers, 'interval', hours=1)
+	_SCHEDULER.add_job(sync_google_books, minutes=20)
 
 	_SCHEDULER.start()
