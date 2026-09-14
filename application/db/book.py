@@ -1073,4 +1073,7 @@ def set_thumbnail(book_id: str, new_thumbnail: str) -> bool:
 		bool: True if successful, False otherwise.
 	"""
 
-	return db.update_one({'_id': ObjectId(book_id)}, {'$set': {'thumbnail': new_thumbnail}}).modified_count > 0
+	return db.update_one(
+		{'_id': ObjectId(book_id)},
+		{'$set': {'thumbnail': new_thumbnail}, '$addToSet': {'noSyncFields': 'thumbnail'}}
+	).modified_count > 0
