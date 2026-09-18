@@ -736,3 +736,8 @@ export async function show_keyword_search_help() {
 		buttons: ['OK'],
 	}).catch(() => { })
 }
+
+export function view_ebook_pdf(id_or_url) {
+	const url = (id_or_url.indexOf('/') === -1) ? `download/${id_or_url}.pdf` : id_or_url
+	$.view_pdf(url)
+}

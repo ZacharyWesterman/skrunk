@@ -72,7 +72,7 @@
 						Download
 					</td>
 					{{? book.ebooks.filter(i => i.fileType === 'pdf').length > 0 }}
-					<td class="clickable right" *click="$.view_pdf('{{= book.ebooks.filter(i => i.fileType === 'pdf')[0].url }}')">
+					<td class="clickable right" *click="view_ebook_pdf('{{= book.ebooks.filter(i => i.fileType === 'pdf')[0].url }}')">
 						Read
 						&nbsp;
 						<i class="icon fa-solid fa-book-open fa-lg"></i>
