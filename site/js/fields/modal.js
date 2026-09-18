@@ -169,11 +169,27 @@ modal.upload.return = () => {
 	return modal.upload.blobs
 }
 
+let _max_upload_size = null
+
 /**
  * Start uploading the files selected in the upload modal.
  * @returns {void}
  */
 modal.upload.start = async function () {
+	let _max_upload_text = null
+	if (_max_upload_size === null) {
+		_max_upload_size = fetch('/upload').then(i => i.json())
+		_max_upload_text = _max_upload_size.then(i => {
+			let units = ['EB', 'TB', 'GB', 'MB', 'KB', 'B'];
+			while (i > 1000) {
+				i /= 1000;
+				units.pop();
+			}
+
+			return Math.floor(i) + units.pop();
+		})
+	}
+
 	const auto_unzip = $('modal-unpack-check').checked
 	const hidden = $('modal-hidden-check').checked
 	modal.upload.promises = []
@@ -195,10 +211,10 @@ modal.upload.start = async function () {
 
 	const files = $('modal-file').files
 
-	//make sure all files are <=10GB (max file size limit for uploads)
+	//make sure all files are < max file size limit for uploads
 	let too_big = []
 	for (let file of files) {
-		if (file.size > (5 * 1000 * 1000 * 1000))
+		if (file.size > await _max_upload_size)
 			too_big.push(`${file.name} (${format.file_size(file.size)})`)
 	}
 
@@ -209,7 +225,7 @@ modal.upload.start = async function () {
 		await _.modal({
 			type: 'error',
 			title: 'Ow, right in the bandwidth!',
-			text: `<p>For the sake of performance, there's a <b>5GB</b> limit on file uploads.<br>The following ${amt} this limit:</p><i>${too_big.join('<br>')}</i><p>If you really need to upload ${amt2}, I suggest using an FTP client.`,
+			text: `<p>For the sake of performance, there's a <b>${await _max_upload_text}</b> limit on file uploads.<br>The following ${amt} this limit:</p><i>${too_big.join('<br>')}</i><p>If you really need to upload ${amt2}, I suggest using an FTP client.`,
 			buttons: ['OK'],
 		}).catch(() => { })
 		return
@@ -228,7 +244,7 @@ modal.upload.start = async function () {
 		const it_them = large_files.length === 1 ? 'it' : 'them'
 		const res = await _.modal({
 			title: `<span class="emphasis">WARNING:</span> You're about to upload ${header}!`,
-			text: `<p>${msg} you've selected may take a very long time to upload:</p><i>${large_files.join('<br>')}</i><p>This is still under the hard limit of <b>5GB</b> per file, so you <i>can still upload ${it_them}</i>, but if you have a slow or spotty connection you may want to consider uploading a different way.<br><br><b>Do you want to go ahead and upload?</b></p>`,
+			text: `<p>${msg} you've selected may take a very long time to upload:</p><i>${large_files.join('<br>')}</i><p>This is still under the hard limit of <b>${await _max_upload_text}</b> per file, so you <i>can still upload ${it_them}</i>, but if you have a slow or spotty connection you may want to consider uploading a different way.<br><br><b>Do you want to go ahead and upload?</b></p>`,
 			buttons: ['Yes', 'No'],
 		}).catch(() => 'no')
 

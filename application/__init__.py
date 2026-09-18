@@ -56,7 +56,7 @@ def init(
 
 	application: Any = Flask(__name__)
 
-	# 5GB file size limit for uploads
+	# 50GB file size limit for uploads
 	application.config['MAX_CONTENT_LENGTH'] = 5 * 1000 * 1000 * 1000
 
 	type_defs = ariadne.load_schema_from_path('application/schema')

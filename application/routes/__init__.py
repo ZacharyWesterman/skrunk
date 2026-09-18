@@ -82,3 +82,9 @@ def init(application) -> None:
 			'last_query': __last_query_at,
 			'in_progress': __running_query_ct,
 		})
+
+	# Max upload size doesn't need an API key.
+	# Nothing super valuable to be gained from knowing the max upload size.
+	@application.route('/upload', methods=['GET'])
+	def get_max_upload_size() -> Response:
+		return jsonify(application.config['MAX_CONTENT_LENGTH'])
