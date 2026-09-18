@@ -253,9 +253,22 @@ def save_blob_data(
 	this_blob_path = BlobStorage(item_id, ext).path(create=True)
 
 	# Make sure that there's enough space for the file in the target location.
-	# (5GB, the maximum size of a blob upload)
 	dir_path = str(pathlib.Path(this_blob_path).parent)
-	if (5 * 1024 * 1024 * 1024) > shutil.disk_usage(dir_path).free:
+
+	if file.content_length:
+		file_size = file.content_length
+	else:
+		# content-length header not available
+		try:
+			pos = file.tell()
+			file.seek(0, 2)
+			file_size = file.tell()
+			file.seek(pos)
+		except (AttributeError, IOError):
+			# Default to 5GB if unable to seek the file.
+			file_size = 5 * 1000 * 1000 * 1000
+
+	if file_size > shutil.disk_usage(dir_path).free:
 		raise exceptions.InsufficientDiskSpace()
 
 	# Stream file into temporary storage.
