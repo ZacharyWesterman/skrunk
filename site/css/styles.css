@@ -175,6 +175,10 @@ input.wide {
 	width: calc(100% - 9.5rem);
 }
 
+table.wide {
+	width: 100%;
+}
+
 .invalid {
 	background-color: var(--emphasis-text);
 }
