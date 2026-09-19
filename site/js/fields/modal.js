@@ -638,7 +638,7 @@ modal.download_zip = async (size_fn, zip_fn) => {
 	await _.modal({
 		icon: 'circle-check',
 		title: 'ZIP Archive Created',
-		text: 'The ZIP archive has been created and will now download to your device.<hr>The archive file will be kept for 24 hours.<br>If you\'d like to download it again before then,<br>go to the <b><i class="fa-solid fa-hard-drive"></i> Files</b> page and click "Include ephemeral files".',
+		text: 'The ZIP archive has been created and will now download to your device.<hr>The archive file will be kept for 24 hours.<br>If you\'d like to download it again before then,<br>go to the <b><i class="fa-solid fa-folder-open"></i> Files</b> page and click "Include ephemeral files".',
 		buttons: ['OK'],
 	})
 }
