@@ -1,23 +1,32 @@
 export default async (config, field) => {
 	const date_format = environment.mobile ? date.short : date.output
-	let users = await api(`{ listUsers (restrict: false) { username last_login } }`)
+	const is_admin = SelfUserData.perms.includes('admin')
+
+	let users = await api(`{ listUsers (restrict: ${is_admin ? 'false' : 'true'}) { username last_login } }`)
+	if (!is_admin) {
+		users = users.filter(i => i.username === api.username)
+	}
 
 	let sorting = 'username'
 	let reverse = false
 	let exact = true
 
-	field.innerText = 'Sort by '
+	field.innerText = is_admin ? 'Sort by ' : ''
 	const button = document.createElement('button')
 	button.className = 'button'
 	button.style.marginBottom = '10px'
 	button.innerText = 'Username'
-	field.appendChild(button)
+	if (is_admin) {
+		field.appendChild(button)
+	}
 
 	const button2 = document.createElement('button')
 	button2.className = 'button'
 	button2.style.marginLeft = '10px'
 	button2.innerText = 'Ascending'
-	field.appendChild(button2)
+	if (is_admin) {
+		field.appendChild(button2)
+	}
 
 	const body = document.createElement('div')
 	field.appendChild(body)
