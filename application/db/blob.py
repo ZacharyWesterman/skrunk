@@ -1145,3 +1145,46 @@ def get_similar_tags(
 
 	for tag in aggregate:
 		yield Tag(_id=ObjectId(), name=tag['_id'], count=tag['count'])
+
+
+def count_all_user_blobs(filter_users: list | None = None) -> list:
+	"""
+	Count the number of blobs uploaded by each user.
+
+	This function aggregates the total number of blobs for each user in the database.
+	It can also filter the results to include only specific users if a list of user IDs is provided.
+
+	Args:
+		filter_users (list | None): A list of user IDs to filter the results.
+			If None, all users are included.
+
+	Returns:
+		list: A list of dictionaries, each containing the 'creator' information
+			(username and display name) and the 'count' of blobs uploaded by that user.
+	"""
+	aggregate = db.aggregate([
+		{'$group': {'_id': '$creator', 'count': {'$sum': 1}}}
+	])
+
+	result = []
+
+	for i in aggregate:
+		# Allow user group filtering
+		if filter_users is not None and i['_id'] not in filter_users:
+			continue
+
+		try:
+			user_data = users.get_user_by_id(i['_id'])
+			result += [{
+				'creator': {
+					'username': user_data['username'],
+					'display_name': user_data['display_name'],
+				},
+				'count': i['count'],
+			}]
+
+		except exceptions.UserDoesNotExistError:
+			# Just ignore users that no longer exist.
+			pass
+
+	return result

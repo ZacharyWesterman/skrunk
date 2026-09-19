@@ -1,0 +1,26 @@
+export default async (config, field) => {
+	let chart_data = await api(`{countAllUserBlobs { creator { username display_name } count }}`)
+	if (chart_data.length === 0) {
+		$.hide(field.parentElement)
+		return
+	}
+
+	chart_data = chart_data.sort((a, b) => b.count - a.count)
+
+	const labels = chart_data.map(i => i.creator.display_name)
+	const data = chart_data.map(i => i.count)
+
+	let use_bar = true
+
+	function toggle() {
+		if (use_bar)
+			chart.bar(field, labels, data, true)
+		else
+			chart.pie(field, labels, data, true)
+
+		use_bar = !use_bar
+	}
+
+	field.onclick = toggle
+	toggle()
+}

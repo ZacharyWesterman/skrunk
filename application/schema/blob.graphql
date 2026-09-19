@@ -101,6 +101,14 @@ type ZipProgress {
 	finalizing: Boolean!
 }
 
+"""Blob count information for a user."""
+type UserBlobCount {
+	"""Minimal user data for the uploader of the blob."""
+	creator: UserMinData!
+	"""The total number of blobs uploaded by the user."""
+	count: Int!
+}
+
 """
 An input type for filtering blob data.
 All fields are optional, and if a field is null, it will not be used in the query.
@@ -140,6 +148,7 @@ extend type Query {
 	generateUID: String!
 	pollZipProgress(uid: String!): ZipProgressResponse!
 	suggestBlobTags(text: String!): [Tag!]!
+	countAllUserBlobs: [UserBlobCount!]!
 }
 
 extend type Mutation {
