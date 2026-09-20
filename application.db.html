@@ -493,6 +493,30 @@ packing and unpacking of ZIP files, and generating previews for various file typ
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.count_all_user_blobs">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">count_all_user_blobs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_users</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.count_all_user_blobs" title="Link to this definition">#</a></dt>
+<dd><p>Count the number of blobs uploaded by each user.</p>
+<p>This function aggregates the total number of blobs for each user in the database.
+It can also filter the results to include only specific users if a list of user IDs is provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_users</strong> (<em>list</em><em> | </em><em>None</em>) – A list of user IDs to filter the results.
+If None, all users are included.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A list of dictionaries, each containing the ‘creator’ information</dt><dd><p>(username and display name) and the ‘count’ of blobs uploaded by that user.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.blob.count_blobs">
 <span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">count_blobs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.count_blobs" title="Link to this definition">#</a></dt>
 <dd><p>Count the number of blobs in the database that match the given filter and user ID.</p>
@@ -4705,6 +4729,7 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.blobs_enabled"><code class="docutils literal notranslate"><span class="pre">blobs_enabled()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.build_blob_query"><code class="docutils literal notranslate"><span class="pre">build_blob_query()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.cancel_zip"><code class="docutils literal notranslate"><span class="pre">cancel_zip()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.count_all_user_blobs"><code class="docutils literal notranslate"><span class="pre">count_all_user_blobs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.count_blobs"><code class="docutils literal notranslate"><span class="pre">count_blobs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.count_tag_uses"><code class="docutils literal notranslate"><span class="pre">count_tag_uses()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.create_blob"><code class="docutils literal notranslate"><span class="pre">create_blob()</span></code></a></li>
