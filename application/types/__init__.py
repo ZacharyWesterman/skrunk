@@ -65,6 +65,7 @@ from .themecoloroutput import ThemeColorOutput
 from .themeoutput import ThemeOutput
 from .themesize import ThemeSize
 from .themesizeoutput import ThemeSizeOutput
+from .userblobcount import UserBlobCount
 from .userbookcount import UserBookCount
 from .userdata import UserData
 from .usermindata import UserMinData

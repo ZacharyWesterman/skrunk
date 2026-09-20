@@ -10,11 +10,13 @@
 		"module": "books"
 	},
 	{
+		"id": "uploaded_files",
+		"title": "Number of Uploaded Files",
+		"module": "files"
+	},
+	{
 		"id": "last_login",
-		"title": "Login History",
-		"perms": [
-			"admin"
-		]
+		"title": "Login History"
 	},
 	{
 		"id": "weather_alerts",

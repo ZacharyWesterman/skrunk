@@ -4,9 +4,10 @@ from graphql.type import GraphQLResolveInfo
 from tag_query import exceptions
 
 from application.db import perms
-from application.db.blob import (count_blobs, count_tag_uses, get_blob_data,
-                                 get_blobs, get_similar_tags, get_uid,
-                                 get_zip_progress, sum_blob_size)
+from application.db.blob import (count_all_user_blobs, count_blobs,
+                                 count_tag_uses, get_blob_data, get_blobs,
+                                 get_similar_tags, get_uid, get_zip_progress,
+                                 sum_blob_size)
 from application.db.users import group_filter, userids_in_groups
 from application.integrations import qrcode
 from application.types import BlobSearchFilter, Sorting, Tag, UserData
@@ -219,3 +220,21 @@ def resolve_suggest_blob_tags(_, _info: GraphQLResolveInfo, text: str) -> list[T
 	user_id = user_data['_id']
 	group = userids_in_groups(user_data.get('groups', []))
 	return list(get_similar_tags(text, user_id, group))
+
+
+@query.field('countAllUserBlobs')
+@perms.module('files')
+def resolve_count_all_user_blobs(_, _info: GraphQLResolveInfo) -> list:
+	"""
+	Resolves the total count of blobs for all users in the caller's groups.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+
+	Returns:
+		list: The result of counting all user blobs for users in the caller's groups.
+	"""
+	user_data = perms.caller_info_strict()
+	users = userids_in_groups(user_data.get('groups', []))
+	return count_all_user_blobs(users if len(users) > 0 else None)

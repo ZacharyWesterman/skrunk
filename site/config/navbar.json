@@ -15,7 +15,7 @@
 		{
 			"id": "user",
 			"text": "User Settings",
-			"icon": "user-pen",
+			"icon": "user",
 			"action": "dashnav('user')",
 			"goto": "user"
 		},
@@ -30,7 +30,7 @@
 		{
 			"id": "documents",
 			"text": "Documents",
-			"icon": "file-lines",
+			"icon": "file-pen",
 			"action": "dashnav('documents')",
 			"module": "documents"
 		},
@@ -52,7 +52,7 @@
 		{
 			"id": "files",
 			"text": "Files",
-			"icon": "hard-drive",
+			"icon": "folder-open",
 			"action": "dashnav('file_list')",
 			"module": "files"
 		},
@@ -256,7 +256,7 @@
 		{
 			"id": "user",
 			"text": "User Settings",
-			"icon": "user-pen",
+			"icon": "user",
 			"action": "dashnav('user')"
 		},
 		{
