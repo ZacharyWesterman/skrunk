@@ -37,20 +37,6 @@ def init() -> None:
 		if client is None:
 			client = subsonic_init()
 
-		print('Pre-caching Subsonic albums... ', flush=True, end='')
-
-		# If this title is not in the album cache, then fetch more
-		global subsonic_albums_complete, subsonic_albums_page, subsonic_albums
-		while not subsonic_albums_complete:
-			albums = client.albums('Audiobooks', subsonic_albums_page, 40)
-			subsonic_albums += albums
-
-			subsonic_albums_page += 1
-			if len(albums) < 40:
-				subsonic_albums_complete = True
-
-		print('Done.', flush=True)
-
 	except (exceptions.SubsonicError, subsonic.SessionError):
 		pass
 
