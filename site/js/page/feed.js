@@ -290,7 +290,7 @@ export async function navigate_to_page(page_num, update_nav = true) {
 	}`, config)
 
 	_('page-list', count_promise)
-	_('lookup-results', items_promise)
+	const lookup_promise = _('lookup-results', items_promise)
 
 	if (update_nav) {
 		update_navigation(Math.floor(lookup_start / lookup_list_len))
@@ -300,7 +300,6 @@ export async function navigate_to_page(page_num, update_nav = true) {
 	// This improves apparent performance on very slow connections.
 	// While technically slower than fetching the whole thing at once,
 	// it FEELS faster to users, and lets them actually start reading before the whole thing has loaded.
-	const body_promises = [];
 	const req = async (id, len) => {
 		const count = 1024 * 8
 		let start = 0
@@ -310,6 +309,8 @@ export async function navigate_to_page(page_num, update_nav = true) {
 			const text = await api(`query ($id: String!, $start: Int!, $count: Int!) {
 				getFeedDocumentBodyHtmlChunk(id: $id, start: $start, count: $count)
 				}`, { id, start, count })
+
+			await lookup_promise
 
 			const content = $('content-' + id)
 			if (!content) return
@@ -328,21 +329,29 @@ export async function navigate_to_page(page_num, update_nav = true) {
 		await query()
 	}
 
-	// Query unread documents first
+	// Bind unread documents to only be queried when clicked.
+	// Opening them back up is unlikely, so can afford to load lazily.
+	lookup_promise.then(async () => {
+		for (const item of await items_promise) {
+			if (item.read) {
+				const field = $(item.id)
+				const oldclick = field.onclick
+				field.onclick = (...args) => {
+					req(item.id, item.html_len)
+					oldclick(...args)
+					field.onclick = oldclick
+				}
+			}
+		}
+	})
+
+	// Then fully query unread document contents
 	for (const item of await items_promise) {
 		if (!item.read) {
 			await req(item.id, item.html_len)
 		}
 	}
 	await count_promise
-	await Promise.all(body_promises)
-
-	// Then query read documents
-	for (const item of await items_promise) {
-		if (item.read) {
-			await req(item.id, item.html_len)
-		}
-	}
 }
 
 export async function update_notify(id) {
