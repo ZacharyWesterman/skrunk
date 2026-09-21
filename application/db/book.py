@@ -30,7 +30,7 @@ _REMOTE_THUMB_SIGNATURE = re.compile('^https://books.google.com/')
 
 def init() -> None:
 	"""
-	Initialize the application by pre-caching some data.
+	Initialize the application.
 	"""
 	try:
 		client = get_subsonic()
