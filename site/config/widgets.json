@@ -2,25 +2,30 @@
 	{
 		"id": "related_sites",
 		"title": "Related Sites",
+		"icon": "circle-nodes",
 		"module": "related_sites"
 	},
 	{
 		"id": "tagged_books",
 		"title": "Number of Tagged Books",
+		"icon": "book",
 		"module": "books"
 	},
 	{
 		"id": "uploaded_files",
 		"title": "Number of Uploaded Files",
+		"icon": "folder-open",
 		"module": "files"
 	},
 	{
 		"id": "last_login",
-		"title": "Login History"
+		"title": "Login History",
+		"icon": "clock"
 	},
 	{
 		"id": "weather_alerts",
 		"title": "Most Recent Weather Alert",
+		"icon": "cloud-bolt",
 		"module": "weather"
 	}
 ]

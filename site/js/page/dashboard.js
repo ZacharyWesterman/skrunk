@@ -106,7 +106,16 @@ async function load_widgets() {
 		const w_inner = document.createElement('div')
 		const w_body = document.createElement('div')
 
-		if (config.title) title.innerText = config.title
+		if (config.title) {
+			if (config.icon) {
+				const icon = document.createElement('i')
+				icon.classList.add('fa-solid', `fa-${config.icon}`, 'fa-lg')
+				title.appendChild(icon)
+				title.appendChild(document.createTextNode(' ' + config.title))
+			} else {
+				title.innerText = config.title
+			}
+		}
 		else title.innerHTML = `<span class="emphasis">NO TITLE : ${config.id}</span>`
 
 		w_body.innerHTML = '<i class="gg-spinner"></i>'
