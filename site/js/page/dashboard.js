@@ -115,8 +115,9 @@ async function load_widgets() {
 			} else {
 				title.innerText = config.title
 			}
+		} else {
+			title.innerHTML = `<span class="emphasis">NO TITLE : ${config.id}</span>`
 		}
-		else title.innerHTML = `<span class="emphasis">NO TITLE : ${config.id}</span>`
 
 		w_body.innerHTML = '<i class="gg-spinner"></i>'
 		widget.classList.add('widget', 'hidden')
@@ -124,8 +125,18 @@ async function load_widgets() {
 
 		w_inner.append(title, w_body)
 		widget.append(w_inner)
-		$(`widget-column-${i}`).append(widget)
+		const parent = $(`widget-column-${i}`)
+		parent.append(widget)
 		$.show(widget)
+
+		// Minimize icon
+		const minimize = document.createElement('i')
+		minimize.classList.add('fa-solid', 'fa-square-xmark', 'clickable', 'right')
+		minimize.onclick = async () => {
+			await $.hide(widget, true)
+			parent.removeChild(widget)
+		}
+		title.appendChild(minimize)
 
 		//Load the widget data (don't block)
 		import(`/js/widgets/${config.id}.js`).then(module => {
