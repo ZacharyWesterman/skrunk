@@ -19,6 +19,8 @@ export async function navigate_to_page(page_num) {
 	const count_promise = api('{countMotd}').then(res => {
 		const count = res
 
+		LookupStart = CurrentPage * LookupListLen
+
 		const page_ct = Math.ceil(count / LookupListLen)
 		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
 		let this_page = Math.floor(LookupStart / LookupListLen)
@@ -29,6 +31,8 @@ export async function navigate_to_page(page_num) {
 			this_page = page_ct - 1
 			LookupStart = this_page * LookupListLen
 		}
+
+		console.log(pages, page_ct, this_page, count)
 
 		return {
 			pages: pages,
@@ -79,6 +83,39 @@ export async function create_motd() {
 	if (res.__typename !== 'Motd') {
 		_.modal.error(res.message)
 		return
+	}
+
+	_.modal.checkmark()
+	navigate_to_page(0)
+}
+
+export async function bulk_create_motd() {
+	const choice = await _.modal({
+		title: 'Bulk Create MOTD',
+		text: 'One MOTD per line.<br><input type="richtext" id="motd-text" />',
+		buttons: ['OK', 'Cancel'],
+	}, undefined, undefined, choice => {
+		return choice !== 'cancel' ? ($.val('motd-text') || null) : null
+	}).catch(() => null)
+
+	if (choice === null) {
+		return
+	}
+
+	for (const motd of choice.split('\n').filter(i => !!i).reverse()) {
+		const res = await api(`mutation ($text: String!) {
+			createMotd (text: $text) {
+				__typename
+				...on InsufficientPerms { message }
+			}
+		}`, {
+			text: motd,
+		})
+
+		if (res.__typename !== 'Motd') {
+			_.modal.error(res.message)
+			return
+		}
 	}
 
 	_.modal.checkmark()

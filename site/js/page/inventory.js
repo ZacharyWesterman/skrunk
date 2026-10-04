@@ -77,7 +77,7 @@ export async function init() {
 	]
 	for (const i of promises) await i
 
-	navigate_to_page(1)
+	navigate_to_page(0)
 }
 
 export async function navigate_to_page(page_num) {
@@ -96,6 +96,8 @@ export async function navigate_to_page(page_num) {
 		filter: filter,
 	}).then(res => {
 		const count = res
+
+		LookupStart = CurrentPage * LookupListLen
 
 		const page_ct = Math.ceil(count / LookupListLen)
 		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
