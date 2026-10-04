@@ -11,6 +11,16 @@ db: Collection = None  # type: ignore[assignment]
 
 
 def parse_motd(data: dict) -> Motd:
+	"""
+	Parse a dict into a Motd TypedDict.
+
+	Args:
+		data (dict): The dict data.
+
+	Return:
+		Motd: A guaranteed valid Motd TypedDict.
+	"""
+
 	return Motd(
 		_id=data['_id'],
 		id=str(data['_id']),
@@ -70,6 +80,20 @@ def count_motd() -> int:
 	return db.count_documents({})
 
 
+def list_motd(start: int, count: int) -> list[Motd]:
+	"""
+	Get a paginated list of MOTD items.
+
+	Args:
+		start (int): The starting index for pagination.
+		count (int): The number of items to retrieve.
+
+	Returns:
+		list[Motd]: A list of MOTD items.
+	"""
+	return [parse_motd(item) for item in db.find({}).skip(start).limit(count)]
+
+
 def create_motd(text: str) -> Motd:
 	"""
 	Create a new Message of the Day.
@@ -90,13 +114,13 @@ def delete_motd(id: str) -> Motd:
 	Delete a Message of the Day.
 
 	Args:
-		id (std): The ID of sthe MOTD.
+		id (str): The ID of the MOTD.
 
 	Returns:
 		Motd: The deleted MOTD.
 
 	Raises:
-		MotdDoesNotExist: If an MOTD does not exist with the given ID.
+		MotdDoesNotExist: If a MOTD does not exist with the given ID.
 	"""
 
 	item = db.find_one({'_id': ObjectId(id)})
@@ -105,3 +129,28 @@ def delete_motd(id: str) -> Motd:
 
 	db.delete_one({'_id': ObjectId(id)})
 	return parse_motd(item)
+
+
+def update_motd(id: str, text: str) -> Motd:
+	"""
+	Update the text of a Message of the Day.
+
+	Args:
+		id (str): The ID of the MOTD.
+		text (str): The new text of the MOTD.
+
+	Returns:
+		Motd: The updated MOTD.
+
+	Raises:
+		MotdDoesNotExist: If a MOTD does not exist with the given ID.
+	"""
+
+	ct = db.update_one({'_id': ObjectId(id)}, {'$set': {'text': text}}).modified_count
+	if ct == 0:
+		raise MotdDoesNotExist
+
+	return parse_motd({
+		'_id': ObjectId(id),
+		'text': text,
+	})

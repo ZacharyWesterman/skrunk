@@ -17,6 +17,7 @@ extend type Query {
 	countMotd: Int!
 	getRandomMotd: Motd
 	getLatestMotd: Motd
+	listMotd: [Motd!]!
 }
 
 extend type Mutation {
