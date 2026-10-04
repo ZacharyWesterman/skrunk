@@ -24,6 +24,7 @@ from . import (
 	inventory,
 	datafeed,
 	documents,
+	motd,
 )
 
 
@@ -82,6 +83,7 @@ def init_db(
 	weather.db = client.skrunk
 	datafeed.db = client.skrunk
 	documents.db = client.skrunk.documents
+	motd.db = client.skrunk.motd
 
 	blob.init()
 	notification.init()

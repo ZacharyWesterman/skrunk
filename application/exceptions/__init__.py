@@ -371,3 +371,13 @@ class InvalidBlobType(ClientError):
 		Initializes the exception with a message indicating that the blob is the wrong type.
 		"""
 		super().__init__('Chosen blob is not a valid document.')
+
+
+class MotdDoesNotExist(ClientError):
+	"""Raised when a MOTD does not exist with the given ID."""
+
+	def __init__(self) -> None:
+		"""
+		Initializes the exception with a messge indicating that the MOTD does not exist.
+		"""
+		super().__init__('MOTD not found with the given ID.')

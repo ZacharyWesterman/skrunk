@@ -1,0 +1,25 @@
+
+type Motd {
+	id: String!
+	text: String!
+}
+
+type MotdDoesNotExist {
+	message: String!
+}
+
+union MotdCreateResponse = Motd | InsufficientPerms
+union MotdDeleteResponse = Motd | InsufficientPerms | MotdDoesNotExist
+
+#Resolvers below this line:
+
+extend type Query {
+	countMotd: Int!
+	getRandomMotd: Motd
+	getLatestMotd: Motd
+}
+
+extend type Mutation {
+	createMotd(text: String!): MotdCreateResponse!
+	deleteMotd(id: String!): MotdDeleteResponse!
+}

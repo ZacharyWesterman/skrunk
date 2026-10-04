@@ -61,6 +61,7 @@ from . import bugs  # nopep8
 from . import datafeed  # nopep8
 from . import documents  # nopep8
 from . import inventory  # nopep8
+from . import motd  # nopep8
 from . import notification  # nopep8
 from . import sessions  # nopep8
 from . import settings  # nopep8
