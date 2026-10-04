@@ -39,7 +39,6 @@ from .item import Item
 from .lastmutation import LastMutation
 from .logresult import LogResult
 from .motd import Motd
-from .motddoesnotexist import MotdDoesNotExist
 from .notification import Notification
 from .qrparseresponse import QRParseResponse
 from .repositoryissue import RepositoryIssue

@@ -3,7 +3,7 @@
 from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
-from application.db.motd import create_motd, delete_motd
+from application.db.motd import create_motd, delete_motd, update_motd
 from application.types import Motd
 
 from ..decorators import handle_client_exceptions, typed
@@ -27,6 +27,26 @@ def resolve_create_motd(_, _info: GraphQLResolveInfo, text: str) -> Motd:
 		Motd: The created MOTD.
 	"""
 	return create_motd(text)
+
+
+@mutation.field('updateMotd')
+@perms.require('admin')
+@handle_client_exceptions
+@typed
+def resolve_update_motd(_, _info: GraphQLResolveInfo, id: str, text: str) -> Motd:
+	"""
+	Resolver to update the text of a Message of the Day with the given ID.
+
+	Args:
+		_ (Any): Placeholder.
+		_info (GraphQLResolveInfo): Information about the GraphQL execution state.
+		id (str): The ID of the MOTD.
+		text (str): The new text of the MOTD.
+
+	Returns:
+		Motd: The updated MOTD if update was successful.
+	"""
+	return update_motd(id, text)
 
 
 @mutation.field('deleteMotd')

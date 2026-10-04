@@ -1,5 +1,8 @@
 """application.db.motd"""
 
+from datetime import UTC, datetime
+
+import markdown
 from bson.objectid import ObjectId
 from pymongo.collection import Collection
 
@@ -22,9 +25,9 @@ def parse_motd(data: dict) -> Motd:
 	"""
 
 	return Motd(
-		_id=data['_id'],
 		id=str(data['_id']),
-		text=data['text']
+		text_html=markdown.markdown(data['text']),
+		**data,
 	)
 
 
@@ -91,7 +94,9 @@ def list_motd(start: int, count: int) -> list[Motd]:
 	Returns:
 		list[Motd]: A list of MOTD items.
 	"""
-	return [parse_motd(item) for item in db.find({}).skip(start).limit(count)]
+	return [
+		parse_motd(item) for item in db.find({}).sort('created', -1).skip(start).limit(count)
+	]
 
 
 def create_motd(text: str) -> Motd:
@@ -105,8 +110,13 @@ def create_motd(text: str) -> Motd:
 		Motd: The resultant MOTD.
 	"""
 
-	motd_id = db.insert_one({'text': text}).inserted_id
-	return parse_motd({'_id': motd_id, 'text': text})
+	motd = {
+		'text': text,
+		'created': datetime.now(UTC),
+	}
+
+	motd_id = db.insert_one(motd).inserted_id
+	return parse_motd({'_id': motd_id, **motd})
 
 
 def delete_motd(id: str) -> Motd:
@@ -146,11 +156,13 @@ def update_motd(id: str, text: str) -> Motd:
 		MotdDoesNotExist: If a MOTD does not exist with the given ID.
 	"""
 
-	ct = db.update_one({'_id': ObjectId(id)}, {'$set': {'text': text}}).modified_count
-	if ct == 0:
+	item = db.find_one({'_id': ObjectId(id)})
+	if item is None:
 		raise MotdDoesNotExist
 
+	db.update_one({'_id': ObjectId(id)}, {'$set': {'text': text}})
+
 	return parse_motd({
-		'_id': ObjectId(id),
+		**item,
 		'text': text,
 	})

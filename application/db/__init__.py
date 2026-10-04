@@ -143,3 +143,5 @@ def create_indexes() -> None:
 	blob.db.create_index([('size', 1)])
 	blob.db.create_index([('ext', 1)])
 	blob.db.create_index([('name', 1)])
+
+	motd.db.create_index([('created', -1)])

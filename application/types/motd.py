@@ -2,6 +2,7 @@
 
 from typing import TypedDict
 from bson.objectid import ObjectId
+from datetime import datetime
 
 
 class Motd(TypedDict):
@@ -9,3 +10,5 @@ class Motd(TypedDict):
 	_id: ObjectId
 	id: str
 	text: str
+	text_html: str
+	created: datetime

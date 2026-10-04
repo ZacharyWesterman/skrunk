@@ -2,6 +2,8 @@
 type Motd {
 	id: String!
 	text: String!
+	text_html: String!
+	created: DateTime!
 }
 
 type MotdDoesNotExist {
@@ -9,7 +11,7 @@ type MotdDoesNotExist {
 }
 
 union MotdCreateResponse = Motd | InsufficientPerms
-union MotdDeleteResponse = Motd | InsufficientPerms | MotdDoesNotExist
+union MotdEditResponse = Motd | InsufficientPerms | MotdDoesNotExist
 
 #Resolvers below this line:
 
@@ -17,10 +19,11 @@ extend type Query {
 	countMotd: Int!
 	getRandomMotd: Motd
 	getLatestMotd: Motd
-	listMotd: [Motd!]!
+	listMotd(start: Int!, count: Int!): [Motd!]!
 }
 
 extend type Mutation {
 	createMotd(text: String!): MotdCreateResponse!
-	deleteMotd(id: String!): MotdDeleteResponse!
+	updateMotd(id: String!, text: String!): MotdEditResponse!
+	deleteMotd(id: String!): MotdEditResponse!
 }
