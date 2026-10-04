@@ -1,0 +1,33 @@
+<div class="page">
+	<h1>
+		<i class="fa-solid fa-calendar-day fa-xl"></i>
+		Messages of the Day
+	</h1>
+
+	<div class="card alt" id="lookup-header">
+		<div>
+			<h3 class="icon clickable alt" *click="create_motd">
+				<i class="fa-solid fa-square-plus fa-lg"></i>
+				Create new MOTD
+			</h3>
+			<div class="icon clickable alt" *click="bulk_create_motd">
+				<i class="fa-solid fa-plus fa-lg"></i>
+				Bulk MOTD import
+			</div>
+
+			<hr>
+
+			<div name="page-list"></div>
+		</div>
+	</div>
+
+	<div id="lookup-results" template="motd-items"></div>
+
+	<div class="card alt" id="lookup-footer">
+		<div>
+			<div name="page-list"></div>
+		</div>
+	</div>
+</div>
+
+<script src="js/page/motd.js"></script>

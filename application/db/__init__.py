@@ -24,6 +24,7 @@ from . import (
 	inventory,
 	datafeed,
 	documents,
+	motd,
 )
 
 
@@ -82,6 +83,7 @@ def init_db(
 	weather.db = client.skrunk
 	datafeed.db = client.skrunk
 	documents.db = client.skrunk.documents
+	motd.db = client.skrunk.motd
 
 	blob.init()
 	notification.init()
@@ -141,3 +143,5 @@ def create_indexes() -> None:
 	blob.db.create_index([('size', 1)])
 	blob.db.create_index([('ext', 1)])
 	blob.db.create_index([('name', 1)])
+
+	motd.db.create_index([('created', -1)])

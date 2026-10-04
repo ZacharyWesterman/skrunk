@@ -1,5 +1,10 @@
 [
 	{
+		"id": "motd",
+		"title": "Message of the Day",
+		"icon": "calendar-day"
+	},
+	{
 		"id": "related_sites",
 		"title": "Related Sites",
 		"icon": "circle-nodes",

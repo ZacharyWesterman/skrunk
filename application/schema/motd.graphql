@@ -1,0 +1,29 @@
+
+type Motd {
+	id: String!
+	text: String!
+	text_html: String!
+	created: DateTime!
+}
+
+type MotdDoesNotExist {
+	message: String!
+}
+
+union MotdCreateResponse = Motd | InsufficientPerms
+union MotdEditResponse = Motd | InsufficientPerms | MotdDoesNotExist
+
+#Resolvers below this line:
+
+extend type Query {
+	countMotd: Int!
+	getRandomMotd: Motd
+	getLatestMotd: Motd
+	listMotd(start: Int!, count: Int!): [Motd!]!
+}
+
+extend type Mutation {
+	createMotd(text: String!): MotdCreateResponse!
+	updateMotd(id: String!, text: String!): MotdEditResponse!
+	deleteMotd(id: String!): MotdEditResponse!
+}

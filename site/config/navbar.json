@@ -142,6 +142,13 @@
 			"icon": "code",
 			"action": "dashnav('graphql_api')",
 			"class": "alt"
+		},
+		{
+			"id": "motd",
+			"text": "Messages of the Day",
+			"icon": "calendar-day",
+			"action": "dashnav('motd')",
+			"class": "alt"
 		}
 	],
 	"books": [
