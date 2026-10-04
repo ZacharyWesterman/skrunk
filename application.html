@@ -469,6 +469,17 @@
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.inventory.relink_inventory_item"><code class="docutils literal notranslate"><span class="pre">relink_inventory_item()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.motd">application.db.motd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.count_motd"><code class="docutils literal notranslate"><span class="pre">count_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.create_motd"><code class="docutils literal notranslate"><span class="pre">create_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.delete_motd"><code class="docutils literal notranslate"><span class="pre">delete_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.get_motd"><code class="docutils literal notranslate"><span class="pre">get_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.get_nth_motd"><code class="docutils literal notranslate"><span class="pre">get_nth_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.list_motd"><code class="docutils literal notranslate"><span class="pre">list_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.parse_motd"><code class="docutils literal notranslate"><span class="pre">parse_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.motd.update_motd"><code class="docutils literal notranslate"><span class="pre">update_motd()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="application.db.html#module-application.db.notification">application.db.notification module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.count_notifications"><code class="docutils literal notranslate"><span class="pre">count_notifications()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.db.html#application.db.notification.create_subscription"><code class="docutils literal notranslate"><span class="pre">create_subscription()</span></code></a></li>
@@ -605,6 +616,7 @@
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.ItemExistsError"><code class="docutils literal notranslate"><span class="pre">ItemExistsError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.JWTAuthenticationError"><code class="docutils literal notranslate"><span class="pre">JWTAuthenticationError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.MissingConfig"><code class="docutils literal notranslate"><span class="pre">MissingConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.MotdDoesNotExist"><code class="docutils literal notranslate"><span class="pre">MotdDoesNotExist</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.RateLimitExceeded"><code class="docutils literal notranslate"><span class="pre">RateLimitExceeded</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.SubsonicError"><code class="docutils literal notranslate"><span class="pre">SubsonicError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="application.exceptions.html#application.exceptions.UserDoesNotExistError"><code class="docutils literal notranslate"><span class="pre">UserDoesNotExistError</span></code></a></li>
@@ -738,6 +750,7 @@
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.datafeed">application.resolvers.mutation.datafeed module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.documents">application.resolvers.mutation.documents module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.inventory">application.resolvers.mutation.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.motd">application.resolvers.mutation.motd module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.notification">application.resolvers.mutation.notification module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.sessions">application.resolvers.mutation.sessions module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.settings">application.resolvers.mutation.settings module</a></li>
@@ -757,6 +770,7 @@
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.integrations">application.resolvers.query.integrations module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.inventory">application.resolvers.query.inventory module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.last_mutation">application.resolvers.query.last_mutation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.motd">application.resolvers.query.motd module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.notification">application.resolvers.query.notification module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.sessions">application.resolvers.query.sessions module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.settings">application.resolvers.query.settings module</a></li>
@@ -770,6 +784,7 @@
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#module-application.resolvers.decorators">application.resolvers.decorators module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.html#application.resolvers.decorators.handle_client_exceptions"><code class="docutils literal notranslate"><span class="pre">handle_client_exceptions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.html#application.resolvers.decorators.typed"><code class="docutils literal notranslate"><span class="pre">typed()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.html#module-application.resolvers">Module contents</a></li>
@@ -1277,6 +1292,16 @@
 <li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.logresult">application.types.logresult module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.logresult.LogResult"><code class="docutils literal notranslate"><span class="pre">LogResult</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.logresult.LogResult.result"><code class="docutils literal notranslate"><span class="pre">LogResult.result</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.types.html#module-application.types.motd">application.types.motd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.types.html#application.types.motd.Motd"><code class="docutils literal notranslate"><span class="pre">Motd</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.motd.Motd.created"><code class="docutils literal notranslate"><span class="pre">Motd.created</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.motd.Motd.id"><code class="docutils literal notranslate"><span class="pre">Motd.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.motd.Motd.text"><code class="docutils literal notranslate"><span class="pre">Motd.text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="application.types.html#application.types.motd.Motd.text_html"><code class="docutils literal notranslate"><span class="pre">Motd.text_html</span></code></a></li>
 </ul>
 </li>
 </ul>

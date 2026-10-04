@@ -340,6 +340,7 @@
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.datafeed">application.resolvers.mutation.datafeed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.documents">application.resolvers.mutation.documents module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.inventory">application.resolvers.mutation.inventory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.motd">application.resolvers.mutation.motd module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.notification">application.resolvers.mutation.notification module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.sessions">application.resolvers.mutation.sessions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.mutation.html#module-application.resolvers.mutation.settings">application.resolvers.mutation.settings module</a></li>
@@ -376,6 +377,11 @@
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.inventory">application.resolvers.query.inventory module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.last_mutation">application.resolvers.query.last_mutation module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.last_mutation.resolve_get_last_mutation"><code class="docutils literal notranslate"><span class="pre">resolve_get_last_mutation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.motd">application.resolvers.query.motd module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.motd.resolve_count_motd"><code class="docutils literal notranslate"><span class="pre">resolve_count_motd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.resolvers.query.html#application.resolvers.query.motd.resolve_list_motd"><code class="docutils literal notranslate"><span class="pre">resolve_list_motd()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application.resolvers.query.html#module-application.resolvers.query.notification">application.resolvers.query.notification module</a><ul>
@@ -425,6 +431,26 @@ containing the exception type and message.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A wrapped function that handles <cite>ClientError</cite> exceptions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.resolvers.decorators.typed">
+<span class="sig-prename descclassname"><span class="pre">application.resolvers.decorators.</span></span><span class="sig-name descname"><span class="pre">typed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.resolvers.decorators.typed" title="Link to this definition">#</a></dt>
+<dd><p>Decorator that automatically injects the ‘__typename’ field when returning dicts
+that don’t already have the field, based on function type hints.</p>
+<p>Note that this decorator must be the first in any decorator chain, that is
+there may not be any decorators between this and the actual function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>Callable</em>) – The function to be wrapped by the decorator.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A wrapped function that injects the <cite>__typename</cite> field into the result.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Callable</p>
@@ -490,6 +516,7 @@ containing the exception type and message.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers.decorators">application.resolvers.decorators module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.decorators.handle_client_exceptions"><code class="docutils literal notranslate"><span class="pre">handle_client_exceptions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.resolvers.decorators.typed"><code class="docutils literal notranslate"><span class="pre">typed()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.resolvers">Module contents</a></li>

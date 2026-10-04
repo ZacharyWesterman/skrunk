@@ -316,6 +316,14 @@ application.types.logresult module
    :show-inheritance:
    :undoc-members:
 
+application.types.motd module
+-----------------------------
+
+.. automodule:: application.types.motd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.types.notification module
 -------------------------------------
 

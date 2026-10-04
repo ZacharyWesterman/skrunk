@@ -76,6 +76,14 @@ application.resolvers.query.last\_mutation module
    :show-inheritance:
    :undoc-members:
 
+application.resolvers.query.motd module
+---------------------------------------
+
+.. automodule:: application.resolvers.query.motd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.resolvers.query.notification module
 -----------------------------------------------
 

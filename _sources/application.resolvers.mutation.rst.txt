@@ -60,6 +60,14 @@ application.resolvers.mutation.inventory module
    :show-inheritance:
    :undoc-members:
 
+application.resolvers.mutation.motd module
+------------------------------------------
+
+.. automodule:: application.resolvers.mutation.motd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.resolvers.mutation.notification module
 --------------------------------------------------
 

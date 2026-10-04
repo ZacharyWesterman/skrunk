@@ -2839,6 +2839,161 @@ it raises a BlobDoesNotExistError. The tags are converted to lowercase and dupli
 </dd></dl>
 
 </section>
+<section id="module-application.db.motd">
+<span id="application-db-motd-module"></span><h2>application.db.motd module<a class="headerlink" href="#module-application.db.motd" title="Link to this heading">#</a></h2>
+<p>application.db.motd</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.count_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">count_motd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.count_motd" title="Link to this definition">#</a></dt>
+<dd><p>Count the total number of MOTD items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The total MOTD count.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.create_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">create_motd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.create_motd" title="Link to this definition">#</a></dt>
+<dd><p>Create a new Message of the Day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text for the MOTD.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The resultant MOTD.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.motd.Motd" title="application.types.motd.Motd">Motd</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.delete_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">delete_motd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.delete_motd" title="Link to this definition">#</a></dt>
+<dd><p>Delete a Message of the Day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – The ID of the MOTD.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deleted MOTD.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.motd.Motd" title="application.types.motd.Motd">Motd</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.MotdDoesNotExist" title="application.exceptions.MotdDoesNotExist"><strong>MotdDoesNotExist</strong></a> – If a MOTD does not exist with the given ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.get_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">get_motd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.get_motd" title="Link to this definition">#</a></dt>
+<dd><p>Get the Message of the Day by ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – The ID of the MOTD.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The associated MOTD.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.motd.Motd" title="application.types.motd.Motd">Motd</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MotdDoesNotExistError</strong> – If there is no such MOTD with the given ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.get_nth_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">get_nth_motd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.get_nth_motd" title="Link to this definition">#</a></dt>
+<dd><p>Get the Message of the Day by index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the MOTD.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The associated MOTD.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.motd.Motd" title="application.types.motd.Motd">Motd</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MotdDoesNotExistError</strong> – If the index is out of bounds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.list_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">list_motd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.list_motd" title="Link to this definition">#</a></dt>
+<dd><p>Get a paginated list of MOTD items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>int</em>) – The starting index for pagination.</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – The number of items to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of MOTD items.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="application.types.html#application.types.motd.Motd" title="application.types.motd.Motd">Motd</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.parse_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">parse_motd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.parse_motd" title="Link to this definition">#</a></dt>
+<dd><p>Parse a dict into a Motd TypedDict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The dict data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A guaranteed valid Motd TypedDict.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.motd.Motd" title="application.types.motd.Motd">Motd</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.motd.update_motd">
+<span class="sig-prename descclassname"><span class="pre">application.db.motd.</span></span><span class="sig-name descname"><span class="pre">update_motd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.motd.update_motd" title="Link to this definition">#</a></dt>
+<dd><p>Update the text of a Message of the Day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – The ID of the MOTD.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – The new text of the MOTD.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated MOTD.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.motd.Motd" title="application.types.motd.Motd">Motd</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="application.exceptions.html#application.exceptions.MotdDoesNotExist" title="application.exceptions.MotdDoesNotExist"><strong>MotdDoesNotExist</strong></a> – If a MOTD does not exist with the given ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-application.db.notification">
 <span id="application-db-notification-module"></span><h2>application.db.notification module<a class="headerlink" href="#module-application.db.notification" title="Link to this heading">#</a></h2>
 <p>This module allows sending web push notifications to users.</p>
@@ -4854,6 +5009,17 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.inventory.get_item_locations"><code class="docutils literal notranslate"><span class="pre">get_item_locations()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.inventory.get_item_types"><code class="docutils literal notranslate"><span class="pre">get_item_types()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.inventory.relink_inventory_item"><code class="docutils literal notranslate"><span class="pre">relink_inventory_item()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.motd">application.db.motd module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.count_motd"><code class="docutils literal notranslate"><span class="pre">count_motd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.create_motd"><code class="docutils literal notranslate"><span class="pre">create_motd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.delete_motd"><code class="docutils literal notranslate"><span class="pre">delete_motd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.get_motd"><code class="docutils literal notranslate"><span class="pre">get_motd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.get_nth_motd"><code class="docutils literal notranslate"><span class="pre">get_nth_motd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.list_motd"><code class="docutils literal notranslate"><span class="pre">list_motd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.parse_motd"><code class="docutils literal notranslate"><span class="pre">parse_motd()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.motd.update_motd"><code class="docutils literal notranslate"><span class="pre">update_motd()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.notification">application.db.notification module</a><ul class="nav section-nav flex-column">

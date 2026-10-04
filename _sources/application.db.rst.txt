@@ -60,6 +60,14 @@ application.db.inventory module
    :show-inheritance:
    :undoc-members:
 
+application.db.motd module
+--------------------------
+
+.. automodule:: application.db.motd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.db.notification module
 ----------------------------------
 
