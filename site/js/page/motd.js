@@ -8,6 +8,7 @@ export async function init() {
 
 export async function navigate_to_page(page_num) {
 	CurrentPage = page_num
+	LookupStart = CurrentPage * LookupListLen
 
 	const filter = {
 		category: $.val('category') || null,
@@ -19,8 +20,6 @@ export async function navigate_to_page(page_num) {
 	const count_promise = api('{countMotd}').then(res => {
 		const count = res
 
-		LookupStart = CurrentPage * LookupListLen
-
 		const page_ct = Math.ceil(count / LookupListLen)
 		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
 		let this_page = Math.floor(LookupStart / LookupListLen)
@@ -31,8 +30,6 @@ export async function navigate_to_page(page_num) {
 			this_page = page_ct - 1
 			LookupStart = this_page * LookupListLen
 		}
-
-		console.log(pages, page_ct, this_page, count)
 
 		return {
 			pages: pages,
