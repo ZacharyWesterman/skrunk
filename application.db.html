@@ -913,7 +913,7 @@ that the ‘references’ field does not go below 0.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="application.db.blob.save_blob_data">
-<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">save_blob_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_unzip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ephemeral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.save_blob_data" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">save_blob_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_unzip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ephemeral</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.save_blob_data" title="Link to this definition">#</a></dt>
 <dd><p>Save blob data to storage and optionally unzip if the file is a zip archive.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -923,6 +923,9 @@ that the ‘references’ field does not go below 0.</p>
 <li><p><strong>tags</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of tags to associate with the blob.</p></li>
 <li><p><strong>hidden</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, mark the blob as hidden. Defaults to False.</p></li>
 <li><p><strong>ephemeral</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, mark the blob as ephemeral. Defaults to False.</p></li>
+<li><p><strong>blob_id</strong> (<em>str</em><em> | </em><em>None</em>) – If None, create a new blob. Otherwise, just append to the given blob.</p></li>
+<li><p><strong>finalize</strong> (<em>bool</em>) – If True, perform any special parsing/unzipping/etc on the blob,
+and mark the upload as finished.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
