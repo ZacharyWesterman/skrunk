@@ -281,50 +281,78 @@ api.file_prompt = (contentType = '*', multiple = false, capture = null) => {
  * @returns {Promise<any>} The JSON response from the server.
  */
 api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false, max_retries = 0, await_processing = false) => {
-	function upload_fn() {
-		return new Promise((resolve, reject) => {
-			let xhr = new XMLHttpRequest
-			let data = new FormData
+	// Chunk large files to help avoid file size limitations.
+	const chunk_size = 1024 * 1024 * 1024
 
+	function upload_fn() {
+		return new Promise(async (resolve, reject) => {
 			api.upload.canceled = false
 
-			file.unzip = auto_unzip
-			data.append('file', file)
-			data.append('unzip', auto_unzip)
-			data.append('hidden', hidden)
-			data.append('ephemeral', ephemeral)
-			data.append('tags', JSON.stringify(tag_list))
+			const total_chunks = Math.ceil(file.size / chunk_size)
 
-			const eventListener = (progress) => {
-				progress_handler(progress)
-				if (!await_processing && progress.loaded >= progress.total) {
-					xhr.upload.removeEventListener('progress', eventListener)
-					api.upload.xhr.splice(api.upload.xhr.indexOf(xhr), 1)
-					resolve()
+			let blob_id = null
+			function get_chunk(chunk_num) {
+				let xhr = new XMLHttpRequest
+				let data = new FormData
+
+				file.unzip = auto_unzip
+				const file_chunk = file.slice(chunk_num * chunk_size, (chunk_num + 1) * chunk_size, file.contentType)
+				file_chunk.name = file.name
+				file_chunk.type = file.type
+
+				data.append('file', file_chunk)
+				data.append('unzip', auto_unzip)
+				data.append('hidden', hidden)
+				data.append('ephemeral', ephemeral)
+				data.append('tags', JSON.stringify(tag_list))
+				data.append('chunks_remaining', total_chunks - 1 - chunk_num)
+				data.append('blob_id', blob_id)
+				data.append('filename', file.name)
+
+				const eventListener = (progress) => {
+					progress_handler(progress)
+					if (!await_processing && progress.loaded >= progress.total) {
+						xhr.upload.removeEventListener('progress', eventListener)
+						api.upload.xhr.splice(api.upload.xhr.indexOf(xhr), 1)
+						resolve()
+					}
+				}
+				xhr.upload.addEventListener('progress', eventListener, false)
+
+				xhr.open('POST', '/upload', true)
+				xhr.send(data)
+
+				api.upload.xhr.push(xhr)
+
+				xhr.onload = () => {
+					api.upload.xhr = []
+					if (xhr.status >= 200 && xhr.status < 300) {
+						console.log('chunk', chunk_num + 1, 'of', total_chunks)
+						if (chunk_num >= total_chunks - 1) {
+							// Resolve at the last chunk
+							resolve(JSON.parse(xhr.responseText))
+						} else {
+							// If chunking, get the blob id, and send it in future chunks
+							// (so we don't keep creating new blobs)
+							if (chunk_num === 0) {
+								blob_id = JSON.parse(xhr.responseText)[0].id
+							}
+							get_chunk(chunk_num + 1)
+						}
+					}
+					else {
+						reject({ text: xhr.responseText, status: xhr.status, statusText: xhr.statusText })
+					}
+				}
+
+				xhr.onerror = () => {
+					api.upload.xhr = []
+					console.error(xhr)
+					reject({ text: `XHR ERROR: ${xhr}`, status: xhr.status, statusText: xhr.statusText })
 				}
 			}
-			xhr.upload.addEventListener('progress', eventListener, false)
 
-			xhr.open('POST', '/upload', true)
-			xhr.send(data)
-
-			api.upload.xhr.push(xhr)
-
-			xhr.onload = () => {
-				api.upload.xhr = []
-				if (xhr.status >= 200 && xhr.status < 300) {
-					resolve(JSON.parse(xhr.responseText))
-				}
-				else {
-					reject({ text: xhr.responseText, status: xhr.status, statusText: xhr.statusText })
-				}
-			}
-
-			xhr.onerror = () => {
-				api.upload.xhr = []
-				console.error(xhr)
-				reject({ text: `XHR ERROR: ${xhr}`, status: xhr.status, statusText: xhr.statusText })
-			}
+			get_chunk(0)
 		})
 	}
 

@@ -8,7 +8,7 @@ from typing import Any, Generator
 
 from flask import Response, jsonify, request
 
-from application.db import blob, perms
+from application.db import blob, perms, settings
 
 from . import auth, files
 
@@ -199,12 +199,33 @@ def upload() -> Response:
 	hidden = request.form['hidden'] == 'true'
 	ephemeral = request.form['ephemeral'] == 'true'
 	tag_list = json.loads(request.form['tags'])
+	chunks_remaining = int(request.form.get('chunks_remaining', 0))
+	blob_id = request.form.get('blob_id') if request.form.get('blob_id') != 'null' else None
+
+	file = request.files['file']
+	if request.form.get('filename') is not None:
+		file.filename = request.form.get('filename')
+
 	uploaded_blobs = blob.save_blob_data(
-		request.files['file'],
+		file,
 		auto_unzip,
 		tag_list,
 		hidden,
-		ephemeral
+		ephemeral,
+		blob_id,
+		chunks_remaining <= 0,
 	)
 
 	return jsonify(uploaded_blobs)
+
+
+def get_max_upload_size() -> int | None:
+	"""
+	Get the configured max upload size.
+
+	Returns:
+		int | None: The configured maximum file upload size (in bytes), or None if not configured.
+	"""
+
+	max_upload = settings.get_config('files:upload_max')
+	return int(max_upload) if max_upload else None
