@@ -10,13 +10,6 @@ export async function navigate_to_page(page_num) {
 	CurrentPage = page_num
 	LookupStart = CurrentPage * LookupListLen
 
-	const filter = {
-		category: $.val('category') || null,
-		type: $.val('type') || null,
-		location: $.val('location') || null,
-		owner: $.val('owner') || null,
-	}
-
 	const count_promise = api('{countMotd}').then(res => {
 		const count = res
 
