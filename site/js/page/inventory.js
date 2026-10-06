@@ -82,6 +82,7 @@ export async function init() {
 
 export async function navigate_to_page(page_num) {
 	CurrentPage = page_num
+	LookupStart = CurrentPage * LookupListLen
 
 	const filter = {
 		category: $.val('category') || null,
@@ -96,8 +97,6 @@ export async function navigate_to_page(page_num) {
 		filter: filter,
 	}).then(res => {
 		const count = res
-
-		LookupStart = CurrentPage * LookupListLen
 
 		const page_ct = Math.ceil(count / LookupListLen)
 		const pages = Array.apply(null, Array(page_ct)).map(Number.call, Number)
