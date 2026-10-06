@@ -170,23 +170,23 @@ modal.upload.return = () => {
 }
 
 let _max_upload_size = null
+let _max_upload_text = null
 
 /**
  * Start uploading the files selected in the upload modal.
  * @returns {void}
  */
 modal.upload.start = async function () {
-	let _max_upload_text = null
 	if (_max_upload_size === null) {
 		_max_upload_size = fetch('/upload').then(i => i.json())
 		_max_upload_text = _max_upload_size.then(i => {
-			let units = ['EB', 'TB', 'GB', 'MB', 'KB', 'B'];
+			let units = ['EB', 'TB', 'GB', 'MB', 'KB', 'B']
 			while (i > 1000) {
-				i /= 1000;
-				units.pop();
+				i /= 1000
+				units.pop()
 			}
 
-			return Math.floor(i) + units.pop();
+			return Math.floor(i) + units.pop()
 		})
 	}
 
@@ -199,8 +199,17 @@ modal.upload.start = async function () {
 	async function do_upload(file, dom_progress) {
 		const blobs = await api.upload(file, progress => {
 			const percent = (progress.loaded / progress.total) * 100
+			let units = ['EB', 'TB', 'GB', 'MB', 'KB', 'B'];
+			let loaded = progress.loaded
+			let total = progress.total
+			while (total > 1000) {
+				total /= 1000
+				loaded /= 1000
+				units.pop()
+			}
+
 			dom_progress.value = percent
-			dom_progress.nextSibling.innerText = parseInt(percent) + '%'
+			dom_progress.nextSibling.innerText = `${loaded.toFixed(1)}/${Math.floor(total)}${units.pop()} (${parseInt(percent)}%)`
 		}, auto_unzip, tag_list, hidden)
 		$.hide(dom_progress.parentElement, true)
 
@@ -211,24 +220,26 @@ modal.upload.start = async function () {
 
 	const files = $('modal-file').files
 
-	//make sure all files are < max file size limit for uploads
-	let too_big = []
-	for (let file of files) {
-		if (file.size > await _max_upload_size)
-			too_big.push(`${file.name} (${format.file_size(file.size)})`)
-	}
+	if (await _max_upload_size > 0) {
+		//make sure all files are < max file size limit for uploads
+		let too_big = []
+		for (let file of files) {
+			if (file.size > await _max_upload_size)
+				too_big.push(`${file.name} (${format.file_size(file.size)})`)
+		}
 
-	if (too_big.length > 0) {
-		const amt = too_big.length === 1 ? 'file exceeds' : 'files exceed'
-		const amt2 = too_big.length === 1 ? 'that file' : 'those files'
+		if (too_big.length > 0) {
+			const amt = too_big.length === 1 ? 'file exceeds' : 'files exceed'
+			const amt2 = too_big.length === 1 ? 'that file' : 'those files'
 
-		await _.modal({
-			type: 'error',
-			title: 'Ow, right in the bandwidth!',
-			text: `<p>For the sake of performance, there's a <b>${await _max_upload_text}</b> limit on file uploads.<br>The following ${amt} this limit:</p><i>${too_big.join('<br>')}</i><p>If you really need to upload ${amt2}, I suggest using an FTP client.`,
-			buttons: ['OK'],
-		}).catch(() => { })
-		return
+			await _.modal({
+				type: 'error',
+				title: 'Ow, right in the bandwidth!',
+				text: `<p>For the sake of performance, there's a <b>${await _max_upload_text}</b> limit on file uploads.<br>The following ${amt} this limit:</p><i>${too_big.join('<br>')}</i><p>If you really need to upload ${amt2}, I suggest using an FTP client.`,
+				buttons: ['OK'],
+			}).catch(() => { })
+			return
+		}
 	}
 
 	//Show a warning if files are >=50MB (may take a long time)
@@ -242,9 +253,12 @@ modal.upload.start = async function () {
 		const header = large_files.length === 1 ? 'a very large file' : 'some very large files'
 		const msg = large_files.length === 1 ? 'A file' : 'Some of the files'
 		const it_them = large_files.length === 1 ? 'it' : 'them'
+
+		const hard_limit = `This is still under the hard limit of <b>${await _max_upload_text}</b> per file, so you`
+
 		const res = await _.modal({
 			title: `<span class="emphasis">WARNING:</span> You're about to upload ${header}!`,
-			text: `<p>${msg} you've selected may take a very long time to upload:</p><i>${large_files.join('<br>')}</i><p>This is still under the hard limit of <b>${await _max_upload_text}</b> per file, so you <i>can still upload ${it_them}</i>, but if you have a slow or spotty connection you may want to consider uploading a different way.<br><br><b>Do you want to go ahead and upload?</b></p>`,
+			text: `<p>${msg} you've selected may take a very long time to upload:</p><i>${large_files.join('<br>')}</i><p>${await _max_upload_size === 0 ? 'You' : hard_limit} <i>can still upload ${it_them}</i>, but if you have a slow or spotty connection you may want to consider uploading a different way.<br><br><b>Do you want to go ahead and upload?</b></p>`,
 			buttons: ['Yes', 'No'],
 		}).catch(() => 'no')
 

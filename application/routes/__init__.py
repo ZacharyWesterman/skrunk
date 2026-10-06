@@ -87,4 +87,8 @@ def init(application) -> None:
 	# Nothing super valuable to be gained from knowing the max upload size.
 	@application.route('/upload', methods=['GET'])
 	def get_max_upload_size() -> Response:
-		return jsonify(application.config['MAX_CONTENT_LENGTH'])
+		max_upload = blob.get_max_upload_size()
+		if max_upload is None:
+			max_upload = application.config['MAX_CONTENT_LENGTH']
+
+		return jsonify(max_upload)

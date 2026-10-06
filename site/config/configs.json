@@ -10,6 +10,13 @@
 		"type": "password"
 	},
 	{
+		"id": "files:upload_max",
+		"name": "Max upload size (in bytes)",
+		"hint": "Set to 0 for unlimited, or leave blank for server default.",
+		"module": "files",
+		"type": "number"
+	},
+	{
 		"id": "subsonic:url",
 		"name": "Subsonic Server URL",
 		"module": "subsonic"

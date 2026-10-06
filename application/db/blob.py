@@ -227,7 +227,9 @@ def save_blob_data(
     auto_unzip: bool,
     tags: list[str],
     hidden: bool = False,
-    ephemeral: bool = False
+    ephemeral: bool = False,
+    blob_id: str | None = None,
+    finalize: bool = True,
 ) -> list:
 	"""
 	Save blob data to storage and optionally unzip if the file is a zip archive.
@@ -238,18 +240,25 @@ def save_blob_data(
 		tags (list[str]): List of tags to associate with the blob.
 		hidden (bool, optional): If True, mark the blob as hidden. Defaults to False.
 		ephemeral (bool, optional): If True, mark the blob as ephemeral. Defaults to False.
+		blob_id (str | None): If None, create a new blob. Otherwise, just append to the given blob.
+		finalize (bool): If True, perform any special parsing/unzipping/etc on the blob,
+			and mark the upload as finished.
 
 	Returns:
 		list: A list of dictionaries containing the unique ID and file extension of the uploaded blobs.
 	"""
 
 	filename = '<unknown>' if file.filename is None else file.filename
-	item_id, ext = create_blob(
-		filename,
-		tags,
-		hidden and not (auto_unzip and filename.lower().endswith('.zip')),
-		ephemeral
-	)
+	if blob_id is None:
+		item_id, ext = create_blob(
+			filename,
+			tags,
+			hidden and not (auto_unzip and filename.lower().endswith('.zip')),
+			ephemeral
+		)
+	else:
+		item_id, ext = blob_id, get_blob_data(blob_id)['ext']
+
 	this_blob_path = BlobStorage(item_id, ext).path(create=True)
 
 	# Make sure that there's enough space for the file in the target location.
@@ -271,11 +280,17 @@ def save_blob_data(
 	if file_size > shutil.disk_usage(dir_path).free:
 		raise exceptions.InsufficientDiskSpace()
 
-	# Stream file into temporary storage.
-	print(f'Beginning save of file "{filename}"...', flush=True)
-	file.save(this_blob_path)
-	print(f'Finished save of file "{filename}".', flush=True)
+	# Stream file (chunk) into storage.
+	if blob_id is None:
+		print(f'Beginning save of file "{filename}"...', flush=True)
+	with open(this_blob_path, 'ab') as fp:
+		file.save(fp)
+	if finalize:
+		print(f'Finished save of file "{filename}".', flush=True)
 	uploaded_blobs = []
+
+	if not finalize:
+		return [{'id': item_id, 'ext': ext}]
 
 	if auto_unzip and ext == '.zip':
 		uploaded_blobs = unzip_file_into_blobs(this_blob_path, tags, hidden, ephemeral)
