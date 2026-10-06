@@ -310,8 +310,12 @@ api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], h
 				data.append('filename', file.name)
 
 				const eventListener = (progress) => {
-					progress_handler(progress)
-					if (!await_processing && progress.loaded >= progress.total) {
+					const real_progress = {
+						loaded: chunk_num * chunk_size + progress.loaded,
+						total: file.size,
+					}
+					progress_handler(real_progress)
+					if (!await_processing && real_progress.loaded >= real_progress.total) {
 						xhr.upload.removeEventListener('progress', eventListener)
 						api.upload.xhr.splice(api.upload.xhr.indexOf(xhr), 1)
 						resolve()

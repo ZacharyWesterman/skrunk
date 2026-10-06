@@ -180,13 +180,13 @@ modal.upload.start = async function () {
 	if (_max_upload_size === null) {
 		_max_upload_size = fetch('/upload').then(i => i.json())
 		_max_upload_text = _max_upload_size.then(i => {
-			let units = ['EB', 'TB', 'GB', 'MB', 'KB', 'B'];
+			let units = ['EB', 'TB', 'GB', 'MB', 'KB', 'B']
 			while (i > 1000) {
-				i /= 1000;
-				units.pop();
+				i /= 1000
+				units.pop()
 			}
 
-			return Math.floor(i) + units.pop();
+			return Math.floor(i) + units.pop()
 		})
 	}
 
@@ -199,8 +199,17 @@ modal.upload.start = async function () {
 	async function do_upload(file, dom_progress) {
 		const blobs = await api.upload(file, progress => {
 			const percent = (progress.loaded / progress.total) * 100
+			let units = ['EB', 'TB', 'GB', 'MB', 'KB', 'B'];
+			let loaded = progress.loaded
+			let total = progress.total
+			while (total > 1000) {
+				total /= 1000
+				loaded /= 1000
+				units.pop()
+			}
+
 			dom_progress.value = percent
-			dom_progress.nextSibling.innerText = parseInt(percent) + '%'
+			dom_progress.nextSibling.innerText = `${loaded.toFixed(1)}/${Math.floor(total)}${units.pop()} (${parseInt(percent)}%)`
 		}, auto_unzip, tag_list, hidden)
 		$.hide(dom_progress.parentElement, true)
 
