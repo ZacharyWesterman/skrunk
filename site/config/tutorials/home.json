@@ -1,1 +1,38 @@
-[]
+[
+	{
+		"selector": "h1",
+		"message": "This is the Home page. Various quick stats are available in the form of <i>widgets</i>."
+	},
+	{
+		"selector": ".widget",
+		"message": "This is a widget. Widgets display various statistics or other data, and you can usually interact with them just by clicking. Once you're done looking at a widget, you can press the <i class=\"fa-solid fa-square-xmark\"></i> button to temporarily hide it. Feel free to try it out now!"
+	},
+	{
+		"selector": "#widget-related_sites",
+		"message": "There are a few sites that are <i>not technically</i> part of the main website, but are still under our banner. This widget lists all of them."
+	},
+	{
+		"selector": ".navbar",
+		"message": "This is the <i>navbar</i>. You can reach any page on the main website this way. If you're ever unsure what the icons mean, just hover over them (or press and hold if on mobile)."
+	},
+	{
+		"selector": "#navbar-logout",
+		"message": "Click here to log out."
+	},
+	{
+		"selector": "#navbar-home",
+		"message": "Click here to load the Home page."
+	},
+	{
+		"selector": "#navbar-user",
+		"message": "Click here to edit your user settings, including password, username and enabled modules."
+	},
+	{
+		"selector": "#navbar-library",
+		"message": "Click here to view books that you or other users have catalogged in our library system."
+	},
+	{
+		"selector": "h1",
+		"message": "More tutorials coming soon!!"
+	}
+]

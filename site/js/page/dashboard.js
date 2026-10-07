@@ -139,8 +139,11 @@ async function load_widgets() {
 		title.appendChild(minimize)
 
 		//Load the widget data (don't block)
-		import(`/js/widgets/${config.id}.js`).then(module => {
-			return module.default(config, w_body)
+		import(`/js/widgets/${config.id}.js`).then(async module => {
+			// If widget failed or is disabled, just delete it.
+			if (await module.default(config, w_body) === false) {
+				widget.parentElement.removeChild(widget)
+			}
 		}).catch(e => {
 			w_body.innerHTML = `<div class="emphasis">ERROR (${config.id}):<br>${e}</div>`
 		})
@@ -212,3 +215,18 @@ async function init() {
 }
 
 init()
+
+window.start_tutorial = async field_name => {
+	const choice = await _.modal({
+		type: 'question',
+		title: 'Start Tutorial?',
+		text: 'The tutorial will guide you through the usage of various features on this page.',
+		buttons: ['Yes', 'No'],
+	})
+
+	if (choice !== 'yes') {
+		return
+	}
+
+	import("/js/tutorials.js").then(i => i.default(field_name))
+}

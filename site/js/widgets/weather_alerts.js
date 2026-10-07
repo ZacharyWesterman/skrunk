@@ -9,8 +9,7 @@ export default async (config, field) => {
 	})
 
 	if (res.length === 0) {
-		$.hide(field.parentElement)
-		return
+		return false
 	}
 
 	const { sent, message } = { ...res[0] }

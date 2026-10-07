@@ -24,8 +24,7 @@ export default async (config, field) => {
 		.filter(i => !i.module || !SelfUserData.disabled_modules.includes(i.module))
 
 	if (related_sites.length === 0) {
-		$.hide(field.parentElement)
-		return
+		return false
 	}
 
 	field.innerHTML = related_sites.map(i => `<div style="text-align: center;">

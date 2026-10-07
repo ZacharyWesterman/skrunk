@@ -1,1 +1,2 @@
 js/util/service-worker.js
+js/tutorials.js
