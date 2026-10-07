@@ -27,8 +27,9 @@
 }
 
 .dark-overlay>div {
-	padding-left: 4rem;
-	padding-top: 1rem;
+	position: absolute;
+	left: 4rem;
+	bottom: 1rem;
 	color: white;
 	max-width: 500px;
 }
