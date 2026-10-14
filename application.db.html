@@ -3531,6 +3531,20 @@ is required for all API requests aside from logging in.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.sessions.end_session">
+<span class="sig-prename descclassname"><span class="pre">application.db.sessions.</span></span><span class="sig-name descname"><span class="pre">end_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.sessions.end_session" title="Link to this definition">#</a></dt>
+<dd><p>Invalidate a given session token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – The session token to invalidate.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.sessions.get_first_session_token">
 <span class="sig-prename descclassname"><span class="pre">application.db.sessions.</span></span><span class="sig-name descname"><span class="pre">get_first_session_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.sessions.get_first_session_token" title="Link to this definition">#</a></dt>
 <dd><p>Retrieve the first session token for a given username.</p>
@@ -5057,6 +5071,7 @@ for blob storage if provided.</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.db.sessions">application.db.sessions module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.sessions.count_valid_sessions"><code class="docutils literal notranslate"><span class="pre">count_valid_sessions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.sessions.end_session"><code class="docutils literal notranslate"><span class="pre">end_session()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.sessions.get_first_session_token"><code class="docutils literal notranslate"><span class="pre">get_first_session_token()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.sessions.revoke_sessions"><code class="docutils literal notranslate"><span class="pre">revoke_sessions()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.sessions.start_session"><code class="docutils literal notranslate"><span class="pre">start_session()</span></code></a></li>
