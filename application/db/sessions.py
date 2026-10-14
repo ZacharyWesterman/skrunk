@@ -5,7 +5,7 @@ A session is created when a user logs in, and a valid session token
 is required for all API requests aside from logging in.
 """
 
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 from pymongo.collection import Collection
 
@@ -48,6 +48,16 @@ def start_session(token: str, username: str) -> None:
 	})
 
 
+def end_session(token: str) -> None:
+	"""
+	Invalidate a given session token.
+
+	Args:
+		token (str): The session token to invalidate.
+	"""
+	db.delete_many({'token': token})
+
+
 def valid_session(token: str) -> bool:
 	"""
 	Check if a session with the given token exists in the database.
@@ -58,8 +68,8 @@ def valid_session(token: str) -> bool:
 	Returns:
 		bool: True if a session with the token exists, False otherwise.
 	"""
-	session = db.find_one({'token': token})
-	return True if session else False
+	session = db.find_one({'token': token, 'expires': {'$gt': datetime.now(UTC)}})
+	return bool(session)
 
 
 def revoke_sessions(username: str) -> None:

@@ -510,7 +510,8 @@ api.handle_query_failure = async (res) => {
 /**
  * Log out of the application and go back to the login page.
  */
-api.logout = () => {
+api.logout = async () => {
+	await fetch('/auth/logout', { method: 'POST' }).catch(() => { })
 	api.__auto_refresh = false
 	api.login_token = null
 	api.wipe_cookies()

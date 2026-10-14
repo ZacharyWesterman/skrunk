@@ -6,6 +6,7 @@ from flask import Response, jsonify, request
 
 from application import exceptions, tokens
 from application.db.notification import has_subscriptions, send
+from application.db.sessions import end_session
 from application.db.users import (authenticate, create_reset_code,
                                   reset_user_password)
 
@@ -57,6 +58,16 @@ def auth_user() -> Response:
 		if not tokens.token_is_valid(token[1]):
 			return Response('{"error":"Expired Token"}', 400)
 
+		username = data.get('username')
+		old_username = tokens.decode_user_token(token[1]).get('username')
+
+		if username is None:
+			if old_username is None:
+				return Response('{"error":"Authentication failed"}', 400)
+			username = old_username
+		elif username != old_username:
+			return Response('{"error":"Authentication failed"}', 400)
+
 		username = (
 			data['username']
 			if 'username' in data
@@ -73,6 +84,19 @@ def auth_user() -> Response:
 		return jsonify({'token': login_token})
 	except exceptions.ClientError as e:
 		return jsonify({'error': str(e)})
+
+
+def logout_user() -> Response:
+	"""
+	Logout the current user.
+
+	Returns:
+		Response: A Flask Response object indicating the result.
+	"""
+	if token := tokens.get_request_token():
+		end_session(token)
+
+	return jsonify({'ok': True})
 
 
 def verify_token() -> Response:

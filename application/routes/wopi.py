@@ -118,6 +118,13 @@ def get_document_info(jwt: str, id: str) -> Response:
 
 	user_data: dict = users.get_user_data(decode_user_token(jwt).get('username', ''))  # type: ignore
 
+	if (
+		doc['creator'].get('_id') != user_data.get('_id') and
+		user_data.get('_id') not in doc['shared_users'] and
+		not any(group in doc['shared_groups'] for group in user_data['groups'])
+	):
+		return Response('Access denied.', 403)
+
 	doc_size = len(doc['body'])
 	if doc['blob_id'] is not None:
 		try:

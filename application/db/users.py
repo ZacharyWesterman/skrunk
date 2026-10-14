@@ -254,7 +254,7 @@ def create_user(
 	userdata = {
 		'username': username,
 		'password': salted_pass,
-		'created': datetime.now(),
+		'created': datetime.now(UTC),
 		'theme': {
 			'colors': [],
 			'sizes': [],
@@ -752,6 +752,7 @@ def reset_user_password(username: str, code: str, new_password: str) -> None:
 	reset_entry = top_level_db.reset_codes.find_one({
 		'username': username,
 		'code': code,
+		'created': {'$gte': datetime.now(UTC) - timedelta(minutes=15)},
 	})
 
 	if not reset_entry:

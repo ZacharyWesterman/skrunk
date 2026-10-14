@@ -3,6 +3,7 @@
 from graphql.type import GraphQLResolveInfo
 
 from application.db import perms
+from application.db.sessions import revoke_sessions
 from application.db.users import (create_reset_code, create_user, delete_user,
                                   export_user_data, unlock_user,
                                   update_user_disabled,
@@ -56,6 +57,7 @@ def resolve_delete_user(_, _info: GraphQLResolveInfo, username: str) -> dict:
 	Returns:
 		dict: A dictionary containing the deleted user data.
 	"""
+	revoke_sessions(username)
 	return {'__typename': 'UserData', **delete_user(username)}
 
 
@@ -328,5 +330,8 @@ def resolve_update_user_disabled(
 	Returns:
 		dict: The updated user data.
 	"""
+
+	if disabled:
+		revoke_sessions(username)
 
 	return {'__typename': 'UserData', **update_user_disabled(username, disabled)}

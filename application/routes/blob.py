@@ -85,6 +85,9 @@ def stream(path: str | blob.BlobStorage) -> Response:
 		Response: A Flask Response object containing the file data or an error message.
 	"""
 
+	if not auth.authorized():
+		return Response('Access denied.', 403)
+
 	if application.blob_path is None:
 		return Response('No blob data path specified in server setup.', 404)
 
@@ -128,10 +131,6 @@ def download(path: str) -> Response:
 	Returns:
 		Response: A Flask Response object containing the file data or an error message.
 	"""
-
-	if not auth.authorized():
-		return Response('Access denied.', 403)
-
 	return stream(path)
 
 
