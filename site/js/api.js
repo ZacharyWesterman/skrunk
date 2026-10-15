@@ -282,7 +282,7 @@ api.file_prompt = (contentType = '*', multiple = false, capture = null) => {
  */
 api.upload = async (file, progress_handler, auto_unzip = false, tag_list = [], hidden = false, ephemeral = false, max_retries = 0, await_processing = false) => {
 	// Chunk large files to help avoid file size limitations.
-	const chunk_size = 1024 * 1024 * 1024
+	const chunk_size = 32 * 1024 * 1024
 
 	function upload_fn() {
 		return new Promise(async (resolve, reject) => {
