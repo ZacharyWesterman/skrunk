@@ -30,13 +30,13 @@ def gh_request(url: str) -> Any:
 		RepoFetchFailed: If the request fails, this exception is raised with the URL and error message.
 	"""
 	headers = None
-	try:
-		with open('data/auth.json', 'r', encoding='utf8') as fp:
-			headers = {
-				'Authorization': 'Bearer ' + json.load(fp)['github'],
-			}
-	except OSError:
-		pass
+	# try:
+	# 	with open('data/auth.json', 'r', encoding='utf8') as fp:
+	# 		headers = {
+	# 			'Authorization': 'Bearer ' + json.load(fp)['github'],
+	# 		}
+	# except OSError:
+	# 	pass
 
 	res = requests.get(url, headers=headers, timeout=10)
 	if res.status_code >= 200 and res.status_code < 300:
@@ -64,7 +64,8 @@ class Repository:
 		"""
 
 		## The URL of the GitHub repository API endpoint.
-		self.url = f'https://api.github.com/repos/{owner}/{repo}'
+		self.url = f'http://localhost:3000/api/v1/repos/{owner}/{repo}'
+		# self.url = f'https://api.github.com/repos/{owner}/{repo}'
 
 	def issues(self, *, filter: str = 'state=open') -> list:
 		"""
