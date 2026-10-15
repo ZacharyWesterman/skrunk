@@ -121,7 +121,7 @@ class CurrentRepository(Repository):
 			None
 		"""
 		repo_url = subprocess.check_output(['git', 'remote', 'get-url', 'origin'])
-		info = repo_url.decode().strip().split(':')[1].split('/')
+		info = repo_url.decode().strip().split('://')[1].split('/')
 
 		owner = info[-2]
 		if repo is None:
