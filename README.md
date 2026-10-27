@@ -63,7 +63,7 @@ This application is only *officially* supported on Ubuntu Linux (22.xx or greate
 If you can get it working on other OSes, power to you! I have not tried :P
 
 There are also some packages that must be installed on the host machine in order for this application to work:
-- Python ≥ 3.11
+- Python ≥ 3.12
 - [Poetry](https://python-poetry.org/) for the python virtual environment and dependency management
 - OpenJDK ≥ 8 for QR/bar code processing
 - ffmpeg for video processing
