@@ -17,7 +17,7 @@ def upload_videos(url: str) -> None:
 			subprocess.run([
 				'rsync',
 				storage.path(),
-				f'{url}/{type_folder}/autoupload/',
+				f'{url}/{type_folder}/autoupload/{blob["name"]}{blob["ext"]}',
 			], check=True)
 		except subprocess.CalledProcessError as e:
 			print(f'ERROR: {e}', flush=True)
