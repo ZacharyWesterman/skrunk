@@ -361,6 +361,41 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
+<section id="module-application.workers.automatic_upload">
+<span id="application-workers-automatic-upload-module"></span><h2>application.workers.automatic_upload module<a class="headerlink" href="#module-application.workers.automatic_upload" title="Link to this heading">#</a></h2>
+<p>Periodically sync specially-tagged blobs to their respective video/music server location.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="application.workers.automatic_upload.automatic_upload">
+<span class="sig-prename descclassname"><span class="pre">application.workers.automatic_upload.</span></span><span class="sig-name descname"><span class="pre">automatic_upload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.automatic_upload.automatic_upload" title="Link to this definition">#</a></dt>
+<dd><p>Automatically sync specially-tagged blobs to their respective video/music server location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.workers.automatic_upload.upload_music">
+<span class="sig-prename descclassname"><span class="pre">application.workers.automatic_upload.</span></span><span class="sig-name descname"><span class="pre">upload_music</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.automatic_upload.upload_music" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.workers.automatic_upload.upload_videos">
+<span class="sig-prename descclassname"><span class="pre">application.workers.automatic_upload.</span></span><span class="sig-name descname"><span class="pre">upload_videos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.workers.automatic_upload.upload_videos" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-application.workers.blob_cleanup">
 <span id="application-workers-blob-cleanup-module"></span><h2>application.workers.blob_cleanup module<a class="headerlink" href="#module-application.workers.blob_cleanup" title="Link to this heading">#</a></h2>
 <p>Periodically scan for orphan blobs and clean them up.</p>
@@ -474,6 +509,12 @@ and download it to blob storage.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.automatic_upload">application.workers.automatic_upload module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.automatic_upload.automatic_upload"><code class="docutils literal notranslate"><span class="pre">automatic_upload()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.automatic_upload.upload_music"><code class="docutils literal notranslate"><span class="pre">upload_music()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.automatic_upload.upload_videos"><code class="docutils literal notranslate"><span class="pre">upload_videos()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-application.workers.blob_cleanup">application.workers.blob_cleanup module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.workers.blob_cleanup.blob_cleanup"><code class="docutils literal notranslate"><span class="pre">blob_cleanup()</span></code></a></li>
 </ul>

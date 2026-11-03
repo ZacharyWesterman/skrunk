@@ -12,6 +12,14 @@ Subpackages
 Submodules
 ----------
 
+application.workers.automatic\_upload module
+--------------------------------------------
+
+.. automodule:: application.workers.automatic_upload
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 application.workers.blob\_cleanup module
 ----------------------------------------
 

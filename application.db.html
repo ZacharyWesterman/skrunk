@@ -718,6 +718,23 @@ in the format <cite>{‘id’: ‘123’, ‘ext’: ‘.png’}</cite>.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.format_blob">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">format_blob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blob_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.format_blob" title="Link to this definition">#</a></dt>
+<dd><p>Format blob data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>blob_data</strong> (<em>dict</em>) – The raw dict data of the blob.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The formatted blob data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="application.types.html#application.types.blob.Blob" title="application.types.blob.Blob">Blob</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="application.db.blob.get_blob_data">
 <span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">get_blob_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.get_blob_data" title="Link to this definition">#</a></dt>
 <dd><p>Retrieve blob data from the database by its ID.</p>
@@ -762,6 +779,26 @@ the provided filter, pagination, and sorting options.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="application.db.blob.get_blobs_by_tags">
+<span class="sig-prename descclassname"><span class="pre">application.db.blob.</span></span><span class="sig-name descname"><span class="pre">get_blobs_by_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#application.db.blob.get_blobs_by_tags" title="Link to this definition">#</a></dt>
+<dd><p>Get a list of blobs that have all of the given tags.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tags</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – A list of tags.</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – The maximum number of documents to fetch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A series of blob objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Generator[<a class="reference internal" href="application.types.html#application.types.blob.Blob" title="application.types.blob.Blob">Blob</a>, None, None]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4912,8 +4949,10 @@ for blob storage if provided.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.delete_blob"><code class="docutils literal notranslate"><span class="pre">delete_blob()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.file_info"><code class="docutils literal notranslate"><span class="pre">file_info()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.find_blobs_without_previews"><code class="docutils literal notranslate"><span class="pre">find_blobs_without_previews()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.format_blob"><code class="docutils literal notranslate"><span class="pre">format_blob()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blob_data"><code class="docutils literal notranslate"><span class="pre">get_blob_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blobs"><code class="docutils literal notranslate"><span class="pre">get_blobs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_blobs_by_tags"><code class="docutils literal notranslate"><span class="pre">get_blobs_by_tags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_old_ephemeral_blobs"><code class="docutils literal notranslate"><span class="pre">get_old_ephemeral_blobs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_similar_tags"><code class="docutils literal notranslate"><span class="pre">get_similar_tags()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application.db.blob.get_tags_from_mime"><code class="docutils literal notranslate"><span class="pre">get_tags_from_mime()</span></code></a></li>
