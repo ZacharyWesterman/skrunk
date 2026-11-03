@@ -22,7 +22,8 @@ from werkzeug.datastructures import FileStorage
 
 from application import exceptions
 from application.integrations import images, models, pdf, tqfilter, videos
-from application.types import BlobSearchFilter, Sorting, Tag, blob_storage
+from application.types import (Blob, BlobSearchFilter, Sorting, Tag,
+                               blob_storage)
 from application.types.blob_storage import (BlobPreview, BlobStorage,
                                             BlobThumbnail)
 
@@ -301,8 +302,9 @@ def save_blob_data(
 		mark_as_completed(item_id, size, md5sum)
 		uploaded_blobs += [{'id': item_id, 'ext': ext}]
 
-	print(f'Creating previews for file "{filename}"...', flush=True)
-	create_blob_previews(uploaded_blobs)
+	if not '__autoupload' in tags:
+		print(f'Creating previews for file "{filename}"...', flush=True)
+		create_blob_previews(uploaded_blobs)
 	print(f'Finished upload of "{filename}".', flush=True)
 
 	return uploaded_blobs
@@ -848,6 +850,26 @@ def get_blob_data(id: str) -> dict:
 	return blob_data
 
 
+def format_blob(blob_data: dict) -> Blob:
+	"""
+	Format blob data.
+
+	Args:
+		blob_data (dict): The raw dict data of the blob.
+
+	Returns:
+		Blob: The formatted blob data.
+	"""
+	blob_data['id'] = blob_data['_id']
+	try:
+		user_data = users.get_user_by_id(blob_data['creator'])
+		blob_data['creator'] = user_data['username']
+	except exceptions.UserDoesNotExistError:
+		blob_data['creator'] = str(blob_data['creator'])
+
+	return Blob(**blob_data)
+
+
 def delete_blob(blob_id: str) -> dict:
 	"""
 	Deletes a blob from the database and the file system.
@@ -1203,3 +1225,18 @@ def count_all_user_blobs(filter_users: list | None = None) -> list:
 			pass
 
 	return result
+
+
+def get_blobs_by_tags(*tags: str, limit: int = 100) -> Generator[Blob, None, None]:
+	"""
+	Get a list of blobs that have all of the given tags.
+
+	Args:
+		tags: A list of tags.
+		limit (int): The maximum number of documents to fetch.
+
+	Returns:
+		Generator[Blob, None, None]: A series of blob objects.
+	"""
+	for i in db.find({'$and': [{'tags': i} for i in tags], 'complete': True}).limit(limit):
+		yield format_blob(i)

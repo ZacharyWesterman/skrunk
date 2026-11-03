@@ -69,5 +69,14 @@
 		"name": "LDAP Server",
 		"description": "Manage an LDAP server to allow users to access other services. (requires restart)",
 		"config": true
+	},
+	{
+		"id": "autoupload",
+		"name": "Automatic Upload",
+		"description": "Automatically sync specially-tagged blobs to other services.",
+		"requires": [
+			"files"
+		],
+		"config": true
 	}
 ]

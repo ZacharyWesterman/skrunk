@@ -83,5 +83,17 @@
 		"name": "The `praw.ini` config file for fetching data feeds from Reddit",
 		"module": "feed",
 		"type": "code"
+	},
+	{
+		"id": "autoupload:video",
+		"name": "Video automatic upload URL",
+		"hint": "Any files with the `video` and `__autoupload` tags will get synced over periodically.",
+		"module": "autoupload"
+	},
+	{
+		"id": "autoupload:music",
+		"name": "Music automatic upload URL",
+		"hint": "Any files with the `audio` and `__autoupload` tags will get synced over periodically.",
+		"module": "autoupload"
 	}
 ]
