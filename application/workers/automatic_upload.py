@@ -10,13 +10,14 @@ from application.types.blob_storage import BlobStorage
 def upload_videos(url: str) -> None:
 	for blob in get_blobs_by_tags('video', '__autoupload'):
 		storage = BlobStorage(blob['id'], blob['ext'])
+		type_folder = 'Shows' if '__series' in blob['tags'] else 'Movies'
 
 		try:
 			# Transfer file up to host
 			subprocess.run([
 				'rsync',
 				storage.path(),
-				f'{url}/{blob["id"]}{blob["ext"]}',
+				f'{url}/{type_folder}/autoupload/{blob["id"]}{blob["ext"]}',
 			], check=True)
 		except subprocess.CalledProcessError as e:
 			print(f'ERROR: {e}', flush=True)
