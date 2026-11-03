@@ -17,7 +17,7 @@ def upload_videos(url: str) -> None:
 			subprocess.run([
 				'rsync',
 				storage.path(),
-				f'{url}/{type_folder}/autoupload/{blob["id"]}{blob["ext"]}',
+				f'{url}/{type_folder}/autoupload/',
 			], check=True)
 		except subprocess.CalledProcessError as e:
 			print(f'ERROR: {e}', flush=True)
@@ -36,7 +36,7 @@ def upload_music(url: str) -> None:
 			subprocess.run([
 				'rsync',
 				storage.path(),
-				f'{url}/{blob["id"]}{blob["ext"]}',
+				f'{url}/',
 			], check=True)
 		except subprocess.CalledProcessError as e:
 			print(f'ERROR: {e}', flush=True)
