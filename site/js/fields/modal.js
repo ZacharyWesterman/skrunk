@@ -109,7 +109,7 @@ modal.upload = async function () {
 				'.mp4', '.mkv', '.avi', '.mov', '.wmv', '.webm',
 				'.m4v', '.3gp', '.mpg', '.mpeg', '.vob', '.ogv',
 				// Audio formats
-				'.wav', '.aac', '.flac', '.off', '.mp3',
+				'.wav', '.aac', '.flac', '.ogg', '.mp3',
 			].join(',')
 		} else {
 			file.accept = ''
