@@ -5,7 +5,6 @@
 
 			<div id="modal-upload-body" class="expand-container expanded">
 				<div>
-
 					{{? !environment.mobile }}
 					<br>
 					<div id="drag-drop-zone" class="drag-drop-zone">Drag files here,<br>or select files<br>to upload.</div>
@@ -21,6 +20,14 @@
 						Hide files from other users?
 						<input type="checkbox" id="modal-hidden-check">
 					</div>
+
+					{{? !SelfUserData.disabled_modules.includes('autoupload') }}
+					<div id="modal-autoupload-file">
+						Automatically upload Music/Movies?
+						<input type="checkbox" id="modal-autoupload-check">
+					</div>
+					{{?}}
+
 					<input id="modal-file" type="file" name="file" onchange="_.modal.upload.activate()" multiple>
 
 					<hr>

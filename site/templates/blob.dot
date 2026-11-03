@@ -15,7 +15,7 @@
 			</button>
 
 			<span class="suppress">{{=it.size}}</span>
-			{{? !it.complete || (it.mimetype.split('/')[0] === 'video' && !it.previews.length) }}
+			{{? (!it.complete || (it.mimetype.split('/')[0] === 'video' && !it.previews.length)) && !it.tags.includes('__autoupload') }}
 			<span class="emphasis">&nbsp;(processing)</span>
 			{{?}}
 
@@ -33,6 +33,12 @@
 			{{?}}
 			<div class="truncate {{? it.hidden }}emphasis{{?}}" id="title-{{=it.id}}">{{=it.name}}{{=it.ext}}</div>
 		</div>
+
+		{{? it.tags.includes('__autoupload') }}
+		<div class="emphasis">
+			Awaiting automatic upload.
+		</div>
+		{{?}}
 
 		{{?it.mimetype.split('/')[0] === 'video'}}
 			<video width="100%" height="auto" {{? it.thumbnail }}poster="thumb/{{=it.thumbnail}}"{{?}} preload="none" controls>

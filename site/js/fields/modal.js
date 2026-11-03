@@ -95,6 +95,27 @@ modal.upload = async function () {
 	$('modal-upload-window').showModal()
 	$('modal-upload-expand').classList.add('expanded')
 
+	const f1 = $('modal-autoupload-check')
+	f1.onclick = () => {
+		$('modal-button').disabled = true
+		$.hide('modal-auto-unpack', true)
+		$.hide('modal-hide-file', true)
+
+		const file = $('modal-file')
+		file.value = ''
+		if (f1.checked) {
+			file.accept = [
+				// Video formats
+				'.mp4', '.mkv', '.avi', '.mov', '.wmv', '.webm',
+				'.m4v', '.3gp', '.mpg', '.mpeg', '.vob', '.ogv',
+				// Audio formats
+				'.wav', '.aac', '.flac', '.off', '.mp3',
+			].join(',')
+		} else {
+			file.accept = ''
+		}
+	}
+
 	//Once modal has loaded, inject list of tags.
 	let tagList = $('modal-tag-list')
 	tagList.innerHTML = ''
@@ -195,6 +216,10 @@ modal.upload.start = async function () {
 	modal.upload.promises = []
 	const tag_list = modal.upload.tag_list
 	modal.upload.blobs = []
+
+	if ($('modal-autoupload-check').checked) {
+		tag_list.push('__autoupload')
+	}
 
 	async function do_upload(file, dom_progress) {
 		const blobs = await api.upload(file, progress => {
