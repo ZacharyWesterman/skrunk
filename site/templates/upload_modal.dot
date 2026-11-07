@@ -33,7 +33,9 @@
 					<hr>
 					Uploaded file(s) will be tagged with:
 					<div id="modal-tag-list"></div>
-					<input id="modal-tag-input" placeholder="Input new tag" format="tag">
+					<input id="modal-tag-input" placeholder="Input new tag" format="tag" list="modal-tag-datalist">
+					<datalist id="modal-tag-datalist"></datalist>
+
 					<button class="icon tooltip">
 						<i class="fa-solid fa-tag fa-lg"></i>
 						<span class="tooltiptext t-left">Accept tag</span>

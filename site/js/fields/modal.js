@@ -116,6 +116,10 @@ modal.upload = async function () {
 		}
 	}
 
+	// Bind input field to query suggested tags
+	await query
+	bind_modal_tag_field(query.blobs.suggest_tags)
+
 	//Once modal has loaded, inject list of tags.
 	let tagList = $('modal-tag-list')
 	tagList.innerHTML = ''
@@ -506,26 +510,8 @@ modal.tags = async (tag_list, tag_query_name, tag_suggest_query_callback) => {
 		// Bind input field to query suggested tags
 		const datalist = $('modal-tag-datalist')
 		if (tag_suggest_query_callback) {
-			const input = $('modal-tag-input')
-			$.bind(input, async () => {
-				for (let i = datalist.children.length - 1; i >= 0; i--) {
-					datalist.children[i].remove()
-				}
-				if (input.value === '') {
-					return
-				}
-
-				const suggestions = (
-					await tag_suggest_query_callback(input.value)
-				).sort((a, b) => a.name.localeCompare(b.name))
-
-				for (const { name, count } of suggestions) {
-					const elem = document.createElement('option')
-					elem.value = name
-					elem.innerText = `${name} (${count})`
-					datalist.appendChild(elem)
-				}
-			})
+			// Bind input field to query suggested tags
+			bind_modal_tag_field(tag_suggest_query_callback)
 		}
 
 		// Inject list of existing tags
@@ -679,6 +665,31 @@ modal.download_zip = async (size_fn, zip_fn) => {
 		title: 'ZIP Archive Created',
 		text: 'The ZIP archive has been created and will now download to your device.<hr>The archive file will be kept for 24 hours.<br>If you\'d like to download it again before then,<br>go to the <b><i class="fa-solid fa-folder-open"></i> Files</b> page and click "Include ephemeral files".',
 		buttons: ['OK'],
+	})
+}
+
+// Bind input field to query suggested tags
+function bind_modal_tag_field(tag_suggest_query_callback) {
+	const datalist = $('modal-tag-datalist')
+	const input = $('modal-tag-input')
+	$.bind(input, async () => {
+		for (let i = datalist.children.length - 1; i >= 0; i--) {
+			datalist.children[i].remove()
+		}
+		if (input.value === '') {
+			return
+		}
+
+		const suggestions = (
+			await tag_suggest_query_callback(input.value)
+		).sort((a, b) => a.name.localeCompare(b.name))
+
+		for (const { name, count } of suggestions) {
+			const elem = document.createElement('option')
+			elem.value = name
+			elem.innerText = `${name} (${count})`
+			datalist.appendChild(elem)
+		}
 	})
 }
 
